@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Summer
 {
@@ -8,29 +6,31 @@ namespace Summer
     {
         #region prefab
 
-        public GameObject pfb_circle;
-        public GameObject pfb_cube;
-        public GameObject pfb_sector_60;
-        public GameObject pfb_sector_120;
+        public SkillAreaElement pfb_circle;
+        public SkillAreaElement pfb_cube;
+        public SkillAreaElement pfb_sector_60;
+        public SkillAreaElement pfb_sector_120;
 
         #endregion
+        public SkillJoystick joystick;
+        public SkillAreaElement curr_element;
+        public Transform _owner;
 
-        public Transform owner;
-        public E_SkillAreaType area_type;       // 设置指示器类型
-
-        Vector3 delta_vec;
+        Vector3 _delta_vec;
 
         float outer_radius = 6;                 // 外圆半径
         float inner_radius = 2f;                // 内圆半径
         float cube_width = 2f;                  // 矩形宽度 （矩形长度使用的外圆半径）
         int angle = 60;                         // 扇形角度
 
-        bool is_pressed = false;
+        bool _is_pressed;
 
         #region mono
+
         void Start()
         {
-
+            Register();
+            curr_element.SetTarget(_owner);
         }
 
         void Update()
@@ -40,40 +40,56 @@ namespace Summer
 
         void LateUpdate()
         {
-            if (is_pressed)
-                UpdateElement();
+            if (_is_pressed && curr_element != null)
+                OnUpdate();
+        }
+
+        void OnDestroy()
+        {
+            UnRegister();
+        }
+
+        public void Register()
+        {
+            joystick.on_joystick_down_event += OnJoystickDownEvent;
+            joystick.on_joystick_move_event += OnJoystickMoveEvent;
+            joystick.on_joystick_up_event += OnJoystickUpEvent;
+        }
+
+        public void UnRegister()
+        {
+            // ReSharper disable once DelegateSubtraction
+            joystick.on_joystick_down_event -= OnJoystickDownEvent;
+            // ReSharper disable once DelegateSubtraction
+            joystick.on_joystick_move_event -= OnJoystickMoveEvent;
+            // ReSharper disable once DelegateSubtraction
+            joystick.on_joystick_up_event -= OnJoystickUpEvent;
         }
 
         #endregion 
 
         #region Joystick Event
-        void OnJoystickDownEvent(Vector2 deltaVec)
+
+        private void OnJoystickUpEvent()
         {
-            is_pressed = true;
-            delta_vec = new Vector3(deltaVec.x, 0, deltaVec.y);
-            CreateSkillArea();
+            _is_pressed = false;
         }
 
-        void OnJoystickUpEvent()
+        private void OnJoystickMoveEvent(Vector2 delta_vec)
         {
-            is_pressed = false;
-            HideElements();
+            _delta_vec = new Vector3(delta_vec.x, 0, delta_vec.y);
         }
 
-        void OnJoystickMoveEvent(Vector2 deltaVec)
+        private void OnJoystickDownEvent(Vector2 delta_vec)
         {
-            delta_vec = new Vector3(deltaVec.x, 0, deltaVec.y);
+            _is_pressed = true;
+            _delta_vec = new Vector3(delta_vec.x, 0, delta_vec.y);
         }
         #endregion
 
-        public void UpdateElement()
+        public void OnUpdate()
         {
-
-        }
-
-        public void UpdateElementPosition()
-        {
-
+            curr_element.OnUpdate(_delta_vec);
         }
 
         public void HideElements()

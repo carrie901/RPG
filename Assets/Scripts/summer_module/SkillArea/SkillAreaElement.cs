@@ -4,20 +4,25 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class SkillAreaElement : MonoBehaviour
+    public abstract class SkillAreaElement : MonoBehaviour
     {
+        public E_SkillAreaElement area_element;
+        public E_SkillAreaType area_type;
 
-        // Use this for initialization
-        void Start()
+        public float radius = 2.5f;
+        protected Transform _target;
+        protected Transform _tran_self;
+        protected virtual void Awake()
         {
-
+            _tran_self = transform;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
 
+        public void SetTarget(Transform target)
+        {
+            _target = target;
         }
+        public abstract void OnUpdate(Vector3 delta_vec);
     }
 }
 

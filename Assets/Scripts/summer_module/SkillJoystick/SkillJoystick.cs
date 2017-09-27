@@ -19,10 +19,11 @@ namespace Summer
         public Action<Vector2> on_joystick_down_event;      // 按下事件
         public Action on_joystick_up_event;                 // 抬起事件
         public Action<Vector2> on_joystick_move_event;      // 滑动事件
-
+        public static SkillJoystick instance;
         void Awake()
         {
             inner_circle_trans = transform.GetChild(0);
+            instance = this;
         }
 
         void Start()
