@@ -30,7 +30,7 @@ namespace Summer
         void Start()
         {
             Register();
-            curr_element.SetTarget(_owner);
+            //curr_element.SetTarget(_owner);
         }
 
         void Update()
@@ -40,7 +40,7 @@ namespace Summer
 
         void LateUpdate()
         {
-            if (_is_pressed && curr_element != null)
+            if (_is_pressed)
                 OnUpdate();
         }
 
@@ -73,6 +73,7 @@ namespace Summer
         private void OnJoystickUpEvent()
         {
             _is_pressed = false;
+            HideElements();
         }
 
         private void OnJoystickMoveEvent(Vector2 delta_vec)
@@ -89,12 +90,14 @@ namespace Summer
 
         public void OnUpdate()
         {
-            curr_element.OnUpdate(_delta_vec);
+            if (curr_element != null)
+                curr_element.OnUpdate(_delta_vec);
         }
 
         public void HideElements()
         {
-
+            if (curr_element != null)
+                curr_element.gameObject.SetActive(true);
         }
         //创建技能区域展示
         public void CreateSkillArea()
