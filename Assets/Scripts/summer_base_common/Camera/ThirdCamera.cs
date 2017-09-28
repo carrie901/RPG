@@ -1,18 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ThirdCamera : MonoBehaviour
 {
     public Transform target = null;     // 目标玩家
     [SerializeField]
     [Range(0, 360)]
-    float horizontalAngle = 270f;      // 水平角度
+    float horizontal_angle = 270f;      // 水平角度
     [SerializeField]
     [Range(0, 20)]
-    float initialHeight = 2f;    // 人物在视野内屏幕中的位置设置
+    float initial_height = 2f;    // 人物在视野内屏幕中的位置设置
 
     [SerializeField]
     [Range(10, 90)]
-    float initialAngle = 40f;   // 初始俯视角度
+    float initial_angle = 40f;   // 初始俯视角度
     [SerializeField]
     [Range(10, 90)]
     float maxAngle = 50f;     // 最高俯视角度
@@ -20,7 +21,7 @@ public class ThirdCamera : MonoBehaviour
     [Range(10, 90)]
     float minAngle = 35f;     // 最低俯视角度
 
-    float initialDistance;    // 初始化相机与玩家的距离 根据角度计算
+    float initial_distance;    // 初始化相机与玩家的距离 根据角度计算
     [SerializeField]
     [Range(1, 100)]
     float maxDistance = 20f;        // 相机距离玩家最大距离
@@ -36,9 +37,9 @@ public class ThirdCamera : MonoBehaviour
     [Range(1f, 200)]
     float swipeSpeed = 50;      // 左右滑动速度
 
-    float scrollWheel;        // 记录滚轮数值
-    float tempAngle;          // 临时存储摄像机的初始角度
-    Vector3 tempVector = new Vector3();
+    float scroll_wheel;        // 记录滚轮数值
+    float temp_angle;          // 临时存储摄像机的初始角度
+    Vector3 temp_vector = new Vector3();
 
     void Start()
     {
@@ -49,7 +50,7 @@ public class ThirdCamera : MonoBehaviour
     {
         ZoomCamera();
         SwipeScreen();
-    }    
+    }
 
     void LateUpdate()
     {
@@ -62,11 +63,11 @@ public class ThirdCamera : MonoBehaviour
     /// </summary>
     void InitCamera()
     {
-        tempAngle = initialAngle;
+        temp_angle = initial_angle;
 
-        initialDistance = Mathf.Sqrt((initialAngle - minAngle) / Calculate()) + minDistance;
+        initial_distance = Mathf.Sqrt((initial_angle - minAngle) / Calculate()) + minDistance;
 
-        initialDistance = Mathf.Clamp(initialDistance, minDistance, maxDistance);
+        initial_distance = Mathf.Clamp(initial_distance, minDistance, maxDistance);
 
     }
 
@@ -75,20 +76,20 @@ public class ThirdCamera : MonoBehaviour
     /// </summary>
     void FollowPlayer()
     {
-        float upRidus = Mathf.Deg2Rad * initialAngle;
-        float flatRidus = Mathf.Deg2Rad * horizontalAngle;
+        float upRidus = Mathf.Deg2Rad * initial_angle;
+        float flatRidus = Mathf.Deg2Rad * horizontal_angle;
 
-        float x = initialDistance * Mathf.Cos(upRidus) * Mathf.Cos(flatRidus);
-        float z = initialDistance * Mathf.Cos(upRidus) * Mathf.Sin(flatRidus);
-        float y = initialDistance * Mathf.Sin(upRidus);
+        float x = initial_distance * Mathf.Cos(upRidus) * Mathf.Cos(flatRidus);
+        float z = initial_distance * Mathf.Cos(upRidus) * Mathf.Sin(flatRidus);
+        float y = initial_distance * Mathf.Sin(upRidus);
 
         transform.position = Vector3.zero;
-        tempVector.Set(x, y, z);
-        tempVector = tempVector + target.position;
-        transform.position = tempVector;
-        tempVector.Set(target.position.x, target.position.y + initialHeight, target.position.z);
+        temp_vector.Set(x, y, z);
+        temp_vector = temp_vector + target.position;
+        transform.position = temp_vector;
+        temp_vector.Set(target.position.x, target.position.y + initial_height, target.position.z);
 
-        transform.LookAt(tempVector);
+        transform.LookAt(temp_vector);
     }
 
     /// <summary>
@@ -96,20 +97,20 @@ public class ThirdCamera : MonoBehaviour
     /// </summary>
     void ZoomCamera()
     {
-        scrollWheel = GetZoomValue();
-        if (scrollWheel != 0)
+        scroll_wheel = GetZoomValue();
+        if (Math.Abs(scroll_wheel) > float.Epsilon)
         {
-            tempAngle = initialAngle - scrollWheel * 2 * (maxAngle - minAngle);
-            tempAngle = Mathf.Clamp(tempAngle, minAngle, maxAngle);
+            temp_angle = initial_angle - scroll_wheel * 2 * (maxAngle - minAngle);
+            temp_angle = Mathf.Clamp(temp_angle, minAngle, maxAngle);
         }
 
-        if (tempAngle != initialAngle)
+        if (Math.Abs(temp_angle - initial_angle) > float.Epsilon)
         {
-            initialAngle = Mathf.Lerp(initialAngle, tempAngle, Time.deltaTime * 10);
+            initial_angle = Mathf.Lerp(initial_angle, temp_angle, Time.deltaTime * 10);
 
-            initialDistance = Mathf.Sqrt((initialAngle - minAngle) / Calculate()) + minDistance;
+            initial_distance = Mathf.Sqrt((initial_angle - minAngle) / Calculate()) + minDistance;
 
-            initialDistance = Mathf.Clamp(initialDistance, minDistance, maxDistance);
+            initial_distance = Mathf.Clamp(initial_distance, minDistance, maxDistance);
         }
     }
 
@@ -121,10 +122,10 @@ public class ThirdCamera : MonoBehaviour
         return line;
     }
 
-    bool isMousePress = false;
-    Vector2 oldMousePos;
-    Vector2 newMousePos;
-    Vector2 mousePosOffset;
+    bool is_mouse_press = false;
+    Vector2 old_mouse_pos;
+    Vector2 new_mouse_pos;
+    Vector2 mouse_pos_offset;
     /// <summary>
     /// 滑动屏幕 旋转相机和缩放视野
     /// </summary>
@@ -132,23 +133,23 @@ public class ThirdCamera : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
-            oldMousePos = Vector2.zero;
-            isMousePress = true;
+            old_mouse_pos = Vector2.zero;
+            is_mouse_press = true;
         }
-        else if(Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0))
         {
-            mousePosOffset = Vector2.zero;
-            isMousePress = false;
+            mouse_pos_offset = Vector2.zero;
+            is_mouse_press = false;
         }
-        if (!isMousePress)
+        if (!is_mouse_press)
             return;
 
-        newMousePos = Input.mousePosition;
-        if(oldMousePos != Vector2.zero)
+        new_mouse_pos = Input.mousePosition;
+        if (old_mouse_pos != Vector2.zero)
         {
-            mousePosOffset = newMousePos - oldMousePos;
+            mouse_pos_offset = old_mouse_pos - new_mouse_pos;
         }
-        oldMousePos = newMousePos;
+        old_mouse_pos = new_mouse_pos;
     }
 
     /// <summary>
@@ -163,9 +164,9 @@ public class ThirdCamera : MonoBehaviour
         {
             zoomValue = Input.GetAxis("Mouse ScrollWheel");
         }
-        else if (mousePosOffset != Vector2.zero)
+        else if (mouse_pos_offset != Vector2.zero)
         {
-            zoomValue = mousePosOffset.y * Time.deltaTime * zoomSpeed * 0.01f;
+            zoomValue = mouse_pos_offset.y * Time.deltaTime * zoomSpeed * 0.01f;
         }
 
         return zoomValue;
@@ -177,6 +178,6 @@ public class ThirdCamera : MonoBehaviour
     /// </summary>
     void RotateCamera()
     {
-        horizontalAngle = Mathf.SmoothDamp(horizontalAngle, horizontalAngle + mousePosOffset.x * Time.deltaTime * swipeSpeed, ref xVelocity, 0.1f);
+        horizontal_angle = Mathf.SmoothDamp(horizontal_angle, horizontal_angle + mouse_pos_offset.x * Time.deltaTime * swipeSpeed, ref xVelocity, 0.1f);
     }
 }
