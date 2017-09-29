@@ -51,7 +51,8 @@ namespace SummerTest
         {
             if (AnimGroup != null)
             {
-                m_anim.Play(AnimGroup.GetClipName(type));
+                //m_anim.Play(AnimGroup.GetClipName(type));
+                m_anim.Play();
             }
         }
 

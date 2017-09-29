@@ -338,7 +338,7 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
         {
             // 2.添加到cache中去
             map_assets.Add(asset_name, asset_info);
-            LogManager.Log("添加到缓存中[{0}]", asset_info.ToString());
+            //LogManager.Log("添加到缓存中[{0}]", asset_info.ToString());
         }
         else
         {

@@ -2,7 +2,6 @@
 
 namespace Summer
 {
-
     /// <summary>
     /// 持续时间相关的如：眩晕、定身、临时提高xx属性等、魔法盾等
     /// 类似buff效果 有进入和退出时间 总结出来就是三大项
@@ -99,91 +98,103 @@ namespace Summer
     /// <summary>
     /// 状态链
     /// TODO 缺少一个黑箱数据，可以做到从哪里塞数据，也可以拿数据，通过String,Object 这样的形式第一参考目标是行为树的黑箱
+    /// 一个技能的整体行为,是否可以由多条线组合而成？
     /// </summary>
-    public class StateLink
+    public class SequenceState
     {
-
-        public SkillState _cur_node;
-        public int _action_next;
-        public string des = string.Empty;
-        public List<SkillState> _nodes = new List<SkillState>(16);
-        public EventSet<E_SkillTrigger, EventSkillSetData> _skill_event_set
-            = new EventSet<E_SkillTrigger, EventSkillSetData>();
-        public StateLink()
+        public SkillState _cur_node;                                            // 当前节点
+        public int _action_next;                                                // 下标
+        public string des = string.Empty;                                       // 文本说明
+        public List<SkillState> _childnodes                                     // 子节点
+            = new List<SkillState>(16);
+        public EventSet<E_SkillTriggerEvent, EventSkillSetData> _skill_event_set
+            = new EventSet<E_SkillTriggerEvent, EventSkillSetData>();
+        public SequenceState()
         {
             _action_next = 0;
         }
-
-        public void StartLink()
+        #region 对外接口 开始/发送事件
+        public void OnStart()
         {
-            LogManager.Assert(_action_next >= _nodes.Count, "状态链长度为0");
-            _cur_node = _nodes[_action_next];
-            _cur_node.OnEnter();
+            LogManager.Assert(_action_next <= _childnodes.Count, "状态链长度为0");
+            _cur_node = _childnodes[_action_next];
             _action_next++;
+            _cur_node.OnEnter();
 
-            LogManager.Log("====StateMachine[{0}]开始 : [{1}]进入=====", des, _cur_node.ToString());
+
+            LogManager.Log("StateMachine====[{0}]开始 : [{1}]进入===== 帧数:[{2}]", des, _cur_node.ToDes(), TimeManager.FrameCount);
         }
 
+        public void ReceiveTransitionEvent(E_SkillTransitionEvent event_name)
+        {
+            int length = _childnodes.Count;
+            if (_action_next < 0 || _action_next >= length)
+                return;
+            _cur_node.ReceiveTransitionEvent(event_name);
+        }
+
+        public void AddState(SkillState state)
+        {
+            if (_childnodes.Contains(state))
+            {
+                LogManager.Error("技能链条已经包含了这个序列节点了");
+                return;
+            }
+            _childnodes.Add(state);
+            state.SetParent(this);
+        }
+
+        #endregion
+
+        // 被内部序列节点调用
         public void DoActionNext()
         {
             _do_action_next();
         }
 
-        public void ReceiveEventName(string event_name)
+        public void OnUpdate(float dt)
         {
-            int length = _nodes.Count;
-            if (_action_next < 0 || _action_next >= length)
-                return;
-            _cur_node.ReceiveEvent(event_name);
+            if (_cur_node == null) return;
+            _cur_node.OnUpdate(dt);
         }
 
-        #region Register UnRegister Raise
-        public bool RegisterHandler(E_SkillTrigger key, EventSet<E_SkillTrigger, EventSkillSetData>.EventHandler handler)
+        #region 角色注册事件，内部子节点触发事件
+        public bool RegisterHandler(E_SkillTriggerEvent key, EventSet<E_SkillTriggerEvent, EventSkillSetData>.EventHandler handler)
         {
             return _skill_event_set.RegisterHandler(key, handler);
         }
 
-        public bool UnRegisterHandler(E_SkillTrigger key, EventSet<E_SkillTrigger, EventSkillSetData>.EventHandler handler)
+        public bool UnRegisterHandler(E_SkillTriggerEvent key, EventSet<E_SkillTriggerEvent, EventSkillSetData>.EventHandler handler)
         {
             return _skill_event_set.UnRegisterHandler(key, handler);
         }
 
-        public void RaiseEvent(E_SkillTrigger key, EventSkillSetData obj_info)
+        public void RaiseEvent(E_SkillTriggerEvent key, EventSkillSetData obj_info)
         {
             _skill_event_set.RaiseEvent(key, obj_info, false);
         }
         #endregion
 
-        public virtual void OnUpdate(float dt)
+        public bool _do_action_next()
         {
-            if (_cur_node == null) return;
-
-            _cur_node.OnUpdate(dt);
-
-            if (!_cur_node.AutoTransNext())
-                return;
-            _do_action_next();
-        }
-
-        public virtual bool _do_action_next()
-        {
-            if (_action_next >= _nodes.Count)
+            if (_action_next >= _childnodes.Count)
             {
-                LogManager.Log("====StateMachine[{0}]结束 : [{1}]退出=====", des, _cur_node.ToString());
+                LogManager.Log("====StateMachine[{0}]结束 : [{1}]退出=====帧数:[{2}]", des, _cur_node.ToDes(), TimeManager.FrameCount);
                 _cur_node.OnEnter();
                 return false;
             }
             // 找到下一个界面
-            SkillState next_node = _nodes[_action_next];
+            SkillState next_node = _childnodes[_action_next];
             SkillState last_node = _cur_node;
             _cur_node = next_node;
 
-            LogManager.Log("StateMachine : [{0}]--DoAction--[{1}]", last_node.ToString(), next_node.ToString());
+            LogManager.Log("上一个状态 [{0}]--下一个状态--[{1}] 帧数:[{2}]", last_node.ToDes(), next_node.ToDes(), TimeManager.FrameCount);
 
             if (last_node != null)
                 last_node.OnExit();
-            next_node.OnEnter();
             _action_next++;
+            next_node.OnEnter();
+
             return true;
         }
 

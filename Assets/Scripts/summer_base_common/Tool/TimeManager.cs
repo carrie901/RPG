@@ -23,4 +23,9 @@ public class TimeManager
     {
         get { return Time.realtimeSinceStartup; }
     }
+
+    public static int FrameCount
+    {
+        get { return Time.frameCount; }
+    }
 }
