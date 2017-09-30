@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,8 +17,9 @@ namespace Summer
     /// <summary>
     /// 播放特效
     /// </summary>
-    public class PlayEffectAction : AskillActionLeaf
+    public class PlayEffectAction : SkillNodeAction
     {
+        public const string DES = "播放特效";
         public string effect_name;             //特效名称
         public GameObject bing_obj;            //绑定的GameObject
         public PlayEffectEventSkill _data;
@@ -39,6 +41,7 @@ namespace Summer
             EventSkillDataFactory.Pop(_data);
             _data = null;
         }
+        public override string ToDes() { return DES; }
     }
 }
 

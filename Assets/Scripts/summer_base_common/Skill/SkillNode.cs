@@ -29,35 +29,35 @@ namespace Summer
     ///         1.1如果是默认动作，直接跳转到下一个节点
     ///         1.2如果有接受事件。那么只有接受到指定事件之后，才会跳转到下一个节点中去
     /// </summary>
-    public class SkillState
+    public class SkillNode
     {
         public string _des = string.Empty;
-        public List<AskillActionLeaf> _actions
-            = new List<AskillActionLeaf>(16);
+        public List<SkillNodeAction> _actions
+            = new List<SkillNodeAction>(16);
         public E_SkillTransitionEvent _transition_event
             = E_SkillTransitionEvent.finish;                            //过度到下一个节点的过度事件 目前只接受一个事件
-        public SequenceState _parent_node;
+        public SkillSequence _parent_node;
         public bool _all_action_result;                                 //所有动作执行的总结果 只有总结过为true的时候才会过度到下一个状态
-        public SkillState() { }
-        public SkillState(string des) { _des = des; }
+        public SkillNode() { }
+        public SkillNode(string des) { _des = des; }
 
-        public void SetParent(SequenceState parent)
+        public void SetParent(SkillSequence parent)
         {
             _parent_node = parent;
         }
 
-        public void AddAction(AskillActionLeaf action_leaf)
+        public void AddAction(SkillNodeAction action)
         {
-            _actions.Add(action_leaf);
-            action_leaf.BindingContext(this);
+            _actions.Add(action);
+            action.BindingContext(this);
         }
 
-        public void RemoveAction(AskillActionLeaf action_leaf)
+        public void RemoveAction(SkillNodeAction action)
         {
             int length = _actions.Count;
             for (int i = length - 1; i >= 0; i--)
             {
-                if (_actions[i] == action_leaf)
+                if (_actions[i] == action)
                 {
                     _actions.Remove(_actions[i]);
                 }
@@ -72,7 +72,7 @@ namespace Summer
         public void ReceiveTransitionEvent(E_SkillTransitionEvent event_name)
         {
             if (event_name == _transition_event)
-                _transition_next_state();
+                _transition_next_state(event_name);
             else
                 LogManager.Log("接收到[{0}],但不跳转序列节点,本状态接受事件为:[{1}]", event_name, _transition_event);
         }
@@ -81,20 +81,22 @@ namespace Summer
 
         public virtual void OnEnter()
         {
+            LogEnter();
             int length = _actions.Count;
             _all_action_result = true;
             for (int i = 0; i < length; i++)
             {
                 _actions[i].OnEnter();
-                if (_all_action_result)
-                    _all_action_result = _actions[i].IsFinish();
+                if (!_actions[i].IsFinish())
+                    _all_action_result = false;
             }
             if (_all_action_result)
-                _transition_next_state();
+                _transition_next_state(E_SkillTransitionEvent.finish);
         }
 
         public virtual void OnExit()
         {
+            LogExit();
             int length = _actions.Count;
             for (int i = 0; i < length; i++)
             {
@@ -109,12 +111,12 @@ namespace Summer
             {
                 _actions[i].OnUpdate(dt);
 
-                if (_all_action_result)
-                    _all_action_result = _actions[i].IsFinish();
+                if (!_actions[i].IsFinish())
+                    _all_action_result = false;
             }
 
             if (_all_action_result)
-                _transition_next_state();
+                _transition_next_state(E_SkillTransitionEvent.finish);
         }
         public virtual void Reset()
         {
@@ -132,10 +134,24 @@ namespace Summer
             return _des;
         }
 
-        public void _transition_next_state()
+        public void LogEnter()
         {
-            LogManager.Assert(_all_action_result, "当前子集合中有未完成的动作,{0}", ToDes());
-            _parent_node.DoActionNext();
+            LogManager.Log("进入[{0}]节点", ToDes());
+        }
+
+        public void LogExit()
+        {
+            LogManager.Log("退出[{0}]节点", ToDes());
+        }
+
+        public void _transition_next_state(E_SkillTransitionEvent transition_event)
+        {
+            if (transition_event == _transition_event)
+            {
+                LogManager.Assert(_all_action_result, "当前子集合中有未完成的动作,{0}", ToDes());
+                _parent_node.DoActionNext();
+            }
+
         }
 
         //public virtual void OnFixedUpdate() { }

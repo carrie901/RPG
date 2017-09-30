@@ -16,8 +16,9 @@ namespace Summer
     /// <summary>
     /// 径向模糊:图像旋转成从中心辐射。
     /// </summary>
-    public class PlayCameraRadialBlurEffect : AskillActionLeaf
+    public class PlayCameraRadialBlurEffect : SkillNodeAction
     {
+        public const string DES = "径向模糊";
         public PlayCameraRadialBlurEffectEventSkill _data;
         public float duration;
         public float fade_in;
@@ -48,19 +49,22 @@ namespace Summer
             EventSkillDataFactory.Pop(_data);
             _data = null;
         }
+
+        public override string ToDes() { return DES; }
     }
 
 
     public class PlayCameraMotionBlurEffectEventSkill : EventSkillSetData
     {
-       
+
     }
 
     /// <summary>
     /// 运动模糊
     /// </summary>
-    public class PlayCameraMotionBlurEffect : AskillActionLeaf
+    public class PlayCameraMotionBlurEffect : SkillNodeAction
     {
+        public const string DES = "运动模糊";
         public PlayCameraMotionBlurEffectEventSkill _data;
         public override void OnEnter()
         {
@@ -77,7 +81,7 @@ namespace Summer
 
         public override void OnUpdate(float dt)
         {
-            
+
         }
 
         public override void Destroy()
@@ -85,5 +89,7 @@ namespace Summer
             EventSkillDataFactory.Pop(_data);
             _data = null;
         }
+
+        public override string ToDes() { return DES; }
     }
 }

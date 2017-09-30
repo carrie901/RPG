@@ -1,7 +1,7 @@
 ﻿
 namespace Summer
 {
-    public class SkillReleaseAction : AskillActionLeaf
+    public class SkillReleaseAction : SkillNodeAction
     {
         public const string DES = "释放当前技能状态";
         public override void OnEnter()

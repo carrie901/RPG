@@ -4,11 +4,11 @@ namespace Summer
     /// <summary>
     /// 每一个叶子节点都是独立执行的,通过触发事件调用外部接口
     /// </summary>
-    public abstract class AskillActionLeaf
+    public abstract class SkillNodeAction
     {
-        protected SkillState _context;          //上下文（序列节点）
+        protected SkillNode _context;          //上下文（序列节点）
         protected bool _is_complete;            //是否完成这个动作
-        public void BindingContext(SkillState context)
+        public void BindingContext(SkillNode context)
         {
             _context = context;
         }
@@ -22,14 +22,14 @@ namespace Summer
 
         public void LogEnter()
         {
-            LogManager.Log("进入:[{0}]", ToDes());
+            LogManager.Log(ToDes());
         }
 
         public abstract void OnExit();
 
         public void LogExit()
         {
-            LogManager.Log("退出:[{0}]", ToDes());
+            LogManager.Log(ToDes());
         }
 
         public virtual void OnUpdate(float dt)
@@ -76,10 +76,8 @@ namespace Summer
 
         #endregion
 
-        public virtual string ToDes()
-        {
-            return string.Empty;
-        }
+
+        public abstract string ToDes();
 
         //void OnFixedUpdate();
         //void OnLateUpdate();

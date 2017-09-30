@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class LookAtTarget : AskillActionLeaf
+    public class LookAtTarget : SkillNodeAction
     {
+        public const string DES = "朝向目标";
         public bool every_frame;
 
         public GameObject _source;
@@ -46,6 +47,8 @@ namespace Summer
         {
 
         }
+
+        public override string ToDes() { return DES; }
     }
 }
 

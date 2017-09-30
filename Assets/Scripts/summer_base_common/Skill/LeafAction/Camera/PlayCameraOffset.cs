@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class PlayCameraOffset : AskillActionLeaf
+    public class PlayCameraOffset : SkillNodeAction
     {
+        public const string DES = "摄像头偏移";
         public override void OnEnter()
         {
             LogEnter();
@@ -20,6 +21,8 @@ namespace Summer
         {
             base.OnUpdate(dt);
         }
+
+        public override string ToDes() { return DES; }
     }
 
 }

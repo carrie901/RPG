@@ -12,8 +12,9 @@ namespace Summer
         public string animation_name;
     }
 
-    public class PlayAnimationAction : AskillActionLeaf
+    public class PlayAnimationAction : SkillNodeAction
     {
+        public const string DES = "播放动作";
         public string animation_name;
         public PlayAnimationEventSkill _data;
         public override void OnEnter()
@@ -32,6 +33,11 @@ namespace Summer
             LogExit();
             EventSkillDataFactory.Pop(_data);
             _data = null;
+        }
+
+        public override string ToDes()
+        {
+            return DES;
         }
     }
 

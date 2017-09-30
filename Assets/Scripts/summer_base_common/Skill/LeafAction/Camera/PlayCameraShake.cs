@@ -12,8 +12,9 @@ namespace Summer
     /// <summary>
     /// 镜头抖动
     /// </summary>
-    public class PlayCameraShake : AskillActionLeaf
+    public class PlayCameraShake : SkillNodeAction
     {
+        public const string DES = "镜头抖动";
         public PlayCameraShakeEventSkill _data;
 
         public override void OnEnter()
@@ -39,6 +40,8 @@ namespace Summer
             EventSkillDataFactory.Pop(_data);
             _data = null;
         }
+
+        public override string ToDes() { return DES; }
     }
 
 }

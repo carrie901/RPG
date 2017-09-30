@@ -9,6 +9,7 @@ namespace Summer
     /// </summary>
     public class PlayScaleTime : PlayBaseTime
     {
+        public const string DES = "慢动作时间缩放";
         public float scale;
         public override void DoAction()
         {
@@ -19,6 +20,7 @@ namespace Summer
         {
             TimeManager.TimeScale = 1;
         }
+        public override string ToDes() { return DES; }
     }
 }
 

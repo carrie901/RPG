@@ -8,7 +8,7 @@ namespace Summer
     /// <summary>
     /// 过程化时间动作，在开始和结束设置回调
     /// </summary>
-    public abstract class PlayBaseTime : AskillActionLeaf
+    public abstract class PlayBaseTime : SkillNodeAction
     {
         public float duration;
 

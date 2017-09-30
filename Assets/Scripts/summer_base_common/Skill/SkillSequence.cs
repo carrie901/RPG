@@ -99,30 +99,41 @@ namespace Summer
     /// 状态链
     /// TODO 缺少一个黑箱数据，可以做到从哪里塞数据，也可以拿数据，通过String,Object 这样的形式第一参考目标是行为树的黑箱
     /// 一个技能的整体行为,是否可以由多条线组合而成？
+    /// TODO 修改为节点形式,以方便之后更好的扩展，同事也方便做节点之间的连接，以及规划，类似技能行为树
     /// </summary>
-    public class SequenceState
+    public class SkillSequence
     {
-        public SkillState _cur_node;                                            // 当前节点
+        public SkillNode _cur_node;                                            // 当前节点
         public int _action_next;                                                // 下标
         public string des = string.Empty;                                       // 文本说明
-        public List<SkillState> _childnodes                                     // 子节点
-            = new List<SkillState>(16);
+        public List<SkillNode> _childnodes                                     // 子节点
+            = new List<SkillNode>(16);
+
+        public bool _is_complete;                                               // 是否结束序列节点
+
         public EventSet<E_SkillTriggerEvent, EventSkillSetData> _skill_event_set
             = new EventSet<E_SkillTriggerEvent, EventSkillSetData>();
-        public SequenceState()
+        public SkillSequence()
         {
             _action_next = 0;
         }
         #region 对外接口 开始/发送事件
-        public void OnStart()
+        public void OnEnter()
         {
             LogManager.Assert(_action_next <= _childnodes.Count, "状态链长度为0");
-            _cur_node = _childnodes[_action_next];
-            _action_next++;
-            _cur_node.OnEnter();
+            _is_complete = false;
+            LogManager.Log("-----------------------------序列开始[{0}]-----------------------------", des);
+            _do_action_next();
+        }
 
+        public void OnExit()
+        {
+            LogManager.Log("-----------------------------序列结束[{0}]-----------------------------", des);
+        }
 
-            LogManager.Log("StateMachine====[{0}]开始 : [{1}]进入===== 帧数:[{2}]", des, _cur_node.ToDes(), TimeManager.FrameCount);
+        public bool IsFinish()
+        {
+            return _is_complete;
         }
 
         public void ReceiveTransitionEvent(E_SkillTransitionEvent event_name)
@@ -133,7 +144,7 @@ namespace Summer
             _cur_node.ReceiveTransitionEvent(event_name);
         }
 
-        public void AddState(SkillState state)
+        public void AddNode(SkillNode state)
         {
             if (_childnodes.Contains(state))
             {
@@ -159,6 +170,7 @@ namespace Summer
         }
 
         #region 角色注册事件，内部子节点触发事件
+
         public bool RegisterHandler(E_SkillTriggerEvent key, EventSet<E_SkillTriggerEvent, EventSkillSetData>.EventHandler handler)
         {
             return _skill_event_set.RegisterHandler(key, handler);
@@ -177,24 +189,39 @@ namespace Summer
 
         public bool _do_action_next()
         {
+
             if (_action_next >= _childnodes.Count)
             {
-                LogManager.Log("====StateMachine[{0}]结束 : [{1}]退出=====帧数:[{2}]", des, _cur_node.ToDes(), TimeManager.FrameCount);
-                _cur_node.OnEnter();
+                if (_cur_node != null)
+                    _cur_node.OnExit();
+                _is_complete = true;
                 return false;
             }
-            // 找到下一个界面
-            SkillState next_node = _childnodes[_action_next];
-            SkillState last_node = _cur_node;
+
+            _transition_next_node();
+            return true;
+        }
+
+        //过度到写一个节点
+        public bool _transition_next_node()
+        {
+            // 1.检测长度
+            if (_action_next >= _childnodes.Count)
+                return false;
+            // 2.下一个节点
+            SkillNode next_node = _childnodes[_action_next];
+            // 3.上一个节点
+            SkillNode last_node = _cur_node;
+            // 4.设置当前节点
             _cur_node = next_node;
 
-            LogManager.Log("上一个状态 [{0}]--下一个状态--[{1}] 帧数:[{2}]", last_node.ToDes(), next_node.ToDes(), TimeManager.FrameCount);
+            //LogManager.Log("上一个状态 [{0}]--下一个状态--[{1}] 帧数:[{2}]", last_node.ToDes(), next_node.ToDes(), TimeManager.FrameCount);
 
             if (last_node != null)
                 last_node.OnExit();
             _action_next++;
-            next_node.OnEnter();
-
+            if (_cur_node != null)
+                _cur_node.OnEnter();
             return true;
         }
 
