@@ -22,14 +22,19 @@ namespace Summer
 
         public void LogEnter()
         {
-            LogManager.Log(ToDes());
+            LogManager.Log("Time: {0}   Enter Leaf Action:{1}", LogTime(), ToDes());
         }
 
         public abstract void OnExit();
 
         public void LogExit()
         {
-            LogManager.Log(ToDes());
+            LogManager.Log("Time: {0}   Exit Leaf Action:{1}", LogTime(), ToDes());
+        }
+
+        public string LogTime()
+        {
+            return TimeManager.FrameCount.ToString();
         }
 
         public virtual void OnUpdate(float dt)

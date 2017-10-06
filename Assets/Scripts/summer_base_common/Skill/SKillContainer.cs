@@ -65,7 +65,7 @@ namespace Summer
 
         public void ReceiveTransitionEvent(E_SkillTransitionEvent event_name)
         {
-            LogManager.Log("------------------------触发事件:[{0}]------------------------", event_name);
+            LogManager.Log("Time: " + TimeManager.FrameCount + "------------------------触发事件:[{0}]------------------------", event_name);
             if (_curr_sequen != null)
                 _curr_sequen.ReceiveTransitionEvent(event_name);
         }

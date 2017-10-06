@@ -122,13 +122,13 @@ namespace Summer
         {
             LogManager.Assert(_action_next <= _childnodes.Count, "状态链长度为0");
             _is_complete = false;
-            LogManager.Log("-----------------------------序列开始[{0}]-----------------------------", des);
+            LogManager.Log("Time:" + TimeManager.FrameCount + "-----------------------------序列开始[{0}]-----------------------------", des);
             _do_action_next();
         }
 
         public void OnExit()
         {
-            LogManager.Log("-----------------------------序列结束[{0}]-----------------------------", des);
+            LogManager.Log("Time:" + TimeManager.FrameCount + "-----------------------------序列结束[{0}]-----------------------------", des);
         }
 
         public bool IsFinish()

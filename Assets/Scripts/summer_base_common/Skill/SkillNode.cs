@@ -136,12 +136,12 @@ namespace Summer
 
         public void LogEnter()
         {
-            LogManager.Log("进入[{0}]节点", ToDes());
+            LogManager.Log("Time: {1}    Enter [{0}]", ToDes(), _node_time());
         }
 
         public void LogExit()
         {
-            LogManager.Log("退出[{0}]节点", ToDes());
+            LogManager.Log("Time: {1}    Exit 节点 [{0}]", ToDes(), _node_time());
         }
 
         public void _transition_next_state(E_SkillTransitionEvent transition_event)
@@ -152,6 +152,11 @@ namespace Summer
                 _parent_node.DoActionNext();
             }
 
+        }
+
+        public string _node_time()
+        {
+            return TimeManager.FrameCount.ToString();
         }
 
         //public virtual void OnFixedUpdate() { }
