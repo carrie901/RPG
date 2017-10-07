@@ -184,7 +184,7 @@ public class BuffContainer : MonoBehaviour
     public Buff _attach_buff(BaseEntities caster, int buff_id)
     {
         //1.创建一个Buff
-        Buff buff = BuffFactoryMethod.Create(buff_id);
+        Buff buff = BuffFactory.Create(buff_id);
 
         //2.Buff添加到目标身上
         buff.OnAttach(_owner, caster);

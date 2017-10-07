@@ -17,7 +17,7 @@ namespace Summer
         {
             base.OnAttach(caster, target);
             if (data == null)
-                data = EventBuffDataFactory.Push<InvincibleEventBuffData>();
+                data = BuffDataFactory.Push<InvincibleEventBuffData>();
             data.is_invincible = false;
             _target.RaiseEvent(E_BuffTrigger.on_trigger_invincible, data);
             LogManager.Log("开启超人模式");
@@ -27,7 +27,7 @@ namespace Summer
             data.is_invincible = true;
             _target.RaiseEvent(E_BuffTrigger.on_trigger_invincible, data);
             base.OnDetach();
-            EventBuffDataFactory.Pop(data);
+            BuffDataFactory.Pop(data);
             data = null;
             LogManager.Log("取消超人模式");
         }

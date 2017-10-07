@@ -1,11 +1,9 @@
 ﻿
-using Summer;
-
 namespace Summer
 {
-    public class BuffFactoryMethod
+    public class BuffFactory
     {
-        static BuffFactoryMethod()
+        static BuffFactory()
         {
 
         }
@@ -64,23 +62,6 @@ namespace Summer
             return buff;
         }
 
-    }
-
-    /// <summary>
-    /// 把各个data的工厂合并在一起
-    /// </summary>
-    public class EventBuffDataFactory
-    {
-        public static T Push<T>() where T : EventBuffSetData, new()
-        {
-            T t = new T();
-            return t;
-        }
-
-        public static void Pop<T>(T t) where T : EventBuffSetData
-        {
-            t.Reset();
-        }
     }
 }
 
