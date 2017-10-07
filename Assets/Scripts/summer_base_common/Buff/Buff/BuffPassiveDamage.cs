@@ -5,16 +5,14 @@
 /// </summary>
 public class BuffPassiveDamage : Buff
 {
-
-    BuffParamData _param = new BuffParamData();
-
     public override void Init(BuffCnf conf)
     {
         base.Init(conf);
+        _param = new BuffParamData();
         _refresh_param();
     }
 
-    public override void OnAttach(iCharacterBaseController caster, iCharacterBaseController target)
+    public override void OnAttach(BaseEntities caster, BaseEntities target)
     {
         base.OnAttach(caster, target);
         _target.RegisterHandler(E_BuffTrigger.on_def_damage, _on_def_damage);

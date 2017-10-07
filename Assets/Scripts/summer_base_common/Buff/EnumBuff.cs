@@ -106,6 +106,9 @@ namespace Summer
     /// </summary>
     public class EventBuffSetData
     {
-
+        public void Reset()
+        {
+            
+        }
     }
 }

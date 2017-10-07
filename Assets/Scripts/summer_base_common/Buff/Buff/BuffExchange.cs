@@ -37,7 +37,7 @@ public class BuffExchange : Buff
         _refresh_param();
     }
 
-    public override void OnAttach(iCharacterBaseController caster, iCharacterBaseController target)
+    public override void OnAttach(BaseEntities caster, BaseEntities target)
     {
         base.OnAttach(caster, target);
         _test();

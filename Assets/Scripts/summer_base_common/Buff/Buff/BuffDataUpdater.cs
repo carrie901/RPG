@@ -47,7 +47,7 @@ public class BuffDataUpdater : Buff
 
     #region override  Buff 提供给BuffSst控制
 
-    public override void OnAttach(iCharacterBaseController caster, iCharacterBaseController target)
+    public override void OnAttach(BaseEntities caster, BaseEntities target)
     {
         base.OnAttach(caster, target);
         _test();

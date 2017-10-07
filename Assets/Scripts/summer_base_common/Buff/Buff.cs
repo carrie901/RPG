@@ -28,11 +28,13 @@ public class Buff : I_ProcessUpdater
     public List<Effect> _effects;
     //TODO msm去修改 相对于细节的多变性，相对而已抽象的东西要稳定的多，目前buff得到角色身上太多的内容(血量，无双值，攻击力等等相关内容），无法进行抽象化/
     //TODO 通过目前的回调机制。把buff相关逻辑转移到了角色身上(本身角色就要提供这样的接口让别人调用，输入的接口唯一化）
-    public iCharacterBaseController _target;        //buff释放目标 抽象成接口，依赖倒置
-    public iCharacterBaseController _caster;        //buff释放者
+    public BaseEntities _target;        //buff释放目标 抽象成接口，依赖倒置
+    public BaseEntities _caster;        //buff释放者
     public BuffId _bid;
     public int _id;
 
+    private BuffContainer _container;
+    public I_BuffParam _param;
     #endregion
 
     #region virtual Buff -init/add/remove
@@ -108,8 +110,9 @@ public class Buff : I_ProcessUpdater
     #region virtual Buff 提供给BuffSst控制
 
     //有些buff是过程无效果，上buff和下buff的时候带功能的。例如设置角色朝向/攻击力
-    public virtual void OnAttach(iCharacterBaseController target, iCharacterBaseController caster)
+    public virtual void OnAttach(BaseEntities target, BaseEntities caster)
     {
+        _container = target.GetBuffContainer();
         _bid = new BuffId(target.char_id, _id);
         _target = target;
         _caster = caster;

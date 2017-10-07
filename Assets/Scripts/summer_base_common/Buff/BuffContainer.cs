@@ -32,12 +32,12 @@ public class BuffContainer : MonoBehaviour
 
     }
 
-    public iCharacterBaseController _owner;
+    public BaseEntities _owner;
     List<Buff> _buff_list;
     public Dictionary<long, Timer> _buff_expire_timer; //用caster_iid + buff_id做key
 
     List<Buff> _tmp_to_del;
-    public void Init(iCharacterBaseController c)
+    public void Init(BaseEntities c)
     {
         _owner = c;
         _buff_list = new List<Buff>();
@@ -128,7 +128,7 @@ public class BuffContainer : MonoBehaviour
     /// </summary>
     /// <param name="caster">释放buff者</param>
     /// <param name="buff_id">Buff的Id</param>
-    public void AttachBuff(iCharacterBaseController caster, int buff_id)
+    public void AttachBuff(BaseEntities caster, int buff_id)
     {
         // 1.查找指定的buff
         Buff exist_buff = _get_exist_buff(buff_id);
@@ -168,7 +168,7 @@ public class BuffContainer : MonoBehaviour
     }
 
     //提供给外部 移除Buff
-    public void DetachBuff(iCharacterBaseController caster, BuffId buff_id)
+    public void DetachBuff(BaseEntities caster, BuffId buff_id)
     {
         Buff exist_buff = _get_exist_buff(buff_id._buff_id);
         if (exist_buff == null) return;//不存在buff，return
@@ -181,7 +181,7 @@ public class BuffContainer : MonoBehaviour
 
     #region internal (Attach & Detach)
 
-    public Buff _attach_buff(iCharacterBaseController caster, int buff_id)
+    public Buff _attach_buff(BaseEntities caster, int buff_id)
     {
         //1.创建一个Buff
         Buff buff = BuffFactoryMethod.Create(buff_id);
