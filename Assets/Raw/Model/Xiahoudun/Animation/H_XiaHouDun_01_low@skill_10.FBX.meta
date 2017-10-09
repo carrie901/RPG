@@ -1,0 +1,615 @@
+fileFormatVersion: 2
+guid: 578c082b40f22ba4baaa163ed1b92c69
+timeCreated: 1500016212
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: body
+    100002: Bone001
+    100004: Bone001(mirrored)
+    100006: Bone002
+    100008: Bone002(mirrored)
+    100010: Bone003
+    100012: Bone003(mirrored)
+    100014: Bone006
+    100016: Bone006(mirrored)
+    100018: Bone007
+    100020: Bone007(mirrored)
+    100022: Bone008
+    100024: Bone008(mirrored)
+    100026: Bone009
+    100028: Bone010
+    100030: Bone011
+    100032: Bone012
+    100034: Bone013
+    100036: Bone014
+    100038: Bone015
+    100040: Dummy001
+    100042: //RootNode
+    100044: M000_Kakouton0:F_Chin
+    100046: M000_Kakouton0:F_L_Cheek
+    100048: M000_Kakouton0:F_L_EYE
+    100050: M000_Kakouton0:F_L_Eyelid
+    100052: M000_Kakouton0:F_L_InBrow
+    100054: M000_Kakouton0:F_L_Low_MouthCorner
+    100056: M000_Kakouton0:F_L_OutBrow
+    100058: M000_Kakouton0:F_L_Squint
+    100060: M000_Kakouton0:F_L_Up_MouthCorner
+    100062: M000_Kakouton0:F_L_UpLip
+    100064: M000_Kakouton0:F_LowLip
+    100066: M000_Kakouton0:F_R_Cheek
+    100068: M000_Kakouton0:F_R_EYE
+    100070: M000_Kakouton0:F_R_Eyelid
+    100072: M000_Kakouton0:F_R_InBrow
+    100074: M000_Kakouton0:F_R_Low_MouthCorner
+    100076: M000_Kakouton0:F_R_OutBrow
+    100078: M000_Kakouton0:F_R_Squint
+    100080: M000_Kakouton0:F_R_Up_MouthCorner
+    100082: M000_Kakouton0:F_R_UpLip
+    100084: M000_Kakouton0:M000_Kakouton0
+    100086: M000_Kakouton0:RF_B_Collar
+    100088: M000_Kakouton0:RF_B_HipArm01
+    100090: M000_Kakouton0:RF_F_Collar
+    100092: M000_Kakouton0:RF_F_HipArm01
+    100094: M000_Kakouton0:RF_FL_Collar
+    100096: M000_Kakouton0:RF_FR_Collar
+    100098: M000_Kakouton0:RF_Head
+    100100: M000_Kakouton0:RF_Hips
+    100102: M000_Kakouton0:RF_L_Arm
+    100104: M000_Kakouton0:RF_L_Collar
+    100106: M000_Kakouton0:RF_L_Collarbone
+    100108: M000_Kakouton0:RF_L_Elbow
+    100110: M000_Kakouton0:RF_L_Foot
+    100112: M000_Kakouton0:RF_L_ForeArm
+    100114: M000_Kakouton0:RF_L_ForeArm_R
+    100116: M000_Kakouton0:RF_L_Hand
+    100118: M000_Kakouton0:RF_L_HipArm01
+    100120: M000_Kakouton0:RF_L_Index01
+    100122: M000_Kakouton0:RF_L_Index02
+    100124: M000_Kakouton0:RF_L_Index03
+    100126: M000_Kakouton0:RF_L_Knee
+    100128: M000_Kakouton0:RF_L_Leg
+    100130: M000_Kakouton0:RF_L_Middle01
+    100132: M000_Kakouton0:RF_L_Middle02
+    100134: M000_Kakouton0:RF_L_Middle03
+    100136: M000_Kakouton0:RF_L_Pinky01
+    100138: M000_Kakouton0:RF_L_Pinky02
+    100140: M000_Kakouton0:RF_L_Pinky03
+    100142: M000_Kakouton0:RF_L_Pinkyside
+    100144: M000_Kakouton0:RF_L_Rein
+    100146: M000_Kakouton0:RF_L_Ring01
+    100148: M000_Kakouton0:RF_L_Ring02
+    100150: M000_Kakouton0:RF_L_Ring03
+    100152: M000_Kakouton0:RF_L_SholdArm01
+    100154: M000_Kakouton0:RF_L_Shoulderblade
+    100156: M000_Kakouton0:RF_L_Thumb01
+    100158: M000_Kakouton0:RF_L_Thumb02
+    100160: M000_Kakouton0:RF_L_Thumb03
+    100162: M000_Kakouton0:RF_L_Toes
+    100164: M000_Kakouton0:RF_L_UpLeg
+    100166: M000_Kakouton0:RF_L_Weapon
+    100168: M000_Kakouton0:RF_Neck
+    100170: M000_Kakouton0:RF_R_Arm
+    100172: M000_Kakouton0:RF_R_Collar
+    100174: M000_Kakouton0:RF_R_Collarbone
+    100176: M000_Kakouton0:RF_R_Elbow
+    100178: M000_Kakouton0:RF_R_Foot
+    100180: M000_Kakouton0:RF_R_ForeArm
+    100182: M000_Kakouton0:RF_R_ForeArm_R
+    100184: M000_Kakouton0:RF_R_Hand
+    100186: M000_Kakouton0:RF_R_HipArm01
+    100188: M000_Kakouton0:RF_R_Index01
+    100190: M000_Kakouton0:RF_R_Index02
+    100192: M000_Kakouton0:RF_R_Index03
+    100194: M000_Kakouton0:RF_R_Knee
+    100196: M000_Kakouton0:RF_R_Leg
+    100198: M000_Kakouton0:RF_R_Middle01
+    100200: M000_Kakouton0:RF_R_Middle02
+    100202: M000_Kakouton0:RF_R_Middle03
+    100204: M000_Kakouton0:RF_R_Pinky01
+    100206: M000_Kakouton0:RF_R_Pinky02
+    100208: M000_Kakouton0:RF_R_Pinky03
+    100210: M000_Kakouton0:RF_R_Pinkyside
+    100212: M000_Kakouton0:RF_R_Rein
+    100214: M000_Kakouton0:RF_R_Ring01
+    100216: M000_Kakouton0:RF_R_Ring02
+    100218: M000_Kakouton0:RF_R_Ring03
+    100220: M000_Kakouton0:RF_R_SholdArm01
+    100222: M000_Kakouton0:RF_R_Shoulderblade
+    100224: M000_Kakouton0:RF_R_Thumb01
+    100226: M000_Kakouton0:RF_R_Thumb02
+    100228: M000_Kakouton0:RF_R_Thumb03
+    100230: M000_Kakouton0:RF_R_Toes
+    100232: M000_Kakouton0:RF_R_UpLeg
+    100234: M000_Kakouton0:RF_R_Weapon
+    100236: M000_Kakouton0:RF_Skeleton
+    100238: M000_Kakouton0:RF_Spine01
+    100240: M000_Kakouton0:RF_Spine02
+    100242: weapon
+    400000: body
+    400002: Bone001
+    400004: Bone001(mirrored)
+    400006: Bone002
+    400008: Bone002(mirrored)
+    400010: Bone003
+    400012: Bone003(mirrored)
+    400014: Bone006
+    400016: Bone006(mirrored)
+    400018: Bone007
+    400020: Bone007(mirrored)
+    400022: Bone008
+    400024: Bone008(mirrored)
+    400026: Bone009
+    400028: Bone010
+    400030: Bone011
+    400032: Bone012
+    400034: Bone013
+    400036: Bone014
+    400038: Bone015
+    400040: Dummy001
+    400042: //RootNode
+    400044: M000_Kakouton0:F_Chin
+    400046: M000_Kakouton0:F_L_Cheek
+    400048: M000_Kakouton0:F_L_EYE
+    400050: M000_Kakouton0:F_L_Eyelid
+    400052: M000_Kakouton0:F_L_InBrow
+    400054: M000_Kakouton0:F_L_Low_MouthCorner
+    400056: M000_Kakouton0:F_L_OutBrow
+    400058: M000_Kakouton0:F_L_Squint
+    400060: M000_Kakouton0:F_L_Up_MouthCorner
+    400062: M000_Kakouton0:F_L_UpLip
+    400064: M000_Kakouton0:F_LowLip
+    400066: M000_Kakouton0:F_R_Cheek
+    400068: M000_Kakouton0:F_R_EYE
+    400070: M000_Kakouton0:F_R_Eyelid
+    400072: M000_Kakouton0:F_R_InBrow
+    400074: M000_Kakouton0:F_R_Low_MouthCorner
+    400076: M000_Kakouton0:F_R_OutBrow
+    400078: M000_Kakouton0:F_R_Squint
+    400080: M000_Kakouton0:F_R_Up_MouthCorner
+    400082: M000_Kakouton0:F_R_UpLip
+    400084: M000_Kakouton0:M000_Kakouton0
+    400086: M000_Kakouton0:RF_B_Collar
+    400088: M000_Kakouton0:RF_B_HipArm01
+    400090: M000_Kakouton0:RF_F_Collar
+    400092: M000_Kakouton0:RF_F_HipArm01
+    400094: M000_Kakouton0:RF_FL_Collar
+    400096: M000_Kakouton0:RF_FR_Collar
+    400098: M000_Kakouton0:RF_Head
+    400100: M000_Kakouton0:RF_Hips
+    400102: M000_Kakouton0:RF_L_Arm
+    400104: M000_Kakouton0:RF_L_Collar
+    400106: M000_Kakouton0:RF_L_Collarbone
+    400108: M000_Kakouton0:RF_L_Elbow
+    400110: M000_Kakouton0:RF_L_Foot
+    400112: M000_Kakouton0:RF_L_ForeArm
+    400114: M000_Kakouton0:RF_L_ForeArm_R
+    400116: M000_Kakouton0:RF_L_Hand
+    400118: M000_Kakouton0:RF_L_HipArm01
+    400120: M000_Kakouton0:RF_L_Index01
+    400122: M000_Kakouton0:RF_L_Index02
+    400124: M000_Kakouton0:RF_L_Index03
+    400126: M000_Kakouton0:RF_L_Knee
+    400128: M000_Kakouton0:RF_L_Leg
+    400130: M000_Kakouton0:RF_L_Middle01
+    400132: M000_Kakouton0:RF_L_Middle02
+    400134: M000_Kakouton0:RF_L_Middle03
+    400136: M000_Kakouton0:RF_L_Pinky01
+    400138: M000_Kakouton0:RF_L_Pinky02
+    400140: M000_Kakouton0:RF_L_Pinky03
+    400142: M000_Kakouton0:RF_L_Pinkyside
+    400144: M000_Kakouton0:RF_L_Rein
+    400146: M000_Kakouton0:RF_L_Ring01
+    400148: M000_Kakouton0:RF_L_Ring02
+    400150: M000_Kakouton0:RF_L_Ring03
+    400152: M000_Kakouton0:RF_L_SholdArm01
+    400154: M000_Kakouton0:RF_L_Shoulderblade
+    400156: M000_Kakouton0:RF_L_Thumb01
+    400158: M000_Kakouton0:RF_L_Thumb02
+    400160: M000_Kakouton0:RF_L_Thumb03
+    400162: M000_Kakouton0:RF_L_Toes
+    400164: M000_Kakouton0:RF_L_UpLeg
+    400166: M000_Kakouton0:RF_L_Weapon
+    400168: M000_Kakouton0:RF_Neck
+    400170: M000_Kakouton0:RF_R_Arm
+    400172: M000_Kakouton0:RF_R_Collar
+    400174: M000_Kakouton0:RF_R_Collarbone
+    400176: M000_Kakouton0:RF_R_Elbow
+    400178: M000_Kakouton0:RF_R_Foot
+    400180: M000_Kakouton0:RF_R_ForeArm
+    400182: M000_Kakouton0:RF_R_ForeArm_R
+    400184: M000_Kakouton0:RF_R_Hand
+    400186: M000_Kakouton0:RF_R_HipArm01
+    400188: M000_Kakouton0:RF_R_Index01
+    400190: M000_Kakouton0:RF_R_Index02
+    400192: M000_Kakouton0:RF_R_Index03
+    400194: M000_Kakouton0:RF_R_Knee
+    400196: M000_Kakouton0:RF_R_Leg
+    400198: M000_Kakouton0:RF_R_Middle01
+    400200: M000_Kakouton0:RF_R_Middle02
+    400202: M000_Kakouton0:RF_R_Middle03
+    400204: M000_Kakouton0:RF_R_Pinky01
+    400206: M000_Kakouton0:RF_R_Pinky02
+    400208: M000_Kakouton0:RF_R_Pinky03
+    400210: M000_Kakouton0:RF_R_Pinkyside
+    400212: M000_Kakouton0:RF_R_Rein
+    400214: M000_Kakouton0:RF_R_Ring01
+    400216: M000_Kakouton0:RF_R_Ring02
+    400218: M000_Kakouton0:RF_R_Ring03
+    400220: M000_Kakouton0:RF_R_SholdArm01
+    400222: M000_Kakouton0:RF_R_Shoulderblade
+    400224: M000_Kakouton0:RF_R_Thumb01
+    400226: M000_Kakouton0:RF_R_Thumb02
+    400228: M000_Kakouton0:RF_R_Thumb03
+    400230: M000_Kakouton0:RF_R_Toes
+    400232: M000_Kakouton0:RF_R_UpLeg
+    400234: M000_Kakouton0:RF_R_Weapon
+    400236: M000_Kakouton0:RF_Skeleton
+    400238: M000_Kakouton0:RF_Spine01
+    400240: M000_Kakouton0:RF_Spine02
+    400242: weapon
+    2300000: weapon
+    3300000: weapon
+    4300000: weapon
+    4300002: body
+    7400000: skill_10
+    9500000: //RootNode
+    13700000: body
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: skill_10
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.34542158
+        functionName: SkillEvent01
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9780488
+        functionName: SkillAllFinish
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.20754717
+        functionName: Skillturn01
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: body
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone001
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone001/Bone002
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone001/Bone002/Bone003
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone001/Bone002/Bone003/Bone014
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone001(mirrored)
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone001(mirrored)/Bone002(mirrored)
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone001(mirrored)/Bone002(mirrored)/Bone003(mirrored)
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone001(mirrored)/Bone002(mirrored)/Bone003(mirrored)/Bone012
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone006
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone006/Bone007
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone006/Bone007/Bone008
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone006/Bone007/Bone008/Bone013
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone006(mirrored)
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone006(mirrored)/Bone007(mirrored)
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone006(mirrored)/Bone007(mirrored)/Bone008(mirrored)
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone006(mirrored)/Bone007(mirrored)/Bone008(mirrored)/Bone011
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone009
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone009/Bone010
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/Bone009/Bone010/Bone015
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_B_HipArm01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_F_HipArm01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_L_HipArm01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_L_UpLeg
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_L_UpLeg/M000_Kakouton0:RF_L_Leg
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_L_UpLeg/M000_Kakouton0:RF_L_Leg/M000_Kakouton0:RF_L_Foot
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_L_UpLeg/M000_Kakouton0:RF_L_Leg/M000_Kakouton0:RF_L_Foot/M000_Kakouton0:RF_L_Toes
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_L_UpLeg/M000_Kakouton0:RF_L_Leg/M000_Kakouton0:RF_L_Knee
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_R_HipArm01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_R_UpLeg
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_R_UpLeg/M000_Kakouton0:RF_R_Leg
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_R_UpLeg/M000_Kakouton0:RF_R_Leg/M000_Kakouton0:RF_R_Foot
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_R_UpLeg/M000_Kakouton0:RF_R_Leg/M000_Kakouton0:RF_R_Foot/M000_Kakouton0:RF_R_Toes
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Hips/M000_Kakouton0:RF_R_UpLeg/M000_Kakouton0:RF_R_Leg/M000_Kakouton0:RF_R_Knee
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_B_Collar
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_F_Collar
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_FL_Collar
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_FR_Collar
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Elbow
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_ForeArm_R
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Index01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Index01/M000_Kakouton0:RF_L_Index02
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Index01/M000_Kakouton0:RF_L_Index02/M000_Kakouton0:RF_L_Index03
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Middle01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Middle01/M000_Kakouton0:RF_L_Middle02
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Middle01/M000_Kakouton0:RF_L_Middle02/M000_Kakouton0:RF_L_Middle03
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Pinkyside
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Pinkyside/M000_Kakouton0:RF_L_Pinky01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Pinkyside/M000_Kakouton0:RF_L_Pinky01/M000_Kakouton0:RF_L_Pinky02
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Pinkyside/M000_Kakouton0:RF_L_Pinky01/M000_Kakouton0:RF_L_Pinky02/M000_Kakouton0:RF_L_Pinky03
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Pinkyside/M000_Kakouton0:RF_L_Ring01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Pinkyside/M000_Kakouton0:RF_L_Ring01/M000_Kakouton0:RF_L_Ring02
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Pinkyside/M000_Kakouton0:RF_L_Ring01/M000_Kakouton0:RF_L_Ring02/M000_Kakouton0:RF_L_Ring03
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Rein
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Thumb01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Thumb01/M000_Kakouton0:RF_L_Thumb02
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Thumb01/M000_Kakouton0:RF_L_Thumb02/M000_Kakouton0:RF_L_Thumb03
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Arm/M000_Kakouton0:RF_L_ForeArm/M000_Kakouton0:RF_L_Hand/M000_Kakouton0:RF_L_Weapon
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Collar
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Collarbone
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_SholdArm01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_L_Shoulderblade
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_Chin
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_Chin/M000_Kakouton0:F_LowLip
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_L_Cheek
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_L_EYE
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_L_Eyelid
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_L_InBrow
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_L_Low_MouthCorner
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_L_OutBrow
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_L_Squint
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_L_Up_MouthCorner
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_L_UpLip
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_R_Cheek
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_R_EYE
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_R_Eyelid
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_R_InBrow
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_R_Low_MouthCorner
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_R_OutBrow
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_R_Squint
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_R_Up_MouthCorner
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_Neck/M000_Kakouton0:RF_Head/M000_Kakouton0:F_R_UpLip
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Elbow
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_ForeArm_R
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Index01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Index01/M000_Kakouton0:RF_R_Index02
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Index01/M000_Kakouton0:RF_R_Index02/M000_Kakouton0:RF_R_Index03
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Middle01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Middle01/M000_Kakouton0:RF_R_Middle02
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Middle01/M000_Kakouton0:RF_R_Middle02/M000_Kakouton0:RF_R_Middle03
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Pinkyside
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Pinkyside/M000_Kakouton0:RF_R_Pinky01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Pinkyside/M000_Kakouton0:RF_R_Pinky01/M000_Kakouton0:RF_R_Pinky02
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Pinkyside/M000_Kakouton0:RF_R_Pinky01/M000_Kakouton0:RF_R_Pinky02/M000_Kakouton0:RF_R_Pinky03
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Pinkyside/M000_Kakouton0:RF_R_Ring01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Pinkyside/M000_Kakouton0:RF_R_Ring01/M000_Kakouton0:RF_R_Ring02
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Pinkyside/M000_Kakouton0:RF_R_Ring01/M000_Kakouton0:RF_R_Ring02/M000_Kakouton0:RF_R_Ring03
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Rein
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Thumb01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Thumb01/M000_Kakouton0:RF_R_Thumb02
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Thumb01/M000_Kakouton0:RF_R_Thumb02/M000_Kakouton0:RF_R_Thumb03
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Weapon
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Weapon/Dummy001
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Arm/M000_Kakouton0:RF_R_ForeArm/M000_Kakouton0:RF_R_Hand/M000_Kakouton0:RF_R_Weapon/Dummy001/weapon
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Collar
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Collarbone
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_SholdArm01
+        weight: 1
+      - path: M000_Kakouton0:M000_Kakouton0/M000_Kakouton0:RF_Skeleton/M000_Kakouton0:RF_Spine01/M000_Kakouton0:RF_Spine02/M000_Kakouton0:RF_R_Shoulderblade
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: M000_Kakouton0:RF_Skeleton
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
