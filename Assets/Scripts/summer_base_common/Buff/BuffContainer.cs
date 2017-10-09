@@ -17,6 +17,11 @@ using UnityEngine;
 public class BuffContainer : MonoBehaviour
 {
     public float last_level_cost;
+    public BaseEntities _owner;
+    List<Buff> _buff_list;
+    public Dictionary<long, Timer> _buff_expire_timer; //用caster_iid + buff_id做key
+
+    List<Buff> _tmp_to_del;
 
     public void Awake()
     {
@@ -32,11 +37,7 @@ public class BuffContainer : MonoBehaviour
 
     }
 
-    public BaseEntities _owner;
-    List<Buff> _buff_list;
-    public Dictionary<long, Timer> _buff_expire_timer; //用caster_iid + buff_id做key
-
-    List<Buff> _tmp_to_del;
+   
     public void Init(BaseEntities c)
     {
         _owner = c;
@@ -234,9 +235,10 @@ public class BuffContainer : MonoBehaviour
     public void _add_expire_timer(Buff buff)
     {
         //set new timer
-        Timer new_timer = Timer.AddTimer(buff._expire_duration, buff.OnExpire);
+        //set new timer
+        Timer new_timer = Timer.AddTimer(buff.vbo.ExpireDuration, buff.OnExpire);
         _buff_expire_timer.Add(buff._bid._iid, new_timer);
-        buff._timeout = LogManager.level_time() + buff._expire_duration;
+        buff.vbo.SetTimeOut(LogManager.level_time());
     }
 
     //移除超时
@@ -273,7 +275,7 @@ public class BuffContainer : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             Buff buff = _buff_list[i];
-            if (buff._force_expire)
+            if (buff.vbo.IsForceExpire())
             {
                 _tmp_to_del.Add(buff);
             }

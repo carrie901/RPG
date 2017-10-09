@@ -105,10 +105,10 @@ namespace Summer
 
         public void _refresh_param()
         {
-            _parse_param(_conf.param1);
-            _parse_param(_conf.param2);
-            _parse_param(_conf.param3);
-            _parse_param(_conf.param4);
+            _parse_param(vbo.info.param1);
+            _parse_param(vbo.info.param2);
+            _parse_param(vbo.info.param3);
+            _parse_param(vbo.info.param4);
         }
 
         public void _parse_param(string content)

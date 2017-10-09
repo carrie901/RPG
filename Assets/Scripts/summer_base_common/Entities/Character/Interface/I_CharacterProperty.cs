@@ -1,6 +1,9 @@
 ﻿
 namespace Summer
 {
+    /// <summary>
+    /// 得到角色身上的属性值和属性
+    /// </summary>
     public interface I_CharacterProperty
     {
         /// <summary>

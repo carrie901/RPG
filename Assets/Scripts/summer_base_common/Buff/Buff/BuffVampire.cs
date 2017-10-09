@@ -50,7 +50,7 @@
 
         public void _refresh_param()
         {
-            _param.ParseParam(_conf.param1);
+            _param.ParseParam(vbo.info.param1);
         }
     }
 

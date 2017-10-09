@@ -3,9 +3,11 @@ namespace Summer
 {
     public class BaseEntities : I_EntitiesBuff, I_CharacterProperty
     {
-        public BuffContainer _buff_container;
-        public CharId char_id;
-        public EventSet<E_BuffTrigger, EventBuffSetData> _buff_event_set = new EventSet<E_BuffTrigger, EventBuffSetData>();
+        public BuffContainer _buff_container;                               // Buff容器
+        public CharId char_id;                                              // character的唯一表示
+        public EventSet<E_BuffTrigger, EventBuffSetData> _buff_event_set    // Buff的触发器
+            = new EventSet<E_BuffTrigger, EventBuffSetData>();
+
         #region Buff
 
         public bool RegisterHandler(E_BuffTrigger key, EventSet<E_BuffTrigger, EventBuffSetData>.EventHandler handler)
@@ -31,6 +33,8 @@ namespace Summer
 
         #endregion
 
+        #region Get Property
+
         public PropertyIntParam FindAttribute(E_CharAttributeType type)
         {
             return null;
@@ -40,6 +44,8 @@ namespace Summer
         {
             return 0;
         }
+
+        #endregion
     }
 }
 

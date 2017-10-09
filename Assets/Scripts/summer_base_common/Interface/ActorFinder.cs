@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class ActorFinder : TSingleton<ActorFinder>
 {
-    public iCharacterBaseController FindChar(uint char_id)
+    /*public iCharacterBaseController FindChar(uint char_id)
     {
         /*List<iCharacterBaseController> charlist = cCharacterManager.AllCharacter;
         for (int i = 0; i < charlist.Count; i++)
@@ -14,8 +14,8 @@ public class ActorFinder : TSingleton<ActorFinder>
             {
                 return conrtoller;
             }
-        }*/
+        }#1#
         //cCharacterManager.Instance.get
         return null;
-    }
+    }*/
 }

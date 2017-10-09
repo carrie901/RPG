@@ -51,14 +51,14 @@ public class BuffDataUpdater : Buff
     {
         base.OnAttach(caster, target);
         _test();
-        LogManager.Log("添加属性Buff,ID:{0},属性类型{1},原始数据:{2}", _conf.id, _conf.sub_type, _tmp_original);
+        LogManager.Log("添加属性Buff,ID:{0},属性类型{1},原始数据:{2}", vbo.Id, vbo.info.sub_type, _tmp_original);
     }
 
     public override void OnDetach()
     {
         _data_reset();
         LogManager.Log("移除属性Buff,原始{0},结束{0},累加{2}", _tmp_original, _test_data.Value, _cumulative_data);
-        LogManager.Assert(_tmp_original == _test_data.Value, "属性更新结束,结果不相等:{0}", _conf.ToString());
+        LogManager.Assert(_tmp_original == _test_data.Value, "属性更新结束,结果不相等:{0}", vbo.ToString());
         base.OnDetach();
     }
 
@@ -85,7 +85,7 @@ public class BuffDataUpdater : Buff
     // 解析数据
     public void _refresh_param()
     {
-        _param.ParseParam(_conf.param1);
+        _param.ParseParam(vbo.info.param1);
     }
 
     // 更新数值
