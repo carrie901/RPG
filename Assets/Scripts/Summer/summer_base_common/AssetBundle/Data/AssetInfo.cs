@@ -5,7 +5,6 @@ namespace Summer
 {
     public class AssetInfo
     {
-
         //资源对象  
         public Object _object;
         public string _asset_name;
@@ -30,7 +29,8 @@ namespace Summer
         {
             if (_object == null)
             {
-                LogManager.Error("AssetInfo is Error,Info:[{0}]", ToString());
+                LogManager.Error("AssetInfo is Null,Info:[{0}]", ToString());
+                return null;
             }
             T t = _object as T;
             if (t == null)

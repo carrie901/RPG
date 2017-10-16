@@ -44,7 +44,7 @@ namespace Summer
 
         #endregion
 
-        #region virtual SendEvent/Reset/Destory
+        #region virtual Reset/Destory
 
         /// <summary>
         /// 默认自动完成
@@ -62,17 +62,7 @@ namespace Summer
 
         #endregion
 
-        #region Register/UnRegister/Raise
-
-        /*public bool RegisterHandler(E_SkillTriggerEvent key, EventSet<E_SkillTriggerEvent, EventSkillSetData>.EventHandler handler)
-        {
-            return _context._parent_node.RegisterHandler(key, handler);
-        }
-
-        public bool UnRegisterHandler(E_SkillTriggerEvent key, EventSet<E_SkillTriggerEvent, EventSkillSetData>.EventHandler handler)
-        {
-            return _context._parent_node.UnRegisterHandler(key, handler);
-        }*/
+        #region Raise 触发事件
 
         public void RaiseEvent(E_SkillTriggerEvent key, EventSkillSetData obj_info)
         {
