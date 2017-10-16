@@ -11,14 +11,18 @@ namespace Summer
         /// </summary>
         /// <param name="type">力量/耐力/攻击力</param>
         /// <returns></returns>
-        PropertyIntParam FindAttribute(E_CharAttributeType type);
+        AttributeIntParam FindAttribute(E_CharAttributeType type);
 
-        /// <summary>
+        /// <summary`>
         /// 角色数值
         /// </summary>
         /// <param name="type">血量/魔法</param>
         /// <returns></returns>
         float FindValue(E_CharValueType type);
+
+        void ChangeValue(E_CharValueType type, float value);
+
+        void ResetValue(E_CharValueType type, float value);
     }
 }
 

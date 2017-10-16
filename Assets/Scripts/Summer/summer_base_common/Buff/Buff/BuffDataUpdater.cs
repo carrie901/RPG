@@ -22,7 +22,7 @@ public class BuffDataUpdater : Buff
 
     #region test
 
-    public PropertyIntParam _test_data;
+    public AttributeIntParam _test_data;
     public int _tmp_original;
 
     public void _test()
@@ -91,7 +91,7 @@ public class BuffDataUpdater : Buff
     // 更新数值
     public void _data_update()
     {
-        PropertyIntParam param = _target.FindAttribute(_param._region);
+        AttributeIntParam param = _target.FindAttribute(_param._region);
 
         // 1.生成参数
         PropertyEventBuffData property_data = new PropertyEventBuffData()

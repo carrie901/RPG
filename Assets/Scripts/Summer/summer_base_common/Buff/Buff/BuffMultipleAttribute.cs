@@ -13,7 +13,7 @@ namespace Summer
 
         #region test 数据
 
-        public List<PropertyIntParam> _test_datas = new List<PropertyIntParam>();
+        public List<AttributeIntParam> _test_datas = new List<AttributeIntParam>();
         public List<int> _tmp_originals = new List<int>();
 
         public void _test()
@@ -22,7 +22,7 @@ namespace Summer
             int length = _params.Count;
             for (int i = 0; i < length; i++)
             {
-                PropertyIntParam param = _target.FindAttribute(_params[i]._region);
+                AttributeIntParam param = _target.FindAttribute(_params[i]._region);
                 _test_datas.Add(param);
                 _tmp_originals.Add(param.Value);
                 LogManager.Log("属性类型{0},原始数据:{1}", _params[i]._region, param.Value);
@@ -76,7 +76,7 @@ namespace Summer
             {
                 BuffParamData buff_param = _params[i];
                 // 1.找到要更新的属性
-                PropertyIntParam param = _target.FindAttribute(buff_param._region);
+                AttributeIntParam param = _target.FindAttribute(buff_param._region);
                 // 2.根据层级计算属性具体伤害值（如果直接计算层级最终的结果。那么再重新增加层级的时候，进行reset操作，再添加）
                 int result = buff_param._calc_data;
                 // 3.按照百分比/固定值更新属性
@@ -94,7 +94,7 @@ namespace Summer
             for (int i = 0; i < _params.Count; i++)
             {
                 // 1.找到要更新的属性
-                PropertyIntParam param = _target.FindAttribute(_params[i]._region);
+                AttributeIntParam param = _target.FindAttribute(_params[i]._region);
                 // 2.得到之前的累加
                 int result = -_cumulative_datas[i];
                 // 3.按照百分比/固定值更新属性

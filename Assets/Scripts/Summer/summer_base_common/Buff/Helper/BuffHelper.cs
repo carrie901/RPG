@@ -42,7 +42,7 @@ public class BuffHelper
         }
     }
 
-    public static void Calc(PropertyIntParam info, E_CharDataUpdateType type, int param)
+    public static void Calc(AttributeIntParam info, E_CharDataUpdateType type, int param)
     {
         switch (type)
         {
