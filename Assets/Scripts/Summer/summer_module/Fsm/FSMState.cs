@@ -17,7 +17,7 @@ namespace Summer
         public FSMState CheckTransition() //状态转移判断  
         {
             return null;
-        }
+        } 
     }
 }
 

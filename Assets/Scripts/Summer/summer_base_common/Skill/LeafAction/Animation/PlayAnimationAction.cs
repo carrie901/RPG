@@ -7,21 +7,24 @@ namespace Summer
     /// <summary>
     /// 播放动作
     /// </summary>
-    public class PlayAnimationEventSkill : EventSkillSetData
+    public class PlayAnimationEventData : EventSkillSetData
     {
         public string animation_name;
     }
 
+    /// <summary>
+    /// 播放角色动作
+    /// </summary>
     public class PlayAnimationAction : SkillNodeAction
     {
         public const string DES = "播放动作";
         public string animation_name;
-        public PlayAnimationEventSkill _data;
+        public PlayAnimationEventData _data;
         public override void OnEnter()
         {
             LogEnter();
             if (_data == null)
-                _data = EventSkillDataFactory.Push<PlayAnimationEventSkill>();
+                _data = EventSkillDataFactory.Push<PlayAnimationEventData>();
             _data.animation_name = animation_name;
 
             RaiseEvent(E_SkillTriggerEvent.play_effect, _data);
