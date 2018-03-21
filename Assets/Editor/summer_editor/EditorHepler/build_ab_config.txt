@@ -1,0 +1,5 @@
+<AssetBundle>
+	<AssetBundleInfo>
+		path=Assets\Res\GameObjectRes\PrefabObject\Character\Npc
+	</AssetBundleInfo>
+</AssetBundle>
