@@ -4,14 +4,16 @@ namespace SummerEditor
 {
     public abstract class ERect : I_Draw
     {
-        protected Vector2 _size = new Vector2(0, 0);            //大小
-        protected Vector2 _pos = new Vector2(0, 0);             //相对上层坐标
+        protected Vector2 _size = new Vector2(0, 0);                //大小
+        protected Vector2 _pos = new Vector2(0, 0);                 //相对上层坐标
         protected Rect _world_pos = new Rect(0, 0, 50, 30);         //世界坐标
+        protected bool enable = true;
         public string des = "";
         public float Ex { get { return _pos.x; } }
         public float Ey { get { return _pos.y; } }
         public float Ew { get { return _size.x; } }
         public float Eh { get { return _size.y; } }
+        public bool Enabel { get { return enable; } set { enable = value; } }
         public ERect(float width, float height)
         {
             _size.x = width;
@@ -45,7 +47,8 @@ namespace SummerEditor
         public void OnDraw(float parent_x, float parent_y)
         {
             _world_pos = new Rect(parent_x + _pos.x - _size.x / 2, parent_y + _pos.y - _size.y / 2, _size.x, _size.y);
-            _on_draw();
+            if (enable)
+                _on_draw();
         }
 
         public abstract void _on_draw();

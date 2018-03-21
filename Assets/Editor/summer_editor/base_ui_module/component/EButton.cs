@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace SummerEditor
 {
-    public class EButton : ERect
+    public class EButton : ERectItem
     {
         public string text;
         public GUIStyle _gui_style;
@@ -23,7 +23,7 @@ namespace SummerEditor
         public delegate void OnButtonClick(EButton button);
 
         public event OnButtonClick on_click;
-        public override void _on_draw()
+        public override void Draw()
         {
             _result = EView.Button(_world_pos, text, _gui_style);
             if (_result && on_click != null)

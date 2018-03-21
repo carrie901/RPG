@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace SummerEditor
 {
-    public class EBox : ERect
+    public class EBox : ERectItem
     {
         public string text;
         public EBox(float width, float height, string lab) : base(width, height)
@@ -11,7 +11,7 @@ namespace SummerEditor
             text = lab;
         }
 
-        public override void _on_draw()
+        public override void Draw()
         {
             EView.Box(_world_pos, text);
         }

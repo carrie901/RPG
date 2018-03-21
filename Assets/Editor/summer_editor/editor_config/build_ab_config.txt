@@ -1,8 +1,0 @@
-<AssetBundle>
-	<AssetBundleInfo>
-		path=Assets\Raw\Skill
-	</AssetBundleInfo>
-	<AssetBundleInfo>
-		path=Assets\Raw\Other
-	</AssetBundleInfo>
-</AssetBundle>

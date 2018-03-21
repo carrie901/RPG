@@ -8,10 +8,10 @@ namespace SummerEditor
     /// </summary>
     public class EAssetInfoItem : EComponent
     {
-        public ELabel _lab_asset_path;
-        public ELabel _lab_asset_size;
-        public EButton _btn_asset_path;
-        public EButton _btn_asset_ref;
+        public ELabel _lab_asset_path;                  // asset路径
+        public ELabel _lab_asset_size;                  // asset 大小
+        public EButton _btn_asset_path;                 // 依赖的资源
+        public EButton _btn_asset_ref;                  // 引用的资源
         public EabMainVbo _ab_main;
         public EAssetInfoItem(EabMainVbo ab_main) : base(1000, 32)
         {
@@ -49,6 +49,14 @@ namespace SummerEditor
         public void CheckAsset(EButton button)
         {
             EAbAnalysisEvent.Instance.RaiseEvent(E_Editor_Analysis.check_asset, _ab_main);
+        }
+
+        public void SetBgColor(bool value)
+        {
+            if (value)
+                SetBg(70, 70, 70);
+            else
+                SetBg(90, 90, 90);
         }
     }
 }

@@ -5,12 +5,22 @@ namespace SummerEditor
 {
     public delegate void OnToolBarSelect(EToolBar bar);
 
-    public class EToolBar : ERect
+    public class EToolBar : ERectItem
     {
         public string[] _texts;
         public int _text_count = 0;
         public int _select_index = -1;
         public int _last_select = -1;
+
+        public int SelectIndex
+        {
+            get { return _select_index; }
+            set
+            {
+                _select_index = value;
+                _callback();
+            }
+        }
 
         public event OnToolBarSelect on_select;
 
@@ -26,9 +36,14 @@ namespace SummerEditor
             _text_count = _texts.Length;
         }
 
-        public override void _on_draw()
+        public override void Draw()
         {
             _select_index = EView.Toolbar(_world_pos, _select_index, _texts);
+            _callback();
+        }
+
+        public void _callback()
+        {
             if (_last_select != _select_index)
             {
                 if (on_select != null)

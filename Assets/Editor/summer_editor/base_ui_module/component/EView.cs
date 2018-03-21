@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using Object = UnityEngine.Object;
 
 namespace SummerEditor
 {
@@ -12,9 +14,14 @@ namespace SummerEditor
             EditorGUI.LabelField(position, text);
         }
 
+        public static string TextArea(Rect position, string text)
+        {
+           return EditorGUI.TextArea(position, text);
+        }
+
         public static bool Button(Rect position, string text, GUIStyle style)
         {
-            return GUI.Button(position, text, style);
+            return GUI.Button(position, text);
         }
 
         public static bool Toggle(Rect position, bool value, string text)
@@ -29,6 +36,7 @@ namespace SummerEditor
 
         public static void DrawTexture(Rect position, Texture image)
         {
+            if (image == null) return;
             GUI.DrawTexture(position, image);
         }
 
@@ -39,6 +47,22 @@ namespace SummerEditor
         public static Vector2 BeginScrollView(Rect position, Vector2 scroll_position, Rect view_rect)
         {
             return GUI.BeginScrollView(position, scroll_position, view_rect);
+        }
+
+        public static string Input(Rect position, string text)
+        {
+            return GUI.TextField(position, text);
+        }
+
+        public static Object ObjectFiled(Rect position, Object go)
+        {
+            Object game_object = EditorGUI.ObjectField(position, go, typeof(GameObject), false) as GameObject;
+            return game_object;
+        }
+
+        public static Enum EnumPopup(Rect position,System.Enum selected)
+        {
+            return EditorGUI.EnumPopup(position, selected);
         }
 
         public static void EndScrollView()

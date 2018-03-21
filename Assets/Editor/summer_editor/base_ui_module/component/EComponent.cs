@@ -22,7 +22,7 @@ namespace SummerEditor
     {
         public bool show_bg = true;
         protected List<ERect> _childs = new List<ERect>();
-        protected Color bg_color = new Color32(128, 128, 128, 128);
+        protected Color bg_color = new Color32(128, 128, 128, 255);
 
         public EComponent(float width, float height) : base(width, height)
         {
@@ -95,9 +95,9 @@ namespace SummerEditor
             _childs.Add(rect);
         }
         //设置背景
-        public void SetBg(int color_r, int color_g, int color_b, int color_a)
+        public void SetBg(byte color_r, byte color_g, byte color_b)
         {
-            bg_color = new Color(color_r, color_g, color_b, color_a);
+            bg_color = new Color32(color_r, color_g, color_b, 255);
         }
     }
 

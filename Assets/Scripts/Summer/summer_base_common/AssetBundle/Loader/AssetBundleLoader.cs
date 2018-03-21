@@ -77,7 +77,7 @@ namespace Summer
 
             if (asset_target == null)
             {
-                LogManager.Error("找不到对应的资源，地址:{0}", path);
+                ResLog.Error("找不到对应的资源，地址:{0}", path);
                 return null;
             }
 
@@ -101,6 +101,11 @@ namespace Summer
             OabMainLoadOpertion main_ab = new OabMainLoadOpertion(real_path, asset_name, info);
             _load_opertions.Add(main_ab);
             return main_ab;
+        }
+
+        public bool HasInLoading(string name)
+        {
+            return true;
         }
 
         public bool UnloadAll()
@@ -156,7 +161,7 @@ namespace Summer
             // 1.检测是否处于加载状态
             if (on_loading_assetbundles.Contains(assetbundle_name))
             {
-                LogManager.Error("当前资源处于异步加载中.[{0}]", assetbundle_name);
+                ResLog.Error("当前资源处于异步加载中.[{0}]", assetbundle_name);
                 return null;
             }
 
@@ -172,11 +177,12 @@ namespace Summer
                 // 3.2加载的全路径
                 string asset_path = _evn_path + assetbundle_name;
                 // 3.3加载资源
+                //asset_target = AssetBundle.LoadFromFile(asset_path+".ab");	
                 asset_target = AssetBundle.LoadFromFile(asset_path);
             }
             else
             {
-                LogManager.Error("_load_assetbundle/主包资源重复加载.路径:[{0}]", assetbundle_name);
+                ResLog.Error("_load_assetbundle/主包资源重复加载.路径:[{0}]", assetbundle_name);
             }
 
             return asset_target;
@@ -211,7 +217,7 @@ namespace Summer
                 string assetbundle_name = dep_info.Key;
                 int load_count = dep_info.Value;
                 if (load_count == 0)
-                    LogManager.Error("_new_load_dependencies_assetbundle_async Error,[{0}]", assetbundle_name);
+                    ResLog.Error("_new_load_dependencies_assetbundle_async Error,[{0}]", assetbundle_name);
                 if (on_loading_assetbundles.Contains(assetbundle_name))
                 {
                     OabLoadWaitOpertion wait_opertion = new OabLoadWaitOpertion(assetbundle_name, TIME_OUT);
@@ -252,7 +258,7 @@ namespace Summer
                 }
                 else
                 {
-                    LogManager.Error("[{0}]找不到依赖资源[{1}]", assetbundle_name, dep_name);
+                    ResLog.Error("[{0}]找不到依赖资源[{1}]", assetbundle_name, dep_name);
                 }
             }
         }
@@ -266,7 +272,7 @@ namespace Summer
                 return deps;
             }
 
-            LogManager.Error("不可能出现的情况，尼玛居然出现了");
+            ResLog.Error("不可能出现的情况，尼玛居然出现了");
             deps = _mainfest.GetAllDependencies(assetbundle_name);
             return deps;
         }
@@ -278,7 +284,7 @@ namespace Summer
             if (load_assetbundles.TryGetValue(assetbundle_name, out info))
             {
                 info = load_assetbundles[assetbundle_name];
-                LogManager.Error("得到主资源的属性出现，不应该出现,AssetBundle:[{0}]", assetbundle_name);
+                ResLog.Error("得到主资源的属性出现，不应该出现,AssetBundle:[{0}]", assetbundle_name);
             }
             else
             {

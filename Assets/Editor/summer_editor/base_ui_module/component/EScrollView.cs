@@ -45,6 +45,7 @@ namespace SummerEditor
             Debug.LogError("垂直布局，不支持这种添加方式");
         }
 
+        public bool _change_color = false;
         public virtual void AddItem(ERect rect)
         {
             float x = _size.x / 2;

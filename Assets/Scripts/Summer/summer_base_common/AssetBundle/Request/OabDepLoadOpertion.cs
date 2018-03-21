@@ -37,10 +37,10 @@ namespace Summer
 
         public override bool IsDone()
         {
-            if (!_init_complete) return true;
+            if (!_init_complete) return false;
             if (_request == null)
             {
-                LogManager.Error("OabDepLoadOpertion Error,Path:[0]", _bundle_name);
+                ResLog.Error("OabDepLoadOpertion Error,Path:[0]", _bundle_name);
                 return false;
             }
 
@@ -59,7 +59,7 @@ namespace Summer
             if (assetbundle != null)
                 assetbundle.Unload(false);
             else
-                LogManager.Error("OabDepLoadOpertion Error,AssetBundle is null.Path:[0]", _bundle_name);
+                ResLog.Error("OabDepLoadOpertion Error,AssetBundle is null.Path:[0]", _bundle_name);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace SummerEditor
 {
     public class EabBuildMenu
     {
-        [MenuItem("Tool/AssetBundle/4.Build", false, 4)]
+        //[MenuItem("Tool/AssetBundle/4.Build", false, 4)]
         public static void BuildAssetBundle()
         {
             EabBuildTool.BuildAssetBundle();

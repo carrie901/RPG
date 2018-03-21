@@ -2,7 +2,7 @@
 
 namespace SummerEditor
 {
-    public class ELabel : ERect
+    public class ELabel : ERectItem
     {
         public string text;
         public ELabel(float width, string lab) : base(width, 20)
@@ -14,7 +14,7 @@ namespace SummerEditor
             text = lab;
         }
 
-        public override void _on_draw()
+        public override void Draw()
         {
             EView.Label(_world_pos, text);
         }

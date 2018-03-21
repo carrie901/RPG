@@ -9,14 +9,16 @@ namespace Summer
     /// </summary>
     public class OabLoadWaitOpertion : OloadOpertion
     {
-        public float _time_out;
-        public float _load_time = 0;
-        public string _assetbundle_name;
-        public bool _loading = true;            //处于加载中
-        public OabLoadWaitOpertion(string assetbundle_name,float time_out)
+        public float _time_out;                     // 超时时间
+        public float _load_time;                    // 已经加载的时间
+        public string _assetbundle_name;            // 资源的名字
+        public bool _is_complete;                   // 加载完成
+        public OabLoadWaitOpertion(string assetbundle_name, float time_out)
         {
             _assetbundle_name = assetbundle_name;
             _time_out = time_out;
+            _load_time = 0;
+            _is_complete = false;
         }
 
         public override bool Update()
@@ -25,21 +27,21 @@ namespace Summer
             // 1.超时就强制性质完成
             if (_load_time > _time_out)
             {
-                LogManager.Error("OabDepLoadOpertion,超时加载[{0}]", _assetbundle_name);
+                ResLog.Error("OabDepLoadOpertion,超时加载[{0}]", _assetbundle_name);
                 return true;
             }
 
             // 2.处于加载状态
-            _loading = (AssetBundleLoader.instance.ContainsLoadAssetBundles(_assetbundle_name));
+            _is_complete = (AssetBundleLoader.instance.ContainsLoadAssetBundles(_assetbundle_name));
             // 3.如果还出加载状态，返回未完成
-            if (_loading)
+            if (!_is_complete)
                 return false;
             return true;
         }
 
         public override bool IsDone()
         {
-            if (_loading)//处于加载状态 返回没有完成
+            if (!_is_complete)//处于加载状态 返回没有完成
                 return false;
             return true;//已经加载完成了，返回完成
         }
@@ -51,7 +53,7 @@ namespace Summer
 
         public override void UnloadAssetBundle()
         {
-            
+
         }
     }
 }

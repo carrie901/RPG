@@ -18,7 +18,7 @@ namespace Summer
             ResetLength(2.5f);
         }
 
-
+        
         public override void OnUpdate(Vector3 delta_vec)
         {
             Vector3 target_dir = Quaternion.Euler(0, 1f, 0) * delta_vec;

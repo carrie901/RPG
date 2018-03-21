@@ -9,7 +9,7 @@ namespace SummerEditor
     {
         static float t_width = 1800;
         static float t_height = 800;
-        [MenuItem("Tool/Bundle分析界面")]
+        //[MenuItem("Tool/资源检测/Bundle分析界面")]
         public static void ShowWindown()
         {
             BundleAnalysisWin bundleManagerWin = EditorWindow.GetWindow<BundleAnalysisWin>();
@@ -29,22 +29,23 @@ namespace SummerEditor
             _container = new EComponent(t_width, t_height);
             _container.show_bg = false;
             _container.ResetPosition(t_width / 2, t_height / 2);
-            _container.SetBg(0, 0, 0, 1);
+            _container.SetBg(0, 0, 0);
 
-            /* // 主资源信息列表
-             _asset_view = new EAssetBundleListPanel(1000, 500);
-             _container.AddComponent(_asset_view, 10, 10);
-             // 单个资源的详细信息
-             _asset_info_view = new EAssetBundleRefPanel();
-             _container.AddComponent(_asset_info_view);
-             _asset_info_view.SetPositionRight(_asset_view);*/
+            // 主资源信息列表
+            _asset_view = new EAssetBundleListPanel(1000, 500);
+            _container.AddComponent(_asset_view, 10, 10);
+
+            // 单个资源的详细信息
+            _asset_info_view = new EAssetBundleRefPanel();
+            _container.AddComponent(_asset_info_view);
+            _asset_info_view.SetPositionRight(_asset_view);
 
 
-            EToggleBar t = new EToggleBar(50, 30, "AAA");
-            _container.AddComponent(t, 30, 30);
+            //EToggleBar t = new EToggleBar(50, 30, "AAA");
+            //_container.AddComponent(t, 30, 30);
 
-            ELabel t1 = new ELabel(30, 20, "你好");
-            _container.AddComponent(t1, 10, 10);
+            //ELabel t1 = new ELabel(30, 20, "你好");
+            //_container.AddComponent(t1, 10, 10);
             /*_dep_view = new EComponent(730, 260);
             _container.AddComponent(_dep_view);
             _dep_view.SetPositionDown(_asset_view);

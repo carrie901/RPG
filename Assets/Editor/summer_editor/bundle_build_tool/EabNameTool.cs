@@ -9,7 +9,7 @@ namespace SummerEditor
 {
     public class EabNameMenu
     {
-        [MenuItem("Tool/AssetBundle/3.资源命名(剔除1.分析和2.策略)", false, 3)]
+        //[MenuItem("Tool/AssetBundle/3.资源命名(剔除1.分析和2.策略)", false, 3)]
         public static void SetAssetBundleName()
         {
             // 解析配置文件
@@ -62,7 +62,7 @@ namespace SummerEditor
             EditorUtility.DisplayDialog("资源命名结束", "资源命名", "确定");
         }
 
-        [MenuItem("Tool/AssetBundleOther/清除所有AssetBundleName")]
+        //[MenuItem("Tool/AssetBundle/清除所有AssetBundleName", false, 7)]
         public static void ClearAssetBundleName()
         {
             EabNameTool.ClearAllAssetBundleName();
@@ -72,7 +72,7 @@ namespace SummerEditor
         {
             ResMd rm = new ResMd();
             string str_path = "Assets\\Editor\\summer_editor\\editor_config\\build_ab_config.txt";
-            string content = FileHelper.ReadTxtByFile(str_path);
+            string content = FileHelper.ReadAllText(str_path);
             rm.ParseText(content);
             return rm._root_node;
         }
@@ -102,22 +102,22 @@ namespace SummerEditor
         }
         public static void SetAssetBundleName(string full_name)
         {
-            full_name = EditorCommon.AbsoluteToRelativePathRemoveAssets(full_name);
+            full_name = EditorCommonHelper.AbsoluteToRelativePathRemoveAssets(full_name);
             AssetImporter importer = AssetImporter.GetAtPath(full_name);
             if (importer != null)
             {
-                string str = EditorCommon.NormalizeAssetBundle(full_name);
+                string str = EditorCommonHelper.NormalizeAssetBundle(full_name);
                 importer.assetBundleName = str + EXTENSION;
                 importer.SaveAndReimport();
             }
         }
         public static void SetAssetBundleName(string full_name, string asset_bundle_name)
         {
-            full_name = EditorCommon.AbsoluteToRelativePathRemoveAssets(full_name);
+            full_name = EditorCommonHelper.AbsoluteToRelativePathRemoveAssets(full_name);
             AssetImporter importer = AssetImporter.GetAtPath(full_name);
             if (importer != null)
             {
-                string str = EditorCommon.NormalizeAssetBundle(asset_bundle_name);
+                string str = EditorCommonHelper.NormalizeAssetBundle(asset_bundle_name);
                 importer.assetBundleName = str;
                 importer.SaveAndReimport();
             }
@@ -133,7 +133,7 @@ namespace SummerEditor
         }
         public static void ClearAssetBundleName(string full_name)
         {
-            full_name = EditorCommon.AbsoluteToRelativePathRemoveAssets(full_name);
+            full_name = EditorCommonHelper.AbsoluteToRelativePathRemoveAssets(full_name);
             AssetImporter importer = AssetImporter.GetAtPath(full_name);
             if (importer != null)
             {

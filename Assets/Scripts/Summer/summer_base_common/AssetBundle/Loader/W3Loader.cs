@@ -31,6 +31,11 @@ namespace Summer
         {
             throw new NotImplementedException();
         }
+
+        public bool HasInLoading(string name)
+        {
+            return true;
+        }
     }
 }
 

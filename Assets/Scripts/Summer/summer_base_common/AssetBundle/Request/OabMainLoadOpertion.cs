@@ -8,9 +8,9 @@ namespace Summer
     /// </summary>
     public class OabMainLoadOpertion : OloadOpertion
     {
-        public string _bundle_name;
-        public string _asset_name;
-        public AssetBundleRequest _request;
+        public string _bundle_name;             // 打包成ab的名称
+        public string _asset_name;              // 资源的名称
+        public AssetBundleRequest _request;     // AssetBundle的资源加载请求
         public MainBundleInfo _info;
         public AssetBundle _assetbundle;
         public bool _init_complete;
@@ -23,7 +23,6 @@ namespace Summer
 
         public override bool Update()
         {
-            LogManager.Log("------------Update----------------");
             if (_request != null)
                 return false;
 
@@ -45,7 +44,7 @@ namespace Summer
 
             if (_request == null)
             {
-                LogManager.Error("Class OabMainLoadOpertion Error,Path:[0]", _bundle_name);
+                ResLog.Error("Class OabMainLoadOpertion Error,Path:[0]", _bundle_name);
                 return false;
             }
             if (!_info.IsDone())

@@ -5,7 +5,7 @@ namespace SummerEditor
 {
     public delegate void ToggleBarChange(EToggleBar togglebar);
 
-    public class EToggleBar : ERect
+    public class EToggleBar : ERectItem
     {
         public bool select;
         public bool _last_select;
@@ -22,7 +22,7 @@ namespace SummerEditor
             text = lab;
         }
 
-        public override void _on_draw()
+        public override void Draw()
         {
             select = EView.Toggle(_world_pos, select, text);
             if (_last_select == select)

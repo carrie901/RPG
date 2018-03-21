@@ -8,13 +8,13 @@ namespace SummerEditor
 {
     public class EabAnalysisMenu
     {
-        [MenuItem("Tool/资源检测/开始分析")]
+        //[MenuItem("Tool/资源检测/开始分析")]
         public static void AnalysisDirectory()
         {
             EabAnalysisTool.AnalysisDirectory();
         }
 
-        [MenuItem("Tool/资源检测/导出结果")]
+        //[MenuItem("Tool/资源检测/导出结果")]
         public static void ExportResult()
         {
             EabAnalysisTool.ExportResult();
@@ -30,7 +30,8 @@ namespace SummerEditor
         {
             _main_ab_map.Clear();
             _dep_ab_map.Clear();
-            string path = "E:\\work_three\\trunk\\Threecountry\\Assets\\Resources\\GameObjectRes\\PrefabObject\\Character\\NPC";
+            //E:\\work_three\\trunk\\Threecountry\\
+            string path = Application.dataPath + "\\Resources\\GameObjectRes\\PrefabObject\\Character\\NPC";
             DirectoryInfo dir_info = new DirectoryInfo(path);
 
             //遍历所有文件夹
@@ -39,11 +40,16 @@ namespace SummerEditor
                 string str = d.ToString();
             }
 
+            FileInfo[] files = dir_info.GetFiles();
+            int length = files.Length;
             //遍历所有子文件
-            foreach (FileInfo f in dir_info.GetFiles()) //查找文件  
+            for (int i = 0; i < length; i++)
             {
-                _analysis_file(f);
+                //查找文件  
+                EditorUtility.DisplayProgressBar("分析文件", files[i].Name, (float)i / length);
+                _analysis_file(files[i]);
             }
+            EditorUtility.ClearProgressBar();
         }
 
         public static void ExportResult()
@@ -95,7 +101,7 @@ namespace SummerEditor
             if (extension == ".meta") return;
             Debug.Log("解析文件路径:" + path);
             EabMainVbo main_ab;
-            path = EditorCommon.AbsoluteToRelativePathRemoveAssets(path);
+            path = EditorCommonHelper.AbsoluteToRelativePathRemoveAssets(path);
             if (_main_ab_map.TryGetValue(path, out main_ab))
             {
                 Debug.Log(string.Format("已经分析过这个资源了,Path:[{0}]", path));

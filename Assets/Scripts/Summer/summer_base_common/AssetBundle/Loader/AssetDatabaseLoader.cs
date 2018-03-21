@@ -22,9 +22,14 @@ namespace Summer
 
         public OloadOpertion LoadAssetAsync(string path)
         {
-            OlocalLoadOpertion load_local = new OlocalLoadOpertion(EVN + path);
-            _load_opertions.Add(load_local);
-            return load_local;
+            LocalAsynOpertion asyn_local = new LocalAsynOpertion(EVN + path);
+            _load_opertions.Add(asyn_local);
+            return asyn_local;
+        }
+
+        public bool HasInLoading(string name)
+        {
+            return true;
         }
 
         public bool UnloadAll()

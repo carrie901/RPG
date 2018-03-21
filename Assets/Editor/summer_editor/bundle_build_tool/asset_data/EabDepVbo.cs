@@ -5,8 +5,6 @@ using UnityEditor;
 
 namespace SummerEditor
 {
-
-
     public class EabDepVbo
     {
         public string asset_name;
@@ -60,10 +58,6 @@ namespace SummerEditor
             size = (float)tsize / 1024;
             Debug.Log("依赖资源:" + asset_name + "内存占用:  " + size + "kb");
         }
-
-
-
-
     }
 }
 

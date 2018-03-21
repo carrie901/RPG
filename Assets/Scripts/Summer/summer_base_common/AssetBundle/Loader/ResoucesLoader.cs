@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -9,9 +7,11 @@ namespace Summer
     public class ResoucesLoader : I_ResourceLoad
     {
         public static ResoucesLoader instance = new ResoucesLoader();
-        public List<OloadOpertion> _load_opertions                                  //加载的请求
-          = new List<OloadOpertion>(32);
+        public List<ResAsynLoadOpertion> _load_opertions                                  //加载的请求
+          = new List<ResAsynLoadOpertion>(32);
 
+        public Dictionary<string, int> _loading =
+            new Dictionary<string, int>();
         #region I_ResourceLoad
 
         public Object LoadAsset(string path)
@@ -21,14 +21,13 @@ namespace Summer
 
         public OloadOpertion LoadAssetAsync(string path)
         {
-            OresLoadOpertion res_opertion = new OresLoadOpertion(path);
-            _load_opertions.Add(res_opertion);
+            ResAsynLoadOpertion res_opertion = AddRequest(path);
             return res_opertion;
         }
 
-        public bool UnloadAll()
+        public bool HasInLoading(string res_path)
         {
-            return true;
+            return _loading.ContainsKey(res_path);
         }
 
         public bool UnloadAssetBundle(string assetbundle_path)
@@ -43,9 +42,27 @@ namespace Summer
             {
                 if (_load_opertions[i].Update())
                 {
-                    _load_opertions.RemoveAt(i);
+                    RemoveRequest(_load_opertions[i]);
                 }
             }
+        }
+
+        #endregion
+
+        #region private 
+
+        protected ResAsynLoadOpertion AddRequest(string res_path)
+        {
+            ResAsynLoadOpertion res_opertion = new ResAsynLoadOpertion(res_path);
+            _load_opertions.Add(res_opertion);
+            _loading.Add(res_path, 1);
+            return res_opertion;
+        }
+
+        protected void RemoveRequest(ResAsynLoadOpertion opertion)
+        {
+            _load_opertions.Remove(opertion);
+            _loading.Remove(opertion.Path);
         }
 
         #endregion

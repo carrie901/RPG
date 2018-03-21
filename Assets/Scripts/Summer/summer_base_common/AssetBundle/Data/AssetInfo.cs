@@ -1,5 +1,4 @@
-﻿using System;
-using Object = UnityEngine.Object;
+﻿using Object = UnityEngine.Object;
 
 namespace Summer
 {
@@ -9,7 +8,8 @@ namespace Summer
         public Object _object;
         public string _asset_name;
         //资源类型  
-        public E_GameResType AssetType { get; private set; }
+        public E_GameResType GameResType { get; private set; }
+        public E_AssetType AssetType { get; private set; }
         //路径  
         public string Path { get; set; }
         //名字
@@ -18,31 +18,22 @@ namespace Summer
         //读取次数  
         public int RefCount { get; set; }
 
-        public AssetInfo(Object obj, string asset_name, E_GameResType asset_type)
+        public AssetInfo(Object obj, string asset_name, E_GameResType game_res_type)
         {
-            AssetType = asset_type;
+            GameResType = game_res_type;
             _object = obj;
             _asset_name = asset_name;
+            AssetType = E_AssetType.none;
         }
 
         public T GetAsset<T>() where T : Object
         {
-            if (_object == null)
-            {
-                LogManager.Error("AssetInfo is Null,Info:[{0}]", ToString());
-                return null;
-            }
             T t = _object as T;
             if (t == null)
             {
-                LogManager.Error("AssetInfo is Error,Info:[{0}]", ToString());
+                ResLog.Error("AssetInfo is Error,Info:[{0}],GameResType:[{1}]", Name, GameResType);
             }
             return t;
-        }
-
-        public override string ToString()
-        {
-            return string.Format("Name:[{0}],AssetType:[{1}]", Name, AssetType);
         }
 
         public string get_load_info()

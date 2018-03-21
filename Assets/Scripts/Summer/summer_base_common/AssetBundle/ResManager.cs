@@ -12,17 +12,13 @@ using Object = UnityEngine.Object;
 public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
 {
     public static ResManager instance = new ResManager();
-    public Texture _bg_loading;
+    public Texture _bg_loading;                                     // 异步加载时的图片资源
     public Dictionary<E_GameResType, Dictionary<string, AssetInfo>> _map_res =
         new Dictionary<E_GameResType, Dictionary<string, AssetInfo>>();
 
-    public List<OloadOpertion> _load_opertions = new List<OloadOpertion>(16);
-
-    public static int max_async_count = 10;
-    public int curr_async_index = 0;
-
-    protected List<string> on_loading_res //加载中的资源
-            = new List<string>();
+    protected List<string> _on_loading_res = new List<string>();    // 加载中的资源
+    public static int max_async_count = 5;                          // 异步最大加载的数量
+    public int curr_async_index;                                    // 当前异步加载的数量
 
     public I_ResourceLoad _loader;
 
@@ -42,7 +38,6 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
         // 1.LOCAL 本地加载做研发用
         _loader = ResoucesLoader.instance;
         _init();
-
     }
 
     #region 引用计数
@@ -66,9 +61,27 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
              LogManager.Error("");*/
     }
 
+    public RefCounter _internal_ref_increase(string name, E_GameResType res_type, GameObject obj)
+    {
+        RefCounter counter = obj.GetComponent<RefCounter>();
+        if (counter == null)
+            counter = obj.AddComponent<RefCounter>();
+
+        counter.AddRef(name, res_type);
+        return counter;
+    }
+
+    public RefCounter _internal_ref_decrease(GameObject obj)
+    {
+        RefCounter counter = obj.GetComponent<RefCounter>();
+        if (counter != null)
+            counter.RemoveRef();
+        return counter;
+    }
+
     #endregion
 
-    #region Load
+    #region 基础的Load
 
     public T LoadAsset<T>(string name, E_GameResType res_type) where T : Object
     {
@@ -86,19 +99,19 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
         if (asset_info != null)
             return asset_info.GetAsset<T>();
 
-        LogManager.Error("找不到对应的资源，名字:[{0}],资源类型[{1}]", name, res_type);
+        ResLog.Error("找不到对应的资源，名字:[{0}],资源类型[{1}]", name, res_type);
         return null;
     }
 
-    public void LoadAssetAsync<T>(string name, E_GameResType res_type, Action<T> callback) where T : Object
+    public void LoadAssetAsync<T>(string name, E_GameResType res_type, Action<T> callback, Action<T> default_callback = null) where T : Object
     {
         // 1.优先从缓存中提取资源信息
-        bool result = _callback_asset_by_cache(name, res_type, callback);
+        bool result = _callback_asset_by_cache(name, res_type, callback, default_callback);
         if (result)
             return;
 
         // 2.得到真实路径
-        StartCoroutineManager.Start(_internal_load_asset_async(name, res_type, callback));
+        StartCoroutineManager.Start(_internal_load_asset_async(name, res_type, callback, default_callback));
     }
 
     public bool UnloadAll(E_GameResType res_type)
@@ -113,7 +126,7 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
 
     public void Update()
     {
-        int length = _load_opertions.Count - 1;
+        /*int length = _load_opertions.Count - 1;
         for (int i = length; i >= 0; i--)
         {
             if (!_load_opertions[i].Update())
@@ -122,39 +135,57 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
             }
         }
 
+        */
         if (_loader != null)
             _loader.Update();
     }
 
     #endregion
 
+    #region Load类型 Texture Audio Animation GameObject 
+
     #region Texture图片加载
 
     public Texture LoadTexture(RawImage img, string name, E_GameResType res_type)
     {
+        GameObject obj = img.gameObject;
+        _internal_ref_decrease(obj);
+
         img.texture = _bg_loading;
         Texture texture = LoadAsset<Texture>(name, res_type);
+
         if (texture != null)
         {
             img.texture = texture;
+
+            _internal_ref_increase(name, res_type, obj);
+
         }
         return texture;
     }
 
-    public void LoadTextureAsync(RawImage img, string name, E_GameResType res_type, Action<Texture> callback)
+    public void LoadTextureAsync(RawImage img, string name, E_GameResType res_type, Action<Texture> callback = null)
     {
+        ResLog.Log("name:{0},res_type:{1}", name, res_type);
+        GameObject obj = img.gameObject;
+        _internal_ref_decrease(obj);
+
         img.texture = _bg_loading;
-        Action<Texture> action = delegate (Texture texture)
+        Action<Texture> default_callback = delegate (Texture texture)
         {
             if (texture != null)
             {
                 img.texture = texture;
-                img.SetNativeSize();
+                //img.SetNativeSize();
+                _internal_ref_increase(name, res_type, img.gameObject);
             }
-            if (callback != null)
-                callback.Invoke(texture);
         };
-        LoadAssetAsync(name, res_type, action);
+        LoadAssetAsync(name, res_type, callback, default_callback);
+    }
+
+    public void ResetDefaultTexture(RawImage img)
+    {
+        img.texture = _bg_loading;
     }
 
     #endregion
@@ -163,6 +194,7 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
 
     public AudioClip LoadAudio(AudioSource audio_source, string name, E_GameResType res_type)
     {
+        if (audio_source == null) return null;
         AudioClip audio = LoadAsset<AudioClip>(name, res_type);
         if (audio != null)
         {
@@ -171,9 +203,10 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
         return audio;
     }
 
+
     public void LoadAudioAsync(AudioSource audio_source, string name, E_GameResType res_type, Action<AudioClip> complete)
     {
-
+        if (audio_source == null) return;
         Action<AudioClip> action = delegate (AudioClip audio_clip)
         {
             audio_source.clip = audio_clip;
@@ -183,9 +216,10 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
         LoadAssetAsync(name, res_type, action);
     }
 
+
     #endregion
 
-    #region animation
+    #region Animation
 
     #endregion
 
@@ -193,51 +227,66 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
 
     public GameObject LoadPrefab(string name, E_GameResType res_type)
     {
-        GameObject game_object = LoadAsset<GameObject>(name, res_type);
-        return game_object;
+        GameObject prefab_gameobj = LoadAsset<GameObject>(name, res_type);
+        GameObject instantiste_gameobj = GameObjectHelper.Instantiate(prefab_gameobj);
+        return instantiste_gameobj;
     }
 
     public void LoadPrefabAsync(string name, E_GameResType res_type, Action<GameObject> complete)
     {
         Action<GameObject> action = delegate (GameObject game_object)
         {
+            GameObject instantiste_gameobj = GameObjectHelper.Instantiate(game_object);
             if (complete != null)
-                complete.Invoke(game_object);
+                complete.Invoke(instantiste_gameobj);
         };
         LoadAssetAsync(name, res_type, action);
     }
 
     #endregion
 
-    #region byte[]
+    #region bytes
 
-    // 独立加载的信息
-    public byte[] LoadByte(string name, E_GameResType res_type)
+    public string LoadText(string name, E_GameResType res_type = E_GameResType.quanming)
+    {
+        TextAsset text_asset = LoadAsset<TextAsset>(name, res_type);
+        return text_asset.text;
+    }
+
+    public byte[] LoadByte(string name, E_GameResType res_type = E_GameResType.quanming)
     {
         TextAsset text_asset = LoadAsset<TextAsset>(name, res_type);
         return text_asset.bytes;
     }
 
-    public void LoadByteAsync(string name, E_GameResType res_type, Action<TextAsset> callback)
-    {
-        LoadAssetAsync(name, res_type, callback);
-    }
+    #endregion
 
     #endregion
 
     #region public
+
     public bool ContainsRes(string assetbundle_name)
     {
-        return on_loading_res.Contains(assetbundle_name);
+        return _on_loading_res.Contains(assetbundle_name);
     }
+
     #endregion
+
+    #region private
+
+    public void _init()
+    {
+        _bg_loading = Resources.Load<Texture>("default/bg_loading");
+        if (_bg_loading == null)
+            ResLog.Error("找不到默认的图片信息");
+    }
 
     #region internal Loader
 
     public void _internal_load_asset(string name, E_GameResType res_type)
     {
         // 1.确定路径
-        string real_path = ResPathManager.find_path(res_type, name);
+        string real_path = ResPathManager.FindPath(res_type, name);
         float time = Time.realtimeSinceStartup;
         // 2.加载资源
         Object obj = _loader.LoadAsset(real_path);
@@ -251,27 +300,38 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
         }
         else
         {
-            LogManager.Error("找不到对应的资源，路径:[{0}]", real_path);
+            ResLog.Error("找不到对应的资源，路径:[{0}]", real_path);
         }
     }
 
-    public IEnumerator _internal_load_asset_async<T>(string name, E_GameResType res_type, Action<T> callback) where T : Object
+    public IEnumerator _internal_load_asset_async<T>(string name, E_GameResType res_type, Action<T> callback, Action<T> default_callback = null) where T : Object
     {
-        yield return null;
         // 1.得到路径
-        string assetbundle_name = ResPathManager.find_path(res_type, name);
-        curr_async_index++;
+        string assetbundle_name = ResPathManager.FindPath(res_type, name);
         // 2.检测是否处于加载中
-        if (on_loading_res.Contains(assetbundle_name))
+        if (_on_loading_res.Contains(assetbundle_name))
         {
             // 3.等待加载
-            OabLoadWaitOpertion wait_opertion = new OabLoadWaitOpertion(assetbundle_name, 120f);
-            _load_opertions.Add(wait_opertion);
-            yield return wait_opertion;
-
+            float time_out = 60f;
+            float load_time = 0f;
+            while (_on_loading_res.Contains(assetbundle_name))
+            {
+                load_time += Time.deltaTime;
+                if (load_time > time_out)
+                {
+                    ResLog.Error("超时加载：{0}", assetbundle_name);
+                    break;
+                }
+                yield return null;
+            }
         }
         else
         {
+            //while (curr_async_index > max_async_count)
+            //    yield return null;
+
+            curr_async_index++;
+            _on_loading_res.Add(assetbundle_name);
             // 4.请求异步加载
             float time = Time.realtimeSinceStartup;
             OloadOpertion load_opertion = _loader.LoadAssetAsync(assetbundle_name);
@@ -285,21 +345,15 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
             load_opertion.UnloadAssetBundle();
             // 7.t推送到内存中
             _push_asset_to_cache(asset_info);
+            _on_loading_res.Remove(assetbundle_name);
+            curr_async_index--;
         }
-        bool result = _callback_asset_by_cache(name, res_type, callback);
+        bool result = _callback_asset_by_cache(name, res_type, callback, default_callback);
         if (!result)
-            LogManager.Error("加载中...资源错误,path:[{0}]", name);
+            ResLog.Error("加载中...资源错误,path:[{0}]", name);
     }
 
     #endregion
-
-    #region private
-    public void _init()
-    {
-        _bg_loading = Resources.Load<Texture>("default/bg_loading");
-        if (_bg_loading == null)
-            LogManager.Error("找不到默认的图片信息");
-    }
 
     //从缓存中得到
     public AssetInfo _pop_asset_for_cache(string name, E_GameResType res_type)
@@ -323,7 +377,7 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
     //放到缓存中
     public bool _push_asset_to_cache(AssetInfo asset_info)
     {
-        E_GameResType res_type = asset_info.AssetType;
+        E_GameResType res_type = asset_info.GameResType;
         string asset_name = asset_info.Name;
         Dictionary<string, AssetInfo> map_assets;
         // 1.根据资源类型和名字找到对应的cache
@@ -347,13 +401,16 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
         return true;
     }
 
-    public bool _callback_asset_by_cache<T>(string name, E_GameResType res_type, Action<T> callback) where T : Object
+    public bool _callback_asset_by_cache<T>(string name, E_GameResType res_type, Action<T> callback, Action<T> default_callback = null) where T : Object
     {
         AssetInfo asset_info = _pop_asset_for_cache(name, res_type);
-        if (asset_info != null)
+        if (asset_info != null/*&& asset_info.HasAsset()*/)
         {
             T t = asset_info.GetAsset<T>();
-            callback.Invoke(t);
+            if (callback != null)
+                callback.Invoke(t);
+            if (default_callback != null)
+                default_callback.Invoke(t);
             return true;
         }
         return false;
@@ -361,4 +418,47 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
 
     #endregion
 
+}
+
+
+public class ResLog
+{
+    #region Log
+    public static void Log(string message)
+    {
+        if (!LogManager.open_load_res) return;
+        LogManager.Log(message);
+    }
+
+    public static void Log(string message, params object[] args)
+    {
+        if (!LogManager.open_load_res) return;
+        LogManager.Log(message, args);
+    }
+
+    public static void Error(string message)
+    {
+        if (!LogManager.open_load_res) return;
+        LogManager.Error(message);
+    }
+
+    public static void Error(string message, params object[] args)
+    {
+        if (!LogManager.open_load_res) return;
+        LogManager.Error(message, args);
+    }
+
+    public static void Assert(bool condition, string message)
+    {
+        if (!LogManager.open_load_res) return;
+        LogManager.Assert(condition, message);
+    }
+
+    public static void Assert(bool condition, string message, params object[] args)
+    {
+        if (!LogManager.open_load_res) return;
+        LogManager.Assert(condition, message, args);
+    }
+
+    #endregion
 }

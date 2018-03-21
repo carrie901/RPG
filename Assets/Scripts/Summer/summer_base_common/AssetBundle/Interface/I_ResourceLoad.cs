@@ -7,20 +7,26 @@ namespace Summer
 {
     public interface I_ResourceLoad
     {
+        /// <summary>
+        /// 同步加载
+        /// </summary>
         Object LoadAsset(string path);
 
         //Object[] LoadAssetAll(string path);
 
+        /// <summary>
+        /// 异步加载
+        /// </summary>
         OloadOpertion LoadAssetAsync(string path);
 
-        //void LoadAssetAllAsync(string path, Action<Object> callback);
-
-        bool UnloadAll();
+        /// <summary>
+        /// 处于加载中
+        /// </summary>
+        bool HasInLoading(string name);
 
         bool UnloadAssetBundle(string assetbundle_path);
 
         void Update();
-
     }
 
     public interface I_TextureLoad

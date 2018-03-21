@@ -34,6 +34,7 @@ namespace Summer
         // 按下
         public void OnPointerDown(PointerEventData event_data)
         {
+            Debug.Log("event_data.OnPointerDown:" + event_data.position);
             inner_circle_trans.position = event_data.position;
             if (on_joystick_down_event != null)
                 on_joystick_down_event(inner_circle_trans.localPosition / outer_circle_radius);
@@ -42,6 +43,7 @@ namespace Summer
         // 抬起
         public void OnPointerUp(PointerEventData event_data)
         {
+            Debug.Log("event_data.OnPointerUp:" + event_data.position);
             inner_circle_trans.localPosition = Vector3.zero;
             if (on_joystick_up_event != null)
                 on_joystick_up_event();
