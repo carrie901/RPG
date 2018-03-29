@@ -107,7 +107,7 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 20c5a8d5fe8ca3046b588228ef3729be, type: 2}
 --- !u!1 &38035055
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,13 +192,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 38035055}
-  m_LocalRotation: {x: 0.4027467, y: 0, z: 0, w: 0.91531146}
-  m_LocalPosition: {x: 0, y: 15, z: -14.7}
+  m_LocalRotation: {x: 0.2389571, y: 0, z: 0, w: 0.9710302}
+  m_LocalPosition: {x: -4.47, y: 2.94, z: -7.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 47.5, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 27.65, y: 0, z: 0}
 --- !u!114 &38035061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,7 +347,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400050, guid: 8a91a7e42913be24787abae169211582, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -4.58
+      value: -6.15
       objectReference: {fileID: 0}
     - target: {fileID: 400050, guid: 8a91a7e42913be24787abae169211582, type: 2}
       propertyPath: m_LocalPosition.y
@@ -379,7 +379,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100050, guid: 8a91a7e42913be24787abae169211582, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114141678265876960, guid: 8a91a7e42913be24787abae169211582,
         type: 2}
@@ -400,7 +400,6 @@ GameObject:
   - component: {fileID: 555414131}
   - component: {fileID: 555414130}
   - component: {fileID: 555414132}
-  - component: {fileID: 555414133}
   m_Layer: 5
   m_Name: SkillJoystick
   m_TagString: Untagged
@@ -472,24 +471,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outer_circle_radius: 107.5
---- !u!114 &555414133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 555414128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e29ef13bd5ff58449f1a1f1e30a2a68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pfb_circle: {fileID: 0}
-  pfb_cube: {fileID: 0}
-  pfb_sector_60: {fileID: 0}
-  pfb_sector_120: {fileID: 0}
-  joystick: {fileID: 555414132}
-  curr_element: {fileID: 0}
-  _owner: {fileID: 861346714}
+  thumb: {fileID: 1022771124}
+  is_on_drag: 0
 --- !u!1 &758190709
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,8 +598,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25606a53a13b2e440b8f9e17e4639332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _last_time: 0
-  test: 0
 --- !u!1 &1022771123
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,7 +675,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1114950003}
   - component: {fileID: 1114950002}
-  - component: {fileID: 1114950001}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -702,17 +682,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1114950001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1114950000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99131781cbc3d8642b3b915edd027514, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &1114950002
 Light:
   m_ObjectHideFlags: 0
@@ -839,8 +808,8 @@ GameObject:
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &1511944278
 MeshRenderer:
@@ -922,7 +891,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &1829974306
 MeshRenderer:

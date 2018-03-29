@@ -51,19 +51,19 @@ namespace Summer
 
         public void Register()
         {
-            joystick.on_joystick_down_event += OnJoystickDownEvent;
-            joystick.on_joystick_move_event += OnJoystickMoveEvent;
-            joystick.on_joystick_up_event += OnJoystickUpEvent;
+            joystick.on_down_event += OnJoystickDownEvent;
+            joystick.on_move_event += OnJoystickMoveEvent;
+            joystick.on_up_event += OnJoystickUpEvent;
         }
 
         public void UnRegister()
         {
             // ReSharper disable once DelegateSubtraction
-            joystick.on_joystick_down_event -= OnJoystickDownEvent;
+            joystick.on_down_event -= OnJoystickDownEvent;
             // ReSharper disable once DelegateSubtraction
-            joystick.on_joystick_move_event -= OnJoystickMoveEvent;
+            joystick.on_move_event -= OnJoystickMoveEvent;
             // ReSharper disable once DelegateSubtraction
-            joystick.on_joystick_up_event -= OnJoystickUpEvent;
+            joystick.on_up_event -= OnJoystickUpEvent;
         }
 
         #endregion 
@@ -81,10 +81,10 @@ namespace Summer
             _delta_vec = new Vector3(delta_vec.x, 0, delta_vec.y);
         }
 
-        private void OnJoystickDownEvent(Vector2 delta_vec)
+        private void OnJoystickDownEvent()
         {
             _is_pressed = true;
-            _delta_vec = new Vector3(delta_vec.x, 0, delta_vec.y);
+            //_delta_vec = new Vector3(delta_vec.x, 0, delta_vec.y);
         }
         #endregion
 
