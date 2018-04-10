@@ -12,22 +12,17 @@ namespace Summer
 
         public bool _reach_target_pos;                                  // 达到目的地
 
-        //public Vector3 move_velocity = Vector3.one;             // 当前速度
+        //public Vector3 move_velocity = Vector3.one;                   // 当前速度
         public Vector3 move_direction;                                  // 目标方向
         public float turnspeed = 10;
         public Transform trans;
 
         public Transform cube_tran;
         public UnityEngine.AI.NavMeshPath nav_path = new UnityEngine.AI.NavMeshPath();
+
         #endregion
 
         #region 构造
-
-        /*public MovementComponent(Transform tran)
-        {
-            trans = tran;
-            MovementManager.AddComponent(this);
-        }*/
 
         private void Awake()
         {
@@ -109,7 +104,6 @@ namespace Summer
         public void RemoveDirection()
         {
             move_direction = Vector3.zero;
-            //move_velocity = Vector3.zero;
             _reach_target_pos = false;
         }
 

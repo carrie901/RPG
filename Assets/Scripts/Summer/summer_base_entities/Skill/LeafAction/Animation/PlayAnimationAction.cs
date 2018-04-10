@@ -27,7 +27,7 @@ namespace Summer
                 _data = EventSkillDataFactory.Push<PlayAnimationEventData>();
             _data.animation_name = animation_name;
 
-            RaiseEvent(E_SkillTriggerEvent.play_effect, _data);
+            RaiseEvent(E_SkillTriggerEvent.play_animation, _data);
             Finish();
         }
 
