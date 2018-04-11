@@ -6,8 +6,10 @@ namespace Summer
     public class SkillContainer : MonoBehaviour
     {
         public Dictionary<int, SkillSequence> _skill_map
-            = new Dictionary<int, SkillSequence>(8);                    // SkillNode cur_state;
-        public SkillSequence _curr_sequen;                              // 当前序列
+            = new Dictionary<int, SkillSequence>(8);                                        // SkillNode cur_state;
+        public SkillSequence _curr_sequen;                                                  // 当前序列
+        public EventSet<E_SkillSequenceTrigger, EventSkillSequenceData> _skill_event_set
+           = new EventSet<E_SkillSequenceTrigger, EventSkillSequenceData>();
 
         public float _last_time;                                        // 
         public bool test;
@@ -43,13 +45,6 @@ namespace Summer
 
         #endregion
 
-        public void Add(int id)
-        {
-
-        }
-
-        public void Remove(int id) { }
-
         public void CastSkill(int id)
         {
             _last_time = TimeManager.DeltaTime;
@@ -63,6 +58,25 @@ namespace Summer
             if (_curr_sequen != null)
                 _curr_sequen.ReceiveWithOutEvent(transition_event);
         }
+
+        #region 角色注册事件，内部子节点触发事件
+
+        public bool RegisterHandler(E_SkillSequenceTrigger key, EventSet<E_SkillSequenceTrigger, EventSkillSequenceData>.EventHandler handler)
+        {
+            return _skill_event_set.RegisterHandler(key, handler);
+        }
+
+        public bool UnRegisterHandler(E_SkillSequenceTrigger key, EventSet<E_SkillSequenceTrigger, EventSkillSequenceData>.EventHandler handler)
+        {
+            return _skill_event_set.UnRegisterHandler(key, handler);
+        }
+
+        public void RaiseEvent(E_SkillSequenceTrigger key, EventSkillSequenceData obj_info)
+        {
+            _skill_event_set.RaiseEvent(key, obj_info, false);
+        }
+
+        #endregion
     }
 
 

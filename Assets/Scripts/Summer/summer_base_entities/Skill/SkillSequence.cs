@@ -110,8 +110,7 @@ namespace Summer
         public List<SkillNode> _childnodes = new List<SkillNode>(16);                   // 子节点
         public bool _is_complete;                                                       // 是否结束序列节点
         public string des = string.Empty;                                               // 文本说明
-        public EventSet<E_SkillSequenceTrigger, EventSkillSequenceData> _skill_event_set
-            = new EventSet<E_SkillSequenceTrigger, EventSkillSequenceData>();
+        public SkillContainer _container;                                               // 属于哪一个容器
         #endregion
 
         #region 构造
@@ -180,25 +179,6 @@ namespace Summer
             state.SetParent(this);
         }
 
-        #region 角色注册事件，内部子节点触发事件
-
-        public bool RegisterHandler(E_SkillSequenceTrigger key, EventSet<E_SkillSequenceTrigger, EventSkillSequenceData>.EventHandler handler)
-        {
-            return _skill_event_set.RegisterHandler(key, handler);
-        }
-
-        public bool UnRegisterHandler(E_SkillSequenceTrigger key, EventSet<E_SkillSequenceTrigger, EventSkillSequenceData>.EventHandler handler)
-        {
-            return _skill_event_set.UnRegisterHandler(key, handler);
-        }
-
-        public void RaiseEvent(E_SkillSequenceTrigger key, EventSkillSequenceData obj_info)
-        {
-            _skill_event_set.RaiseEvent(key, obj_info, false);
-        }
-
-        #endregion
-
         #endregion
 
         #region private 
@@ -237,7 +217,7 @@ namespace Summer
             int length = _childnodes.Count;
             for (int i = 0; i < length; i++)
             {
-                _childnodes[i].OnReset();
+                _childnodes[i].Reset();
             }
         }
 

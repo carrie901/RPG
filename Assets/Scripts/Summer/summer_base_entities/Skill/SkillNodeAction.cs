@@ -63,7 +63,7 @@ namespace Summer
 
         public void RaiseEvent(E_SkillSequenceTrigger key, EventSkillSequenceData obj_info)
         {
-            _context._parent_node.RaiseEvent(key, obj_info);
+            _context._parent_node._container.RaiseEvent(key, obj_info);
         }
 
         #endregion
