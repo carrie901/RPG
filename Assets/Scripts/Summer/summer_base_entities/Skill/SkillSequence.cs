@@ -111,6 +111,7 @@ namespace Summer
         public bool _is_complete;                                                       // 是否结束序列节点
         public string des = string.Empty;                                               // 文本说明
         public SkillContainer _container;                                               // 属于哪一个容器
+
         #endregion
 
         #region 构造

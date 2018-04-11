@@ -20,7 +20,7 @@ namespace Summer
 
         protected int _id;                                                      // 声音的ID
         protected bool _pause;                                                  // 暂停
-        protected SoundObj _sound_info;                                         // 声音的table数据
+        protected SoundCnf _sound_info;                                         // 声音的table数据
         protected float _length;
         protected Transform _follow_target;                                     // 跟随目标
         protected bool _is_follow_target;                                       // 是否跟随目标
@@ -74,7 +74,7 @@ namespace Summer
                 audio_source.Stop();
         }
 
-        public void Play(SoundObj info, float volume_rate = 1f, float fade_in = 0f, float fade_out = 0f)
+        public void Play(SoundCnf info, float volume_rate = 1f, float fade_in = 0f, float fade_out = 0f)
         {
 
             if (audio_source == null)
@@ -191,7 +191,5 @@ namespace Summer
 
         #endregion
     }
-
-    
 }
 

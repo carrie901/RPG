@@ -35,6 +35,22 @@ public class SoundManager : MonoBehaviour
 
     #endregion
 
+    #region Csv表格数据
+
+    public Dictionary<int, E_GameResType> _sound_type
+        = new Dictionary<int, E_GameResType>();                                     // key = （BGM,Voice,Sound）
+    private Dictionary<int, SoundCnf> _sound_map_id;                                // 原始数据 csv表格声音数据 key=sound_Id，value=声音信息
+    private Dictionary<string, SoundCnf> _sound_map_name;                           // 根据原始数据进行转换 csv表格声音数据 key=sound_name，value=声音信息
+
+    #endregion
+
+    #region Bgm数据
+
+    public int _prev_bgm = -1;
+    public AudioUnit _bgm_unit;                             // Bgm 唯一
+
+    #endregion
+
     #region 本地保存变量 PlayerPrefs 声音的开关和音量
 
     public const string KEY_SOUND_VOLUME = "KEY_SOUND_VOLUME";
@@ -45,21 +61,6 @@ public class SoundManager : MonoBehaviour
 
     #endregion
 
-    #region table表格数据
-
-    public Dictionary<int, E_GameResType> _sound_type
-        = new Dictionary<int, E_GameResType>();
-    private Dictionary<int, SoundObj> _sound_map_id;                                // table表格声音数据 key=sound_Id，value=声音信息
-    private Dictionary<string, SoundObj> _sound_map_name;                           // table表格声音数据 key=sound_name，value=声音信息
-    private Dictionary<E_ViewId, Dictionary<string, int>> _ui_sound;                // UI 声音的数据
-
-    #endregion
-
-    #region Bgm
-
-    public int _prev_bgm = -1;
-    public AudioUnit _bgm_unit;                             // Bgm 唯一
-    #endregion
 
     public GameObject sound_parent;
     public AudioUnit prefab_audio;
@@ -79,8 +80,8 @@ public class SoundManager : MonoBehaviour
         }
         I_ObjectFactory factory = new SoundGameObjectFactory("SoundManager", prefab_audio.gameObject);
         _pool_factory = new PoolBaseSimpleObject(factory);
-        _init_excel_sound();
-        _init_ui_sound();
+        _init_csv_sound();
+        ButtonSoundManager.Instance.Init();
         _read_audio_setting();
     }
 
@@ -111,18 +112,7 @@ public class SoundManager : MonoBehaviour
 
     #region public
 
-    public int FindSoundIdByKey(E_ViewId id, string key)
-    {
-        if (!_ui_sound.ContainsKey(id))
-        {
-            return -1;
-        }
-        if (!_ui_sound[id].ContainsKey(key))
-        {
-            return -1;
-        }
-        return _ui_sound[id][key];
-    }
+
 
     public void ResetSceneBgm()
     {
@@ -148,9 +138,9 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     public AudioUnit Play(int id, int sound_max = 100, float fade_in = 0f, float fade_out = 0f)
     {
-       
+
         if (id == -1) return null;
-        SoundObj info = _find_sound_by_id(id);
+        SoundCnf info = _find_sound_by_id(id);
         if (info == null || info.name == INVALID_SOUND) return null;
         Debug.Log(info.name);
         // TODO 是有问题的，多个重复的声音的情况下，得到的会是同一个
@@ -176,7 +166,7 @@ public class SoundManager : MonoBehaviour
 
     public AudioUnit Play(string sound_name)
     {
-        SoundObj info = _find_sound_by_name(sound_name);
+        SoundCnf info = _find_sound_by_name(sound_name);
         if (info == null || info.name == INVALID_SOUND) return null;
 
         return _internal_play(info, 0f, 0f);
@@ -194,7 +184,7 @@ public class SoundManager : MonoBehaviour
     {
         if (id == -1) return;
         if (id == _prev_bgm) return;
-        SoundObj sound_cnf = _find_sound_by_id(id);
+        SoundCnf sound_cnf = _find_sound_by_id(id);
         if (sound_cnf == null) return;
         _bgm_unit.Play(sound_cnf, BgmVolume, fade_in, fade_out);
         if (is_scene)
@@ -218,44 +208,25 @@ public class SoundManager : MonoBehaviour
     #endregion
 
     #region 初始化数据
-    public void _init_excel_sound()
+    public void _init_csv_sound()
     {
-        /*_sound_map_id = StaticData.GetDic<SoundObj>();
-        _sound_map_name = new Dictionary<string, SoundObj>();
+        _sound_map_id = StaticCnf.FindMap<SoundCnf>();
+        _sound_map_name = new Dictionary<string, SoundCnf>();
         foreach (var info in _sound_map_id)
         {
             if (_sound_map_name.ContainsKey(info.Value.name))
                 continue;
             _sound_map_name.Add(info.Value.name, info.Value);
-        }*/
+        }
 
         _sound_type.Add(1, E_GameResType.music_bgm);
         _sound_type.Add(3, E_GameResType.music_sound);
         _sound_type.Add(2, E_GameResType.music_voice);
     }
-    // 初始化界面UI的数据，对界面UI的声音进行转换
-    public void _init_ui_sound()
-    {
-        _ui_sound = new Dictionary<E_ViewId, Dictionary<string, int>>();
-        /*Dictionary<int, UiSoundObj> ui_sound_map = StaticData.GetDic<UiSoundObj>();
 
-        Type v = typeof(E_ViewId);
-        foreach (var map_sound in ui_sound_map)
-        {
-            UiSoundObj obj = map_sound.Value;
-            E_ViewId view_id = (E_ViewId)Enum.Parse(v, obj.view_id);
-            if (!_ui_sound.ContainsKey(view_id))
-                _ui_sound[view_id] = new Dictionary<string, int>();
-
-            if (_ui_sound[view_id].ContainsKey(obj.view_key))
-                LogManager.Error("UiSound配置文件出错UI:[{0}] Key:[{1}]", view_id, obj.view_key);
-            else
-                _ui_sound[view_id].Add(obj.view_key, obj.sound_id);
-        }*/
-    }
 
     // 根据Id查找声音的信息
-    public SoundObj _find_sound_by_id(int id)
+    public SoundCnf _find_sound_by_id(int id)
     {
         if (_sound_map_id.ContainsKey(id))
             return _sound_map_id[id];
@@ -264,7 +235,7 @@ public class SoundManager : MonoBehaviour
     }
 
     // 根据名字查找声音的信息
-    public SoundObj _find_sound_by_name(string sound_name)
+    public SoundCnf _find_sound_by_name(string sound_name)
     {
         if (_sound_map_name.ContainsKey(sound_name))
             return _sound_map_name[sound_name];
@@ -299,7 +270,7 @@ public class SoundManager : MonoBehaviour
         return count;
     }
 
-    public AudioUnit _internal_play(SoundObj info, float fade_in, float fade_out)
+    public AudioUnit _internal_play(SoundCnf info, float fade_in, float fade_out)
     {
         I_PoolObjectAbility object_ability = _pool_factory.Pop();
         AudioUnit unit = object_ability as AudioUnit;
@@ -323,7 +294,7 @@ public class SoundManager : MonoBehaviour
     {
         SoundVolume = PlayerPrefs.GetFloat(KEY_SOUND_VOLUME, 1.0f);
         BgmVolume = PlayerPrefs.GetFloat(KEY_BGM_VOLUME, 1.0f);
-       // BgmVolume = 0.0f;
+        // BgmVolume = 0.0f;
     }
 
     /// <summary>

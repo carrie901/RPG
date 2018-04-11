@@ -6,7 +6,7 @@ namespace Summer
     /// <summary>
     /// 声音的一些枚举
     /// </summary>
-    public class SoundEnum
+    public class SoundConst
     {
         public const int BGM_MAIN = 1;                              // 登陆到进入战斗前
         public const int BGM_BATTLE = 6;                            // 战斗背景音乐

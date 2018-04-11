@@ -14,10 +14,10 @@ namespace Summer
 
         void Awake()
         {
-            sound_id = SoundManager.instance.FindSoundIdByKey(view, key);
+            sound_id = ButtonSoundManager.Instance.FindSoundIdByKey(view, key);
             if (sound_id == -1)
             {
-                sound_id = SoundEnum.COMMON;
+                sound_id = SoundConst.COMMON;
                 //LogManager.Error("[{0}]找不到对应的声音的信息.UI:[{1}],Key[{2}]", gameObject.name, view, key);
             }
         }
