@@ -53,8 +53,7 @@ namespace Summer
         public E_SkillTransition _start_transition = E_SkillTransition.start;       //  执行这个节点的开始运行的事件 目前只接受一个事件 默认情况下接受start事件
         //public E_SkillTransition _finish_transition = E_SkillTransition.start;
         public SkillSequence _parent_node;                                          //  属性某一个流程
-        public bool _all_action_result;                                             //  所有动作执行的总结果 只有总结过为true的时候才会过度到下一个状态
-        public int _runing_state;                                                  //  运行状态 0
+        public int _runing_state;                                                   //  运行状态 0
 
         #endregion
 
@@ -134,16 +133,17 @@ namespace Summer
             SkillLog.LogEnter(this);
             // 1.遍历当前节点下的所有叶子节点
             int length = _actions.Count;
-            _all_action_result = true;
+            // 所有动作执行的总结果 只有总结过为true的时候才会过度到下一个状态
+            bool all_action_result = true;
             for (int i = 0; i < length; i++)
             {
                 _actions[i].OnEnter();
                 if (!_actions[i].IsFinish())
-                    _all_action_result = false;
+                    all_action_result = false;
             }
 
             // 如果所有叶子节点都已经执行完毕。那么发送结束事件
-            if (_all_action_result)
+            if (all_action_result)
             {
                 _on_finish_node();
             }
@@ -170,21 +170,22 @@ namespace Summer
 
             _runing_state = RUNING_UPDATE;
             // 1.更新所有节点
-            _all_action_result = true;
+            bool all_action_result = true;
             int length = _actions.Count;
             for (int i = 0; i < length; i++)
             {
                 _actions[i].OnUpdate(dt);
 
                 if (!_actions[i].IsFinish())
-                    _all_action_result = false;
+                    all_action_result = false;
             }
 
-            if (_all_action_result)
+            if (all_action_result)
                 _on_finish_node();
         }
         public virtual void Reset()
         {
+            _runing_state = RUNING_NONE;
             int length = _actions.Count;
             for (int i = 0; i < length; i++)
             {

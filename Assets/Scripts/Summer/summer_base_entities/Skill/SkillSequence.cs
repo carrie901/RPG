@@ -229,6 +229,18 @@ namespace Summer
             return true;
         }
 
+        public void _reset_sequence()
+        {
+            _cur_node = null;
+            _next_index = 0;
+            _is_complete = false;
+            int length = _childnodes.Count;
+            for (int i = 0; i < length; i++)
+            {
+                _childnodes[i].OnReset();
+            }
+        }
+
         #endregion
     }
 }
