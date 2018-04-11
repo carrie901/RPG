@@ -3,9 +3,9 @@
 namespace Summer
 {
     /// <summary>
-    /// 技能触发事件
+    /// 技能流程触发的相关事件
     /// </summary>
-    public enum E_SkillTriggerEvent
+    public enum E_SkillSequenceTrigger
     {
         none,
         play_effect,                //播放特效
@@ -24,10 +24,10 @@ namespace Summer
     /// 技能过度事件
     /// 序列节点和序列节点之间需要一个过度事件
     /// </summary>
-    public enum E_SkillTransitionEvent
+    public enum E_SkillTransition
     {
         none = 0,
-        finish,
+        start,
         sound,
         anim_hit,                   // 动作的击打事件
         anim_finish,                // 动作播放结束
@@ -35,21 +35,21 @@ namespace Summer
 
     public class SkillTriggerEventFactory
     {
-        public static Dictionary<string, E_SkillTransitionEvent> _event_map
-            = new Dictionary<string, E_SkillTransitionEvent>();
+        public static Dictionary<string, E_SkillTransition> _event_map
+            = new Dictionary<string, E_SkillTransition>();
 
         public static bool _init = false;
 
-        public static E_SkillTransitionEvent GetEvent(string name)
+        public static E_SkillTransition GetEvent(string name)
         {
             if (!_init)
             {
                 _init = true;
                 _init_event();
             }
-            E_SkillTransitionEvent transition = E_SkillTransitionEvent.none;
+            E_SkillTransition transition = E_SkillTransition.none;
             _event_map.TryGetValue(name, out transition);
-            if (transition == E_SkillTransitionEvent.none)
+            if (transition == E_SkillTransition.none)
             {
                 LogManager.Error("找不到对应的技能事件:[{0}]", name);
             }
@@ -59,7 +59,7 @@ namespace Summer
 
         public static void _init_event()
         {
-            _event_map.Add("FINISH", E_SkillTransitionEvent.finish);
+            _event_map.Add("FINISH", E_SkillTransition.start);
         }
     }
 
@@ -67,7 +67,7 @@ namespace Summer
     /// <summary>
     /// 来一个EventData的缓存池
     /// </summary>
-    public class EventSkillSetData
+    public class EventSkillSequenceData
     {
         public virtual void Reset()
         {
@@ -77,13 +77,13 @@ namespace Summer
 
     public class EventSkillDataFactory
     {
-        public static T Push<T>() where T : EventSkillSetData, new()
+        public static T Push<T>() where T : EventSkillSequenceData, new()
         {
             T t = new T();
             return t;
         }
 
-        public static void Pop<T>(T t) where T : EventSkillSetData
+        public static void Pop<T>(T t) where T : EventSkillSequenceData
         {
             t.Reset();
         }

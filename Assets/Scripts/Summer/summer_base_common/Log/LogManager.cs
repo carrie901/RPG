@@ -27,6 +27,8 @@ namespace Summer
         public static bool open_load_res = false;
         public static bool open_send_notification = false;
         public static bool open_plot = false;
+        public static bool open_skill = true;
+
         public static List<ILog> pipelines = new List<ILog>();
 
         #region 日志级别
@@ -47,7 +49,7 @@ namespace Summer
 #if UNITY_EDITOR
             //pipelines.Add(FileLog.Instance);
             //pipelines.Add(StringBuilderLog.Instance);
-            //pipelines.Add(UnityLog.Instance);
+            pipelines.Add(UnityLog.Instance);
 #endif
 
         }

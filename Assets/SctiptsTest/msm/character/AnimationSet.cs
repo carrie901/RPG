@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SummerTest
+namespace Summer
 {
     public class AnimationSet : MonoBehaviour
     {
         public AnimationGroup AnimGroup { get; private set; }
 
         public Animation m_anim = null;
+        protected AnimationGroup.ClipType _last_clip;
 
         private string m_group_name;
 
@@ -49,18 +50,20 @@ namespace SummerTest
 
         public void Play(AnimationGroup.ClipType type)
         {
-            if (AnimGroup != null)
+            if (AnimGroup != null && _last_clip != type)
             {
-                //m_anim.Play(AnimGroup.GetClipName(type));
-                m_anim.Play();
+                m_anim.Play(AnimGroup.GetClipName(type));
+                //m_anim.Play();
+                _last_clip = type;
             }
         }
 
         public void CrossFade(AnimationGroup.ClipType type)
         {
-            if (AnimGroup != null)
+            if (AnimGroup != null&& _last_clip!=type)
             {
                 m_anim.CrossFade(AnimGroup.GetClipName(type));
+                _last_clip = type;
             }
         }
     }

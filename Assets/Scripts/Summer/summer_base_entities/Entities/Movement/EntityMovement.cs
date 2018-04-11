@@ -1,25 +1,23 @@
-﻿/*
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace Summer
 {
-    public class MovementComponent : MonoBehaviour
+    public class EntityMovement : MonoBehaviour
     {
+
         #region 属性
 
         public const float NAVMESH_RADIUS = 0.5f;
-
         public float capsule_collider_radius = 0.51f;                   // Capsule Collider半径
-
         public bool _reach_target_pos;                                  // 达到目的地
-
         //public Vector3 move_velocity = Vector3.one;                   // 当前速度
         public Vector3 move_direction;                                  // 目标方向
         public float turnspeed = 10;
+        public float movespeed = 5;
         protected Transform trans;
 
-        public NavMeshPath nav_path = new NavMeshPath();
+        protected NavMeshPath nav_path = new NavMeshPath();
 
         #endregion
 
@@ -30,6 +28,16 @@ namespace Summer
             trans = transform;
             Vector3 cur_position = trans.position;
             trans.position = NavMeshHelper.MakeReasonablePos(cur_position);
+            _last_time = Time.realtimeSinceStartup;
+        }
+
+
+        public float _last_time;
+        private void Update()
+        {
+            float dt = Time.realtimeSinceStartup - _last_time;
+            OnUpdate(dt);
+            _last_time = Time.realtimeSinceStartup;
         }
 
         #endregion
@@ -46,7 +54,7 @@ namespace Summer
             //    return;
 
             // 2.移动的距离
-            Vector3 distance = move_direction * dt * 5;
+            Vector3 distance = move_direction * dt * movespeed;
 
             // 3.下一个位置
             Vector3 next_pos = cur_position + distance;
@@ -56,14 +64,8 @@ namespace Summer
                 next_pos.y = height;
 
             next_pos = NavMeshHelper.MakeReasonablePos(next_pos);
-
             trans.position = next_pos;
-
-            if (move_direction != trans.eulerAngles)
-            {
-                trans.rotation = Quaternion.Lerp(trans.rotation, Quaternion.LookRotation(move_direction), Time.deltaTime * turnspeed);
-            }
-
+            _update_direction();
             /*if (!NavMesh.CalculatePath(cur_position, next_pos, NavMesh.AllAreas, nav_path))
             {
                 return;
@@ -91,15 +93,15 @@ namespace Summer
                 next_pos = cur_position + distance;
 
                 trans.position = next_pos;
-            }#1#
+            }*/
         }
 
         #region 驱动移动 1.目标方向 2.目标点
 
-        public void AddDirection(Vector3 target_direction)
+        public void AddDirection(Vector2 target_direction)
         {
             _reach_target_pos = true;
-            move_direction = target_direction;
+            move_direction = new Vector3(target_direction.x, 0, target_direction.y);
         }
 
         public void RemoveDirection()
@@ -119,7 +121,18 @@ namespace Summer
         }
 
         #endregion
+
+        #region private 
+
+        public void _update_direction()
+        {
+            if (move_direction != trans.eulerAngles)
+            {
+                trans.rotation = Quaternion.Lerp(trans.rotation, Quaternion.LookRotation(move_direction), Time.deltaTime * turnspeed);
+            }
+
+        }
+
+        #endregion
     }
 }
-
-*/

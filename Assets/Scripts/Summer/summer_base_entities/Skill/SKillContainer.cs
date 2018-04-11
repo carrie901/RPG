@@ -5,13 +5,11 @@ namespace Summer
 {
     public class SkillContainer : MonoBehaviour
     {
-        public Dictionary<long, Timer> _buff_expire_timer;              //用caster_iid + buff_id做key
         public Dictionary<int, SkillSequence> _skill_map
-            = new Dictionary<int, SkillSequence>(8);              //SkillNode cur_state;
+            = new Dictionary<int, SkillSequence>(8);                    // SkillNode cur_state;
+        public SkillSequence _curr_sequen;                              // 当前序列
 
-        public SkillSequence _curr_sequen;
-
-        public float _last_time;
+        public float _last_time;                                        // 
         public bool test;
         void Awake()
         {
@@ -26,24 +24,21 @@ namespace Summer
         {
             if (test)
             {
-                test = false;
                 SkillContainerTest._last_time = 0;
                 CastSkill(1);
+                test = false;
+                return;
             }
 
             float dt = TimeManager.RealtimeSinceStartup - _last_time;
             _last_time = TimeManager.RealtimeSinceStartup;
+
+            // 通过时间来触发事件，
             SkillContainerTest.OnUpdate(dt);
 
             if (_curr_sequen == null) return;
+
             _curr_sequen.OnUpdate(dt);
-            if (_curr_sequen.IsFinish())
-            {
-                _curr_sequen.OnExit();
-                _curr_sequen = null;
-            }
-
-
         }
 
         #endregion
@@ -59,17 +54,15 @@ namespace Summer
         {
             _last_time = TimeManager.DeltaTime;
             _curr_sequen = _skill_map[id];
-            _curr_sequen.OnEnter();
-
+            _curr_sequen.OnStart();
         }
 
-        public void ReceiveTransitionEvent(E_SkillTransitionEvent event_name)
+        // 接收到指定的事件
+        public void ReceiveTransitionEvent(E_SkillTransition transition_event)
         {
-            LogManager.Log("Time: " + TimeManager.FrameCount + "------------------------触发事件:[{0}]------------------------", event_name);
             if (_curr_sequen != null)
-                _curr_sequen.ReceiveTransitionEvent(event_name);
+                _curr_sequen.ReceiveWithOutEvent(transition_event);
         }
-
     }
 
 
@@ -78,50 +71,55 @@ namespace Summer
         public static SkillContainer container;
         public static float _last_time = -1;
 
-        public static List<E_SkillTransitionEvent> events = new List<E_SkillTransitionEvent>();
+        public static List<E_SkillTransition> events = new List<E_SkillTransition>();
         public static SkillSequence Create()
         {
             SkillSequence skill_sequence = new SkillSequence();
 
             // 1.播放特效和动作，并且接受声音事件
-            SkillNode anim_effect = new SkillNode("1.播放特效和动作，并且接受声音事件");
-            skill_sequence.AddNode(anim_effect);
-            anim_effect.AddTransitionEvent(E_SkillTransitionEvent.sound);
-            events.Add(E_SkillTransitionEvent.sound);
+            SkillNode anim_node = new SkillNode("1.播放特效和动作");
+            skill_sequence.AddNode(anim_node);
+            //anim_node.AddTransitionEvent(E_SkillTransition.start);
+
+            //events.Add(E_SkillTransition.start);
 
 
             // 2.播放声音，接受打击事件
-            SkillNode sound = new SkillNode("2.播放声音，接受打击事件");
-            skill_sequence.AddNode(sound);
-            sound.AddTransitionEvent(E_SkillTransitionEvent.anim_hit);
-            events.Add(E_SkillTransitionEvent.anim_hit);
+            SkillNode sound_node = new SkillNode("2.播放声音");
+            skill_sequence.AddNode(sound_node);
+            sound_node.AddTransitionEvent(E_SkillTransition.sound);
+
+            events.Add(E_SkillTransition.sound);
 
             // 3.查找目标，并且输出技能到目标身上，接受动画播放完
-            SkillNode trigger_colllion = new SkillNode("查找目标，并且输出技能到目标身上，接受动画播放完");
+            SkillNode trigger_colllion = new SkillNode("查找目标，并且输出技能到目标身上");
             skill_sequence.AddNode(trigger_colllion);
-            trigger_colllion.AddTransitionEvent(E_SkillTransitionEvent.anim_finish);
-            events.Add(E_SkillTransitionEvent.anim_finish);
+            trigger_colllion.AddTransitionEvent(E_SkillTransition.anim_hit);
+
+            events.Add(E_SkillTransition.anim_hit);
 
             // 4.释放当前技能结束
             SkillNode release_skill = new SkillNode("释放当前技能结束");
             skill_sequence.AddNode(release_skill);
+            release_skill.AddTransitionEvent(E_SkillTransition.anim_finish);
 
+            events.Add(E_SkillTransition.anim_finish);
 
             {
                 PlayAnimationAction pa = new PlayAnimationAction();
-                pa.animation_name = "普攻";
-                anim_effect.AddAction(pa);
+                pa.animation_name = "==普攻==";
+                anim_node.AddAction(pa);
 
                 PlayEffectAction pe = new PlayEffectAction();
-                pe.effect_name = "炫光";
-                anim_effect.AddAction(pe);
+                pe.effect_name = "==炫光==";
+                anim_node.AddAction(pe);
             }
 
 
             {
                 PlaySoundAction ps = new PlaySoundAction();
-                ps.sound_name = "普攻的声音";
-                sound.AddAction(ps);
+                ps.sound_name = "==普攻的声音==";
+                sound_node.AddAction(ps);
             }
 
             {
@@ -166,8 +164,8 @@ namespace Summer
                 _last_time = 0;
                 if (events.Count > 0)
                 {
-                    E_SkillTransitionEvent event_name = events[0];
-                    container.ReceiveTransitionEvent(event_name);
+                    E_SkillTransition name = events[0];
+                    container.ReceiveTransitionEvent(name);
                     events.RemoveAt(0);
                 }
                 else

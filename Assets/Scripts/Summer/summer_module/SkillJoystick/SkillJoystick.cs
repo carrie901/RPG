@@ -19,37 +19,29 @@ namespace Summer
     /// </summary>
     public class SkillJoystick : MonoBehaviour, IPointerEnterHandler, IDragHandler, IBeginDragHandler, IPointerDownHandler, IPointerUpHandler
     {
+        public static SkillJoystick instance;
         #region 属性
 
-        public float outer_circle_radius = 100;
-        public RectTransform thumb;
+        public float outer_circle_radius = 75;              // 外圈的半径
+        public RectTransform thumb;                         // 移动的物体
 
+        protected Canvas cache_root_canvas;                 // 父类必须是Canvas 
+        protected RectTransform cache_recttrans;            // 当前的Tranform
+        public bool is_touch = false;
+        public Vector2 direction = Vector2.zero;            // 默认方向
+       
 
-        protected Canvas cache_root_canvas;                  // 父类必须是Canvas 
-        protected RectTransform cache_recttrans;
-        public static SkillJoystick instance;
+        #region private
 
-        protected Vector2 outer_circle_start_world_pos = Vector2.zero;
+        protected Vector2 thumb_position;
 
+        #endregion
 
         #region Action 事件
 
         public Action on_down_event;                        // 按下事件
         public Action on_up_event;                          // 抬起事件
         public Action<Vector2> on_move_event;               // 滑动事件
-
-        #endregion
-
-
-        public bool is_on_drag;                               // 处于拖拽状态
-        protected Vector2 _dir = Vector2.zero;
-
-        #region private
-
-        protected Vector2 thumb_position;
-        protected Vector2 tmp_axis;
-        protected Vector2 old_tmp_axis;
-        protected bool is_on_touch;
 
         #endregion
 
@@ -62,14 +54,11 @@ namespace Summer
             instance = this;
         }
 
-        void Start()
-        {
-            outer_circle_start_world_pos = transform.position;
-        }
-
         // 按下
         public void OnPointerDown(PointerEventData event_data)
         {
+            //Debug.Log("OnPointerDown");
+            is_touch = true;
             // 开始移动
             event_data.pressPosition = transform.position;
             OnDrag(event_data);
@@ -80,37 +69,38 @@ namespace Summer
         // 抬起
         public void OnPointerUp(PointerEventData event_data)
         {
+            //Debug.Log("OnPointerUp");
+            is_touch = false;
+            direction = Vector2.zero;
             //JoystickController.mJoystickIsMoved = false;
             thumb.anchoredPosition = Vector2.zero;
             if (on_up_event != null)
                 on_up_event();
-            _dir = Vector2.zero;
         }
-
 
         // 滑动
         public void OnDrag(PointerEventData event_data)
         {
-            is_on_drag = true;
-            is_on_touch = true;
-
+            
             float radius = GetRadius();
 
             thumb_position = (event_data.position - event_data.pressPosition) / cache_recttrans.localScale.x;
-
-
             thumb_position.x = Mathf.FloorToInt(thumb_position.x);
             thumb_position.y = Mathf.FloorToInt(thumb_position.y);
 
+            
             if (thumb_position.magnitude > radius)
                 thumb_position = thumb_position.normalized * radius;
 
             thumb.anchoredPosition = thumb_position;
-        }
 
+            // 确定方向
+            direction = new Vector2(thumb_position.x, thumb_position.y).normalized;
+        }
 
         public void OnPointerEnter(PointerEventData event_data)
         {
+            Debug.Log("OnPointerEnter");
             /*if (joy_type == E_SkillJoystickType.dynamic_joy && !is_dynamic_actif /*&& _activated#1#)
             {
                 event_data.pointerDrag = gameObject;
@@ -123,12 +113,12 @@ namespace Summer
             {
                 
             }*/
-            OnPointerUp(event_data);
+            //OnPointerUp(event_data);
         }
 
         public void OnBeginDrag(PointerEventData event_data)
         {
-
+            //Debug.Log("OnBeginDrag");
         }
 
 

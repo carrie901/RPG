@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Summer
 {
     public class NavMeshHelper
     {
-        protected static UnityEngine.AI.NavMeshPath navmesh_path = new UnityEngine.AI.NavMeshPath();
+        protected static NavMeshPath navmesh_path = new NavMeshPath();
 
         #region public
 
@@ -20,8 +21,8 @@ namespace Summer
 
             //LogManager.Error("目标点为非法点:{0}", target_pos);
             // 非法目标
-            UnityEngine.AI.NavMeshHit nav_hit;
-            if (!UnityEngine.AI.NavMesh.SamplePosition(target_pos, out nav_hit, MovementConst.MIN_DISTANCE, UnityLayerConst.Instance.layer_nav_mask)) return;
+            NavMeshHit nav_hit;
+            if (!NavMesh.SamplePosition(target_pos, out nav_hit, MovementConst.MIN_DISTANCE, UnityLayerConst.Instance.layer_nav_mask)) return;
 
             // 最短距离
             float distance = Vector2.Distance(source_pos, target_pos);
@@ -29,8 +30,8 @@ namespace Summer
 
             // 清除老数据，重新开始寻路
             navmesh_path.ClearCorners();
-            if (!UnityEngine.AI.NavMesh.CalculatePath(source_pos, target_pos, -1, navmesh_path)) return;
-            if (navmesh_path.status != UnityEngine.AI.NavMeshPathStatus.PathComplete) return;
+            if (!NavMesh.CalculatePath(source_pos, target_pos, -1, navmesh_path)) return;
+            if (navmesh_path.status != NavMeshPathStatus.PathComplete) return;
 
             // 添加路径节点
             path_nodes.AddRange(navmesh_path.corners);
@@ -43,8 +44,8 @@ namespace Summer
         /// </summary>
         public static Vector3 MakeReasonablePos(Vector3 source_pos)
         {
-            UnityEngine.AI.NavMeshHit hit;
-            if (UnityEngine.AI.NavMesh.SamplePosition(source_pos, out hit, 0.5f, -1))
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(source_pos, out hit, 0.5f, -1))
                 source_pos = hit.position;    //校准起始点  
             return source_pos;
         }
@@ -70,8 +71,8 @@ namespace Summer
 
         public static Vector3 FindClosestEdge(Vector3 source_pos)
         {
-            UnityEngine.AI.NavMeshHit nav_hit;
-            bool result = UnityEngine.AI.NavMesh.FindClosestEdge(source_pos, out nav_hit, UnityEngine.AI.NavMesh.AllAreas);
+            NavMeshHit nav_hit;
+            bool result = NavMesh.FindClosestEdge(source_pos, out nav_hit, NavMesh.AllAreas);
             if (!result) return MovementConst.error_position;
             return nav_hit.position;
         }
@@ -87,14 +88,14 @@ namespace Summer
                 Vector3 dir = Vector3.Slerp(forward, left, f).normalized;
                 Vector3 tempos = tran.position + dir * distance;
 
-                Vector3 pos_height = NavMeshHelper.GetGroundHeight(tempos);
+                Vector3 pos_height = GetGroundHeight(tempos);
                 if (pos_height != MovementConst.error_position)
                     return dir;
 
                 dir = Vector3.Slerp(forward, right, f).normalized;
                 tempos = tran.position + dir * distance;
 
-                pos_height = NavMeshHelper.GetGroundHeight(tempos);
+                pos_height = GetGroundHeight(tempos);
                 if (pos_height != MovementConst.error_position)
                     return dir;
             }
@@ -197,9 +198,9 @@ namespace Summer
 
         public static Vector3 GetNearestValidNavGroundPosition(Vector3 source_pos)
         {
-            UnityEngine.AI.NavMeshHit nav_hit;
+            NavMeshHit nav_hit;
 
-            if (UnityEngine.AI.NavMesh.SamplePosition(source_pos, out nav_hit, MovementConst.MIN_DISTANCE, UnityLayerConst.Instance.layer_nav_mask))
+            if (NavMesh.SamplePosition(source_pos, out nav_hit, MovementConst.MIN_DISTANCE, UnityLayerConst.Instance.layer_nav_mask))
                 return nav_hit.position;
             else
             {

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Summer
 {
 
-    public class PlayCameraRadialBlurEffectEventSkill : EventSkillSetData
+    public class PlayCameraRadialBlurEffectEventSkill : EventSkillSequenceData
     {
         public float duration;
         public float fade_in;
@@ -54,7 +54,7 @@ namespace Summer
     }
 
 
-    public class PlayCameraMotionBlurEffectEventSkill : EventSkillSetData
+    public class PlayCameraMotionBlurEffectEventSkill : EventSkillSequenceData
     {
 
     }

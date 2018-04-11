@@ -20,21 +20,18 @@ namespace Summer
 
         public abstract void OnEnter();
 
-        public void LogEnter()
-        {
-            LogManager.Log("Time: {0}   Enter Leaf Action:{1}", LogTime(), ToDes());
-        }
-
         public abstract void OnExit();
 
         public void LogExit()
         {
-            LogManager.Log("Time: {0}   Exit Leaf Action:{1}", LogTime(), ToDes());
+            if (!LogManager.open_skill) return;
+            LogManager.Log("Time: {0}   Exit [{1}] Leaf Action", TimeManager.FrameCount, ToDes());
         }
 
-        public string LogTime()
+        public void LogEnter()
         {
-            return TimeManager.FrameCount.ToString();
+            if (!LogManager.open_skill) return;
+            SkillLog.Log("Time: {0} Enter [{1}] Leaf Action", TimeManager.FrameCount, ToDes());
         }
 
         public virtual void OnUpdate(float dt)
@@ -64,7 +61,7 @@ namespace Summer
 
         #region Raise 触发事件
 
-        public void RaiseEvent(E_SkillTriggerEvent key, EventSkillSetData obj_info)
+        public void RaiseEvent(E_SkillSequenceTrigger key, EventSkillSequenceData obj_info)
         {
             _context._parent_node.RaiseEvent(key, obj_info);
         }

@@ -6,7 +6,7 @@ namespace Summer
 {
     public class ExportToTargetAction : SkillNodeAction
     {
-        public const string DES = "输出技能到目标身上";
+        public const string DES = "==输出技能到目标身上==";
         public override void OnEnter()
         {
             LogEnter();

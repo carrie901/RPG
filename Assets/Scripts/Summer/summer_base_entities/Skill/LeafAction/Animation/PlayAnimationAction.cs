@@ -7,7 +7,7 @@ namespace Summer
     /// <summary>
     /// 播放动作
     /// </summary>
-    public class PlayAnimationEventData : EventSkillSetData
+    public class PlayAnimationEventData : EventSkillSequenceData
     {
         public string animation_name;
     }
@@ -27,7 +27,7 @@ namespace Summer
                 _data = EventSkillDataFactory.Push<PlayAnimationEventData>();
             _data.animation_name = animation_name;
 
-            RaiseEvent(E_SkillTriggerEvent.play_animation, _data);
+            RaiseEvent(E_SkillSequenceTrigger.play_animation, _data);
             Finish();
         }
 

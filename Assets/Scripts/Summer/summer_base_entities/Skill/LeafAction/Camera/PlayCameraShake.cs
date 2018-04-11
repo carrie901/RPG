@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class PlayCameraShakeEventSkill : EventSkillSetData
+    public class PlayCameraShakeEventSkill : EventSkillSequenceData
     {
 
     }

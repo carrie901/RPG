@@ -103,47 +103,72 @@ namespace Summer
     /// </summary>
     public class SkillSequence
     {
-        public SkillNode _cur_node;                                            // 当前节点
-        public int _action_next;                                                // 下标
-        public string des = string.Empty;                                       // 文本说明
-        public List<SkillNode> _childnodes                                     // 子节点
-            = new List<SkillNode>(16);
+        #region 属性
 
-        public bool _is_complete;                                               // 是否结束序列节点
+        public SkillNode _cur_node;                                                     // 当前节点
+        public int _next_index;                                                         // 下标
+        public List<SkillNode> _childnodes = new List<SkillNode>(16);                   // 子节点
+        public bool _is_complete;                                                       // 是否结束序列节点
+        public string des = string.Empty;                                               // 文本说明
+        public EventSet<E_SkillSequenceTrigger, EventSkillSequenceData> _skill_event_set
+            = new EventSet<E_SkillSequenceTrigger, EventSkillSequenceData>();
+        #endregion
 
-        public EventSet<E_SkillTriggerEvent, EventSkillSetData> _skill_event_set
-            = new EventSet<E_SkillTriggerEvent, EventSkillSetData>();
+        #region 构造
+
         public SkillSequence()
         {
-            _action_next = 0;
-        }
-        #region 对外接口 开始/发送事件
-        public void OnEnter()
-        {
-            LogManager.Assert(_action_next <= _childnodes.Count, "状态链长度为0");
+            _next_index = 0;
             _is_complete = false;
-            LogManager.Log("Time:" + TimeManager.FrameCount + "-----------------------------序列开始[{0}]-----------------------------", des);
+            _cur_node = null;
+        }
+
+        #endregion
+
+        #region public
+
+        public void OnStart()
+        {
+            _is_complete = false;
+            SkillLog.Log("Time:{0}-----------------------------序列开始[{1}]-----------------------------", TimeManager.FrameCount, des);
+            DoActionNext();
+            ReceiveWithInEvent(E_SkillTransition.start);
+        }
+
+        public void OnFinish()
+        {
+            _cur_node = null;
+            _next_index = _childnodes.Count;
+            SkillLog.Log("Time:{0}-----------------------------序列结束[{1}]-----------------------------", TimeManager.FrameCount, des);
+        }
+
+        public void OnUpdate(float dt)
+        {
+            if (_cur_node == null) return;
+            _cur_node.OnUpdate(dt);
+        }
+
+        // 接受外部事件
+        public void ReceiveWithOutEvent(E_SkillTransition node_event)
+        {
+            SkillLog.Log("Time: {0} -----------------触发外部:[{1}]事件-----------------", TimeManager.FrameCount, node_event);
+            _receive_event(node_event);
+        }
+
+        // 接受内部事件
+        public void ReceiveWithInEvent(E_SkillTransition node_event)
+        {
+            SkillLog.Log("Time: {0} -----------------触发内部:[{1}]事件-----------------", TimeManager.FrameCount, node_event);
+            _receive_event(node_event);
+        }
+
+        // 被内部序列节点调用
+        public void DoActionNext()
+        {
             _do_action_next();
         }
 
-        public void OnExit()
-        {
-            LogManager.Log("Time:" + TimeManager.FrameCount + "-----------------------------序列结束[{0}]-----------------------------", des);
-        }
-
-        public bool IsFinish()
-        {
-            return _is_complete;
-        }
-
-        public void ReceiveTransitionEvent(E_SkillTransitionEvent event_name)
-        {
-            int length = _childnodes.Count;
-            if (_action_next < 0 || _action_next >= length)
-                return;
-            _cur_node.ReceiveTransitionEvent(event_name);
-        }
-
+        // 添加节点
         public void AddNode(SkillNode state)
         {
             if (_childnodes.Contains(state))
@@ -155,76 +180,56 @@ namespace Summer
             state.SetParent(this);
         }
 
-        #endregion
-
-        // 被内部序列节点调用
-        public void DoActionNext()
-        {
-            _do_action_next();
-        }
-
-        public void OnUpdate(float dt)
-        {
-            if (_cur_node == null) return;
-            _cur_node.OnUpdate(dt);
-        }
-
         #region 角色注册事件，内部子节点触发事件
 
-        public bool RegisterHandler(E_SkillTriggerEvent key, EventSet<E_SkillTriggerEvent, EventSkillSetData>.EventHandler handler)
+        public bool RegisterHandler(E_SkillSequenceTrigger key, EventSet<E_SkillSequenceTrigger, EventSkillSequenceData>.EventHandler handler)
         {
             return _skill_event_set.RegisterHandler(key, handler);
         }
 
-        public bool UnRegisterHandler(E_SkillTriggerEvent key, EventSet<E_SkillTriggerEvent, EventSkillSetData>.EventHandler handler)
+        public bool UnRegisterHandler(E_SkillSequenceTrigger key, EventSet<E_SkillSequenceTrigger, EventSkillSequenceData>.EventHandler handler)
         {
             return _skill_event_set.UnRegisterHandler(key, handler);
         }
 
-        public void RaiseEvent(E_SkillTriggerEvent key, EventSkillSetData obj_info)
+        public void RaiseEvent(E_SkillSequenceTrigger key, EventSkillSequenceData obj_info)
         {
             _skill_event_set.RaiseEvent(key, obj_info, false);
         }
+
         #endregion
 
+        #endregion
+
+        #region private 
+
+        public void _receive_event(E_SkillTransition node_event)
+        {
+            if (_cur_node == null) return;
+            _cur_node.ReceiveTransitionEvent(node_event);
+        }
+
+        // 执行下一个动作
         public bool _do_action_next()
         {
-
-            if (_action_next >= _childnodes.Count)
+            // 1.没有下一个动作了
+            if (_next_index >= _childnodes.Count)
             {
-                if (_cur_node != null)
-                    _cur_node.OnExit();
+                // 设置完成状态，并且退出
                 _is_complete = true;
+                OnFinish();
                 return false;
             }
 
-            _transition_next_node();
-            return true;
-        }
+            _cur_node = _childnodes[_next_index];
 
-        //过度到写一个节点
-        public bool _transition_next_node()
-        {
-            // 1.检测长度
-            if (_action_next >= _childnodes.Count)
-                return false;
-            // 2.下一个节点
-            SkillNode next_node = _childnodes[_action_next];
-            // 3.上一个节点
-            SkillNode last_node = _cur_node;
-            // 4.设置当前节点
-            _cur_node = next_node;
-
-            //LogManager.Log("上一个状态 [{0}]--下一个状态--[{1}] 帧数:[{2}]", last_node.ToDes(), next_node.ToDes(), TimeManager.FrameCount);
-
-            if (last_node != null)
-                last_node.OnExit();
-            _action_next++;
+            _next_index++;
             if (_cur_node != null)
-                _cur_node.OnEnter();
+                _cur_node.OnStart();
             return true;
         }
 
+        #endregion
     }
 }
 

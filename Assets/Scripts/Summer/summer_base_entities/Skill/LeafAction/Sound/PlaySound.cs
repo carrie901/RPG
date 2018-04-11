@@ -8,7 +8,7 @@ namespace Summer
     /// <summary>
     /// 播放声音
     /// </summary>
-    public class PlaySoundEventSkill : EventSkillSetData
+    public class PlaySoundEventSkill : EventSkillSequenceData
     {
         public string sound_name;
         public Vector3 position;
@@ -29,7 +29,7 @@ namespace Summer
             _data.sound_name = sound_name;
             _data.position = _position;
 
-            RaiseEvent(E_SkillTriggerEvent.play_sound, _data);
+            RaiseEvent(E_SkillSequenceTrigger.play_sound, _data);
             Finish();
         }
 

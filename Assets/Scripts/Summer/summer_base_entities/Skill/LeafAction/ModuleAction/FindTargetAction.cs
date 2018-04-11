@@ -8,7 +8,7 @@ namespace Summer
     /// </summary>
     public class FindTargetAction : SkillNodeAction
     {
-        public const string DES = "查找目标 ";
+        public const string DES = "==查找目标==";
         //TODO 希望能通过抽象来描述查找目标
         public float radius;        //距离
         public float degree;        //角度
