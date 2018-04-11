@@ -212,6 +212,7 @@ public class SoundManager : MonoBehaviour
     {
         _sound_map_id = StaticCnf.FindMap<SoundCnf>();
         _sound_map_name = new Dictionary<string, SoundCnf>();
+
         foreach (var info in _sound_map_id)
         {
             if (_sound_map_name.ContainsKey(info.Value.name))

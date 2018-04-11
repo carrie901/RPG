@@ -41,6 +41,7 @@ namespace Summer
         {
             // TODO QAQ 4.11 缺少数据StaticData类中的UiSoundObj类
             /*_ui_sound = new Dictionary<E_ViewId, Dictionary<string, int>>();
+            _ui_sound = new Dictionary<E_ViewId, Dictionary<string, int>>();
             Dictionary<int, UiSoundObj> ui_sound_map = StaticData.GetDic<UiSoundObj>();
 
             Type v = typeof(E_ViewId);
