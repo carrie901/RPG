@@ -191,7 +191,5 @@ namespace Summer
 
         #endregion
     }
-
-    
 }
 
