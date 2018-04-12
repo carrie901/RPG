@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Summer
 {
 
-    public class PlayCameraRadialBlurEffectEventSkill : EventSkillSequenceData
+    public class PlayCameraRadialBlurEffectEventSkill : EventEntityData
     {
         public float duration;
         public float fade_in;
@@ -28,7 +28,7 @@ namespace Summer
         {
             LogEnter();
             if (_data == null)
-                _data = EventSkillDataFactory.Push<PlayCameraRadialBlurEffectEventSkill>();
+                _data = EventEntityDataFactory.Push<PlayCameraRadialBlurEffectEventSkill>();
             _data.duration = duration;
             _data.fade_in = fade_in;
             _data.fade_out = fade_out;
@@ -46,7 +46,7 @@ namespace Summer
         public override void Destroy()
         {
             base.Destroy();
-            EventSkillDataFactory.Pop(_data);
+            EventEntityDataFactory.Pop(_data);
             _data = null;
         }
 
@@ -54,7 +54,7 @@ namespace Summer
     }
 
 
-    public class PlayCameraMotionBlurEffectEventSkill : EventSkillSequenceData
+    public class PlayCameraMotionBlurEffectEventSkill : EventEntityData
     {
 
     }
@@ -69,7 +69,7 @@ namespace Summer
         public override void OnEnter()
         {
             if (_data == null)
-                _data = EventSkillDataFactory.Push<PlayCameraMotionBlurEffectEventSkill>();
+                _data = EventEntityDataFactory.Push<PlayCameraMotionBlurEffectEventSkill>();
             GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_effect_motion_blur, _data);
             Finish();
         }
@@ -86,7 +86,7 @@ namespace Summer
 
         public override void Destroy()
         {
-            EventSkillDataFactory.Pop(_data);
+            EventEntityDataFactory.Pop(_data);
             _data = null;
         }
 

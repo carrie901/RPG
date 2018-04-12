@@ -61,7 +61,7 @@ namespace Summer
 
         #region Raise 触发事件
 
-        public void RaiseEvent(E_SkillSequenceTrigger key, EventSkillSequenceData obj_info)
+        public void RaiseEvent(E_EntityOutTrigger key, EventEntityData obj_info)
         {
             _context._parent_node._container.RaiseEvent(key, obj_info);
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Summer
 {
@@ -12,6 +8,7 @@ namespace Summer
     [RequireComponent(typeof(Animator))]
     public class EntityAnimationGroup : MonoBehaviour
     {
+        public string curr_anim_name;
         public AnimationClip[] clips;
         public Animator animator;
         public enum ClipType
@@ -36,7 +33,6 @@ namespace Summer
 
         };
 
-
         private void Awake()
         {
             animator = gameObject.GetComponent<Animator>();
@@ -52,20 +48,33 @@ namespace Summer
                 }
                 else
                 {
-                    
+
                 }
             }
             animator.runtimeAnimatorController = override_control;
         }
 
 
-        /*public string GetClipName(ClipType clip_type)
+        public string GetClipName(ClipType clip_type)
         {
             string anim_name = string.Empty;
             int index = (int)clip_type;
             if (index < clips.Length && index >= 0 && clips[index] != null)
                 anim_name = clips[index].name;
             return anim_name;
-        }*/
+        }
+
+        public void PlayAnim(string anim_name)
+        {
+            curr_anim_name = anim_name;
+            if (animator == null) return;
+            animator.Play(anim_name);
+        }
+
+        public void StopAnim(string anim_name)
+        {
+            if (animator == null) return;
+            animator.StopPlayback();
+        }
     }
 }

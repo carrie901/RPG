@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class PlayCameraShakeEventSkill : EventSkillSequenceData
+    public class PlayCameraShakeEventSkill : EventEntityData
     {
 
     }
@@ -20,7 +20,7 @@ namespace Summer
         public override void OnEnter()
         {
             if (_data == null)
-                _data = EventSkillDataFactory.Push<PlayCameraShakeEventSkill>();
+                _data = EventEntityDataFactory.Push<PlayCameraShakeEventSkill>();
             GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_shake, _data);
             Finish();
         }
@@ -37,7 +37,7 @@ namespace Summer
 
         public override void Destroy()
         {
-            EventSkillDataFactory.Pop(_data);
+            EventEntityDataFactory.Pop(_data);
             _data = null;
         }
 

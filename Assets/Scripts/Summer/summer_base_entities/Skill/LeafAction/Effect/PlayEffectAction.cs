@@ -8,7 +8,7 @@ namespace Summer
     /// <summary>
     /// 播放特效的参数
     /// </summary>
-    public class PlayEffectEventSkill : EventSkillSequenceData
+    public class PlayEffectEventSkill : EventEntityData
     {
         public string effect_name;
         public GameObject bing_obj;
@@ -27,18 +27,18 @@ namespace Summer
         {
             LogEnter();
             if (_data == null)
-                _data = EventSkillDataFactory.Push<PlayEffectEventSkill>();
+                _data = EventEntityDataFactory.Push<PlayEffectEventSkill>();
             _data.effect_name = effect_name;
             _data.bing_obj = bing_obj;
 
-            RaiseEvent(E_SkillSequenceTrigger.play_effect, _data);
+            RaiseEvent(E_EntityOutTrigger.play_effect, _data);
             Finish();
         }
 
         public override void OnExit()
         {
             LogExit();
-            EventSkillDataFactory.Pop(_data);
+            EventEntityDataFactory.Pop(_data);
             _data = null;
         }
         public override string ToDes() { return DES; }
