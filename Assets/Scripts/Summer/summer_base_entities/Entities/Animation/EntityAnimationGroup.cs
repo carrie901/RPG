@@ -8,9 +8,11 @@ namespace Summer
     [RequireComponent(typeof(Animator))]
     public class EntityAnimationGroup : MonoBehaviour
     {
+        public BaseEntityController entity_controller;
+        public Animator animator;
         public string curr_anim_name;
         public AnimationClip[] clips;
-        public Animator animator;
+        
         public enum ClipType
         {
             take_001 = 0,
@@ -55,6 +57,8 @@ namespace Summer
         }
 
 
+        #region public
+
         public string GetClipName(ClipType clip_type)
         {
             string anim_name = string.Empty;
@@ -76,5 +80,22 @@ namespace Summer
             if (animator == null) return;
             animator.StopPlayback();
         }
+
+        #region ReceiveEvent
+
+        public void SkillHit()
+        {
+            if (entity_controller == null) return;
+            entity_controller.SkillEvent(E_SkillTransition.anim_hit);
+        }
+
+        public void SkillFinish()
+        {
+            entity_controller.SkillEvent(E_SkillTransition.anim_finish);
+        }
+
+        #endregion
+
+        #endregion
     }
 }

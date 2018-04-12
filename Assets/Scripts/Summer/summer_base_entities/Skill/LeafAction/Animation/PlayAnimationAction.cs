@@ -27,7 +27,7 @@ namespace Summer
                 _data = EventEntityDataFactory.Push<PlayAnimationEventData>();
             _data.animation_name = animation_name;
 
-            RaiseEvent(E_EntityOutTrigger.play_animation, _data);
+            RaiseEvent(E_EntityInTrigger.play_animation, _data);
             Finish();
         }
 

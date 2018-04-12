@@ -110,14 +110,15 @@ namespace Summer
         public List<SkillNode> _childnodes = new List<SkillNode>(16);                   // 子节点
         public bool _is_complete;                                                       // 是否结束序列节点
         public string des = string.Empty;                                               // 文本说明
-        public SkillContainer _container;                                               // 属于哪一个容器
+        public SkillContainer _skill_container;                                               // 属于哪一个容器
 
         #endregion
 
         #region 构造
 
-        public SkillSequence()
+        public SkillSequence(SkillContainer container)
         {
+            _skill_container = container;
             _next_index = 0;
             _is_complete = false;
             _cur_node = null;
@@ -178,6 +179,11 @@ namespace Summer
             }
             _childnodes.Add(state);
             state.SetParent(this);
+        }
+
+        public I_EntityInTrigger GetTrigger()
+        {
+            return _parent_node.GetTrigger();
         }
 
         #endregion

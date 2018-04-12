@@ -29,7 +29,7 @@ namespace Summer
             _data.sound_name = sound_name;
             _data.position = _position;
 
-            RaiseEvent(E_EntityOutTrigger.play_sound, _data);
+            RaiseEvent(E_EntityInTrigger.play_sound, _data);
             Finish();
         }
 

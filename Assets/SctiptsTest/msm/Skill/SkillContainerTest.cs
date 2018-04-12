@@ -8,8 +8,9 @@ public class SkillContainerTest
     public static List<E_SkillTransition> events = new List<E_SkillTransition>();
     public static SkillSequence Create()
     {
-        SkillSequence skill_sequence = new SkillSequence();
+        SkillSequence skill_sequence = new SkillSequence(null);
 
+        /*
         // 1.播放特效和动作，并且接受声音事件
         SkillNode anim_node = new SkillNode("1.播放特效和动作");
         skill_sequence.AddNode(anim_node);
@@ -68,7 +69,7 @@ public class SkillContainerTest
             SkillReleaseAction release_action = new SkillReleaseAction();
             release_skill.AddAction(release_action);
             //release_skill
-        }
+        }*/
 
         //_last_time = 0; //TimeManager.RealtimeSinceStartup;
 

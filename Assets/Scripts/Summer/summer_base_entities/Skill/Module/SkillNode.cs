@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace Summer
 {
@@ -48,7 +49,7 @@ namespace Summer
 
         #region 属性
 
-        public string _des;                                          //  描述
+        public StringBuilder _des;                                                         //  描述
         public List<SkillNodeAction> _actions = new List<SkillNodeAction>(16);      //  这个节点下叶子节点
         public E_SkillTransition _start_transition = E_SkillTransition.start;       //  执行这个节点的开始运行的事件 目前只接受一个事件 默认情况下接受start事件
         //public E_SkillTransition _finish_transition = E_SkillTransition.start;
@@ -59,10 +60,15 @@ namespace Summer
 
         #region 构造
 
-        public SkillNode(string des = "")
+        public SkillNode()
         {
             _runing_state = RUNING_NONE;
-            _des = des;
+        }
+
+        public SkillNode(E_SkillTransition transition_event)
+        {
+            _runing_state = RUNING_NONE;
+            AddTransitionEvent(transition_event);
         }
 
         #endregion
@@ -78,6 +84,12 @@ namespace Summer
         {
             _actions.Add(action);
             action.BindingContext(this);
+            if (LogManager.open_skill)
+            {
+                if (_des == null)
+                    _des = new StringBuilder();
+                _des.AppendFormat("{0}. {1}     ", _actions.Count, action.ToDes());
+            }
         }
 
         public void RemoveAction(SkillNodeAction action)
@@ -106,9 +118,15 @@ namespace Summer
             }
         }
 
+        public I_EntityInTrigger GetTrigger()
+        {
+            return _parent_node.GetTrigger();
+        }
+
         public string ToDes()
         {
-            return _des;
+            if (_des == null) return string.Empty;
+            return _des.ToString();
         }
 
         #endregion

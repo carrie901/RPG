@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Summer
 {
-    public class LookAtTarget : SkillNodeAction
+    /// <summary>
+    /// 朝向目标
+    /// </summary>
+    public class LookAtTargetAction : SkillNodeAction
     {
         public const string DES = "朝向目标";
         public bool every_frame;
@@ -28,13 +29,12 @@ namespace Summer
         public override void OnExit()
         {
             LogExit();
-            DoLookAt();
         }
 
         public override void OnUpdate(float dt)
         {
             //base.OnUpdate(dt);
-            _look_at_pos = _target.transform.position;
+            UpdateLookAtPosition();
             _source.transform.LookAt(_look_at_pos, Vector3.up);
 
             if (debug)
@@ -45,7 +45,16 @@ namespace Summer
 
         public void DoLookAt()
         {
+            if (debug)
+            {
+                //Debug.DrawLine(go.transform.position, lookAtPos, debugLineColor.Value);
+            }
+        }
 
+        // 更新目标
+        public void UpdateLookAtPosition()
+        {
+            _look_at_pos = _target.transform.position;
         }
 
         public override string ToDes() { return DES; }

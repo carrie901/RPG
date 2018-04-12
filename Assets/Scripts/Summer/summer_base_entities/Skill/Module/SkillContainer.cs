@@ -8,15 +8,14 @@ namespace Summer
         public Dictionary<int, SkillSequence> _skill_map
             = new Dictionary<int, SkillSequence>(8);                                        // SkillNode cur_state;
         public SkillSequence _curr_sequen;                                                  // 当前序列
-        public EventSet<E_EntityOutTrigger, EventEntityData> _skill_event_set
-           = new EventSet<E_EntityOutTrigger, EventEntityData>();
-
-        public SkillModule _module;
+        public BaseEntities _entity;
+        public float _last_time;
         public SkillContainer(BaseEntities entity)
         {
-            _module = new SkillModule(entity);
+            I_SkillSequenceFactory skill_sequence_normal = new SkillSequenceNormal();
+            _entity = entity;
             _skill_map.Clear();
-            _skill_map.Add(1, SkillContainerTest.Create());
+            _skill_map.Add(1, skill_sequence_normal.Create(this));
         }
 
         #region Update
@@ -29,14 +28,26 @@ namespace Summer
             if (_curr_sequen == null) return;
 
             _curr_sequen.OnUpdate(dt);
+
+            // TODO test code
+            float curr_time = TimerHelper.RealtimeSinceStartup();
+            if (curr_time - _last_time > 15.0)
+            {
+                LogManager.Error("技能释放错误,超过时间，Skill:{0}", _curr_sequen);
+                _last_time = TimerHelper.RealtimeSinceStartup();
+            }
         }
 
         #endregion
+
+        #region public 
 
         public void CastSkill(int id)
         {
             _curr_sequen = _skill_map[id];
             _curr_sequen.OnStart();
+            _last_time = TimerHelper.RealtimeSinceStartup();
+
         }
 
         // 接收到指定的事件
@@ -46,21 +57,9 @@ namespace Summer
                 _curr_sequen.ReceiveWithOutEvent(transition_event);
         }
 
-        #region 角色注册事件，内部子节点触发事件
-
-        public bool RegisterHandler(E_EntityOutTrigger key, EventSet<E_EntityOutTrigger, EventEntityData>.EventHandler handler)
+        public I_EntityInTrigger GetTrigger()
         {
-            return _skill_event_set.RegisterHandler(key, handler);
-        }
-
-        public bool UnRegisterHandler(E_EntityOutTrigger key, EventSet<E_EntityOutTrigger, EventEntityData>.EventHandler handler)
-        {
-            return _skill_event_set.UnRegisterHandler(key, handler);
-        }
-
-        public void RaiseEvent(E_EntityOutTrigger key, EventEntityData obj_info)
-        {
-            _skill_event_set.RaiseEvent(key, obj_info, false);
+            return _entity.GetTrigger();
         }
 
         #endregion

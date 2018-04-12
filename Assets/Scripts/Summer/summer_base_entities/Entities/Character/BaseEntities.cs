@@ -1,4 +1,4 @@
-﻿
+﻿using System.Collections.Generic;
 namespace Summer
 {
     /// <summary>
@@ -9,7 +9,7 @@ namespace Summer
     /// QAQ:
     ///     关于涉及到生命周期的一些东西，比如技能特效，声音，目前不太好处理，目前把这些东西放到SkillModule中
     /// </summary>
-    public class BaseEntities : I_EntitiesBuff, I_CharacterProperty
+    public class BaseEntities : I_EntitiesBuff, I_CharacterProperty, I_Update
     {
         #region 属性
 
@@ -19,30 +19,45 @@ namespace Summer
         public EventSet<E_BuffTrigger, EventBuffSetData> _buff_event_set    // Buff的触发器
             = new EventSet<E_BuffTrigger, EventBuffSetData>();
 
-        public BaseEntitiesData _entities_data;
-
+        public List<I_Update> update_list = new List<I_Update>();
+        public EntitiesAttributeProperty entities_attribute_property;
+        public BaseEntityController _entity_controller;
         #endregion
 
         #region 构造
 
-        public BaseEntities()
+        public BaseEntities(BaseEntityController entity_controller)
         {
+            _entity_controller = entity_controller;
             _skill_container = new SkillContainer(this);
+            update_list.Add(_skill_container);
         }
 
         #endregion
 
         #region public
 
-
-        #region 监听技能事件
-
-        public void PlayAnimation(string anim_name)
+        public void CastSkill()
         {
-
+            if (_skill_container == null) return;
+            _skill_container.CastSkill(1);
         }
 
-        #endregion
+        public I_EntityInTrigger GetTrigger()
+        {
+            return _entity_controller;
+        }
+
+
+        public void OnUpdate(float dt)
+        {
+            int length = update_list.Count;
+            for (int i = 0; i < length; i++)
+            {
+                update_list[i].OnUpdate(dt);
+            }
+        }
+
 
         #endregion
 
@@ -75,22 +90,22 @@ namespace Summer
 
         public AttributeIntParam FindAttribute(E_CharAttributeType type)
         {
-            return _entities_data.FindAttribute(type);
+            return entities_attribute_property.FindAttribute(type);
         }
 
         public float FindValue(E_CharValueType type)
         {
-            return _entities_data.FindValue(type);
+            return entities_attribute_property.FindValue(type);
         }
 
         public void ChangeValue(E_CharValueType type, float value)
         {
-            _entities_data.ChangeValue(type, value);
+            entities_attribute_property.ChangeValue(type, value);
         }
 
         public void ResetValue(E_CharValueType type, float value)
         {
-            _entities_data.ResetValue(type, value);
+            entities_attribute_property.ResetValue(type, value);
         }
 
         #endregion

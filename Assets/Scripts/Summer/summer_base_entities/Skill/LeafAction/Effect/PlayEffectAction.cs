@@ -31,7 +31,7 @@ namespace Summer
             _data.effect_name = effect_name;
             _data.bing_obj = bing_obj;
 
-            RaiseEvent(E_EntityOutTrigger.play_effect, _data);
+            RaiseEvent(E_EntityInTrigger.play_effect, _data);
             Finish();
         }
 
