@@ -29,6 +29,25 @@ namespace Summer
 
     #endregion
 
+    #region 播放特效
+
+    /// <summary>
+    /// 播放特效的参数
+    /// </summary>
+    public class PlayEffectEventSkill : EventSetData
+    {
+        public string effect_name;
+        public GameObject bing_obj;
+
+        public override void Reset()
+        {
+            bing_obj = null;
+        }
+    }
+
+
+    #endregion
+
     #region 查找目标
 
     /// <summary>
