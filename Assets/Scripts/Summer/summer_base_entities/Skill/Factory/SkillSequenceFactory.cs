@@ -71,7 +71,7 @@ namespace Summer
         public SkillNodeAction CreateEffect()
         {
             PlayEffectAction pe = SkillNodeActionFactory.Create<PlayEffectAction>();
-            pe.effect_name = "==炫光==";
+            pe.effect_name = "Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_01";
             return pe;
         }
 

@@ -2,7 +2,7 @@
 
 namespace Summer
 {
-    public class TimerHelper 
+    public class TimerHelper
     {
 
         public static float RealtimeSinceStartup()

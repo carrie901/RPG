@@ -12,6 +12,11 @@ namespace Summer
     {
         public string effect_name;
         public GameObject bing_obj;
+
+        public override void Reset()
+        {
+            bing_obj=null;
+        }
     }
 
     /// <summary>
@@ -30,7 +35,8 @@ namespace Summer
                 _data = EventEntityDataFactory.Push<PlayEffectEventSkill>();
             _data.effect_name = effect_name;
             _data.bing_obj = bing_obj;
-
+            PoolVfxObject vfx_go = TransformPool.Instance.Pop<PoolVfxObject>(effect_name);
+            vfx_go.SetLifeTime(2f);
             RaiseEvent(E_EntityInTrigger.play_effect, _data);
             Finish();
         }

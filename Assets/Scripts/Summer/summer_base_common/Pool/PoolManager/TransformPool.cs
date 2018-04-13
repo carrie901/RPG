@@ -16,7 +16,8 @@ namespace Summer
                     _instance = new TransformPool();
                     if (_instance._go_root == null)
                     {
-                        _instance._go_root = GameObjectHelper.CreateGameObject(NAME, true);
+                        _instance._go_root = GameObjectHelper.CreateGameObject(NAME, false);
+                        _instance._go_root_trans = _instance._go_root.transform;
                     }
                     _instance.Init();
                 }

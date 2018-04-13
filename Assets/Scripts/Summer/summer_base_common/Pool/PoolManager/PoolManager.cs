@@ -21,6 +21,8 @@ namespace Summer
 
         #endregion
 
+        #region public 
+
         #region override
 
         public virtual void Init()
@@ -57,6 +59,14 @@ namespace Summer
         }
 
         public abstract PoolBase GetDefaultFactory(string prefab_name);
+
+        #endregion
+
+        public Transform FindTransform(string name)
+        {
+            if (_go_root_trans == null) return null;
+            return _go_root_trans.Find(name);
+        }
 
         #endregion
     }

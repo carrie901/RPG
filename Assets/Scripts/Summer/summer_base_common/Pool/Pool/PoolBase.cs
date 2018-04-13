@@ -57,7 +57,7 @@ namespace Summer
 
             if (!obj.IsUse)
             {
-                LogManager.Error("对象池[{0}]回收资源错误[{1}]错误", _factory.FactoryName, obj.ObjectName);
+                LogManager.Error("对象池[{0}]回收资源错误[{1}]错误,正在使用中", _factory.FactoryName, obj.ObjectName);
                 return false;
             }
 

@@ -27,7 +27,8 @@ namespace Summer
         {
             _name = go_name;
             gameObject.name = go_name;
-            SetParent(TransformPool.Instance.FindTrans());
+            //TODO QAQ
+            //SetParent(TransformPool.Instance.FindTrans());
         }
 
         public virtual void SetParent(Transform trans)

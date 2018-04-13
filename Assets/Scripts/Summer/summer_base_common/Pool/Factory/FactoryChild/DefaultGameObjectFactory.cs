@@ -5,6 +5,9 @@ namespace Summer
     /// <summary>
     /// 创建GameObject的默认工场
     /// 设置工场的名字-一般为Prefab的名字 
+    /// TransformPool
+    ///     Factory_GameObject
+    ///         Eff_GameObject
     /// </summary>
     public class DefaultGameObjectFactory : PoolObjectFactory
     {
@@ -18,7 +21,6 @@ namespace Summer
         public override I_PoolObjectAbility Create()
         {
             GameObject go = ResManager.instance.LoadPrefab(FactoryName, E_GameResType.quanming);
-
             PoolDefaultGameObject po = go.GetComponent<PoolDefaultGameObject>();
             if (po == null)
             {
@@ -46,12 +48,67 @@ namespace Summer
 
         public void _init()
         {
+            // 创建工场GameObject
             GameObject go = GameObjectHelper.CreateGameObject(_factory_name, false);
             factory_go_root_trans = go.transform;
+            // 
             GameObjectHelper.SetParent(go, TransformPool.Instance.FindTrans());
         }
 
         #endregion
     }
+
+    /// <summary>
+    /// 创建GameObject的默认工场
+    /// 设置工场的名字-一般为Prefab的名字 
+    /// TransformPool
+    ///     E_GameResType
+    ///         Factory_GameObject
+    ///             Eff_GameObject
+    /// </summary>
+    /*public class GameResPrefabFactory : PoolObjectFactory
+    {
+        protected Transform factory_go_root_trans;
+        protected E_GameResType _res_type;
+        public GameResPrefabFactory(string factory_name, E_GameResType res_type) : base(factory_name)
+        {
+            _res_type = res_type;
+            _init();
+        }
+
+        public override I_PoolObjectAbility Create()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void ExtraOpertion(I_PoolObjectAbility ability)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #region private 
+
+        public void _init()
+        {
+
+            string res_type = _res_type.ToString();
+            Transform res_type_trans = TransformPool.Instance.FindTransform(res_type);
+            if (res_type_trans == null)
+            {
+                GameObject res_type_go = GameObjectHelper.CreateGameObject(res_type, false);
+                res_type_trans = res_type_go.transform;
+                GameObjectHelper.SetParent(res_type_go, TransformPool.Instance.FindTrans());
+            }
+
+            // 创建工场GameObject
+            GameObject go = GameObjectHelper.CreateGameObject(_factory_name, false);
+            factory_go_root_trans = go.transform;
+
+            GameObjectHelper.SetParent(go, res_type_trans.gameObject);
+
+        }
+
+        #endregion
+    }*/
 
 }

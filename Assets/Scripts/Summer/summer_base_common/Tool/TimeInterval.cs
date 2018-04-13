@@ -64,5 +64,25 @@ namespace Summer
             start = true;
         }
     }
+
+    public class TimeDt
+    {
+        public float dt;
+        public float _last_time;
+
+        public float OnUpdate()
+        {
+            float cur_time = TimerHelper.RealtimeSinceStartup();
+            dt = cur_time - _last_time;
+            OnReset();
+            return dt;
+        }
+
+        public void OnReset()
+        {
+            _last_time = TimerHelper.RealtimeSinceStartup();
+        }
+
+    }
 }
 
