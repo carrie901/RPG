@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.game.common.ui;
 using Summer;
 using UnityEngine;
 using UnityEngine.UI;

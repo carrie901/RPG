@@ -57,6 +57,11 @@ namespace Summer
                 _curr_sequen.ReceiveWithOutEvent(transition_event);
         }
 
+        public void OnFinish()
+        {
+            _curr_sequen = null;
+        }
+
         public I_EntityInTrigger GetTrigger()
         {
             return _entity.GetTrigger();

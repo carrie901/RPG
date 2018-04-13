@@ -138,7 +138,6 @@ namespace Summer
             SkillLog.LogStart(this);
             _runing_state = RUNING_START;
         }
-
         protected virtual void OnEnter()
         {
             if (_runing_state != RUNING_START)
@@ -166,7 +165,6 @@ namespace Summer
                 _on_finish_node();
             }
         }
-
         protected virtual void OnExit()
         {
             if (_runing_state < RUNING_ENTER)

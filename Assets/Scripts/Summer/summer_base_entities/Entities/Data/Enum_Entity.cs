@@ -17,7 +17,7 @@ namespace Summer
         play_sound,                 // 播放声音
         play_animation,             // 播放动作
         find_targets,               // 找到目标
-
+        skill_end_control,          // 技能结束
         //play_camera_shake,          //镜头抖动
         //play_camera_effect,         //镜头特效
         //play_camera_offset,         //镜头偏移，提供机制回复到原始位置

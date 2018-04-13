@@ -75,6 +75,13 @@ namespace Summer
             _in_trigger.RaiseEvent(key, obj_info);
         }
 
+        public I_EntityInTrigger GetTrigger()
+        {
+            if (_in_trigger == null)
+                _in_trigger = _context.GetTrigger();
+            return _in_trigger;
+        }
+
         #endregion
 
 

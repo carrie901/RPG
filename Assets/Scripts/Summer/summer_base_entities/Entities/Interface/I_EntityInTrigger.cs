@@ -15,6 +15,8 @@
 
         //触发回调点
         void RaiseEvent(E_EntityInTrigger key, EventEntityData param);
+
+        BaseEntities GetEntity();
     }
 }
 

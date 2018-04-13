@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Summer
 {
+    // TODO BaseEntityController和 BaseEntities的关系
+    // 目前感觉BaseEntities持有BaseEntityController会比较好一点
+    // 这种情况下如果没有BaseEntityController 也可以运行游戏
     public class BaseEntityController : MonoBehaviour, I_Update, I_EntityInTrigger
     {
         #region 属性
@@ -79,6 +82,11 @@ namespace Summer
             _skill_event_set.RaiseEvent(key, param);
         }
 
+        public BaseEntities GetEntity()
+        {
+            return _entity;
+        }
+
         #endregion
 
         #region 监听的事件
@@ -92,7 +100,7 @@ namespace Summer
 
         public void FindTargets(EventEntityData param)
         {
-            
+
         }
 
         #endregion

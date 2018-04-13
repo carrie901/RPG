@@ -1,4 +1,4 @@
-﻿
+﻿using System.Collections.Generic;
 namespace Summer
 {
 
@@ -12,9 +12,19 @@ namespace Summer
         //TODO 希望能通过抽象来描述查找目标
         public float radius;        //距离
         public float degree;        //角度
+        public List<BaseEntityController> _targets = new List<BaseEntityController>(16);
         public override void OnEnter()
         {
             LogEnter();
+
+            int length = EntiityControllerManager.Instance.entites.Count;
+            BaseEntities base_entity = GetTrigger().GetEntity();
+            for (int i = 0; i < length; i++)
+            {
+                BaseEntityController controller = EntiityControllerManager.Instance.entites[i];
+
+            }
+            Finish();
         }
 
         public override void OnExit()

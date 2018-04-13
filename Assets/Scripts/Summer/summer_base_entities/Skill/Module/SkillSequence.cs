@@ -130,7 +130,7 @@ namespace Summer
 
         public void OnStart()
         {
-            _is_complete = false;
+            _reset_sequence();
             SkillLog.Log("Time:{0}-----------------------------序列开始[{1}]-----------------------------", TimeManager.FrameCount, des);
             DoActionNext();
             ReceiveWithInEvent(E_SkillTransition.start);
@@ -140,6 +140,7 @@ namespace Summer
         {
             _cur_node = null;
             _next_index = _childnodes.Count;
+            _skill_container.OnFinish();
             SkillLog.Log("Time:{0}-----------------------------序列结束[{1}]-----------------------------", TimeManager.FrameCount, des);
         }
 
@@ -183,7 +184,7 @@ namespace Summer
 
         public I_EntityInTrigger GetTrigger()
         {
-            return _parent_node.GetTrigger();
+            return _skill_container.GetTrigger();
         }
 
         #endregion
