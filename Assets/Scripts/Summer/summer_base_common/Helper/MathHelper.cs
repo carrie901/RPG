@@ -85,6 +85,22 @@ namespace Summer
         /// </summary>
         public static float WrapFloat(float val) { return val - Mathf.FloorToInt(val); }
 
+        #region 得到两个点之间的距离
+
+        public static float Distance2D(Vector3 target, Vector3 source)
+        {
+            float distance = Vector2.Distance(new Vector2(target.x, target.z), new Vector2(source.x, source.z));
+            return distance;
+        }
+
+        public static float Distance3D(Vector3 target, Vector3 source)
+        {
+            float distance = Vector3.Distance(target, source);
+            return distance;
+        }
+
+        #endregion
+
         #region 得到两个向量之间的夹角
 
         /// <summary>
@@ -115,6 +131,12 @@ namespace Summer
             // 将弧度转换为 角度  
             float angle = radians * Mathf.Rad2Deg;
             return angle;
+        }
+
+        public static float GetAngle04(Vector3 form, Vector3 to)
+        {
+            float tmp_angle = Vector2.Angle(new Vector2(form.x, form.z), new Vector2(to.x, to.z));
+            return tmp_angle;
         }
 
         public static float WrapAngle(float angle)

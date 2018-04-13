@@ -78,6 +78,8 @@ namespace Summer
         public SkillNodeAction CreateFindTarget()
         {
             FindTargetAction find_target_action = SkillNodeActionFactory.Create<FindTargetAction>();
+            find_target_action.radius = 5;
+            find_target_action.degree = 60;
             return find_target_action;
         }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Summer
 {
 
-    public class PlayCameraRadialBlurEffectEventSkill : EventEntityData
+    public class PlayCameraRadialBlurEffectEventSkill : EventSetData
     {
         public float duration;
         public float fade_in;
@@ -19,7 +19,6 @@ namespace Summer
     public class PlayCameraRadialBlurEffect : SkillNodeAction
     {
         public const string DES = "径向模糊";
-        public PlayCameraRadialBlurEffectEventSkill _data;
         public float duration;
         public float fade_in;
         public float fade_out;
@@ -27,14 +26,13 @@ namespace Summer
         public override void OnEnter()
         {
             LogEnter();
-            if (_data == null)
-                _data = EventEntityDataFactory.Push<PlayCameraRadialBlurEffectEventSkill>();
-            _data.duration = duration;
-            _data.fade_in = fade_in;
-            _data.fade_out = fade_out;
-            _data.strength = strength;
+            PlayCameraRadialBlurEffectEventSkill data = EventDataFactory.Pop<PlayCameraRadialBlurEffectEventSkill>();
+            data.duration = duration;
+            data.fade_in = fade_in;
+            data.fade_out = fade_out;
+            data.strength = strength;
 
-            GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_effect_radial_blur, _data);
+            GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_effect_radial_blur, data);
             Finish();
         }
 
@@ -46,15 +44,13 @@ namespace Summer
         public override void Destroy()
         {
             base.Destroy();
-            EventEntityDataFactory.Pop(_data);
-            _data = null;
         }
 
         public override string ToDes() { return DES; }
     }
 
 
-    public class PlayCameraMotionBlurEffectEventSkill : EventEntityData
+    public class PlayCameraMotionBlurEffectEventSkill : EventSetData
     {
 
     }
@@ -69,7 +65,7 @@ namespace Summer
         public override void OnEnter()
         {
             if (_data == null)
-                _data = EventEntityDataFactory.Push<PlayCameraMotionBlurEffectEventSkill>();
+                _data = EventDataFactory.Pop<PlayCameraMotionBlurEffectEventSkill>();
             GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_effect_motion_blur, _data);
             Finish();
         }
@@ -86,7 +82,6 @@ namespace Summer
 
         public override void Destroy()
         {
-            EventEntityDataFactory.Pop(_data);
             _data = null;
         }
 

@@ -17,6 +17,7 @@ namespace Summer
         play_sound,                 // 播放声音
         play_animation,             // 播放动作
         find_targets,               // 找到目标
+        export_to_target,           // 输出伤害
         skill_end_control,          // 技能结束
         //play_camera_shake,          //镜头抖动
         //play_camera_effect,         //镜头特效
@@ -30,31 +31,6 @@ namespace Summer
     public enum E_EntityOutTrigger
     {
 
-    }
-
-    /// <summary>
-    /// 来一个EventData的缓存池
-    /// </summary>
-    public class EventEntityData
-    {
-        public virtual void Reset()
-        {
-
-        }
-    }
-
-    public class EventEntityDataFactory
-    {
-        public static T Push<T>() where T : EventEntityData, new()
-        {
-            T t = new T();
-            return t;
-        }
-
-        public static void Pop<T>(T t) where T : EventEntityData
-        {
-            t.Reset();
-        }
     }
 
     #endregion

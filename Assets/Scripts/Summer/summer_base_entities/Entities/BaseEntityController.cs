@@ -14,8 +14,14 @@ namespace Summer
         public BaseEntities _entity;
 
         public EntityAnimationGroup _anim_group;
-        public EventSet<E_EntityInTrigger, EventEntityData> _skill_event_set
-           = new EventSet<E_EntityInTrigger, EventEntityData>();
+        public EventSet<E_EntityInTrigger, EventSetData> _skill_event_set
+           = new EventSet<E_EntityInTrigger, EventSetData>();
+
+        public Transform trans;                                                                         // 缓存Transform
+        public List<BaseEntityController> _targets = new List<BaseEntityController>();                  // 目标
+
+        public Vector3 WroldPosition { get { return trans.position; } }                                 // 世界坐标
+        public Vector3 Direction { get { return trans.forward; } }                                      // 当前方向
 
         #endregion
 
@@ -23,15 +29,17 @@ namespace Summer
 
         void Awake()
         {
+            trans = transform;
             _entity = new BaseEntities(this);
 
             RegisterHandler(E_EntityInTrigger.play_animation, PlayAnimation);
             RegisterHandler(E_EntityInTrigger.find_targets, FindTargets);
+            RegisterHandler(E_EntityInTrigger.export_to_target, ExportToTarget);
         }
 
         private void OnDestroy()
         {
-            UnRegisterHandler(E_EntityInTrigger.play_animation, PlayAnimation);
+            _skill_event_set.Clear();
         }
 
         public bool flag_skill;
@@ -66,18 +74,18 @@ namespace Summer
 
         #region Override 监听人物的内部事件
 
-        public bool RegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventEntityData>.EventHandler handler)
+        public bool RegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventSetData>.EventHandler handler)
         {
             return _skill_event_set.RegisterHandler(key, handler);
         }
 
-        public bool UnRegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventEntityData>.EventHandler handler)
+        public bool UnRegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventSetData>.EventHandler handler)
         {
             return _skill_event_set.UnRegisterHandler(key, handler);
         }
 
         // 被内部调用，由内部触发
-        public void RaiseEvent(E_EntityInTrigger key, EventEntityData param)
+        public void RaiseEvent(E_EntityInTrigger key, EventSetData param)
         {
             _skill_event_set.RaiseEvent(key, param);
         }
@@ -91,16 +99,29 @@ namespace Summer
 
         #region 监听的事件
 
-        public void PlayAnimation(EventEntityData param)
+        public void PlayAnimation(EventSetData param)
         {
             PlayAnimationEventData data = param as PlayAnimationEventData;
             if (data == null || _entity == null) return;
             _anim_group.PlayAnim(data.animation_name);
         }
 
-        public void FindTargets(EventEntityData param)
+        public void FindTargets(EventSetData param)
         {
+            EntityFindTargetData data = param as EntityFindTargetData;
+            if (data == null || _entity == null) return;
+            _targets.AddRange(data._targets);
+        }
 
+        public void ExportToTarget(EventSetData param)
+        {
+            EntityExportToTargetData data = param as EntityExportToTargetData;
+            if (data == null || _entity == null) return;
+            for (int i = 0; i < _targets.Count; i++)
+            {
+                LogManager.Log("对目标:[{0}]造成[{1}]点伤害", _targets[i].name, data.damage);
+            }
+            _targets.Clear();
         }
 
         #endregion

@@ -10,6 +10,8 @@ namespace Summer
         public override void OnEnter()
         {
             LogEnter();
+            EntityExportToTargetData data = EventDataFactory.Pop<EntityExportToTargetData>();
+            RaiseEvent(E_EntityInTrigger.export_to_target, data);
             Finish();
         }
 

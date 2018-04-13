@@ -65,7 +65,7 @@ namespace Summer
 
         #region Raise 触发事件
 
-        public void RaiseEvent(E_EntityInTrigger key, EventEntityData obj_info)
+        public void RaiseEvent(E_EntityInTrigger key, EventSetData obj_info)
         {
             if (_in_trigger == null)
                 _in_trigger = _context.GetTrigger();
@@ -73,6 +73,7 @@ namespace Summer
             //if (_in_trigger == null) return;
             // TODO 这样一层一层的递交上次，是否违反了重构原则
             _in_trigger.RaiseEvent(key, obj_info);
+            EventDataFactory.Push(obj_info);
         }
 
         public I_EntityInTrigger GetTrigger()

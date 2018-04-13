@@ -8,13 +8,13 @@
     public interface I_EntityInTrigger
     {
         //注册回调点
-        bool RegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventEntityData>.EventHandler handler);
+        bool RegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventSetData>.EventHandler handler);
 
         //卸载回调点
-        bool UnRegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventEntityData>.EventHandler handler);
+        bool UnRegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventSetData>.EventHandler handler);
 
         //触发回调点
-        void RaiseEvent(E_EntityInTrigger key, EventEntityData param);
+        void RaiseEvent(E_EntityInTrigger key, EventSetData param);
 
         BaseEntities GetEntity();
     }
