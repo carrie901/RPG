@@ -2,6 +2,10 @@
 
 namespace Summer
 {
+    /// <summary>
+    /// TODO 资源信息需要在加载之前创建，还是在加载之后之后创建
+    ///     有上面的信息来得到资源加载的错误信息
+    /// </summary>
     public class AssetInfo
     {
         //资源对象  

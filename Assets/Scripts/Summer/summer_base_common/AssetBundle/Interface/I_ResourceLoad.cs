@@ -5,6 +5,8 @@ using Object = UnityEngine.Object;
 
 namespace Summer
 {
+    #region 资源加载
+
     public interface I_ResourceLoad
     {
         /// <summary>
@@ -29,6 +31,10 @@ namespace Summer
         void Update();
     }
 
+    #endregion
+
+    #region 纹理
+
     public interface I_TextureLoad
     {
         Texture LoadTexture(RawImage img, string name, E_GameResType res_type);
@@ -36,12 +42,19 @@ namespace Summer
         void LoadTextureAsync(RawImage img, string name, E_GameResType res_type, Action<Texture> complete);
     }
 
+    #endregion
+
+    #region 音乐加载
     public interface I_AudioLoad
     {
         AudioClip LoadAudio(AudioSource audio_source, string name, E_GameResType res_type);
 
         void LoadAudioAsync(AudioSource audio_source, string name, E_GameResType res_type, Action<AudioClip> complete);
     }
+
+    #endregion
+
+    #region Prefab 加载
 
     public interface I_PrefabLoad
     {
@@ -50,5 +63,6 @@ namespace Summer
         void LoadPrefabAsync(string name, E_GameResType res_type, Action<GameObject> complete);
     }
 
+    #endregion
 }
 

@@ -1,13 +1,27 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.game.common.ui;
 using Summer;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 /// <summary>
-/// TODO 需要提供一个异步请求的管道，同一事件请求的数量是有限制的
+/// TODO
+///     1.后缀名的解决方案
+///     2.加载的资源和加载的路径是两回事
+/// Bug 由于提供了全路径，所以导致他加载的时候所在的cache是会出问题的， 这就需要对资源做严格的区分
+/// Bug 按照资源的类型严格区分，同时屏蔽掉quanming路径这个类型
+/// 可能是概念性bug，之前的思路出现了错误想法，高内聚，低耦合思路
+/// 本身资源加载的作用就是资源加载器
+/// 提供基础的作用如下
+/// 1.加载资源
+/// 2.控制同时加载次数
+/// 3.控制同一时间多次假期
+/// 等相关问题
+/// 
+/// 那么针对资源具体的卸载。就需要根据不同类型资源不同的卸载策略了。所以quanming这个不一定是bug问题
 /// </summary>
 public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
 {
@@ -21,13 +35,13 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
     public int curr_async_index;                                    // 当前异步加载的数量
 
     public I_ResourceLoad _loader;
-
+    public AResourceSuffix _res_suffix;
 
     public ResManager()
     {
         //通过修改配置文件,并且通过工具来调整
         // 4.RESOUCES 前期本地和发布用
-        //_loader = AssetDatabaseLoader.instance;
+        // _loader = ResoucesLoader.instance;
 
         // 2.ASSETBUNDLE 实际发布用
         //_loader = AssetBundleLoader.instance;
@@ -36,7 +50,9 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
         //_loader = W3Loader.instance;
 
         // 1.LOCAL 本地加载做研发用
-        _loader = ResoucesLoader.instance;
+        _loader = AssetDatabaseLoader.instance;
+        _res_suffix = new AssetDatabaseSuffix();
+
         _init();
     }
 
@@ -93,7 +109,7 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
         }
 
         // 2.通过加载器加载
-        _internal_load_asset(name, res_type);
+        _internal_load_asset<T>(name, res_type);
         // 3.从缓存中得到资源
         asset_info = _pop_asset_for_cache(name, res_type);
         if (asset_info != null)
@@ -224,7 +240,6 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
     #endregion
 
     #region GameObject
-
     public GameObject LoadPrefab(string name, E_GameResType res_type)
     {
         GameObject prefab_gameobj = LoadAsset<GameObject>(name, res_type);
@@ -283,10 +298,10 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
 
     #region internal Loader
 
-    public void _internal_load_asset(string name, E_GameResType res_type)
+    public void _internal_load_asset<T>(string name, E_GameResType res_type) where T : Object
     {
         // 1.确定路径
-        string real_path = ResPathManager.FindPath(res_type, name);
+        string real_path = ResPathManager.FindPath<T>(res_type, name, _res_suffix);
         float time = Time.realtimeSinceStartup;
         // 2.加载资源
         Object obj = _loader.LoadAsset(real_path);
@@ -307,7 +322,7 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
     public IEnumerator _internal_load_asset_async<T>(string name, E_GameResType res_type, Action<T> callback, Action<T> default_callback = null) where T : Object
     {
         // 1.得到路径
-        string assetbundle_name = ResPathManager.FindPath(res_type, name);
+        string assetbundle_name = ResPathManager.FindPath<T>(res_type, name, _res_suffix);
         // 2.检测是否处于加载中
         if (_on_loading_res.Contains(assetbundle_name))
         {
