@@ -18,7 +18,9 @@ namespace Summer
         play_animation,             // 播放动作
         find_targets,               // 找到目标
         export_to_target,           // 输出伤害
-        skill_end_control,          // 技能结束
+        skill_release,              // 释放技能控制
+        skill_finish,               // 技能结束
+        
         //play_camera_shake,          //镜头抖动
         //play_camera_effect,         //镜头特效
         //play_camera_offset,         //镜头偏移，提供机制回复到原始位置

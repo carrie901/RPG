@@ -66,7 +66,7 @@ public class SkillContainerTest
         }
 
         {
-            SkillReleaseAction release_action = new SkillReleaseAction();
+            SkillFinishAction release_action = new SkillFinishAction();
             release_skill.AddAction(release_action);
             //release_skill
         }*/

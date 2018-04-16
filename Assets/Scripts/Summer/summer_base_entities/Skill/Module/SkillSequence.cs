@@ -130,8 +130,8 @@ namespace Summer
 
         public void OnStart()
         {
-            _reset_sequence();
             SkillLog.Log("Time:{0}-----------------------------序列开始[{1}]-----------------------------", TimeManager.FrameCount, des);
+            _reset_sequence();
             DoActionNext();
             ReceiveWithInEvent(E_SkillTransition.start);
         }
@@ -165,9 +165,9 @@ namespace Summer
         }
 
         // 被内部序列节点调用
-        public void DoActionNext()
+        public bool DoActionNext()
         {
-            _do_action_next();
+            return _do_action_next();
         }
 
         // 添加节点

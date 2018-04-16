@@ -7,7 +7,7 @@ namespace Summer
     /// </summary>
     public interface I_SkillSequenceFactory
     {
-        SkillSequence Create(SkillContainer container);
+        SkillSequence Create(SkillContainer container, SpellInfoCnf spell_info);
     }
 
     #region 一个普通的模板
@@ -19,8 +19,10 @@ namespace Summer
     /// </summary>
     public class SkillSequenceNormal : I_SkillSequenceFactory
     {
-        public SkillSequence Create(SkillContainer container)
+        public SpellInfoCnf _spell_info;
+        public SkillSequence Create(SkillContainer container, SpellInfoCnf spell_info)
         {
+            _spell_info = spell_info;
             SkillSequence skill_sequence = new SkillSequence(container);
 
             {
@@ -39,10 +41,19 @@ namespace Summer
 
                 trigger_colllion.AddAction(CreateFindTarget());
                 trigger_colllion.AddAction(CreateExportToTarget());
+                trigger_colllion.AddAction(CreateWait());
             }
 
             {
-                // 4.释放当前技能结束
+                // 4.释放当前攻击
+                SkillNode node = new SkillNode();
+                skill_sequence.AddNode(node);
+
+                node.AddAction(CreateReleaseAttack());
+            }
+
+            {
+                // 5.释放当前技能结束
                 SkillNode release_skill = new SkillNode(E_SkillTransition.anim_finish);
                 skill_sequence.AddNode(release_skill);
 
@@ -64,14 +75,14 @@ namespace Summer
         public SkillNodeAction CreateAnimation()
         {
             PlayAnimationAction pa = SkillNodeActionFactory.Create<PlayAnimationAction>();
-            pa.animation_name = "attack_01";
+            pa.animation_name = _spell_info.anim_name;
             return pa;
         }
 
         public SkillNodeAction CreateEffect()
         {
             PlayEffectAction pe = SkillNodeActionFactory.Create<PlayEffectAction>();
-            pe.effect_name = "Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_01";
+            pe.effect_name = "Prefab/Vfx/Skill/" + _spell_info.skill_effect[0];
             return pe;
         }
 
@@ -89,10 +100,23 @@ namespace Summer
             return target_action;
         }
 
+        public SkillNodeAction CreateWait()
+        {
+            WaitTimeAction wait_action = SkillNodeActionFactory.Create<WaitTimeAction>();
+            wait_action.duration = 0.2f;
+            return wait_action;
+        }
+
+        public SkillNodeAction CreateReleaseAttack()
+        {
+            ReleaseAttackAction release_attack = SkillNodeActionFactory.Create<ReleaseAttackAction>();
+            return release_attack;
+        }
+
         public SkillNodeAction CreateSkillRelease()
         {
-            SkillReleaseAction release_action = SkillNodeActionFactory.Create<SkillReleaseAction>();
-            return release_action;
+            SkillFinishAction finish_action = SkillNodeActionFactory.Create<SkillFinishAction>();
+            return finish_action;
         }
     }
 

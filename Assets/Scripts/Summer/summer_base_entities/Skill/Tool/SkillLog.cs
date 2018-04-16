@@ -18,18 +18,24 @@ namespace Summer
             LogManager.Assert(condition, message);
         }
 
+        public static void Assert(bool condition, string message, params object[] args)
+        {
+            if (!LogManager.open_skill) return;
+            LogManager.Assert(condition, message, args);
+        }
+
         #region 日志
 
         public static void LogEnter(SkillNode node)
         {
             if (!LogManager.open_skill) return;
-            LogManager.Log("Time: {1}   Enter [{0}] 节点", node.ToDes(), TimeManager.FrameCount);
+            //LogManager.Log("Time: {1}   Enter [{0}] 节点", node.ToDes(), TimeManager.FrameCount);
         }
 
         public static void LogExit(SkillNode node)
         {
             if (!LogManager.open_skill) return;
-            LogManager.Log("Time: {1}   Exit [{0}] 节点,开始跳转到下一个节点 ", node.ToDes(), TimeManager.FrameCount);
+            //LogManager.Log("Time: {1}   Exit [{0}] 节点,开始跳转到下一个节点 ", node.ToDes(), TimeManager.FrameCount);
         }
 
         public static void LogStart(SkillNode node)

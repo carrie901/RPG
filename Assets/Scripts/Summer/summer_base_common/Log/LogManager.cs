@@ -32,7 +32,7 @@ namespace Summer
         public static List<ILog> pipelines = new List<ILog>();
 
         #region 日志级别
-        public static int error_level = 0;   // none=0,log=1,waring=2,error=3,asset=4
+        public static int error_level = ASSET;   // none=0,log=1,waring=2,error=3,asset=4
         public const int NONE = 0;
         public const int LOG = 1;
         public const int WARING = 2;
@@ -68,7 +68,7 @@ namespace Summer
         public static void Log(string message)
         {
             if (!IsOpenDebug()) return;
-            if (error_level > NONE) return;
+            if (error_level < NONE) return;
             int count = pipelines.Count;
             for (int i = 0; i < count; i++)
                 pipelines[i].Log(message);
@@ -77,7 +77,7 @@ namespace Summer
         public static void Log(string message, params object[] args)
         {
             if (!IsOpenDebug()) return;
-            if (error_level > NONE) return;
+            if (error_level < NONE) return;
             int count = pipelines.Count;
             for (int i = 0; i < count; i++)
                 pipelines[i].Log(message, args);
@@ -86,7 +86,7 @@ namespace Summer
         public static void Waring(string message)
         {
             if (!IsOpenDebug()) return;
-            if (error_level > LOG) return;
+            if (error_level < WARING) return;
             int count = pipelines.Count;
             for (int i = 0; i < count; i++)
                 pipelines[i].Warning(message);
@@ -95,7 +95,7 @@ namespace Summer
         public static void Warning(string message, params object[] args)
         {
             if (!IsOpenDebug()) return;
-            if (error_level > LOG) return;
+            if (error_level < WARING) return;
             int count = pipelines.Count;
             for (int i = 0; i < count; i++)
                 pipelines[i].Warning(message, args);
@@ -104,7 +104,7 @@ namespace Summer
         public static void Error(string message)
         {
             if (!IsOpenDebug()) return;
-            if (error_level > ERROR) return;
+            if (error_level < ERROR) return;
             int count = pipelines.Count;
             for (int i = 0; i < count; i++)
                 pipelines[i].Error(message);
@@ -113,7 +113,7 @@ namespace Summer
         public static void Error(string message, params object[] args)
         {
             if (!IsOpenDebug()) return;
-            if (error_level > ERROR) return;
+            if (error_level < ERROR) return;
             int count = pipelines.Count;
             for (int i = 0; i < count; i++)
                 pipelines[i].Error(message, args);
@@ -122,7 +122,7 @@ namespace Summer
         public static bool Assert(bool condition, string message)
         {
             if (!IsOpenDebug()) return condition;
-            if (error_level > ERROR) return condition;
+            if (error_level < ERROR) return condition;
             int count = pipelines.Count;
             for (int i = 0; i < count; i++)
                 pipelines[i].Assert(condition, message);
@@ -132,7 +132,7 @@ namespace Summer
         public static bool Assert(bool condition, string message, params object[] args)
         {
             if (!IsOpenDebug()) return condition;
-            if (error_level > ERROR) return condition;
+            if (error_level < ERROR) return condition;
             int count = pipelines.Count;
             for (int i = 0; i < count; i++)
                 pipelines[i].Assert(condition, message, args);

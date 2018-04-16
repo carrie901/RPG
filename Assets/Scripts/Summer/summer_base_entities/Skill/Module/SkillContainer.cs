@@ -7,15 +7,35 @@ namespace Summer
     {
         public Dictionary<int, SkillSequence> _skill_map
             = new Dictionary<int, SkillSequence>(8);                                        // SkillNode cur_state;
-        public SkillSequence _curr_sequen;                                                  // 当前序列
+        public SkillSequence _curr_sequece;                                                 // 当前序列
+        public SkillNormalAttack normal_attack = new SkillNormalAttack();
         public BaseEntities _entity;
+        public bool _can_cast_skill;                                                        // 可以释放下一个技能了
+        public int _last_skill_id;
         public float _last_time;
-        public SkillContainer(BaseEntities entity)
+        public SkillContainer(BaseEntities entity, int hero_id)
         {
-            I_SkillSequenceFactory skill_sequence_normal = new SkillSequenceNormal();
+
             _entity = entity;
             _skill_map.Clear();
-            _skill_map.Add(1, skill_sequence_normal.Create(this));
+
+            // 初始化技能列表
+            HeroInfoCnf hero_cnf = StaticCnf.FindData<HeroInfoCnf>(hero_id);
+            int[] skill_list = hero_cnf.skillid_list;
+            int length = skill_list.Length;
+            int skill_type_normal_attack = (int)E_SkillType.normal;
+            I_SkillSequenceFactory skill_sequence_normal = new SkillSequenceNormal();
+            for (int i = 0; i < length; i++)
+            {
+                // 确定普通攻击
+                SpellInfoCnf space_info = StaticCnf.FindData<SpellInfoCnf>(skill_list[i]);
+                if (space_info.skilltypes == skill_type_normal_attack)
+                    normal_attack.AddSkill(skill_list[i]);
+
+                _skill_map.Add(skill_list[i], skill_sequence_normal.Create(this, space_info));
+            }
+
+            _can_cast_skill = true;
         }
 
         #region Update
@@ -25,15 +45,15 @@ namespace Summer
             // 通过时间来触发事件，
             SkillContainerTest.OnUpdate(dt);
 
-            if (_curr_sequen == null) return;
+            if (_curr_sequece == null) return;
 
-            _curr_sequen.OnUpdate(dt);
+            _curr_sequece.OnUpdate(dt);
 
             // TODO test code
             float curr_time = TimerHelper.RealtimeSinceStartup();
             if (curr_time - _last_time > 15.0)
             {
-                LogManager.Error("技能释放错误,超过时间，Skill:{0}", _curr_sequen);
+                LogManager.Error("技能释放错误,超过时间，Skill:{0}", _curr_sequece);
                 _last_time = TimerHelper.RealtimeSinceStartup();
             }
         }
@@ -42,24 +62,60 @@ namespace Summer
 
         #region public 
 
-        public void CastSkill(int id)
+        public bool CastAttack()
         {
-            _curr_sequen = _skill_map[id];
-            _curr_sequen.OnStart();
+            if (!CanCastSkill()) return false;
+            int skill_id = normal_attack.Cast();
+            CastSkill(skill_id);
+            return true;
+        }
+
+        public bool _test = false;
+
+        // 释放技能普攻
+        public void ReleaseSkill()
+        {
+            SkillLog.Log("======================释放技能控制======================");
+            _test = false;
+            _can_cast_skill = true;
+        }
+
+        public void FinishSkill()
+        {
+            normal_attack.ResetAttack();
+        }
+
+        public bool CastSkill(int id)
+        {
+            if (!CanCastSkill()) return false;
+            _last_skill_id = id;
+            SkillLog.Assert(!_test, "释放技能bug:[{0}]", id);
+            SkillLog.Log("======================释放技能:[{0}]======================", id);
+            _test = true;
+            _can_cast_skill = false;
+            // TODO QAQ:有bug的可能性很大，例如技能释放到一半的时候，释放了另外一个技能，这样就需要破坏掉原来的技能
+            _curr_sequece = _skill_map[id];
+            _curr_sequece.OnStart();
             _last_time = TimerHelper.RealtimeSinceStartup();
 
+            return true;
+        }
+
+        public bool CanCastSkill()
+        {
+            return _can_cast_skill;
         }
 
         // 接收到指定的事件
         public void ReceiveTransitionEvent(E_SkillTransition transition_event)
         {
-            if (_curr_sequen != null)
-                _curr_sequen.ReceiveWithOutEvent(transition_event);
+            if (_curr_sequece != null)
+                _curr_sequece.ReceiveWithOutEvent(transition_event);
         }
 
         public void OnFinish()
         {
-            _curr_sequen = null;
+            _curr_sequece = null;
         }
 
         public I_EntityInTrigger GetTrigger()
@@ -68,6 +124,37 @@ namespace Summer
         }
 
         #endregion
+    }
+
+    /// <summary>
+    /// 普攻
+    /// </summary>
+    public class SkillNormalAttack
+    {
+        public List<int> _skill_combo = new List<int>();
+        public int _index;
+
+        public SkillNormalAttack()
+        {
+            _index = -1;
+        }
+        public int Cast()
+        {
+            _index++;
+            if (_index >= _skill_combo.Count)
+                _index = 0;
+            return _skill_combo[_index];
+        }
+
+        public void AddSkill(int skill_id)
+        {
+            _skill_combo.Add(skill_id);
+        }
+
+        public void ResetAttack()
+        {
+            _index = -1;
+        }
     }
 }
 

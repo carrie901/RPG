@@ -13,6 +13,7 @@ namespace Summer
         sound,
         anim_hit,                   // 动作的击打事件
         anim_finish,                // 动作播放结束
+        anim_release,               // 普攻已经释放了
     }
 
     public class SkillTriggerEventFactory

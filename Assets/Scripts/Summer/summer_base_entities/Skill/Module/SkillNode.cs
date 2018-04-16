@@ -217,9 +217,12 @@ namespace Summer
         {
             OnExit();
             // 1.跳转到下一个节点
-            _parent_node.DoActionNext();
-            // 2.发送默认的开启事件
-            _parent_node.ReceiveWithInEvent(E_SkillTransition.start);
+            bool result = _parent_node.DoActionNext();
+            if (result)
+            {
+                // 2.发送默认的开启事件
+                _parent_node.ReceiveWithInEvent(E_SkillTransition.start);
+            }
         }
 
         #endregion

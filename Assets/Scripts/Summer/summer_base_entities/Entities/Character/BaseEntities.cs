@@ -14,7 +14,7 @@ namespace Summer
         #region 属性
 
         public BuffContainer _buff_container;                               // Buff容器
-        public SkillContainer _skill_container;                             // 技能容器
+        public SkillSet _skill_set;
         public CharId char_id;                                              // character的唯一表示
         public EventSet<E_BuffTrigger, EventBuffSetData> _buff_event_set    // Buff的触发器
             = new EventSet<E_BuffTrigger, EventBuffSetData>();
@@ -26,11 +26,11 @@ namespace Summer
 
         #region 构造
 
-        public BaseEntities(BaseEntityController entity_controller)
+        public BaseEntities(BaseEntityController entity_controller,int hero_id)
         {
             _entity_controller = entity_controller;
-            _skill_container = new SkillContainer(this);
-            update_list.Add(_skill_container);
+            _skill_set = new SkillSet(this,hero_id);
+            update_list.Add(_skill_set);
         }
 
         #endregion
@@ -39,8 +39,14 @@ namespace Summer
 
         public void CastSkill()
         {
-            if (_skill_container == null) return;
-            _skill_container.CastSkill(1);
+            if (_skill_set == null) return;
+            _skill_set.CastAttack();
+        }
+
+        public void CastSkill(int skill_id)
+        {
+            if (_skill_set == null) return;
+            _skill_set.CastSkill(skill_id);
         }
 
         public I_EntityInTrigger GetTrigger()

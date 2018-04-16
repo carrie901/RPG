@@ -1,12 +1,16 @@
 ﻿
+
 namespace Summer
 {
-    public class SkillReleaseAction : SkillNodeAction
+    public class ReleaseAttackAction : SkillNodeAction
     {
-        public const string DES = "==释放当前技能状态==";
+        public const string DES = "释放普攻攻击的控制";
         public override void OnEnter()
         {
             LogEnter();
+
+            RaiseEvent(E_EntityInTrigger.skill_release, null);
+            Finish();
         }
 
         public override void OnExit()
@@ -20,4 +24,3 @@ namespace Summer
         }
     }
 }
-

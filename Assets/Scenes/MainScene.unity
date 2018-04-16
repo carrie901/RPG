@@ -407,9 +407,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim_group: {fileID: 0}
+  rigid_body: {fileID: 0}
+  turn_smoothing: 0
   trans: {fileID: 0}
   _targets: []
-  flag_skill: 0
 --- !u!23 &158904203
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -607,9 +608,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim_group: {fileID: 0}
+  rigid_body: {fileID: 0}
+  turn_smoothing: 0
   trans: {fileID: 0}
   _targets: []
-  flag_skill: 0
 --- !u!23 &355727791
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -842,9 +844,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim_group: {fileID: 0}
+  rigid_body: {fileID: 0}
+  turn_smoothing: 0
   trans: {fileID: 0}
   _targets: []
-  flag_skill: 0
 --- !u!23 &578300131
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -937,6 +940,7 @@ GameObject:
   m_Component:
   - component: {fileID: 847799957}
   - component: {fileID: 847799956}
+  - component: {fileID: 847799958}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -976,6 +980,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &847799958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 847799955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99131781cbc3d8642b3b915edd027514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &861346710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,7 +1248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 555414132}
-  entity: {fileID: 0}
+  entity: {fileID: 1757131625}
   anim_set: {fileID: 270614214}
 --- !u!1 &1271136972
 GameObject:
@@ -1341,9 +1356,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim_group: {fileID: 0}
+  rigid_body: {fileID: 0}
+  turn_smoothing: 0
   trans: {fileID: 0}
   _targets: []
-  flag_skill: 0
 --- !u!23 &1501237360
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1504,7 +1520,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1511944277}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1604,7 +1620,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1627747556}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1757131623}
+        m_MethodName: OnAttackNormal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1627747556
@@ -1695,9 +1722,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim_group: {fileID: 1757131621}
+  rigid_body: {fileID: 0}
+  turn_smoothing: 0
   trans: {fileID: 0}
   _targets: []
-  flag_skill: 0
+--- !u!114 &1757131625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1757131620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8be68fbea52f54dbea936324c72ff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capsule_collider_radius: 0.51
+  _reach_target_pos: 0
+  move_direction: {x: 0, y: 0, z: 0}
+  turnspeed: 10
+  movespeed: 5
+  _last_time: 0
 --- !u!1 &1822422117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,9 +2030,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim_group: {fileID: 0}
+  rigid_body: {fileID: 0}
+  turn_smoothing: 0
   trans: {fileID: 0}
   _targets: []
-  flag_skill: 0
 --- !u!23 &2021643324
 MeshRenderer:
   m_ObjectHideFlags: 0

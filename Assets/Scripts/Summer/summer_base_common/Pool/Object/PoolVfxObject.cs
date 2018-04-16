@@ -6,12 +6,12 @@ namespace Summer
     {
         #region 属性
 
-        public TimeInterval _interval = new TimeInterval(1f);
+        protected TimeInterval _interval = new TimeInterval(1f);
 
-        public bool _is_bind;
-        public Transform _bind_trans;
+        protected bool _is_bind;
+        protected Transform _bind_trans;
 
-        public Transform trans;
+        protected Transform trans;
 
         #endregion
 

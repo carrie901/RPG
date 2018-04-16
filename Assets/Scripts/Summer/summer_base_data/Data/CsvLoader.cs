@@ -10,10 +10,10 @@ using UnityEngine;
 /// </summary>
 public class CsvLoader
 {
-    public const char CVS_SPLIT = '$';// '|';       // 默认分割符号
+    public const char CVS_SPLIT = '&';// '|';       // 默认分割符号
     public const string STRING_EMPTY = "";
-    public const int MIN_LINE = 3;                  // 最小行数
-    public static string csv_file_root = "E:\\work_three\\trunk\\three_config\\tables\\";
+    public const int MIN_LINE = 4;                  // 最小行数
+    public static string csv_file_root = Application.dataPath + "\\..\\Data\\Tables\\";//"E:\\work_three\\trunk\\three_config\\tables\\";
     #region 二进制加载
 
     public static Dictionary<int, T> LoadBinary<T>(string file_name) where T : BaseCsv, new()
@@ -151,10 +151,18 @@ public class CsvLoader
 
     public static void _internal_int_set_value(string value, FieldInfo field_info, BaseCsv csv)
     {
-        if (string.IsNullOrEmpty(value))
-            field_info.SetValue(csv, 0);
-        else
-            field_info.SetValue(csv, Int32.Parse(value));
+        try
+        {
+            if (string.IsNullOrEmpty(value))
+                field_info.SetValue(csv, 0);
+            else
+                field_info.SetValue(csv, Int32.Parse(value));
+        }
+        catch (Exception e)
+        {
+            LogManager.Error("[{0}]", value);
+        }
+
     }
 
     public static void _internal_ints_set_value(string value, FieldInfo field_info, BaseCsv csv)

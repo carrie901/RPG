@@ -17,7 +17,7 @@ namespace Summer
         public float movespeed = 5;
         protected Transform trans;
 
-        protected NavMeshPath nav_path = new NavMeshPath();
+        //protected NavMeshPath nav_path = new NavMeshPath();
 
         #endregion
 
