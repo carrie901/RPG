@@ -9,7 +9,7 @@ namespace Summer
     /// <summary>
     /// 播放声音
     /// </summary>
-    public class PlaySoundEventSkill : EventSetData
+    public class PlaySoundEventData : EventSetData
     {
         public string sound_name;
         public Vector3 position;
@@ -55,10 +55,12 @@ namespace Summer
     /// </summary>
     public class EntityFindTargetData : EventSetData
     {
-        public List<BaseEntityController> _targets = new List<BaseEntityController>(16);
+        public float radius;        //距离
+        public float degree;        //角度
+        //public List<BaseEntity> _targets = new List<BaseEntity>(16);
         public override void Reset()
         {
-            _targets.Clear();
+            //_targets.Clear();
         }
     }
 
@@ -74,6 +76,15 @@ namespace Summer
 
     #endregion
 
+    #region 外部触发的动画事件
+
+    public class AnimationEventData : EventSetData
+    {
+        public E_SkillTransition event_data;
+    }
+
+    #endregion
+
     #region 
 
 
@@ -85,4 +96,48 @@ namespace Summer
 
 
     #endregion
+
+    #region 
+
+
+
+    #endregion
+
+    #region 
+
+
+
+    #endregion
+
+    #region 
+
+
+
+    #endregion
+
+    #region 
+
+
+
+    #endregion
+
+    #region 
+
+
+
+    #endregion
+
+    #region 
+
+
+
+    #endregion
+
+    #region 
+
+
+
+    #endregion
+
+
 }

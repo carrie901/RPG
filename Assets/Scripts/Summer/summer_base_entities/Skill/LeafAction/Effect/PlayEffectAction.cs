@@ -9,19 +9,13 @@ namespace Summer
     {
         public const string DES = "播放特效";
         public string effect_name;             //特效名称
-        public GameObject bing_obj;            //绑定的GameObject
+        //public GameObject bing_obj;            //绑定的GameObject
         public override void OnEnter()
         {
             LogEnter();
             PlayEffectEventSkill data = EventDataFactory.Pop<PlayEffectEventSkill>();
             data.effect_name = effect_name;
-            data.bing_obj = bing_obj;
-
-
-            BaseEntityController entity_controller=GetTrigger().GetEntity()._entity_controller;
-            PoolVfxObject vfx_go = TransformPool.Instance.Pop<PoolVfxObject>(effect_name);
-            vfx_go.SetLifeTime(2f);
-            vfx_go.BindGameobject(entity_controller.gameObject);
+            //data.bing_obj = bing_obj;
             RaiseEvent(E_EntityInTrigger.play_effect, data);
             Finish();
         }

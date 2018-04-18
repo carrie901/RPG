@@ -1,12 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public interface I_BuffParam
+﻿namespace Summer
 {
-    void ParseParam(string content);
+    /*public interface I_BuffParam
+    {
+        void ParseParam(EffectCnf cnf);
+    }*/
 }
 
-public interface I_BuffProcessData
-{
-    
-}

@@ -5,8 +5,12 @@ namespace Summer
 {
     public class TransformPool : PoolManager
     {
-        private static TransformPool _instance;
         public const string NAME = "TransformPool";
+
+        private static TransformPool _instance;
+
+        protected Transform _go_root_trans;
+        protected GameObject _go_root;
         public static TransformPool Instance
         {
             get

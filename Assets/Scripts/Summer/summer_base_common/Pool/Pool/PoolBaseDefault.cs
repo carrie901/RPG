@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-namespace Summer
+﻿namespace Summer
 {
     /// <summary>
     /// 默认池子

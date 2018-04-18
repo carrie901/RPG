@@ -2,17 +2,17 @@
 
 namespace Summer
 {
-    public class EntitiesAttributeProperty
+    public class EntitiesAttributeProperty: I_CharacterProperty
     {
-        public CharId _char_id;
+        public EntityId entity_id;
         public BaseEntitesAttribute _attribute;             //属性
         public BaseEntitiesProperty _property;              //数值
 
-        public EntitiesAttributeProperty(CharId char_id)
+        public EntitiesAttributeProperty(EntityId entity_id)
         {
-            _char_id = char_id;
-            _attribute = new BaseEntitesAttribute(char_id);
-            _property = new BaseEntitiesProperty(char_id);
+            entity_id = entity_id;
+            _attribute = new BaseEntitesAttribute(entity_id);
+            _property = new BaseEntitiesProperty(entity_id);
         }
 
         public AttributeIntParam FindAttribute(E_CharAttributeType type)

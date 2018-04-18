@@ -14,33 +14,10 @@ namespace Summer
         public override void OnEnter()
         {
             LogEnter();
-            float angle = degree / 2;
-
-            BaseEntities base_entity = GetTrigger().GetEntity();
-            Vector3 direction = base_entity._entity_controller.Direction;
-            Vector3 world_position = base_entity._entity_controller.WroldPosition;
-
             EntityFindTargetData data = EventDataFactory.Pop<EntityFindTargetData>();
-            int length = EntiityControllerManager.Instance.entites.Count;
-            for (int i = 0; i < length; i++)
-            {
-                BaseEntityController controller = EntiityControllerManager.Instance.entites[i];
-                if (controller == base_entity._entity_controller) continue;
-
-                float distance = MathHelper.Distance2D(controller.WroldPosition, world_position);
-                // 距离大于指定长度
-                if (distance > radius) continue;
-
-                Vector3 target_direction = controller.WroldPosition - world_position;
-
-                // 角度小于指定长度
-                float tmp_angle = MathHelper.GetAngle04(target_direction, direction);
-                if (tmp_angle > angle) continue;
-                data._targets.Add(controller);
-            }
-
+            data.degree = degree;
+            data.radius = radius;
             RaiseEvent(E_EntityInTrigger.find_targets, data);
-
             Finish();
         }
 

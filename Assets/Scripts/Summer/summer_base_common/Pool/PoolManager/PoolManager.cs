@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Summer
 {
@@ -16,8 +15,8 @@ namespace Summer
         protected Dictionary<string, PoolBase> _map
             = new Dictionary<string, PoolBase>();
 
-        protected GameObject _go_root;
-        protected Transform _go_root_trans;
+        //protected GameObject _go_root;
+        //protected Transform _go_root_trans;
 
         #endregion
 
@@ -62,11 +61,11 @@ namespace Summer
 
         #endregion
 
-        public Transform FindTransform(string name)
+        /*public Transform FindTransform(string name)
         {
             if (_go_root_trans == null) return null;
             return _go_root_trans.Find(name);
-        }
+        }*/
 
         #endregion
     }

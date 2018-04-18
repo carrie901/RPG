@@ -5,15 +5,21 @@ namespace Summer
     public class SkillSet : I_Update
     {
         public SkillContainer _skill_container;                                 // 技能容器
-        public BaseEntities _entity;
+        public BaseEntity entity;
 
         public bool _next_attack;                                               // 下一个普攻
         public bool _is_normal_attack;                                          // 处于普通状态
-        public SkillSet(BaseEntities entity, int hero_id)
+        public SkillSet(BaseEntity entity)
         {
-            _entity = entity;
-            _skill_container = new SkillContainer(entity, hero_id);
+            this.entity = entity;
+            _skill_container = new SkillContainer(entity);
         }
+
+        public void OnReset(int hero_id)
+        {
+            _skill_container.OnReset(hero_id);
+        }
+
         public void OnUpdate(float dt)
         {
             if (_skill_container == null) return;

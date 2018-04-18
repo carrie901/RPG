@@ -4,165 +4,115 @@ public class BuffCnf : BaseCsv
 	 // ID
 	 public int id;
 
-	 // 名称
-	 public string name;
+    // 名称
+    //replace start
+    /// <summary>
+    /// buff组编号
+    /// </summary>
+    public string groupID;
 
-	 // 描述
-	 public string dsec;
+    /// <summary>
+    /// 名称
+    /// </summary>
+    public string name;
 
-	 // 图标
-	 public string icon;
+    /// <summary>
+    /// 名称美术字
+    /// </summary>
+    public string buff_name_res;
 
-	 // 特效
-	 public string effect;
+    /// <summary>
+    /// 等级
+    /// </summary>
+    public int level;
 
-	 // 音效
-	 public string sound;
+    /// <summary>
+    /// 描述[给策划自己看的]
+    /// </summary>
+    public string desc;
 
-	 // Buff类型
-	 public int buff_type;
+    /// <summary>
+    /// 是否显示图标
+    /// </summary>
+    public int show_icon;
 
-	 // Buff子类型
-	 public int sub_type;
+    /// <summary>
+    /// 图标
+    /// </summary>
+    public string icon;
 
-	 // 作用间隔时间
-	 public int interval_time;
+    /// <summary>
+    /// buff持续时间计算类型
+    /// </summary>
+    public int time_type;
 
-	 // 持续时间
-	 public int duration;
+    /// <summary>
+    /// Buff类型
+    /// </summary>
+    public int buff_type;
 
-	 // 参数1
-	 public string param1;
+    /// <summary>
+    /// 持续时间[单位ms]
+    /// </summary>
+    public int duration;
 
-	 // 参数2
-	 public string param2;
+    /// <summary>
+    /// 效果类型
+    /// </summary>
+    public int effect_type;
 
-	 // 参数3
-	 public string param3;
+    /// <summary>
+    /// 效果赋值
+    /// </summary>
+    public string effect_value;
 
-	 // 参数4
-	 public string param4;
+    /// <summary>
+    /// 死亡是否消失
+    /// </summary>
+    public bool death_delete;
 
-	 // 参数5
-	 public string param5;
+    /// <summary>
+    /// 叠加层数
+    /// </summary>
+    public int over_lay;
 
-	 // 参数6
-	 public string param6;
+    /// <summary>
+    /// 特效
+    /// </summary>
+    public string effect;
 
-	 // 参数7
-	 public string param7;
+    /// <summary>
+    /// 特效挂载点
+    /// </summary>
+    public string bind_pos;
 
-	 // 死亡是否消失
-	 public bool death_delete;
+    /// <summary>
+    /// 效果改变模型颜色
+    /// </summary>
+    public int model_effect;
 
-	 // 作用对象
-	 public int target;
+    /// <summary>
+    /// 效果改变武器颜色
+    /// </summary>
+    public int weapon_effect;
 
-	 // 优先作用
-	 public int state_first;
+    /// <summary>
+    /// 音效
+    /// </summary>
+    public string sound;
 
-	 // 叠加层数
-	 public int over_lay;
-
-	 // 结束后获得新buff
-	 public int end_buff;
-
-	public override int GetId()
+    public override int GetId()
 	{
 		return id;
 	}
 	public override void InitByReader(BinaryReader reader)
 	{
-		id = reader.ReadInt32();
-
-		name = reader.ReadString();
-
-		dsec = reader.ReadString();
-
-		icon = reader.ReadString();
-
-		effect = reader.ReadString();
-
-		sound = reader.ReadString();
-
-		buff_type = reader.ReadInt32();
-
-		sub_type = reader.ReadInt32();
-
-		interval_time = reader.ReadInt32();
-
-		duration = reader.ReadInt32();
-
-		param1 = reader.ReadString();
-
-		param2 = reader.ReadString();
-
-		param3 = reader.ReadString();
-
-		param4 = reader.ReadString();
-
-		param5 = reader.ReadString();
-
-		param6 = reader.ReadString();
-
-		param7 = reader.ReadString();
-
-death_delete = reader.ReadBoolean();
-
-		target = reader.ReadInt32();
-
-		state_first = reader.ReadInt32();
-
-		over_lay = reader.ReadInt32();
-
-		end_buff = reader.ReadInt32();
+		
 
 	}
 	public override void InitByWriter(BinaryWriter writer)
 	{
-		writer.Write(id);
-
-		writer.Write(name);
-
-		writer.Write(dsec);
-
-		writer.Write(icon);
-
-		writer.Write(effect);
-
-		writer.Write(sound);
-
-		writer.Write(buff_type);
-
-		writer.Write(sub_type);
-
-		writer.Write(interval_time);
-
-		writer.Write(duration);
-
-		writer.Write(param1);
-
-		writer.Write(param2);
-
-		writer.Write(param3);
-
-		writer.Write(param4);
-
-		writer.Write(param5);
-
-		writer.Write(param6);
-
-		writer.Write(param7);
-
-		writer.Write(death_delete);
-
-		writer.Write(target);
-
-		writer.Write(state_first);
-
-		writer.Write(over_lay);
-
-		writer.Write(end_buff);
+		
 
 	}
 }

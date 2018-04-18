@@ -10,7 +10,10 @@ public class TestDataLoader : MonoBehaviour
     void Start()
     {
         StaticCnfLoader.LoadAllCsvFile();
-        EntiityControllerManager.Instance.entites[0].InitEntity(1001001);
+
+        BaseEntity entity = EntityPool.Instance.Pop(1001001);
+        EntitesManager.Instance.AddEntity(entity);
+        EntitesManager.Instance.SetManual(entity);
     }
 
     // Update is called once per frame

@@ -14,7 +14,7 @@ namespace Summer
         {
             LogEnter();
 
-            PlaySoundEventSkill data = EventDataFactory.Pop<PlaySoundEventSkill>();
+            PlaySoundEventData data = EventDataFactory.Pop<PlaySoundEventData>();
             data.sound_name = sound_name;
             data.position = _position;
 

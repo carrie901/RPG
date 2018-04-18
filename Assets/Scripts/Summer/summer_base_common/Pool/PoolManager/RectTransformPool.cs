@@ -7,7 +7,8 @@ namespace Summer
         public const string NAME = "RectTransformPool";
 
         private static RectTransformPool _instance;
-
+        protected Transform _go_root_trans;
+        protected GameObject _go_root;
         public static RectTransformPool Instance
         {
             get

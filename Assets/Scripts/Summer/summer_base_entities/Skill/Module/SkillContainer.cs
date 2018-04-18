@@ -9,14 +9,19 @@ namespace Summer
             = new Dictionary<int, SkillSequence>(8);                                        // SkillNode cur_state;
         public SkillSequence _curr_sequece;                                                 // 当前序列
         public SkillNormalAttack normal_attack = new SkillNormalAttack();
-        public BaseEntities _entity;
+        public BaseEntity entity;
         public bool _can_cast_skill;                                                        // 可以释放下一个技能了
         public int _last_skill_id;
         public float _last_time;
-        public SkillContainer(BaseEntities entity, int hero_id)
+        public SkillContainer(BaseEntity entity)
         {
 
-            _entity = entity;
+            this.entity = entity;
+            
+        }
+
+        public void OnReset(int hero_id)
+        {
             _skill_map.Clear();
 
             // 初始化技能列表
@@ -120,7 +125,7 @@ namespace Summer
 
         public I_EntityInTrigger GetTrigger()
         {
-            return _entity.GetTrigger();
+            return entity.GetTrigger();
         }
 
         #endregion

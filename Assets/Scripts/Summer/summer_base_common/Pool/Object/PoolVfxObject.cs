@@ -2,7 +2,7 @@
 
 namespace Summer
 {
-    public class PoolVfxObject : PoolDefaultGameObject
+    public class PoolVfxObject : PoolDefaultGameObject, I_Update
     {
         #region 属性
 
@@ -17,12 +17,22 @@ namespace Summer
 
         #region MONO
 
-        private void Awake()
+        void Awake()
         {
             trans = transform;
         }
 
+
         void Update()
+        {
+            OnUpdate(0);
+        }
+
+        #endregion
+
+        #region
+
+        public void OnUpdate(float dt)
         {
             _on_update_bind_go();
 

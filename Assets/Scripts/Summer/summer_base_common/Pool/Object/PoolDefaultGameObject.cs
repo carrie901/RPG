@@ -13,7 +13,7 @@ namespace Summer
 
         void OnDestroy()
         {
-            SelfDestroy();
+            //SelfDestroy();
         }
 
         #endregion
