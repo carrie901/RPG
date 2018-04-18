@@ -15,5 +15,7 @@
     public enum E_StateId
     {
         null_state_id = 0, // Use this ID to represent a non-existing State in your system	
+        attack,             // 攻击
+        move,               // 移动
     }
 }

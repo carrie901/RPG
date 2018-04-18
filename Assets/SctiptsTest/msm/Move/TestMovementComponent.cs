@@ -15,7 +15,6 @@ public class TestMovementComponent : MonoBehaviour
     {
         joystick.on_up_event += OnUpEvent;
         button.onClick.AddListener(OnClick);
-
     }
 
 
