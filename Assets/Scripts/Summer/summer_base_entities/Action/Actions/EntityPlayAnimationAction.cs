@@ -9,5 +9,15 @@
             entity.EntityController.anim_group.PlayAnimation(data.animation_name);
         }
     }
+
+    public class EntityChangeAnimationSpeedAction : I_EntityAction
+    {
+        public void OnAction(BaseEntity entity, EventSetData param)
+        {
+            AnimationSpeedEventData data = param as AnimationSpeedEventData;
+            if (data == null) return;
+            entity.EntityController.anim_group.ChangeAnimationSpeed(data.animation_speed);
+        }
+    }
 }
 

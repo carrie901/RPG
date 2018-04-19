@@ -71,6 +71,12 @@ namespace Summer
             animator.CrossFade(anim_name, 0.2f);
         }
 
+        public void ChangeAnimationSpeed(float speed)
+        {
+            animator.speed = speed;
+            AnimatorTransitionInfo info = animator.GetAnimatorTransitionInfo(0);
+        }
+
         public void StopAnim(string anim_name)
         {
             if (animator == null) return;

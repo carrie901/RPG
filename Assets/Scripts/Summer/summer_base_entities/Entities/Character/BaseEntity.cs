@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
+
 namespace Summer
 {
     /// <summary>
@@ -21,7 +23,7 @@ namespace Summer
         public SkillSet _skill_set;
         public HeroInfoCnf _cnf;
         public EntitiesAttributeProperty _attr_prop;                                                    // 人物属性
-
+        public FsmSystem _fsm_system;
 
         public List<BaseEntity> _targets = new List<BaseEntity>();                                      // 目标
         public List<I_Update> update_list = new List<I_Update>();
@@ -29,6 +31,8 @@ namespace Summer
            = new EventSet<E_EntityOutTrigger, EventSetData>();
         public EventSet<E_EntityInTrigger, EventSetData> _in_event_set                                  // 角色的内部事件
        = new EventSet<E_EntityInTrigger, EventSetData>();
+
+        public bool CanMovement { get; set; }
 
         #endregion
 
@@ -120,15 +124,17 @@ namespace Summer
 
         #endregion
 
-        #region From Entity Factory 
+        #region 缓存池相关函数
 
         public void OnInit()
         {
             _skill_set = new SkillSet(this);
+            _fsm_system = EntityFsmFactory.CreateFsmSystem(this);
         }
 
         public void OnPop(int hero_id)
         {
+            CanMovement = true;
             Template = hero_id;
             RegisterHandler();
             entity_id = new EntityId();
@@ -138,11 +144,12 @@ namespace Summer
 
             // 更新通道
             update_list.Add(_skill_set);
-
+            update_list.Add(_fsm_system);
             // 加载模型
             BaseEntityController go = TransformPool.Instance.Pop<BaseEntityController>("Prefab/Model/Character/" + _cnf.prefab_name);
             EntityController = go;
             EntityController.InitOutTrigger(this);
+            _fsm_system.Start();
         }
 
         public void OnPush()
@@ -166,6 +173,11 @@ namespace Summer
             EntityActionFactory.OnAction<EntityPlayAnimationAction>(this, param);
         }
 
+        public void ChangeAnimationSpeed(EventSetData param)
+        {
+            EntityActionFactory.OnAction<EntityChangeAnimationSpeedAction>(this, param);
+        }
+
         public void PlayEffect(EventSetData param)
         {
             EntityActionFactory.OnAction<EntityPlayEffectAction>(this, param);
@@ -180,6 +192,11 @@ namespace Summer
         {
             EntityActionFactory.OnAction<EntityExportToTarget>(this, param);
 
+        }
+
+        public void EntityDie(EventSetData param)
+        {
+            _fsm_system.PerformTransition(E_StateId.die);
         }
 
         public void ReleaseSkill(EventSetData param)
@@ -210,11 +227,14 @@ namespace Summer
         public void RegisterHandler()
         {
             RegisterHandler(E_EntityInTrigger.play_animation, PlayAnimation);
+            RegisterHandler(E_EntityInTrigger.change_animation_speed, ChangeAnimationSpeed);
             RegisterHandler(E_EntityInTrigger.play_effect, PlayEffect);
             RegisterHandler(E_EntityInTrigger.skill_release, ReleaseSkill);
             RegisterHandler(E_EntityInTrigger.skill_finish, FinishSkill);
             RegisterHandler(E_EntityInTrigger.find_targets, FindTargets);
             RegisterHandler(E_EntityInTrigger.export_to_target, ExportToTarget);
+
+            RegisterHandler(E_EntityInTrigger.entity_die, EntityDie);
 
             RegisterHandler(E_EntityOutTrigger.animation_event, ReceiveAnimationEvent);
         }
@@ -241,6 +261,14 @@ namespace Summer
         {
             if (_skill_set == null) return;
             _skill_set.CastSkill(skill_id);
+        }
+
+        public EntityMoveCommand move_command = new EntityMoveCommand();
+        public void ReceiveCommandMove(Vector2 diretion)
+        {
+            if (!CanMovement) return;
+            _fsm_system.PerformTransition(E_StateId.move);
+            EntityController.AddDirection(diretion);
         }
 
         public I_EntityInTrigger GetTrigger()

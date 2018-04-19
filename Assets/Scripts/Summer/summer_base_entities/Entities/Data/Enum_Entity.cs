@@ -16,10 +16,13 @@ namespace Summer
         play_effect,                // 播放特效
         play_sound,                 // 播放声音
         play_animation,             // 播放动作
+        change_animation_speed,     // 改变动作速度
         find_targets,               // 找到目标
         export_to_target,           // 输出伤害
         skill_release,              // 释放技能控制
         skill_finish,               // 技能结束
+
+        entity_die,                 // 人物死亡
 
         //play_camera_shake,          //镜头抖动
         //play_camera_effect,         //镜头特效

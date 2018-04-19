@@ -5,7 +5,13 @@
     /// </summary>
     public enum E_Transition
     {
-        null_transition = 0, // Use this transition to represent a non-existing transition in your system
+        skill = 0,
+        attack,
+        die,
+        hurt,
+        idle,
+        move,
+        sleep,
     }
 
     /// <summary>
@@ -14,8 +20,13 @@
     /// </summary>
     public enum E_StateId
     {
-        null_state_id = 0, // Use this ID to represent a non-existing State in your system	
-        attack,             // 攻击
-        move,               // 移动
+        //null_state_id = 0, // Use this ID to represent a non-existing State in your system	
+        skill,
+        attack,
+        die,
+        hurt,
+        idle,
+        move,
+        sleep,
     }
 }

@@ -3,6 +3,9 @@ using UnityEngine.AI;
 
 namespace Summer
 {
+    /// <summary>
+    /// TODO 一个严重bug 就是一切的基础是以原点作为基础，一旦摄像头错误了。那么就会导致所有方向都有问题
+    /// </summary>
     public class EntityMovement : MonoBehaviour
     {
 
@@ -10,13 +13,15 @@ namespace Summer
 
         public const float NAVMESH_RADIUS = 0.5f;
         public float capsule_collider_radius = 0.51f;                   // Capsule Collider半径
-        public bool _reach_target_pos;                                  // 达到目的地
+        //public bool _reach_target_pos;                                  // 达到目的地
         //public Vector3 move_velocity = Vector3.one;                   // 当前速度
-        public Vector3 move_direction;                                  // 目标方向
-        public float turnspeed = 10;
+        [HideInInspector]
+        public Vector3 move_direction;                                  // 键盘目标方向
+        [HideInInspector]
+        public Vector3 _target_direction;                               // 目标方向
+        public float turn_smoothing = 10;
         public float movespeed = 5;
         protected Transform trans;
-
         //protected NavMeshPath nav_path = new NavMeshPath();
 
         #endregion
@@ -45,7 +50,8 @@ namespace Summer
         public void OnUpdate(float dt)
         {
             // 1.是否到达目的地
-            if (!_reach_target_pos) return;
+            //if (!_reach_target_pos) return;
+            if (move_direction == Vector3.zero) return;
             Vector3 cur_position = trans.position;
             cur_position = NavMeshHelper.MakeReasonablePos(cur_position);
 
@@ -55,7 +61,7 @@ namespace Summer
 
             // 2.移动的距离
             Vector3 distance = move_direction * dt * movespeed;
-
+            //Vector3 normal = trans.forward.normalized * distance.magnitude;
             // 3.下一个位置
             Vector3 next_pos = cur_position + distance;
 
@@ -66,6 +72,8 @@ namespace Summer
             next_pos = NavMeshHelper.MakeReasonablePos(next_pos);
             trans.position = next_pos;
             _update_direction();
+
+            move_direction = Vector3.zero;
             /*if (!NavMesh.CalculatePath(cur_position, next_pos, NavMesh.AllAreas, nav_path))
             {
                 return;
@@ -96,40 +104,59 @@ namespace Summer
             }*/
         }
 
+        /// <summary>
+        /// 旋转角度
+        /// </summary>
+        public void OnRotating(float horizontal, float vertival)
+        {
+            //Vector3 target_direction = new Vector3(horizontal, 0f, vertival);
+            //OnRotating(target_direction);
+
+        }
+
+        public void OnRotating(Vector3 target_direction)
+        {
+            Quaternion target_rotation = Quaternion.LookRotation(target_direction, Vector3.up);
+            // 根据玩家的旋转创建一个更接近目标旋转的增量旋转。
+            Quaternion new_rotation = Quaternion.Lerp(trans.rotation, target_rotation, turn_smoothing * Time.deltaTime);
+
+            trans.rotation = new_rotation;
+        }
+
         #region 驱动移动 1.目标方向 2.目标点
 
         public void AddDirection(Vector2 target_direction)
         {
-            _reach_target_pos = true;
+            //_reach_target_pos = true;
             move_direction = new Vector3(target_direction.x, 0, target_direction.y);
         }
 
-        public void RemoveDirection()
-        {
-            move_direction = Vector3.zero;
-            _reach_target_pos = false;
-        }
-
+        /*
         public void AddTargetPosition(Vector3 target_pos)
         {
 
         }
-
-        public void RemoveTargetPosition()
-        {
-
-        }
-
+        */
         #endregion
 
         #region private 
 
         public void _update_direction()
         {
-            if (move_direction != trans.eulerAngles)
+            //trans.rotation = Quaternion.LookRotation(move_direction);
+
+            trans.eulerAngles = move_direction;
+            /*if (move_direction != trans.eulerAngles)
             {
-                trans.rotation = Quaternion.Lerp(trans.rotation, Quaternion.LookRotation(move_direction), Time.deltaTime * turnspeed);
-            }
+                trans.rotation = Quaternion.Lerp(trans.localRotation, Quaternion.LookRotation(move_direction), Time.deltaTime * turn_smoothing);
+            }*/
+
+
+            /*Vector3 local_dir = Camera.main.transform.TransformDirection(move_direction);
+            if (local_dir != trans.eulerAngles)
+            {
+                trans.rotation = Quaternion.Lerp(trans.rotation, Quaternion.LookRotation(local_dir), Time.deltaTime * turn_smoothing);
+            }*/
 
         }
 

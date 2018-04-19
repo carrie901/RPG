@@ -190,6 +190,9 @@ namespace Summer
             int length = _actions.Count;
             for (int i = 0; i < length; i++)
             {
+                // 如果节点已经结束就不在运行
+                if (_actions[i].IsFinish()) continue;
+
                 _actions[i].OnUpdate(dt);
 
                 if (!_actions[i].IsFinish())

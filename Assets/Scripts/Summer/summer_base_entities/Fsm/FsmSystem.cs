@@ -2,7 +2,7 @@
 
 namespace Summer
 {
-    public class FsmSystem
+    public class FsmSystem : I_Update
     {
         #region 属性
 
@@ -16,6 +16,9 @@ namespace Summer
         private FsmState _current_state;
         public FsmState CurrentState { get { return _current_state; } }
 
+        private EntityState _current_entity_state;
+        public EntityState CurrentEntityState { get { return _current_entity_state; } }
+
         #endregion
 
         #region 构造
@@ -23,6 +26,11 @@ namespace Summer
         public FsmSystem() { }
 
         #endregion
+
+        public void Start()
+        {
+            PerformTransition(E_StateId.idle);
+        }
 
         public void AddState(FsmState new_state)
         {
@@ -38,6 +46,7 @@ namespace Summer
             {
                 states.Add(new_state);
                 _current_state = new_state;
+                _current_entity_state = _current_state as EntityState;
                 _current_state_id = new_state.Id;
                 return;
             }
@@ -48,7 +57,7 @@ namespace Summer
             {
                 if (states[i].Id == new_state.Id)
                 {
-                    LogManager.Error("FSM ERROR: 添加状态[{0}]失败, 因为状态已经存在了", new_state.Id);
+                    LogManager.Error("FSM ERROR: 添加状态[{0}]失败, 因为状态已经存在了Index:[{1}]", new_state.Id, i);
                     return;
                 }
             }
@@ -57,13 +66,6 @@ namespace Summer
 
         public void DeleteState(E_StateId id)
         {
-            // 有效检测
-            if (id == E_StateId.null_state_id)
-            {
-                LogManager.Error("FSM ERROR: NullStateID is not allowed for a real state");
-                return;
-            }
-
             // 遍历状态列表，如果存在则移除
             int length = states.Count;
             for (int i = 0; i < length; i++)
@@ -74,27 +76,16 @@ namespace Summer
                     return;
                 }
             }
-            LogManager.Error("FSM ERROR: 删除状态[{0}]失败，因为不存在于列表中 ", id);
+            LogManager.Error("删除错误: 删除状态[{0}]失败，因为不存在于列表中 ", id);
         }
 
         /// <summary>
         /// 根据状态进行转换
         /// </summary>
-        public void PerformTransition(E_Transition trans)
+        public void PerformTransition(E_StateId id)
         {
-            LogManager.Assert(trans == E_Transition.null_transition, "FSM ERROR: NullTransition is not allowed for a real transition");
-            if (trans == E_Transition.null_transition) return;
 
-            // Check if the _current_state has the transition passed as argument
-            E_StateId id = _current_state.GetOutputState(trans);
-            if (id == E_StateId.null_state_id)
-            {
-                LogManager.Error("FSM ERROR: State " + _current_state_id.ToString() + " does not have a target state " +
-                               " for transition " + trans.ToString());
-                return;
-            }
-
-            // Update the currentStateID and _current_state		
+            if (id == _current_state_id) return;
             _current_state_id = id;
             int length = states.Count;
             for (int i = 0; i < length; i++)
@@ -105,6 +96,7 @@ namespace Summer
                     _current_state.DoBeforeLeaving();
                     // 改变状态
                     _current_state = states[i];
+                    _current_entity_state = _current_state as EntityState;
                     // 设置新状态之后，进行状态进入处理
                     _current_state.DoBeforeEntering();
                     break;
@@ -113,5 +105,10 @@ namespace Summer
 
         }
 
+        public void OnUpdate(float dt)
+        {
+            if (_current_state != null)
+                _current_state.OnUpdate();
+        }
     }
 }

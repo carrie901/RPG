@@ -18,13 +18,13 @@ namespace Summer
     ///         在没有对BaseEntity进行很好的抽象之前,原子操作的部分同时和功能内聚是有一定的冲突的
     /// </summary>
     //[RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(EntityAnimationGroup),typeof(EntityMovement))]
+    [RequireComponent(typeof(EntityAnimationGroup), typeof(EntityMovement))]
     public class BaseEntityController : PoolDefaultGameObject, I_Update
     {
         #region 属性
 
         protected I_EntityOutTrigger _out_trigger;
-        public float turn_smoothing;                                                                    // 翻转速度
+                                                                      // 翻转速度
 
 
         [HideInInspector]
@@ -97,23 +97,10 @@ namespace Summer
         {
             entity = new BaseEntity(this, hero_id);
         }*/
-
-        /// <summary>
-        /// 旋转角度
-        /// </summary>
-        public void OnRotating(float horizontal, float vertival)
+ 
+        public void AddDirection(Vector2 direction)
         {
-            //Vector3 target_direction = new Vector3(horizontal, 0f, vertival);
-            //OnRotating(target_direction);
-        }
-
-        public void OnRotating(Vector3 target_direction)
-        {
-            /*Quaternion target_rotation = Quaternion.LookRotation(target_direction, Vector3.up);
-            // 根据玩家的旋转创建一个更接近目标旋转的增量旋转。
-            Quaternion new_rotation = Quaternion.Lerp(rigid_body.rotation, target_rotation, turn_smoothing * Time.deltaTime);
-
-            rigid_body.MoveRotation(new_rotation);*/
+            movement.AddDirection(direction);
         }
 
         #region 由动作文件触发的外部事件

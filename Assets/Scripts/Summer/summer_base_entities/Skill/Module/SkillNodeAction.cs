@@ -18,7 +18,7 @@ namespace Summer
         }
         public bool IsFinish() { return _is_complete; }
 
-        protected void Finish() { _is_complete = true; }
+        protected virtual void Finish() { _is_complete = true; }
 
         #region abstract OnEnter/OnExit/OnUpdate
 
@@ -53,7 +53,7 @@ namespace Summer
 
         public virtual void Reset()
         {
-
+            _is_complete = false;
         }
 
         public virtual void Destroy()
