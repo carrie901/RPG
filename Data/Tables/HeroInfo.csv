@@ -1,0 +1,10 @@
+编号,名称,模型prefab,死亡技能id,移动速度,技能列表,出生技能
+int,string,string,float,int,int[],int
+id,hero_name,prefab_name,dead_skill,move_speed,skillid_list,born_skill
+,,,,,,
+1001001,赵云,NPC_Zhaoyun_001,10008,820,10001&10002&10003&10004&10005&10006&10007&10008&10009&10010&10011&10012&10013,10013
+1002001,夏侯惇,NPC_Xiahoudun_002,1,820,,10315
+1003001,王異,NPC_Wangyi_003,1,820,,10613
+1004001,曹操,NPC_Caocao_004,1,820,,10513
+1005001,练师,NPC_Lianshi_005,1,820,,10713
+1006001,士兵A,NPC_Wangyi_003,1,820,,10613
