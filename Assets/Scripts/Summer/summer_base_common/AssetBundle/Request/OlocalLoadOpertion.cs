@@ -1,6 +1,4 @@
-﻿#if UNITY_EDITOR
-using UnityEditor;
-using Object = UnityEngine.Object;
+﻿using Object = UnityEngine.Object;
 
 namespace Summer
 {
@@ -16,13 +14,15 @@ namespace Summer
         }
         public override bool Update()
         {
+#if UNITY_EDITOR
             frame--;
             if (frame > 0)
                 return false;
-            _obj = AssetDatabase.LoadAssetAtPath<Object>(_path);
+            _obj = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(_path);
             is_complete = true;
             if (_obj == null)
                 LogManager.Error("本地加载资源出错,Path:[{0}]", _path);
+#endif
             return true;
         }
 
@@ -41,7 +41,7 @@ namespace Summer
 
         }
     }
-#endif
+
 
 }
 

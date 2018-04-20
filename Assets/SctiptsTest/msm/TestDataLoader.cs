@@ -14,6 +14,14 @@ public class TestDataLoader : MonoBehaviour
         BaseEntity entity = EntityPool.Instance.Pop(1001001);
         EntitesManager.Instance.AddEntity(entity);
         EntitesManager.Instance.SetManual(entity);
+
+        for (int i = 0; i < 8; i++)
+        {
+            BaseEntity tmp = EntityPool.Instance.Pop(1001001);
+            tmp.InitPosRot();
+            EntitesManager.Instance.AddEntity(tmp);
+        }
+
     }
 
     // Update is called once per frame

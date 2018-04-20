@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.AI;
 
 namespace Summer
@@ -16,12 +17,17 @@ namespace Summer
         //public bool _reach_target_pos;                                  // 达到目的地
         //public Vector3 move_velocity = Vector3.one;                   // 当前速度
         [HideInInspector]
-        public Vector3 move_direction;                                  // 键盘目标方向
+        public Vector3 move_direction=Vector3.zero;                     // 键盘目标方向
+
+        public List<Vector3> directions = new List<Vector3>();
         [HideInInspector]
         public Vector3 _target_direction;                               // 目标方向
         public float turn_smoothing = 10;
         public float movespeed = 5;
         protected Transform trans;
+
+        public I_EntityInTrigger trigger;
+
         //protected NavMeshPath nav_path = new NavMeshPath();
 
         #endregion
@@ -51,7 +57,14 @@ namespace Summer
         {
             // 1.是否到达目的地
             //if (!_reach_target_pos) return;
-            if (move_direction == Vector3.zero) return;
+            // TODO 不能通过这个来判断是否相等 ，准确率不高呀
+            if (move_direction == Vector3.zero)
+            {
+                /*ChangeEntityStateEventData data = EventDataFactory.Pop<ChangeEntityStateEventData>();
+                data.state_id = E_StateId.idle;
+                trigger.RaiseEvent(E_EntityInTrigger.change_state, data);*/
+                return;
+            }
             Vector3 cur_position = trans.position;
             cur_position = NavMeshHelper.MakeReasonablePos(cur_position);
 
@@ -71,8 +84,8 @@ namespace Summer
 
             next_pos = NavMeshHelper.MakeReasonablePos(next_pos);
             trans.position = next_pos;
-            _update_direction();
-
+            // _update_direction();
+            OnRotating(move_direction);
             move_direction = Vector3.zero;
             /*if (!NavMesh.CalculatePath(cur_position, next_pos, NavMesh.AllAreas, nav_path))
             {
@@ -107,20 +120,20 @@ namespace Summer
         /// <summary>
         /// 旋转角度
         /// </summary>
-        public void OnRotating(float horizontal, float vertival)
-        {
-            //Vector3 target_direction = new Vector3(horizontal, 0f, vertival);
-            //OnRotating(target_direction);
-
-        }
-
         public void OnRotating(Vector3 target_direction)
         {
-            Quaternion target_rotation = Quaternion.LookRotation(target_direction, Vector3.up);
+            /*Quaternion target_rotation = Quaternion.LookRotation(target_direction, Vector3.up);
             // 根据玩家的旋转创建一个更接近目标旋转的增量旋转。
             Quaternion new_rotation = Quaternion.Lerp(trans.rotation, target_rotation, turn_smoothing * Time.deltaTime);
+            trans.rotation = new_rotation;*/
 
-            trans.rotation = new_rotation;
+            /*if (move_direction != trans.eulerAngles)
+            {
+                trans.rotation = Quaternion.Lerp(trans.localRotation, Quaternion.LookRotation(move_direction), Time.deltaTime * turn_smoothing);
+            }*/
+
+            Quaternion target_rotation = Quaternion.LookRotation(target_direction, Vector3.up);
+            trans.rotation = target_rotation;
         }
 
         #region 驱动移动 1.目标方向 2.目标点
@@ -131,12 +144,9 @@ namespace Summer
             move_direction = new Vector3(target_direction.x, 0, target_direction.y);
         }
 
-        /*
-        public void AddTargetPosition(Vector3 target_pos)
-        {
 
-        }
-        */
+        /*public void AddTargetPosition(Vector3 target_pos) { }*/
+
         #endregion
 
         #region private 

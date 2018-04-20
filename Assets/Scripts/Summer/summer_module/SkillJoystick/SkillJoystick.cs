@@ -100,7 +100,7 @@ namespace Summer
 
         public void OnPointerEnter(PointerEventData event_data)
         {
-            Debug.Log("OnPointerEnter");
+            //Debug.Log("OnPointerEnter");
             /*if (joy_type == E_SkillJoystickType.dynamic_joy && !is_dynamic_actif /*&& _activated#1#)
             {
                 event_data.pointerDrag = gameObject;

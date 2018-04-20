@@ -88,15 +88,11 @@ namespace Summer
 
         #region public 
 
-        public void InitOutTrigger(I_EntityOutTrigger trigger)
+        public void InitOutTrigger(I_EntityOutTrigger trigger,I_EntityInTrigger in_trigger)
         {
             _out_trigger = trigger;
+            movement.trigger = in_trigger;
         }
-
-        /*public void InitEntity(int hero_id)
-        {
-            entity = new BaseEntity(this, hero_id);
-        }*/
  
         public void AddDirection(Vector2 direction)
         {

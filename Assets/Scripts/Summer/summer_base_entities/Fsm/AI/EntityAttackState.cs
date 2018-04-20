@@ -12,7 +12,7 @@
 
         public override void DoBeforeEntering()
         {
-            
+            entity.CanMovement = false;
         }
 
         public override void DoBeforeLeaving()
@@ -23,15 +23,6 @@
         public override void OnUpdate()
         {
             
-        }
-
-        #endregion
-
-        #region private
-
-        public void _check_trsnstion()
-        {
-
         }
 
         #endregion

@@ -66,6 +66,7 @@ namespace Summer
 
         public void PlayAnimation(string anim_name)
         {
+            Debug.Log("---------------------------------------------------播放动画:" + anim_name);
             curr_anim_name = anim_name;
             if (animator == null) return;
             animator.CrossFade(anim_name, 0.2f);
@@ -97,14 +98,33 @@ namespace Summer
 
         #region ReceiveEvent
 
+        public void SkillStart()
+        {
+            AnimatorStateInfo anim_info = animator.GetCurrentAnimatorStateInfo(0);
+            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_start);
+        }
+
+        public void SkillEvent01()
+        {
+            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_event01);
+            entity_controller.SkillEvent(E_SkillTransition.anim_event01);
+        }
+
+        public void SkillEvent02()
+        {
+            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_event02);
+            entity_controller.SkillEvent(E_SkillTransition.anim_event02);
+        }
+
         public void SkillHit()
         {
-            if (entity_controller == null) return;
+            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_hit);
             entity_controller.SkillEvent(E_SkillTransition.anim_hit);
         }
 
         public void SkillFinish()
         {
+            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_finish);
             entity_controller.SkillEvent(E_SkillTransition.anim_finish);
         }
 

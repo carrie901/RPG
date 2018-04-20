@@ -6,23 +6,24 @@ namespace Summer
     /// <summary>
     /// 播放角色动作
     /// </summary>
-    public class AnimationSpeedAction : SkillNodeAction
+    public class ChangeAnimationSpeedNode : SkillNodeAction
     {
-        public const string DES = "播放动作";
+        public const string DES = "改变动作速度";
 
-        public int frame_count = 10;
-        public int curr_frame = 0;
+        //public int frame_count = 10;
+        //public int curr_frame = 0;
+        public float speed = 0;
         public override void OnEnter()
         {
             LogEnter();
             AnimationSpeedEventData data = EventDataFactory.Pop<AnimationSpeedEventData>();
-            data.animation_speed = 0;
+            data.animation_speed = speed;
 
             RaiseEvent(E_EntityInTrigger.change_animation_speed, data);
-            curr_frame = Time.frameCount;
+            //curr_frame = Time.frameCount;
         }
 
-        public override void OnUpdate(float dt)
+/*        public override void OnUpdate(float dt)
         {
             if (Time.frameCount - curr_frame > frame_count)
             {
@@ -31,7 +32,7 @@ namespace Summer
                 RaiseEvent(E_EntityInTrigger.change_animation_speed, data);
                 base.OnUpdate(dt);
             }
-        }
+        }*/
 
         public override void OnExit()
         {

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace Summer
 {
@@ -17,7 +16,7 @@ namespace Summer
         {
 
             this.entity = entity;
-            
+
         }
 
         public void OnReset(int hero_id)
@@ -29,15 +28,29 @@ namespace Summer
             int[] skill_list = hero_cnf.skillid_list;
             int length = skill_list.Length;
             int skill_type_normal_attack = (int)E_SkillType.normal;
-            I_SkillSequenceFactory skill_sequence_normal = new SkillSequenceNormal();
+
+
             for (int i = 0; i < length; i++)
             {
                 // 确定普通攻击
                 SpellInfoCnf space_info = StaticCnf.FindData<SpellInfoCnf>(skill_list[i]);
                 if (space_info.skilltypes == skill_type_normal_attack)
                     normal_attack.AddSkill(skill_list[i]);
-
-                _skill_map.Add(skill_list[i], skill_sequence_normal.Create(this, space_info));
+                SkillFactory skill = null;
+                //
+                if (space_info.process_template == "normal")
+                {
+                    skill = new SkillSequenceNormal();
+                }
+                else if (space_info.process_template == "born")
+                {
+                    skill = new SkillZhaoYunBorn();
+                }else if (space_info.process_template == "qianchong")
+                {
+                    skill = new SkillZhaoYunQianChong();
+                }
+                if (skill == null) continue;
+                _skill_map.Add(skill_list[i], skill.Create(this, space_info));
             }
 
             _can_cast_skill = true;
@@ -130,6 +143,7 @@ namespace Summer
 
         #endregion
     }
+
 
     /// <summary>
     /// 普攻

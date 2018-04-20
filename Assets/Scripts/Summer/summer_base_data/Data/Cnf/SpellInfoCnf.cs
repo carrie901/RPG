@@ -14,16 +14,18 @@ public class SpellInfoCnf : BaseCsv
     // 技能特效
     public string[] skill_effect;
     public string anim_name;
+    // 流程模板
+    public string process_template;
     public override int GetId()
     {
         return ID;
     }
     public override void InitByReader(BinaryReader reader)
     {
-        
+
     }
     public override void InitByWriter(BinaryWriter writer)
     {
-        
+
     }
 }

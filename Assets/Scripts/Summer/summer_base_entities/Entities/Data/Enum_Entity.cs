@@ -18,10 +18,12 @@ namespace Summer
         play_animation,             // 播放动作
         change_animation_speed,     // 改变动作速度
         find_targets,               // 找到目标
+
         export_to_target,           // 输出伤害
         skill_release,              // 释放技能控制
         skill_finish,               // 技能结束
 
+        change_state,               // 改变状态   TODO 目前感觉这个枚举是有可能引起很多未知问题的枚举
         entity_die,                 // 人物死亡
 
         //play_camera_shake,          //镜头抖动
@@ -33,6 +35,7 @@ namespace Summer
     // TODO 概念 由外部触发，然后内部执行一些行为，比如我收到攻击了，我应该怎么办 可以变相的让E_BuffTrigger事件消失或者说更加纯粹华
     // 1. 比如播放动作 可以有外部触发播放一个动作，也有可能让内部触发播放一个动作
     // 2. 内部触发一个有生命周期的行为
+    // 3. 这个和GameSystemEvent的差别在于 一个是全局性质的，一个是针对个人的
     public enum E_EntityOutTrigger
     {
         animation_event,                // 动作事件

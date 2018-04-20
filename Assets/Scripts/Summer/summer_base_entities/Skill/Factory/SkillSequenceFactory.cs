@@ -10,6 +10,80 @@ namespace Summer
         SkillSequence Create(SkillContainer container, SpellInfoCnf spell_info);
     }
 
+    public abstract class SkillFactory
+    {
+        public abstract SkillSequence Create(SkillContainer container, SpellInfoCnf spell_info);
+
+        public SkillNode AddSkillNode(SkillSequence skill_sequence)
+        {
+            SkillNode anim_node = new SkillNode();
+            skill_sequence.AddNode(anim_node);
+            return anim_node;
+        }
+
+        public SkillNode AddSkillNode(SkillSequence skill_sequence, E_SkillTransition transition)
+        {
+            SkillNode anim_node = new SkillNode(transition);
+            skill_sequence.AddNode(anim_node);
+            return anim_node;
+        }
+
+        public SkillNodeAction CreateAnimation(SpellInfoCnf cnf)
+        {
+            PlayAnimationNode pa = SkillNodeActionFactory.Create<PlayAnimationNode>();
+            pa.animation_name = cnf.anim_name;
+            return pa;
+        }
+
+        public SkillNodeAction CreateChangeAnimationSpeed(float speed)
+        {
+            ChangeAnimationSpeedNode node = SkillNodeActionFactory.Create<ChangeAnimationSpeedNode>();
+            node.speed = speed;
+            return node;
+        }
+
+        public SkillNodeAction CreateEffect(SpellInfoCnf cnf)
+        {
+            PlayEffectNode pe = SkillNodeActionFactory.Create<PlayEffectNode>();
+            pe.effect_name = "Prefab/Vfx/Skill/" + cnf.skill_effect[0];
+            return pe;
+        }
+
+        public SkillNodeAction CreateFindTarget(SpellInfoCnf cnf)
+        {
+            FindTargetNode find_target_node = SkillNodeActionFactory.Create<FindTargetNode>();
+            find_target_node.radius = 5;
+            find_target_node.degree = 60;
+            return find_target_node;
+        }
+
+        public SkillNodeAction CreateExportToTarget(SpellInfoCnf cnf)
+        {
+            ExportToTargetNode target_node = SkillNodeActionFactory.Create<ExportToTargetNode>();
+            return target_node;
+        }
+
+        public SkillNodeAction CreateWait(SpellInfoCnf cnf)
+        {
+            WaitTimeNode wait_node = SkillNodeActionFactory.Create<WaitTimeNode>();
+            wait_node.duration = 0.2f;
+            return wait_node;
+        }
+
+        public SkillNodeAction CreateReleaseSkill(SpellInfoCnf cnf)
+        {
+            ReleaseSkillNode release_skill = SkillNodeActionFactory.Create<ReleaseSkillNode>();
+            return release_skill;
+        }
+
+        public SkillNodeAction CreateSkillFinish(SpellInfoCnf cnf)
+        {
+            SkillFinishNode finish_node = SkillNodeActionFactory.Create<SkillFinishNode>();
+            return finish_node;
+        }
+    }
+
+
     #region 一个普通的模板
     /// <summary>
     ///  一个普通的技能模板
@@ -17,47 +91,42 @@ namespace Summer
     /// 2.击打目标
     /// 3.退出
     /// </summary>
-    public class SkillSequenceNormal : I_SkillSequenceFactory
+    public class SkillSequenceNormal : SkillFactory
     {
-        public SpellInfoCnf _spell_info;
-        public SkillSequence Create(SkillContainer container, SpellInfoCnf spell_info)
+        public override SkillSequence Create(SkillContainer container, SpellInfoCnf spell_info)
         {
-            _spell_info = spell_info;
             SkillSequence skill_sequence = new SkillSequence(container);
 
             {
                 // 1.播放特效和动作，并且接受声音事件
-                SkillNode anim_node = new SkillNode();
-                skill_sequence.AddNode(anim_node);
+                SkillNode anim_node = AddSkillNode(skill_sequence);
 
-                anim_node.AddAction(CreateAnimation());
-                anim_node.AddAction(CreateEffect());
+                anim_node.AddAction(CreateAnimation(spell_info));
+                anim_node.AddAction(CreateEffect(spell_info));
             }
 
             {
                 // 3.查找目标，并且输出技能到目标身上，接受动画播放完
-                SkillNode trigger_colllion = new SkillNode(E_SkillTransition.anim_hit);
-                skill_sequence.AddNode(trigger_colllion);
+                SkillNode trigger_colllion = AddSkillNode(skill_sequence, E_SkillTransition.anim_hit);
 
-                trigger_colllion.AddAction(CreateFindTarget());
-                trigger_colllion.AddAction(CreateExportToTarget());
-                trigger_colllion.AddAction(CreateWait());
+
+                trigger_colllion.AddAction(CreateFindTarget(spell_info));
+                trigger_colllion.AddAction(CreateExportToTarget(spell_info));
+                trigger_colllion.AddAction(CreateWait(spell_info));
             }
 
             {
                 // 4.释放当前攻击
-                SkillNode node = new SkillNode();
-                skill_sequence.AddNode(node);
+                SkillNode node = AddSkillNode(skill_sequence);
 
-                node.AddAction(CreateReleaseAttack());
+                node.AddAction(CreateReleaseSkill(spell_info));
             }
 
             {
                 // 5.释放当前技能结束
-                SkillNode release_skill = new SkillNode(E_SkillTransition.anim_finish);
-                skill_sequence.AddNode(release_skill);
+                SkillNode release_skill = AddSkillNode(skill_sequence, E_SkillTransition.anim_finish);
 
-                release_skill.AddAction(CreateSkillRelease());
+                release_skill.AddAction(CreateSkillFinish(spell_info));
             }
 
 
@@ -72,51 +141,83 @@ namespace Summer
             return skill_sequence;
         }
 
-        public SkillNodeAction CreateAnimation()
-        {
-            PlayAnimationAction pa = SkillNodeActionFactory.Create<PlayAnimationAction>();
-            pa.animation_name = _spell_info.anim_name;
-            return pa;
-        }
+    }
 
-        public SkillNodeAction CreateEffect()
-        {
-            PlayEffectAction pe = SkillNodeActionFactory.Create<PlayEffectAction>();
-            pe.effect_name = "Prefab/Vfx/Skill/" + _spell_info.skill_effect[0];
-            return pe;
-        }
+    #endregion
 
-        public SkillNodeAction CreateFindTarget()
-        {
-            FindTargetAction find_target_action = SkillNodeActionFactory.Create<FindTargetAction>();
-            find_target_action.radius = 5;
-            find_target_action.degree = 60;
-            return find_target_action;
-        }
+    #region 赵云出生
 
-        public SkillNodeAction CreateExportToTarget()
+    public class SkillZhaoYunBorn : SkillFactory
+    {
+        public override SkillSequence Create(SkillContainer container, SpellInfoCnf spell_info)
         {
-            ExportToTargetAction target_action = SkillNodeActionFactory.Create<ExportToTargetAction>();
-            return target_action;
-        }
+            SkillSequence skill_sequence = new SkillSequence(container);
 
-        public SkillNodeAction CreateWait()
-        {
-            WaitTimeAction wait_action = SkillNodeActionFactory.Create<WaitTimeAction>();
-            wait_action.duration = 0.2f;
-            return wait_action;
-        }
+            {
+                SkillNode anim_node = AddSkillNode(skill_sequence,E_SkillTransition.start);
+                anim_node.AddAction(CreateAnimation(spell_info));
+            }
 
-        public SkillNodeAction CreateReleaseAttack()
-        {
-            ReleaseAttackAction release_attack = SkillNodeActionFactory.Create<ReleaseAttackAction>();
-            return release_attack;
-        }
+            // 改变速度
+            {
+                SkillNode node = AddSkillNode(skill_sequence, E_SkillTransition.anim_event01);
+                node.AddAction(CreateChangeAnimationSpeed(0.3f));
+            }
 
-        public SkillNodeAction CreateSkillRelease()
+            // 改变速度
+            {
+                SkillNode node = AddSkillNode(skill_sequence, E_SkillTransition.anim_event02);
+                node.AddAction(CreateChangeAnimationSpeed(0.5f));
+            }
+
+            // 释放控制
+            {
+                SkillNode node = AddSkillNode(skill_sequence, E_SkillTransition.anim_release);
+                node.AddAction(CreateEffect(spell_info));
+
+                node.AddAction(CreateReleaseSkill(spell_info));
+            }
+            {
+                SkillNode node = AddSkillNode(skill_sequence, E_SkillTransition.anim_finish);
+                node.AddAction(CreateSkillFinish(spell_info));
+            }
+            return skill_sequence;
+
+        }
+    }
+
+
+    #endregion
+
+    #region 赵云前冲
+
+    public class SkillZhaoYunQianChong:SkillFactory
+    {
+        public override SkillSequence Create(SkillContainer container, SpellInfoCnf spell_info)
         {
-            SkillFinishAction finish_action = SkillNodeActionFactory.Create<SkillFinishAction>();
-            return finish_action;
+            SkillSequence skill_sequence = new SkillSequence(container);
+
+            {
+                // 1.播放特效和动作，并且接受声音事件
+                SkillNode anim_node = AddSkillNode(skill_sequence);
+
+                anim_node.AddAction(CreateAnimation(spell_info));
+                anim_node.AddAction(CreateEffect(spell_info));
+            }
+
+            // 释放控制
+            {
+                SkillNode node = AddSkillNode(skill_sequence, E_SkillTransition.anim_release);
+                node.AddAction(CreateReleaseSkill(spell_info));
+
+            }
+            {
+                SkillNode node = AddSkillNode(skill_sequence, E_SkillTransition.anim_finish);
+                node.AddAction(CreateSkillFinish(spell_info));
+            }
+
+
+            return skill_sequence;
         }
     }
 

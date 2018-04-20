@@ -1,5 +1,6 @@
 ﻿
 using System.Text;
+using UnityEngine.Profiling;
 
 namespace Summer
 {
@@ -17,17 +18,15 @@ namespace Summer
         public void OnExcute()
         {
             sb.Remove(0, sb.Length);
-            sb.AppendFormat(TOTAL_ALLOC_MEMROY_FORMATION, UnityEngine.Profiling.Profiler.GetTotalAllocatedMemory() * BYTE_TO_M);
+            sb.AppendFormat(TOTAL_ALLOC_MEMROY_FORMATION, Profiler.GetTotalAllocatedMemoryLong() * BYTE_TO_M);
             sb.AppendLine();
-            sb.AppendFormat(TOTAL_ALLOC_MEMROY_FORMATION, UnityEngine.Profiling.Profiler.GetTotalAllocatedMemory() * BYTE_TO_M);
+            sb.AppendFormat(TOTAL_RESERVED_MEMORY_FORMATION, Profiler.GetTotalReservedMemoryLong() * BYTE_TO_M);
             sb.AppendLine();
-            sb.AppendFormat(TOTAL_RESERVED_MEMORY_FORMATION, UnityEngine.Profiling.Profiler.GetTotalReservedMemory() * BYTE_TO_M);
+            sb.AppendFormat(TOTAL_UNUSED_RESERVED_MEMORY_FORMATION, Profiler.GetTotalUnusedReservedMemoryLong() * BYTE_TO_M);
             sb.AppendLine();
-            sb.AppendFormat(TOTAL_UNUSED_RESERVED_MEMORY_FORMATION, UnityEngine.Profiling.Profiler.GetTotalUnusedReservedMemory() * BYTE_TO_M);
+            sb.AppendFormat(MONO_HEAP_FORMATION, Profiler.GetMonoHeapSizeLong() * BYTE_TO_M);
             sb.AppendLine();
-            sb.AppendFormat(MONO_HEAP_FORMATION, UnityEngine.Profiling.Profiler.GetMonoHeapSize() * BYTE_TO_M);
-            sb.AppendLine();
-            sb.AppendFormat(MONO_USED_FORMATION, UnityEngine.Profiling.Profiler.GetMonoUsedSize() * BYTE_TO_M);
+            sb.AppendFormat(MONO_USED_FORMATION, Profiler.GetMonoUsedSizeLong() * BYTE_TO_M);
             sb.AppendLine();
             LogManager.Log(sb.ToString());
         }

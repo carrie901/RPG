@@ -144,11 +144,11 @@ namespace Summer
 
             // 更新通道
             update_list.Add(_skill_set);
-            update_list.Add(_fsm_system);
+            //update_list.Add(_fsm_system);
             // 加载模型
             BaseEntityController go = TransformPool.Instance.Pop<BaseEntityController>("Prefab/Model/Character/" + _cnf.prefab_name);
             EntityController = go;
-            EntityController.InitOutTrigger(this);
+            EntityController.InitOutTrigger(this, this);
             _fsm_system.Start();
         }
 
@@ -196,7 +196,14 @@ namespace Summer
 
         public void EntityDie(EventSetData param)
         {
-            _fsm_system.PerformTransition(E_StateId.die);
+            //_fsm_system.PerformTransition(E_StateId.die);
+        }
+
+        public void ChangeState(EventSetData param)
+        {
+            ChangeEntityStateEventData data = param as ChangeEntityStateEventData;
+            if (data == null) return;
+            //_fsm_system.PerformTransition(data.state_id);
         }
 
         public void ReleaseSkill(EventSetData param)
@@ -207,6 +214,7 @@ namespace Summer
         public void FinishSkill(EventSetData param)
         {
             _skill_set._skill_container.FinishSkill();
+            //_fsm_system.PerformTransition(E_StateId.idle);
         }
 
         #endregion
@@ -233,8 +241,8 @@ namespace Summer
             RegisterHandler(E_EntityInTrigger.skill_finish, FinishSkill);
             RegisterHandler(E_EntityInTrigger.find_targets, FindTargets);
             RegisterHandler(E_EntityInTrigger.export_to_target, ExportToTarget);
-
             RegisterHandler(E_EntityInTrigger.entity_die, EntityDie);
+            RegisterHandler(E_EntityInTrigger.change_state, ChangeState);
 
             RegisterHandler(E_EntityOutTrigger.animation_event, ReceiveAnimationEvent);
         }
@@ -251,10 +259,15 @@ namespace Summer
 
         public bool IsDead() { return false; }
         public string ToDes() { return ""; }
+        public int skill_id= 10008;//10013
         public void CastSkill()
         {
             if (_skill_set == null) return;
-            _skill_set.CastAttack();
+            if (skill_id == 0)
+                _skill_set.CastAttack();
+            else
+                _skill_set.CastSkill(skill_id);
+            //_fsm_system.PerformTransition(E_StateId.attack);
         }
 
         public void CastSkill(int skill_id)
@@ -267,8 +280,13 @@ namespace Summer
         public void ReceiveCommandMove(Vector2 diretion)
         {
             if (!CanMovement) return;
-            _fsm_system.PerformTransition(E_StateId.move);
+            //_fsm_system.PerformTransition(E_StateId.move);
             EntityController.AddDirection(diretion);
+        }
+
+        public void InitPosRot()
+        {
+            EntityController.trans.position = new Vector3(Random.value * 40 - 20f, 0, Random.value * 40 - 20f);
         }
 
         public I_EntityInTrigger GetTrigger()

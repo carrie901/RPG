@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class ExportToTargetAction : SkillNodeAction
+    public class ExportToTargetNode : SkillNodeAction
     {
         public const string DES = "==输出技能到目标身上==";
         public override void OnEnter()

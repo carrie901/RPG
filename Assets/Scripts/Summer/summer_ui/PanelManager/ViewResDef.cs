@@ -4,30 +4,6 @@ using System.Linq.Expressions;
 
 namespace Summer
 {
-    public class EnumComparer<T> : IEqualityComparer<T> where T : struct
-    {
-        public bool Equals(T first, T second)
-        {
-            var first_param = Expression.Parameter(typeof(T), "first");
-            var second_param = Expression.Parameter(typeof(T), "second");
-            var equal_expression = Expression.Equal(first_param, second_param);
-            return Expression.Lambda<Func<T, T, bool>>
-                (equal_expression, new[] { first_param, second_param }).
-                Compile().Invoke(first, second);
-        }
-
-        public int GetHashCode(T instance)
-        {
-            var parameter = Expression.Parameter(typeof(T), "instance");
-            var convert_expression = Expression.Convert(parameter, typeof(int));
-            return Expression.Lambda<Func<T, int>>
-                (convert_expression, new[] { parameter }).
-                Compile().Invoke(instance);
-        }
-
-    }
-
-
     public enum E_ViewId
     {
         invaild = 0,

@@ -1,9 +1,9 @@
 ﻿
 namespace Summer
 {
-    public class SkillFinishAction : SkillNodeAction
+    public class SkillFinishNode : SkillNodeAction
     {
-        public const string DES = "==释放当前技能状态==";
+        public const string DES = "==技能结束==";
         public override void OnEnter()
         {
             LogEnter();

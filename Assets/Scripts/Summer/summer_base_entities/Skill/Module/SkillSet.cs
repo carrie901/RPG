@@ -26,8 +26,12 @@ namespace Summer
 
             if (_check_normal_attack())
             {
-                _next_attack = false;
-                _skill_container.CastAttack();
+                
+                bool result = _skill_container.CastAttack();
+                if (result)
+                {
+                    _next_attack = false;
+                }
             }
 
             _skill_container.OnUpdate(dt);

@@ -29,6 +29,13 @@ namespace Summer
 
     #endregion
 
+    #region 动作停顿几帧
+    public class AnimationSpeedEventData : EventSetData
+    {
+        public float animation_speed;
+    }
+    #endregion
+
     #region 播放特效
 
     /// <summary>
@@ -85,9 +92,12 @@ namespace Summer
 
     #endregion
 
-    #region 
+    #region 改变状态
 
-
+    public class ChangeEntityStateEventData : EventSetData
+    {
+        public E_StateId state_id;
+    }
 
     #endregion
 

@@ -2,7 +2,7 @@
 
 namespace Summer
 {
-    public class ReleaseAttackAction : SkillNodeAction
+    public class ReleaseSkillNode : SkillNodeAction
     {
         public const string DES = "释放普攻攻击的控制";
         public override void OnEnter()
