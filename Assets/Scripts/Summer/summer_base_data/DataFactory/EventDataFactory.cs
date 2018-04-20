@@ -4,35 +4,6 @@ using System.Collections.Generic;
 namespace Summer
 {
     /// <summary>
-    /// 
-    /// </summary>
-    public class EventSetData
-    {
-        protected bool in_use;
-
-        public virtual void OnInit() { }
-
-        public virtual void Pop()
-        {
-            in_use = false;
-            Reset();
-        }
-
-        public virtual void Push()
-        {
-            in_use = false;
-            Reset();
-        }
-
-        public virtual void Reset() { }
-
-        public virtual string ToDes()
-        {
-            return string.Empty;
-        }
-    }
-
-    /// <summary>
     /// 把所有的Event的Factory合并到一起
     /// </summary>
     public class EventDataFactory

@@ -15,10 +15,6 @@
 
         //触发回调点
         void RaiseEvent(E_EntityInTrigger key, EventSetData param);
-
-
-        // 这个有严重违反依赖导致原则，会整体的破坏了接口
-        BaseEntity GetEntity();
     }
 }
 

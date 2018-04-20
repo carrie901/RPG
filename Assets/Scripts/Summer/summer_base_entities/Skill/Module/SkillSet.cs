@@ -5,11 +5,11 @@ namespace Summer
     public class SkillSet : I_Update
     {
         public SkillContainer _skill_container;                                 // 技能容器
-        public BaseEntity entity;
+        public I_EntityInTrigger entity;
 
         public bool _next_attack;                                               // 下一个普攻
         public bool _is_normal_attack;                                          // 处于普通状态
-        public SkillSet(BaseEntity entity)
+        public SkillSet(I_EntityInTrigger entity)
         {
             this.entity = entity;
             _skill_container = new SkillContainer(entity);
