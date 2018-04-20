@@ -7,7 +7,7 @@ namespace Summer
     /// <summary>
     /// 慢动作时间缩放
     /// </summary>
-    public class PlayScaleTime : PlayBaseTime
+    public class PlayScaleTimeLeafNode : PlayBaseTimeLeafNode
     {
         public const string DES = "慢动作时间缩放";
         public float scale;

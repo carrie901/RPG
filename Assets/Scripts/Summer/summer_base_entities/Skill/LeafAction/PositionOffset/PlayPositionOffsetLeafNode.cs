@@ -7,7 +7,7 @@ namespace Summer
     /// <summary>
     /// 位置相关的如：瞬移、冲撞、击退、跳跃等
     /// </summary>
-    public class PlayPositionOffset : SkillLeafNode
+    public class PlayPositionOffsetLeafNode : SkillLeafNode
     {
         public const string DES = "位置偏移";
         public override void OnEnter()

@@ -65,9 +65,9 @@ namespace Summer
 
         public SkillLeafNode CreateWait(SpellInfoCnf cnf)
         {
-            WaitTimeNode wait_node = SkillNodeActionFactory.Create<WaitTimeNode>();
-            wait_node.duration = 0.2f;
-            return wait_node;
+            WaitTimeLeafNodeNode wait_leaf_node_node = SkillNodeActionFactory.Create<WaitTimeLeafNodeNode>();
+            wait_leaf_node_node.duration = 0.2f;
+            return wait_leaf_node_node;
         }
 
         public SkillLeafNode CreateReleaseSkill(SpellInfoCnf cnf)
@@ -78,8 +78,8 @@ namespace Summer
 
         public SkillLeafNode CreateSkillFinish(SpellInfoCnf cnf)
         {
-            SkillLeafFinishNode leaf_finish_node = SkillNodeActionFactory.Create<SkillLeafFinishNode>();
-            return leaf_finish_node;
+            SkillFinishLeafNode finish_leaf_node = SkillNodeActionFactory.Create<SkillFinishLeafNode>();
+            return finish_leaf_node;
         }
     }
 

@@ -7,7 +7,7 @@ namespace Summer
     /// <summary>
     /// 找到离我们最近的的一个目标
     /// </summary>
-    public class GetTargetNear : SkillLeafNode
+    public class GetTargetNearLeafNode : SkillLeafNode
     {
         public float ditance;
         public override void OnEnter()

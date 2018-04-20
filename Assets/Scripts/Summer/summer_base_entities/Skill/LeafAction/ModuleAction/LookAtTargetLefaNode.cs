@@ -5,7 +5,7 @@ namespace Summer
     /// <summary>
     /// 朝向目标
     /// </summary>
-    public class LookAtTarget : SkillLeafNode
+    public class LookAtTargetLefaNode : SkillLeafNode
     {
         public const string DES = "朝向目标";
         public bool every_frame;

@@ -1,7 +1,7 @@
 ﻿
 namespace Summer
 {
-    public class SkillLeafFinishNode : SkillLeafNode
+    public class SkillFinishLeafNode : SkillLeafNode
     {
         public const string DES = "==技能结束==";
         public override void OnEnter()

@@ -5,7 +5,7 @@ namespace Summer
     /// <summary>
     /// 移动到目标点
     /// </summary>
-    public class MoveToTarget : SkillLeafNode
+    public class MoveToTargetLeafNode : SkillLeafNode
     {
         public const string DES = "移动到目标点";
         public float speed;
