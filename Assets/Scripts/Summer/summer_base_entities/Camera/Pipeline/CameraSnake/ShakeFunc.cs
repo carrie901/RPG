@@ -15,6 +15,7 @@ namespace Summer
     /// 6.是否收到time影响
     /// 7.开始/结束
     /// </summary>
+
     public class ShakeFunc
     {
         public float amplitude;             //幅度
@@ -24,8 +25,8 @@ namespace Summer
         public ShakeFunc(float amplitude, int frequency, float last_time)
         {
             this.amplitude = amplitude;
-            period_time = 1.0f/(float) frequency;
-            decay = amplitude/(last_time/period_time);
+            period_time = 1.0f / (float)frequency;
+            decay = amplitude / (last_time / period_time);
         }
 
         public float _time_from_start = 0;

@@ -228,6 +228,13 @@ namespace Summer
             _skill_set.ReceiveTransitionEvent(data.event_data);
         }
 
+        public void OnBeHurt(EventSetData param)
+        {
+            PlayAnimationEventData data = EventDataFactory.Pop<PlayAnimationEventData>();
+            data.animation_name = "hit";
+            EntityActionFactory.OnAction<EntityPlayAnimationAction>(this, data);
+        }
+
         #endregion
 
         #region 注册事件
@@ -245,6 +252,7 @@ namespace Summer
             RegisterHandler(E_EntityInTrigger.change_state, ChangeState);
 
             RegisterHandler(E_EntityOutTrigger.animation_event, ReceiveAnimationEvent);
+            RegisterHandler(E_EntityOutTrigger.on_be_hurt, OnBeHurt);
         }
 
 
@@ -259,7 +267,7 @@ namespace Summer
 
         public bool IsDead() { return false; }
         public string ToDes() { return ""; }
-        public int skill_id= 10008;//10013
+        public int skill_id = 0;//10013 // 10008
         public void CastSkill()
         {
             if (_skill_set == null) return;

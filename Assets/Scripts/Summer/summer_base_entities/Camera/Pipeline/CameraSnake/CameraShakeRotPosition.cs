@@ -6,8 +6,8 @@ namespace Summer
 {
     public class CameraShakeRotPosition : MonoBehaviour
     {
-        public const float MIN = 0.1f;
-        public bool shaking;                        // 摄像头抖动开始
+        public const float MIN = 1f;
+        public bool shaking;                                // 摄像头抖动开始
         public Action shake_started;                        // 开始抖动
         public Action shake_completed;                      // 结束抖动
 
@@ -31,14 +31,14 @@ namespace Summer
         // Update is called once per frame
         void Update()
         {
-            if (test_bool)
-            {
-                _reset();
-            }
+            /*            if (test_bool)
+                        {
+                            _reset();
+                        }*/
 
-            if (!test_start)
+            if (test_start)
                 return;
-
+            test_start = false;
             if (!shaking)
             {
                 shaking = true;
@@ -60,8 +60,8 @@ namespace Summer
 
             NormalizeQuaternion(ref new_shake_rotation);
 
-            cache_trans.localPosition = new_shake_position;
-            cache_trans.localRotation = new_shake_rotation;
+            cache_trans.position = new_shake_position;
+            cache_trans.rotation = new_shake_rotation;
 
             if (timer > Mathf.PI * 2)
             {
@@ -94,8 +94,8 @@ namespace Summer
         // 回复到原始位置
         public void _reset_original()
         {
-            cache_trans.localPosition = start_pos;
-            cache_trans.localRotation = start_rot;
+            cache_trans.position = start_pos;
+            cache_trans.rotation = start_rot;
 
             test_start = false;
         }
@@ -137,11 +137,15 @@ namespace Summer
     {
         public float start_time = 0;
         public bool multiply_by_time_scale = false;     // 是否收到时间缩放的影响
-        public Vector3 shake_amount = Vector3.one;      // 震动的方向 是否需要震动到Z轴
-        public Vector3 rotation_amount = Vector3.one;   // 旋转角度
+        [Tooltip("震动的方向 是否需要震动到Z轴")]
+        public Vector3 shake_amount = Vector3.one;
+        [Tooltip("旋转角度")]
+        public Vector3 rotation_amount = Vector3.one;
         public float shake_distance = 00.10f;
-        public float rotation_strength = 1;             // 旋转的强度
-        public float speed = 50.00f;                    // 速度
+        [Tooltip("旋转的强度")]
+        public float rotation_strength = 1;
+        [Tooltip("速度")]
+        public float speed = 50.00f;
         public float decay = 00.20f;                    //
         public float scale;
         public void Init()

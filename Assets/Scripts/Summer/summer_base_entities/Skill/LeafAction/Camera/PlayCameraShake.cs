@@ -15,29 +15,18 @@ namespace Summer
     public class PlayCameraShake : SkillLeafNode
     {
         public const string DES = "镜头抖动";
-        public PlayCameraShakeEventSkill _data;
 
         public override void OnEnter()
         {
-            if (_data == null)
-                _data = EventDataFactory.Pop<PlayCameraShakeEventSkill>();
-            GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_shake, _data);
+            LogEnter();
+            PlayCameraShakeEventSkill data = EventDataFactory.Pop<PlayCameraShakeEventSkill>();
+            GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_shake, data);
             Finish();
         }
 
         public override void OnExit()
         {
 
-        }
-
-        public override void OnUpdate(float dt)
-        {
-            
-        }
-
-        public override void Destroy()
-        {
-            _data = null;
         }
 
         public override string ToDes() { return DES; }
