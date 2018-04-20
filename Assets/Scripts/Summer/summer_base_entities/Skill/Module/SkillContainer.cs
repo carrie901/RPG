@@ -8,15 +8,13 @@ namespace Summer
             = new Dictionary<int, SkillSequence>(8);                                        // SkillNode cur_state;
         public SkillSequence _curr_sequece;                                                 // 当前序列
         public SkillNormalAttack normal_attack = new SkillNormalAttack();
-        public BaseEntity entity;
+        public I_EntityInTrigger in_trigger;                                                // 内部触发器
         public bool _can_cast_skill;                                                        // 可以释放下一个技能了
         public int _last_skill_id;
         public float _last_time;
-        public SkillContainer(BaseEntity entity)
+        public SkillContainer(I_EntityInTrigger entity)
         {
-
-            this.entity = entity;
-
+            this.in_trigger = entity;
         }
 
         public void OnReset(int hero_id)
@@ -45,7 +43,8 @@ namespace Summer
                 else if (space_info.process_template == "born")
                 {
                     skill = new SkillZhaoYunBorn();
-                }else if (space_info.process_template == "qianchong")
+                }
+                else if (space_info.process_template == "qianchong")
                 {
                     skill = new SkillZhaoYunQianChong();
                 }
@@ -134,11 +133,6 @@ namespace Summer
         public void OnFinish()
         {
             _curr_sequece = null;
-        }
-
-        public I_EntityInTrigger GetTrigger()
-        {
-            return entity.GetTrigger();
         }
 
         #endregion

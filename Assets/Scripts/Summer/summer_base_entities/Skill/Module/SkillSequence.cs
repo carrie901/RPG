@@ -185,11 +185,6 @@ namespace Summer
             state.SetParent(this);
         }
 
-        public I_EntityInTrigger GetTrigger()
-        {
-            return _skill_container.GetTrigger();
-        }
-
         #endregion
 
         #region private 
