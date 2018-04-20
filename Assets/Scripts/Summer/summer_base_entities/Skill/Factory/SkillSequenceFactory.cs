@@ -28,58 +28,58 @@ namespace Summer
             return anim_node;
         }
 
-        public SkillNodeAction CreateAnimation(SpellInfoCnf cnf)
+        public SkillLeafNode CreateAnimation(SpellInfoCnf cnf)
         {
-            PlayAnimationNode pa = SkillNodeActionFactory.Create<PlayAnimationNode>();
+            PlayAnimationLeafNode pa = SkillNodeActionFactory.Create<PlayAnimationLeafNode>();
             pa.animation_name = cnf.anim_name;
             return pa;
         }
 
-        public SkillNodeAction CreateChangeAnimationSpeed(float speed)
+        public SkillLeafNode CreateChangeAnimationSpeed(float speed)
         {
-            ChangeAnimationSpeedNode node = SkillNodeActionFactory.Create<ChangeAnimationSpeedNode>();
-            node.speed = speed;
-            return node;
+            ChangeAnimationSpeedLeafNode leaf_node = SkillNodeActionFactory.Create<ChangeAnimationSpeedLeafNode>();
+            leaf_node.speed = speed;
+            return leaf_node;
         }
 
-        public SkillNodeAction CreateEffect(SpellInfoCnf cnf)
+        public SkillLeafNode CreateEffect(SpellInfoCnf cnf)
         {
-            PlayEffectNode pe = SkillNodeActionFactory.Create<PlayEffectNode>();
+            PlayEffectLeafNode pe = SkillNodeActionFactory.Create<PlayEffectLeafNode>();
             pe.effect_name = "Prefab/Vfx/Skill/" + cnf.skill_effect[0];
             return pe;
         }
 
-        public SkillNodeAction CreateFindTarget(SpellInfoCnf cnf)
+        public SkillLeafNode CreateFindTarget(SpellInfoCnf cnf)
         {
-            FindTargetNode find_target_node = SkillNodeActionFactory.Create<FindTargetNode>();
-            find_target_node.radius = 5;
-            find_target_node.degree = 60;
-            return find_target_node;
+            FindTargetLeafNode find_target_leaf_node = SkillNodeActionFactory.Create<FindTargetLeafNode>();
+            find_target_leaf_node.radius = 5;
+            find_target_leaf_node.degree = 60;
+            return find_target_leaf_node;
         }
 
-        public SkillNodeAction CreateExportToTarget(SpellInfoCnf cnf)
+        public SkillLeafNode CreateExportToTarget(SpellInfoCnf cnf)
         {
-            ExportToTargetNode target_node = SkillNodeActionFactory.Create<ExportToTargetNode>();
-            return target_node;
+            ExportToTargetLeafNode target_leaf_node = SkillNodeActionFactory.Create<ExportToTargetLeafNode>();
+            return target_leaf_node;
         }
 
-        public SkillNodeAction CreateWait(SpellInfoCnf cnf)
+        public SkillLeafNode CreateWait(SpellInfoCnf cnf)
         {
             WaitTimeNode wait_node = SkillNodeActionFactory.Create<WaitTimeNode>();
             wait_node.duration = 0.2f;
             return wait_node;
         }
 
-        public SkillNodeAction CreateReleaseSkill(SpellInfoCnf cnf)
+        public SkillLeafNode CreateReleaseSkill(SpellInfoCnf cnf)
         {
-            ReleaseSkillNode release_skill = SkillNodeActionFactory.Create<ReleaseSkillNode>();
-            return release_skill;
+            ReleaseSkillLeafNode release_skill_leaf = SkillNodeActionFactory.Create<ReleaseSkillLeafNode>();
+            return release_skill_leaf;
         }
 
-        public SkillNodeAction CreateSkillFinish(SpellInfoCnf cnf)
+        public SkillLeafNode CreateSkillFinish(SpellInfoCnf cnf)
         {
-            SkillFinishNode finish_node = SkillNodeActionFactory.Create<SkillFinishNode>();
-            return finish_node;
+            SkillLeafFinishNode leaf_finish_node = SkillNodeActionFactory.Create<SkillLeafFinishNode>();
+            return leaf_finish_node;
         }
     }
 
@@ -225,7 +225,7 @@ namespace Summer
 
     public class SkillNodeActionFactory
     {
-        public static T Create<T>() where T : SkillNodeAction, new()
+        public static T Create<T>() where T : SkillLeafNode, new()
         {
             T t = new T();
             return t;

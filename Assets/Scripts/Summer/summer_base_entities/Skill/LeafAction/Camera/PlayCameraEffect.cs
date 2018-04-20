@@ -16,7 +16,7 @@ namespace Summer
     /// <summary>
     /// 径向模糊:图像旋转成从中心辐射。
     /// </summary>
-    public class PlayCameraRadialBlurEffect : SkillNodeAction
+    public class PlayCameraRadialBlurEffect : SkillLeafNode
     {
         public const string DES = "径向模糊";
         public float duration;
@@ -58,7 +58,7 @@ namespace Summer
     /// <summary>
     /// 运动模糊
     /// </summary>
-    public class PlayCameraMotionBlurEffect : SkillNodeAction
+    public class PlayCameraMotionBlurEffect : SkillLeafNode
     {
         public const string DES = "运动模糊";
         public PlayCameraMotionBlurEffectEventSkill _data;

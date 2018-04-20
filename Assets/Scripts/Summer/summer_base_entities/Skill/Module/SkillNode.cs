@@ -34,6 +34,7 @@ namespace Summer
     ///     1.进行节点，直接执行叶子动作，
     ///         1.1如果是默认动作，直接跳转到下一个节点
     ///         1.2如果有接受事件。那么只有接受到指定事件之后，才会跳转到下一个节点中去
+    ///
     /// </summary>
     public class SkillNode
     {
@@ -50,7 +51,7 @@ namespace Summer
         #region 属性
 
         public StringBuilder _des;                                                         //  描述
-        public List<SkillNodeAction> _actions = new List<SkillNodeAction>(16);      //  这个节点下叶子节点
+        public List<SkillLeafNode> _actions = new List<SkillLeafNode>(16);      //  这个节点下叶子节点
         public E_SkillTransition _start_transition = E_SkillTransition.start;       //  执行这个节点的开始运行的事件 目前只接受一个事件 默认情况下接受start事件
         //public E_SkillTransition _finish_transition = E_SkillTransition.start;
         public SkillSequence _parent_node;                                          //  属性某一个流程
@@ -80,7 +81,7 @@ namespace Summer
             _parent_node = parent;
         }
 
-        public void AddAction(SkillNodeAction action)
+        public void AddAction(SkillLeafNode action)
         {
             _actions.Add(action);
             action.BindingContext(this);
@@ -92,7 +93,7 @@ namespace Summer
             }
         }
 
-        public void RemoveAction(SkillNodeAction action)
+        public void RemoveAction(SkillLeafNode action)
         {
             int length = _actions.Count;
             for (int i = length - 1; i >= 0; i--)

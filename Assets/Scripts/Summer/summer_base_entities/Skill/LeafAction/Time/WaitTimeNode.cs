@@ -7,7 +7,7 @@ namespace Summer
     /// <summary>
     /// 等待一定的时间之后发出时间
     /// </summary>
-    public class WaitTimeNode : PlayBaseTimeAction
+    public class WaitTimeNode : PlayBaseTime
     {
         public const string DES = "等待一定的时间之后发出时间";
         public string finish_event;

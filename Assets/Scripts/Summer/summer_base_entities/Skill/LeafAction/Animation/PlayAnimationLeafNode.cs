@@ -4,7 +4,7 @@ namespace Summer
     /// <summary>
     /// 播放角色动作
     /// </summary>
-    public class PlayAnimationNode : SkillNodeAction
+    public class PlayAnimationLeafNode : SkillLeafNode
     {
         public const string DES = "播放动作";
         public string animation_name;

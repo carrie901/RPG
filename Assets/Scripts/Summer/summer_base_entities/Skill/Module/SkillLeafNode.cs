@@ -6,7 +6,7 @@ namespace Summer
     /// 
     /// TODO 节点和外部之间的联系如何维持
     /// </summary>
-    public abstract class SkillNodeAction
+    public abstract class SkillLeafNode
     {
         protected SkillNode _context;          //上下文（序列节点）
         protected I_EntityInTrigger _in_trigger;

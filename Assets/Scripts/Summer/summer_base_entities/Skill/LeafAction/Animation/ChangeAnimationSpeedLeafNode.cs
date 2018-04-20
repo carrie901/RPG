@@ -6,7 +6,7 @@ namespace Summer
     /// <summary>
     /// 播放角色动作
     /// </summary>
-    public class ChangeAnimationSpeedNode : SkillNodeAction
+    public class ChangeAnimationSpeedLeafNode : SkillLeafNode
     {
         public const string DES = "改变动作速度";
 

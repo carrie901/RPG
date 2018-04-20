@@ -8,7 +8,7 @@ namespace Summer
     /// <summary>
     /// 过程化时间动作，在开始和结束设置回调
     /// </summary>
-    public abstract class PlayBaseTimeAction : SkillNodeAction
+    public abstract class PlayBaseTime : SkillLeafNode
     {
         public float duration;
 
@@ -21,7 +21,7 @@ namespace Summer
             LogEnter();
             if (duration < 0)
             {
-                LogManager.Assert(duration >= 0, "PlayBaseTimeAction 间隔时间必须大于0");
+                LogManager.Assert(duration >= 0, "PlayBaseTime 间隔时间必须大于0");
                 DoAction();
                 ReAction();
                 Finish();

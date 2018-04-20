@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class PlayCameraOffset : SkillNodeAction
+    public class PlayCameraOffset : SkillLeafNode
     {
         public const string DES = "摄像头偏移";
         public override void OnEnter()

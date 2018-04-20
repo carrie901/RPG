@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class PlaySoundAction : SkillNodeAction
+    public class PlaySound : SkillLeafNode
     {
         public const string DES = "播放声音";
         public string sound_name;              //特效名称
@@ -35,7 +35,7 @@ namespace Summer
         public override string ToDes() { return DES; }
     }
 
-    public class PlaySoundActionByAnimation : PlaySoundAction
+    public class PlaySoundByAnimation : PlaySound
     {
 
     }

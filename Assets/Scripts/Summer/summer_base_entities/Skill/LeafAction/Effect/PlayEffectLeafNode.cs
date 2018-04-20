@@ -5,7 +5,7 @@ namespace Summer
     /// <summary>
     /// 播放特效
     /// </summary>
-    public class PlayEffectNode : SkillNodeAction
+    public class PlayEffectLeafNode : SkillLeafNode
     {
         public const string DES = "播放特效";
         public string effect_name;             //特效名称

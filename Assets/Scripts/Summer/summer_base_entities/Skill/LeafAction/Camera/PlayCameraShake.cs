@@ -12,7 +12,7 @@ namespace Summer
     /// <summary>
     /// 镜头抖动
     /// </summary>
-    public class PlayCameraShake : SkillNodeAction
+    public class PlayCameraShake : SkillLeafNode
     {
         public const string DES = "镜头抖动";
         public PlayCameraShakeEventSkill _data;
