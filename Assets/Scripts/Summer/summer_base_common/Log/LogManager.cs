@@ -50,6 +50,7 @@ namespace Summer
             //pipelines.Add(FileLog.Instance);
             //pipelines.Add(StringBuilderLog.Instance);
             pipelines.Add(UnityLog.Instance);
+            //pipelines.Add(RuntimeLog.Instance);
 #endif
 
         }
@@ -89,7 +90,7 @@ namespace Summer
             if (error_level < WARING) return;
             int count = pipelines.Count;
             for (int i = 0; i < count; i++)
-                pipelines[i].Warning(message);
+                pipelines[i].Waring(message);
         }
 
         public static void Warning(string message, params object[] args)

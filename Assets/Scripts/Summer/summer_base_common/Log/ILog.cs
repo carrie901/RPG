@@ -75,7 +75,7 @@ namespace Summer
 
         public void Log(string message, params object[] args)
         {
-            _print(string.Format("[Log][{0}]:  {1}", GetCurrentTime(), String.Format(message, args)));
+            _print(string.Format("[Log][{0}]:  {1}", GetCurrentTime(), string.Format(message, args)));
         }
 
         public void Waring(string message)
@@ -85,7 +85,7 @@ namespace Summer
 
         public void Warning(string message, params object[] args)
         {
-            _print(string.Format("[Warning][{0}]:  {1}", GetCurrentTime(), String.Format(message, args)));
+            _print(string.Format("[Warning][{0}]:  {1}", GetCurrentTime(), string.Format(message, args)));
         }
 
         public void Error(string message)
@@ -95,7 +95,7 @@ namespace Summer
 
         public void Error(string message, params object[] args)
         {
-            _print(string.Format("[Error][{0}]:  {1}", GetCurrentTime(), String.Format(message, args)));
+            _print(string.Format("[Error][{0}]:  {1}", GetCurrentTime(), string.Format(message, args)));
         }
 
         public void Assert(bool condition, string message)
@@ -107,7 +107,7 @@ namespace Summer
         public void Assert(bool condition, string message, params object[] args)
         {
             if (condition) return;
-            _print(string.Format("[Assert][{0}]:  {1}", GetCurrentTime(), String.Format(message, args)));
+            _print(string.Format("[Assert][{0}]:  {1}", GetCurrentTime(), string.Format(message, args)));
             sw.Flush();
         }
 

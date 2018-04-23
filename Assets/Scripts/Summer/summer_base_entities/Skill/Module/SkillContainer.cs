@@ -107,6 +107,7 @@ namespace Summer
             if (!CanCastSkill()) return false;
             _last_skill_id = id;
             SkillLog.Assert(!_test, "释放技能bug:[{0}]", id);
+            
             SkillLog.Log("======================释放技能:[{0}]======================", id);
             _test = true;
             _can_cast_skill = false;
