@@ -137,14 +137,14 @@ namespace Summer
     {
         public float start_time = 0;
         public bool multiply_by_time_scale = false;     // 是否收到时间缩放的影响
-        [Tooltip("震动的方向 是否需要震动到Z轴")]
+        [Header("震动的方向 是否需要震动到Z轴")]
         public Vector3 shake_amount = Vector3.one;
-        [Tooltip("旋转角度")]
+        [Header("旋转角度")]
         public Vector3 rotation_amount = Vector3.one;
         public float shake_distance = 00.10f;
-        [Tooltip("旋转的强度")]
+        [Header("旋转的强度")]
         public float rotation_strength = 1;
-        [Tooltip("速度")]
+        [Header("速度")]
         public float speed = 50.00f;
         public float decay = 00.20f;                    //
         public float scale;

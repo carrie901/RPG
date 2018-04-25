@@ -31,7 +31,7 @@ namespace Summer
                 if (tmp_angle > angle) continue;
                 // 添加到目标
                 entity._targets.Add(tmp_entity);
-                LogManager.Log("找到目标:{0}", tmp_entity.EntityController.gameObject.name);
+                ActionLog.Log("找到目标:{0}", tmp_entity.EntityController.gameObject.name);
             }
         }
     }
