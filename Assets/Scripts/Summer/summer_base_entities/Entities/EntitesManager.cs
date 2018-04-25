@@ -4,41 +4,27 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class EntitesManager : MonoBehaviour
+    public class EntitesManager : I_Update
     {
         #region 属性
 
-        public static EntitesManager Instance;
+        public static EntitesManager Instance =new EntitesManager();
         public List<BaseEntity> entites = new List<BaseEntity>();
 
         public BaseEntity manual { get; private set; }
-        public float _last_time;
         #endregion
 
-        #region Mono
 
-        void Awake()
-        {
-            _last_time = Time.realtimeSinceStartup;
-            LogManager.Assert(Instance == null, "EntiityControllerManager已经被实例化");
-            Instance = this;
-        }
+        #region
 
-        // Update is called once per frame
-        void Update()
+        public void OnUpdate(float dt)
         {
-            float dt = Time.realtimeSinceStartup - _last_time;
-            _last_time = Time.realtimeSinceStartup;
             int length = entites.Count;
             for (int i = length - 1; i >= 0; i--)
             {
                 entites[i].OnUpdate(dt);
             }
         }
-
-        #endregion
-
-        #region
 
         public void AddEntity(BaseEntity entity)
         {

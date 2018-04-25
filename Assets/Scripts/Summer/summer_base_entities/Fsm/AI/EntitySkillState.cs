@@ -1,7 +1,7 @@
 ﻿
 namespace Summer
 {
-    public class EntitySkillState : EntityState
+    public class EntitySkillState : FsmState
     {
         public EntitySkillState()
         {
@@ -21,7 +21,7 @@ namespace Summer
 
         }
 
-        public override void OnUpdate()
+        public override void OnUpdate(float dt)
         {
 
         }

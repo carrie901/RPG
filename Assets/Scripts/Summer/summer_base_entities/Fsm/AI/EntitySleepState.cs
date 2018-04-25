@@ -1,6 +1,6 @@
 ﻿namespace Summer
 {
-    public class EntitySleepState : EntityState
+    public class EntitySleepState : FsmState
     {
         public EntitySleepState()
         {
@@ -19,7 +19,7 @@
 
         }
 
-        public override void OnUpdate()
+        public override void OnUpdate(float dt)
         {
 
         }

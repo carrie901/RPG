@@ -17,7 +17,6 @@ public class TestMovementComponent : MonoBehaviour
     public bool joystick_is_moveed = false;
     public bool key_board_is_input = false;
 
-    public float time_scale;
     // Use this for initialization
     void Start()
     {
@@ -27,10 +26,10 @@ public class TestMovementComponent : MonoBehaviour
     }
     public Vector3 move_direction = Vector3.zero;
     // Update is called once per frame
-    void Update()
+    //void FixedUpdate()
+    void LateUpdate()
     {
         /*if (!joystick.is_touch) return;*/
-        time_scale = Time.timeScale;
         Vector2 direction = Vector2.zero;
         key_board_is_input = false;
         if (Input.GetKey(KeyCode.W))
@@ -93,4 +92,12 @@ public class TestMovementComponent : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(_centerPos, _followPos);*/
     }
+}
+
+
+public class PlayerInput
+{
+    public Vector2 direction;
+
+
 }

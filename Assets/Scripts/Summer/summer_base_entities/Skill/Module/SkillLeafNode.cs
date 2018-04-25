@@ -68,13 +68,6 @@ namespace Summer
         public void RaiseEvent(E_EntityInTrigger key, EventSetData obj_info)
         {
             _context.RaiseEvent(key, obj_info);
-            /* if (_in_trigger == null)
-                _in_trigger = _context.GetTrigger();
-
-            //if (_in_trigger == null) return;
-            // TODO 这样一层一层的递交上次，是否违反了重构原则
-            _in_trigger.RaiseEvent(key, obj_info);
-            EventDataFactory.Push(obj_info);*/
         }
 
         #endregion

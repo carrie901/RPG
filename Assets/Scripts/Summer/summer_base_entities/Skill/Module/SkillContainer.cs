@@ -2,24 +2,34 @@
 
 namespace Summer
 {
+    /// <summary>
+    /// SkillContainer 容器的功能其实不太纯粹
+    /// </summary>
     public class SkillContainer : I_Update
     {
-        public Dictionary<int, SkillSequence> _skill_map
-            = new Dictionary<int, SkillSequence>(8);                                        // SkillNode cur_state;
-        public SkillSequence _curr_sequece;                                                 // 当前序列
-        public SkillNormalAttack normal_attack = new SkillNormalAttack();
-        public I_EntityInTrigger in_trigger;                                                // 内部触发器
+        #region 属性
+
+        public Dictionary<int, SkillSequence> _sequence_map
+            = new Dictionary<int, SkillSequence>(8);                                        // Entity的技能容器
+        public SkillSequence _curr_sequece;                                                 // 当前技能序列
+        public I_EntityInTrigger _entity;                                               // 内部触发器
+
         public bool _can_cast_skill;                                                        // 可以释放下一个技能了
-        public int _last_skill_id;
+
         public float _last_time;
+
+        public SkillNormalAttack normal_attack = new SkillNormalAttack();
+
+        #endregion
+
         public SkillContainer(I_EntityInTrigger entity)
         {
-            this.in_trigger = entity;
+            _entity = entity;
         }
 
         public void OnReset(int hero_id)
         {
-            _skill_map.Clear();
+            _sequence_map.Clear();
 
             // 初始化技能列表
             HeroInfoCnf hero_cnf = StaticCnf.FindData<HeroInfoCnf>(hero_id);
@@ -49,7 +59,7 @@ namespace Summer
                     skill = new SkillZhaoYunQianChong();
                 }
                 if (skill == null) continue;
-                _skill_map.Add(skill_list[i], skill.Create(this, space_info));
+                _sequence_map.Add(skill_list[i], skill.Create(this, space_info));
             }
 
             _can_cast_skill = true;
@@ -67,11 +77,11 @@ namespace Summer
             _curr_sequece.OnUpdate(dt);
 
             // TODO test code
-            float curr_time = TimerHelper.RealtimeSinceStartup();
+            float curr_time = TimeManager.RealtimeSinceStartup;
             if (curr_time - _last_time > 15.0)
             {
                 LogManager.Error("技能释放错误,超过时间，Skill:{0}", _curr_sequece);
-                _last_time = TimerHelper.RealtimeSinceStartup();
+                _last_time = TimeManager.RealtimeSinceStartup;
             }
         }
 
@@ -100,21 +110,21 @@ namespace Summer
         public void FinishSkill()
         {
             normal_attack.ResetAttack();
+            EntityEventFactory.ChangeInEntityState(_entity, E_StateId.idle);
         }
 
         public bool CastSkill(int id)
         {
             if (!CanCastSkill()) return false;
-            _last_skill_id = id;
+            EntityEventFactory.ChangeInEntityState(_entity, E_StateId.attack);
             SkillLog.Assert(!_test, "释放技能bug:[{0}]", id);
-            
             SkillLog.Log("======================释放技能:[{0}]======================", id);
             _test = true;
             _can_cast_skill = false;
             // TODO QAQ:有bug的可能性很大，例如技能释放到一半的时候，释放了另外一个技能，这样就需要破坏掉原来的技能
-            _curr_sequece = _skill_map[id];
+            _curr_sequece = _sequence_map[id];
             _curr_sequece.OnStart();
-            _last_time = TimerHelper.RealtimeSinceStartup();
+            _last_time = TimeManager.RealtimeSinceStartup;
 
             return true;
         }

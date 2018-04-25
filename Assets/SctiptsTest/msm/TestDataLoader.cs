@@ -13,9 +13,11 @@ public class TestDataLoader : MonoBehaviour
 
         BaseEntity entity = EntityPool.Instance.Pop(1001001);
         EntitesManager.Instance.AddEntity(entity);
+        GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_set_player, entity);
         EntitesManager.Instance.SetManual(entity);
 
-        for (int i = 0; i < 8; i++)
+        int count = 7;
+        for (int i = 0; i < count; i++)
         {
             BaseEntity tmp = EntityPool.Instance.Pop(1001001);
             tmp.InitPosRot();

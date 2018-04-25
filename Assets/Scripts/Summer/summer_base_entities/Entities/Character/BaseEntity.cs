@@ -16,8 +16,9 @@ namespace Summer
         #region 属性
 
         public int Template { get; private set; }
-        public BaseEntityController EntityController { get; private set; }                             // GameObject控制器
-
+        public BaseEntityController EntityController { get; private set; }                              // GameObject控制器
+        public Vector3 WroldPosition { get { return EntityController.trans.position; } }                // 世界坐标
+        public Vector3 Direction { get { return EntityController.trans.forward; } }                     // 当前方向
         public EntityId entity_id;                                                                      // Entity的唯一表示
         //public BuffContainer _buff_container;                                                           // Buff容器
         public SkillSet _skill_set;
@@ -36,16 +37,13 @@ namespace Summer
 
         #endregion
 
-        #region 构造
-
-        #endregion
-
         #region Override 各种接口
 
         #region OnUpdate
 
         public void OnUpdate(float dt)
         {
+            EntityController.OnUpdate(dt);
             int length = update_list.Count;
             for (int i = 0; i < length; i++)
             {
@@ -99,7 +97,7 @@ namespace Summer
 
         #endregion
 
-        #region 注册监听人物的内部事件
+        #region 注册监听人物的内部事件 基本都是一些原子节点
 
         public bool RegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventSetData>.EventHandler handler)
         {
@@ -117,9 +115,9 @@ namespace Summer
             _in_event_set.RaiseEvent(key, param);
         }
 
-        public BaseEntity GetEntity()
+        public E_StateId GetState()
         {
-            return this;
+            return _fsm_system.GetState();
         }
 
         #endregion
@@ -166,60 +164,75 @@ namespace Summer
 
         #endregion
 
-        #region 监听的内部事件
+        #region 监听的内部事件,通过一些原子节点触发事件，迫使Entity做出某些行为
 
+        // Entity播放动画
         public void PlayAnimation(EventSetData param)
         {
             EntityActionFactory.OnAction<EntityPlayAnimationAction>(this, param);
         }
 
+        // 改变动画的速率
         public void ChangeAnimationSpeed(EventSetData param)
         {
             EntityActionFactory.OnAction<EntityChangeAnimationSpeedAction>(this, param);
         }
 
+        // 播放特效
         public void PlayEffect(EventSetData param)
         {
             EntityActionFactory.OnAction<EntityPlayEffectAction>(this, param);
         }
 
+        // 找到目标
         public void FindTargets(EventSetData param)
         {
             EntityActionFactory.OnAction<EntityFindTargetAction>(this, param);
         }
 
+        // 输出伤害到目标身上
         public void ExportToTarget(EventSetData param)
         {
-            EntityActionFactory.OnAction<EntityExportToTarget>(this, param);
-
+            EntityActionFactory.OnAction<EntityExportToTargetAction>(this, param);
         }
 
+        public void MoveToTargetPostion(EventSetData param)
+        {
+            EntityActionFactory.OnAction<MoveToTargetPositionAction>(this, param);
+        }
+
+        // 目标死亡
         public void EntityDie(EventSetData param)
         {
-            //_fsm_system.PerformTransition(E_StateId.die);
+            EntityEventFactory.ChangeInEntityState(this, E_StateId.die);
         }
 
+        // 改变当前玩家状态
         public void ChangeState(EventSetData param)
         {
             ChangeEntityStateEventData data = param as ChangeEntityStateEventData;
             if (data == null) return;
-            //_fsm_system.PerformTransition(data.state_id);
+            if (GetState() == data.state_id && !data.force) return;
+            SkillLog.Log("之前状态:{0},改变之后状态:{1}", GetState(), data.state_id);
+            _fsm_system.PerformTransition(data.state_id);
         }
 
+        // 释放技能的控制，可以播放下一技能
         public void ReleaseSkill(EventSetData param)
         {
             _skill_set._skill_container.ReleaseSkill();
         }
 
+        // 技能结束
         public void FinishSkill(EventSetData param)
         {
+            // 技能结束
             _skill_set._skill_container.FinishSkill();
-            //_fsm_system.PerformTransition(E_StateId.idle);
         }
 
         #endregion
 
-        #region 监听的外部事件
+        #region 监听的外部事件，比如动作文件为源头，触发动作事件
 
         public void ReceiveAnimationEvent(EventSetData param)
         {
@@ -230,9 +243,10 @@ namespace Summer
 
         public void OnBeHurt(EventSetData param)
         {
-            PlayAnimationEventData data = EventDataFactory.Pop<PlayAnimationEventData>();
+            EntityEventFactory.ChangeInEntityState(this, E_StateId.hurt);
+            /*PlayAnimationEventData data = EventDataFactory.Pop<PlayAnimationEventData>();
             data.animation_name = "hit";
-            EntityActionFactory.OnAction<EntityPlayAnimationAction>(this, data);
+            EntityActionFactory.OnAction<EntityPlayAnimationAction>(this, data);*/
         }
 
         #endregion
@@ -248,6 +262,7 @@ namespace Summer
             RegisterHandler(E_EntityInTrigger.skill_finish, FinishSkill);
             RegisterHandler(E_EntityInTrigger.find_targets, FindTargets);
             RegisterHandler(E_EntityInTrigger.export_to_target, ExportToTarget);
+            RegisterHandler(E_EntityInTrigger.move_to_target_position, MoveToTargetPostion);
             RegisterHandler(E_EntityInTrigger.entity_die, EntityDie);
             RegisterHandler(E_EntityInTrigger.change_state, ChangeState);
 
@@ -267,15 +282,14 @@ namespace Summer
 
         public bool IsDead() { return false; }
         public string ToDes() { return ""; }
-        public int skill_id = 0;//10013 // 10008
+        public int _skill_id = 0;//10013 // 10008
         public void CastSkill()
         {
             if (_skill_set == null) return;
-            if (skill_id == 0)
+            if (_skill_id == 0)
                 _skill_set.CastAttack();
             else
-                _skill_set.CastSkill(skill_id);
-            //_fsm_system.PerformTransition(E_StateId.attack);
+                _skill_set.CastSkill(_skill_id);
         }
 
         public void CastSkill(int skill_id)
@@ -284,11 +298,9 @@ namespace Summer
             _skill_set.CastSkill(skill_id);
         }
 
-        public EntityMoveCommand move_command = new EntityMoveCommand();
         public void ReceiveCommandMove(Vector2 diretion)
         {
             if (!CanMovement) return;
-            //_fsm_system.PerformTransition(E_StateId.move);
             EntityController.AddDirection(diretion);
         }
 
@@ -297,9 +309,14 @@ namespace Summer
             EntityController.trans.position = new Vector3(Random.value * 40 - 20f, 0, Random.value * 40 - 20f);
         }
 
-        public I_EntityInTrigger GetTrigger()
+        public void MoveToTargetPostion(Vector3 target_position, float speed)
         {
-            return this;
+            EntityController.movement.MoveToTargetPostion(target_position, speed);
+        }
+
+        public virtual I_Transform GetTransform()
+        {
+            return null;
         }
 
         public void Clear()

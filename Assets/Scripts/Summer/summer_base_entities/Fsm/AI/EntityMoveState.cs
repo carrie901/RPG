@@ -1,6 +1,6 @@
 ﻿namespace Summer
 {
-    public class EntityMoveState : EntityState
+    public class EntityMoveState : FsmState
     {
         public EntityMoveState()
         {
@@ -23,7 +23,7 @@
 
         }
 
-        public override void OnUpdate()
+        public override void OnUpdate(float dt)
         {
 
         }

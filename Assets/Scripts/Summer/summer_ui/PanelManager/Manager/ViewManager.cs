@@ -52,12 +52,6 @@ namespace Summer
 
         void OnApplicationQuit()
         {
-           
-            LogManager.Quit();
-        }
-
-        public void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
             
         }
 

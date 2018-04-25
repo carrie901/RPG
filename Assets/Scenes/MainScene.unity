@@ -192,7 +192,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 38035055}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.81, y: 2.94, z: -10.66}
+  m_LocalPosition: {x: 0, y: 6, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 125510531}
@@ -205,21 +205,25 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 38035055}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eae71ce4d98be294c87aa22421cae814, type: 3}
+  m_Script: {fileID: 11500000, guid: 055bf37362003f14987922499d571e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 176417343}
-  horizontal_angle: 270
-  initial_height: 2
-  initial_angle: 40
-  maxAngle: 50
-  minAngle: 35
-  maxDistance: 26.5
-  minDistance: 5
-  zoomSpeed: 50
-  swipeSpeed: 50
+  _default_source:
+    _type: 0
+    _data:
+      _rotaion: {x: 30, y: 0, z: 0}
+      _offset: {x: 0, y: 4, z: -5}
+    _timer: 1
+    _priority: 0
+  _last_default_type: 0
+  _default_source_lerp:
+    _rot_speed: 2
+    _fast_rot_speed: 1
+    _slow_rot_speed: 0.4
+    _offset_speed: 1
+  _show_safe_zone: 0
 --- !u!1 &58575769
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,10 +454,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 158904200}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &176417343 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 400050, guid: 8a91a7e42913be24787abae169211582, type: 2}
-  m_PrefabInternal: {fileID: 429852258}
 --- !u!1 &230160108
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,7 +641,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400050, guid: 8a91a7e42913be24787abae169211582, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -3.63
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400050, guid: 8a91a7e42913be24787abae169211582, type: 2}
       propertyPath: m_LocalPosition.y
@@ -649,7 +649,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400050, guid: 8a91a7e42913be24787abae169211582, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -3.23
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400050, guid: 8a91a7e42913be24787abae169211582, type: 2}
       propertyPath: m_LocalRotation.x
@@ -889,6 +889,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 847799957}
+  - component: {fileID: 847799959}
   - component: {fileID: 847799956}
   - component: {fileID: 847799958}
   m_Layer: 0
@@ -910,6 +911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _last_time: 0
+  camera: {fileID: 0}
 --- !u!4 &847799957
 Transform:
   m_ObjectHideFlags: 0
@@ -932,6 +934,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 673614e4a962aaa4d9343bac4667ac01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &847799959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 847799955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 003de741ff826bc4891fd1234202fef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1022771123
@@ -1114,7 +1127,6 @@ MonoBehaviour:
   follow: {fileID: 0}
   joystick_is_moveed: 0
   key_board_is_input: 0
-  time_scale: 0
   move_direction: {x: 0, y: 0, z: 0}
 --- !u!114 &1150922889
 MonoBehaviour:

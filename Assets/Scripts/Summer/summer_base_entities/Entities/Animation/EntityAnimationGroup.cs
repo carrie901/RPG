@@ -2,6 +2,7 @@
 
 namespace Summer
 {
+
     /// <summary>
     /// 原则上是让数据和动作文件进行分离
     /// </summary>
@@ -66,7 +67,7 @@ namespace Summer
 
         public void PlayAnimation(string anim_name)
         {
-            Debug.Log("---------------------------------------------------播放动画:" + anim_name);
+            AnimationLog.Log("*****************播放动画:" + anim_name);
             curr_anim_name = anim_name;
             if (animator == null) return;
             animator.CrossFade(anim_name, 0.2f);
@@ -200,5 +201,21 @@ namespace Summer
     {
         public EntityAnimationGroup.ClipType clip_type;
         public float mormalized_time;
+    }
+
+    public class AnimationLog
+    {
+        public static void Log(string message)
+        {
+            if (!LogManager.animation) return;
+            LogManager.Log(message);
+        }
+
+        public static void Log(string message, params object[] args)
+        {
+            if (!LogManager.animation) return;
+            LogManager.Log(message);
+        }
+
     }
 }

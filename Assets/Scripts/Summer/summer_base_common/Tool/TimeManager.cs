@@ -28,4 +28,17 @@ public class TimeManager
     {
         get { return Time.frameCount; }
     }
+
+
+    public static float _last_time;
+    public static void BeginSampleTime()
+    {
+        _last_time = Time.realtimeSinceStartup;
+    }
+
+    public static float EndSimpleTime()
+    {
+        float dt = Time.realtimeSinceStartup - _last_time;
+        return dt;
+    }
 }

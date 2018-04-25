@@ -22,22 +22,27 @@ namespace Summer
         #region 属性
 
         public static bool open_debug = true;
+
         public static bool open_debug_buff = false;
         public static bool open_debug_effect = false;
         public static bool open_load_res = false;
         public static bool open_send_notification = false;
         public static bool open_plot = false;
-        public static bool open_skill = true;
+        public static bool open_skill = false;
+
+        public static bool animation = false;
 
         public static List<ILog> pipelines = new List<ILog>();
 
         #region 日志级别
+
         public static int error_level = ASSET;   // none=0,log=1,waring=2,error=3,asset=4
         public const int NONE = 0;
         public const int LOG = 1;
         public const int WARING = 2;
         public const int ERROR = 3;
         public const int ASSET = 4;
+
         #endregion
 
         #endregion
@@ -142,27 +147,13 @@ namespace Summer
 
         #endregion
 
-        //TODO 特殊的时间，后面从别的地方拿，目前只适用于关卡
-        public static float LeftTime()
-        {
-            return Time.realtimeSinceStartup;
-        }
+        #region private
 
         private static bool IsOpenDebug()
         {
             return open_debug;
         }
 
+        #endregion
     }
-
-    public enum EDebugLevel
-    {
-        e_none,
-        e_log,
-        e_waring,
-        e_error,
-        e_asset,
-        e_max,
-    }
-
 }

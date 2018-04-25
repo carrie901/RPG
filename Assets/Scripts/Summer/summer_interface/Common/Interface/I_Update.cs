@@ -6,6 +6,7 @@ namespace Summer
 {
     public interface I_Update
     {
+        //int Priority { get; set; }
         void OnUpdate(float dt);
     }
 }

@@ -239,7 +239,7 @@ namespace Summer
             Timer new_timer = Timer.AddTimer(buff.info.ExpireDuration, buff.OnExpire);
             _buff_expire_timer.Add(buff._bid._iid, new_timer);
             // 2.重新更新超时时间
-            buff.info.ResetTimeOut(TimerHelper.RealtimeSinceStartup());
+            buff.info.ResetTimeOut(TimeManager.RealtimeSinceStartup);
         }
 
         // 移除超时

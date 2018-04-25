@@ -150,7 +150,7 @@ namespace Summer
         // 剩余时间
         public float LifeTime()
         {
-            return _timeout - TimerHelper.RealtimeSinceStartup();
+            return _timeout - TimeManager.RealtimeSinceStartup;
         }
 
         public bool CheckBuffId(int buff_id) { return buff_id == info.id; }

@@ -1,6 +1,14 @@
 ﻿using UnityEngine;
 namespace Summer
 {
+
+    public interface I_RefCounter
+    {
+        int RefCount { get; }
+        void Retain();
+        void Release();
+    }
+
     /// <summary>
     /// TODO 2017.11.10
     ///     纹理，如果有一个图片还没加载成功就已经呗销毁了。这种情况如何处理他的引用计数

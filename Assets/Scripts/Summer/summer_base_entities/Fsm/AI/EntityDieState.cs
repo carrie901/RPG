@@ -1,6 +1,6 @@
 ﻿namespace Summer
 {
-    public class EntityDieState : EntityState
+    public class EntityDieState : FsmState
     {
 
         /*public BaseEntity _entity;
@@ -18,9 +18,7 @@
 
         public override void DoBeforeEntering()
         {
-            PlayAnimationEventData data = EventDataFactory.Pop<PlayAnimationEventData>();
-            data.animation_name = "die";
-            entity.RaiseEvent(E_EntityInTrigger.play_animation, data);
+            EntityEventFactory.PlayAnimation(entity, AnimationNameConst.DIE);
         }
 
         public override void DoBeforeLeaving()
@@ -28,7 +26,7 @@
 
         }
 
-        public override void OnUpdate()
+        public override void OnUpdate(float dt)
         {
 
         }

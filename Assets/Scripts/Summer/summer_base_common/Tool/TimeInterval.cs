@@ -65,6 +65,10 @@ namespace Summer
         }
     }
 
+    /// <summary>
+    /// TODO
+    /// 这个方法是有一定风险错误的，不合适通过TimerHelper.RealtimeSinceStartup()来进行时间的间隔
+    /// </summary>
     public class TimeDt
     {
         public float dt;
@@ -72,7 +76,7 @@ namespace Summer
 
         public float OnUpdate()
         {
-            float cur_time = TimerHelper.RealtimeSinceStartup();
+            float cur_time = TimeManager.RealtimeSinceStartup;
             dt = cur_time - _last_time;
             OnReset();
             return dt;
@@ -80,7 +84,7 @@ namespace Summer
 
         public void OnReset()
         {
-            _last_time = TimerHelper.RealtimeSinceStartup();
+            _last_time = TimeManager.RealtimeSinceStartup;
         }
 
     }

@@ -15,11 +15,11 @@ namespace Summer
 
         void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
-            if (_Material)
+            if (CMainMaterial)
             {
-                _Material.SetFloat("_BlurFactor", blur_factor);
-                _Material.SetVector("_BlurCenter", blur_center);
-                Graphics.Blit(source, destination, _Material);
+                CMainMaterial.SetFloat("_BlurFactor", blur_factor);
+                CMainMaterial.SetVector("_BlurCenter", blur_center);
+                Graphics.Blit(source, destination, CMainMaterial);
             }
             else
             {

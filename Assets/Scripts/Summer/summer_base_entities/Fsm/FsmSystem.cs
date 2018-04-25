@@ -16,9 +16,6 @@ namespace Summer
         private FsmState _current_state;
         public FsmState CurrentState { get { return _current_state; } }
 
-        private EntityState _current_entity_state;
-        public EntityState CurrentEntityState { get { return _current_entity_state; } }
-
         #endregion
 
         #region 构造
@@ -46,7 +43,6 @@ namespace Summer
             {
                 states.Add(new_state);
                 _current_state = new_state;
-                _current_entity_state = _current_state as EntityState;
                 _current_state_id = new_state.Id;
                 return;
             }
@@ -79,13 +75,18 @@ namespace Summer
             LogManager.Error("删除错误: 删除状态[{0}]失败，因为不存在于列表中 ", id);
         }
 
+        public E_StateId GetState()
+        {
+            return _current_state_id;
+        }
+
         /// <summary>
         /// 根据状态进行转换
         /// </summary>
         public void PerformTransition(E_StateId id)
         {
-
             if (id == _current_state_id) return;
+
             _current_state_id = id;
             int length = states.Count;
             for (int i = 0; i < length; i++)
@@ -96,7 +97,6 @@ namespace Summer
                     _current_state.DoBeforeLeaving();
                     // 改变状态
                     _current_state = states[i];
-                    _current_entity_state = _current_state as EntityState;
                     // 设置新状态之后，进行状态进入处理
                     _current_state.DoBeforeEntering();
                     break;
@@ -108,7 +108,7 @@ namespace Summer
         public void OnUpdate(float dt)
         {
             if (_current_state != null)
-                _current_state.OnUpdate();
+                _current_state.OnUpdate(dt);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace Summer
 {
-    public class EntityIdleState : EntityState
+    public class EntityIdleState : FsmState
     {
 
         /*public BaseEntity _entity;
@@ -30,7 +30,7 @@ namespace Summer
 
         }
 
-        public override void OnUpdate()
+        public override void OnUpdate(float dt)
         {
 
         }

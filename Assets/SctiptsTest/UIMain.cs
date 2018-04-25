@@ -54,15 +54,12 @@ public class UIMain : MonoBehaviour
     public Image sp;
     public GameObject LoadGameObject()
     {
-        MemoryDetector m = new MemoryDetector();
         AssetBundle assetbundle1 = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/AssetBundle/t_05/main");
         assetbundle1.LoadAllAssets();
         sp.sprite = assetbundle1.LoadAsset<Sprite>("UI_dianjiang_button_huo02");
-        m.OnExcute();
         AssetBundle assetbundle = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/AssetBundle/t_05/prefab_01.assetbundle");
         //Object[] os = assetbundle.LoadAllAssets();
         Object ob = assetbundle.LoadAsset("UI_dianjiang_button_quan01");
-        m.OnExcute();
         GameObject go = Instantiate(ob as GameObject);
         return go;
     }

@@ -17,7 +17,7 @@ namespace Summer
     ///     1.外形的改变，聚焦变化
     ///     2.静态和动态
     /// </summary>
-    public class SkillJoystick : MonoBehaviour, IPointerEnterHandler, IDragHandler, IBeginDragHandler, IPointerDownHandler, IPointerUpHandler
+    public class SkillJoystick : MonoBehaviour, IDragHandler, IBeginDragHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler,IPointerExitHandler
     {
         public static SkillJoystick instance;
         #region 属性
@@ -57,7 +57,6 @@ namespace Summer
         // 按下
         public void OnPointerDown(PointerEventData event_data)
         {
-            //Debug.Log("OnPointerDown");
             is_touch = true;
             // 开始移动
             event_data.pressPosition = transform.position;
@@ -69,7 +68,6 @@ namespace Summer
         // 抬起
         public void OnPointerUp(PointerEventData event_data)
         {
-            //Debug.Log("OnPointerUp");
             is_touch = false;
             direction = Vector2.zero;
             //JoystickController.mJoystickIsMoved = false;
@@ -116,10 +114,17 @@ namespace Summer
             //OnPointerUp(event_data);
         }
 
+        public void OnPointerExit(PointerEventData event_data)
+        {
+
+        }
+
         public void OnBeginDrag(PointerEventData event_data)
         {
             //Debug.Log("OnBeginDrag");
         }
+
+
 
 
         #region 私有方法
@@ -130,6 +135,8 @@ namespace Summer
         }
 
         #endregion
+
+        
     }
 
     /*public enum E_SkillJoystickType

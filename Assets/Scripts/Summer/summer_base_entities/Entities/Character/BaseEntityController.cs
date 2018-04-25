@@ -23,10 +23,8 @@ namespace Summer
     {
         #region 属性
 
-        protected I_EntityOutTrigger _out_trigger;
-                                                                      // 翻转速度
-
-
+        protected I_EntityOutTrigger _out_entity;
+        protected I_EntityInTrigger _in_entity;
         [HideInInspector]
         public EntityAnimationGroup anim_group;
         [HideInInspector]
@@ -35,10 +33,7 @@ namespace Summer
         public Transform trans;                                                                         // 缓存Transform
         [HideInInspector]
         public Rigidbody rigid_body = null;
-        public Vector3 WroldPosition { get { return trans.position; } }                                 // 世界坐标
-        public Vector3 Direction { get { return trans.forward; } }                                      // 当前方向
-
-
+        
         #endregion
 
         #region Mono Override
@@ -63,6 +58,7 @@ namespace Summer
 
         public void OnUpdate(float dt)
         {
+            movement.OnUpdate(dt);
             /*if (entity == null) return;
             entity.OnUpdate(dt);*/
 
@@ -81,19 +77,20 @@ namespace Summer
         public override void OnPush()
         {
             base.OnPush();
-            _out_trigger = null;
+            _out_entity = null;
         }
 
         #endregion
 
         #region public 
 
-        public void InitOutTrigger(I_EntityOutTrigger trigger,I_EntityInTrigger in_trigger)
+        public void InitOutTrigger(I_EntityOutTrigger out_trigger, I_EntityInTrigger in_trigger)
         {
-            _out_trigger = trigger;
-            movement.trigger = in_trigger;
+            _out_entity = out_trigger;
+            _in_entity = in_trigger;
+            movement._entity = in_trigger;
         }
- 
+
         public void AddDirection(Vector2 direction)
         {
             movement.AddDirection(direction);
@@ -106,7 +103,7 @@ namespace Summer
         {
             AnimationEventData param = EventDataFactory.Pop<AnimationEventData>();
             param.event_data = skill_event;
-            _out_trigger.RaiseEvent(E_EntityOutTrigger.animation_event, param);
+            _out_entity.RaiseEvent(E_EntityOutTrigger.animation_event, param);
         }
 
         #endregion

@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿
 
 namespace Summer
 {
@@ -9,7 +8,8 @@ namespace Summer
 
         protected E_StateId _state_id;
         public E_StateId Id { get { return _state_id; } }
-
+        public BaseEntity entity;
+        public I_EntityCommnad _command;
         #endregion
 
         #region public
@@ -24,7 +24,16 @@ namespace Summer
 
         public abstract void DoBeforeLeaving();
 
-        public abstract void OnUpdate();
+        public virtual void OnUpdate(float dt)
+        {
+            if (_command != null)
+                _command.OnUpdate(entity, dt);
+        }
+
+        public void OnEnter(I_EntityCommnad command)
+        {
+            _command = command;
+        }
 
         #endregion
 

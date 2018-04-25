@@ -7,7 +7,7 @@ public class GameManagers : MonoBehaviour
 {
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
 
 
@@ -23,9 +23,9 @@ public class GameManagers : MonoBehaviour
         CameraEffectManager.instance.UnRegisterHandler();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnApplicationQuit()
     {
-
+        LogManager.Quit();
     }
+
 }

@@ -212,13 +212,6 @@ namespace Summer
 
         public void Init()
         {
-            //1.初始化文件路径
-            string path = Application.dataPath;
-            int index = path.LastIndexOf('/');
-            path = path.Substring(0, index);
-            path = path + FILEPATH;
-            //2.开启流
-            sw = new StreamWriter(path, true);
             Application.logMessageReceived += OnDebugCallBackHandler;
         }
 
@@ -226,7 +219,7 @@ namespace Summer
         {
             // Error Assert Warning Log Exception
             if (type == LogType.Log || type == LogType.Warning) return;
-            //Error(condition);
+            Error(condition);
             Error(stack_trace);
         }
 
@@ -270,30 +263,36 @@ namespace Summer
         {
             if (condition) return;
             _print(string.Format("[Assert][{0}]:  {1}", GetCurrentTime(), String.Format(message, args)));
-            sw.Flush();
         }
 
         public void Quit()
         {
-            if (sw != null)
-            {
-                sw.WriteLine(sb.ToString());
-                sw.Flush();
-                sw.Close();
-                sw = null;
-            }
+            //1.初始化文件路径
+#if UNITY_EDITOR
+            string path = Application.dataPath;
+#else
+            string path = Application.persistentDataPath;
+#endif
+
+            int index = path.LastIndexOf('/');
+            path = path.Substring(0, index);
+            path = path + FILEPATH;
+            //2.开启流
+            sw = new StreamWriter(path, true);
+            sw.WriteLine(sb.ToString());
+            sw.Flush();
+            sw.Close();
+            sw = null;
         }
 
         public void _print(string mess)
         {
             sb.AppendLine(mess);
-            //sw.WriteLine(mess);
-            //sw.Flush();
         }
 
         private string GetCurrentTime()
         {
-            return System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ");
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ");
         }
 
 

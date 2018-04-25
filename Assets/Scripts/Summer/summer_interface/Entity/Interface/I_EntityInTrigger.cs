@@ -15,6 +15,13 @@
 
         //触发回调点
         void RaiseEvent(E_EntityInTrigger key, EventSetData param);
+
+        #region Test
+
+        E_StateId GetState();
+
+
+        #endregion
     }
 }
 

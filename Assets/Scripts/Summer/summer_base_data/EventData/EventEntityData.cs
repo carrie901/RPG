@@ -97,13 +97,18 @@ namespace Summer
     public class ChangeEntityStateEventData : EventSetData
     {
         public E_StateId state_id;
+        public bool force = false;
     }
 
     #endregion
 
-    #region 
+    #region 移动到目标点
 
-
+    public class MoveToTargetPositionData : EventSetData
+    {
+        public float distance;
+        public float speed;
+    }
 
     #endregion
 

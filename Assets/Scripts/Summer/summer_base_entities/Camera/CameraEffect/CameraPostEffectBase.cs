@@ -14,7 +14,7 @@ namespace Summer
         //Inspector面板上直接拖入  
         public Shader shader = null;
         private Material _material = null;
-        public Material _Material
+        public Material CMainMaterial
         {
             get
             {
@@ -25,14 +25,14 @@ namespace Summer
         }
 
         //根据shader创建用于屏幕特效的材质  
-        protected Material GenerateMaterial(Shader shader)
+        protected Material GenerateMaterial(Shader tshader)
         {
-            if (shader == null)
+            if (tshader == null)
                 return null;
             //需要判断shader是否支持  
-            if (shader.isSupported == false)
+            if (tshader.isSupported == false)
                 return null;
-            Material material = new Material(shader);
+            Material material = new Material(tshader);
             material.hideFlags = HideFlags.DontSave;
             if (material)
                 return material;

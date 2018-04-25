@@ -19,7 +19,7 @@ namespace Summer
 
         void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
-            if (_Material)
+            if (CMainMaterial)
             {
                 // 申请两块降低了分辨率的RT  
                 RenderTexture rt1 = RenderTexture.GetTemporary(source.width >> down_sample_factor, source.height >> down_sample_factor, 0, source.format);
@@ -27,14 +27,14 @@ namespace Summer
                 Graphics.Blit(source, rt1);
 
                 // 使用降低分辨率的rt进行模糊:pass0  
-                _Material.SetFloat("_BlurFactor", blur_factor);
-                _Material.SetVector("_BlurCenter", blur_center);
-                Graphics.Blit(rt1, rt2, _Material, 0);
+                CMainMaterial.SetFloat("_BlurFactor", blur_factor);
+                CMainMaterial.SetVector("_BlurCenter", blur_center);
+                Graphics.Blit(rt1, rt2, CMainMaterial, 0);
 
                 // 使用rt2和原始图像lerp:pass1  
-                _Material.SetTexture("_BlurTex", rt2);
-                _Material.SetFloat("_LerpFactor", lerp_factor);
-                Graphics.Blit(source, destination, _Material, 1);
+                CMainMaterial.SetTexture("_BlurTex", rt2);
+                CMainMaterial.SetFloat("_LerpFactor", lerp_factor);
+                Graphics.Blit(source, destination, CMainMaterial, 1);
 
                 // 释放RT  
                 RenderTexture.ReleaseTemporary(rt1);

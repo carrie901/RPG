@@ -1,6 +1,6 @@
 namespace Summer
 {
-	    /// <summary>
+    /// <summary>
     /// 触发人物触发的相关事件
     /// TODO 概念由Entity自身发出某一个事件，然后让entity自己做行为，目前无法确认是否有必要
     /// </summary>
@@ -14,6 +14,7 @@ namespace Summer
         find_targets,               // 找到目标
 
         export_to_target,           // 输出伤害
+        move_to_target_position,    // 移动到目标地点
         skill_release,              // 释放技能控制
         skill_finish,               // 技能结束
 

@@ -53,8 +53,16 @@ namespace Summer
         {
             FindTargetLeafNode find_target_leaf_node = SkillNodeActionFactory.Create<FindTargetLeafNode>();
             find_target_leaf_node.radius = 5;
-            find_target_leaf_node.degree = 60;
+            find_target_leaf_node.degree = 120;
             return find_target_leaf_node;
+        }
+
+        public SkillLeafNode CreateMoveToTargetLeafNode(SpellInfoCnf cnf)
+        {
+            MoveToTargetLeafNode node = SkillNodeActionFactory.Create<MoveToTargetLeafNode>();
+            node.speed = 1;
+            node.distance = 3;
+            return node;
         }
 
         public SkillLeafNode CreateExportToTarget(SpellInfoCnf cnf)
@@ -111,6 +119,7 @@ namespace Summer
 
 
                 trigger_colllion.AddAction(CreateFindTarget(spell_info));
+                trigger_colllion.AddAction(CreateMoveToTargetLeafNode(spell_info));
                 trigger_colllion.AddAction(CreateExportToTarget(spell_info));
                 trigger_colllion.AddAction(CreateWait(spell_info));
             }
@@ -154,7 +163,7 @@ namespace Summer
             SkillSequence skill_sequence = new SkillSequence(container);
 
             {
-                SkillNode anim_node = AddSkillNode(skill_sequence,E_SkillTransition.start);
+                SkillNode anim_node = AddSkillNode(skill_sequence, E_SkillTransition.start);
                 anim_node.AddAction(CreateAnimation(spell_info));
             }
 
@@ -173,8 +182,6 @@ namespace Summer
             // 释放控制
             {
                 SkillNode node = AddSkillNode(skill_sequence, E_SkillTransition.anim_release);
-                node.AddAction(CreateEffect(spell_info));
-
                 node.AddAction(CreateReleaseSkill(spell_info));
             }
             {
@@ -191,7 +198,7 @@ namespace Summer
 
     #region 赵云前冲
 
-    public class SkillZhaoYunQianChong:SkillFactory
+    public class SkillZhaoYunQianChong : SkillFactory
     {
         public override SkillSequence Create(SkillContainer container, SpellInfoCnf spell_info)
         {

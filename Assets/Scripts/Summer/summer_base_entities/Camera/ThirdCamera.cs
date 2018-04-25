@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-
+[ExecuteInEditMode]
 public class ThirdCamera : MonoBehaviour
 {
     public Transform target = null;     // 目标玩家

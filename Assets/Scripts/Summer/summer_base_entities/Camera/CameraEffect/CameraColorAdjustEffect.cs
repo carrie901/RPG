@@ -20,14 +20,14 @@ namespace Summer
         void OnRenderImage(RenderTexture src, RenderTexture dest)
         {
             //仅仅当有材质的时候才进行后处理，如果_Material为空，不进行后处理  
-            if (_Material)
+            if (CMainMaterial)
             {
                 //通过Material.SetXXX（"name",value）可以设置shader中的参数值  
-                _Material.SetFloat("_Brightness", brightness);
-                _Material.SetFloat("_Saturation", saturation);
-                _Material.SetFloat("_Contrast", contrast);
+                CMainMaterial.SetFloat("_Brightness", brightness);
+                CMainMaterial.SetFloat("_Saturation", saturation);
+                CMainMaterial.SetFloat("_Contrast", contrast);
                 //使用Material处理Texture，dest不一定是屏幕，后处理效果可以叠加的！  
-                Graphics.Blit(src, dest, _Material);
+                Graphics.Blit(src, dest, CMainMaterial);
             }
             else
             {

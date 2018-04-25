@@ -301,14 +301,16 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
     {
         // 1.确定路径
         string real_path = ResPathManager.FindPath<T>(res_type, name, _res_suffix);
-        float time = Time.realtimeSinceStartup;
+
+        TimeManager.BeginSampleTime();
+        //float time = TimeManager.RealtimeSinceStartup;
         // 2.加载资源
         Object obj = _loader.LoadAsset(real_path);
         if (obj != null)
         {
             // 3.添加到缓存
             AssetInfo asset_info = new AssetInfo(obj, name, res_type);
-            asset_info.load_time = Time.realtimeSinceStartup - time;
+            asset_info.load_time = TimeManager.EndSimpleTime();
             asset_info.async = false;
             _push_asset_to_cache(asset_info);
         }
@@ -347,13 +349,13 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
             curr_async_index++;
             _on_loading_res.Add(assetbundle_name);
             // 4.请求异步加载
-            float time = Time.realtimeSinceStartup;
+            TimeManager.BeginSampleTime();
             OloadOpertion load_opertion = _loader.LoadAssetAsync(assetbundle_name);
             // 等待加载完成
             yield return load_opertion;
             AssetInfo asset_info = new AssetInfo(load_opertion.GetAsset(), name, res_type);
             // 5.记录测试信息
-            asset_info.load_time = Time.realtimeSinceStartup - time;
+            asset_info.load_time = TimeManager.EndSimpleTime();
             asset_info.async = true;
             // 6.卸载信息
             load_opertion.UnloadAssetBundle();

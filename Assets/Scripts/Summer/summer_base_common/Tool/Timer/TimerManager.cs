@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class TimerManager : TSingleton<TimerManager>
+    public class TimerManager : TSingleton<TimerManager>,I_Update
     {
         #region TimerSeq
         public class TimerSeq

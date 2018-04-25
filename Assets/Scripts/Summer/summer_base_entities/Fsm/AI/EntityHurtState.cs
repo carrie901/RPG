@@ -2,14 +2,11 @@
 
 namespace Summer
 {
-    public class EntityHurtState : EntityState
+    public class EntityHurtState : FsmState
     {
+        public float _hurt_time = 1.5f;                // 受伤的时间
 
-        /*public BaseEntity _entity;
-        public EntityHurtState(BaseEntity entity)
-        {
-            _entity = entity;
-        }*/
+
         public EntityHurtState()
         {
             _state_id = E_StateId.hurt;
@@ -18,7 +15,9 @@ namespace Summer
 
         public override void DoBeforeEntering()
         {
-
+            entity.CanMovement = false;
+            _hurt_time = 0;
+            EntityEventFactory.PlayAnimation(entity, AnimationNameConst.HIT);
         }
 
         public override void DoBeforeLeaving()
@@ -26,9 +25,13 @@ namespace Summer
 
         }
 
-        public override void OnUpdate()
+        public override void OnUpdate(float dt)
         {
-
+            _hurt_time -= dt;
+            if (_hurt_time <= 0)
+            {
+                EntityEventFactory.ChangeInEntityState(entity, E_StateId.idle);
+            }
         }
 
         #endregion

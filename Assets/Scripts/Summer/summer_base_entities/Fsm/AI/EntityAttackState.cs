@@ -1,6 +1,6 @@
 ﻿namespace Summer
 {
-    public class EntityAttackState : EntityState
+    public class EntityAttackState : FsmState
     {
       
         public EntityAttackState()
@@ -20,7 +20,7 @@
             
         }
 
-        public override void OnUpdate()
+        public override void OnUpdate(float dt)
         {
             
         }

@@ -18,12 +18,12 @@ namespace Summer
             AddState<EntityDieState>(entity, fsm_system, E_StateId.die);
             AddState<EntitySkillState>(entity, fsm_system, E_StateId.skill);
             AddState<EntityHurtState>(entity, fsm_system, E_StateId.hurt);
-
+            fsm_system.Start();
             return fsm_system;
         }
 
         public static void AddState<T>(BaseEntity entity, FsmSystem system, E_StateId state_id)
-            where T : EntityState, new()
+            where T : FsmState, new()
         {
             T t = new T();
             t.entity = entity;

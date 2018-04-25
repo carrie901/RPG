@@ -1,6 +1,6 @@
 ﻿namespace Summer
 {
-    public class EntityExportToTarget : I_EntityAction
+    public class EntityExportToTargetAction : I_EntityAction
     {
         public void OnAction(BaseEntity entity, EventSetData param)
         {
