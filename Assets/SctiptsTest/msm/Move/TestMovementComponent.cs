@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class TestMovementComponent : MonoBehaviour
 {
-
+    public CameraSource source;
+    public Transform target_form;
     public SkillJoystick joystick;
     public EntityMovement movement;
     public BaseEntity entity;
@@ -29,6 +30,8 @@ public class TestMovementComponent : MonoBehaviour
     //void FixedUpdate()
     void LateUpdate()
     {
+        
+
         /*if (!joystick.is_touch) return;*/
         Vector2 direction = Vector2.zero;
         key_board_is_input = false;
@@ -75,7 +78,8 @@ public class TestMovementComponent : MonoBehaviour
 
     public void OnClick()
     {
-        EntitesManager.Instance.manual.CastSkill();
+        GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_source_add, source);
+        //EntitesManager.Instance.manual.CastSkill();
     }
 
     void OnDrawGizmos()

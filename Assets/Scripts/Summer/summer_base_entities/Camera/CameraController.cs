@@ -28,9 +28,9 @@ namespace Summer
         {
             trans = transform;
             _pipe_line_follow = new PipelineFollow();
-            _pipe_line_follow.SetDefaultSource(_default_source);
+            
             _pipe_line_follow.SetDefaultSourceLerp(_default_source_lerp);
-
+            _pipe_line_follow.SetDefaultSource(_default_source);
 
             //这个地方的顺序代表着优先级，越靠前优先级越低
             _pipe_line_list.Add(_pipe_line_follow);
@@ -77,11 +77,11 @@ namespace Summer
         //void Update()
         void LateUpdate()
         {
-            if (_last_default_type != _default_source._type)
+            /*if (_last_default_type != _default_source._type)
             {
                 _pipe_line_follow.SetDefaultSource(_default_source);
                 _last_default_type = _default_source._type;
-            }
+            }*/
 
             //if (!Application.isPlaying) return;
             //float dt = Time.fixedDeltaTime;

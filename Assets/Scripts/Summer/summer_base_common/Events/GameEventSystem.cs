@@ -21,7 +21,6 @@ namespace Summer
         camera_set_player,                  // 
         camera_remove_player,               //
 
-        camera_source_set,
         camera_source_add,
         camera_source_rem,
         max,

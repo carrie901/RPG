@@ -14,7 +14,7 @@ namespace Summer
         public E_CameraSourceType _type;
         public CameraSourceData _data;
 
-        public float _timer = 1;                                
-        public int _priority = 0;                               //优先级别
+        public float _timer = 1;                                // 过度时间                 
+        public int _priority = 0;                               // 优先级别
     }
 }

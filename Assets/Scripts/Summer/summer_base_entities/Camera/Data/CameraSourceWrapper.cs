@@ -4,6 +4,7 @@
     /// 镜头移动数据的相关包装
     /// 1.镜头目标数据
     /// 2.镜头移动到目标地点的相关速度
+    /// 3.以及如何绕过去
     /// </summary>
     [System.Serializable]
     public class CameraSourceWrapper
@@ -21,7 +22,7 @@
             _default_source_lerp = lerp;
         }
 
-        public virtual CameraSourceData GetData(float dt, BaseEntity player, I_Transform target, ref CameraSourceData now_data, float fov)
+        public virtual CameraSourceData GetData(float dt, BaseEntity player, I_Transform target)
         {
             return _source._data;
         }
