@@ -28,7 +28,7 @@ namespace Summer
         public static bool open_load_res = false;
         public static bool open_send_notification = false;
         public static bool open_plot = false;
-        public static bool open_skill = false;
+        public static bool open_skill = true;
         public static bool opne_entity_action = false;
         public static bool animation = false;
 

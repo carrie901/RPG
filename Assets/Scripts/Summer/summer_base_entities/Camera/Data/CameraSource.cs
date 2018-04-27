@@ -11,7 +11,7 @@ namespace Summer
             _data._offset.z = -5;
             _data._rotaion = new Vector3(30, -90, 0);
         }
-        public E_CameraSourceType _type;
+        public E_CameraSourceType _type=E_CameraSourceType.follow_simple;
         public CameraSourceData _data;
 
         public float _timer = 1;                                // 过度时间                 

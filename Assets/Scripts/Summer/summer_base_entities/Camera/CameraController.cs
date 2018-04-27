@@ -8,17 +8,15 @@ namespace Summer
     public class CameraController : MonoBehaviour
     {
         #region 属性
-
         protected Transform _target;
         protected Camera _camera;
         protected List<I_CameraPipeline> _pipe_line_list = new List<I_CameraPipeline>();
         protected CameraPipelineData _pipe_line_data = new CameraPipelineData();
 
-        public CameraSource _default_source;
         public E_CameraSourceType _last_default_type;
+        public CameraSource _default_source;
         public CameraSourceLerp _default_source_lerp;
 
-        public bool _show_safe_zone = false;
 
         protected PipelineFollow _pipe_line_follow;
         protected Transform trans;
@@ -77,11 +75,11 @@ namespace Summer
         //void Update()
         void LateUpdate()
         {
-            /*if (_last_default_type != _default_source._type)
+            if (_last_default_type != _default_source._type)
             {
                 _pipe_line_follow.SetDefaultSource(_default_source);
                 _last_default_type = _default_source._type;
-            }*/
+            }
 
             //if (!Application.isPlaying) return;
             //float dt = Time.fixedDeltaTime;

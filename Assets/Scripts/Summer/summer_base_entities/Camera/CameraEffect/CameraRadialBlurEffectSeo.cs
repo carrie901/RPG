@@ -2,10 +2,11 @@
 
 namespace Summer
 {
+    /// <summary>
+    /// 径向模糊优化
+    /// </summary>
     public class CameraRadialBlurEffectSeo : CameraPostEffectBase
     {
-
-
         [Range(0, 0.1f)]
         public float blur_factor = 1.0f;            // 模糊程度，不能过高  
 

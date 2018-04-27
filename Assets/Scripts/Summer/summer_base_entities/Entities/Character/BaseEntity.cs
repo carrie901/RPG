@@ -282,7 +282,7 @@ namespace Summer
 
         public bool IsDead() { return false; }
         public string ToDes() { return ""; }
-        public int _skill_id = 0;//10013 // 10008
+        public int _skill_id = 10007;//10013 // 10008
         public void CastSkill()
         {
             if (_skill_set == null) return;

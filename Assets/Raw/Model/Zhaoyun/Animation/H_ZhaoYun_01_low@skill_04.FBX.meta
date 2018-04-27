@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ff6f3c822ec5ed74d99de75e3387c31c
+guid: e38cfdb954a6dfc4493f83df5af3b768
 timeCreated: 1499864340
 licenseType: Pro
 ModelImporter:
@@ -233,7 +233,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleRotations: 1
-    optimizeGameObjects: 1
+    optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -270,9 +270,23 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.17214532
+      - time: 0.13676909
+        functionName: SkillSound01
+        data: 74
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.18311228
         functionName: Skillturn01
         data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.19916143
+        functionName: SkillSound02
+        data: 48
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -284,9 +298,23 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.44801992
+      - time: 0.40991664
         functionName: Skillturn02
         data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.45684412
+        functionName: Skillturn01
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4706499
+        functionName: SkillSound03
+        data: 49
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -298,23 +326,16 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.9281843
+        functionName: Skillturn02
+        data: 74
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.997187
         functionName: SkillAllFinish
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.19916143
-        functionName: SkillSound01
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.4706499
-        functionName: SkillSound02
-        data: 
+        data: 74
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

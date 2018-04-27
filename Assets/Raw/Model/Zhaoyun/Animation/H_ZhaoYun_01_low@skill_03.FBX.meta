@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5ca76ef13fe09c442989309f4135a5de
+guid: 29578147c507ab04483ebdb3979aaf73
 timeCreated: 1499864337
 licenseType: Pro
 ModelImporter:
@@ -270,21 +270,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.34317863
-        functionName: SkillEvent01
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: SkillAllFinish
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.2231834
+      - time: 0.23854838
         functionName: Skillturn01
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -293,6 +279,41 @@ ModelImporter:
         messageOptions: 0
       - time: 0.2505241
         functionName: SkillSound01
+        data: 70
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.29236868
+        functionName: SkillSound02
+        data: 51
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.34317863
+        functionName: SkillEvent01
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5177165
+        functionName: SkillCanRelease
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9529347
+        functionName: Skillturn02
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: SkillAllFinish
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

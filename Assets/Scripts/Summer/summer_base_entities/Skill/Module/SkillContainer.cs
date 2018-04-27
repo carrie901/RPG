@@ -57,6 +57,9 @@ namespace Summer
                 else if (space_info.process_template == "qianchong")
                 {
                     skill = new SkillZhaoYunQianChong();
+                }else if (space_info.process_template== "tiaokong")
+                {
+                    skill = new SkillZhaoYunTiao();
                 }
                 if (skill == null) continue;
                 _sequence_map.Add(skill_list[i], skill.Create(this, space_info));

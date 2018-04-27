@@ -1,4 +1,4 @@
-﻿Shader "mashaomin/PostEffect/RadialBlurShader1"
+﻿Shader "mashaomin/PostEffect/RadialBlurShader"
 {
 	Properties
 	{

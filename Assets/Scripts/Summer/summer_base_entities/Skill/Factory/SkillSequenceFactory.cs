@@ -1,4 +1,4 @@
-﻿
+﻿using UnityEngine;
 namespace Summer
 {
     /// <summary>
@@ -49,6 +49,15 @@ namespace Summer
             return pe;
         }
 
+        public SkillLeafNode CreatePlayCameraOffset(UnityEngine.Vector3 off, UnityEngine.Vector3 rot, float time)
+        {
+            PlayCameraOffset offset = SkillNodeActionFactory.Create<PlayCameraOffset>();
+            offset._offset = off;
+            offset._rotaion = rot;
+            offset.time = time;
+            return offset;
+        }
+
         public SkillLeafNode CreateFindTarget(SpellInfoCnf cnf)
         {
             FindTargetLeafNode find_target_leaf_node = SkillNodeActionFactory.Create<FindTargetLeafNode>();
@@ -71,10 +80,10 @@ namespace Summer
             return target_leaf_node;
         }
 
-        public SkillLeafNode CreateWait(SpellInfoCnf cnf)
+        public SkillLeafNode CreateWait(float wait_time)
         {
             WaitTimeLeafNodeNode wait_leaf_node_node = SkillNodeActionFactory.Create<WaitTimeLeafNodeNode>();
-            wait_leaf_node_node.duration = 0.2f;
+            wait_leaf_node_node.duration = wait_time;
             return wait_leaf_node_node;
         }
 
@@ -121,7 +130,7 @@ namespace Summer
                 trigger_colllion.AddAction(CreateFindTarget(spell_info));
                 trigger_colllion.AddAction(CreateMoveToTargetLeafNode(spell_info));
                 trigger_colllion.AddAction(CreateExportToTarget(spell_info));
-                trigger_colllion.AddAction(CreateWait(spell_info));
+                trigger_colllion.AddAction(CreateWait(0.2f));
             }
 
             {
@@ -230,6 +239,48 @@ namespace Summer
 
     #endregion
 
+
+    #region 跳空
+
+    public class SkillZhaoYunTiao : SkillFactory
+    {
+        public override SkillSequence Create(SkillContainer container, SpellInfoCnf spell_info)
+        {
+            SkillSequence skill_sequence = new SkillSequence(container);
+
+            {
+                // 1.播放特效和动作，并且接受声音事件
+                SkillNode anim_node = AddSkillNode(skill_sequence);
+
+                anim_node.AddAction(CreateAnimation(spell_info));
+                anim_node.AddAction(CreateEffect(spell_info));
+                anim_node.AddAction(CreatePlayCameraOffset(new Vector3(0,2, -2), new Vector3(45, 0, 0), 0.5f));
+                anim_node.AddAction(CreateWait(0.1f));
+            }
+
+
+
+            {
+                // 4.释放当前攻击
+                SkillNode node = AddSkillNode(skill_sequence);
+                node.AddAction(CreatePlayCameraOffset(new Vector3(0, 12, -7), new Vector3(45, 0, 0), 0.8f));
+                node.AddAction(CreateReleaseSkill(spell_info));
+            }
+
+            {
+                // 5.释放当前技能结束
+                SkillNode release_skill = AddSkillNode(skill_sequence, E_SkillTransition.anim_finish);
+
+                release_skill.AddAction(CreateSkillFinish(spell_info));
+            }
+
+
+            return skill_sequence;
+        }
+    }
+
+
+    #endregion
     public class SkillNodeActionFactory
     {
         public static T Create<T>() where T : SkillLeafNode, new()

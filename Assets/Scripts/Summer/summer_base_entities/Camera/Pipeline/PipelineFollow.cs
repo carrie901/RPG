@@ -118,15 +118,15 @@ namespace Summer
             _player = null;
         }
 
-        // 不想管了，这里有一个Bug 就是拉回到原始的时候如果有新的节点会有bug
+        // TODO bug不想管了，这里有一个Bug 就是拉回到原始的时候如果有新的节点会有bug
         public void _on_add_source(System.Object obj)
         {
-
             CameraSource source = obj as CameraSource;
             if (source == null) return;
 
             CameraSourceWrapper wrapper = CameraSourceWrapperFactory.Create(source);
             wrapper.SetDefaultSourceLerp(_default_lerp);
+
 
             CameraSourceTimer timer = new CameraSourceTimer
             {
@@ -134,7 +134,6 @@ namespace Summer
                 _timer = 0
             };
             _list_camera_source_timer.Add(timer);
-            Debug.Log("新增加" + _list_camera_source_timer.Count);
             if (_next_camera_source_timer == null)
                 _init_next_camera_source(timer);
 
@@ -190,8 +189,6 @@ namespace Summer
         // 初始化回归镜头源
         public void _init_back_camera_source()
         {
-            float time = TimeManager.EndSimpleTime();
-            Debug.Log("消耗了多少时间：" + time);
             _next_camera_source_timer.OnReset(_default_source);
             _init_camera_source_data();
         }
