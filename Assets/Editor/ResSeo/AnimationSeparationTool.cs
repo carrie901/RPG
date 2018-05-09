@@ -24,11 +24,10 @@ namespace SummerEditor
             {
                 List<AnimationClip> clips = new List<AnimationClip>();
 
-                string asset_dir_path = GetFolderName(dirs[i]);
-
-                string anim_folder = FindAnimsByFolder(asset_dir_path, clips);
+                string asset_path = EPathHelper.AbsoluteToRelativePathWithAssets(dirs[i]);
+                string anim_folder = FindAnimsByFolder(asset_path, clips);
                 if (string.IsNullOrEmpty(anim_folder) || clips.Count == 0) continue;
-
+                anim_folder = GetFolderName(anim_folder);
 
                 if (!Directory.Exists(copy_anim_path + anim_folder))
                     Directory.CreateDirectory(copy_anim_path + anim_folder);
@@ -36,7 +35,7 @@ namespace SummerEditor
                 int clip_length = clips.Count;
                 for (int k = 0; k < clip_length; k++)
                 {
-                    //CopyAsset(clips[k], anim_folder);
+                    CopyAsset(clips[k], anim_folder);
                 }
             }
 
@@ -82,7 +81,6 @@ namespace SummerEditor
         public static string GetFolderName(string path)
         {
             FileInfo file_info = new FileInfo(path);
-
             string dir = EPathHelper.AbsoluteToRelativePathWithAssets(file_info.DirectoryName);
             string[] results = dir.Split('/');
             string result = results[results.Length - 1];
@@ -122,6 +120,8 @@ namespace SummerEditor
             return anim_path;
         }
 
+
+        // floder必须是Asset/这样的格式
         public static string FindAnimsByFolder(string floder, List<AnimationClip> clips)
         {
             string anim_path = string.Empty;
