@@ -102,22 +102,22 @@ namespace SummerEditor
         }
         public static void SetAssetBundleName(string full_name)
         {
-            full_name = EditorCommonHelper.AbsoluteToRelativePathRemoveAssets(full_name);
+            full_name = EPathHelper.AbsoluteToRelativePathRemoveAssets(full_name);
             AssetImporter importer = AssetImporter.GetAtPath(full_name);
             if (importer != null)
             {
-                string str = EditorCommonHelper.NormalizeAssetBundle(full_name);
+                string str = EPathHelper.NormalizeAssetBundle(full_name);
                 importer.assetBundleName = str + EXTENSION;
                 importer.SaveAndReimport();
             }
         }
         public static void SetAssetBundleName(string full_name, string asset_bundle_name)
         {
-            full_name = EditorCommonHelper.AbsoluteToRelativePathRemoveAssets(full_name);
+            full_name = EPathHelper.AbsoluteToRelativePathRemoveAssets(full_name);
             AssetImporter importer = AssetImporter.GetAtPath(full_name);
             if (importer != null)
             {
-                string str = EditorCommonHelper.NormalizeAssetBundle(asset_bundle_name);
+                string str = EPathHelper.NormalizeAssetBundle(asset_bundle_name);
                 importer.assetBundleName = str;
                 importer.SaveAndReimport();
             }
@@ -133,7 +133,7 @@ namespace SummerEditor
         }
         public static void ClearAssetBundleName(string full_name)
         {
-            full_name = EditorCommonHelper.AbsoluteToRelativePathRemoveAssets(full_name);
+            full_name = EPathHelper.AbsoluteToRelativePathRemoveAssets(full_name);
             AssetImporter importer = AssetImporter.GetAtPath(full_name);
             if (importer != null)
             {

@@ -101,7 +101,7 @@ namespace SummerEditor
             if (extension == ".meta") return;
             Debug.Log("解析文件路径:" + path);
             EabMainVbo main_ab;
-            path = EditorCommonHelper.AbsoluteToRelativePathRemoveAssets(path);
+            path = EPathHelper.AbsoluteToRelativePathRemoveAssets(path);
             if (_main_ab_map.TryGetValue(path, out main_ab))
             {
                 Debug.Log(string.Format("已经分析过这个资源了,Path:[{0}]", path));
