@@ -264,7 +264,9 @@ namespace Summer
                 // 4.释放当前攻击
                 SkillNode node = AddSkillNode(skill_sequence);
                 node.AddAction(CreatePlayCameraOffset(new Vector3(0, 12, -7), new Vector3(45, 0, 0), 0.8f));
+                node.AddAction(CreatePlayCameraOffset(new Vector3(0, 12, -7), new Vector3(45, 0, 0), 0.9f));
                 node.AddAction(CreateReleaseSkill(spell_info));
+
             }
 
             {

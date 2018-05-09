@@ -161,7 +161,7 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
 
     #region Texture图片加载
 
-    public Texture LoadTexture(RawImage img, string name, E_GameResType res_type)
+    public Texture LoadTexture(RawImage img, string name, E_GameResType res_type = E_GameResType.quanming)
     {
         GameObject obj = img.gameObject;
         _internal_ref_decrease(obj);
@@ -207,7 +207,7 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
 
     #region Audio
 
-    public AudioClip LoadAudio(AudioSource audio_source, string name, E_GameResType res_type)
+    public AudioClip LoadAudio(AudioSource audio_source, string name, E_GameResType res_type = E_GameResType.quanming)
     {
         if (audio_source == null) return null;
         AudioClip audio = LoadAsset<AudioClip>(name, res_type);
@@ -217,7 +217,6 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
         }
         return audio;
     }
-
 
     public void LoadAudioAsync(AudioSource audio_source, string name, E_GameResType res_type, Action<AudioClip> complete)
     {
@@ -239,14 +238,14 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
     #endregion
 
     #region GameObject
-    public GameObject LoadPrefab(string name, E_GameResType res_type)
+    public GameObject LoadPrefab(string name, E_GameResType res_type = E_GameResType.quanming)
     {
         GameObject prefab_gameobj = LoadAsset<GameObject>(name, res_type);
         GameObject instantiste_gameobj = GameObjectHelper.Instantiate(prefab_gameobj);
         return instantiste_gameobj;
     }
 
-    public void LoadPrefabAsync(string name, E_GameResType res_type, Action<GameObject> complete)
+    public void LoadPrefabAsync(string name, E_GameResType res_type = E_GameResType.quanming, Action<GameObject> complete = null)
     {
         Action<GameObject> action = delegate (GameObject game_object)
         {
@@ -272,6 +271,34 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
         TextAsset text_asset = LoadAsset<TextAsset>(name, res_type);
         return text_asset.bytes;
     }
+
+    #endregion
+
+    #region Sprite
+
+    public void LoadSprite(Image img, string name, E_GameResType res_type = E_GameResType.quanming)
+    {
+        if (img == null) return;
+        Sprite sprite = LoadAsset<Sprite>(name, res_type);
+        if (sprite != null)
+        {
+            img.sprite = sprite;
+        }
+    }
+
+    public void LoadSpriteAsync(Image img, string name, E_GameResType res_type = E_GameResType.quanming,
+        Action<Sprite> complete = null)
+    {
+        if (img == null) return;
+        Action<Sprite> action = delegate (Sprite sprite)
+        {
+            img.sprite = sprite;
+            if (complete != null)
+                complete.Invoke(sprite);
+        };
+        LoadAssetAsync(name, res_type, action);
+    }
+
 
     #endregion
 
