@@ -9,7 +9,7 @@ public class TestDataLoader : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        StaticCnfLoader.LoadAllCsvFile();
+        /*StaticCnfLoader.LoadAllCsvFile();
 
         BaseEntity entity = EntityPool.Instance.Pop(1001001);
         EntitesManager.Instance.AddEntity(entity);
@@ -22,7 +22,7 @@ public class TestDataLoader : MonoBehaviour
             BaseEntity tmp = EntityPool.Instance.Pop(1001001);
             tmp.InitPosRot();
             EntitesManager.Instance.AddEntity(tmp);
-        }
+        }*/
 
     }
 

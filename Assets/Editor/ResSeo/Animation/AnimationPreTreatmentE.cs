@@ -113,13 +113,6 @@ namespace SummerEditor
                 AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(anims_path[i]);
                 if (clip == null) continue;
                 clips.Add(clip);
-                /*Object[] objs = AssetDatabase.LoadAllAssetRepresentationsAtPath(anims_path[i]);
-
-                for (int k = 0; k < objs.Length; k++)
-                {
-                    if (!(objs[k] is AnimationClip)) continue;
-                    clips.Add(objs[k] as AnimationClip);
-                }*/
             }
             return clips;
         }

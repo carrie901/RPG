@@ -131,11 +131,11 @@ namespace SummerEditor
 
             if (deep)
             {
-                DirectoryInfo[] dirs = dir_info.GetDirectories("*.*");
+                DirectoryInfo[] dirs = dir_info.GetDirectories();
                 length = dirs.Length;
                 for (int i = 0; i < length; ++i)
                 {
-                    ScanDirectoryFile(dirs[i].FullName, true, list);
+                    ScanDirectoryFile(dirs[i].FullName, true, list, suffix);
                 }
             }
         }
