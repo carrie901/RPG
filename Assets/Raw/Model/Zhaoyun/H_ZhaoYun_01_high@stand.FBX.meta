@@ -1,0 +1,661 @@
+fileFormatVersion: 2
+guid: f51e5370b135c18458f4feab466196ec
+timeCreated: 1512981246
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: body
+    100002: Bone001
+    100004: Bone002
+    100006: Bone003
+    100008: Bone004
+    100010: Bone005
+    100012: Bone006
+    100014: Bone008
+    100016: Bone009
+    100018: Bone010
+    100020: Bone012
+    100022: Bone013
+    100024: Bone014
+    100026: Bone015
+    100028: Bone016
+    100030: Bone023
+    100032: Bone023(mirrored)
+    100034: Bone024
+    100036: Bone024(mirrored)
+    100038: Bone025
+    100040: Bone025(mirrored)
+    100042: Bone026
+    100044: Bone026(mirrored)
+    100046: Bone027
+    100048: Bone027(mirrored)
+    100050: Bone14
+    100052: Bone15
+    100054: Bone17
+    100056: Bone18
+    100058: Bone19
+    100060: Bone20
+    100062: Bone21
+    100064: Dummy_Weapon
+    100066: //RootNode
+    100068: M010_Chouun0:F_Chin
+    100070: M010_Chouun0:F_L_Cheek
+    100072: M010_Chouun0:F_L_EYE
+    100074: M010_Chouun0:F_L_Eyelid
+    100076: M010_Chouun0:F_L_InBrow
+    100078: M010_Chouun0:F_L_Low_MouthCorner
+    100080: M010_Chouun0:F_L_OutBrow
+    100082: M010_Chouun0:F_L_Squint
+    100084: M010_Chouun0:F_L_Up_MouthCorner
+    100086: M010_Chouun0:F_L_UpLip
+    100088: M010_Chouun0:F_LowLip
+    100090: M010_Chouun0:F_R_Cheek
+    100092: M010_Chouun0:F_R_EYE
+    100094: M010_Chouun0:F_R_Eyelid
+    100096: M010_Chouun0:F_R_InBrow
+    100098: M010_Chouun0:F_R_Low_MouthCorner
+    100100: M010_Chouun0:F_R_OutBrow
+    100102: M010_Chouun0:F_R_Squint
+    100104: M010_Chouun0:F_R_Up_MouthCorner
+    100106: M010_Chouun0:F_R_UpLip
+    100108: M010_Chouun0:M010_Chouun0
+    100110: M010_Chouun0:RF_B_Collar
+    100112: M010_Chouun0:RF_B_HipArm01
+    100114: M010_Chouun0:RF_F_Collar
+    100116: M010_Chouun0:RF_F_HipArm01
+    100118: M010_Chouun0:RF_FL_Collar
+    100120: M010_Chouun0:RF_FR_Collar
+    100122: M010_Chouun0:RF_Head
+    100124: M010_Chouun0:RF_Hips
+    100126: M010_Chouun0:RF_L_Arm
+    100128: M010_Chouun0:RF_L_Collar
+    100130: M010_Chouun0:RF_L_Collarbone
+    100132: M010_Chouun0:RF_L_Elbow
+    100134: M010_Chouun0:RF_L_Foot
+    100136: M010_Chouun0:RF_L_ForeArm
+    100138: M010_Chouun0:RF_L_ForeArm_R
+    100140: M010_Chouun0:RF_L_Hand
+    100142: M010_Chouun0:RF_L_HipArm01
+    100144: M010_Chouun0:RF_L_Index01
+    100146: M010_Chouun0:RF_L_Index02
+    100148: M010_Chouun0:RF_L_Index03
+    100150: M010_Chouun0:RF_L_Knee
+    100152: M010_Chouun0:RF_L_Leg
+    100154: M010_Chouun0:RF_L_Middle01
+    100156: M010_Chouun0:RF_L_Middle02
+    100158: M010_Chouun0:RF_L_Middle03
+    100160: M010_Chouun0:RF_L_Pinky01
+    100162: M010_Chouun0:RF_L_Pinky02
+    100164: M010_Chouun0:RF_L_Pinky03
+    100166: M010_Chouun0:RF_L_Pinkyside
+    100168: M010_Chouun0:RF_L_Rein
+    100170: M010_Chouun0:RF_L_Ring01
+    100172: M010_Chouun0:RF_L_Ring02
+    100174: M010_Chouun0:RF_L_Ring03
+    100176: M010_Chouun0:RF_L_SholdArm01
+    100178: M010_Chouun0:RF_L_Shoulderblade
+    100180: M010_Chouun0:RF_L_Thumb01
+    100182: M010_Chouun0:RF_L_Thumb02
+    100184: M010_Chouun0:RF_L_Thumb03
+    100186: M010_Chouun0:RF_L_Toes
+    100188: M010_Chouun0:RF_L_UpLeg
+    100190: M010_Chouun0:RF_L_Weapon
+    100192: M010_Chouun0:RF_Neck
+    100194: M010_Chouun0:RF_R_Arm
+    100196: M010_Chouun0:RF_R_Collar
+    100198: M010_Chouun0:RF_R_Collarbone
+    100200: M010_Chouun0:RF_R_Elbow
+    100202: M010_Chouun0:RF_R_Foot
+    100204: M010_Chouun0:RF_R_ForeArm
+    100206: M010_Chouun0:RF_R_ForeArm_R
+    100208: M010_Chouun0:RF_R_Hand
+    100210: M010_Chouun0:RF_R_HipArm01
+    100212: M010_Chouun0:RF_R_Index01
+    100214: M010_Chouun0:RF_R_Index02
+    100216: M010_Chouun0:RF_R_Index03
+    100218: M010_Chouun0:RF_R_Knee
+    100220: M010_Chouun0:RF_R_Leg
+    100222: M010_Chouun0:RF_R_Middle01
+    100224: M010_Chouun0:RF_R_Middle02
+    100226: M010_Chouun0:RF_R_Middle03
+    100228: M010_Chouun0:RF_R_Pinky01
+    100230: M010_Chouun0:RF_R_Pinky02
+    100232: M010_Chouun0:RF_R_Pinky03
+    100234: M010_Chouun0:RF_R_Pinkyside
+    100236: M010_Chouun0:RF_R_Rein
+    100238: M010_Chouun0:RF_R_Ring01
+    100240: M010_Chouun0:RF_R_Ring02
+    100242: M010_Chouun0:RF_R_Ring03
+    100244: M010_Chouun0:RF_R_SholdArm01
+    100246: M010_Chouun0:RF_R_Shoulderblade
+    100248: M010_Chouun0:RF_R_Thumb01
+    100250: M010_Chouun0:RF_R_Thumb02
+    100252: M010_Chouun0:RF_R_Thumb03
+    100254: M010_Chouun0:RF_R_Toes
+    100256: M010_Chouun0:RF_R_UpLeg
+    100258: M010_Chouun0:RF_R_Weapon
+    100260: M010_Chouun0:RF_Skeleton
+    100262: M010_Chouun0:RF_Spine01
+    100264: M010_Chouun0:RF_Spine02
+    100266: weapon01
+    100268: Bone007
+    100270: Bone011
+    100272: Bone017
+    100274: Bone028
+    100276: Bone029
+    100278: Bone16
+    100280: Bone22
+    400000: body
+    400002: Bone001
+    400004: Bone002
+    400006: Bone003
+    400008: Bone004
+    400010: Bone005
+    400012: Bone006
+    400014: Bone008
+    400016: Bone009
+    400018: Bone010
+    400020: Bone012
+    400022: Bone013
+    400024: Bone014
+    400026: Bone015
+    400028: Bone016
+    400030: Bone023
+    400032: Bone023(mirrored)
+    400034: Bone024
+    400036: Bone024(mirrored)
+    400038: Bone025
+    400040: Bone025(mirrored)
+    400042: Bone026
+    400044: Bone026(mirrored)
+    400046: Bone027
+    400048: Bone027(mirrored)
+    400050: Bone14
+    400052: Bone15
+    400054: Bone17
+    400056: Bone18
+    400058: Bone19
+    400060: Bone20
+    400062: Bone21
+    400064: Dummy_Weapon
+    400066: //RootNode
+    400068: M010_Chouun0:F_Chin
+    400070: M010_Chouun0:F_L_Cheek
+    400072: M010_Chouun0:F_L_EYE
+    400074: M010_Chouun0:F_L_Eyelid
+    400076: M010_Chouun0:F_L_InBrow
+    400078: M010_Chouun0:F_L_Low_MouthCorner
+    400080: M010_Chouun0:F_L_OutBrow
+    400082: M010_Chouun0:F_L_Squint
+    400084: M010_Chouun0:F_L_Up_MouthCorner
+    400086: M010_Chouun0:F_L_UpLip
+    400088: M010_Chouun0:F_LowLip
+    400090: M010_Chouun0:F_R_Cheek
+    400092: M010_Chouun0:F_R_EYE
+    400094: M010_Chouun0:F_R_Eyelid
+    400096: M010_Chouun0:F_R_InBrow
+    400098: M010_Chouun0:F_R_Low_MouthCorner
+    400100: M010_Chouun0:F_R_OutBrow
+    400102: M010_Chouun0:F_R_Squint
+    400104: M010_Chouun0:F_R_Up_MouthCorner
+    400106: M010_Chouun0:F_R_UpLip
+    400108: M010_Chouun0:M010_Chouun0
+    400110: M010_Chouun0:RF_B_Collar
+    400112: M010_Chouun0:RF_B_HipArm01
+    400114: M010_Chouun0:RF_F_Collar
+    400116: M010_Chouun0:RF_F_HipArm01
+    400118: M010_Chouun0:RF_FL_Collar
+    400120: M010_Chouun0:RF_FR_Collar
+    400122: M010_Chouun0:RF_Head
+    400124: M010_Chouun0:RF_Hips
+    400126: M010_Chouun0:RF_L_Arm
+    400128: M010_Chouun0:RF_L_Collar
+    400130: M010_Chouun0:RF_L_Collarbone
+    400132: M010_Chouun0:RF_L_Elbow
+    400134: M010_Chouun0:RF_L_Foot
+    400136: M010_Chouun0:RF_L_ForeArm
+    400138: M010_Chouun0:RF_L_ForeArm_R
+    400140: M010_Chouun0:RF_L_Hand
+    400142: M010_Chouun0:RF_L_HipArm01
+    400144: M010_Chouun0:RF_L_Index01
+    400146: M010_Chouun0:RF_L_Index02
+    400148: M010_Chouun0:RF_L_Index03
+    400150: M010_Chouun0:RF_L_Knee
+    400152: M010_Chouun0:RF_L_Leg
+    400154: M010_Chouun0:RF_L_Middle01
+    400156: M010_Chouun0:RF_L_Middle02
+    400158: M010_Chouun0:RF_L_Middle03
+    400160: M010_Chouun0:RF_L_Pinky01
+    400162: M010_Chouun0:RF_L_Pinky02
+    400164: M010_Chouun0:RF_L_Pinky03
+    400166: M010_Chouun0:RF_L_Pinkyside
+    400168: M010_Chouun0:RF_L_Rein
+    400170: M010_Chouun0:RF_L_Ring01
+    400172: M010_Chouun0:RF_L_Ring02
+    400174: M010_Chouun0:RF_L_Ring03
+    400176: M010_Chouun0:RF_L_SholdArm01
+    400178: M010_Chouun0:RF_L_Shoulderblade
+    400180: M010_Chouun0:RF_L_Thumb01
+    400182: M010_Chouun0:RF_L_Thumb02
+    400184: M010_Chouun0:RF_L_Thumb03
+    400186: M010_Chouun0:RF_L_Toes
+    400188: M010_Chouun0:RF_L_UpLeg
+    400190: M010_Chouun0:RF_L_Weapon
+    400192: M010_Chouun0:RF_Neck
+    400194: M010_Chouun0:RF_R_Arm
+    400196: M010_Chouun0:RF_R_Collar
+    400198: M010_Chouun0:RF_R_Collarbone
+    400200: M010_Chouun0:RF_R_Elbow
+    400202: M010_Chouun0:RF_R_Foot
+    400204: M010_Chouun0:RF_R_ForeArm
+    400206: M010_Chouun0:RF_R_ForeArm_R
+    400208: M010_Chouun0:RF_R_Hand
+    400210: M010_Chouun0:RF_R_HipArm01
+    400212: M010_Chouun0:RF_R_Index01
+    400214: M010_Chouun0:RF_R_Index02
+    400216: M010_Chouun0:RF_R_Index03
+    400218: M010_Chouun0:RF_R_Knee
+    400220: M010_Chouun0:RF_R_Leg
+    400222: M010_Chouun0:RF_R_Middle01
+    400224: M010_Chouun0:RF_R_Middle02
+    400226: M010_Chouun0:RF_R_Middle03
+    400228: M010_Chouun0:RF_R_Pinky01
+    400230: M010_Chouun0:RF_R_Pinky02
+    400232: M010_Chouun0:RF_R_Pinky03
+    400234: M010_Chouun0:RF_R_Pinkyside
+    400236: M010_Chouun0:RF_R_Rein
+    400238: M010_Chouun0:RF_R_Ring01
+    400240: M010_Chouun0:RF_R_Ring02
+    400242: M010_Chouun0:RF_R_Ring03
+    400244: M010_Chouun0:RF_R_SholdArm01
+    400246: M010_Chouun0:RF_R_Shoulderblade
+    400248: M010_Chouun0:RF_R_Thumb01
+    400250: M010_Chouun0:RF_R_Thumb02
+    400252: M010_Chouun0:RF_R_Thumb03
+    400254: M010_Chouun0:RF_R_Toes
+    400256: M010_Chouun0:RF_R_UpLeg
+    400258: M010_Chouun0:RF_R_Weapon
+    400260: M010_Chouun0:RF_Skeleton
+    400262: M010_Chouun0:RF_Spine01
+    400264: M010_Chouun0:RF_Spine02
+    400266: weapon01
+    400268: Bone007
+    400270: Bone011
+    400272: Bone017
+    400274: Bone028
+    400276: Bone029
+    400278: Bone16
+    400280: Bone22
+    4300000: body
+    4300002: weapon01
+    7400000: stand
+    9500000: //RootNode
+    13700000: body
+    13700002: weapon01
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 0
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: stand
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 240
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: body
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/Bone008
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/Bone008/Bone009
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/Bone008/Bone009/Bone010
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_B_HipArm01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_F_HipArm01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_L_HipArm01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_L_UpLeg
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_L_UpLeg/M010_Chouun0:RF_L_Leg
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_L_UpLeg/M010_Chouun0:RF_L_Leg/M010_Chouun0:RF_L_Foot
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_L_UpLeg/M010_Chouun0:RF_L_Leg/M010_Chouun0:RF_L_Foot/M010_Chouun0:RF_L_Toes
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_L_UpLeg/M010_Chouun0:RF_L_Leg/M010_Chouun0:RF_L_Knee
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_R_HipArm01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_R_UpLeg
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_R_UpLeg/M010_Chouun0:RF_R_Leg
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_R_UpLeg/M010_Chouun0:RF_R_Leg/M010_Chouun0:RF_R_Foot
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_R_UpLeg/M010_Chouun0:RF_R_Leg/M010_Chouun0:RF_R_Foot/M010_Chouun0:RF_R_Toes
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_R_UpLeg/M010_Chouun0:RF_R_Leg/M010_Chouun0:RF_R_Knee
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_B_Collar
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_F_Collar
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_FL_Collar
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_FR_Collar
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Elbow
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_ForeArm_R
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Index01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Index01/M010_Chouun0:RF_L_Index02
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Index01/M010_Chouun0:RF_L_Index02/M010_Chouun0:RF_L_Index03
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Middle01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Middle01/M010_Chouun0:RF_L_Middle02
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Middle01/M010_Chouun0:RF_L_Middle02/M010_Chouun0:RF_L_Middle03
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Pinkyside
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Pinkyside/M010_Chouun0:RF_L_Pinky01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Pinkyside/M010_Chouun0:RF_L_Pinky01/M010_Chouun0:RF_L_Pinky02
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Pinkyside/M010_Chouun0:RF_L_Pinky01/M010_Chouun0:RF_L_Pinky02/M010_Chouun0:RF_L_Pinky03
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Pinkyside/M010_Chouun0:RF_L_Ring01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Pinkyside/M010_Chouun0:RF_L_Ring01/M010_Chouun0:RF_L_Ring02
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Pinkyside/M010_Chouun0:RF_L_Ring01/M010_Chouun0:RF_L_Ring02/M010_Chouun0:RF_L_Ring03
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Rein
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Thumb01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Thumb01/M010_Chouun0:RF_L_Thumb02
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Thumb01/M010_Chouun0:RF_L_Thumb02/M010_Chouun0:RF_L_Thumb03
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm/M010_Chouun0:RF_L_ForeArm/M010_Chouun0:RF_L_Hand/M010_Chouun0:RF_L_Weapon
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Collar
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Collarbone
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_SholdArm01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Shoulderblade
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone012
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone012/Bone013
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone012/Bone013/Bone014
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone012/Bone013/Bone014/Bone015
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone012/Bone013/Bone014/Bone015/Bone016
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone023
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone023/Bone024
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone023/Bone024/Bone025
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone023/Bone024/Bone025/Bone026
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone023/Bone024/Bone025/Bone026/Bone027
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone023(mirrored)
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone023(mirrored)/Bone024(mirrored)
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone023(mirrored)/Bone024(mirrored)/Bone025(mirrored)
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone023(mirrored)/Bone024(mirrored)/Bone025(mirrored)/Bone026(mirrored)
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/Bone023(mirrored)/Bone024(mirrored)/Bone025(mirrored)/Bone026(mirrored)/Bone027(mirrored)
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_Chin
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_Chin/M010_Chouun0:F_LowLip
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_L_Cheek
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_L_EYE
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_L_Eyelid
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_L_InBrow
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_L_Low_MouthCorner
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_L_OutBrow
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_L_Squint
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_L_Up_MouthCorner
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_L_UpLip
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_R_Cheek
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_R_EYE
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_R_Eyelid
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_R_InBrow
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_R_Low_MouthCorner
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_R_OutBrow
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_R_Squint
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_R_Up_MouthCorner
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_Neck/M010_Chouun0:RF_Head/M010_Chouun0:F_R_UpLip
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Elbow
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_ForeArm_R
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Index01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Index01/M010_Chouun0:RF_R_Index02
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Index01/M010_Chouun0:RF_R_Index02/M010_Chouun0:RF_R_Index03
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Middle01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Middle01/M010_Chouun0:RF_R_Middle02
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Middle01/M010_Chouun0:RF_R_Middle02/M010_Chouun0:RF_R_Middle03
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Pinkyside
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Pinkyside/M010_Chouun0:RF_R_Pinky01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Pinkyside/M010_Chouun0:RF_R_Pinky01/M010_Chouun0:RF_R_Pinky02
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Pinkyside/M010_Chouun0:RF_R_Pinky01/M010_Chouun0:RF_R_Pinky02/M010_Chouun0:RF_R_Pinky03
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Pinkyside/M010_Chouun0:RF_R_Ring01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Pinkyside/M010_Chouun0:RF_R_Ring01/M010_Chouun0:RF_R_Ring02
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Pinkyside/M010_Chouun0:RF_R_Ring01/M010_Chouun0:RF_R_Ring02/M010_Chouun0:RF_R_Ring03
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Rein
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Thumb01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Thumb01/M010_Chouun0:RF_R_Thumb02
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Thumb01/M010_Chouun0:RF_R_Thumb02/M010_Chouun0:RF_R_Thumb03
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone14
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone14/Bone15
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone20
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone20/Bone21
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Collar
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Collarbone
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_SholdArm01
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Shoulderblade
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Shoulderblade/Bone001
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Shoulderblade/Bone001/Bone002
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Shoulderblade/Bone001/Bone002/Bone003
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Shoulderblade/Bone001/Bone002/Bone003/Bone004
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Shoulderblade/Bone001/Bone002/Bone003/Bone004/Bone005
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Shoulderblade/Bone001/Bone002/Bone003/Bone004/Bone005/Bone006
+        weight: 1
+      - path: weapon01
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

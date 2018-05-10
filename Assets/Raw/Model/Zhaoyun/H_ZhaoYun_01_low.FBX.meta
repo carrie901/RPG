@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: a57c46de26b48a5469b985edfcbc05f3
-timeCreated: 1503558686
+guid: 45a28a33e8fb64144b1ad703e2e8458f
+timeCreated: 1511839376
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -223,27 +223,29 @@ ModelImporter:
     400212: M010_Chouun0:RF_Spine01
     400214: M010_Chouun0:RF_Spine02
     400216: weapon01
-    4300000: weapon01
-    4300002: body
+    4300000: body
+    4300002: weapon01
     7400000: Take 001
     9500000: //RootNode
     13700000: body
     13700002: weapon01
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
-    optimizeGameObjects: 1
+    resampleCurves: 1
+    optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -264,8 +266,8 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -284,14 +286,6 @@ ModelImporter:
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton
         weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips
-        weight: 1
-      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/Bone008
-        weight: 1
-      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/Bone008/Bone009
-        weight: 1
-      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/Bone008/Bone009/Bone010
-        weight: 1
-      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/Bone008/Bone009/Bone010/Bone011
         weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_B_HipArm01
         weight: 1
@@ -321,17 +315,25 @@ ModelImporter:
         weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/M010_Chouun0:RF_R_UpLeg/M010_Chouun0:RF_R_Leg/M010_Chouun0:RF_R_Knee
         weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/Bone008
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/Bone008/Bone009
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/Bone008/Bone009/Bone010
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Hips/Bone008/Bone009/Bone010/Bone011
+        weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01
         weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02
         weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_B_Collar
         weight: 1
-      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_F_Collar
-        weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_FL_Collar
         weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_FR_Collar
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_F_Collar
         weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_L_Arm
         weight: 1
@@ -457,17 +459,17 @@ ModelImporter:
         weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19
         weight: 1
-      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone14
-        weight: 1
-      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone14/Bone15
-        weight: 1
-      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone14/Bone15/Bone16
-        weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone20
         weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone20/Bone21
         weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone20/Bone21/Bone22
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone14
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone14/Bone15
+        weight: 1
+      - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Arm/M010_Chouun0:RF_R_ForeArm/M010_Chouun0:RF_R_Hand/M010_Chouun0:RF_R_Weapon/Dummy_Weapon/Bone17/Bone18/Bone19/Bone14/Bone15/Bone16
         weight: 1
       - path: M010_Chouun0:M010_Chouun0/M010_Chouun0:RF_Skeleton/M010_Chouun0:RF_Spine01/M010_Chouun0:RF_Spine02/M010_Chouun0:RF_R_Collar
         weight: 1
@@ -496,7 +498,7 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -506,7 +508,7 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
+    optimizeMeshForGPU: 0
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
@@ -521,6 +523,7 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 2
     human: []
     skeleton: []
     armTwist: 0.5
@@ -530,8 +533,11 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: M010_Chouun0:RF_Skeleton
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   humanoidOversampling: 1

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fe5aa82812b72f245b5b17b815ef57b0
+guid: d0ac8359adaf4304bb505d927243930b
 timeCreated: 1499864340
 licenseType: Pro
 ModelImporter:
@@ -226,15 +226,17 @@ ModelImporter:
     9500000: //RootNode
     13700000: body
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
-    optimizeGameObjects: 1
+    resampleCurves: 1
+    optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -260,39 +262,39 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.23375262
+      - time: 0.10060342
         functionName: SkillSound01
-        data: 
+        data: 61
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.54700524
-        functionName: Skillturn01
-        data: 
+      - time: 0.17745784
+        functionName: SkillSound02
+        data: 76
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5012255
+        functionName: SkillSound06
+        data: 48
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.5752461
         functionName: SkillEvent01
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.59607
-        functionName: Skillturn02
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -305,9 +307,9 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.64532876
-        functionName: Skillturn03
-        data: 
+      - time: 0.62996674
+        functionName: SkillSound03
+        data: 49
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -319,9 +321,9 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6894464
-        functionName: Skillturn04
-        data: 
+      - time: 0.67889
+        functionName: SkillSound04
+        data: 49
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -333,16 +335,9 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.75086504
-        functionName: Skillturn05
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.7618112
-        functionName: SkillSound02
-        data: 
+      - time: 0.76015854
+        functionName: SkillSound05
+        data: 50
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -606,6 +601,7 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 2
     human: []
     skeleton: []
     armTwist: 0.5
@@ -616,7 +612,10 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: M010_Chouun0:RF_Skeleton
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   humanoidOversampling: 1

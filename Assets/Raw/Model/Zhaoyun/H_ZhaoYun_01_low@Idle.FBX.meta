@@ -1,37 +1,37 @@
 fileFormatVersion: 2
-guid: b22efb1c0f4af244094f4667a9e0651e
-timeCreated: 1496221354
+guid: ac1c900e396d3204fab06e2315c18e4c
+timeCreated: 1511839376
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: body
-    100002: Bone001
-    100004: Bone002
-    100006: Bone003
-    100008: Bone004
-    100010: Bone005
-    100012: Bone006
-    100014: Bone007
-    100016: Bone008
-    100018: Bone009
-    100020: Bone010
-    100022: Bone011
-    100024: Bone012
-    100026: Bone013
-    100028: Bone014
-    100030: Bone015
-    100032: Bone016
-    100034: Bone017
-    100036: Bone14
-    100038: Bone15
-    100040: Bone16
-    100042: Bone17
-    100044: Bone18
-    100046: Bone19
-    100048: Bone20
-    100050: Bone21
-    100052: Bone22
+    100000: Bone001
+    100002: Bone002
+    100004: Bone003
+    100006: Bone004
+    100008: Bone005
+    100010: Bone006
+    100012: Bone007
+    100014: Bone008
+    100016: Bone009
+    100018: Bone010
+    100020: Bone011
+    100022: Bone012
+    100024: Bone013
+    100026: Bone014
+    100028: Bone015
+    100030: Bone016
+    100032: Bone017
+    100034: Bone14
+    100036: Bone15
+    100038: Bone16
+    100040: Bone17
+    100042: Bone18
+    100044: Bone19
+    100046: Bone20
+    100048: Bone21
+    100050: Bone22
+    100052: Box001
     100054: Dummy_Weapon
     100056: //RootNode
     100058: M010_Chouun0:M010_Chouun0
@@ -113,33 +113,33 @@ ModelImporter:
     100210: M010_Chouun0:RF_Skeleton
     100212: M010_Chouun0:RF_Spine01
     100214: M010_Chouun0:RF_Spine02
-    400000: body
-    400002: Bone001
-    400004: Bone002
-    400006: Bone003
-    400008: Bone004
-    400010: Bone005
-    400012: Bone006
-    400014: Bone007
-    400016: Bone008
-    400018: Bone009
-    400020: Bone010
-    400022: Bone011
-    400024: Bone012
-    400026: Bone013
-    400028: Bone014
-    400030: Bone015
-    400032: Bone016
-    400034: Bone017
-    400036: Bone14
-    400038: Bone15
-    400040: Bone16
-    400042: Bone17
-    400044: Bone18
-    400046: Bone19
-    400048: Bone20
-    400050: Bone21
-    400052: Bone22
+    400000: Bone001
+    400002: Bone002
+    400004: Bone003
+    400006: Bone004
+    400008: Bone005
+    400010: Bone006
+    400012: Bone007
+    400014: Bone008
+    400016: Bone009
+    400018: Bone010
+    400020: Bone011
+    400022: Bone012
+    400024: Bone013
+    400026: Bone014
+    400028: Bone015
+    400030: Bone016
+    400032: Bone017
+    400034: Bone14
+    400036: Bone15
+    400038: Bone16
+    400040: Bone17
+    400042: Bone18
+    400044: Bone19
+    400046: Bone20
+    400048: Bone21
+    400050: Bone22
+    400052: Box001
     400054: Dummy_Weapon
     400056: //RootNode
     400058: M010_Chouun0:M010_Chouun0
@@ -221,11 +221,10 @@ ModelImporter:
     400210: M010_Chouun0:RF_Skeleton
     400212: M010_Chouun0:RF_Spine01
     400214: M010_Chouun0:RF_Spine02
-    4300000: body
+    4300000: Box001
     7400000: idle
     9500000: //RootNode
-    11100000: //RootNode
-    13700000: body
+    13700000: Box001
   materials:
     importMaterials: 0
     materialName: 0
@@ -276,7 +275,7 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: body
+      - path: Box001
         weight: 1
       - path: M010_Chouun0:M010_Chouun0
         weight: 1

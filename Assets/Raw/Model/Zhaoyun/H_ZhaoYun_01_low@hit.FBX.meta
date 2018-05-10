@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fbf5bd1fb2fd23848b226f61dd9ab8e7
+guid: aa5a76f8eb15460429a623e7909fd642
 timeCreated: 1496221355
 licenseType: Pro
 ModelImporter:
@@ -267,14 +267,14 @@ ModelImporter:
     11100000: //RootNode
     13700000: body
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
-    optimizeGameObjects: 1
+    optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -312,7 +312,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.07730427
+        functionName: SkillSound01
+        data: 43
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.272262
+        functionName: SkillSound01
+        data: 77
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

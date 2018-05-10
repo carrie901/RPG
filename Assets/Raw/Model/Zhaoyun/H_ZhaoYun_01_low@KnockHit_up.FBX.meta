@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 3f5d0884b6ccb454e9c8d368f9adbb18
-timeCreated: 1499398654
+guid: 93ac6261de152754c8c80976f1bf9669
+timeCreated: 1510577299
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -262,19 +262,21 @@ ModelImporter:
     400252: M010_Chouun0:RF_Spine01
     400254: M010_Chouun0:RF_Spine02
     4300000: body
-    7400000: KnockHit
+    7400000: KnockHit_up
     9500000: //RootNode
     13700000: body
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
-    optimizeGameObjects: 1
+    resampleCurves: 1
+    optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -287,7 +289,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: KnockHit
+      name: KnockHit_up
       takeName: Take 001
       firstFrame: 0
       lastFrame: 7
@@ -310,9 +312,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
+      - time: 0.17283262
         functionName: SkillSound01
-        data: 
+        data: 251
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.2871518
+        functionName: SkillSound02
+        data: 246
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -602,6 +611,7 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 2
     human: []
     skeleton: []
     armTwist: 0.5
@@ -612,7 +622,10 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   humanoidOversampling: 1

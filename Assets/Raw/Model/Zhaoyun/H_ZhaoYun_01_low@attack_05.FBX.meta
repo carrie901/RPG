@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d7b165f057aa72544a25e202ac58f818
+guid: 19e6835a2ec5ec44e8fbb4e52e2c4e91
 timeCreated: 1499767007
 licenseType: Pro
 ModelImporter:
@@ -270,14 +270,14 @@ ModelImporter:
     13700000: body
     13700002: weapon01
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
-    optimizeGameObjects: 1
+    optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -316,22 +316,64 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.49528286
-        functionName: SkillHit
+      - time: 0.10009911
+        functionName: SkillSound01
+        data: 59
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.2389937
+        functionName: SkillSound02
+        data: 50
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.28064558
+        functionName: Skillturn01
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9984903
-        functionName: SkillFinish
+      - time: 0.32954282
+        functionName: SkillSound03
+        data: 70
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.40942028
+        functionName: SkillEvent01
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.0027061864
-        functionName: SkillStart
+      - time: 0.5027542
+        functionName: SkillCanRelease
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9730807
+        functionName: Skillturn02
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9975845
+        functionName: SkillAllFinish
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4380734
+        functionName: SkillCanRelease
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

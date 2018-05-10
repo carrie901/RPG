@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f98969d26845b1d499db20fc0b012beb
+guid: 5c37dcae81f1cd14eaacd21a949f384e
 timeCreated: 1502962104
 licenseType: Pro
 ModelImporter:
@@ -81,6 +81,39 @@ ModelImporter:
     100146: M010_Chouun0:RF_Skeleton
     100148: M010_Chouun0:RF_Spine01
     100150: M010_Chouun0:RF_Spine02
+    100152: body
+    100154: M010_Chouun0:RF_B_Collar
+    100156: M010_Chouun0:RF_B_HipArm01
+    100158: M010_Chouun0:RF_F_Collar
+    100160: M010_Chouun0:RF_F_HipArm01
+    100162: M010_Chouun0:RF_FL_Collar
+    100164: M010_Chouun0:RF_FR_Collar
+    100166: M010_Chouun0:RF_L_Collar
+    100168: M010_Chouun0:RF_L_Collarbone
+    100170: M010_Chouun0:RF_L_HipArm01
+    100172: M010_Chouun0:RF_L_Index01
+    100174: M010_Chouun0:RF_L_Index02
+    100176: M010_Chouun0:RF_L_Index03
+    100178: M010_Chouun0:RF_L_Pinky01
+    100180: M010_Chouun0:RF_L_Pinky02
+    100182: M010_Chouun0:RF_L_Pinky03
+    100184: M010_Chouun0:RF_L_Ring01
+    100186: M010_Chouun0:RF_L_Ring02
+    100188: M010_Chouun0:RF_L_Ring03
+    100190: M010_Chouun0:RF_L_SholdArm01
+    100192: M010_Chouun0:RF_R_Collar
+    100194: M010_Chouun0:RF_R_Collarbone
+    100196: M010_Chouun0:RF_R_HipArm01
+    100198: M010_Chouun0:RF_R_Index01
+    100200: M010_Chouun0:RF_R_Index02
+    100202: M010_Chouun0:RF_R_Index03
+    100204: M010_Chouun0:RF_R_Pinky01
+    100206: M010_Chouun0:RF_R_Pinky02
+    100208: M010_Chouun0:RF_R_Pinky03
+    100210: M010_Chouun0:RF_R_Ring01
+    100212: M010_Chouun0:RF_R_Ring02
+    100214: M010_Chouun0:RF_R_Ring03
+    100216: M010_Chouun0:RF_R_SholdArm01
     400000: Bone001
     400002: Bone002
     400004: Bone003
@@ -157,20 +190,57 @@ ModelImporter:
     400146: M010_Chouun0:RF_Skeleton
     400148: M010_Chouun0:RF_Spine01
     400150: M010_Chouun0:RF_Spine02
+    400152: body
+    400154: M010_Chouun0:RF_B_Collar
+    400156: M010_Chouun0:RF_B_HipArm01
+    400158: M010_Chouun0:RF_F_Collar
+    400160: M010_Chouun0:RF_F_HipArm01
+    400162: M010_Chouun0:RF_FL_Collar
+    400164: M010_Chouun0:RF_FR_Collar
+    400166: M010_Chouun0:RF_L_Collar
+    400168: M010_Chouun0:RF_L_Collarbone
+    400170: M010_Chouun0:RF_L_HipArm01
+    400172: M010_Chouun0:RF_L_Index01
+    400174: M010_Chouun0:RF_L_Index02
+    400176: M010_Chouun0:RF_L_Index03
+    400178: M010_Chouun0:RF_L_Pinky01
+    400180: M010_Chouun0:RF_L_Pinky02
+    400182: M010_Chouun0:RF_L_Pinky03
+    400184: M010_Chouun0:RF_L_Ring01
+    400186: M010_Chouun0:RF_L_Ring02
+    400188: M010_Chouun0:RF_L_Ring03
+    400190: M010_Chouun0:RF_L_SholdArm01
+    400192: M010_Chouun0:RF_R_Collar
+    400194: M010_Chouun0:RF_R_Collarbone
+    400196: M010_Chouun0:RF_R_HipArm01
+    400198: M010_Chouun0:RF_R_Index01
+    400200: M010_Chouun0:RF_R_Index02
+    400202: M010_Chouun0:RF_R_Index03
+    400204: M010_Chouun0:RF_R_Pinky01
+    400206: M010_Chouun0:RF_R_Pinky02
+    400208: M010_Chouun0:RF_R_Pinky03
+    400210: M010_Chouun0:RF_R_Ring01
+    400212: M010_Chouun0:RF_R_Ring02
+    400214: M010_Chouun0:RF_R_Ring03
+    400216: M010_Chouun0:RF_R_SholdArm01
     4300000: Box001
+    4300002: body
     7400000: jump_Flow
     9500000: //RootNode
     13700000: Box001
+    13700002: body
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -205,7 +275,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.8950217
+        functionName: SkillAllFinish
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -387,6 +464,7 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 2
     human: []
     skeleton: []
     armTwist: 0.5
@@ -397,7 +475,10 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   humanoidOversampling: 1

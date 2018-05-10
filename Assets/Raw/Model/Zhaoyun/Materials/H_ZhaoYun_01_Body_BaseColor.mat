@@ -7,118 +7,239 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: H_ZhaoYun_01_Body_BaseColor
-  m_Shader: {fileID: 4800000, guid: a589a7152f6f8664eb4a0ed4077a1d97, type: 3}
-  m_ShaderKeywords: _AMBIENTLIGHT_ON
+  m_Shader: {fileID: 4800000, guid: 8d5290e4070c34443863eab47c86a57d, type: 3}
+  m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
   m_SavedProperties:
-    serializedVersion: 3
+    serializedVersion: 2
     m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 719c414fb89258c4cadd6e0e0fbb548b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Cube:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Diffuse:
-        m_Texture: {fileID: 2800000, guid: 719c414fb89258c4cadd6e0e0fbb548b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b6552fe316b310d4888975e416fe94b1, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Mask:
-        m_Texture: {fileID: 2800000, guid: b6552fe316b310d4888975e416fe94b1, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Metallic:
-        m_Texture: {fileID: 2800000, guid: 635f899f092770e459eaa6398a22f0f7, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _N:
-        m_Texture: {fileID: 2800000, guid: b6552fe316b310d4888975e416fe94b1, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Normal:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Rough:
-        m_Texture: {fileID: 2800000, guid: 0a793ddf327ab0c4a885eaa0f2007e71, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _cube:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: f300a553a1d95f84485a9a9dfa1eb11a, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 2800000, guid: 6be7baac5e8b6764fa37a60fb7a3e37c, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DetailNormalMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ParallaxMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _OcclusionMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _EmissionMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DetailMask
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DetailAlbedoMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _MetallicGlossMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Metallic
+        second:
+          m_Texture: {fileID: 2800000, guid: 635f899f092770e459eaa6398a22f0f7, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _cube
+        second:
+          m_Texture: {fileID: 8900000, guid: a0bd5bdc33d332e48aba19f128a9b07a, type: 2}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _MRT
+        second:
+          m_Texture: {fileID: 2800000, guid: 2a1ed1917c2a32e4b9dabf1ad8eef5d5, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _N
+        second:
+          m_Texture: {fileID: 2800000, guid: 719c414fb89258c4cadd6e0e0fbb548b, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Rough
+        second:
+          m_Texture: {fileID: 2800000, guid: 0a793ddf327ab0c4a885eaa0f2007e71, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AmbientLight: 1
-    - _BumpScale: 1
-    - _ClothingPower: 14.72737
-    - _CubePower: 1.036757
-    - _Cutoff: 0.5
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _Emission: 0
-    - _Fresnel: 0
-    - _Glossiness: 0.5
-    - _Metallic: 0
-    - _Metallic_pow: 1.119658
-    - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.02
-    - _Rough_pow: 0.3005165
-    - _SkinEmission: 0
-    - _SrcBlend: 1
-    - _UVSec: 0
-    - _ZWrite: 1
-    - _cube_power: 2.02564
-    - _emiss: 0
-    - _fres: 1.482005
-    - _gloss: 0
-    - _node_3586: 0.6195079
-    - _spe_power: 1
+      data:
+        first:
+          name: _SrcBlend
+        second: 1
+      data:
+        first:
+          name: _DstBlend
+        second: 0
+      data:
+        first:
+          name: _Cutoff
+        second: 0.5
+      data:
+        first:
+          name: _Parallax
+        second: 0.02
+      data:
+        first:
+          name: _ZWrite
+        second: 1
+      data:
+        first:
+          name: _Glossiness
+        second: 0.5
+      data:
+        first:
+          name: _BumpScale
+        second: 1
+      data:
+        first:
+          name: _OcclusionStrength
+        second: 1
+      data:
+        first:
+          name: _DetailNormalMapScale
+        second: 1
+      data:
+        first:
+          name: _UVSec
+        second: 0
+      data:
+        first:
+          name: _Mode
+        second: 0
+      data:
+        first:
+          name: _Metallic
+        second: 0
+      data:
+        first:
+          name: _Metallic_pow
+        second: 1.42
+      data:
+        first:
+          name: _Rough_pow
+        second: 1.29
+      data:
+        first:
+          name: _fresnel
+        second: 0.18
+      data:
+        first:
+          name: _cube_power
+        second: 2.36
+      data:
+        first:
+          name: _fres
+        second: 1.08
+      data:
+        first:
+          name: _ice_debuff
+        second: 0
+      data:
+        first:
+          name: _spe_amb_light
+        second: 0.098
+      data:
+        first:
+          name: _buff_defense
+        second: 0
+      data:
+        first:
+          name: _Skin_lighting_cutout
+        second: 0.72
+      data:
+        first:
+          name: _fresnel_body
+        second: 0.1681618
+      data:
+        first:
+          name: _node_3586
+        second: 0.507
+      data:
+        first:
+          name: _Cube_power
+        second: 1
     m_Colors:
-    - _Clothing_Specular_Color: {r: 0.2111808, g: 0.27246, b: 0.3088235, a: 1}
-    - _Color: {r: 0.588, g: 0.588, b: 0.588, a: 1}
-    - _CubeColor: {r: 1, g: 0.8805274, b: 0.7720588, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FresnelColor: {r: 0.5804498, g: 0.8577557, b: 0.8970588, a: 1}
-    - _color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _hit_color: {r: 0, g: 0, b: 0, a: 1}
-    - _skin_color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+      data:
+        first:
+          name: _EmissionColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Color
+        second: {r: 0.588, g: 0.588, b: 0.588, a: 1}
+      data:
+        first:
+          name: _fresnel_color
+        second: {r: 1, g: 0.6076065, b: 0.4632353, a: 1}
+      data:
+        first:
+          name: _debuff_color
+        second: {r: 0.1630623, g: 0.4155709, b: 0.4264706, a: 1}
+      data:
+        first:
+          name: _buff_color
+        second: {r: 0.2506488, g: 0.7633187, b: 0.8970588, a: 1}
+      data:
+        first:
+          name: _skinSSS_color
+        second: {r: 0.53676474, g: 0.505517, b: 0.37494597, a: 1}
+      data:
+        first:
+          name: _fresnel_body_color
+        second: {r: 1, g: 0.6076065, b: 0.4632353, a: 1}
+      data:
+        first:
+          name: _node_2922
+        second: {r: 0.8014706, g: 0.6603599, b: 0.07071801, a: 1}
