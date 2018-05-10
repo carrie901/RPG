@@ -59,7 +59,7 @@ namespace SummerEditor
             {
                 // 去除scale曲线
                 SeoAnimationScaleCurve(anim_clip);
-                // 浮点数精度压缩到f3
+                // 浮点数精度压缩到f3 TODO 非常奇葩的测试 如果我只去掉Scale然后没有压缩进度会导致整体的大小变大
                 SeoAnimationFloat3(anim_clip);
                 result = true;
                 // 通过EditorCurveBinding得到的 Path 会不一样

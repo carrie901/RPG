@@ -11,18 +11,15 @@ namespace SummerEditor
     /// </summary>
     public class AnimationPreTreatmentE
     {
-        /*public static string[] raw_anim_directory = new string[]
-        {
-            "Assets/Raw/Model/"
-        };*/
 
         public static string[] raw_anim_directory = new string[]
         {
             "Assets/Raw/Animation/"
         };
 
-        public static string character_prefab_directory = "Assets/Res/Prefab/Model/";                         // 角色Prefab
-        public static string search_suffix = "*.anim";//*.FBX        查询的目标是fbx还是anim
+        public static string character_prefab_directory = "Assets/Res/Prefab/Model/";                       // 角色Prefab
+        public static string search_suffix = "*.anim";                                                      // *.FBX        查询的目标是fbx还是anim
+
         #region 预处理
 
         //[MenuItem("Tools/预处理/动画预处理")]
@@ -63,6 +60,25 @@ namespace SummerEditor
         }
 
         #endregion
+
+        #region public 
+
+        public static void SavePrefab()
+        {
+            AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets();
+            Resources.UnloadUnusedAssets();
+        }
+
+        public static T Check<T>(GameObject go) where T : MonoBehaviour
+        {
+            T t = go.GetComponent<T>();
+            if (t == null)
+                t = go.AddComponent<T>();
+            return t;
+        }
+
+        #endregion  
 
         #region private
 
@@ -133,59 +149,5 @@ namespace SummerEditor
         }
 
         #endregion
-        public static void SavePrefab()
-        {
-            AssetDatabase.Refresh();
-            AssetDatabase.SaveAssets();
-            Resources.UnloadUnusedAssets();
-        }
-
-        public static T Check<T>(GameObject go) where T : MonoBehaviour
-        {
-            T t = go.GetComponent<T>();
-            if (t == null)
-                t = go.AddComponent<T>();
-            return t;
-        }
-
-
-        public static string[] animation_all =
-        {
-            "attack_01",
-            "attack_02",
-            "attack_03",
-            "attack_04",
-            "attack_05",
-            "attack_06",
-            "climb_up",
-            "climb_down",
-            "die",
-            "hit",
-            "hit1",
-            "hit2",
-            "hit3",
-            "idle",
-            "KnockHit_left",
-            "KnockHit_up",
-            "KnockHit_right",
-            "KnockHitFlow_left",
-            "KnockHitFlow_right",
-            "KnockHitFlow_up",
-            "KnockHitDown_left",
-            "KnockHitDown_right",
-            "KnockHitDown_up",
-            "Peerless_01",
-            "run",
-            "walk",
-            "up_up",
-            "up_left",
-            "up_right",
-            "skill_01",
-            "skill_02",
-            "skill_03",
-            "skill_04",
-            "skill_05",
-            "skill_06",
-        };
     }
 }
