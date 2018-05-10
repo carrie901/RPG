@@ -6,7 +6,7 @@ namespace Summer
 {
     public class AnimationSet : MonoBehaviour
     {
-        public AnimationGroup AnimGroup { get; private set; }
+       /* public AnimationGroup AnimGroup { get; private set; }
 
         public Animation m_anim = null;
         protected AnimationGroup.ClipType _last_clip;
@@ -65,7 +65,7 @@ namespace Summer
                 m_anim.CrossFade(AnimGroup.GetClipName(type));
                 _last_clip = type;
             }
-        }
+        }*/
     }
 }
 

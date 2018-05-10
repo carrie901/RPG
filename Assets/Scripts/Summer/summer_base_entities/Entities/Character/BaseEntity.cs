@@ -144,10 +144,16 @@ namespace Summer
             update_list.Add(_skill_set);
             //update_list.Add(_fsm_system);
             // 加载模型
-            BaseEntityController go = TransformPool.Instance.Pop<BaseEntityController>("Prefab/Model/Character/" + _cnf.prefab_name);
+            BaseEntityController go = TransformPool.Instance.Pop<BaseEntityController>("Prefab/Model/Character/" + "NPC_Zhaoyun_001_03"/*_cnf.prefab_name*/);
             EntityController = go;
             EntityController.InitOutTrigger(this, this);
+
             _fsm_system.Start();
+
+            PlayAnimationEventData param = EventDataFactory.Pop<PlayAnimationEventData>();
+            param.animation_name = "idle";
+            EntityActionFactory.OnAction<EntityPlayAnimationAction>(this, param);
+            EventDataFactory.Push(param);
         }
 
         public void OnPush()

@@ -11,7 +11,7 @@ namespace Summer
         public static EntitesManager Instance =new EntitesManager();
         public List<BaseEntity> entites = new List<BaseEntity>();
 
-        public BaseEntity manual { get; private set; }
+        public BaseEntity Manual { get; private set; }
         #endregion
 
 
@@ -33,7 +33,7 @@ namespace Summer
 
         public void SetManual(BaseEntity entity)
         {
-            manual = entity;
+            Manual = entity;
         }
 
         public void RemoveEntity(BaseEntity entity)

@@ -15,7 +15,7 @@ namespace Summer
         private const float BYTE_TO_M = 0.000001f;
 
         private StringBuilder sb = new StringBuilder();
-        public void OnExcute()
+        public string OnExcute()
         {
             sb.Remove(0, sb.Length);
             sb.AppendFormat(TOTAL_ALLOC_MEMROY_FORMATION, Profiler.GetTotalAllocatedMemoryLong() * BYTE_TO_M);
@@ -29,6 +29,7 @@ namespace Summer
             sb.AppendFormat(MONO_USED_FORMATION, Profiler.GetMonoUsedSizeLong() * BYTE_TO_M);
             sb.AppendLine();
             LogManager.Log(sb.ToString());
+            return sb.ToString();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.Collections.Generic;
 namespace Summer
 {
 
@@ -13,10 +13,10 @@ namespace Summer
         public BaseEntityController entity_controller;
         [HideInInspector]
         public Animator animator;
-        [HideInInspector]
+        //[HideInInspector]
         public string curr_anim_name;
 
-        public AnimationClip[] clips;
+        public List<AnimationClip> anim_clips;
 
         public enum ClipType
         {
@@ -40,8 +40,6 @@ namespace Summer
 
         };
 
-
-
         private void Awake()
         {
             _init();
@@ -49,14 +47,14 @@ namespace Summer
 
         #region public
 
-        public string GetClipName(ClipType clip_type)
+        /*public string GetClipName(ClipType clip_type)
         {
             string anim_name = string.Empty;
             int index = (int)clip_type;
-            if (index < clips.Length && index >= 0 && clips[index] != null)
-                anim_name = clips[index].name;
+            if (index < anim_clips.Count && index >= 0 && anim_clips[index] != null)
+                anim_name = anim_clips[index].name;
             return anim_name;
-        }
+        }*/
 
         public void PlayAnim(string anim_name)
         {
@@ -138,6 +136,26 @@ namespace Summer
 
         #endregion
 
+        #region Editor Public 
+
+        public void Clear()
+        {
+            anim_clips.Clear();
+        }
+
+        public void AddAnims(string anim_name, AnimationClip anim_clip)
+        {
+            /*AnimationNameInfo info = new AnimationNameInfo
+            {
+                anim_name = anim_name,
+                anim_clip = anim_clip
+            };
+            anims.Add(info);*/
+            anim_clips.Add(anim_clip);
+        }
+
+        #endregion
+
         #region private 
 
         public void _init()
@@ -147,13 +165,13 @@ namespace Summer
 
             AnimatorOverrideController override_control = new AnimatorOverrideController();
             override_control.runtimeAnimatorController = animator.runtimeAnimatorController;
-            int length = clips.Length;
+            int length = anim_clips.Count;
             for (int i = 0; i < length; i++)
             {
-                if (clips[i] != null)
+                if (anim_clips[i] != null)
                 {
-                    override_control[clips[i].name] = null;
-                    override_control[clips[i].name] = clips[i];
+                    override_control[anim_clips[i].name] = null;
+                    override_control[anim_clips[i].name] = anim_clips[i];
                 }
                 else
                 {

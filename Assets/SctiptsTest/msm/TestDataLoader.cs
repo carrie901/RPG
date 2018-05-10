@@ -16,7 +16,7 @@ public class TestDataLoader : MonoBehaviour
         GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_set_player, entity);
         EntitesManager.Instance.SetManual(entity);
 
-        int count = 7;
+        int count = 0;
         for (int i = 0; i < count; i++)
         {
             BaseEntity tmp = EntityPool.Instance.Pop(1001001);

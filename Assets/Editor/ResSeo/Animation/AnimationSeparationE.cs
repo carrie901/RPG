@@ -1,19 +1,20 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
 
 namespace SummerEditor
 {
-    public class AnimationSeparationMenu
+    /// <summary>
+    /// 动画分离工具
+    /// </summary>
+    public class AnimationSeparationE
     {
-        public static string copy_anim_path = "Assets/Raw/Animation/";
+        public static string copy_anim_path = "Assets/Raw/Animation/"; // copy到指定的目录
 
-        public static string raw_anim_directory = "Assets/Raw/Model/";
+        public static string raw_anim_directory = "Assets/Raw/Model/"; // Fbx原始目录
 
-
-        [MenuItem("Tools/Animation/分离动画")]
+        //[MenuItem("Tools/Animation/分离动画")]
         public static void AllSeparationAnimationByFbx()
         {
             List<string> dirs = new List<string>();
@@ -43,7 +44,7 @@ namespace SummerEditor
             AssetDatabase.SaveAssets();
         }
 
-        [MenuItem("Assets/Animation/分离动画")]
+        //[MenuItem("Assets/Animation/分离动画")]
         public static void SeparationAnimationByFbx()
         {
             List<AnimationClip> clips = new List<AnimationClip>();
@@ -58,17 +59,22 @@ namespace SummerEditor
             for (int i = 0; i < length; i++)
             {
                 CopyAsset(clips[i], anim_folder);
+                EditorUtility.DisplayProgressBar(clips[i].name, string.Format("动画预处理({0}/{1})", i + 1, length), (float)(i + 1) / length);
             }
+            EditorUtility.ClearProgressBar();
+            EditorUtility.DisplayDialog("", "动画预处理完毕", "OK");
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
         }
+
+        #region private
 
         public static void CopyAsset(AnimationClip old_clip, string anim_folder)
         {
             AnimationClip new_clip = new AnimationClip();
             EditorUtility.CopySerialized(old_clip, new_clip);
 
-            string copy_asset_path = copy_anim_path + anim_folder + "/" + new_clip.name + "_1.anim";
+            string copy_asset_path = copy_anim_path + anim_folder + "/" + new_clip.name + "_tmp.anim";
             string new_asset_path = copy_anim_path + anim_folder + "/" + new_clip.name + ".anim";
 
 
@@ -103,7 +109,10 @@ namespace SummerEditor
             }
 
             if (paths.Count > 0)
-                guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(AnimationClip).ToString().Replace("UnityEngine.", "")), paths.ToArray());
+                guids =
+                    AssetDatabase.FindAssets(
+                        string.Format("t:{0}", typeof(AnimationClip).ToString().Replace("UnityEngine.", "")),
+                        paths.ToArray());
             else
                 guids = new string[] { };
 
@@ -120,7 +129,6 @@ namespace SummerEditor
             return anim_path;
         }
 
-
         // floder必须是Asset/这样的格式
         public static string FindAnimsByFolder(string floder, List<AnimationClip> clips)
         {
@@ -128,7 +136,10 @@ namespace SummerEditor
             string[] guids = null;
             List<string> paths = new List<string> { floder };
             if (paths.Count > 0)
-                guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(AnimationClip).ToString().Replace("UnityEngine.", "")), paths.ToArray());
+                guids =
+                    AssetDatabase.FindAssets(
+                        string.Format("t:{0}", typeof(AnimationClip).ToString().Replace("UnityEngine.", "")),
+                        paths.ToArray());
             else
                 guids = new string[] { };
             int length = guids.Length;
@@ -144,6 +155,7 @@ namespace SummerEditor
             return anim_path;
         }
 
+        #endregion
     }
 }
 

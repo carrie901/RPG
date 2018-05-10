@@ -1,16 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 namespace SummerEditor
 {
-    public class AnimationSeoMenu
+    /// <summary>
+    /// 动画文件内容优化
+    /// </summary>
+    public class AnimationSeoE
     {
         public const string FLOAT_FORMAT = "f3";                            // 裁剪精度
-        public static string anim_directory = "Assets/Raw/Animation/";
-        public const string SUFFIX_ANIM = ".anim";
-        [MenuItem("Tools/优化/动画内存优化")]
+        public static string anim_directory = "Assets/Raw/Animation/";      // 优化的目录
+        public const string SUFFIX_ANIM = ".anim";                          // 文件后缀名
+
+        //[MenuItem("Tools/优化/动画内存优化")]
         public static void AllSeoAnimation()
         {
 
@@ -29,7 +32,7 @@ namespace SummerEditor
             ShowDialog();
         }
 
-        [MenuItem("Assets/优化/动画内存优化")]
+        //[MenuItem("Assets/优化/动画内存优化")]
         public static void SeoAnimation()
         {
             AnimationClip clip = Selection.activeObject as AnimationClip;
@@ -38,6 +41,9 @@ namespace SummerEditor
             ShowDialog();
         }
 
+        #region private
+
+        // 保存信息，并且弹出提示框
         public static void ShowDialog()
         {
             AssetDatabase.Refresh();
@@ -94,7 +100,7 @@ namespace SummerEditor
             return result;
         }
 
-
+        #endregion
     }
 }
 

@@ -63,7 +63,7 @@ public class TestMovementComponent : MonoBehaviour
 
         if (!key_board_is_input) return;
         if (entity == null)
-            entity = EntitesManager.Instance.manual;
+            entity = EntitesManager.Instance.Manual;
 
 
         //follow.transform.localPosition = new Vector3(direction.x, 0, direction.y);
@@ -79,7 +79,7 @@ public class TestMovementComponent : MonoBehaviour
     public void OnClick()
     {
         //GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_source_add, source);
-        EntitesManager.Instance.manual.CastSkill();
+        EntitesManager.Instance.Manual.CastSkill();
     }
 
     void OnDrawGizmos()

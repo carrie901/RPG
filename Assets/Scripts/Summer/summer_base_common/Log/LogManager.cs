@@ -54,7 +54,7 @@ namespace Summer
 #if UNITY_EDITOR
             //pipelines.Add(FileLog.Instance);
             //pipelines.Add(StringBuilderLog.Instance);
-            pipelines.Add(UnityLog.Instance);
+            //pipelines.Add(UnityLog.Instance);
             //pipelines.Add(RuntimeLog.Instance);
 #endif
 
