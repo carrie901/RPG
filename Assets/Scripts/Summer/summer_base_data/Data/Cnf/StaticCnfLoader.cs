@@ -20,15 +20,15 @@ public class StaticCnfLoader
 
 	public static void LoadAllCsvBinary()
 	{
-		StaticCnf.Add(CsvLoader.LoadBinary<areaCnf>("areaCnf"));
-		StaticCnf.Add(CsvLoader.LoadBinary<attribute_type_configCnf>("attribute_type_configCnf"));
-		StaticCnf.Add(CsvLoader.LoadBinary<avgCnf>("avgCnf"));
-		StaticCnf.Add(CsvLoader.LoadBinary<BatchMonsterInfoCnf>("BatchMonsterInfoCnf"));
-		StaticCnf.Add(CsvLoader.LoadBinary<BuffCnf>("BuffCnf"));
+//		StaticCnf.Add(CsvLoader.LoadBinary<areaCnf>("areaCnf"));
+//		StaticCnf.Add(CsvLoader.LoadBinary<attribute_type_configCnf>("attribute_type_configCnf"));
+//		StaticCnf.Add(CsvLoader.LoadBinary<avgCnf>("avgCnf"));
+//		StaticCnf.Add(CsvLoader.LoadBinary<BatchMonsterInfoCnf>("BatchMonsterInfoCnf"));
+//		StaticCnf.Add(CsvLoader.LoadBinary<BuffCnf>("BuffCnf"));
 		StaticCnf.Add(CsvLoader.LoadBinary<HeroInfoCnf>("HeroInfoCnf"));
-		StaticCnf.Add(CsvLoader.LoadBinary<MonsterInfoCnf>("MonsterInfoCnf"));
-		StaticCnf.Add(CsvLoader.LoadBinary<SkillTypeCDListCnf>("SkillTypeCDListCnf"));
-		StaticCnf.Add(CsvLoader.LoadBinary<SpaceInfoCnf>("SpaceInfoCnf"));
+//		StaticCnf.Add(CsvLoader.LoadBinary<MonsterInfoCnf>("MonsterInfoCnf"));
+//		StaticCnf.Add(CsvLoader.LoadBinary<SkillTypeCDListCnf>("SkillTypeCDListCnf"));
+//		StaticCnf.Add(CsvLoader.LoadBinary<SpaceInfoCnf>("SpaceInfoCnf"));
 		StaticCnf.Add(CsvLoader.LoadBinary<SpellInfoCnf>("SpellInfoCnf"));
 	}
 	public static void WriteAllCsvBinary(string root_path)

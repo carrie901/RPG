@@ -104,7 +104,7 @@ namespace Summer
             fs.Write(array, 0, array.Length);//将字节数组写入到文本文件  
             fs.Close();
             fs = null;
-            UnityEngine.Debug.Log("写入成功");
+            UnityEngine.Debug.Log("写入成功:" + srt_path);
         }
 
         /// <summary>

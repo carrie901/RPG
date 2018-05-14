@@ -86,7 +86,10 @@ namespace SummerEditor
     //=============================================================================
     public class EabNameTool
     {
-        const string EXTENSION = ".ab";
+
+        const string EXTENSION = ".ab";             // 后缀名
+
+        #region 设置名字
 
         public static void SetAssetBundleName(string[] full_names)
         {
@@ -99,6 +102,7 @@ namespace SummerEditor
             }
 
             EditorUtility.ClearProgressBar();
+            AssetDatabase.Refresh();
         }
         public static void SetAssetBundleName(string full_name)
         {
@@ -106,7 +110,7 @@ namespace SummerEditor
             AssetImporter importer = AssetImporter.GetAtPath(full_name);
             if (importer != null)
             {
-                string str = EPathHelper.NormalizeAssetBundle(full_name);
+                string str = EPathHelper.RemoveAssetsAndSuffixforPath(full_name);
                 importer.assetBundleName = str + EXTENSION;
                 importer.SaveAndReimport();
             }
@@ -117,11 +121,12 @@ namespace SummerEditor
             AssetImporter importer = AssetImporter.GetAtPath(full_name);
             if (importer != null)
             {
-                string str = EPathHelper.NormalizeAssetBundle(asset_bundle_name);
+                string str = EPathHelper.RemoveAssetsAndSuffixforPath(asset_bundle_name);
                 importer.assetBundleName = str;
                 importer.SaveAndReimport();
             }
         }
+
         public static void SetSelectionAssetBundleName()
         {
             foreach (var id in Selection.instanceIDs)
@@ -131,6 +136,11 @@ namespace SummerEditor
             }
             AssetDatabase.Refresh();
         }
+
+        #endregion
+
+        #region 清除名字
+
         public static void ClearAssetBundleName(string full_name)
         {
             full_name = EPathHelper.AbsoluteToRelativePathRemoveAssets(full_name);
@@ -162,6 +172,8 @@ namespace SummerEditor
 
             AssetDatabase.RemoveUnusedAssetBundleNames();
         }
+
+        #endregion
 
     }
 }

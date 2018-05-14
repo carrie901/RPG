@@ -14,8 +14,12 @@ public class CsvLoader
     public const string STRING_EMPTY = "";
     public const int MIN_LINE = 4;                  // 最小行数
     public static string csv_file_root = Application.dataPath + "\\..\\Data\\Tables\\";//"E:\\work_three\\trunk\\three_config\\tables\\";
+
     #region 二进制加载
 
+    /// <summary>
+    /// 二进制读取文本资源
+    /// </summary>
     public static Dictionary<int, T> LoadBinary<T>(string file_name) where T : BaseCsv, new()
     {
         byte[] bytes = _load_cvs_dat(file_name);
@@ -106,8 +110,7 @@ public class CsvLoader
 
     public static byte[] _load_cvs_dat(string file_name)
     {
-        //byte[] bytes = ResManager.instance.LoadByte(file_name, E_GameResType.cvs_byte);
-        byte[] bytes = null;
+        byte[] bytes = ResManager.instance.LoadByte(file_name, E_GameResType.quanming);
         return bytes;
     }
 

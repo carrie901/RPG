@@ -82,7 +82,7 @@ namespace SummerEditor
 
         public void on_change(EToggleBar togglebar)
         {
-            EabAnalysisTool.AnalysisDirectory();
+            //EabAnalysisTool.AnalysisDirectory();
         }
     }
 

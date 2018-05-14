@@ -33,13 +33,22 @@ namespace Summer
         }
     }
 
-    public class AssetDatabaseSuffix : ResourceSuffix
+    public class AssetDatabaseSuffix : AResourceSuffix
     {
         public override string GetSuffix<T>()
         {
-            string suffix = "";
+            string suffix;
             _suffix_map.TryGetValue(typeof(T), out suffix);
             return suffix;
+        }
+    }
+
+    public class AssetBundleSuffix : AResourceSuffix
+    {
+        public const string AB_SUFFIX = ".ab";
+        public override string GetSuffix<T>()
+        {
+            return AB_SUFFIX;
         }
     }
 }

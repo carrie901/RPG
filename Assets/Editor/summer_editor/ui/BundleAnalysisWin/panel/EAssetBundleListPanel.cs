@@ -17,7 +17,7 @@ namespace SummerEditor
 
         public void _init()
         {
-            Dictionary<string, EabMainVbo> main_ab_map = EabAnalysisTool._main_ab_map;
+            Dictionary<string, EabMainVbo> main_ab_map = AssetAnalysisE._main_ab_map;
             bool color_tmp = false;
             foreach (var info in main_ab_map)
             {

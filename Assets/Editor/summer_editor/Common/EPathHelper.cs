@@ -2,6 +2,7 @@
 using System.IO;
 using UnityEngine;
 using System.Collections.Generic;
+using Summer;
 
 //=============================================================================
 // Author : mashao
@@ -20,34 +21,59 @@ namespace SummerEditor
     /// 2.转换型 通过路径转换成指定类型的
     /// 3.检测型 判断路径类型
     /// 4.创建型
+    /// 
+    /// 
+    /// TODO 2018.5.14
+    ///     BUG:老实搞错Asset路径和File路径 他们之间的在部分API调用的时候会出现
     /// </summary>
 	public class EPathHelper
     {
-        public static string asset_directory = "Assets";
+        public static string asset_directory = "Assets/";
 
         public static string relative_asset = Path.GetFullPath(Application.dataPath);
 
         #region 转换型 对路径做处理
 
         /// <summary>
-        /// 绝对路径转成相对路径（以Assets作为开头）
+        /// 绝对路径转成相对路径
+        /// path=可以是绝对路径也可以是相对路径，返回是以Assets作为开头的路径 例如Assets/Raw/...
         /// </summary>
         public static string AbsoluteToRelativePathWithAssets(string path)
         {
-            string remove_asset = Path.GetFullPath(path).Replace(relative_asset, "");
-            return asset_directory + NormalizePath(remove_asset);
+            string tmp_path = NormalizePath(path);
+            int index = tmp_path.IndexOf(asset_directory, StringComparison.Ordinal);
+            if (index >= 0)
+            {
+                string result = tmp_path.Substring(index);
+                return result;
+            }
+            else
+            {
+                Debug.LogError("路径转成Asset失败" + path);
+                return path;
+            }
         }
 
+        /// <summary>
+        /// 绝对路径转成相对路径 剔除了Assets/
+        /// </summary>
         public static string AbsoluteToRelativePathRemoveAssets(string path)
         {
             path = NormalizePath(path);
             int last_idx = path.LastIndexOf(asset_directory, StringComparison.Ordinal);
-            if (last_idx < 0)
+            if (last_idx >= 0)
+            {
+                int start = last_idx + asset_directory.Length;
+                int length = path.Length - start;
+                string result = path.Substring(start, length);
+                return result;
+            }
+            else
+            {
+                Debug.LogError("路径转成Asset失败" + path);
                 return path;
 
-            int start = last_idx + asset_directory.Length;
-            int length = path.Length - start;
-            return asset_directory + path.Substring(start, length);
+            }
         }
 
         /// <summary>
@@ -63,21 +89,22 @@ namespace SummerEditor
         }
 
         /// <summary>
-        /// 规范化名字，去掉Assets/和后缀
+        /// 去掉Assets/和后缀的路径
         /// </summary>
-        public static string NormalizeAssetBundle(string full_name)
+        public static string RemoveAssetsAndSuffixforPath(string file_path)
         {
-            int last_idx = full_name.IndexOf(asset_directory, StringComparison.Ordinal);
+            string tmp_path = NormalizePath(file_path);
+            int last_idx = tmp_path.IndexOf(asset_directory, StringComparison.Ordinal);
             if (last_idx >= 0)
             {
-                int start = last_idx + asset_directory.Length + 1;
-                full_name = full_name.Substring(start);
+                int start = last_idx + asset_directory.Length;
+                tmp_path = tmp_path.Substring(start);
             }
 
-            return RemoveSuffix(full_name);
+            return RemoveSuffix(tmp_path);
         }
 
-        //标准化路径
+        //标准化路径 把绝对路径的符号转成相对路径的符号
         public static string NormalizePath(string path)
         {
             return path.Replace('\\', '/');
@@ -97,6 +124,23 @@ namespace SummerEditor
         #endregion
 
         #region 得到类型 指定根目录得到其下所有的文件
+
+        /// <summary>
+        /// 得到Asset目录下的资源，剔除掉meta文件，并且格式转成Asset\格式
+        /// </summary>
+        public static List<string> GetAssetPathList01(string root_path, bool deep, string suffix = "*.*")
+        {
+            List<string> ret = new List<string>();
+            ScanDirectoryFile(root_path, deep, ret, suffix);
+            NoEndsWithFilter filter = new NoEndsWithFilter(".meta");
+            SuffixHelper.Filter(ret, filter);
+            for (int i = 0; i < ret.Count; ++i)
+            {
+                ret[i] = AbsoluteToRelativePathWithAssets(ret[i]);
+            }
+
+            return ret;
+        }
 
         public static List<string> GetAssetPathList(string root_path, bool deep, string suffix = "*.*")
         {
@@ -154,6 +198,25 @@ namespace SummerEditor
             for (int i = 0; i < child_dirs.Length; i++)
             {
                 list.Add(child_dirs[i].FullName);
+            }
+        }
+
+        /// <summary>
+        /// 强制要求是 / 而不是\
+        /// </summary>
+        public static string GetDirectory(string path)
+        {
+            string normailze_path = NormalizePath(path);
+            int index = normailze_path.LastIndexOf("/", StringComparison.Ordinal);
+            if (index >= 0)
+            {
+                string result = normailze_path.Substring(0, index);
+                return result;
+            }
+            else
+            {
+                Debug.Log("查询目录失败:" + path);
+                return path;
             }
         }
 

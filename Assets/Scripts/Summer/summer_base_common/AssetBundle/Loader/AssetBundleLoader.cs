@@ -25,6 +25,7 @@ namespace Summer
         public bool _init_complete;                                                 //主文件加载完成
         public string _evn_path;                                                    //环境路径
         public const int TIME_OUT = 120;
+
         #region param
         public Dictionary<string, string[]> _assetbundle_map
             = new Dictionary<string, string[]>();
@@ -40,6 +41,9 @@ namespace Summer
 
         protected List<string> on_loading_assetbundles                              //加载中的资源包
             = new List<string>();
+
+        public Dictionary<string, string> _asset_list = new Dictionary<string, string>();
+
         #endregion
 
         public AssetBundleLoader()
@@ -297,6 +301,8 @@ namespace Summer
 
         #endregion
 
+
+
         /*public IEnumerator _load_assetbundle_async(string assetbundle_name, string asset_name, Action<Object> complete)
         {
             // 1.如果主包中已经包含了那么直接回调
@@ -381,6 +387,45 @@ namespace Summer
                  on_loading_assetbundles.Remove(assetbundle_name);
              }
          }*/
+    }
+
+    public class AssetBundleConfig
+    {
+        public const char SPLIT = ',';
+        public static string split_huanhang = "\r\n";
+        public const string AB_CONFIG = "AbResConfig";                      // 主加载资源所在的AB包 名称
+        public Dictionary<string, string> _asset_list = new Dictionary<string, string>();
+        public AssetBundleConfig()
+        {
+            _load_config();
+        }
+
+        // 通过资源名字,知道他所在的Ab包名称
+        public string FindAbNameByResName(string res_name)
+        {
+            if (_asset_list.ContainsKey(res_name))
+                return _asset_list[res_name];
+            return string.Empty;
+        }
+
+        public void _load_config()
+        {
+            string main_fest_path = Application.streamingAssetsPath + "/Assetbundle/" + AB_CONFIG;
+
+            AssetBundle ab = AssetBundle.LoadFromFile(main_fest_path);
+            TextAsset text_asset = ab.LoadAsset("AbResConfig") as TextAsset;
+            if (text_asset == null) return;
+            string[] contexts = text_asset.text.Split(SPLIT);
+            int length = contexts.Length;
+
+            _asset_list.Clear();
+            for (int i = 0; i < length; i++)
+            {
+                string[] info = StringHelper.SplitString(contexts[i], split_huanhang);
+
+                _asset_list.Add(info[0], info[1]);
+            }
+        }
     }
 
 }

@@ -22,7 +22,7 @@ namespace SummerEditor
         //TODO最好做出改变
         public void InitComponent()
         {
-            _lab_asset_path = new ELabel(750, 30, _ab_main.asset_name);
+            _lab_asset_path = new ELabel(750, 30, _ab_main.asset_path);
             _lab_asset_size = new ELabel(80, 30, _ab_main.size.ToString());
             _btn_asset_path = new EButton(50, 30, "查看资源");
             _btn_asset_ref = new EButton(50, 30, "引用资源");

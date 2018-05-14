@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class LoadedAssetBundle
+    /*public class LoadedAssetBundle
     {
 
         public AssetBundle m_asset_bundle;
@@ -23,6 +23,6 @@ namespace Summer
             m_asset_bundle = asset_bundle;
             m_referenced_count = 1;
         }
-    }
+    }*/
 
 }

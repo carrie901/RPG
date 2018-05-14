@@ -24,5 +24,16 @@ namespace Summer
             }
             return contents;
         }
+
+        public static void Filter(List<string> files, I_ContentFilter filter)
+        {
+            int length = files.Count;
+            for (int i = length - 1; i >= 0; i--)
+            {
+                if (!filter.FilterContent(files[i]))
+                    files.RemoveAt(i);
+            }
+        }
+
     }
 }

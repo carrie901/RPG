@@ -32,7 +32,7 @@ namespace SummerEditor
         {
             EabMainVbo main_vbo = obj as EabMainVbo;
             if (main_vbo == null) return;
-            _asset_name.text = "路径:" + main_vbo.asset_name;
+            _asset_name.text = "路径:" + main_vbo.asset_path;
             _asset_size.text = "大小:" + main_vbo.size + "kb";
             _deps_view.Clear();
 

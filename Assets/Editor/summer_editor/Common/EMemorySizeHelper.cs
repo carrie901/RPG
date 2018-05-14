@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEditor;
@@ -20,7 +18,11 @@ namespace SummerEditor
 
         public static float GetFileSize(string path)
         {
-            if (!File.Exists(path)) return 0;
+            if (!File.Exists(path))
+            {
+                Debug.LogError("找不到对应的文件，路径:" + path);
+                return 0;
+            }
             FileInfo info = new FileInfo(path);
             return info.Length;
         }
