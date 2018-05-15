@@ -149,14 +149,16 @@ namespace Summer
         #region private
 
         // 解析路径和AssetName 这里需要区分AssetBundleName和AssetName
-        public void _parse_path(string path, out string rel_path, out string obj_name)
+        public void _parse_path(string path, out string assetbundle_name, out string asset_name)
         {
             //AssetBundleName 是指ab包的名字
             //AssetName指的事ab包的Asset资源的名字
-            path = path.Substring(0, path.LastIndexOf(".", StringComparison.Ordinal));
-            rel_path = path;
+            //path = path.Substring(0, path.LastIndexOf(".", StringComparison.Ordinal));
+            assetbundle_name = path;
             int index = path.LastIndexOf("/", StringComparison.Ordinal);
-            obj_name = path.Substring(index + 1);
+
+            path = path.Substring(0, path.LastIndexOf(".", StringComparison.Ordinal));
+            asset_name = path.Substring(index + 1);
         }
 
         // 同步加载主资源
@@ -428,4 +430,9 @@ namespace Summer
         }
     }
 
+    public class AbConfig
+    {
+        // key,value -->key=res/../ 下的路径没有后缀 value=加载路径
+        public Dictionary<string, string[]> _ab_path = new Dictionary<string, string[]>();
+    }
 }
