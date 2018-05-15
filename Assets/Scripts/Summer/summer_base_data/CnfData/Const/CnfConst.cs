@@ -29,6 +29,11 @@ namespace Summer
         /// </summary>
         public static List<string> ingore_file = new List<string>() { "text" };
 
+
+        /// <summary>
+        /// 数组分割符号
+        /// </summary>
+        public const string SPLIT_LIST = "&";
     }
 
 }

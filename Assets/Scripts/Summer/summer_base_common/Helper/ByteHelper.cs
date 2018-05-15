@@ -165,7 +165,7 @@ namespace Summer
 
         public static int[] ToInts(string self_str)
         {
-            string[] result = self_str.ToStrs(CsvConst.SPLIT_LIST);
+            string[] result = self_str.ToStrs(CnfConst.SPLIT_LIST);
             int length = result.Length;
             int[] value = new int[length];
             for (int i = 0; i < length; i++)
@@ -178,7 +178,7 @@ namespace Summer
 
         public static float[] ToFloats(string self_str)
         {
-            string[] result = self_str.ToStrs(CsvConst.SPLIT_LIST);
+            string[] result = self_str.ToStrs(CnfConst.SPLIT_LIST);
             int length = result.Length;
             float[] value = new float[length];
             for (int i = 0; i < length; i++)
@@ -191,7 +191,7 @@ namespace Summer
 
         public static bool[] ToBools(string self_str)
         {
-            string[] result = self_str.ToStrs(CsvConst.SPLIT_LIST);
+            string[] result = self_str.ToStrs(CnfConst.SPLIT_LIST);
             int length = result.Length;
             bool[] value = new bool[length];
             for (int i = 0; i < length; i++)
@@ -205,7 +205,7 @@ namespace Summer
         public static string[] ToStrs(string self_str)
         {
             if (string.IsNullOrEmpty(self_str)) return new string[] { };
-            string[] result = self_str.Split(new[] { CsvConst.SPLIT_LIST }, StringSplitOptions.None);
+            string[] result = self_str.Split(new[] { CnfConst.SPLIT_LIST }, StringSplitOptions.RemoveEmptyEntries);
             return result;
         }
 
@@ -252,7 +252,7 @@ namespace Summer
                 if (i == length - 1)
                     result += ToOutInt(self_str[i]);
                 else
-                    result += ToOutInt(self_str[i]) + CsvConst.SPLIT_LIST;
+                    result += ToOutInt(self_str[i]) + CnfConst.SPLIT_LIST;
             }
             return result;
         }
@@ -266,7 +266,7 @@ namespace Summer
                 if (i == length - 1)
                     result += ToOutFloat(self_str[i]);
                 else
-                    result += ToOutFloat(self_str[i]) + CsvConst.SPLIT_LIST;
+                    result += ToOutFloat(self_str[i]) + CnfConst.SPLIT_LIST;
             }
             return result;
         }
@@ -280,7 +280,7 @@ namespace Summer
                 if (i == length - 1)
                     result += ToOutBool(self_str[i]);
                 else
-                    result += ToOutBool(self_str[i]) + CsvConst.SPLIT_LIST;
+                    result += ToOutBool(self_str[i]) + CnfConst.SPLIT_LIST;
             }
             return result;
         }
@@ -294,7 +294,7 @@ namespace Summer
                 if (i == length - 1)
                     result += ToOutStr(self_str[i]);
                 else
-                    result += ToOutStr(self_str[i]) + CsvConst.SPLIT_LIST;
+                    result += ToOutStr(self_str[i]) + CnfConst.SPLIT_LIST;
             }
             return result;
         }

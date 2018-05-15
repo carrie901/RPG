@@ -40,6 +40,7 @@ namespace Summer
 
             for (int i = 0; i < length; i++)
             {
+                if (skill_list[i] == 0) continue;
                 // 确定普通攻击
                 SpellInfoCnf space_info = StaticCnf.FindData<SpellInfoCnf>(skill_list[i]);
                 if (space_info.skill_types == skill_type_normal_attack)
@@ -57,7 +58,8 @@ namespace Summer
                 else if (space_info.process_template == "qianchong")
                 {
                     skill = new SkillZhaoYunQianChong();
-                }else if (space_info.process_template== "tiaokong")
+                }
+                else if (space_info.process_template == "tiaokong")
                 {
                     skill = new SkillZhaoYunTiao();
                 }

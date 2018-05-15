@@ -170,7 +170,7 @@ namespace Summer
 
         public static int[] ToInts(this string self_str, string str_plit = ",")
         {
-            string[] result = self_str.Split(new[] { str_plit }, StringSplitOptions.None);
+            string[] result = self_str.Split(new string[] { str_plit }, StringSplitOptions.None);
             int length = result.Length;
             int[] value = new int[length];
             for (int i = 0; i < length; i++)
@@ -209,7 +209,7 @@ namespace Summer
 
         public static string[] ToStrs(this string self_str, string str_plit = ",")
         {
-            string[] result = self_str.Split(new[] { str_plit }, StringSplitOptions.None);
+            string[] result = self_str.Split(new string[] { str_plit }, StringSplitOptions.None);
             return result;
         }
 
