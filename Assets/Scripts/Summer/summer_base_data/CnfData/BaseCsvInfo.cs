@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Summer;
-
 namespace Summer
 {
     /// <summary>
@@ -23,8 +21,8 @@ namespace Summer
         {
             original_file_path = file_path;
             original_file_name = Path.GetFileNameWithoutExtension(original_file_path);
-            class_name = CodeGeneratorHelperE.NormalizeName(original_file_name) + "Cnf";
-            class_path = CodeGeneratorConstE.cnf_path + class_name + ".cs";
+            class_name = CnfHelper.NormalizeName(original_file_name) + "Cnf";
+            class_path = CnfConst.cnf_path + class_name + ".cs";
             string text = FileHelper.ReadAllText(original_file_path);
 
             string[] lines = text.ToStrs(StringHelper.split_huanhang);

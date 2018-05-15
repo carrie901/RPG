@@ -57,6 +57,11 @@ namespace Summer
             Type type = typeof(T);
             cnf_map.Add(type, cnf);
         }
+
+        public static void Clear()
+        {
+            cnf_map.Clear();
+        }
     }
 }
 

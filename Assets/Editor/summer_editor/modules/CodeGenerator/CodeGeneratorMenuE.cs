@@ -1,7 +1,7 @@
 ﻿
 
 using UnityEditor;
-
+using Summer;
 namespace SummerEditor
 {
     public class CodeGeneratorMenuE
@@ -15,7 +15,9 @@ namespace SummerEditor
         [MenuItem("Tools/Csv工具/2.生成二进制资源", false, 2)]
         public static void WriteByte()
         {
-            CodeGenerator.WriteByte();
+            StaticCnf.Clear();
+            ConfigManager.ReadLocalConfig();
+            ConfigManager.WriteByteConfig();
             //ConfigManager.Instance.ReadLocalConfig();
             //ConfigManager.Instance.WriteByteConfig();
         }

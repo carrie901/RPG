@@ -4,6 +4,7 @@ namespace Summer
     public enum E_GameResType
     {
         none = 0,
+        text_asset,              // 文本路径
         quanming,
         skill_icon,             // 技能 Icon表
         hero_icon,              // 英雄 icon表

@@ -19,11 +19,11 @@ namespace SummerEditor
         public static void CreateCode()
         {
             // 1.读取指定目录下的所有文件
-            Dictionary<string, BaseCsvInfo> csv_infos = CodeGeneratorHelperE.LoadFileContent();
+            Dictionary<string, BaseCsvInfo> csv_infos = CnfHelper.LoadFileContent();
             // 2.创建数据结构类
             List<EClassDefine> class_map = CreateClass(csv_infos);
             // 确认文件夹已经创建
-            FileHelper.CreateDirectory(CodeGeneratorConstE.cnf_path);
+            FileHelper.CreateDirectory(CnfConst.cnf_path);
             // 3.导出
             int length = class_map.Count;
             for (int i = 0; i < length; i++)
@@ -39,8 +39,6 @@ namespace SummerEditor
         /// </summary>
         public static void WriteByte()
         {
-            StaticCnfLoader.LoadAllCsvFile();
-            StaticCnfLoader.WriteAllCsvBinary(CodeGeneratorConstE.data_byte_path);
             EditorUtility.DisplayDialog("生成二进制文件", "查看结果", "OK");
         }
 
@@ -100,24 +98,25 @@ namespace SummerEditor
             // 类名
             CodeGeneratorHelperE.AppendLine(sb, 0, "public class " + CodeGeneratorConstE.config_manager);
             CodeGeneratorHelperE.AppendLine(sb, 0, "{");
-            CodeGeneratorHelperE.AppendLine(sb, 1, "public static {0} Instance = new {0}();", CodeGeneratorConstE.config_manager);
+            //CodeGeneratorHelperE.AppendLine(sb, 1, "public static {0} Instance = new {0}();", CodeGeneratorConstE.config_manager);
 
             {
                 // 属性
-                length = csv_infos.Count;
+                /*length = csv_infos.Count;
                 for (int i = 0; i < length; i++)
                 {
                     CodeGeneratorHelperE.AppendLine(sb, 1, "public Dictionary<int, {0}> {1} = new Dictionary<int, {0}>();", csv_infos[i].class_name, csv_infos[i].class_name.ToLower());
-                }
+                }*/
             }
 
             CodeGeneratorHelperE.AppendLine(sb, 0, string.Empty);
             // void ReadLocalConfig
             {
-                CodeGeneratorHelperE.AppendLine(sb, 1, "public void ReadLocalConfig()");
+                CodeGeneratorHelperE.AppendLine(sb, 1, "public static void ReadLocalConfig()");
                 CodeGeneratorHelperE.AppendLine(sb, 1, "{");
+                CodeGeneratorHelperE.AppendLine(sb, 1, "StaticCnf.Clear();");
                 CodeGeneratorHelperE.AppendLine(sb, 2, "int length = 0;");
-                CodeGeneratorHelperE.AppendLine(sb, 2, "Dictionary<string, BaseCsvInfo> csv_infos = CodeGeneratorHelperE.LoadFileContent();");
+                CodeGeneratorHelperE.AppendLine(sb, 2, "Dictionary<string, BaseCsvInfo> csv_infos = CnfHelper.LoadFileContent();");
                 {
                     CodeGeneratorHelperE.AppendLine(sb, 2, "BaseCsvInfo info = null;");
                     length = csv_infos.Count;
@@ -126,7 +125,8 @@ namespace SummerEditor
                         CodeGeneratorHelperE.AppendLine(sb, 0, string.Empty);
                         string key = csv_infos[i].class_name;
                         CodeGeneratorHelperE.AppendLine(sb, 2, "info = csv_infos[\"{0}\"];", key);
-                        CodeGeneratorHelperE.AppendLine(sb, 2, "{0}.Clear();", key.ToLower());
+                        CodeGeneratorHelperE.AppendLine(sb, 2, "Dictionary<int, {0}> {1} = new Dictionary<int, {0}>();", key, key.ToLower());
+                        //CodeGeneratorHelperE.AppendLine(sb, 2, "{0}.Clear();", key.ToLower());
                         CodeGeneratorHelperE.AppendLine(sb, 2, "length = info.datas.Count;");
                         CodeGeneratorHelperE.AppendLine(sb, 2, "for (int i = 0; i < length; i++)");
                         CodeGeneratorHelperE.AppendLine(sb, 2, "{");
@@ -134,7 +134,7 @@ namespace SummerEditor
                         CodeGeneratorHelperE.AppendLine(sb, 3, "tmp.ToLocalRead(info.datas[i]);");
                         CodeGeneratorHelperE.AppendLine(sb, 3, "{0}.Add(tmp.id, tmp); ", key.ToLower());
                         CodeGeneratorHelperE.AppendLine(sb, 2, "}");
-
+                        CodeGeneratorHelperE.AppendLine(sb, 2, "StaticCnf.Add({0});", key.ToLower());
                     }
                 }
                 CodeGeneratorHelperE.AppendLine(sb, 1, "}");
@@ -142,10 +142,11 @@ namespace SummerEditor
 
             // void ReadByteConfig
             {
-                CodeGeneratorHelperE.AppendLine(sb, 1, "public void ReadByteConfig()");
+                CodeGeneratorHelperE.AppendLine(sb, 1, "public static void ReadByteConfig()");
                 CodeGeneratorHelperE.AppendLine(sb, 1, "{");
+                CodeGeneratorHelperE.AppendLine(sb, 1, "StaticCnf.Clear();");
                 {
-                    CodeGeneratorHelperE.AppendLine(sb, 2, "byte[] bytes = ResManager.instance.LoadByte(CodeGeneratorConstE.data_byte_path, E_GameResType.quanming);");
+                    CodeGeneratorHelperE.AppendLine(sb, 2, "byte[] bytes = ResManager.instance.LoadByte(CnfConst.data_byte_path, E_GameResType.text_asset);");
                     CodeGeneratorHelperE.AppendLine(sb, 2, "MemoryStream ms = new MemoryStream(bytes);");
                     CodeGeneratorHelperE.AppendLine(sb, 2, "BinaryReader br = new BinaryReader(ms);");
                     CodeGeneratorHelperE.AppendLine(sb, 2, "int length = 0;");
@@ -156,13 +157,15 @@ namespace SummerEditor
                         CodeGeneratorHelperE.AppendLine(sb, 0, string.Empty);
                         string key = csv_infos[i].class_name;
                         CodeGeneratorHelperE.AppendLine(sb, 2, "length = br.ReadInt32();");
-                        CodeGeneratorHelperE.AppendLine(sb, 2, "{0}.Clear();", key.ToLower());
+                        CodeGeneratorHelperE.AppendLine(sb, 2, "Dictionary<int, {0}> {1} = new Dictionary<int, {0}>();", key, key.ToLower());
+                        //CodeGeneratorHelperE.AppendLine(sb, 2, "{0}.Clear();", key.ToLower());
                         CodeGeneratorHelperE.AppendLine(sb, 2, "for (int i = 0; i < length; i++)");
                         CodeGeneratorHelperE.AppendLine(sb, 2, "{");
                         CodeGeneratorHelperE.AppendLine(sb, 3, "{0} tmp = new {0}();", key);
                         CodeGeneratorHelperE.AppendLine(sb, 3, "tmp.ToByteRead(br);", i);
                         CodeGeneratorHelperE.AppendLine(sb, 3, "{0}.Add(tmp.id, tmp); ", key.ToLower());
                         CodeGeneratorHelperE.AppendLine(sb, 2, "}");
+                        CodeGeneratorHelperE.AppendLine(sb, 2, "StaticCnf.Add({0});", key.ToLower());
                     }
 
                     CodeGeneratorHelperE.AppendLine(sb, 2, "ms.Flush();");
@@ -175,9 +178,9 @@ namespace SummerEditor
 
             // void WriteByteConfig
             {
-                CodeGeneratorHelperE.AppendLine(sb, 1, "public void WriteByteConfig()");
+                CodeGeneratorHelperE.AppendLine(sb, 1, "public static void WriteByteConfig()");
                 CodeGeneratorHelperE.AppendLine(sb, 1, "{");
-                CodeGeneratorHelperE.AppendLine(sb, 2, "FileInfo file_info = new FileInfo(CodeGeneratorConstE.data_byte_path);");
+                CodeGeneratorHelperE.AppendLine(sb, 2, "FileInfo file_info = new FileInfo(CnfConst.data_byte_path);");
                 CodeGeneratorHelperE.AppendLine(sb, 3, "if (file_info.Exists)");
                 CodeGeneratorHelperE.AppendLine(sb, 2, "file_info.Delete();");
                 CodeGeneratorHelperE.AppendLine(sb, 2, "FileStream file_stream = file_info.Create();");
@@ -190,7 +193,7 @@ namespace SummerEditor
                         CodeGeneratorHelperE.AppendLine(sb, 0, string.Empty);
 
                         string key = csv_infos[i].class_name;
-                        CodeGeneratorHelperE.AppendLine(sb, 2, "List<{0}> tmp_{1} = new List<{0}>({1}.Values);", key, key.ToLower());
+                        CodeGeneratorHelperE.AppendLine(sb, 2, "List<{0}> tmp_{1} = new List<{0}>(StaticCnf.FindMap<{0}>().Values);", key, key.ToLower());
                         CodeGeneratorHelperE.AppendLine(sb, 2, "length = tmp_{0}.Count;", key.ToLower());
                         CodeGeneratorHelperE.AppendLine(sb, 2, "bw.Write(length);");
                         CodeGeneratorHelperE.AppendLine(sb, 2, "for (int i = 0; i < length; i++)");
