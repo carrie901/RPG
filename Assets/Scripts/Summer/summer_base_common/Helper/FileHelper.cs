@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -80,14 +80,10 @@ namespace Summer
         /// <returns>文本内容</returns>
         public static string ReadAllText(string str_path)
         {
-            /*using (FileStream fs = new FileStream(str_path, FileMode.Open, FileAccess.Read))
-            {
-                using (StreamReader reader = new StreamReader(fs))
-                {
-                   
-                }
-            }*/
-            string txt = File.ReadAllText(str_path);
+            string txt = string.Empty;
+#if UNITY_EDITOR
+            txt = File.ReadAllText(str_path);
+#endif
             return txt;
         }
 
@@ -148,4 +144,3 @@ namespace Summer
 
     }
 }
-#endif
