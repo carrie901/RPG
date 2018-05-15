@@ -48,7 +48,7 @@ namespace Summer
 
         public AssetBundleLoader()
         {
-            string main_fest_path = Application.streamingAssetsPath + "/Assetbundle/Assetbundle";
+            string main_fest_path = Application.streamingAssetsPath + "/rpg/rpg";
             AssetBundle ab = AssetBundle.LoadFromFile(main_fest_path);
             _mainfest = ab.LoadAllAssets()[0] as AssetBundleManifest;
             if (_mainfest != null)
@@ -63,7 +63,7 @@ namespace Summer
                 }
                 _init_complete = true;
 
-                _evn_path = Application.streamingAssetsPath + "/Assetbundle/";
+                _evn_path = Application.streamingAssetsPath + "/rpg/res/";
                 instance = this;
             }
         }

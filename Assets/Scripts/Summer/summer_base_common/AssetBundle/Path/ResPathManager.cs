@@ -46,19 +46,19 @@ public class ResPathManager
         _excute(E_GameResType.skill_icon, "icon/skill/");
         _excute(E_GameResType.hero_icon, "icon/hero/");
         _excute(E_GameResType.other_icon, "icon/other/");
-        _excute(E_GameResType.ui_prefab, "Prefabs/GUI/ui/");
+        _excute(E_GameResType.ui_prefab, "prefabs/gui/ui/");
         _excute(E_GameResType.ui_item_prefab, "item/ui/");
         _excute(E_GameResType.item_icon, "icon/item/");
         _excute(E_GameResType.buff_icon, "icon/buff/");
         _excute(E_GameResType.stage_icon, "icon/stage/");
 
-        _excute(E_GameResType.music_bgm, "Music/bgm/");
-        _excute(E_GameResType.music_sound, "Music/sound/");
-        _excute(E_GameResType.music_voice, "Music/voice/");
+        _excute(E_GameResType.music_bgm, "music/bgm/");
+        _excute(E_GameResType.music_sound, "music/sound/");
+        _excute(E_GameResType.music_voice, "music/voice/");
 
         _excute(E_GameResType.ui_effect, "prefab/ui_eff/");
 
-        _excute(E_GameResType.text_asset, "TextAsset/");
+        _excute(E_GameResType.text_asset, "textasset/");
         _excute(E_GameResType.quanming, "");
     }
 
