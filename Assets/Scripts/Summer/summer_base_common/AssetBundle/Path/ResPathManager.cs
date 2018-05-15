@@ -1,7 +1,34 @@
-﻿using Summer;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using Object = UnityEngine.Object;
+
+
+public enum E_GameResType
+{
+    none = 0,
+    text_asset,              // 文本路径
+    quanming,
+    skill_icon,             // 技能 Icon表
+    hero_icon,              // 英雄 icon表
+    buff_icon,
+    other_icon,
+    buff_prefab,            // buff prefab表
+    stage_icon,
+
+    character_prefab,
+    skill_prefab,
+    ui_prefab,
+    ui_item_prefab,
+    item_icon,              // 道具 icon
+
+    //声音
+    music_bgm,              // BGM
+    music_sound,            // 音效
+    music_voice,            // 配乐
+
+    // ui 特效
+    ui_effect,
+
+}
 
 /// <summary>
 /// 把这一部分搞成config，提交出去
@@ -31,21 +58,9 @@ public class ResPathManager
 
         _excute(E_GameResType.ui_effect, "prefab/ui_eff/");
 
+        _excute(E_GameResType.text_asset, "TextAsset/");
         _excute(E_GameResType.quanming, "");
     }
-
-    /*    public static string FindPath(E_GameResType res_type, string name)
-        {
-            string path = string.Empty;
-
-            if (_path_map.ContainsKey(res_type))
-            {
-                path = _path_map[res_type] + name + _suffix[res_type];
-                return path;
-            }
-            ResLog.Error("找不到信息,类型:[{0}].名字:[{1}]", res_type, name);
-            return path;
-        }*/
 
     public static string FindPath<T>(E_GameResType res_type, string name, Summer.AResourceSuffix a_suffix) where T : Object
     {
@@ -63,15 +78,5 @@ public class ResPathManager
     public static void _excute(E_GameResType type, string path)
     {
         _path_map.Add(type, path);
-    }
-
-    public static string streaming_assets_path()
-    {
-        if (Application.isEditor)
-            return "file://" + System.Environment.CurrentDirectory.Replace("\\", "/"); // Use the build output folder directly.
-        else if (Application.isMobilePlatform || Application.isConsolePlatform)
-            return Application.streamingAssetsPath;
-        else // For standalone player.
-            return "file://" + Application.streamingAssetsPath;
     }
 }

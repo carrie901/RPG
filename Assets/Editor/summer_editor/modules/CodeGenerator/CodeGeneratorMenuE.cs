@@ -18,17 +18,15 @@ namespace SummerEditor
             StaticCnf.Clear();
             ConfigManager.ReadLocalConfig();
             ConfigManager.WriteByteConfig();
-            //ConfigManager.Instance.ReadLocalConfig();
-            //ConfigManager.Instance.WriteByteConfig();
         }
 
-        [MenuItem("Tools/Csv工具/3.ReadByte", false, 3)]
+        [MenuItem("Tools/Csv工具/3.检验二进制", false, 3)]
         public static void ReadByte()
         {
             CodeGenerator.ReadByte();
         }
 
-        [MenuItem("Tools/Csv工具//4.WriteLocal", false, 4)]
+        //[MenuItem("Tools/Csv工具//4.WriteLocal", false, 4)]
         public static void WriteLocal()
         {
             CodeGenerator.WriteLocal();

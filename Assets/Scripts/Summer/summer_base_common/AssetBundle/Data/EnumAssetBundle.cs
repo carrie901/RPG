@@ -1,34 +1,6 @@
 ﻿
 namespace Summer
 {
-    public enum E_GameResType
-    {
-        none = 0,
-        text_asset,              // 文本路径
-        quanming,
-        skill_icon,             // 技能 Icon表
-        hero_icon,              // 英雄 icon表
-        buff_icon,
-        other_icon,
-        buff_prefab,            // buff prefab表
-        stage_icon,
-
-        character_prefab,
-        skill_prefab,
-        ui_prefab,
-        ui_item_prefab,
-        item_icon,              // 道具 icon
-
-        //声音
-        music_bgm,              // BGM
-        music_sound,            // 音效
-        music_voice,            // 配乐
-
-        // ui 特效
-        ui_effect,
-
-    }
-
     public enum E_AssetType
     {
         none = 0,

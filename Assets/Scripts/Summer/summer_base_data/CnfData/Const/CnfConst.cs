@@ -8,8 +8,9 @@ namespace Summer
         /// <summary>
         /// 二进制数据路径
         /// </summary>
-        public static string data_byte_path = Application.dataPath + "" + "/Resources/csv.bytes";
+        public static string data_byte_path = Application.dataPath + "" + "/Res/TextAsset/" + DATA_BYTE_NAME;
 
+        public const string DATA_BYTE_NAME = "csv.bytes";
 
         /// <summary>
         /// csv路径 也就是资源目标路径

@@ -45,9 +45,8 @@ namespace SummerEditor
         //[MenuItem("AutoCsv/3.ReadByte", false, 3)]
         public static void ReadByte()
         {
-
-            //ConfigManager.Instance.ReadByteConfig();
-            UnityEngine.Debug.Log("Over");
+            ConfigManager.ReadByteConfig();
+            EditorUtility.DisplayDialog("检验二进制", "查看结果", "OK");
         }
 
         //[MenuItem("AutoCsv/4.WriteLocal", false, 4)]
@@ -146,7 +145,7 @@ namespace SummerEditor
                 CodeGeneratorHelperE.AppendLine(sb, 1, "{");
                 CodeGeneratorHelperE.AppendLine(sb, 1, "StaticCnf.Clear();");
                 {
-                    CodeGeneratorHelperE.AppendLine(sb, 2, "byte[] bytes = ResManager.instance.LoadByte(CnfConst.data_byte_path, E_GameResType.text_asset);");
+                    CodeGeneratorHelperE.AppendLine(sb, 2, "byte[] bytes = ResManager.instance.LoadByte(CnfConst.DATA_BYTE_NAME, E_GameResType.text_asset);");
                     CodeGeneratorHelperE.AppendLine(sb, 2, "MemoryStream ms = new MemoryStream(bytes);");
                     CodeGeneratorHelperE.AppendLine(sb, 2, "BinaryReader br = new BinaryReader(ms);");
                     CodeGeneratorHelperE.AppendLine(sb, 2, "int length = 0;");
