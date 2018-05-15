@@ -1,9 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
+using Summer;
 
 namespace Summer
 {
+    /// <summary>
+    /// 本地读取的数据类，数据和属性对应
+    /// </summary>
     public class BaseCsvInfo
     {
         public string original_file_name;               // 原始文件名hero_info
@@ -20,8 +23,8 @@ namespace Summer
         {
             original_file_path = file_path;
             original_file_name = Path.GetFileNameWithoutExtension(original_file_path);
-            class_name = CodeGeneratorHelper.NormalizeName(original_file_name) + "Cnf";
-            class_path = CodeGeneratorConst.cnf_path + class_name + ".cs";
+            class_name = CodeGeneratorHelperE.NormalizeName(original_file_name) + "Cnf";
+            class_path = CodeGeneratorConstE.cnf_path + class_name + ".cs";
             string text = FileHelper.ReadAllText(original_file_path);
 
             string[] lines = text.ToStrs(StringHelper.split_huanhang);

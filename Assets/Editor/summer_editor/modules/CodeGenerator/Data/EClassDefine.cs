@@ -34,13 +34,13 @@ namespace SummerEditor
             sb.AppendLine("using System.IO;");
             string tab = "\t";
             // 1.空间名
-            sb.AppendLine(CodeGeneratorConst.NAMESPACE);
+            sb.AppendLine(CodeGeneratorConstE.NAMESPACE);
             sb.AppendLine("{");
             // 2.注释
-            CodeGeneratorHelper.AppendComment(tab, sb, comment);
+            CodeGeneratorHelperE.AppendComment(tab, sb, comment);
 
             // 3.类名
-            sb.AppendLine(tab + "public class " + class_name);
+            sb.AppendLine(tab + "public class " + class_name+ " : BaseCsv");
             sb.AppendLine(tab + "{");
             // 4.属性
             int prop_length = properties.Count;

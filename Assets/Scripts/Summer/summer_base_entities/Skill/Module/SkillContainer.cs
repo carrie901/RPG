@@ -42,7 +42,7 @@ namespace Summer
             {
                 // 确定普通攻击
                 SpellInfoCnf space_info = StaticCnf.FindData<SpellInfoCnf>(skill_list[i]);
-                if (space_info.skilltypes == skill_type_normal_attack)
+                if (space_info.skill_types == skill_type_normal_attack)
                     normal_attack.AddSkill(skill_list[i]);
                 SkillFactory skill = null;
                 //

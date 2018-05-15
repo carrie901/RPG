@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Summer;
+
 //=============================================================================
 // Author : mashao
 // CreateTime : 2018-2-2 19:43:54
-// FileName : CodeGeneratorHelper.cs
+// FileName : CodeGeneratorHelperE.cs
 //=============================================================================
 
 namespace Summer
 {
-    public class CodeGeneratorHelper
+    public class CodeGeneratorHelperE
     {
 
         public static Dictionary<string, string[]> data_map = new Dictionary<string, string[]>()
@@ -29,14 +31,14 @@ namespace Summer
         public static Dictionary<string, BaseCsvInfo> LoadFileContent()
         {
             Dictionary<string, BaseCsvInfo> csv_infos = new Dictionary<string, BaseCsvInfo>();
-            string[] csvs_path = Directory.GetFiles(CodeGeneratorConst.csv_path);
+            string[] csvs_path = Directory.GetFiles(CodeGeneratorConstE.csv_path);
             // 2.依次读取File信息转成Txt
             int length = csvs_path.Length;
             for (int i = 0; i < length; i++)
             {
                 // 忽略文件
                 string with_out_extension_name = Path.GetFileNameWithoutExtension(csvs_path[i]);
-                if (CodeGeneratorConst.ingore_file.Contains(with_out_extension_name) || string.IsNullOrEmpty(with_out_extension_name)) continue;
+                if (CodeGeneratorConstE.ingore_file.Contains(with_out_extension_name) || string.IsNullOrEmpty(with_out_extension_name)) continue;
 
                 BaseCsvInfo csv_info = new BaseCsvInfo(csvs_path[i]);
                 csv_infos.Add(csv_info.class_name, csv_info);

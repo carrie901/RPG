@@ -31,7 +31,7 @@ namespace SummerEditor
         {
             StringBuilder sb = new StringBuilder();
 
-            CodeGeneratorHelper.AppendComment(tab, sb, comment);
+            CodeGeneratorHelperE.AppendComment(tab, sb, comment);
             sb.AppendLine(tab + string.Format("public {0} {1};", prop_type, prop_name));
             return sb.ToString();
         }
@@ -39,28 +39,28 @@ namespace SummerEditor
         public string ToLocalRead(string tab, string data)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(tab + tab + tab + CodeGeneratorHelper.LocalRead(prop_type, prop_name, data));
+            sb.Append(tab + tab + tab + CodeGeneratorHelperE.LocalRead(prop_type, prop_name, data));
             return sb.ToString();
         }
 
         public string ToLocalWrite(string tab)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(tab + tab + tab + tab + CodeGeneratorHelper.LocalWrite(prop_type, prop_name));
+            sb.Append(tab + tab + tab + tab + CodeGeneratorHelperE.LocalWrite(prop_type, prop_name));
             return sb.ToString();
         }
 
         public string ToByteRead(string tab)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(tab + tab + tab + CodeGeneratorHelper.ByteRead(prop_type, prop_name));
+            sb.Append(tab + tab + tab + CodeGeneratorHelperE.ByteRead(prop_type, prop_name));
             return sb.ToString();
         }
 
         public string ToByteWrite(string tab)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(tab + tab + tab + CodeGeneratorHelper.ByteWtrite(prop_type, prop_name));
+            sb.Append(tab + tab + tab + CodeGeneratorHelperE.ByteWtrite(prop_type, prop_name));
             return sb.ToString();
         }
     }
