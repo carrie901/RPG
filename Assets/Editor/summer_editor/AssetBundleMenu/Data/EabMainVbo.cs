@@ -73,7 +73,7 @@ namespace SummerEditor
                 Debug.LogError(string.Format("找不到主资源,路径:[{0}]", asset_path));
                 return;
             }
-            long t_size = EMemorySizeHelper.GetMemorySize(obj);
+            long t_size = EMemorySizeHelper.GetRuntimeMemorySize(obj);
 
             float all_size = t_size / 1024f;
             foreach (var dep in _dep_map)

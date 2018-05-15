@@ -55,7 +55,7 @@ namespace SummerEditor
             Object obj = AssetDatabase.LoadAssetAtPath<Object>(asset_name);
             if (obj == null) return;
 
-            long tsize = EMemorySizeHelper.GetMemorySize(obj);
+            long tsize = EMemorySizeHelper.GetRuntimeMemorySize(obj);
             if (EPathHelper.IsTexture(asset_name))
                 tsize = tsize / 2;
             size = (float)tsize / 1024;

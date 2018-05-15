@@ -49,7 +49,7 @@ namespace SummerEditor
                 }
                 EditorUtility.DisplayProgressBar("扫描图片中的Guid和SpritePackingTag", all_sprite_paths[i], (float)i / length);
             }
-
+            
             EditorUtility.ClearProgressBar();
             return gui_spritepacking_map;
         }
