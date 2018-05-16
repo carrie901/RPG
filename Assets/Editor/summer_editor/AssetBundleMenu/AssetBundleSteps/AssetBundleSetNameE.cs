@@ -133,12 +133,14 @@ namespace SummerEditor
             int length = names.Length;
             for (int i = 0; i < length; i++)
             {
+                EditorUtility.DisplayProgressBar("设置AssetBundle名字", names[i], (float)(i + 1) / length);
                 AssetDatabase.RemoveAssetBundleName(names[i], true);
             }
-
+            EditorUtility.ClearProgressBar();
             AssetDatabase.RemoveUnusedAssetBundleNames();
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
+            EditorUtility.DisplayDialog("清除AssetBundle", "清除完成，请查看", "OK");
         }
 
         #endregion

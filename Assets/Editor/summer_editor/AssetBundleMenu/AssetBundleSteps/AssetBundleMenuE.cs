@@ -14,13 +14,13 @@ namespace SummerEditor
         [MenuItem("Tools/AssetBundle/Build/开始分析")]
         public static void AllAnalysisAsset()
         {
-            AssetAnalysisE.AllAnalysisAsset();
+            AssetBundleAnalysisE.AllAnalysisAsset();
+            //AssetAnalysisE.AllAnalysisAsset();
         }
 
         [MenuItem("Tools/AssetBundle/Build/打包策略")]
         public static void BuildStrategy()
         {
-
         }
 
         [MenuItem("Tools/AssetBundle/Build/测试 设置AssetBundle Name")]

@@ -17,7 +17,7 @@ namespace SummerEditor
         public Dictionary<string, EabDepVbo> _dep_map = new Dictionary<string, EabDepVbo>();            // 它所依赖的资源
         public EabMainVbo(string path)
         {
-            if (path.Contains("eff_H_ZhaoYun_01_skill_01"))
+            /*if (path.Contains("eff_H_ZhaoYun_01_skill_01"))
                 Debug.Log("1");
             asset_path = path;
             string[] deps = AssetDatabase.GetDependencies(path);
@@ -39,7 +39,7 @@ namespace SummerEditor
                 _dep_map.Add(dep_ab.asset_name, dep_ab);
                 dep_ab.RefMainAb(this);
             }
-            _init();
+            _init();*/
         }
 
         public string GetString(string tab)
