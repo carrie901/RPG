@@ -10,172 +10,67 @@ Material:
   m_Shader: {fileID: 4800000, guid: be8eed5d4ee30f74883374a18549962e, type: 3}
   m_ShaderKeywords: _SCROLLTYPE_NONE _SECONDTYPE_DISSOLVE
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 3001
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
   stringTagMap: {}
+  disabledShaderPasses: []
   m_SavedProperties:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 15b8f10910893454f88e535baa418c81, type: 3}
-          m_Scale: {x: 1.2, y: 0.46}
-          m_Offset: {x: 0, y: 0.46}
-      data:
-        first:
-          name: _MaskTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 15b8f10910893454f88e535baa418c81, type: 3}
-          m_Scale: {x: 1.2, y: 0.96}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _LutMap
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _DisplacementTex
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Biaomiantietu
-        second:
-          m_Texture: {fileID: 2800000, guid: 15b8f10910893454f88e535baa418c81, type: 3}
-          m_Scale: {x: 1, y: 0.94}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Rongjietietu
-        second:
-          m_Texture: {fileID: 2800000, guid: 15b8f10910893454f88e535baa418c81, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
+    - _Biaomiantietu:
+        m_Texture: {fileID: 2800000, guid: 15b8f10910893454f88e535baa418c81, type: 3}
+        m_Scale: {x: 1, y: 0.94}
+        m_Offset: {x: 0, y: 0}
+    - _DisplacementTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LutMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 15b8f10910893454f88e535baa418c81, type: 3}
+        m_Scale: {x: 1.2, y: 0.46}
+        m_Offset: {x: 0, y: 0.46}
+    - _MaskTex:
+        m_Texture: {fileID: 2800000, guid: 15b8f10910893454f88e535baa418c81, type: 3}
+        m_Scale: {x: 1.2, y: 0.96}
+        m_Offset: {x: 0, y: 0}
+    - _Rongjietietu:
+        m_Texture: {fileID: 2800000, guid: 15b8f10910893454f88e535baa418c81, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-      data:
-        first:
-          name: _SrcBlend
-        second: 5
-      data:
-        first:
-          name: _DstBlend
-        second: 1
-      data:
-        first:
-          name: _Cutoff
-        second: 0.057
-      data:
-        first:
-          name: _ZWrite
-        second: 0
-      data:
-        first:
-          name: _Mode
-        second: 3
-      data:
-        first:
-          name: _InvFade
-        second: 1
-      data:
-        first:
-          name: _Strength
-        second: 0.375
-      data:
-        first:
-          name: _ZTest
-        second: 4
-      data:
-        first:
-          name: _Cull
-        second: 0
-      data:
-        first:
-          name: _ColorMask
-        second: 14
-      data:
-        first:
-          name: _SecondType
-        second: 3
-      data:
-        first:
-          name: _MaskChannel
-        second: 0
-      data:
-        first:
-          name: _EdgeWidth
-        second: 0.55
-      data:
-        first:
-          name: _ScrollType
-        second: 0
-      data:
-        first:
-          name: _Lut
-        second: 0
-      data:
-        first:
-          name: _LutStrength
-        second: 0.5
-      data:
-        first:
-          name: _LutValue
-        second: 0
-      data:
-        first:
-          name: _VertColorAlphaIsLifeTime
-        second: 0
-      data:
-        first:
-          name: _Rim
-        second: 0
-      data:
-        first:
-          name: _RimPower
-        second: 0.3
-      data:
-        first:
-          name: _Displacement
-        second: 0
-      data:
-        first:
-          name: _Vibrance
-        second: 10
+    - _ColorMask: 14
+    - _Cull: 0
+    - _Cutoff: 0.057
+    - _Displacement: 0
+    - _DstBlend: 1
+    - _EdgeWidth: 0.55
+    - _InvFade: 1
+    - _Lut: 0
+    - _LutStrength: 0.5
+    - _LutValue: 0
+    - _MaskChannel: 0
+    - _Mode: 3
+    - _Rim: 0
+    - _RimPower: 0.3
+    - _ScrollType: 0
+    - _SecondType: 3
+    - _SrcBlend: 5
+    - _Strength: 0.375
+    - _VertColorAlphaIsLifeTime: 0
+    - _Vibrance: 10
+    - _ZTest: 4
+    - _ZWrite: 0
     m_Colors:
-      data:
-        first:
-          name: _TintColor
-        second: {r: 0.32200003, g: 1, b: 0.5230622, a: 1}
-      data:
-        first:
-          name: _EdgeColor
-        second: {r: 0.16911763, g: 1, b: 0.31237325, a: 1}
-      data:
-        first:
-          name: _ScrollMain
-        second: {r: 1, g: 1, b: 0, a: 0}
-      data:
-        first:
-          name: _ScrollMask
-        second: {r: 1, g: 1, b: 0, a: 0}
-      data:
-        first:
-          name: _RimColor
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _DisplacementParams
-        second: {r: 1, g: 1, b: 1, a: 0.1}
-      data:
-        first:
-          name: _Explosion
-        second: {r: 0, g: 0.5, b: 0.02, a: 0.98}
-      data:
-        first:
-          name: _color
-        second: {r: 0, g: 0.46206903, b: 1, a: 0}
+    - _DisplacementParams: {r: 1, g: 1, b: 1, a: 0.1}
+    - _EdgeColor: {r: 0.16911763, g: 1, b: 0.31237325, a: 1}
+    - _Explosion: {r: 0, g: 0.5, b: 0.02, a: 0.98}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ScrollMain: {r: 1, g: 1, b: 0, a: 0}
+    - _ScrollMask: {r: 1, g: 1, b: 0, a: 0}
+    - _TintColor: {r: 0.32200003, g: 1, b: 0.5230622, a: 1}
+    - _color: {r: 0, g: 0.46206903, b: 1, a: 0}

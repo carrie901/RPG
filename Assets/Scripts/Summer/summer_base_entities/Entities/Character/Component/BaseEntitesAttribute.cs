@@ -10,10 +10,10 @@ namespace Summer
         public Dictionary<E_CharAttributeType, AttributeIntParam> _param
             = new Dictionary<E_CharAttributeType, AttributeIntParam>();
 
-        public EntityId entity_iid;
+        public EntityId _entity_iid;
         public BaseEntitesAttribute(EntityId entity_iid)
         {
-            entity_iid = entity_iid;
+            _entity_iid = entity_iid;
             _param.Add(E_CharAttributeType.max_hp, max_hp);
         }
 

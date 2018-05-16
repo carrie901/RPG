@@ -17,6 +17,8 @@ namespace SummerEditor
         public Dictionary<string, EabDepVbo> _dep_map = new Dictionary<string, EabDepVbo>();            // 它所依赖的资源
         public EabMainVbo(string path)
         {
+            if (path.Contains("eff_H_ZhaoYun_01_skill_01"))
+                Debug.Log("1");
             asset_path = path;
             string[] deps = AssetDatabase.GetDependencies(path);
             string[] deps_recursive = AssetDatabase.GetDependencies(path, true);// 递归资源

@@ -7,157 +7,61 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: eff_H_ZhaoYun_path_0028
-  m_Shader: {fileID: 4800000, guid: be8eed5d4ee30f74883374a18549962e, type: 3}
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _SCROLLTYPE_NONE _SECONDTYPE_NONE
   m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
+  disabledShaderPasses: []
   m_SavedProperties:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 15b8f10910893454f88e535baa418c81, type: 3}
-          m_Scale: {x: 1, y: 0.5}
-          m_Offset: {x: 0, y: 0.47}
-      data:
-        first:
-          name: _MaskTex
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _LutMap
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _DisplacementTex
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
+    - _DisplacementTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LutMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 15b8f10910893454f88e535baa418c81, type: 3}
+        m_Scale: {x: 1, y: 0.5}
+        m_Offset: {x: 0, y: 0.47}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-      data:
-        first:
-          name: _SrcBlend
-        second: 5
-      data:
-        first:
-          name: _DstBlend
-        second: 10
-      data:
-        first:
-          name: _Cutoff
-        second: 0
-      data:
-        first:
-          name: _ZWrite
-        second: 0
-      data:
-        first:
-          name: _Mode
-        second: 1
-      data:
-        first:
-          name: _InvFade
-        second: 1
-      data:
-        first:
-          name: _Strength
-        second: 1
-      data:
-        first:
-          name: _ZTest
-        second: 4
-      data:
-        first:
-          name: _Cull
-        second: 0
-      data:
-        first:
-          name: _ColorMask
-        second: 14
-      data:
-        first:
-          name: _SecondType
-        second: 0
-      data:
-        first:
-          name: _MaskChannel
-        second: 0
-      data:
-        first:
-          name: _EdgeWidth
-        second: 0.15
-      data:
-        first:
-          name: _ScrollType
-        second: 0
-      data:
-        first:
-          name: _Lut
-        second: 0
-      data:
-        first:
-          name: _LutStrength
-        second: 0.5
-      data:
-        first:
-          name: _LutValue
-        second: 0
-      data:
-        first:
-          name: _VertColorAlphaIsLifeTime
-        second: 0
-      data:
-        first:
-          name: _Rim
-        second: 0
-      data:
-        first:
-          name: _RimPower
-        second: 3
-      data:
-        first:
-          name: _Displacement
-        second: 0
-      data:
-        first:
-          name: _Vibrance
-        second: 10
+    - _ColorMask: 14
+    - _Cull: 0
+    - _Cutoff: 0
+    - _Displacement: 0
+    - _DstBlend: 10
+    - _EdgeWidth: 0.15
+    - _InvFade: 1
+    - _Lut: 0
+    - _LutStrength: 0.5
+    - _LutValue: 0
+    - _MaskChannel: 0
+    - _Mode: 1
+    - _Rim: 0
+    - _RimPower: 3
+    - _ScrollType: 0
+    - _SecondType: 0
+    - _SrcBlend: 5
+    - _Strength: 1
+    - _VertColorAlphaIsLifeTime: 0
+    - _Vibrance: 10
+    - _ZTest: 4
+    - _ZWrite: 0
     m_Colors:
-      data:
-        first:
-          name: _TintColor
-        second: {r: 0, g: 0.18382353, b: 0.09222425, a: 0.447}
-      data:
-        first:
-          name: _EdgeColor
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _ScrollMain
-        second: {r: 1, g: 1, b: 0, a: 0}
-      data:
-        first:
-          name: _ScrollMask
-        second: {r: 1, g: 1, b: 0, a: 0}
-      data:
-        first:
-          name: _RimColor
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _DisplacementParams
-        second: {r: 1, g: 1, b: 1, a: 0.1}
-      data:
-        first:
-          name: _Explosion
-        second: {r: 0, g: 0.5, b: 0.02, a: 0.98}
+    - _DisplacementParams: {r: 1, g: 1, b: 1, a: 0.1}
+    - _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Explosion: {r: 0, g: 0.5, b: 0.02, a: 0.98}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ScrollMain: {r: 1, g: 1, b: 0, a: 0}
+    - _ScrollMask: {r: 1, g: 1, b: 0, a: 0}
+    - _TintColor: {r: 0, g: 0.18382353, b: 0.09222425, a: 0.447}

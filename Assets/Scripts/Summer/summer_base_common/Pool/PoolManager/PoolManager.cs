@@ -47,6 +47,12 @@ namespace Summer
         public virtual bool Push(I_PoolObjectAbility po)
         {
             PoolBase pool_base;
+            if (string.IsNullOrEmpty(po.ObjectName))
+            {
+                LogManager.Error("名字为空");
+                return false;
+            }
+
             _map.TryGetValue(po.ObjectName, out pool_base);
             if (pool_base == null)
             {

@@ -9,12 +9,11 @@ namespace Summer
         /*public Dictionary<E_CharValueType, float> _param
                = new Dictionary<E_CharValueType, float>();*/
         public float hp;
-        public EntityId entity_id;
+        public EntityId _entity_id;
 
         public BaseEntitiesProperty(EntityId entity_id)
         {
-            entity_id = entity_id;
-
+            _entity_id = entity_id;
         }
 
         public float FindValue(E_CharValueType type)

@@ -25,7 +25,7 @@ namespace SummerEditor
 
         public static BuildAssetBundleOptions FindBuildAssetBundleOptions()
         {
-            return  BuildAssetBundleOptions.UncompressedAssetBundle|BuildAssetBundleOptions.ForceRebuildAssetBundle;//ForceRebuildAssetBundle 
+            return /*BuildAssetBundleOptions.AppendHashToAssetBundleName | */BuildAssetBundleOptions.UncompressedAssetBundle | BuildAssetBundleOptions.ForceRebuildAssetBundle;//ForceRebuildAssetBundle 
         }
     }
 }

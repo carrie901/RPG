@@ -26,7 +26,8 @@ Category {
 			Tags { "LightMode" = "Always" }
 			
 CGPROGRAM
-#pragma vertex vert
+#
+vertex vert
 #pragma fragment frag
 #pragma fragmentoption ARB_precision_hint_fastest
 #include "UnityCG.cginc"

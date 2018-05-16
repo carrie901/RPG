@@ -164,7 +164,7 @@ namespace Summer
             }
             catch (Exception e)
             {
-                LogManager.Error("[{0}]", value);
+                LogManager.Error("[{0}],[{1}]", value, e.Message);
             }
 
         }

@@ -48,6 +48,7 @@ namespace Summer
 
         public AssetBundleLoader()
         {
+           Resources.UnloadUnusedAssets();
             string main_fest_path = Application.streamingAssetsPath + "/rpg/rpg";
             AssetBundle ab = AssetBundle.LoadFromFile(main_fest_path);
             _mainfest = ab.LoadAllAssets()[0] as AssetBundleManifest;
@@ -66,6 +67,7 @@ namespace Summer
                 _evn_path = Application.streamingAssetsPath + "/rpg/res/";
                 instance = this;
             }
+
         }
 
         #region I_ResourceLoad
@@ -88,6 +90,7 @@ namespace Summer
             _cal_ref(assetbundle_name);
             // 3.加载Asset
             Object obj = asset_target.LoadAsset(asset_name);
+            asset_target.Unload(false);
             return obj;
         }
 
@@ -185,6 +188,7 @@ namespace Summer
                 // 3.3加载资源
                 //asset_target = AssetBundle.LoadFromFile(asset_path+".ab");	
                 asset_target = AssetBundle.LoadFromFile(asset_path);
+                //asset_target.Unload(false);
             }
             else
             {

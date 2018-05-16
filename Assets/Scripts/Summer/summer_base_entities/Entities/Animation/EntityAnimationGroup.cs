@@ -74,7 +74,7 @@ namespace Summer
         public void ChangeAnimationSpeed(float speed)
         {
             animator.speed = speed;
-            AnimatorTransitionInfo info = animator.GetAnimatorTransitionInfo(0);
+            //AnimatorTransitionInfo info = animator.GetAnimatorTransitionInfo(0);
         }
 
         public void StopAnim(string anim_name)
@@ -91,7 +91,7 @@ namespace Summer
 
         public bool IsAttackNormal()
         {
-            AnimatorStateInfo anim_info = GetAnimatorStateInfo();
+            //AnimatorStateInfo anim_info = GetAnimatorStateInfo();
             return false;
         }
 
@@ -99,7 +99,7 @@ namespace Summer
 
         public void SkillStart()
         {
-            AnimatorStateInfo anim_info = animator.GetCurrentAnimatorStateInfo(0);
+            //AnimatorStateInfo anim_info = animator.GetCurrentAnimatorStateInfo(0);
             SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_start);
         }
 

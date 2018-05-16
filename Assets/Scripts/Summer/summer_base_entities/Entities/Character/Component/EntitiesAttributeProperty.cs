@@ -4,13 +4,13 @@ namespace Summer
 {
     public class EntitiesAttributeProperty: I_CharacterProperty
     {
-        public EntityId entity_id;
+        public EntityId _entity_id;
         public BaseEntitesAttribute _attribute;             //属性
         public BaseEntitiesProperty _property;              //数值
 
         public EntitiesAttributeProperty(EntityId entity_id)
         {
-            entity_id = entity_id;
+            _entity_id = entity_id;
             _attribute = new BaseEntitesAttribute(entity_id);
             _property = new BaseEntitiesProperty(entity_id);
         }
