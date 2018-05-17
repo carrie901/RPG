@@ -118,53 +118,58 @@ namespace SummerEditor
             int index = 1;
             foreach (var info in _main_ab_map)
             {
-                EditorUtility.DisplayProgressBar("分析主资源", info.Value.asset_path, (float)(index) / _main_ab_map.Count);
-                info.Value.Init();
+                EditorUtility.DisplayProgressBar("分析主资源", info.Value.AssetPath, (float)(index) / _main_ab_map.Count);
+                info.Value.CheckFirstDep();
                 index++;
             }
 
             index = 1;
             foreach (var info in _dep_ab_map)
             {
-                EditorUtility.DisplayProgressBar("分析所有资源", info.Value.asset_path, (float)(index) / _dep_ab_map.Count);
-                info.Value.Init();
+                EditorUtility.DisplayProgressBar("分析所有资源", info.Value.AssetPath, (float)(index) / _dep_ab_map.Count);
+                info.Value.CheckFirstDep();
                 index++;
             }
 
             foreach (var info in _main_ab_map)
             {
-                if (info.Value.ref_count != 0)
+                if (info.Value.RefCount != 0)
                 {
-                    Debug.LogFormat("--->路径:[{0}],引用次数:[{1}]", info.Value.asset_path, info.Value.ref_count);
+                    Debug.LogFormat("--->路径:[{0}],引用次数:[{1}]", info.Value.AssetPath, info.Value.RefCount);
                 }
             }
             foreach (var info in _dep_ab_map)
             {
-                if (info.Value.ref_count == 0)
+                /*if (info.Value._ref_count == 0)
                 {
-                    Debug.LogFormat("===>路径:[{0}],引用次数:[{1}]", info.Value.asset_path, info.Value.ref_count);
-                }else if (info.Value.ref_count >1)
+                    Debug.LogFormat("===>路径:[{0}],引用次数:[{1}]", info.Value._asset_path, info.Value._ref_count);
+                }
+                */
+                if (info.Value.RefCount > 1)
                 {
-                    Debug.LogFormat("||||>路径:[{0}],引用次数:[{1}]", info.Value.asset_path, info.Value.ref_count);
+                    Debug.LogFormat("||||>路径:[{0}],引用次数:[{1}]", info.Value.AssetPath, info.Value.RefCount);
                 }
             }
 
-                EditorUtility.ClearProgressBar();
+            EditorUtility.ClearProgressBar();
             Resources.UnloadUnusedAssets();
         }
 
         //根据名字查找依赖文件
         public static EAssetInfo FindDep(string asset_path)
         {
+            if (asset_path.Contains("Tall4_Attack_1"))
+                Debug.Log("");
             if (_dep_ab_map.ContainsKey(asset_path))
             {
                 return _dep_ab_map[asset_path];
             }
 
-            Debug.LogError("居然引用了主资源：" + asset_path);
+
             if (_main_ab_map.ContainsKey(asset_path))
             {
-                return _main_ab_map[asset_path];
+                Debug.LogError("居然引用了主资源：" + asset_path + ",主资源不能分作两个角色");
+                return null;
             }
             Debug.LogError("无论主资源还是依赖资源都找不到对应的路径：" + asset_path);
             return null;
@@ -175,13 +180,18 @@ namespace SummerEditor
             if (_dep_ab_map.ContainsKey(dep_asset_path)) return;
 
             EAssetDepInfo dep_info = new EAssetDepInfo(dep_asset_path);
-            _dep_ab_map.Add(dep_info.asset_path, dep_info);
+            _dep_ab_map.Add(dep_info.AssetPath, dep_info);
         }
 
         public static void AddMainAsset(string asset_path)
         {
+            if (_main_ab_map.ContainsKey(asset_path))
+            {
+                Debug.LogError("重复性质的主依赖资源：" + asset_path);
+                return;
+            }
             EAssetMainInfo main_info = new EAssetMainInfo(asset_path);
-            _main_ab_map.Add(main_info.asset_path, main_info);
+            _main_ab_map.Add(main_info.AssetPath, main_info);
 
         }
     }

@@ -278,8 +278,8 @@ namespace SummerEditor
         {
             /*if (PathEndWithExt(path, EditorConst.model_exts))
             {
-                string asset_path = FormatAssetPath(path);
-                ModelImporter model_importer = AssetImporter.GetAtPath(asset_path) as ModelImporter;
+                string _asset_path = FormatAssetPath(path);
+                ModelImporter model_importer = AssetImporter.GetAtPath(_asset_path) as ModelImporter;
                 if (model_importer != null && model_importer.importAnimation)
                 {
                     return true;

@@ -15,8 +15,8 @@ namespace SummerEditor
             int index = 1;
             foreach (var variable in main_ab)
             {
-                EditorUtility.DisplayProgressBar("设置AssetBundle名字", variable.Value.asset_path, (float)index / main_ab.Count);
-                SetAbNameByPath(variable.Value.asset_path);
+                EditorUtility.DisplayProgressBar("设置AssetBundle名字", variable.Value._asset_path, (float)index / main_ab.Count);
+                SetAbNameByPath(variable.Value._asset_path);
             }*/
 
             List<string> assets_path = EPathHelper.GetAssetPathList01("Assets/Res/", true);

@@ -25,15 +25,15 @@ namespace SummerEditor
 
         public void RefMainAb(EabMainVbo main_ab)
         {
-            if (main_ab == null) return;
+            /*if (main_ab == null) return;
 
-            if (_ref_main_ab.ContainsKey(main_ab.asset_path))
+            if (_ref_main_ab.ContainsKey(main_ab._asset_path))
             {
-                Debug.Log(string.Format("已经引用了这个资源，[{0}]", main_ab.asset_path));
+                Debug.Log(string.Format("已经引用了这个资源，[{0}]", main_ab._asset_path));
                 return;
             }
-            ref_count++;
-            _ref_main_ab.Add(main_ab.asset_path, main_ab);
+            _ref_count++;
+            _ref_main_ab.Add(main_ab._asset_path, main_ab);*/
         }
 
         public string GetString(string tab)
@@ -41,11 +41,11 @@ namespace SummerEditor
             string str_tab = "\t";
             tab = tab + str_tab;
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(tab + "<DepAb>");
-            sb.AppendLine(tab + str_tab + "asset_path = " + asset_name);
+            /*sb.AppendLine(tab + "<DepAb>");
+            sb.AppendLine(tab + str_tab + "_asset_path = " + asset_name);
             sb.AppendLine(tab + str_tab + "size = " + size);
-            sb.AppendLine(tab + str_tab + "ref_count=" + ref_count);
-            sb.AppendLine(tab + "</DepAb>");
+            sb.AppendLine(tab + str_tab + "_ref_count=" + _ref_count);
+            sb.AppendLine(tab + "</DepAb>");*/
             return sb.ToString();
         }
 
@@ -58,7 +58,7 @@ namespace SummerEditor
             if (EPathHelper.IsTexture(asset_name))
                 tsize = tsize / 2;
             size = (float)tsize / 1024;
-            //Debug.Log("依赖资源:" + asset_path + "内存占用:  " + size + "kb");
+            //Debug.Log("依赖资源:" + _asset_path + "内存占用:  " + size + "kb");
         }
     }
 }

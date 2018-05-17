@@ -19,7 +19,7 @@ namespace SummerEditor
         {
             /*if (path.Contains("eff_H_ZhaoYun_01_skill_01"))
                 Debug.Log("1");
-            asset_path = path;
+            _asset_path = path;
             string[] deps = AssetDatabase.GetDependencies(path);
             string[] deps_recursive = AssetDatabase.GetDependencies(path, true);// 递归资源
             if (deps.Length != deps_recursive.Length)
@@ -33,7 +33,7 @@ namespace SummerEditor
                 EabDepVbo dep_ab = AssetAnalysisE.FindDep(deps[i]);
                 if (_dep_map.ContainsKey(dep_ab.asset_name))
                 {
-                    Debug.LogError(string.Format("主资源[{0}],已经存在了依赖资源了[{1}]", asset_path, deps[i]));
+                    Debug.LogError(string.Format("主资源[{0}],已经存在了依赖资源了[{1}]", _asset_path, deps[i]));
                     continue;
                 }
                 _dep_map.Add(dep_ab.asset_name, dep_ab);
@@ -44,11 +44,12 @@ namespace SummerEditor
 
         public string GetString(string tab)
         {
+           
             string str_tab = "\t";
             tab = tab + str_tab;
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(str_tab + "<MainAb>");
-            sb.AppendLine(tab + str_tab + "asset_path = " + asset_path);
+            /*sb.AppendLine(str_tab + "<MainAb>");
+            sb.AppendLine(tab + str_tab + "_asset_path = " + _asset_path);
             sb.AppendLine(tab + str_tab + "size = " + size);
             sb.AppendLine(tab + str_tab + "<deps>");
             foreach (var info in _dep_map)
@@ -57,22 +58,17 @@ namespace SummerEditor
                 sb.AppendLine(str_dep);
             }
             sb.AppendLine(tab + "</deps>");
-            sb.AppendLine(str_tab + "</MainAb>");
+            sb.AppendLine(str_tab + "</MainAb>");*/
             return sb.ToString();
-        }
-
-        public void ParseNode(EdNode node)
-        {
-
         }
 
 
         public void _init()
         {
-            Object obj = AssetDatabase.LoadAssetAtPath<Object>(asset_path);
+           /* Object obj = AssetDatabase.LoadAssetAtPath<Object>(_asset_path);
             if (obj == null)
             {
-                Debug.LogError(string.Format("找不到主资源,路径:[{0}]", asset_path));
+                Debug.LogError(string.Format("找不到主资源,路径:[{0}]", _asset_path));
                 return;
             }
             long t_size = EMemorySizeHelper.GetRuntimeMemorySize(obj);
@@ -83,8 +79,8 @@ namespace SummerEditor
                 all_size += dep.Value.size;
             }
 
-            size = all_size;
-            //Debug.Log("主资源:" + asset_path + "占用内存size:" + size + " Kb");
+            size = all_size;*/
+            //Debug.Log("主资源:" + _asset_path + "占用内存size:" + size + " Kb");
             //Debug.Log("================================================================================");
         }
 
