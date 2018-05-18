@@ -21,5 +21,6 @@
         public static string editor_aniclip_name = "__preview__Take 001";
         public static string[] editor_control_names = {"AnimatorStateMachine",
             "AnimatorStateTransition", "AnimatorState", "AnimatorTransition", "BlendTree" };
+
     }
 }

@@ -11,12 +11,15 @@ namespace SummerEditor
 
         public ETreeNodeItem _item;
         public EOpenList open_list;
-
+        static float t_width = 1000;
+        static float t_height = 500;
         [MenuItem("Tools/构建树视图")]
         static void Init()
         {
             window = EditorWindow.GetWindow<AssetBundleWindow>();   // 创建自定义窗体
             window.titleContent = new GUIContent("构建树视图");         // 窗口的标题
+            //window.minSize = new Vector2(t_width, t_height);
+            //window.maxSize = new Vector2(t_width + 40, t_height + 40);
             window.Show();
             _instance.GetAssets();
             // 创建树
@@ -27,7 +30,7 @@ namespace SummerEditor
             _item = new ETreeNodeItem(500, 400);
             _item.ResetPosition(20, 45);
 
-            open_list = new EOpenList(500, 25);
+            open_list = new EOpenList(500, 26);
             open_list.ResetPosition(open_list.Ew / 2, open_list.Eh / 2);
 
             ETreeNodeData data = new ETreeNodeData("Assets");

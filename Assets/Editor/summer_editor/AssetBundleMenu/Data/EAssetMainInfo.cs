@@ -13,11 +13,15 @@ namespace SummerEditor
             int length = deps.Length;
             for (int i = 0; i < length; i++)
             {
+                // 有疑问
+                _mem_size += EMemorySizeHelper.CalculateRuntimeMemorySize(deps[i]);
                 if (deps[i] == path)
                 {
                     index++;
                     continue;
                 }
+
+                
                 AssetBundleAnalysisE.AddDepAsset(deps[i]);
             }
 

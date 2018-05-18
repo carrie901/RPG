@@ -14,9 +14,13 @@ namespace SummerEditor
         protected string _asset_path;                                                                           // 资源名称
         public int RefCount { get { return _ref_count; } }
         protected int _ref_count;                                                                               // 引用次数
-        public float MemSize { get { return _size; } }
-        protected float _size;                                                                                  // 内存资源大小
-                                         
+        public float MemSize { get { return _mem_size; } }
+        protected float _mem_size;                                                                                  // 内存资源大小
+        public float FileSize { get { return _file_size; } }
+        protected float _file_size;                                                                             // 文件大小        
+        public float TextureCount { get { return _texture_count; } }                                            // 引用纹理个数
+        protected float _texture_count;
+
         protected Dictionary<string, EAssetInfo> _child_dep_map = new Dictionary<string, EAssetInfo>();         // 子类依赖资源
         public Dictionary<string, EAssetInfo> _parent_dep_map = new Dictionary<string, EAssetInfo>();           // 所属于的父类
 
@@ -33,6 +37,9 @@ namespace SummerEditor
         /// </summary>
         public void CheckFirstDep()
         {
+            // 
+            _file_size = EMemorySizeHelper.GetFileSize(_asset_path);
+
             // 1.得到第一层依赖
             string[] deps = AssetDatabase.GetDependencies(_asset_path, false);
             int length = deps.Length;
@@ -67,7 +74,7 @@ namespace SummerEditor
             }
             else
             {
-               
+
                 if (_parent_dep_map.ContainsKey(par_info._asset_path))
                 {
                     Debug.LogErrorFormat("父类资源[{0}]已经被[{1}]依赖了:", par_info._asset_path, AssetPath);

@@ -10,9 +10,9 @@ namespace SummerEditor
     public class ExcelAbInfo
     {
         public string asset_path;
-        public int ref_count;
-        public int be_ref_count;
-        public float mem_size;
+        public int ref_count;                   // 引用数量
+        public int be_ref_count;                // 被引用数据
+        public float mem_size;                  // 内存占用
         public float file_size;                 // 文件大小
         public int ref_texture;                 // 引用贴图数量
 
@@ -48,6 +48,39 @@ namespace SummerEditor
                 info.ref_texture = int.Parse(contents[5]);
                 infos.Add(info);
             }
+        }
+
+        public static void WriteAnalysis()
+        {
+            infos.Clear();
+            Dictionary<string, EAssetMainInfo> asset_infos = AssetBundleAnalysisE._main_ab_map;
+            foreach (var var_info in asset_infos)
+            {
+                
+                EAssetMainInfo main_info = var_info.Value;
+                ExcelAbInfo info = new ExcelAbInfo();
+                info.asset_path = main_info.AssetPath;
+                info.be_ref_count = 0;
+                info.ref_count = main_info.RefCount;
+                info.mem_size = main_info.MemSize;
+                info.file_size = main_info.FileSize;
+                info.ref_texture = 1;
+                infos.Add(info);
+            }
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < infos.Count; i++)
+            {
+                sb.AppendLine(
+                    infos[i].asset_path
+                    + "," + infos[i].ref_count
+                    + "," + infos[i].be_ref_count
+                    + "," + infos[i].mem_size
+                    + "," + infos[i].file_size
+                    + "," + infos[i].ref_texture);
+            }
+
+            FileHelper.WriteTxtByFile(csv_path, sb.ToString());
         }
 
         [MenuItem("Tools/测试Ab/生成csv")]

@@ -87,8 +87,11 @@ namespace SummerEditor
                 }
             }
 
+            ExcelAbManager.WriteAnalysis();
             EditorUtility.ClearProgressBar();
             Resources.UnloadUnusedAssets();
+
+
         }
 
         //根据名字查找依赖文件

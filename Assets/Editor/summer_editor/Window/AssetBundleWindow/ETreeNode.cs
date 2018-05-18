@@ -215,9 +215,9 @@ namespace SummerEditor
         {
             _ref_lab = new ELabel(EOpenList.ref_count_w, info.ref_count.ToString());
             _be_ref_lab = new ELabel(EOpenList.be_ref_count_w, info.be_ref_count.ToString());
-            _men_size_lab = new ELabel(EOpenList.men_size_w, info.mem_size.ToString("f3"));
+            _men_size_lab = new ELabel(EOpenList.men_size_w, (info.mem_size / 1024).ToString("f1") + " Kb");
 
-            _file_size_lab = new ELabel(EOpenList.fil_size_w, info.file_size.ToString("f3"));
+            _file_size_lab = new ELabel(EOpenList.fil_size_w, (info.file_size / 1024).ToString("f1") + " Kb");
             _ref_texture_lab = new ELabel(EOpenList.ref_texture_w, info.ref_texture.ToString());
         }
 

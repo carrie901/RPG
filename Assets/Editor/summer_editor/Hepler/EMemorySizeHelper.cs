@@ -78,6 +78,15 @@ namespace SummerEditor
 
         #region 计算 纹理/模型/动作文件内存占用大小
 
+        public static float CalculateRuntimeMemorySize(string asset_path)
+        {
+            Object o = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(asset_path);
+            float mem = GetRuntimeMemorySize(o);
+            //Resources.UnloadUnusedAssets();
+            //Resources.UnloadAsset(o);
+            return mem;
+        }
+
         /// <summary>
         /// 计算纹理内存大小
         /// </summary>
