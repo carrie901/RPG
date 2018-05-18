@@ -53,8 +53,8 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
 
 
 #if UNITY_EDITOR
-        _loader = AssetDatabaseLoader.instance;
-        _res_suffix = new AssetDatabaseSuffix();
+        //_loader = AssetDatabaseLoader.instance;
+        //_res_suffix = new AssetDatabaseSuffix();
 #endif   
 
         _init();

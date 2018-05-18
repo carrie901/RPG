@@ -160,7 +160,7 @@ namespace Summer
 
         public void _init()
         {
-            entity_controller = gameObject.GetComponent<BaseEntityController>();
+            /*entity_controller = gameObject.GetComponent<BaseEntityController>();
             animator = gameObject.GetComponent<Animator>();
 
             AnimatorOverrideController override_control = new AnimatorOverrideController();
@@ -178,7 +178,7 @@ namespace Summer
 
                 }
             }
-            animator.runtimeAnimatorController = override_control;
+            animator.runtimeAnimatorController = override_control;*/
         }
 
         #endregion

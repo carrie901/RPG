@@ -25,20 +25,20 @@ public class TestDataLoader : MonoBehaviour
             EntitesManager.Instance.AddEntity(tmp);
         }
         TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_01");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_02");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_03");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_04");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_05");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_06");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_peerless");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_01");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_02");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_02_G");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_03");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_04");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_05");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_05_G");
-        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_05_G_1");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_02");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_03");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_04");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_05");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_attack_06");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_peerless");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_01");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_02");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_02_G");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_03");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_04");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_05");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_05_G");
+//        TransformPool.Instance.Pop<PoolVfxObject>("Prefab/Vfx/Skill/eff_H_ZhaoYun_01_skill_05_G_1");
         //GameObject go = ResManager.instance.LoadPrefab("test/Plane", E_GameResType.quanming);
     }
 

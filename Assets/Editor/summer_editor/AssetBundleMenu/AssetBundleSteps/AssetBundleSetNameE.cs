@@ -9,17 +9,9 @@ namespace SummerEditor
         /// <summary>
         /// 设置主资源名字
         /// </summary>
-        public static void SetMainAbName()
+        public static void TestSetMainAbName()
         {
-            /*Dictionary<string, EabMainVbo> main_ab = AssetAnalysisE._main_ab_map;
-            int index = 1;
-            foreach (var variable in main_ab)
-            {
-                EditorUtility.DisplayProgressBar("设置AssetBundle名字", variable.Value._asset_path, (float)index / main_ab.Count);
-                SetAbNameByPath(variable.Value._asset_path);
-            }*/
-
-            List<string> assets_path = EPathHelper.GetAssetPathList01("Assets/Res/", true);
+            List<string> assets_path = EPathHelper.GetAssetPathList01(EAssetBundleConst.main_driectory, true);
             int length = assets_path.Count;
             for (int i = 0; i < length; i++)
             {
@@ -30,6 +22,59 @@ namespace SummerEditor
             Resources.UnloadUnusedAssets();
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
+        }
+
+        public static void SetAllAssetName()
+        {
+            Dictionary<string, EAssetDepInfo> dep_map = AssetBundleAnalysisE._dep_ab_map;
+            Dictionary<string, EAssetMainInfo> main_map = AssetBundleAnalysisE._main_ab_map;
+            if (dep_map.Count == 0 || main_map.Count == 0)
+            {
+                EditorUtility.DisplayDialog("请先执行AssetBundle分析", "设置名字失败", "Ok");
+                return;
+            }
+
+            /*for (int i = 0; i < length; i++)
+            {
+                EditorUtility.DisplayProgressBar("设置AssetBundle名字", assets_path[i], (float)(i + 1) / length);
+                SetAbNameByPath(assets_path[i]);
+            }*/
+
+            int index = 1;
+            foreach (var info in main_map)
+            {
+                if (info.Value.RefCount == 0)
+                {
+                    string path = info.Value.AssetPath;
+                    EditorUtility.DisplayProgressBar("设置主AssetBundle名字", path, (float)(index) / main_map.Count);
+                    SetAbNameByPath(path);
+                    index++;
+                }
+                else
+                {
+                    Debug.LogError("path:" + info.Value.AssetPath + "Ref:" + info.Value.RefCount + " 主资源打包失败");
+                }
+            }
+
+            index = 1;
+            foreach (var info in dep_map)
+            {
+                if (info.Value.RefCount > 1)
+                {
+                    string path = info.Value.AssetPath;
+                    EditorUtility.DisplayProgressBar("设置依赖资源名字", path, (float)(index) / dep_map.Count);
+                    SetAbNameByPath(path);
+                    index++;
+                }
+            }
+
+
+            EditorUtility.ClearProgressBar();
+            Resources.UnloadUnusedAssets();
+            AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets();
+
+            EditorUtility.DisplayDialog("设置名字完成", "请查看log日志", "Ok");
         }
 
         #region 设置Asset的Bundle Name
@@ -48,6 +93,10 @@ namespace SummerEditor
             AssetDatabase.SaveAssets();
         }
 
+        /// <summary>
+        /// 根据文件的File Path设置Asset的BundleName BundleName=Asset/XX/
+        /// </summary>
+        /// <param name="file_path"></param>
         public static void SetAbNameByPath(string file_path)
         {
             string asset_path = EPathHelper.AbsoluteToRelativePathWithAssets(file_path);

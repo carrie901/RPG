@@ -48,7 +48,7 @@ namespace Summer
 
         public AssetBundleLoader()
         {
-           Resources.UnloadUnusedAssets();
+            Resources.UnloadUnusedAssets();
             string main_fest_path = Application.streamingAssetsPath + "/rpg/rpg";
             AssetBundle ab = AssetBundle.LoadFromFile(main_fest_path);
             _mainfest = ab.LoadAllAssets()[0] as AssetBundleManifest;
@@ -64,7 +64,7 @@ namespace Summer
                 }
                 _init_complete = true;
 
-                _evn_path = Application.streamingAssetsPath + "/rpg/res/";
+                _evn_path = Application.streamingAssetsPath + "/rpg/";
                 instance = this;
             }
 
@@ -74,6 +74,7 @@ namespace Summer
 
         public Object LoadAsset(string path)
         {
+            path = "res_bundle/" + path;
             string assetbundle_name, asset_name;
             // 1.解析文件路径信息
             _parse_path(path, out assetbundle_name, out asset_name);
@@ -282,7 +283,7 @@ namespace Summer
                 return deps;
             }
 
-            ResLog.Error("不可能出现的情况，尼玛居然出现了");
+            ResLog.Error("不可能出现的情况，尼玛居然出现了"+ assetbundle_name+"_____" +_assetbundle_map.Count);
             deps = _mainfest.GetAllDependencies(assetbundle_name);
             return deps;
         }

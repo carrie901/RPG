@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace SummerEditor
 {
+    /// <summary>
+    /// 1.自身大小
+    /// 2.
+    /// </summary>
     public abstract class EAssetInfo
     {
         public string AssetPath { get { return _asset_path; } }
@@ -11,9 +15,10 @@ namespace SummerEditor
         public int RefCount { get { return _ref_count; } }
         protected int _ref_count;                                                                               // 引用次数
         public float MemSize { get { return _size; } }
-        protected float _size;                                                                                  // 资源大小                                         
+        protected float _size;                                                                                  // 内存资源大小
+                                         
         protected Dictionary<string, EAssetInfo> _child_dep_map = new Dictionary<string, EAssetInfo>();         // 子类依赖资源
-        protected Dictionary<string, EAssetInfo> _parent_dep_map = new Dictionary<string, EAssetInfo>();           // 所属于的父类
+        public Dictionary<string, EAssetInfo> _parent_dep_map = new Dictionary<string, EAssetInfo>();           // 所属于的父类
 
         protected EAssetInfo(string path)
         {
@@ -35,6 +40,7 @@ namespace SummerEditor
             {
                 // 2.根据名字从全部的依赖列表中得到依赖资源的相关信息
                 string asset_dep_path = deps[i];
+                if (asset_dep_path.EndsWith(EAssetBundleConst.IGNORE_BUILD_ASSET_SUFFIX)) continue;
                 EAssetInfo dep_ab = AssetBundleAnalysisE.FindDep(asset_dep_path);
                 if (dep_ab == null) continue;
                 // 依赖资源重复性质检测
@@ -61,9 +67,10 @@ namespace SummerEditor
             }
             else
             {
+               
                 if (_parent_dep_map.ContainsKey(par_info._asset_path))
                 {
-                    Debug.LogErrorFormat("父类资源[{0}]已经被依赖了:", par_info._asset_path);
+                    Debug.LogErrorFormat("父类资源[{0}]已经被[{1}]依赖了:", par_info._asset_path, AssetPath);
                     return;
                 }
                 _ref_count++;

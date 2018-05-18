@@ -24,11 +24,17 @@ namespace SummerEditor
         }
 
         [MenuItem("Tools/AssetBundle/Build/测试 设置AssetBundle Name")]
-        public static void SetAllAssetBundleName()
+        public static void TestSetAllAssetBundleName()
         {
             string[] all_ab_names = AssetDatabase.GetAllAssetBundleNames();
             UnityEngine.Debug.Log("设置名字之前all_ab_names:" + all_ab_names.Length);
-            AssetBundleSetNameE.SetMainAbName();
+            AssetBundleSetNameE.TestSetMainAbName();
+        }
+
+        [MenuItem("Tools/AssetBundle/Build/执行分析之后才可以设置AssetBundle Name")]
+        public static void SetAllAssetBundleName()
+        {
+            AssetBundleSetNameE.SetAllAssetName();
         }
 
         [MenuItem("Tools/AssetBundle/Build/清除所有AssetBundle 名字")]
@@ -75,7 +81,7 @@ namespace SummerEditor
                 UnityEngine.Object go = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(path);
                 string[] dep = AssetDatabase.GetDependencies(path, false);
                 string[] dep1 = AssetDatabase.GetDependencies(path, true);
-                string[] dep2 = AssetDatabase.GetDependencies(path);
+                UnityEngine.Object[] deps = EditorUtility.CollectDependencies(new UnityEngine.Object[] { go });
                 Dep(path);
             }
         }

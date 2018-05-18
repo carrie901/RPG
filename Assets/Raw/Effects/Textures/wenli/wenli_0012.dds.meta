@@ -2,7 +2,13 @@ fileFormatVersion: 2
 guid: 6a3d34569ca41664eafe8335424b2c3c
 timeCreated: 1511335817
 licenseType: Pro
-DDSImporter:
+IHVImageFormatImporter:
+  textureSettings:
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapMode: 0
+  isReadable: 0
   userData: 
-  assetBundleName: 
+  assetBundleName: raw/effects/textures/wenli/wenli_0012.ab
   assetBundleVariant: 

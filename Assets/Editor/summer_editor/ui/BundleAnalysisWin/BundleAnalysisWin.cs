@@ -9,7 +9,7 @@ namespace SummerEditor
     {
         static float t_width = 1800;
         static float t_height = 800;
-        //[MenuItem("Tool/资源检测/Bundle分析界面")]
+        [MenuItem("Tool/资源检测/Bundle分析界面")]
         public static void ShowWindown()
         {
             BundleAnalysisWin bundleManagerWin = EditorWindow.GetWindow<BundleAnalysisWin>();
