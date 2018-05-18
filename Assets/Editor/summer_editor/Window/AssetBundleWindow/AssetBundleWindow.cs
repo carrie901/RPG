@@ -10,7 +10,7 @@ namespace SummerEditor
         protected static AssetBundleWindow _instance = new AssetBundleWindow();
 
         public ETreeNodeItem _item;
-
+        public EOpenList open_list;
 
         [MenuItem("Tools/构建树视图")]
         static void Init()
@@ -25,8 +25,10 @@ namespace SummerEditor
         private void GetAssets()
         {
             _item = new ETreeNodeItem(500, 400);
+            _item.ResetPosition(20, 45);
 
-
+            open_list = new EOpenList(500, 25);
+            open_list.ResetPosition(open_list.Ew / 2, open_list.Eh / 2);
 
             ETreeNodeData data = new ETreeNodeData("Assets");
 
@@ -37,7 +39,7 @@ namespace SummerEditor
 
             for (int i = 0; i < ExcelAbManager.infos.Count; i++)
             {
-                EAbTreeNodeData child_data = new EAbTreeNodeData(ExcelAbManager.infos[i].asset_path, E_TreeNodeType.tree_leaf);
+                ETreeNodeData child_data = new ETreeNodeData(ExcelAbManager.infos[i].asset_path, E_TreeNodeType.tree_leaf);
                 child_data.info = ExcelAbManager.infos[i];
                 child_node_datas.Add(child_data);
             }
@@ -50,7 +52,8 @@ namespace SummerEditor
 
         void OnGUI()
         {
-            _item.OnDraw(20, 20);
+            open_list.OnDraw(20, 20);
+            _item.OnDraw(20, 40);
         }
     }
 }

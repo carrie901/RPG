@@ -13,6 +13,10 @@ namespace SummerEditor
         public int ref_count;
         public int be_ref_count;
         public float mem_size;
+        public float file_size;                 // 文件大小
+        public int ref_texture;                 // 引用贴图数量
+
+
     }
 
     public class ExcelAbManager
@@ -40,7 +44,8 @@ namespace SummerEditor
                 info.ref_count = int.Parse(contents[1]);
                 info.be_ref_count = int.Parse(contents[2]);
                 info.mem_size = float.Parse(contents[3]);
-
+                info.file_size = float.Parse(contents[4]);
+                info.ref_texture = int.Parse(contents[5]);
                 infos.Add(info);
             }
         }
@@ -57,6 +62,8 @@ namespace SummerEditor
                 info.be_ref_count = (int)(Random.value * 100);
                 info.ref_count = (int)(Random.value * 100);
                 info.mem_size = 10;
+                info.file_size = 2;
+                info.ref_texture = 1;
                 infos.Add(info);
             }
 
@@ -67,7 +74,9 @@ namespace SummerEditor
                     infos[i].asset_path
                     + "," + infos[i].ref_count
                     + "," + infos[i].be_ref_count
-                    + "," + infos[i].mem_size);
+                    + "," + infos[i].mem_size
+                    + "," + infos[i].file_size
+                    + "," + infos[i].ref_texture);
             }
 
             FileHelper.WriteTxtByFile(csv_path, sb.ToString());

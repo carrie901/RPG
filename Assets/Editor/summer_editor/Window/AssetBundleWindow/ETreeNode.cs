@@ -18,11 +18,15 @@ namespace SummerEditor
         public List<ETreeNode> _children = new List<ETreeNode>();                               // 子节点
         public bool is_open;                                                                    // 是否打开
         protected int _node_depth = 0;
-
+        public ETreeNodeDataDraw _draw;
         public ETreeNode(ETreeNodeData data)
         {
             _data = data;
             _node_depth = 0;
+            if (_data.NodeType == E_TreeNodeType.tree_leaf)
+            {
+                _draw = new ETreeNodeDataDraw(_data.info);
+            }
         }
 
         public void AddNodes(List<ETreeNodeData> datas)
@@ -39,7 +43,7 @@ namespace SummerEditor
 
         public virtual float TreeNodeWith()
         {
-            return 500;
+            return 500 + EOpenList.ref_count_w / 2;
         }
 
         public void _add_nodes(ETreeNodeData data)
@@ -124,6 +128,8 @@ namespace SummerEditor
             node._node_depth = _node_depth + 1;
         }
 
+
+        public float first_name_w = 500;
         public void OnDraw(float parent_x, float parent_y, ref int level)
         {
             float offset_x = node_depth_w * _node_depth;
@@ -134,7 +140,17 @@ namespace SummerEditor
             }
             else
             {
-                _on_draw(rect);
+
+                GUI.Label(rect, _data.draw_name);
+
+                float other = parent_x + TreeNodeWith();
+                _draw.OnDraw(other, parent_y + level * node_h);
+                /*if (GUI.Button(rect, _data.draw_name/*, GetGuiStyle()#1#))
+                {
+                    Debug.Log("选中:" + _data.draw_name);
+                }*/
+
+                //first_name_w
             }
             level++;
             if (!is_open || _children.Count == 0) return;
@@ -147,14 +163,6 @@ namespace SummerEditor
 
         public static float node_depth_w = 20;
         public static float node_h = 20;
-
-        public  void _on_draw(Rect rect)
-        {
-            if (GUI.Button(rect, _data.draw_name/*, GetGuiStyle()*/))
-            {
-                Debug.Log("选中:" + _data.draw_name);
-            }
-        }
 
         public GUIStyle _style;
         public GUIStyle GetGuiStyle()
@@ -180,7 +188,7 @@ namespace SummerEditor
         public string _node_name;
 
         public string draw_name;
-
+        public ExcelAbInfo info;
         public E_TreeNodeType NodeType { get { return _node_type; } }
         public E_TreeNodeType _node_type;
 
@@ -193,12 +201,42 @@ namespace SummerEditor
         }
     }
 
-
-    public class EAbTreeNodeData : ETreeNodeData
+    public class ETreeNodeDataDraw
     {
-        public ExcelAbInfo info;
-        public EAbTreeNodeData(string node_name, E_TreeNodeType node_type = E_TreeNodeType.tree_container) : base(node_name, node_type)
+
+
+        public ELabel _ref_lab;
+        public ELabel _be_ref_lab;
+        public ELabel _men_size_lab;
+        public ELabel _file_size_lab;
+        public ELabel _ref_texture_lab;
+
+        public ETreeNodeDataDraw(ExcelAbInfo info)
         {
+            _ref_lab = new ELabel(EOpenList.ref_count_w, info.ref_count.ToString());
+            _be_ref_lab = new ELabel(EOpenList.be_ref_count_w, info.be_ref_count.ToString());
+            _men_size_lab = new ELabel(EOpenList.men_size_w, info.mem_size.ToString("f3"));
+
+            _file_size_lab = new ELabel(EOpenList.fil_size_w, info.file_size.ToString("f3"));
+            _ref_texture_lab = new ELabel(EOpenList.ref_texture_w, info.ref_texture.ToString());
+        }
+
+        public void OnDraw(float parent_x, float parent_y)
+        {
+            float offset_x = parent_x;
+            _ref_lab.OnDraw(offset_x, parent_y);
+
+            offset_x += _ref_lab.Ew;
+            _be_ref_lab.OnDraw(offset_x, parent_y);
+
+            offset_x += _be_ref_lab.Ew;
+            _men_size_lab.OnDraw(offset_x, parent_y);
+
+            offset_x += _men_size_lab.Ew;
+            _file_size_lab.OnDraw(offset_x, parent_y);
+
+            offset_x += _file_size_lab.Ew;
+            _ref_texture_lab.OnDraw(offset_x, parent_y);
         }
     }
 

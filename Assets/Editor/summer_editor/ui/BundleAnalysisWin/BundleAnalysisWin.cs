@@ -59,6 +59,7 @@ namespace SummerEditor
 
             //button.on_change += on_change;
             //_container.AddComponent(button);
+            
         }
 
         void OnEnable()
