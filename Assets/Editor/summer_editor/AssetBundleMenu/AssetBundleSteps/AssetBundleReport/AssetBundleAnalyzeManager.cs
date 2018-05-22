@@ -95,6 +95,8 @@ namespace SummerEditor
             AssetBundleDepReport.CreateReport(report_dir);
             AssetReport.CreateReport(report_dir);
             TextureReport.CreateReport(report_dir);
+            AnimationClipReport.CreateReport(report_dir);
+            MeshReport.CreateReport(report_dir);
         }
 
         public static Dictionary<long, EAssetFileInfo> FindAssetFiles()
@@ -220,9 +222,8 @@ namespace SummerEditor
             asset_file_info.asset_name = asset_object.name;
             asset_file_info.asset_type = asset_type;
 
-            asset_file_info.propertys = AssetBundleAnallyzeObject.fun_map[asset_type].Invoke(asset_object, serialized_object);
-
-
+            if (AssetBundleAnallyzeObject.fun_map.ContainsKey(asset_type))
+                asset_file_info.propertys = AssetBundleAnallyzeObject.fun_map[asset_type].Invoke(asset_object, serialized_object);
 
             // AssetBundle包含了Asset资源
             assetbundle_file_info.dep_asset_files.Add(asset_file_info);

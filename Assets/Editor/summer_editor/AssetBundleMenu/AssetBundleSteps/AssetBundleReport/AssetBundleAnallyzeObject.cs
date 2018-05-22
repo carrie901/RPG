@@ -31,14 +31,14 @@ namespace SummerEditor
                 {E_AssetType.mesh, AnalyzeMesh},
                 {E_AssetType.material, AnalyzeMaterial},
                 {E_AssetType.texture, AnalyzeTexture2D},
-                {E_AssetType.shader, AnalyzeShader},
+                //{E_AssetType.shader, AnalyzeShader},
                 {E_AssetType.sprite, AnalyzeSprite},
-                {E_AssetType.animator_override_controller, AnalyzeAnimatorOverrideController},
+                //{E_AssetType.animator_override_controller, AnalyzeAnimatorOverrideController},
                 {E_AssetType.animation_clip, AnalyzeAnimationClip},
                 {E_AssetType.audio_clip, AnalyzeAudioClip},
-                {E_AssetType.font, AnalyzeFont},
-                {E_AssetType.text_asset,AnalyzeTextAsset },
-                {E_AssetType.animations_animator_controller, AnalyzeAnimationsAnimatorController},
+                //{E_AssetType.font, AnalyzeFont},
+                //{E_AssetType.text_asset,AnalyzeTextAsset },
+                //{E_AssetType.animations_animator_controller, AnalyzeAnimationsAnimatorController},
             };
 
         public static List<string> builtin_res = new List<string>()
@@ -82,7 +82,16 @@ namespace SummerEditor
         public static List<KeyValuePair<string, System.Object>> AnalyzeMesh(Object obj,
              SerializedObject serialized_object)
         {
-            var propertys = new List<KeyValuePair<string, System.Object>>();
+            Mesh mesh = obj as Mesh;
+            Debug.AssertFormat(mesh != null, "类型不对", obj.name);
+            var propertys = new List<KeyValuePair<string, object>>
+            {
+                new KeyValuePair<string, object>("顶点数", mesh.vertexCount),
+                new KeyValuePair<string, object>("面数", (mesh.triangles.Length / 3f)),
+                new KeyValuePair<string, object>("子网格数", mesh.subMeshCount),
+                new KeyValuePair<string, object>("网格压缩", MeshUtility.GetMeshCompression(mesh).ToString()),
+                new KeyValuePair<string, object>("Read/Write", mesh.isReadable.ToString())
+            };
             return propertys;
         }
 
@@ -93,7 +102,40 @@ namespace SummerEditor
         public static List<KeyValuePair<string, System.Object>> AnalyzeMaterial(Object obj,
              SerializedObject serialized_object)
         {
-            var propertys = new List<KeyValuePair<string, System.Object>>();
+            var propertys = new List<KeyValuePair<string, object>>();
+
+
+            string tex_names = string.Empty;
+
+            var property = serialized_object.FindProperty("m_Shader");
+            propertys.Add(new KeyValuePair<string, object>("依赖Shader", property.objectReferenceValue ? property.objectReferenceValue.name : "[其他AB内]"));
+
+            property = serialized_object.FindProperty("m_SavedProperties");
+            var property2 = property.FindPropertyRelative("m_TexEnvs");
+            foreach (SerializedProperty property3 in property2)
+            {
+                SerializedProperty property4 = property3.FindPropertyRelative("second");
+                SerializedProperty property5 = property4.FindPropertyRelative("m_Texture");
+
+                if (property5.objectReferenceValue)
+                {
+                    if (!string.IsNullOrEmpty(tex_names))
+                    {
+                        tex_names += ", ";
+                    }
+                    tex_names += property5.objectReferenceValue.name;
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(tex_names))
+                    {
+                        tex_names += ", ";
+                    }
+                    tex_names += "[其他AB内]";
+                }
+            }
+            propertys.Add(new KeyValuePair<string, object>("依赖纹理", tex_names));
+
             return propertys;
         }
 
@@ -133,12 +175,12 @@ namespace SummerEditor
 
         #region Shader 着色器
 
-        public static List<KeyValuePair<string, System.Object>> AnalyzeShader(Object obj,
+        /*public static List<KeyValuePair<string, System.Object>> AnalyzeShader(Object obj,
              SerializedObject serialized_object)
         {
             var propertys = new List<KeyValuePair<string, System.Object>>();
             return propertys;
-        }
+        }*/
 
         #endregion
 
@@ -153,23 +195,17 @@ namespace SummerEditor
 
         #endregion
 
-        #region AnimatorOverrideController 
-
-        public static List<KeyValuePair<string, System.Object>> AnalyzeAnimatorOverrideController(Object obj,
-             SerializedObject serialized_object)
-        {
-            var propertys = new List<KeyValuePair<string, System.Object>>();
-            return propertys;
-        }
-
-        #endregion
-
         #region AnimationClip 动作文件
 
         public static List<KeyValuePair<string, System.Object>> AnalyzeAnimationClip(Object obj,
              SerializedObject serialized_object)
         {
-            var propertys = new List<KeyValuePair<string, System.Object>>();
+            AnimationClip clip = obj as AnimationClip;
+            float size = EMemorySizeHelper.GetBlobSize(clip);
+            var propertys = new List<KeyValuePair<string, object>>
+            {
+                new KeyValuePair<string, object>("内存占用", size),
+            };
             return propertys;
         }
 
@@ -180,7 +216,18 @@ namespace SummerEditor
         public static List<KeyValuePair<string, System.Object>> AnalyzeAudioClip(Object obj,
              SerializedObject serialized_object)
         {
-            var propertys = new List<KeyValuePair<string, System.Object>>();
+            AudioClip audio_clip = obj as AudioClip;
+            var propertys = new List<KeyValuePair<string, object>>
+            {
+                new KeyValuePair<string, object>("加载方式", audio_clip.loadType.ToString()),
+                new KeyValuePair<string, object>("预加载", audio_clip.preloadAudioData.ToString()),
+                new KeyValuePair<string, object>("频率", audio_clip.frequency),
+                new KeyValuePair<string, object>("长度", audio_clip.length)
+            };
+
+            var property = serialized_object.FindProperty("m_CompressionFormat");
+            propertys.Add(new KeyValuePair<string, object>("格式", ((AudioCompressionFormat)property.intValue).ToString()));
+
             return propertys;
         }
 
@@ -188,30 +235,45 @@ namespace SummerEditor
 
         #region Font 字体
 
-        public static List<KeyValuePair<string, System.Object>> AnalyzeFont(Object obj,
+        /*public static List<KeyValuePair<string, System.Object>> AnalyzeFont(Object obj,
              SerializedObject serialized_object)
         {
             var propertys = new List<KeyValuePair<string, System.Object>>();
             return propertys;
-        }
+        }*/
 
         #endregion TextAsset
 
-        public static List<KeyValuePair<string, System.Object>> AnalyzeTextAsset(Object obj,
+        #region TextAsset 文本
+
+        /*public static List<KeyValuePair<string, System.Object>> AnalyzeTextAsset(Object obj,
             SerializedObject serialized_object)
         {
             var propertys = new List<KeyValuePair<string, System.Object>>();
             return propertys;
-        }
+        }*/
 
-        #region AnimationsAnimatorController
+        #endregion
 
-        public static List<KeyValuePair<string, System.Object>> AnalyzeAnimationsAnimatorController(Object obj,
+        #region AnimatorOverrideController 
+
+        /*public static List<KeyValuePair<string, System.Object>> AnalyzeAnimatorOverrideController(Object obj,
              SerializedObject serialized_object)
         {
             var propertys = new List<KeyValuePair<string, System.Object>>();
             return propertys;
-        }
+        }*/
+
+        #endregion
+
+        #region AnimationsAnimatorController
+
+        /*public static List<KeyValuePair<string, System.Object>> AnalyzeAnimationsAnimatorController(Object obj,
+             SerializedObject serialized_object)
+        {
+            var propertys = new List<KeyValuePair<string, System.Object>>();
+            return propertys;
+        }*/
 
         #endregion
     }
