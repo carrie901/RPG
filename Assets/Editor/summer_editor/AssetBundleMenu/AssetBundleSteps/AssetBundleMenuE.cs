@@ -1,10 +1,20 @@
 ﻿
+using System;
 using System.Text;
 using UnityEditor;
+using UnityEngine;
+
 namespace SummerEditor
 {
     public class AssetBundleMenuE
     {
+
+        [MenuItem("Tools/AssetBundle/查看AssetBundle的分析报告")]
+        public static void CreateReportAssetBundle()
+        {
+            AssetBundleAnalyzeManager.Analyze();
+        }
+
         [MenuItem("Tools/AssetBundle/Build/生成资源配置列表")]
         public static void CreateAbConfigFile()
         {
@@ -72,17 +82,52 @@ namespace SummerEditor
 
         }
 
-        [MenuItem("Assets/AssetBundle/查看Dep")]
+        [MenuItem("Assets/AssetBundle/查看Dep/1")]
         public static void TestDep()
         {
             foreach (var id in Selection.instanceIDs)
             {
                 string path = AssetDatabase.GetAssetPath(id);
+
                 UnityEngine.Object go = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(path);
                 string[] dep = AssetDatabase.GetDependencies(path, false);
                 string[] dep1 = AssetDatabase.GetDependencies(path, true);
                 UnityEngine.Object[] deps = EditorUtility.CollectDependencies(new UnityEngine.Object[] { go });
                 Dep(path);
+            }
+        }
+
+        [MenuItem("Assets/AssetBundle/查看Dep/2")]
+        public static void TestDep01()
+        {
+            try
+            {
+                string main_fest_path = EAssetBundleConst.ManifestPath; //Application.streamingAssetsPath + "/rpg/rpg";
+                AssetBundle ab = AssetBundle.LoadFromFile(main_fest_path);
+                AssetBundleManifest mainfest = ab.LoadAllAssets()[0] as AssetBundleManifest;
+
+                foreach (var id in Selection.instanceIDs)
+                {
+                    string path = AssetDatabase.GetAssetPath(id);
+                    path = EPathHelper.NormalizePath(path);
+                    string[] result = path.Split('/');
+                    path = result[result.Length - 1];
+                    string select_name = path.Split('.')[0];
+                    string[] dir = mainfest.GetDirectDependencies(select_name);
+                    string[] all = mainfest.GetAllDependencies(select_name);
+                }
+
+                Resources.UnloadAsset(mainfest);
+                ab.Unload(true);
+                Debug.Log("Error");
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                Resources.UnloadUnusedAssets();
             }
         }
 
@@ -108,9 +153,6 @@ namespace SummerEditor
                 UnityEngine.Debug.Log(sb + dep[i]);
                 GetDep(tab + 1, dep[i]);
             }
-
-
-
             return tab;
         }
 

@@ -65,7 +65,13 @@ namespace SummerEditor
         }
 
         #endregion 
-        public static string GetKb(int bytes)
+        public static string GetKb(long bytes)
+        {
+            float size = bytes;
+            return GetKb(size);
+        }
+
+        public static string GetKb(float bytes)
         {
             string size = (bytes / 1024).ToString("f2") + " Kb";
             if ((bytes / 1024) > 1024)

@@ -38,6 +38,7 @@ namespace SummerEditor
                 if (ogs[i] is Shader)
                 {
                     string ogs_path = AssetDatabase.GetAssetPath(ogs[i]);
+                    EditorUtility.GetAssetPath(ogs[i]);
                     if (ogs_path.Contains("Resources"))
                         Debug.Log("Path:" + ogs_path);
                 }

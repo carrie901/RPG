@@ -19,7 +19,23 @@ namespace SummerEditor
         public const float ASSETBUILD_MAX_SIZE = 1024 * 1204;                        // 多个资源打包到一个AssetBundle中，这个AssetBundle的大小
 
         public static string assetbundle_directory = Application.streamingAssetsPath + "/rpg";
-
+        public static string assetbundle_mainfest_file_name = "rpg";
         public const string IGNORE_BUILD_ASSET_SUFFIX = ".cs";                                                      // 打包忽略的资源类型
+
+        public static string ManifestPath
+        {
+            get { return assetbundle_directory + "/" + assetbundle_mainfest_file_name; }
+        }
+
+
+        #region 获取属性
+
+        /// <summary>
+        /// 获取GUID值
+        /// </summary>
+        public const string LOCAL_ID_DENTFIER_IN_FILE = "m_LocalIdentfierInFile";
+
+        #endregion
+
     }
 }
