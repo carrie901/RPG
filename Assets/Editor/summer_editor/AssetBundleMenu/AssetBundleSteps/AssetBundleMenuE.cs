@@ -8,12 +8,7 @@ namespace SummerEditor
 {
     public class AssetBundleMenuE
     {
-
-        [MenuItem("Tools/AssetBundle/查看AssetBundle的分析报告")]
-        public static void CreateReportAssetBundle()
-        {
-            AssetBundleAnalyzeManager.Analyze();
-        }
+        #region Build AssetBundle
 
         [MenuItem("Tools/AssetBundle/Build/生成资源配置列表")]
         public static void CreateAbConfigFile()
@@ -27,37 +22,11 @@ namespace SummerEditor
             EAssetBundleAnalysis.AllAnalysisAsset();
         }
 
-        [MenuItem("Tools/AssetBundle/Build/打包策略")]
-        public static void BuildStrategy()
-        {
-        }
-
-        [MenuItem("Tools/AssetBundle/Build/测试 设置AssetBundle Name")]
-        public static void TestSetAllAssetBundleName()
-        {
-            string[] all_ab_names = AssetDatabase.GetAllAssetBundleNames();
-            UnityEngine.Debug.Log("设置名字之前all_ab_names:" + all_ab_names.Length);
-            AssetBundleSetNameE.TestSetMainAbName();
-        }
-
         [MenuItem("Tools/AssetBundle/Build/执行分析之后才可以设置AssetBundle Name")]
         public static void SetAllAssetBundleName()
         {
             AssetBundleSetNameE.ClearAllAssetBundleName();
             AssetBundleSetNameE.SetAllAssetName();
-        }
-
-        [MenuItem("Tools/AssetBundle/Build/清除所有AssetBundle 名字")]
-        public static void ClearAssetBundleName()
-        {
-            AssetBundleSetNameE.ClearAllAssetBundleName();
-            EditorUtility.DisplayDialog("清除AssetBundle", "清除完成，请查看", "OK");
-        }
-
-        [MenuItem("Assets/AssetBundle/Build/设置选中的资源的AssetBundle 名字")]
-        public static void SetAssetBundleName()
-        {
-            AssetBundleSetNameE.SetSelectionAssetBundleName();
         }
 
         [MenuItem("Tools/AssetBundle/Build/打包资源")]
@@ -66,11 +35,44 @@ namespace SummerEditor
             AssetBundleBuildE.AllAssetBundleBuild();
         }
 
-        [MenuItem("Tools/AssetBundle/检测/调用内置Shader情况")]
+        #endregion
+
+        #region 辅助功能(清除所有AssetBundle Name/查看AssetBundle报告/查看Shader情况 )
+
+        [MenuItem("Tools/AssetBundle/辅助/清除所有AssetBundle 名字")]
+        public static void ClearAssetBundleName()
+        {
+            AssetBundleSetNameE.ClearAllAssetBundleName();
+            EditorUtility.DisplayDialog("清除AssetBundle", "清除完成，请查看", "OK");
+        }
+
+        [MenuItem("Tools/AssetBundle/辅助/查看AssetBundle的分析报告")]
+        public static void CreateReportAssetBundle()
+        {
+            AssetBundleAnalyzeManager.Analyze();
+        }
+
+        [MenuItem("Tools/AssetBundle/辅助/调用内置Shader情况")]
         public static void AllCheckShader()
         {
             CheckAssetShaderE.AllCheckShader();
         }
+
+        #endregion
+
+        #region 测试
+
+        [MenuItem("Tools/AssetBundle/测试/根据目录名设置主AssetBundle Name")]
+        public static void TestSetAllAssetBundleName()
+        {
+            string[] all_ab_names = AssetDatabase.GetAllAssetBundleNames();
+            UnityEngine.Debug.Log("设置名字之前all_ab_names:" + all_ab_names.Length);
+            AssetBundleSetNameE.TestSetMainAbName();
+        }
+
+        #endregion
+
+        #region 选中物体
 
         [MenuItem("Assets/AssetBundle/检测/调用内置Shader情况")]
         public static void CheckShader()
@@ -132,6 +134,10 @@ namespace SummerEditor
             }
         }
 
+        #endregion
+
+        #region private 
+
         public static void Dep(string path)
         {
             string[] deps = AssetDatabase.GetDependencies(path, false);
@@ -156,6 +162,8 @@ namespace SummerEditor
             }
             return tab;
         }
+
+        #endregion
 
     }
 }
