@@ -67,7 +67,7 @@ namespace SummerEditor
         {
             string[] all_ab_names = AssetDatabase.GetAllAssetBundleNames();
             UnityEngine.Debug.Log("设置名字之前all_ab_names:" + all_ab_names.Length);
-            AssetBundleSetNameE.TestSetMainAbName();
+            AssetBundleSetNameE.OblyMainAbName();
         }
 
         #endregion
@@ -134,6 +134,11 @@ namespace SummerEditor
             }
         }
 
+        [MenuItem("Assets/AssetBundle/查看Dep/3")]
+        public static void Look()
+        {
+            
+        }
         #endregion
 
         #region private 

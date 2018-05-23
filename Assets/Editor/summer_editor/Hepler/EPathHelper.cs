@@ -128,7 +128,7 @@ namespace SummerEditor
         /// <summary>
         /// 得到Asset目录下的资源，剔除掉meta文件，并且格式转成Asset\格式
         /// </summary>
-        public static List<string> GetAssetPathList01(string root_path, bool deep, string suffix = "*.*")
+        public static List<string> GetAssetsPath(string root_path, bool deep, string suffix = "*.*")
         {
             List<string> ret = new List<string>();
             ScanDirectoryFile(root_path, deep, ret, suffix);
@@ -218,6 +218,16 @@ namespace SummerEditor
                 Debug.Log("查询目录失败:" + path);
                 return path;
             }
+        }
+
+        public static string GetName(string file_path)
+        {
+            file_path = NormalizePath(file_path);
+            int index = file_path.LastIndexOf('/');
+            if (index < 0)
+                return file_path;
+            else
+                return file_path.Substring(index);
         }
 
         #endregion

@@ -48,9 +48,10 @@ namespace SummerEditor
 
         public void AnalyzeAsset()
         {
+
             List<string> tmp_top_dep = new List<string>();
             AssetBundleHelper.FindRealDep(_asset_path, tmp_top_dep);
-
+            
             // 添加Asset真真的依赖
             for (int i = tmp_top_dep.Count - 1; i >= 0; i--)
             {
@@ -72,6 +73,11 @@ namespace SummerEditor
             if (_be_deps.ContainsKey(asset.AssetPath)) return;
             _be_deps.Add(asset.AssetPath, asset);
             _ref_count++;
+        }
+
+        public int BeDepCount()
+        {
+            return _be_deps.Count;
         }
 
         #endregion

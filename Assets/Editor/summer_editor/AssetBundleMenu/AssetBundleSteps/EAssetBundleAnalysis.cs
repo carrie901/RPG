@@ -5,6 +5,9 @@ using UnityEditor;
 
 namespace SummerEditor
 {
+    /// <summary>
+    /// 分析资源的相关依赖
+    /// </summary>
     public class EAssetBundleAnalysis
     {
         public static Dictionary<string, EAssetObjectInfo> _all_assets = new Dictionary<string, EAssetObjectInfo>();
@@ -12,11 +15,11 @@ namespace SummerEditor
         public static void AllAnalysisAsset()
         {
             _all_assets.Clear();
-            List<string> tmp_paths = EPathHelper.GetAssetPathList(EAssetBundleConst.ASSET_PATH, true, "*.*");
+            List<string> tmp_paths = EPathHelper.GetAssetPathList(EAssetBundleConst.main_res_driectory, true, "*.*");
             SuffixHelper.Filter(tmp_paths, new NoEndsWithFilter(EAssetBundleConst.SUFFIX_META));
 
-            List<string> asset_paths = EPathHelper.GetAssetPathList01(EAssetBundleConst.main_driectory, true);
-            if (tmp_paths.Count == asset_paths.Count)
+            List<string> asset_paths = EPathHelper.GetAssetsPath(EAssetBundleConst.main_res_driectory, true);
+            if (tmp_paths.Count != asset_paths.Count)
             {
                 Debug.LogError("路径查找错误");
                 return;

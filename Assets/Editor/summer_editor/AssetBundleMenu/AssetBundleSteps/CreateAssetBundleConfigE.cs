@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Summer;
 using UnityEditor;
-using UnityEngine;
 
 namespace SummerEditor
 {
@@ -17,7 +16,7 @@ namespace SummerEditor
             // 1.得到所有的AssetBundle Name
             string[] asset_bundles = AssetDatabase.GetAllAssetBundleNames();
             // 2.通过过滤器剔除掉不是主目录的AssetBundle
-            List<string> filter_files = SuffixHelper.Filter(asset_bundles, new StartsWithFilter(EAssetBundleConst.main_driectory));
+            List<string> filter_files = SuffixHelper.Filter(asset_bundles, new StartsWithFilter(EAssetBundleConst.main_res_driectory));
             filter_files.Clear();
             filter_files.AddRange(asset_bundles);
             List<string[]> result_map = new List<string[]>();
@@ -31,10 +30,10 @@ namespace SummerEditor
                 {
                     // 主目录下的资源路径
                     string main_ab_path = asset_bundle_names[main_index];
-                    if (!main_ab_path.StartsWith(EAssetBundleConst.main_driectory)) continue;
+                    if (!main_ab_path.StartsWith(EAssetBundleConst.main_res_driectory)) continue;
 
                     string[] result = new string[2];
-                    result[0] = main_ab_path.Replace(EAssetBundleConst.main_driectory, string.Empty);
+                    result[0] = main_ab_path.Replace(EAssetBundleConst.main_res_driectory, string.Empty);
                     result[1] = ab_name;
                     result_map.Add(result);
                 }
