@@ -24,8 +24,7 @@ namespace SummerEditor
         [MenuItem("Tools/AssetBundle/Build/开始分析")]
         public static void AllAnalysisAsset()
         {
-            AssetBundleAnalysisE.AllAnalysisAsset();
-            //AssetAnalysisE.AllAnalysisAsset();
+            EAssetBundleAnalysis.AllAnalysisAsset();
         }
 
         [MenuItem("Tools/AssetBundle/Build/打包策略")]
@@ -44,6 +43,7 @@ namespace SummerEditor
         [MenuItem("Tools/AssetBundle/Build/执行分析之后才可以设置AssetBundle Name")]
         public static void SetAllAssetBundleName()
         {
+            AssetBundleSetNameE.ClearAllAssetBundleName();
             AssetBundleSetNameE.SetAllAssetName();
         }
 
@@ -51,9 +51,10 @@ namespace SummerEditor
         public static void ClearAssetBundleName()
         {
             AssetBundleSetNameE.ClearAllAssetBundleName();
+            EditorUtility.DisplayDialog("清除AssetBundle", "清除完成，请查看", "OK");
         }
 
-        [MenuItem("Assets/AssetBundle/Build/设置AssetBundle 名字")]
+        [MenuItem("Assets/AssetBundle/Build/设置选中的资源的AssetBundle 名字")]
         public static void SetAssetBundleName()
         {
             AssetBundleSetNameE.SetSelectionAssetBundleName();

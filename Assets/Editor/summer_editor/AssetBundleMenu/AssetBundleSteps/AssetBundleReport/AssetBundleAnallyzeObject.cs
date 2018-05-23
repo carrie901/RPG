@@ -64,7 +64,7 @@ namespace SummerEditor
                 return E_AssetType.none;
             }
 
-            // 内建支援
+            // 内建资源
             string asset_path = AssetDatabase.GetAssetPath(ob);
             if (string.IsNullOrEmpty(asset_path))
             {

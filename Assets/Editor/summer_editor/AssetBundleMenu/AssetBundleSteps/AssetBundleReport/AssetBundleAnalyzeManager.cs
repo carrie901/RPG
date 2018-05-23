@@ -21,6 +21,7 @@ namespace SummerEditor
 
         public static void Analyze()
         {
+            Resources.UnloadUnusedAssets();
             if (!Directory.Exists(EAssetBundleConst.assetbundle_directory))
             {
                 Debug.LogError("不存在:" + EAssetBundleConst.assetbundle_directory + "目录");
@@ -213,11 +214,6 @@ namespace SummerEditor
 
             EAssetFileInfo asset_file_info = FindAssetFile(guid);
 
-            /*if (asset_file_info.InitAsset && asset_file_info.asset_name == asset_object.name)
-            {
-                Debug.LogError("Error");
-            }*/
-
             asset_file_info.InitAsset = true;
             asset_file_info.asset_name = asset_object.name;
             asset_file_info.asset_type = asset_type;
@@ -226,7 +222,7 @@ namespace SummerEditor
                 asset_file_info.propertys = AssetBundleAnallyzeObject.fun_map[asset_type].Invoke(asset_object, serialized_object);
 
             // AssetBundle包含了Asset资源
-            assetbundle_file_info.dep_asset_files.Add(asset_file_info);
+            assetbundle_file_info.AddDepAssetFile(asset_file_info);
             // Asset被指定的AssetBundle引用
             asset_file_info.included_bundles.Add(assetbundle_file_info);
             serialized_object.Dispose();

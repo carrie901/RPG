@@ -26,48 +26,23 @@ namespace SummerEditor
 
         public static void SetAllAssetName()
         {
-            Dictionary<string, EAssetDepInfo> dep_map = AssetBundleAnalysisE._dep_ab_map;
-            Dictionary<string, EAssetMainInfo> main_map = AssetBundleAnalysisE._main_ab_map;
-            if (dep_map.Count == 0 || main_map.Count == 0)
-            {
-                EditorUtility.DisplayDialog("请先执行AssetBundle分析", "设置名字失败", "Ok");
-                return;
-            }
-
-            /*for (int i = 0; i < length; i++)
-            {
-                EditorUtility.DisplayProgressBar("设置AssetBundle名字", assets_path[i], (float)(i + 1) / length);
-                SetAbNameByPath(assets_path[i]);
-            }*/
+            Dictionary<string, EAssetObjectInfo> all_assets = EAssetBundleAnalysis._all_assets;
 
             int index = 1;
-            foreach (var info in main_map)
+            foreach (var info in all_assets)
             {
-                if (info.Value.RefCount == 0)
+                EAssetObjectInfo asset_info = info.Value;
+                index++;
+                EditorUtility.DisplayProgressBar("设置主AssetBundle名字", asset_info.AssetPath, (float)(index) / all_assets.Count);
+                if (asset_info.IsMainAsset)
                 {
-                    string path = info.Value.AssetPath;
-                    EditorUtility.DisplayProgressBar("设置主AssetBundle名字", path, (float)(index) / main_map.Count);
-                    SetAbNameByPath(path);
-                    index++;
+                    SetAbNameByPath(asset_info.AssetPath);
                 }
-                else
+                else if (asset_info.RefCount > 1)
                 {
-                    Debug.LogError("path:" + info.Value.AssetPath + "Ref:" + info.Value.RefCount + " 主资源打包失败");
+                    SetAbNameByPath(asset_info.AssetPath);
                 }
             }
-
-            index = 1;
-            foreach (var info in dep_map)
-            {
-                if (info.Value.RefCount > 1)
-                {
-                    string path = info.Value.AssetPath;
-                    EditorUtility.DisplayProgressBar("设置依赖资源名字", path, (float)(index) / dep_map.Count);
-                    SetAbNameByPath(path);
-                    index++;
-                }
-            }
-
 
             EditorUtility.ClearProgressBar();
             Resources.UnloadUnusedAssets();
@@ -182,14 +157,14 @@ namespace SummerEditor
             int length = names.Length;
             for (int i = 0; i < length; i++)
             {
-                EditorUtility.DisplayProgressBar("设置AssetBundle名字", names[i], (float)(i + 1) / length);
+                EditorUtility.DisplayProgressBar("清除AssetBundle名字", "清除:" + names[i] + "的AssetBundle的名字", (float)(i + 1) / length);
                 AssetDatabase.RemoveAssetBundleName(names[i], true);
             }
             EditorUtility.ClearProgressBar();
             AssetDatabase.RemoveUnusedAssetBundleNames();
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
-            EditorUtility.DisplayDialog("清除AssetBundle", "清除完成，请查看", "OK");
+
         }
 
         #endregion

@@ -17,7 +17,7 @@ namespace SummerEditor
             "Assets/Raw/Animation/"
         };
 
-        public static string character_prefab_directory = "Assets/res_bundle/Prefab/Model/";                // 角色Prefab
+        public static string character_prefab_directory = "Assets/res_bundle/prefab/model/";                // 角色Prefab
         public static string search_suffix = "*.anim";                                                      // *.FBX        查询的目标是fbx还是anim
 
         #region 预处理

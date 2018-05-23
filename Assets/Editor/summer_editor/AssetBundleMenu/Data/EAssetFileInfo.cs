@@ -9,6 +9,8 @@ namespace SummerEditor
     /// </summary>
     public class EAssetFileInfo
     {
+        #region 属性
+
         public string asset_name;                                                           // 资产名称（有可能重名）
         public long guid;                                                                   // 唯一ID 需要取得 PathID 才能确保唯一性
         public E_AssetType asset_type;                                                      // 资源类型
@@ -19,17 +21,26 @@ namespace SummerEditor
 
         public bool InitAsset { get; set; }
 
+        #endregion
+
+        #region 构造
+
         public EAssetFileInfo(long uid)
         {
             guid = uid;
             InitAsset = false;
         }
 
+        #endregion
+
+        #region public
 
         public override string ToString()
         {
             return asset_name;
         }
+
+        #endregion
     }
 
 }

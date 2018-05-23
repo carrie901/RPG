@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Summer
+namespace SummerEditor
 {
     /// <summary>
     /// 想解决
@@ -12,40 +12,59 @@ namespace Summer
     ///   m1  fbx1
     ///   /    \
     ///  /      m1   这种情况
+    ///  
+    /// Yes  ---> A.Prefab的Deps  fbx1
+    /// No   ---> A.Prefab的Deps  fbx1 m1
     /// </summary>
     public class AssetBundleHelper
     {
-        /*public static string[] GetDependencies(string asset_path, bool recursive = true)
+
+        public static void FindRealDep(string asset_path, List<string> deps)
         {
-            if (!recursive)
+            deps.Clear();
+
+            string[] top_deps = AssetDatabase.GetDependencies(asset_path, false);
+            string[] all_deps = AssetDatabase.GetDependencies(asset_path, true);
+
+            Dictionary<string, int> no_top_deps = new Dictionary<string, int>();
+            no_top_deps.Add(asset_path, 1);
+
+            for (int i = top_deps.Length - 1; i >= 0; i--)
             {
-                string[] deps = AssetDatabase.GetDependencies(asset_path, false);
-                return deps;
+                _find_child_deps(no_top_deps, top_deps[i]);
             }
-            else
+
+            // 剔除了一些重复性质的资源
+            deps.AddRange(top_deps);
+            for (int i = deps.Count - 1; i >= 0; i--)
             {
-                string[] deps = AssetDatabase.GetDependencies(asset_path, true);
-                List<string> dep_list = new List<string>();
-                dep_list.AddRange(deps);
-
-                string[] tmp_deps = dep_list.ToArray();
-
-                return tmp_deps;
-
+                if (no_top_deps.ContainsKey(deps[i]))
+                {
+                    deps.RemoveAt(i);
+                }
             }
+
+            Debug.AssertFormat(deps.Count + no_top_deps.Count == all_deps.Length, "[{0}]依赖计算失败", asset_path);
         }
 
-
-        public static void GetDepsDeep(string asset_path, string[] deps)
+        // 资源的top依赖
+        public static void _find_child_deps(Dictionary<string, int> dep_map, string asset_path)
         {
-            string[] tmp_dep = AssetDatabase.GetDependencies(asset_path, false);
-            int length = tmp_dep.Length;
-            for (int i = 0; i < length; i++)
+            string[] top_deps = AssetDatabase.GetDependencies(asset_path, false);
+            for (int i = 0; i < top_deps.Length; i++)
             {
-                GetDepsDeep(tmp_dep[i], deps);
-            }
+                if (dep_map.ContainsKey(top_deps[i]))
+                {
+                    dep_map[top_deps[i]]++;
+                }
+                else
+                {
+                    dep_map.Add(top_deps[i], 1);
+                }
 
-        }*/
+                _find_child_deps(dep_map, top_deps[i]);
+            }
+        }
     }
 
 

@@ -52,7 +52,7 @@ namespace SummerEditor
 
         public static void WriteAnalysis()
         {
-            infos.Clear();
+            /*infos.Clear();
             Dictionary<string, EAssetMainInfo> asset_infos = AssetBundleAnalysisE._main_ab_map;
             foreach (var var_info in asset_infos)
             {
@@ -80,7 +80,7 @@ namespace SummerEditor
                     + "," + infos[i].ref_texture);
             }
 
-            FileHelper.WriteTxtByFile(csv_path, sb.ToString());
+            FileHelper.WriteTxtByFile(csv_path, sb.ToString());*/
         }
 
         [MenuItem("Tools/测试Ab/生成csv")]
