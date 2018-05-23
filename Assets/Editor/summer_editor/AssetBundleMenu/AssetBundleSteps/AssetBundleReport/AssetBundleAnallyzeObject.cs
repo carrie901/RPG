@@ -10,6 +10,7 @@ namespace SummerEditor
     {
         #region 属性
 
+        // Object的资源类型
         public static Dictionary<Type, E_AssetType> analyze_map = new Dictionary<Type, E_AssetType>()
         {
             {typeof (Mesh), E_AssetType.mesh},
@@ -25,6 +26,7 @@ namespace SummerEditor
             {typeof (UnityEditor.Animations.AnimatorController), E_AssetType.animations_animator_controller},
         };
 
+        // 针对Object的资源分析
         public static Dictionary<E_AssetType, Func<Object, SerializedObject, List<KeyValuePair<string, System.Object>>>>
             fun_map = new Dictionary<E_AssetType, Func<Object, SerializedObject, List<KeyValuePair<string, object>>>>()
             {
@@ -41,6 +43,7 @@ namespace SummerEditor
                 //{E_AssetType.animations_animator_controller, AnalyzeAnimationsAnimatorController},
             };
 
+        // 目前知道的内建资源
         public static List<string> builtin_res = new List<string>()
         {
             "Resources/unity_builtin_extra",
@@ -49,10 +52,14 @@ namespace SummerEditor
 
         #endregion
 
+        #region public
+
+        // 是否加入引用
         public static E_AssetType CheckObject(Object ob, EAssetBundleFileInfo assetbundle_file_info)
         {
             if (ob == null) return E_AssetType.none;
             Type object_type = ob.GetType();
+            // 1.剔除掉部分 比如Transform 脚本.cs等
             if (!analyze_map.ContainsKey(object_type))
             {
                 if (ob as Component) return E_AssetType.none;
@@ -76,6 +83,10 @@ namespace SummerEditor
                 Debug.LogError("使用了内建的资源" + asset_path + "_" + object_type + "_" + assetbundle_file_info.ab_name);
             return analyze_map[object_type];
         }
+
+        #endregion
+
+        #region 针对每一种类型进行分析
 
         #region Mesh 网格 
 
@@ -274,6 +285,8 @@ namespace SummerEditor
             var propertys = new List<KeyValuePair<string, System.Object>>();
             return propertys;
         }*/
+
+        #endregion
 
         #endregion
     }

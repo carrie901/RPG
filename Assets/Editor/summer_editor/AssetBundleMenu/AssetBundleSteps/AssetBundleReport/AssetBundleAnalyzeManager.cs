@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using UnityEditor.Animations;
 using Object = UnityEngine.Object;
 
 namespace SummerEditor
@@ -29,15 +26,57 @@ namespace SummerEditor
             }
 
             // 收集AB的信息
-            AnalyzeManifestAbDep();
-            AnalyzeBundleFiles();
-            CreateReport();
+            _analyze_collect_bundles();
+            _analyze_bundle_files();
+            _create_report();
+        }
+        
+        #region public 
+
+        public static Dictionary<long, EAssetFileInfo> FindAssetFiles()
+        {
+            return _asset_file_infos;
         }
 
+        public static List<EAssetBundleFileInfo> FindAssetBundleFiles()
+        {
+            return _asset_bundle_file_infos;
+        }
+
+        public static EAssetFileInfo FindAssetFile(long guid)
+        {
+            if (_asset_file_infos == null)
+            {
+                _asset_file_infos = new Dictionary<long, EAssetFileInfo>();
+            }
+
+            EAssetFileInfo info;
+            if (!_asset_file_infos.TryGetValue(guid, out info))
+            {
+                info = new EAssetFileInfo(guid);
+                _asset_file_infos.Add(guid, info);
+            }
+            return info;
+        }
+
+        public static void Clear()
+        {
+            _asset_file_infos.Clear();
+            _asset_bundle_file_infos.Clear();
+            EditorUtility.UnloadUnusedAssetsImmediate();
+            AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets();
+            GC.Collect();
+        }
+
+        #endregion
+
+        #region private
+
         /// <summary>
-        /// Manifest中的AB依赖相关信息
+        /// 收集bundle资源
         /// </summary>
-        public static void AnalyzeManifestAbDep()
+        public static void _analyze_collect_bundles()
         {
             _asset_bundle_file_infos.Clear();
             string manifest_path = EAssetBundleConst.ManifestPath;
@@ -59,7 +98,10 @@ namespace SummerEditor
             manifest_ab.Unload(true);
         }
 
-        public static void AnalyzeBundleFiles()
+        /// <summary>
+        /// 分析AssetBundle中有多少Asset资源
+        /// </summary>
+        public static void _analyze_bundle_files()
         {
             // 1.A 文件 被哪些文件引用
             foreach (var info in _asset_bundle_file_infos)
@@ -86,7 +128,7 @@ namespace SummerEditor
             Resources.UnloadUnusedAssets();
         }
 
-        public static void CreateReport()
+        public static void _create_report()
         {
             string dir = DateTime.Now.ToString("yyyy_MM_dd__HHmm");
             string report_dir = Application.dataPath + "/../Report/" + dir;
@@ -100,54 +142,9 @@ namespace SummerEditor
             MeshReport.CreateReport(report_dir);
         }
 
-        public static Dictionary<long, EAssetFileInfo> FindAssetFiles()
-        {
-            return _asset_file_infos;
-        }
-
-        public static List<EAssetBundleFileInfo> FindAssetBundleFiles()
-        {
-            return _asset_bundle_file_infos;
-        }
-
-        public static EAssetBundleFileInfo FindAssetBundleFile(string ab_name)
-        {
-            int length = _asset_bundle_file_infos.Count;
-            for (int i = 0; i < length; i++)
-            {
-                if (_asset_bundle_file_infos[i].ab_name == ab_name)
-                    return _asset_bundle_file_infos[i];
-            }
-            return null;
-        }
-
-        public static EAssetFileInfo FindAssetFile(long guid)
-        {
-            if (_asset_file_infos == null)
-            {
-                _asset_file_infos = new Dictionary<long, EAssetFileInfo>();
-            }
-
-            EAssetFileInfo info;
-            if (!_asset_file_infos.TryGetValue(guid, out info))
-            {
-                info = new EAssetFileInfo(guid);
-                _asset_file_infos.Add(guid, info);
-            }
-            return info;
-        }
-
-        public static void Clear()
-        {
-            _asset_file_infos.Clear();
-            _asset_bundle_file_infos.Clear();
-            EditorUtility.UnloadUnusedAssetsImmediate();
-            System.GC.Collect();
-        }
-
-        #region private
-
-        // 分析AssetBundle信息
+        /// <summary>
+        /// 分析AssetBundle中有多少Asset资源
+        /// </summary>
         public static void _analyze_assetbundle_file(EAssetBundleFileInfo assetbundle_file_info)
         {
             AssetBundle ab = AssetBundle.LoadFromFile(assetbundle_file_info.file_path);
@@ -178,7 +175,6 @@ namespace SummerEditor
                 if (ab != null) ab.Unload(true);
             }
         }
-
 
         private static PropertyInfo inspector_mode;
         // 分析Asset Object信息
