@@ -48,7 +48,7 @@ namespace SummerEditor
                                         "{3},{4},{5}," +
                                         "{6},{7},{8}," +
                                         "{9},{10},{11}",
-                info.ab_name, EMemorySizeHelper.GetKb(info.file_ab_memory_size), EMemorySizeHelper.GetKb(info.cal_ab_memory_size),
+                info.ab_name, EMemorySizeHelper.GetKb(info.file_ab_memory_size), " ",
                 info.all_depends.Count, info.FindRedundance(), info.GetAssetCount(E_AssetType.mesh),
                 info.GetAssetCount(E_AssetType.material), info.GetAssetCount(E_AssetType.texture), info.GetAssetCount(E_AssetType.shader),
                 info.GetAssetCount(E_AssetType.sprite), info.GetAssetCount(E_AssetType.animation_clip), info.GetAssetCount(E_AssetType.audio_clip)));

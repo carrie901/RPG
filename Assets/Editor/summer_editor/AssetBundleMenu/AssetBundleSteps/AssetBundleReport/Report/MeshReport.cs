@@ -30,7 +30,7 @@ namespace SummerEditor
                 List<KeyValuePair<string, System.Object>> values = asset_file_info.propertys;
 
                 sb.Append(string.Format("{0},{1},{2}," +
-                                        "{3},{4},{5},",
+                                        "{3},{4},{5}",
                 asset_file_info.asset_name, values[0].Value, values[1].Value,
                 values[2].Value, values[3].Value, values[4].Value));
 

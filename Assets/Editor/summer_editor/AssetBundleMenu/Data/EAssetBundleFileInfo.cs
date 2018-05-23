@@ -12,7 +12,7 @@ namespace SummerEditor
         public string ab_name;                                                          // 名称（不会重名）
         public string file_path;                                                        // file下的完整文件路径
         public long file_ab_memory_size;                                                // Ab的内存大小
-        public long cal_ab_memory_size;                                                 // 计算ab的内存大小
+        //public float cal_ab_memory_size;                                                 // 计算ab的内存大小
         public List<string> all_depends = new List<string>();                           // 所有依赖的AssetBundle列表
         public List<string> be_depends = new List<string>();                            // 所有被依赖的AssetBundle列表                                             // 是主包资源
         public List<EAssetFileInfo> dep_asset_files = new List<EAssetFileInfo>();       // 包含的资源名称

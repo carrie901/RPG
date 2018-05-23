@@ -29,8 +29,10 @@ namespace SummerEditor
             _analyze_collect_bundles();
             _analyze_bundle_files();
             _create_report();
+
+
         }
-        
+
         #region public 
 
         public static Dictionary<long, EAssetFileInfo> FindAssetFiles()
@@ -120,11 +122,15 @@ namespace SummerEditor
                 info.be_depends.AddRange(be_depends.ToArray());
             }
 
+            int index = 0;
             // 分析assetbundle下asset引用信息
             foreach (var info in _asset_bundle_file_infos)
             {
+                index++;
+                EditorUtility.DisplayProgressBar("分析Bundle的Asset资源", info.ab_name, 1.0f * index / _asset_bundle_file_infos.Count);
                 _analyze_assetbundle_file(info);
             }
+            EditorUtility.ClearProgressBar();
             Resources.UnloadUnusedAssets();
         }
 
@@ -140,6 +146,8 @@ namespace SummerEditor
             TextureReport.CreateReport(report_dir);
             AnimationClipReport.CreateReport(report_dir);
             MeshReport.CreateReport(report_dir);
+
+            EditorUtility.DisplayDialog("生成报告:", "报告路径:" + report_dir, "OK");
         }
 
         /// <summary>
@@ -209,7 +217,7 @@ namespace SummerEditor
 
 
             EAssetFileInfo asset_file_info = FindAssetFile(guid);
-
+            asset_file_info.size = EMemorySizeHelper.GetRuntimeMemorySize(asset_object);
             asset_file_info.InitAsset = true;
             asset_file_info.asset_name = asset_object.name;
             asset_file_info.asset_type = asset_type;

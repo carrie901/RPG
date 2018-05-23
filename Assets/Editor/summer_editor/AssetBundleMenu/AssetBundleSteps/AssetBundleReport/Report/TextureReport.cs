@@ -25,7 +25,7 @@ namespace SummerEditor
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine(string.Format("{0},{1},{2}," +
-                                       "{3},{4},{5}" +
+                                       "{3},{4},{5}," +
                                        "{6},{7},{8}",
                texture_name, width, height,
                format, mip_map, read_write,
