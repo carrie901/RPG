@@ -10,14 +10,14 @@ namespace Summer
         public int _load_count;
         public MainBundleInfo(string asset_name)
         {
-            _main_asset_name = asset_name;
-            string[] deps = AssetBundleLoader.instance._find_all_dependencies(_main_asset_name);
+            /*_main_asset_name = asset_name;
+            AssetBundleDepInfo dep_info = AssetBundleLoader.instance._find_all_dependencies(_main_asset_name);
 
-            if (deps != null)
+            if (dep_info != null)
             {
-                _load_count = deps.Length;
+                _load_count = dep_info.dep_count;
                 _dep_map = new Dictionary<string, int>(_load_count);
-            }
+            }*/
         }
 
         public void Reset()

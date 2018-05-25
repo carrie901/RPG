@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class AssetBundlePackage
+    public class AssetBundlePackageInfo
     {
         #region 属性
 
@@ -22,7 +22,7 @@ namespace Summer
 
         #endregion
 
-        public AssetBundlePackage(string[] infos)
+        public AssetBundlePackageInfo(string[] infos)
         {
             _package_path = infos[0];
             IsComplete = false;
@@ -30,7 +30,7 @@ namespace Summer
             for (int i = 1; i < infos.Length; i++)
             {
                 bool result = res_path_map.ContainsKey(infos[i]);
-                LogManager.Assert(result, "初始化AssetBundle的依赖信息失败，[{0}]", infos[i]);
+                LogManager.Assert(!result, "初始化AssetBundle的依赖信息失败，[{0}]", infos[i]);
                 if (result) continue;
                 res_path_map.Add(infos[i], 0);
             }
@@ -44,8 +44,6 @@ namespace Summer
             res_path_map.Add(res_path, 0);
         }
 
-
-
         #endregion
 
         public bool HasAssetBundle(string res_path)
@@ -55,16 +53,22 @@ namespace Summer
             return false;
         }
 
-        public void LoadAssetBundle(AssetBundle ab)
+        public void InitAssetBundle(AssetBundle ab)
         {
             if (ab == null) return;
             _assetbundle = ab;
             IsComplete = true;
 
             Object[] objs = ab.LoadAllAssets();
-            string[] AllAssetNames = ab.AllAssetNames();
-            bool flag = ab.Contains("a");
-            string[] assets = ab.GetAllScenePaths();
+            string[] all_asset_names = ab.GetAllAssetNames();
+            ab.Unload(false);
+        }
+
+        public Object LoadAsset(string asset_name)
+        {
+            if (_assetbundle == null) return null;
+            Object obj = _assetbundle.LoadAsset(asset_name);
+            return obj;
         }
 
         public void LoadAssetBundle(AssetBundle ab, Object[] objs)
@@ -74,6 +78,10 @@ namespace Summer
             IsComplete = true;
         }
 
+        public Object GetAsset(string asset_name)
+        {
+            return null;
+        }
 
         public void UnLoad(bool unload_all_loaded_objects)
         {

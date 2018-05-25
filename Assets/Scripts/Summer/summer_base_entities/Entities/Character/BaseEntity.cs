@@ -144,7 +144,7 @@ namespace Summer
             update_list.Add(_skill_set);
             //update_list.Add(_fsm_system);
             // 加载模型
-            BaseEntityController go = TransformPool.Instance.Pop<BaseEntityController>("prefab/model/character/" + "npc_zhaoyun_001_03"/*_cnf.prefab_name*/);
+            BaseEntityController go = TransformPool.Instance.Pop<BaseEntityController>("prefab/model/Character/" + "NPC_Zhaoyun_001_02"/*_cnf.prefab_name*/);
             EntityController = go;
             EntityController.InitOutTrigger(this, this);
 

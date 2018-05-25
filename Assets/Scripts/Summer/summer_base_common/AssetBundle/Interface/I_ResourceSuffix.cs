@@ -48,7 +48,12 @@ namespace Summer
         public const string AB_SUFFIX = ".ab";
         public override string GetSuffix<T>()
         {
-            return AB_SUFFIX;
+            //return AB_SUFFIX;
+            //return string.Empty;
+            /*string suffix;
+            _suffix_map.TryGetValue(typeof(T), out suffix);
+            return suffix;*/
+            return string.Empty;
         }
     }
 }

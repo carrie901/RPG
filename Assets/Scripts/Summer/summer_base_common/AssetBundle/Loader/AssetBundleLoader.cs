@@ -16,19 +16,26 @@ namespace Summer
     ///     1.1引用的问题，主引用和依赖引用
     ///     1.2处于别人的依赖包中/处于别人加载的包中
     /// 2. 无法处理同步和异步同事加载一个资源，而且也没有预警措施
+    /// 
+    /// 区分res_path路径，assetbundle_path,assetbundle_name
+    /// 分别是原始的加载路径（res/../a.prefab），对应的AB包路径(StreamingAssets/../a.ab)，ab的名字（a）
     /// </summary>
     public class AssetBundleLoader : I_ResourceLoad
     {
+        #region 静态
+
         public static AssetBundleLoader instance = new AssetBundleLoader();
 
-        public AssetBundleManifest _mainfest;                                       //主依赖文件
-        public bool _init_complete;                                                 //主文件加载完成
-        public string _evn_path;                                                    //环境路径
+        public static bool _init_complete;                                                 //主文件加载完成
+        public static string _evn_path;                                                    //环境路径
         public const int TIME_OUT = 120;
 
+        #endregion
+
         #region param
-        public Dictionary<string, string[]> _assetbundle_map
-            = new Dictionary<string, string[]>();
+
+        //public Dictionary<string, AssetBundlePackageInfo> package_map
+        //    = new Dictionary<string, AssetBundlePackageInfo>();
 
         public List<OloadOpertion> _load_opertions                                  //加载的请求
             = new List<OloadOpertion>(32);
@@ -39,17 +46,22 @@ namespace Summer
         protected Dictionary<string, DepBundleInfo> dep_bundles                     //依赖的资源包
             = new Dictionary<string, DepBundleInfo>();
 
-        protected List<string> on_loading_assetbundles                              //加载中的资源包
+        protected List<string> on_loading_ab_package                              //加载中的资源包
             = new List<string>();
 
         public Dictionary<string, string> _asset_list = new Dictionary<string, string>();
 
+
+        //public AssetBundleConfig ab_config;
         #endregion
 
         public AssetBundleLoader()
         {
-
-            string main_fest_path = Application.streamingAssetsPath + "/rpg/rpg";
+            AssetBundleConfig.Init();
+            _init_complete = true;
+            instance = this;
+            _evn_path = Application.streamingAssetsPath + "/rpg/";
+            /*string main_fest_path = Application.streamingAssetsPath + "/rpg/rpg";
             AssetBundle ab = AssetBundle.LoadFromFile(main_fest_path);
             _mainfest = ab.LoadAllAssets()[0] as AssetBundleManifest;
             if (_mainfest != null)
@@ -62,38 +74,46 @@ namespace Summer
                     string[] deps = _mainfest.GetAllDependencies(asset_names[i]);
                     _assetbundle_map.Add(asset_names[i], deps);
                 }
-                _init_complete = true;
-
-                _evn_path = Application.streamingAssetsPath + "/rpg/";
-                instance = this;
-            }
+            }*/
 
         }
 
         #region I_ResourceLoad
 
-        public Object LoadAsset(string path)
+        public Object LoadAsset(string res_path)
         {
-            path = "res_bundle/" + path;
-            string assetbundle_name, asset_name;
-            // 1.解析文件路径信息
-            _parse_path(path, out assetbundle_name, out asset_name);
-
-            assetbundle_name = assetbundle_name.ToUpper();
-            // 2.加载AssetBundle
-            AssetBundle asset_target = _load_assetbundle(assetbundle_name);
-
-            if (asset_target == null)
+            AssetBundleRes res_info;
+            AssetBundleConfig.res_map.TryGetValue(res_path, out res_info);
+            if (res_info == null)
             {
-                ResLog.Error("找不到对应的资源，地址:{0}", path);
+                ResLog.Error("资源[{0}]找不到对应的包", res_path);
                 return null;
             }
 
-            _cal_ref(assetbundle_name);
-            // 3.加载Asset
-            Object obj = asset_target.LoadAsset(asset_name);
-            asset_target.Unload(false);
+            //res_path = "res_bundle/" + res_path;
+            //string assetbundle_name, asset_name;
+            // 1.解析文件路径信息
+            //_parse_path(res_path, out assetbundle_name, out asset_name);
+            AssetBundlePackageInfo info = _load_assetbundle_package(res_info);
+
+            if (info == null) return null;
+            Object obj = info.LoadAsset(res_info.res_name);
             return obj;
+            // 2.加载AssetBundle
+            /*AssetBundle asset_target = _load_assetbundle(res_info);
+
+            if (asset_target == null)
+            {
+                ResLog.Error("找不到对应的资源，地址:{0}", res_path);
+                return null;
+            }
+
+            _cal_ref(res_info);
+            // 3.加载Asset
+            Object obj = asset_target.LoadAsset(res_info.res_name);
+            asset_target.Unload(false);
+            return obj;*/
+            /*return null;*/
         }
 
         public OloadOpertion LoadAssetAsync(string path)
@@ -146,7 +166,7 @@ namespace Summer
         // AssetBundle是否处于加载状态
         public bool ContainsLoadAssetBundles(string assetbundle_name)
         {
-            return on_loading_assetbundles.Contains(assetbundle_name);
+            return on_loading_ab_package.Contains(assetbundle_name);
         }
 
         #endregion
@@ -166,52 +186,50 @@ namespace Summer
             asset_name = path.Substring(index + 1);
         }
 
-        // 同步加载主资源
-        public AssetBundle _load_assetbundle(string assetbundle_name)
+        public AssetBundlePackageInfo _load_assetbundle_package(AssetBundleRes res_info)
         {
             // 1.检测是否处于加载状态
-            if (on_loading_assetbundles.Contains(assetbundle_name))
+            if (on_loading_ab_package.Contains(res_info.package_path))
             {
-                ResLog.Error("当前资源处于异步加载中.[{0}]", assetbundle_name);
+                ResLog.Error("当前资源处于异步加载中.[{0}]", res_info.package_path);
                 return null;
             }
 
             // 2.加载依赖的AssetBundle
-            _load_dependencies_assetbundle(assetbundle_name);
-
-            AssetBundle asset_target = null;
-            // 3.根据地址加载AssetBundle,并且缓存
-            if (!load_assetbundles.ContainsKey(assetbundle_name))
+            _load_dependencies_assetbundle(res_info);
+            AssetBundlePackageInfo package_info;
+            if (!AssetBundleConfig.package_map.TryGetValue(res_info.package_path, out package_info))
             {
-                // 3.1生成MainAssetInfo
-                _find_main_asset(assetbundle_name);
-                // 3.2加载的全路径
-                string asset_path = _evn_path + assetbundle_name;
-                // 3.3加载资源
-                //asset_target = AssetBundle.LoadFromFile(asset_path+".ab");	
-                asset_target = AssetBundle.LoadFromFile(asset_path);
-                //asset_target.Unload(false);
+                ResLog.Error("资源路径[{0}]对应的主包:[{1}]不存在", res_info.res_path, res_info.package_path);
+                return null;
+            }
+
+            if (package_info.IsComplete)
+            {
+                package_info.GetAsset(res_info.res_name);
             }
             else
             {
-                ResLog.Error("_load_assetbundle/主包资源重复加载.路径:[{0}]", assetbundle_name);
+                // 优化掉这一步
+                string asset_path = _evn_path + package_info.PackagePath;
+                AssetBundle assetbundle = AssetBundle.LoadFromFile(asset_path);
+                package_info.InitAssetBundle(assetbundle);
             }
-
-            return asset_target;
+            return package_info;
         }
 
         // 同步加载依赖的AssetBundle
-        public void _load_dependencies_assetbundle(string assetbundle_name)
+        public void _load_dependencies_assetbundle(AssetBundleRes res_info)
         {
             // 1.初始化完毕
             if (!_init_complete) return;
 
             //TODO 待优化缓存这一部分内容
-            string[] deps = _find_all_dependencies(assetbundle_name);
-            int length = deps.Length;
-            for (int i = 0; i < length; i++)
+            AssetBundleDepInfo dep_info = AssetBundleConfig.GetDepInfo(res_info.package_path);
+            int length = dep_info.dep_count;
+            foreach (var info in dep_info.child_ref)
             {
-                string dependencies = deps[i];
+                string dependencies = info.Key;
                 if (!dep_bundles.ContainsKey(dependencies))
                 {
                     AssetBundle asset_bundle = AssetBundle.LoadFromFile(_evn_path + dependencies);
@@ -230,7 +248,7 @@ namespace Summer
                 int load_count = dep_info.Value;
                 if (load_count == 0)
                     ResLog.Error("_new_load_dependencies_assetbundle_async Error,[{0}]", assetbundle_name);
-                if (on_loading_assetbundles.Contains(assetbundle_name))
+                if (on_loading_ab_package.Contains(assetbundle_name))
                 {
                     OabLoadWaitOpertion wait_opertion = new OabLoadWaitOpertion(assetbundle_name, TIME_OUT);
                     _load_opertions.Add(wait_opertion);
@@ -241,23 +259,23 @@ namespace Summer
                 else
                 {
                     //将ab_name加入加载中列表
-                    on_loading_assetbundles.Add(assetbundle_name);
+                    on_loading_ab_package.Add(assetbundle_name);
                     string real_path = _evn_path + assetbundle_name;
                     OabDepLoadOpertion ab_async_opertion = new OabDepLoadOpertion(real_path, assetbundle_name);
                     _load_opertions.Add(ab_async_opertion);
                     yield return ab_async_opertion;
                     info.LoadComplete(assetbundle_name);
                     //将ab从加载中列表移除
-                    on_loading_assetbundles.Remove(assetbundle_name);
+                    on_loading_ab_package.Remove(assetbundle_name);
                 }
             }
             yield return null;
         }
 
         // 计算引用
-        public void _cal_ref(string assetbundle_name)
+        public void _cal_ref(AssetBundleRes res_info)
         {
-            string[] deps = _find_all_dependencies(assetbundle_name);
+            /*AssetBundleDepInfo dep_info = _find_all_dependencies(assetbundle_name);
             int length = deps.Length;
             for (int i = 0; i < length; i++)
             {
@@ -272,22 +290,21 @@ namespace Summer
                 {
                     ResLog.Error("[{0}]找不到依赖资源[{1}]", assetbundle_name, dep_name);
                 }
-            }
+            }*/
         }
 
         // 依赖信息
-        public string[] _find_all_dependencies(string assetbundle_name)
+        /*public AssetBundleDepInfo _find_all_dependencies(string assetbundle_path)
         {
-            string[] deps;
-            if (_assetbundle_map.TryGetValue(assetbundle_name, out deps))
+            AssetBundleDepInfo dep_info;
+            if (AssetBundleConfig.dep_map.TryGetValue(assetbundle_path, out dep_info))
             {
-                return deps;
+                return dep_info;
             }
 
-            ResLog.Error("不可能出现的情况，尼玛居然出现了" + assetbundle_name + "_____" + _assetbundle_map.Count);
-            deps = _mainfest.GetAllDependencies(assetbundle_name);
-            return deps;
-        }
+            ResLog.Error("不可能出现的情况，尼玛居然出现了[{0}]______", assetbundle_path);
+            return null;
+        }*/
 
         // 得到主资源的属性
         public MainBundleInfo _find_main_asset(string assetbundle_name)
@@ -308,140 +325,5 @@ namespace Summer
 
 
         #endregion
-
-
-
-        /*public IEnumerator _load_assetbundle_async(string assetbundle_name, string asset_name, Action<Object> complete)
-        {
-            // 1.如果主包中已经包含了那么直接回调
-            if (load_assetbundles.ContainsKey(assetbundle_name))
-            {
-                LogManager.Error("主包中已经包含对应的资源，但应该在上层已经屏蔽掉，本层只做加载,[{0}]", assetbundle_name);
-                yield break;
-            }
-            // 2.如果处于其他请求在处理的依赖包
-            if (on_loading_assetbundles.Contains(assetbundle_name))
-            {
-                LogManager.Error("加载的资源处于正在加载中，但主资源的加载属于非本层加载,非法路径:[{0}]", assetbundle_name);
-                yield break;
-            }
-
-            // 3.将ab_name加入加载中列表
-            on_loading_assetbundles.Add(assetbundle_name);
-            // 4.加载依赖资源
-            yield return _load_dependencies_assetbundle_async(assetbundle_name);
-            // 5.创建异步加载请求
-            OabAsyncLoadOpertion ab_async_opertion
-                = new OabAsyncLoadOpertion(_evn_path + assetbundle_name, asset_name);
-            _load_opertions.Add(ab_async_opertion);
-            // 6.等待主包加载完成
-            yield return ab_async_opertion;
-            // 7.把ab_namec从加载中列表移除
-            on_loading_assetbundles.Remove(assetbundle_name);
-            // 8.缓存数据
-            _pop_to_cache(assetbundle_name);
-
-            complete(ab_async_opertion.GetAsset());
-        }*/
-
-
-        //TODO 还没想好又是主资源又是依赖资源的情况
-        /* public IEnumerator _load_dependencies_assetbundle_async(string assetbundle_name)
-         {
-             // 1.得到依赖信息
-             string[] dependencies_asset_bundles = _find_all_dependencies(assetbundle_name);
-
-             // 2.依次加载依赖信息
-             int length = dependencies_asset_bundles.Length;
-             for (int i = 0; i < length; i++)
-             {
-                 string dep_assetbundle_name = dependencies_asset_bundles[i];
-
-                 // 3.如果处于其他请求在处理的依赖包
-                 if (on_loading_assetbundles.Contains(assetbundle_name))
-                 {
-                     float time_out = 60f;
-                     while (time_out > 0)
-                     {
-                         time_out -= Time.timeScale * Time.deltaTime;
-                         yield return null;
-
-                         if (on_loading_assetbundles.Contains(assetbundle_name))
-                             continue;
-                         break;
-                     }
-                     // 3.2如果是其他依赖包发起的加载，那么直接开始下一个依赖包的加载
-                     if (dep_bundles.ContainsKey(dep_assetbundle_name))
-                     {
-                         continue;
-                     }
-                     //TODO
-                     // 3.3如果是主包发起的加载，那么这次请求只需要将主包拷贝入依赖列表
-                 }
-
-                 // 4.将ab_name加入加载中列表
-                 on_loading_assetbundles.Add(assetbundle_name);
-                 // 5.创建异步加载请求
-                 AssetBundleCreateRequest asset_bundle_dependencies = AssetBundle.LoadFromFileAsync(_evn_path + dep_assetbundle_name);
-                 // 6.等待请求完成
-                 yield return asset_bundle_dependencies;
-                 // 在依赖包中增加请求的assetbundle
-                 if (asset_bundle_dependencies.assetBundle != null)
-                 {
-                     dep_bundles.Add(dep_assetbundle_name, new DepBundleInfo(asset_bundle_dependencies.assetBundle));
-                 }
-
-                 //将 asset bundle 从加载中列表移除
-                 on_loading_assetbundles.Remove(assetbundle_name);
-             }
-         }*/
-    }
-
-/*    public class AssetBundleConfig
-    {
-        public const char SPLIT = ',';
-        public static string split_huanhang = "\r\n";
-        public const string AB_CONFIG = "AbResConfig";                      // 主加载资源所在的AB包 名称
-        public Dictionary<string, string> _asset_list = new Dictionary<string, string>();
-        public AssetBundleConfig()
-        {
-            _load_config();
-        }
-
-        // 通过资源名字,知道他所在的Ab包名称
-        public string FindAbNameByResName(string res_name)
-        {
-            if (_asset_list.ContainsKey(res_name))
-                return _asset_list[res_name];
-            return string.Empty;
-        }
-
-        public void _load_config()
-        {
-            string main_fest_path = Application.streamingAssetsPath + "/Assetbundle/" + AB_CONFIG;
-
-            AssetBundle ab = AssetBundle.LoadFromFile(main_fest_path);
-            TextAsset text_asset = ab.LoadAsset("AbResConfig") as TextAsset;
-            if (text_asset == null) return;
-            string[] contexts = text_asset.text.Split(SPLIT);
-            int length = contexts.Length;
-
-            _asset_list.Clear();
-            for (int i = 0; i < length; i++)
-            {
-                string[] info = StringHelper.SplitString(contexts[i], split_huanhang);
-
-                _asset_list.Add(info[0], info[1]);
-            }
-        }
-    }*/
-
-
-
-
-    public class AbConfig
-    {
-        // key,value -->key=res/../ 下的路径没有后缀 value=加载路径
-        public Dictionary<string, string[]> _ab_path = new Dictionary<string, string[]>();
     }
 }

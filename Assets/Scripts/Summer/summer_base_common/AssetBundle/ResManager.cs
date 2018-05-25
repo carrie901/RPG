@@ -39,6 +39,8 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
     public ResManager()
     {
 
+        //AssetBundleSuffix 剔除这个 
+
         //通过修改配置文件,并且通过工具来调整
         // 4.RESOUCES 前期本地和发布用
         //_loader = ResoucesLoader.instance;

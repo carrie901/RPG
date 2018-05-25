@@ -46,7 +46,7 @@ namespace SummerEditor
 
                     List<string> result = new List<string>();
 
-
+                    main_ab_path = EPathHelper.RemoveSuffix(main_ab_path);
                     result.Add(main_ab_path.Replace(EAssetBundleConst.main_res_driectory, string.Empty));
                     result.Add(ab_name);
                     result_map.Add(result);
@@ -68,7 +68,7 @@ namespace SummerEditor
                 result.Add(ab_name);
                 for (int k = 0; k < asset_bundle_names.Length; k++)
                 {
-                    result.Add(asset_bundle_names[k]);
+                    result.Add(asset_bundle_names[k].Replace("Assets/", string.Empty));
                 }
                 result_map.Add(result);
             }
@@ -83,8 +83,7 @@ namespace SummerEditor
             for (int i = 0; i < length; i++)
             {
                 List<string> result = new List<string>();
-                string[] deps = AssetDatabase.GetAssetBundleDependencies(asset_bundles[i],true);
-
+                string[] deps = AssetDatabase.GetAssetBundleDependencies(asset_bundles[i], true);
                 result.Add(asset_bundles[i]);
                 result.Add(deps.Length.ToString());
                 for (int k = 0; k < deps.Length; k++)
@@ -96,7 +95,6 @@ namespace SummerEditor
             CreateConfig(result_map, AssetBundleConst.dep_config_name);
         }
 
-
         // 创建配置文件
         public static void CreateConfig(List<List<string>> result_map, string path)
         {
@@ -107,7 +105,14 @@ namespace SummerEditor
             for (int i = 0; i < length; i++)
             {
                 List<string> values = result_map[i];
-                sb.AppendLine(values[0] + "," + values[1]);
+                for (int k = 0; k < values.Count; k++)
+                {
+                    if (k == values.Count - 1)
+                        sb.Append(values[k]);
+                    else
+                        sb.Append(values[k] + ",");
+                }
+                sb.AppendLine();
             }
             Summer.FileHelper.WriteTxtByFile(path, sb.ToString());
         }
