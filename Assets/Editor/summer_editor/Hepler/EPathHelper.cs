@@ -130,10 +130,7 @@ namespace SummerEditor
         /// </summary>
         public static List<string> GetAssetsPath(string root_path, bool deep, string suffix = "*.*")
         {
-            List<string> ret = new List<string>();
-            ScanDirectoryFile(root_path, deep, ret, suffix);
-            NoEndsWithFilter filter = new NoEndsWithFilter(".meta");
-            SuffixHelper.Filter(ret, filter);
+            List<string> ret = GetFilesPath(root_path,deep,suffix);
             for (int i = 0; i < ret.Count; ++i)
             {
                 ret[i] = AbsoluteToRelativePathWithAssets(ret[i]);
@@ -142,22 +139,19 @@ namespace SummerEditor
             return ret;
         }
 
-        public static List<string> GetAssetPathList(string root_path, bool deep, string suffix = "*.*")
+        public static List<string> GetFilesPath(string root_path, bool deep, string suffix = "*.*")
         {
             List<string> ret = new List<string>();
             ScanDirectoryFile(root_path, deep, ret, suffix);
-
-            for (int i = 0; i < ret.Count; ++i)
-            {
-                ret[i] = FormatAssetPath(ret[i]);
-            }
-
+            NoEndsWithFilter filter = new NoEndsWithFilter(".meta");
+            SuffixHelper.Filter(ret, filter);
             return ret;
         }
+
         /// <summary>
         /// 扫描文件夹 返回所有的文件路径
         /// </summary>
-        public static void ScanDirectoryFile(string root, bool deep, List<string> list, string suffix = "*.*")
+        protected static void ScanDirectoryFile(string root, bool deep, List<string> list, string suffix = "*.*")
         {
             if (string.IsNullOrEmpty(root) || !Directory.Exists(root))
             {
@@ -181,23 +175,6 @@ namespace SummerEditor
                 {
                     ScanDirectoryFile(dirs[i].FullName, true, list, suffix);
                 }
-            }
-        }
-
-        public static void ScanDirectory(string root, List<string> list)
-        {
-            list.Clear();
-            if (string.IsNullOrEmpty(root) || !Directory.Exists(root))
-            {
-                Debug.LogError("scan directory file failed! " + root);
-                return;
-            }
-
-            DirectoryInfo dir_info = new DirectoryInfo(root);
-            DirectoryInfo[] child_dirs = dir_info.GetDirectories();
-            for (int i = 0; i < child_dirs.Length; i++)
-            {
-                list.Add(child_dirs[i].FullName);
             }
         }
 

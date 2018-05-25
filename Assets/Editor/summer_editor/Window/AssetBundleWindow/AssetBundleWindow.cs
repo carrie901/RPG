@@ -11,8 +11,8 @@ namespace SummerEditor
     public class AssetBundleWindow : EditorWindow
     {
 
-        protected static AssetBundleWindow window;     // 自定义窗体
-        protected static AssetBundleWindow _instance = new AssetBundleWindow();
+        //protected static AssetBundleWindow window;     // 自定义窗体
+        //protected static AssetBundleWindow _instance = new AssetBundleWindow();
 
         public ETreeNodeItem _item;
         public EOpenList open_list;

@@ -39,7 +39,9 @@ namespace Summer
                 string[] tmp = { str_content };
                 return tmp;
             }
-            return Regex.Split(str_content, Regex.Escape(str_split), RegexOptions.IgnoreCase);
+
+            return str_content.Split(new string[] { str_split }, StringSplitOptions.None);
+            //return Regex.Split(str_content, Regex.Escape(str_split), RegexOptions.IgnoreCase);
         }
 
         #endregion

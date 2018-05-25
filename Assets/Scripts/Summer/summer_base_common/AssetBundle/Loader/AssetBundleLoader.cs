@@ -48,7 +48,7 @@ namespace Summer
 
         public AssetBundleLoader()
         {
-            Resources.UnloadUnusedAssets();
+
             string main_fest_path = Application.streamingAssetsPath + "/rpg/rpg";
             AssetBundle ab = AssetBundle.LoadFromFile(main_fest_path);
             _mainfest = ab.LoadAllAssets()[0] as AssetBundleManifest;
@@ -79,6 +79,7 @@ namespace Summer
             // 1.解析文件路径信息
             _parse_path(path, out assetbundle_name, out asset_name);
 
+            assetbundle_name = assetbundle_name.ToUpper();
             // 2.加载AssetBundle
             AssetBundle asset_target = _load_assetbundle(assetbundle_name);
 
@@ -283,7 +284,7 @@ namespace Summer
                 return deps;
             }
 
-            ResLog.Error("不可能出现的情况，尼玛居然出现了"+ assetbundle_name+"_____" +_assetbundle_map.Count);
+            ResLog.Error("不可能出现的情况，尼玛居然出现了" + assetbundle_name + "_____" + _assetbundle_map.Count);
             deps = _mainfest.GetAllDependencies(assetbundle_name);
             return deps;
         }
@@ -396,7 +397,7 @@ namespace Summer
          }*/
     }
 
-    public class AssetBundleConfig
+/*    public class AssetBundleConfig
     {
         public const char SPLIT = ',';
         public static string split_huanhang = "\r\n";
@@ -433,7 +434,10 @@ namespace Summer
                 _asset_list.Add(info[0], info[1]);
             }
         }
-    }
+    }*/
+
+
+
 
     public class AbConfig
     {

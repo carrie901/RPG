@@ -7,7 +7,7 @@ namespace SummerEditor
     public class EAssetBundleConst
     {
         public static string main_res_driectory = "Assets/res_bundle/";                             // 主资源扫描的目录
-        public static string config_name = "Assets/res_bundle/ResConfig.bytes";                     // 配置文件名称
+        
         public const string SUFFIX_META = ".meta";                                                  // 忽略资源主目录的类型
 
         public const string ASSETBUNDLE_EXTENSION = ".ab";                      // 后缀名

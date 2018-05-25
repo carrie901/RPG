@@ -17,7 +17,7 @@ namespace SummerEditor
         public static void AllSeoAnimation()
         {
 
-            List<string> anim_paths = EPathHelper.GetAssetPathList(anim_directory, true, SUFFIX_ANIM);
+            List<string> anim_paths = EPathHelper.GetAssetsPath(anim_directory, true, SUFFIX_ANIM);
 
             int length = anim_paths.Count;
             for (int i = 0; i < length; i++)

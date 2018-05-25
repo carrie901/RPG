@@ -11,6 +11,7 @@ namespace Summer
     /// CreateTime : 2017-8-3
     /// FileName : FileHelper.cs
     /// 关于一些String的处理
+    /// TODO 转移到Editor中去，保留读取和写入功能
     //=============================================================================
     public class FileHelper
     {

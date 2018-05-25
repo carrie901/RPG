@@ -28,7 +28,7 @@ namespace SummerEditor
             //List<string> all_animation = new List<string>(animation_all);
 
             // 1.找到需要处理的角色prefab
-            List<string> char_prefab_path = EPathHelper.GetAssetPathList(character_prefab_directory, false, "*.prefab");
+            List<string> char_prefab_path = EPathHelper.GetAssetsPath(character_prefab_directory, false, "*.prefab");
             int length = char_prefab_path.Count;
             for (int i = 0; i < length; i++)
             {
@@ -120,23 +120,27 @@ namespace SummerEditor
         // 查找指定目录下的所有动画文件
         public static List<AnimationClip> _find_animation_clip(string folder_path)
         {
+
             List<AnimationClip> clips = new List<AnimationClip>();
-            List<string> anims_path = EPathHelper.GetAssetPathList(folder_path, false, search_suffix);
+            List<string> anims_path = EPathHelper.GetAssetsPath(folder_path, false, search_suffix);
 
             int length = anims_path.Count;
             for (int i = 0; i < length; i++)
             {
+                EditorUtility.DisplayProgressBar("加载动画文件,", anims_path[i], (1 + i) / length);
                 AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(anims_path[i]);
                 if (clip == null) continue;
                 clips.Add(clip);
             }
+            EditorUtility.ClearProgressBar();
             return clips;
         }
 
         // 根据相对路径得到名字,根据一定的规则得到原始动作文件夹
         public static string _find_file_folder(string file_path)
         {
-            string npc_name = file_path.Split('_')[1].Split('.')[0];
+            string asset_name = EPathHelper.GetName(file_path);
+            string npc_name = asset_name.Split('_')[1].Split('.')[0];
 
 
             for (int i = 0; i < raw_anim_directory.Length; i++)

@@ -17,15 +17,15 @@ namespace SummerEditor
         //[MenuItem("Tools/Animation/分离动画")]
         public static void AllSeparationAnimationByFbx()
         {
-            List<string> dirs = new List<string>();
-            EPathHelper.ScanDirectory(raw_anim_directory, dirs);
+            List<string> asset_paths = EPathHelper.GetAssetsPath(raw_anim_directory, false, "*.FBX");
 
-            int length = dirs.Count;
+
+            int length = asset_paths.Count;
             for (int i = 0; i < length; i++)
             {
                 List<AnimationClip> clips = new List<AnimationClip>();
 
-                string asset_path = EPathHelper.AbsoluteToRelativePathWithAssets(dirs[i]);
+                string asset_path = asset_paths[i];
                 string anim_folder = FindAnimsByFolder(asset_path, clips);
                 if (string.IsNullOrEmpty(anim_folder) || clips.Count == 0) continue;
                 anim_folder = GetFolderName(anim_folder);

@@ -15,15 +15,15 @@ namespace SummerEditor
         public static void AllAnalysisAsset()
         {
             _all_assets.Clear();
-            List<string> tmp_paths = EPathHelper.GetAssetPathList(EAssetBundleConst.main_res_driectory, true, "*.*");
-            SuffixHelper.Filter(tmp_paths, new NoEndsWithFilter(EAssetBundleConst.SUFFIX_META));
+            //List<string> tmp_paths = EPathHelper.GetAssetPathList(EAssetBundleConst.main_res_driectory, true, "*.*");
+            //SuffixHelper.Filter(tmp_paths, new NoEndsWithFilter(EAssetBundleConst.SUFFIX_META));
 
             List<string> asset_paths = EPathHelper.GetAssetsPath(EAssetBundleConst.main_res_driectory, true);
-            if (tmp_paths.Count != asset_paths.Count)
+            /*if (tmp_paths.Count != asset_paths.Count)
             {
                 Debug.LogError("路径查找错误");
                 return;
-            }
+            }*/
             int length = asset_paths.Count;
             for (int i = 0; i < length; i++)
             {
