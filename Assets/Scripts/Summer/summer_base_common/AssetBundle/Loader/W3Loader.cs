@@ -12,7 +12,7 @@ namespace Summer
             throw new NotImplementedException();
         }
 
-        public OloadOpertion LoadAssetAsync(string path)
+        public LoadOpertion LoadAssetAsync(string path)
         {
             throw new NotImplementedException();
         }
@@ -27,7 +27,7 @@ namespace Summer
             throw new NotImplementedException();
         }
 
-        public void Update()
+        public void OnUpdate()
         {
             throw new NotImplementedException();
         }

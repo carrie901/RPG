@@ -19,7 +19,7 @@ namespace Summer
             return Resources.Load(path);
         }
 
-        public OloadOpertion LoadAssetAsync(string path)
+        public LoadOpertion LoadAssetAsync(string path)
         {
             ResAsynLoadOpertion res_opertion = AddRequest(path);
             return res_opertion;
@@ -35,12 +35,12 @@ namespace Summer
             return true;
         }
 
-        public void Update()
+        public void OnUpdate()
         {
             int length = _load_opertions.Count - 1;
             for (int i = length; i >= 0; i--)
             {
-                if (_load_opertions[i].Update())
+                if (_load_opertions[i].OnUpdate())
                 {
                     RemoveRequest(_load_opertions[i]);
                 }
@@ -54,6 +54,7 @@ namespace Summer
         protected ResAsynLoadOpertion AddRequest(string res_path)
         {
             ResAsynLoadOpertion res_opertion = new ResAsynLoadOpertion(res_path);
+            res_opertion.OnInit();
             _load_opertions.Add(res_opertion);
             _loading.Add(res_path, 1);
             return res_opertion;

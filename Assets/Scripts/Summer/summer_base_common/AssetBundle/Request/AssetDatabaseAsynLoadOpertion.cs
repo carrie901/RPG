@@ -2,17 +2,17 @@
 
 namespace Summer
 {
-    public class OlocalLoadOpertion : OloadOpertion
+    public class AssetDatabaseAsynLoadOpertion : LoadOpertion
     {
         public string _path;
         public int frame = 3;
         public bool is_complete;
         public Object _obj;
-        public OlocalLoadOpertion(string path)
+        public AssetDatabaseAsynLoadOpertion(string path)
         {
             _path = path;
         }
-        public override bool Update()
+        protected override bool Update()
         {
 #if UNITY_EDITOR
             frame--;
@@ -36,7 +36,7 @@ namespace Summer
             return _obj;
         }
 
-        public override void UnloadAssetBundle()
+        public override void UnloadRequest()
         {
 
         }

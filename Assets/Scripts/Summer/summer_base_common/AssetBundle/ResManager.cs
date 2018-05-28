@@ -46,7 +46,7 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
         //_loader = ResoucesLoader.instance;
 
         // 2.ASSETBUNDLE 实际发布用
-        _loader = AssetBundleLoader.instance;
+        _loader = AssetBundleLoader.Instance;
         _res_suffix = new AssetBundleSuffix();
         // 3.WWW 实际发布用
         //_loader = W3Loader.instance;
@@ -159,7 +159,7 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
 
         */
         if (_loader != null)
-            _loader.Update();
+            _loader.OnUpdate();
     }
 
     #endregion
@@ -384,7 +384,7 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
             _on_loading_res.Add(assetbundle_name);
             // 4.请求异步加载
             TimeManager.BeginSampleTime();
-            OloadOpertion load_opertion = _loader.LoadAssetAsync(assetbundle_name);
+            LoadOpertion load_opertion = _loader.LoadAssetAsync(assetbundle_name);
             // 等待加载完成
             yield return load_opertion;
             AssetInfo asset_info = new AssetInfo(load_opertion.GetAsset(), name, res_type);
@@ -392,7 +392,7 @@ public class ResManager : I_TextureLoad, I_AudioLoad, I_PrefabLoad
             asset_info.load_time = TimeManager.EndSimpleTime();
             asset_info.async = true;
             // 6.卸载信息
-            load_opertion.UnloadAssetBundle();
+            load_opertion.UnloadRequest();
             // 7.t推送到内存中
             _push_asset_to_cache(asset_info);
             _on_loading_res.Remove(assetbundle_name);
@@ -498,16 +498,18 @@ public class ResLog
         LogManager.Error(message, args);
     }
 
-    public static void Assert(bool condition, string message)
+    public static bool Assert(bool condition, string message)
     {
-        if (!LogManager.open_load_res) return;
+        if (!LogManager.open_load_res) return condition;
         LogManager.Assert(condition, message);
+        return condition;
     }
 
-    public static void Assert(bool condition, string message, params object[] args)
+    public static bool Assert(bool condition, string message, params object[] args)
     {
-        if (!LogManager.open_load_res) return;
+        if (!LogManager.open_load_res) return condition;
         LogManager.Assert(condition, message, args);
+        return condition;
     }
 
     #endregion

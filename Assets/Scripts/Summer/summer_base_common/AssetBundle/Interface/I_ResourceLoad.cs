@@ -19,7 +19,7 @@ namespace Summer
         /// <summary>
         /// 异步加载
         /// </summary>
-        OloadOpertion LoadAssetAsync(string path);
+        LoadOpertion LoadAssetAsync(string path);
 
         /// <summary>
         /// 处于加载中
@@ -28,7 +28,7 @@ namespace Summer
 
         bool UnloadAssetBundle(string assetbundle_path);
 
-        void Update();
+        void OnUpdate();
     }
 
     #endregion

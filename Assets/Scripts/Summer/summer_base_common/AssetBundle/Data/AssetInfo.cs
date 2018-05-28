@@ -30,6 +30,16 @@ namespace Summer
             AssetType = E_AssetType.none;
         }
 
+        public AssetInfo(Object obj)
+        {
+            GameResType = E_GameResType.shanchu;
+            _object = obj;
+            _asset_name = obj.name;
+
+            AssetType = E_AssetType.teshu;
+            ResLog.Assert(!string.IsNullOrEmpty(_asset_name), "名字有异常:[{0}]", _object);
+        }
+
         public T GetAsset<T>() where T : Object
         {
             T t = _object as T;

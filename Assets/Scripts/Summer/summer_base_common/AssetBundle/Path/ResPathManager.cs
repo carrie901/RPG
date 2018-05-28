@@ -28,6 +28,8 @@ public enum E_GameResType
     // ui 特效
     ui_effect,
 
+    shanchu,
+
 }
 
 /// <summary>

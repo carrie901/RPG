@@ -15,6 +15,7 @@ namespace Summer
         textasset,      // .txt, .bytes
         prefab,         // .prefab
         unity,          // .unity
+        teshu,
         max
     }
 

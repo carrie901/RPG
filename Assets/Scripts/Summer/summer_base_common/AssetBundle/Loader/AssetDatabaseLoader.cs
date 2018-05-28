@@ -10,8 +10,8 @@ namespace Summer
         public static AssetDatabaseLoader instance = new AssetDatabaseLoader();
         public const string EVN = "Assets/res_bundle/";
 
-        public List<OloadOpertion> _load_opertions                                  //加载的请求
-         = new List<OloadOpertion>(32);
+        public List<LoadOpertion> _load_opertions                                  //加载的请求
+         = new List<LoadOpertion>(32);
 
         #region I_ResourceLoad
 
@@ -20,10 +20,11 @@ namespace Summer
             return AssetDatabase.LoadAssetAtPath<Object>(EVN + path);
         }
 
-        public OloadOpertion LoadAssetAsync(string path)
+        public LoadOpertion LoadAssetAsync(string path)
         {
-            LocalAsynOpertion asyn_local = new LocalAsynOpertion(EVN + path);
+            AssetDatabaseAsynLoadOpertion asyn_local = new AssetDatabaseAsynLoadOpertion(EVN + path);
             _load_opertions.Add(asyn_local);
+            asyn_local.OnInit();
             return asyn_local;
         }
 
@@ -42,12 +43,12 @@ namespace Summer
             return true;
         }
 
-        public void Update()
+        public void OnUpdate()
         {
             int length = _load_opertions.Count - 1;
             for (int i = length; i >= 0; i--)
             {
-                if (_load_opertions[i].Update())
+                if (_load_opertions[i].OnUpdate())
                 {
                     _load_opertions.RemoveAt(i);
                 }

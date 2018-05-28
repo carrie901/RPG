@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 namespace Summer
 {
-    public class ResAsynLoadOpertion : OloadOpertion
+    public class ResAsynLoadOpertion : LoadOpertion
     {
         public string Path { get { return _path; } }
 
@@ -12,7 +12,7 @@ namespace Summer
             _path = path;
         }
 
-        public override bool Update()
+        protected override bool Update()
         {
             if (_request == null)
             {
@@ -46,7 +46,7 @@ namespace Summer
                 return null;
         }
 
-        public override void UnloadAssetBundle()
+        public override void UnloadRequest()
         {
 
         }

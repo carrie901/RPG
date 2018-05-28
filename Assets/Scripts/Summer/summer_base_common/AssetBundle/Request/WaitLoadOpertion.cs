@@ -7,13 +7,13 @@ namespace Summer
     /// 需要加载的资源已经处于加载状态了
     /// 需要等待别人加载好
     /// </summary>
-    public class OabLoadWaitOpertion : OloadOpertion
+    public class WaitLoadOpertion : LoadOpertion
     {
         public float _time_out;                     // 超时时间
         public float _load_time;                    // 已经加载的时间
         public string _assetbundle_name;            // 资源的名字
         public bool _is_complete;                   // 加载完成
-        public OabLoadWaitOpertion(string assetbundle_name, float time_out)
+        public WaitLoadOpertion(string assetbundle_name, float time_out)
         {
             _assetbundle_name = assetbundle_name;
             _time_out = time_out;
@@ -21,7 +21,7 @@ namespace Summer
             _is_complete = false;
         }
 
-        public override bool Update()
+        protected override bool Update()
         {
             _load_time += Time.timeScale * Time.deltaTime;
             // 1.超时就强制性质完成
@@ -32,7 +32,7 @@ namespace Summer
             }
 
             // 2.处于加载状态
-            _is_complete = (AssetBundleLoader.instance.ContainsLoadAssetBundles(_assetbundle_name));
+            _is_complete = (AssetBundleLoader.Instance.ContainsLoadAssetBundles(_assetbundle_name));
             // 3.如果还出加载状态，返回未完成
             if (!_is_complete)
                 return false;
@@ -51,7 +51,7 @@ namespace Summer
             return null;
         }
 
-        public override void UnloadAssetBundle()
+        public override void UnloadRequest()
         {
 
         }
