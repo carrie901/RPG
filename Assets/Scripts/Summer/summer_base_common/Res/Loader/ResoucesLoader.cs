@@ -14,9 +14,12 @@ namespace Summer
             new Dictionary<string, int>();
         #region I_ResourceLoad
 
-        public Object LoadAsset(string path)
+        public AssetInfo LoadAsset(string path)
         {
-            return Resources.Load(path);
+            Object obj = Resources.Load(path);
+            ResLog.Assert(obj != null, "ResoucesLoader 加载失败:[{0}]", path);
+            AssetInfo info = new AssetInfo(obj, path);
+            return info;
         }
 
         public LoadOpertion LoadAssetAsync(string path)
@@ -63,7 +66,7 @@ namespace Summer
         protected void RemoveRequest(ResAsynLoadOpertion opertion)
         {
             _load_opertions.Remove(opertion);
-            _loading.Remove(opertion.Path);
+            _loading.Remove(opertion.RequestResPath);
         }
 
         #endregion

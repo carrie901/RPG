@@ -12,12 +12,17 @@ namespace Summer
 
         public List<LoadOpertion> _load_opertions                                  //加载的请求
          = new List<LoadOpertion>(32);
-
+        public Dictionary<string, int> _loading =
+            new Dictionary<string, int>();
         #region I_ResourceLoad
 
-        public Object LoadAsset(string path)
+        public AssetInfo LoadAsset(string path)
         {
-            return AssetDatabase.LoadAssetAtPath<Object>(EVN + path);
+            Object obj = AssetDatabase.LoadAssetAtPath<Object>(EVN + path);
+
+            ResLog.Assert(obj != null, "AssetDatabaseLoader 加载失败:[{0}]", path);
+            AssetInfo info = new AssetInfo(obj, path);
+            return info;
         }
 
         public LoadOpertion LoadAssetAsync(string path)
@@ -25,12 +30,13 @@ namespace Summer
             AssetDatabaseAsynLoadOpertion asyn_local = new AssetDatabaseAsynLoadOpertion(EVN + path);
             _load_opertions.Add(asyn_local);
             asyn_local.OnInit();
+            _loading.Add(path, 1);
             return asyn_local;
         }
 
-        public bool HasInLoading(string name)
+        public bool HasInLoading(string res_path)
         {
-            return true;
+            return _loading.ContainsKey(res_path);
         }
 
         public bool UnloadAll()
@@ -50,9 +56,20 @@ namespace Summer
             {
                 if (_load_opertions[i].OnUpdate())
                 {
-                    _load_opertions.RemoveAt(i);
+                    RemoveRequest(_load_opertions[i]);
+                    
                 }
             }
+        }
+
+        #endregion
+
+        #region private
+
+        protected void RemoveRequest(LoadOpertion opertion)
+        {
+            _load_opertions.Remove(opertion);
+            _loading.Remove(opertion.RequestResPath);
         }
 
         #endregion

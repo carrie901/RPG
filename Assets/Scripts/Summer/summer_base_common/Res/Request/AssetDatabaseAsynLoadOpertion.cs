@@ -4,13 +4,12 @@ namespace Summer
 {
     public class AssetDatabaseAsynLoadOpertion : LoadOpertion
     {
-        public string _path;
         public int frame = 3;
         public bool is_complete;
         public Object _obj;
         public AssetDatabaseAsynLoadOpertion(string path)
         {
-            _path = path;
+            RequestResPath = path;
         }
         protected override bool Update()
         {
@@ -18,10 +17,10 @@ namespace Summer
             frame--;
             if (frame > 0)
                 return false;
-            _obj = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(_path);
+            _obj = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(RequestResPath);
             is_complete = true;
             if (_obj == null)
-                LogManager.Error("本地加载资源出错,Path:[{0}]", _path);
+                LogManager.Error("本地加载资源出错,Path:[{0}]", RequestResPath);
 #endif
             return true;
         }

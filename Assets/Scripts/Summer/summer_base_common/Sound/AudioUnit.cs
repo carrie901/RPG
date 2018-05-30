@@ -111,7 +111,7 @@ namespace Summer
         // 初始化音效的参数
         public void _init_sound_info()
         {
-            if (_sound_info == null) return;
+            /*if (_sound_info == null) return;
             _length = -1;
             sound_name = _sound_info.name;
             Id = _sound_info.ID;
@@ -125,7 +125,7 @@ namespace Summer
             else
             {
                 LogManager.Error("加载音效失败:[{0}]", _sound_info.name);
-            }
+            }*/
         }
 
         // 清除跟随目标

@@ -17,8 +17,9 @@ namespace Summer
 
         public override I_PoolObjectAbility Create()
         {
+            ResRequestInfo res_request=ResRequestFactory.CreateRequest<GameObject>(FactoryName);
             // 加载
-            GameObject go = ResManager.instance.LoadPrefab(FactoryName, E_GameResType.quanming);
+            GameObject go = ResManager.instance.LoadPrefab(res_request);
 
             PoolDefaultRectTransform po = go.GetComponent<PoolDefaultRectTransform>();
             if (po == null)

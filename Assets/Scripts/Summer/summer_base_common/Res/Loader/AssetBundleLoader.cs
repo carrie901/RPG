@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -62,7 +60,7 @@ namespace Summer
         #region I_ResourceLoad
 
         // TODO Bug没有好的防御机制，在加载失败的情况下，不会导致整个程序死掉
-        public Object LoadAsset(string res_path)
+        public AssetInfo LoadAsset(string res_path)
         {
             // 1.资源对应的包信息
             AssetBundleRes res_info = GetAssetBundleRes(res_path);
@@ -83,10 +81,10 @@ namespace Summer
             _internal_syncload_package(main_package_info);
 
             // 3.包中的资源
-            Object obj = main_package_info.GetAsset(res_info.res_name)._object;
-            ResLog.Assert((obj != null), "找不到对应包中的资源，地址:{0}", res_path);
+            AssetInfo asset_info = main_package_info.GetAsset(res_info.res_name);
+            ResLog.Assert((asset_info != null), "找不到对应包中的资源，地址:{0}", res_path);
 
-            return obj;
+            return asset_info;
         }
 
         public LoadOpertion LoadAssetAsync(string res_path)

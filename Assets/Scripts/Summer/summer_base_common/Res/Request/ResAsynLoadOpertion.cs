@@ -3,13 +3,12 @@ namespace Summer
 {
     public class ResAsynLoadOpertion : LoadOpertion
     {
-        public string Path { get { return _path; } }
 
         protected ResourceRequest _request = null;
         public string _path;
         public ResAsynLoadOpertion(string path)
         {
-            _path = path;
+            RequestResPath = path;
         }
 
         protected override bool Update()
@@ -22,7 +21,7 @@ namespace Summer
 
             if (_request != null)
             {
-                ResLog.Log("等待加载:{0},加载状态{1}", Path, _request.isDone);
+                ResLog.Log("等待加载:{0},加载状态{1}", RequestResPath, _request.isDone);
                 if (_request.isDone)
                     return true;
                 else

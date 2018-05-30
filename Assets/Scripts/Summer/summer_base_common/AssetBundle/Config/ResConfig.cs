@@ -21,7 +21,7 @@ namespace Summer
 
         private ResConfig()
         {
-            string text = ResManager.instance.LoadText("Config/BuffEffectConfig");
+            string text = ResManager.instance.LoadText(ResRequestFactory.CreateRequest<TextAsset>("Config/BuffEffectConfig"));
 
             ResMd md = new ResMd();
             md.ParseText(text);

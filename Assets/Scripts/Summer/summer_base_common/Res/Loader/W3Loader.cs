@@ -7,7 +7,7 @@ namespace Summer
     {
         public static W3Loader instance = new W3Loader();
 
-        public Object LoadAsset(string path)
+        public AssetInfo LoadAsset(string path)
         {
             throw new NotImplementedException();
         }

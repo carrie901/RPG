@@ -11,7 +11,7 @@ namespace Summer
     /// </summary>
     public abstract class LoadOpertion : IEnumerator
     {
-        public string RequestName { get; protected set; }       // 请求命令的名字
+        public string RequestResPath { get; protected set; }       // 请求命令的名字
         public string Error { get; private set; }               // 错误信息
         protected bool _is_complete_request;                    // 结束请求
         protected bool _is_start_init;                          // 开始初始化
@@ -74,7 +74,7 @@ namespace Summer
         public abstract UnityEngine.Object GetAsset();
 
         /// <summary>
-        /// 卸载
+        /// 卸载加载请求
         /// </summary>
         public abstract void UnloadRequest();
 

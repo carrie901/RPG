@@ -45,6 +45,14 @@ namespace Summer
     /// </summary>
     public class EndsWithFilter : NameFilter
     {
+        public EndsWithFilter()
+        {
+
+        }
+        public EndsWithFilter(string suffix) : base(suffix)
+        {
+        }
+
         #region 
 
         public override bool FilterContent(string path)

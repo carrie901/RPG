@@ -17,8 +17,7 @@ namespace Summer
     /// </summary>
     public class RefCounter : MonoBehaviour
     {
-        public string ref_name = string.Empty;
-        public E_GameResType ref_type;
+        public string ref_res_path = string.Empty;
         void Awake()
         {
             //ResManager.instance.RefIncrease(ref_name, ref_type);
@@ -29,22 +28,21 @@ namespace Summer
             RemoveRef();
         }
 
-        public void AddRef(string r_name, E_GameResType type)
+        public void AddRef(string res_path)
         {
-            ref_name = r_name;
-            ref_type = type;
-            ResManager.instance.RefIncrease(ref_name, ref_type);
+            ref_res_path = res_path;
+            ResManager.instance.RefIncrease(res_path);
             AddExcute();
         }
 
         public void RemoveRef()
         {
-            if (string.IsNullOrEmpty(ref_name) || ref_type == E_GameResType.none)
+            if (string.IsNullOrEmpty(ref_res_path))
             {
-                ResLog.Error("Ref Decrease Error. Name:[{0}],GameResType:[{1}]", ref_name, ref_type);
+                ResLog.Error("Ref Decrease Error. Name:[{0}],GameResType:[{1}]", ref_res_path);
             }
             RemoveExcute();
-            ResManager.instance.RefDecrease(ref_name, ref_type);
+            ResManager.instance.RefDecrease(ref_res_path);
         }
 
         public virtual void AddExcute()

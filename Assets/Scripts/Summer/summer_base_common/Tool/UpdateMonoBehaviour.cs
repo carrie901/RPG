@@ -1,17 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+using Summer.Loader;
 namespace Summer
 {
-    public class UpdateManager : MonoBehaviour
+    public class UpdateMonoBehaviour : MonoBehaviour
     {
         public TimerManager timer;
         public EntitesManager entites;
+        public ResLoader rse_loader;
         private void Start()
         {
             timer = TimerManager.Instance;
             entites = EntitesManager.Instance;
+            rse_loader = ResLoader.instance;
         }
 
         // Update is called once per frame
@@ -21,6 +21,8 @@ namespace Summer
             timer.OnUpdate(dt);
 
             entites.OnUpdate(dt);
+
+            rse_loader.OnUpdate(dt);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Summer.Test
 
             _nexttime_to_gen_moving_target = 0;
 
-            _target_dummy_object = ResManager.instance.LoadPrefab("Misc/Target");
+            //_target_dummy_object = ResManager.instance.LoadPrefab("Misc/Target");
             //_target_dummy_object = GameResourceManager.instance.LoadResource("Misc/Target");
 
             return this;

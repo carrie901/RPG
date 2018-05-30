@@ -146,7 +146,17 @@ namespace SummerEditor
                 }
             }
             propertys.Add(new KeyValuePair<string, object>("依赖纹理", tex_names));
-
+            Material mat = obj as Material;
+            MaterialProperty[] pro_tes = MaterialEditor.GetMaterialProperties(new Object[] { obj });
+            for (int i = 0; pro_tes != null && i < pro_tes.Length; ++i)
+            {
+                if (pro_tes[i].type == MaterialProperty.PropType.Texture)
+                {
+                    Texture tex = mat.GetTexture(pro_tes[i].name);
+                    string path = AssetDatabase.GetAssetPath(tex);
+                }
+            }
+          
             return propertys;
         }
 

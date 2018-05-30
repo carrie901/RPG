@@ -17,6 +17,9 @@ using UnityEngine;
 
 namespace Summer
 {
+    /// <summary>
+    /// 有什么好的办法处理模型性质的Log
+    /// </summary>
     public class LogManager
     {
         #region 属性

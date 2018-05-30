@@ -20,7 +20,7 @@ namespace Summer
         {
             if (package_info != null)
             {
-                RequestName = package_info.PackagePath;
+                RequestResPath = package_info.PackagePath;
                 _package_info = package_info;
                 _bundle_name = package_info.FullPath;
             }
@@ -74,10 +74,10 @@ namespace Summer
 
         public override void UnloadRequest()
         {
-            if (_assetbundle != null)
+            /*if (_assetbundle != null)
                 _assetbundle.Unload(false);
             else
-                LogManager.Error("OabDepLoadOpertion Error,AssetBundle is null.Path:[0]", _bundle_name);
+                LogManager.Error("OabDepLoadOpertion Error,AssetBundle is null.Path:[0]", _bundle_name);*/
         }
     }
 }

@@ -51,7 +51,8 @@ namespace Summer.Test
             //add unity
             if (GUILayout.Button("Add Entity"))
             {
-                GameObject go = ResManager.instance.LoadPrefab("Zombie/z", E_GameResType.quanming);//GameResourceManager.instance.LoadResource("Zombie/z");
+                ResRequestInfo res_request = ResRequestFactory.CreateRequest<GameObject>("Zombie/z", E_GameResType.quanming);
+                GameObject go = ResManager.instance.LoadPrefab(res_request);//GameResourceManager.instance.LoadResource("Zombie/z");
                 if (go != null)
                 {
                     AIEnityManager.Instance.AddEntity(go.AddComponent<AIEntity>().Init());

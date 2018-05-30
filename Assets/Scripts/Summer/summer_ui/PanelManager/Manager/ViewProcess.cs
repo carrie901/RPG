@@ -85,7 +85,8 @@ namespace Summer
             if (data == null) return null;
             string path = data.GetViewPath();
             //GameObject obj = Resources.Load(path) as GameObject;
-            GameObject obj = ResManager.instance.LoadAsset<GameObject>(path, E_GameResType.ui_prefab);
+            ResRequestInfo res_request = ResRequestFactory.CreateRequest<GameObject>(path, E_GameResType.ui_prefab);
+            GameObject obj = ResManager.instance.LoadPrefab(res_request, false);
             return obj;
         }
 

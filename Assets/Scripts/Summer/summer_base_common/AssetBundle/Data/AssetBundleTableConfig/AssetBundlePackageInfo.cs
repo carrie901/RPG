@@ -54,7 +54,7 @@ namespace Summer
             for (int i = 0; i < objs.Length; i++)
             {
                 AssetInfo info = new AssetInfo(objs[i]);
-                _asset_map.Add(info.Name, info);
+                _asset_map.Add(info.ResPath, info);
             }
 
             //ab.Unload(false);
