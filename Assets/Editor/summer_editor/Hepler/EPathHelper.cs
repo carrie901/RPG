@@ -130,7 +130,7 @@ namespace SummerEditor
         /// </summary>
         public static List<string> GetAssetsPath(string root_path, bool deep, string suffix = "*.*")
         {
-            List<string> ret = GetFilesPath(root_path,deep,suffix);
+            List<string> ret = GetFilesPath(root_path, deep, suffix);
             for (int i = 0; i < ret.Count; ++i)
             {
                 ret[i] = AbsoluteToRelativePathWithAssets(ret[i]);
@@ -206,6 +206,17 @@ namespace SummerEditor
             else
                 return file_path.Substring(index);
         }
+
+        public static string GetName1(string file_path)
+        {
+            file_path = NormalizePath(file_path);
+            int index = file_path.LastIndexOf('/');
+            if (index < 0)
+                return file_path;
+            else
+                return file_path.Substring(index + 1);
+        }
+
 
         #endregion
 

@@ -27,7 +27,7 @@ namespace Summer
         {
             get
             {
-                if (_instance==null)
+                if (_instance == null)
                 {
                     _instance = new AssetBundleLoader();
                     Init();
@@ -40,6 +40,25 @@ namespace Summer
               = new Dictionary<string, AssetBundleDepInfo>();
         public static Dictionary<string, AssetBundleRes> res_map
            = new Dictionary<string, AssetBundleRes>();
+
+        #endregion
+
+        #region 构造
+
+        public Dictionary<string, string[]> dep_maps = new Dictionary<string, string[]>();
+        public AssetBundleLoader()
+        {
+            AssetBundle ab = AssetBundle.LoadFromFile(AssetBundleConst.GetAssetBundleRootDirectory() + "/rpg");
+            AssetBundleManifest manifest = ab.LoadAllAssets()[0] as AssetBundleManifest;
+
+            string[] all_ab = manifest.GetAllAssetBundles();
+            for (int i = 0; i < all_ab.Length; i++)
+            {
+                string[] deps = manifest.GetAllDependencies(all_ab[i]);
+                dep_maps.Add(all_ab[i], deps);
+            }
+        }
+
         #endregion
 
         #region param
@@ -81,9 +100,7 @@ namespace Summer
             _internal_syncload_package(main_package_info);
 
             // 3.包中的资源
-            AssetInfo asset_info = main_package_info.GetAsset(res_info.res_name);
-            ResLog.Assert((asset_info != null), "找不到对应包中的资源，地址:{0}", res_path);
-
+            AssetInfo asset_info = main_package_info.GetAsset(res_info.res_path);
             return asset_info;
         }
 
@@ -160,6 +177,10 @@ namespace Summer
         public void _internal_syncload_package(AssetBundlePackageInfo package_info)
         {
             AssetBundle assetbundle = AssetBundle.LoadFromFile(package_info.FullPath);
+            bool result = (assetbundle != null);
+            ResLog.Assert(result, "同步加载AssetBundlePack失败，路径不存在:[{0}]", package_info.PackagePath);
+
+            if (assetbundle == null) return;
             Object[] objs = assetbundle.LoadAllAssets();
             package_info.InitAssetBundle(assetbundle, objs);
         }

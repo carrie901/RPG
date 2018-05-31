@@ -128,7 +128,6 @@ namespace Summer
                 text_length = 0;
             return text_length;
         }
-
     }
 
     public static class StringExtension

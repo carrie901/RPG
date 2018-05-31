@@ -8,6 +8,7 @@
             if (data == null) return;
 
             PoolVfxObject vfx_go = TransformPool.Instance.Pop<PoolVfxObject>(data.effect_name);
+            if (vfx_go) return;
             vfx_go.SetLifeTime(2f);
             vfx_go.BindGameobject(entity.EntityController.gameObject);
         }

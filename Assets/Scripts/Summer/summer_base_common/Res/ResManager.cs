@@ -23,7 +23,7 @@ using Object = UnityEngine.Object;
 /// 
 /// 那么针对资源具体的卸载。就需要根据不同类型资源不同的卸载策略了。所以quanming这个不一定是bug问题
 /// </summary>
-public class ResManager : I_ResLoad
+public class ResManager : I_ResManager
 {
     public static ResManager instance = new ResManager();
     public Texture _bg_loading;                                     // 异步加载时的图片资源
@@ -172,16 +172,17 @@ public class ResManager : I_ResLoad
 
     public void LoadAnimationClipAsync(ResRequestInfo res_request, Action<AnimationClip> complete)
     {
-         _res_loader.LoadAssetAsync<AnimationClip>(res_request, complete);
+        _res_loader.LoadAssetAsync<AnimationClip>(res_request, complete);
     }
 
     #endregion
 
     #region GameObject
 
-    public GameObject LoadPrefab(ResRequestInfo res_request, bool is_copy=true)
+    public GameObject LoadPrefab(ResRequestInfo res_request, bool is_copy = true)
     {
         GameObject prefab_gameobj = _res_loader.LoadAsset<GameObject>(res_request);
+        if (prefab_gameobj == null) return null;
         if (!is_copy)
         {
             return prefab_gameobj;

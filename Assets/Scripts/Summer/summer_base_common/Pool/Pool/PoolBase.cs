@@ -30,13 +30,15 @@ namespace Summer
             if (_in.Count == 0)
             {
                 pa = _factory.Create();
-                pa.OnInit();
+                if (pa != null)
+                    pa.OnInit();
             }
             else
             {
                 pa = _in[_in.Count - 1];
                 _in.Remove(pa);
             }
+            if (pa == null) return null;
             _out.Add(pa);
             pa.OnPop();
             return pa;

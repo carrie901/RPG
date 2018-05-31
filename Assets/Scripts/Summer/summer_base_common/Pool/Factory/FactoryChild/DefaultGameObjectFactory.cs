@@ -22,6 +22,11 @@ namespace Summer
         {
             ResRequestInfo res_request = ResRequestFactory.CreateRequest<GameObject>(FactoryName);
             GameObject go = ResManager.instance.LoadPrefab(res_request);
+            if (go == null)
+            {
+                LogManager.Error("缓存池_加载[{0}]失败", _factory_name);
+                return null;
+            }
             PoolDefaultGameObject po = go.GetComponent<PoolDefaultGameObject>();
             if (po == null)
             {

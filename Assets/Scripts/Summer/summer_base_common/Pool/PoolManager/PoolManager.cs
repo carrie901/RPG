@@ -40,7 +40,7 @@ namespace Summer
             I_PoolObjectAbility po = pool_base.Pop();
             T t = po as T;
             if (t == null)
-                LogManager.Error("po:[{0}]", po);
+                LogManager.Error("po:[{0}],[{1}]", po, prefab_name);
             return t;
         }
 

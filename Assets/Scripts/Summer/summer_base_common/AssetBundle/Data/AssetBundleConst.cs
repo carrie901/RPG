@@ -34,7 +34,7 @@ namespace Summer
         #endregion
 
         public static string assetbundle_main_directory = Application.streamingAssetsPath + "/rpg/";   // 打AssetBundle资源到指定的目录
-
+        public static string res_directory = "res_bundle";
 
 
 

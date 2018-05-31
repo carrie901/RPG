@@ -21,13 +21,21 @@ namespace Summer
             ResPath = res_info.res_path;
         }
 
-        public AssetInfo(Object obj)
+        public AssetInfo(Object obj, string res_name, string res_path)
+        {
+            _object = obj;
+            //ResName = obj.name;
+            ResPath = res_path;
+            ResLog.Assert(!string.IsNullOrEmpty(ResPath), "名字有异常:[{0}]", _object);
+        }
+
+        /*public AssetInfo(Object obj)
         {
             _object = obj;
             //ResName = obj.name;
             ResPath = obj.name;
             ResLog.Assert(!string.IsNullOrEmpty(ResPath), "名字有异常:[{0}]", _object);
-        }
+        }*/
 
         public AssetInfo(Object obj,string res_path)
         {

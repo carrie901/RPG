@@ -68,7 +68,7 @@ namespace Summer.Loader
             if (asset_info != null)
                 return asset_info.GetAsset<T>();
 
-            ResLog.Error("找不到对应的资源，路径:[{0}]", res_request.res_path);
+            //ResLog.Error("ResLoader结论,加载资源失败路径:[{0}]", res_request.res_path);
             return null;
         }
 
@@ -130,7 +130,7 @@ namespace Summer.Loader
         public void _internal_load_asset<T>(ResRequestInfo request_info) where T : Object
         {
             AssetInfo asset_info = _loader.LoadAsset(request_info.res_path);
-            ResLog.Assert(asset_info != null, "内部加载,找不到对应的资源，路径:[{0}]", request_info.res_path);
+            ResLog.Assert(asset_info != null, "ResLoader结论:内部加载失败,找不到对应的资源，路径:[{0}]", request_info.res_path);
             _push_asset_to_cache(asset_info);
         }
 

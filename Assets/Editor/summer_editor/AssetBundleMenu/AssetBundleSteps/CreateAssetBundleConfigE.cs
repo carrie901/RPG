@@ -47,7 +47,7 @@ namespace SummerEditor
                     List<string> result = new List<string>();
 
                     main_ab_path = EPathHelper.RemoveSuffix(main_ab_path);
-                    result.Add(main_ab_path.Replace(EAssetBundleConst.main_res_driectory, string.Empty));
+                    result.Add(main_ab_path.Replace("Assets/", string.Empty));
                     result.Add(ab_name);
                     result_map.Add(result);
                 }
@@ -68,7 +68,12 @@ namespace SummerEditor
                 result.Add(ab_name);
                 for (int k = 0; k < asset_bundle_names.Length; k++)
                 {
-                    result.Add(asset_bundle_names[k].Replace("Assets/", string.Empty));
+                    string no_suffix = EPathHelper.RemoveSuffix(asset_bundle_names[k]);
+                    string tmp_name = EPathHelper.GetName1(no_suffix);
+                    Debug.Assert(!string.IsNullOrEmpty(tmp_name), asset_bundle_names[k]);
+
+                    result.Add(no_suffix.Replace("Assets/", string.Empty));
+                    result.Add(tmp_name);
                 }
                 result_map.Add(result);
             }

@@ -45,7 +45,7 @@ namespace Summer
         public SkillLeafNode CreateEffect(SpellInfoCnf cnf)
         {
             PlayEffectLeafNode pe = SkillNodeActionFactory.Create<PlayEffectLeafNode>();
-            pe.effect_name = "Prefab/Vfx/Skill/" + cnf.skill_effect[0];
+            pe.effect_name = "res_bundle/prefab/vfx/Skill/" + cnf.skill_effect[0];
             return pe;
         }
 

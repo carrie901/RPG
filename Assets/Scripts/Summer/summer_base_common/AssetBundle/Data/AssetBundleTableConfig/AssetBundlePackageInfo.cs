@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Summer
 {
     /// <summary>
-    /// AssetBundle包
+    /// AssetBundle包信息
     /// </summary>
     public class AssetBundlePackageInfo
     {
@@ -19,8 +18,12 @@ namespace Summer
         public string _package_path;                                                            // 包的路径
         public string _hash_code;                                                               // 哈希code值
         public AssetBundle _assetbundle;
-        public Dictionary<string, int> _res_path_map = new Dictionary<string, int>();           // 资源路径
+        //public List<string> _res_path_map = new List<string>();                                 // 资源路径
+        public Dictionary<string, string> _res_path_map = new Dictionary<string, string>();
+        public Dictionary<string, string> _res_names = new Dictionary<string, string>();
         public Dictionary<string, AssetInfo> _asset_map = new Dictionary<string, AssetInfo>();
+
+        public List<Object> _fbx = new List<Object>();
         //public bool IsMain { get; private set; }
 
         #endregion
@@ -32,12 +35,14 @@ namespace Summer
             _package_path = infos[0];
             IsComplete = false;
             FullPath = AssetBundleConst.GetAssetBundleRootDirectory() + _package_path;
-            for (int i = 1; i < infos.Length; i++)
+            for (int i = 1; i < infos.Length; i = i + 2)
             {
                 bool result = _res_path_map.ContainsKey(infos[i]);
                 LogManager.Assert(!result, "初始化AssetBundle的依赖信息失败，[{0}]", infos[i]);
                 if (result) continue;
-                _res_path_map.Add(infos[i], 0);
+
+                _res_path_map.Add(infos[i], infos[i + 1]);
+                _res_names.Add(infos[i + 1], infos[i]);
             }
         }
 
@@ -53,8 +58,16 @@ namespace Summer
             _asset_map.Clear();
             for (int i = 0; i < objs.Length; i++)
             {
-                AssetInfo info = new AssetInfo(objs[i]);
-                _asset_map.Add(info.ResPath, info);
+                string obj_name = objs[i].name;
+                if (_res_names.ContainsKey(obj_name))
+                {
+                    AssetInfo info = new AssetInfo(objs[i], _res_names[obj_name]);
+                    _asset_map.Add(info.ResPath, info);
+                }
+                else
+                {
+                    _fbx.Add(objs[i]);
+                }
             }
 
             //ab.Unload(false);
@@ -65,6 +78,8 @@ namespace Summer
             if (_assetbundle == null) return null;
             AssetInfo asset_info;
             _asset_map.TryGetValue(asset_name, out asset_info);
+
+            ResLog.Assert((asset_info != null), "从资源主包[{0}]中找不到对应的AssetInfo:[{1}]的资源", _package_path, asset_name);
             return asset_info;
         }
 
