@@ -204,7 +204,7 @@ namespace Summer
             AssetInfo asset_info;
             if (!_map_res.TryGetValue(res_request.res_path, out asset_info))
                 return null;
-            asset_info.RefCount++;
+            //asset_info.RefCount++;
             return asset_info;
         }
 
@@ -222,7 +222,7 @@ namespace Summer
             }
             else
             {
-                asset_info.RefCount--;
+                //asset_info.RefCount--;
             }
             return true;
         }

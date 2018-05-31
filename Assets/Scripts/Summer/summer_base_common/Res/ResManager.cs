@@ -169,6 +169,7 @@ public class ResManager : I_ResManager
             return prefab_gameobj;
         }
         GameObject instantiste_gameobj = GameObjectHelper.Instantiate(prefab_gameobj);
+        _internal_ref_increase(res_request, instantiste_gameobj);
         return instantiste_gameobj;
     }
 
@@ -177,6 +178,7 @@ public class ResManager : I_ResManager
         Action<GameObject> action = delegate (GameObject game_object)
         {
             GameObject instantiste_gameobj = GameObjectHelper.Instantiate(game_object);
+            _internal_ref_increase(res_request, instantiste_gameobj);
             if (complete != null)
                 complete.Invoke(instantiste_gameobj);
         };
