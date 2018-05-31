@@ -5,7 +5,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 
-namespace Summer.Loader
+namespace Summer
 {
     public class ResLoader : I_Update
     {
@@ -25,6 +25,7 @@ namespace Summer.Loader
         #endregion
 
         #region 构造
+
         public ResLoader()
         {
             //通过修改配置文件,并且通过工具来调整
@@ -47,7 +48,6 @@ namespace Summer.Loader
 
             _init();
         }
-
 
         #endregion
 
@@ -109,7 +109,30 @@ namespace Summer.Loader
 
         #endregion
 
-        #region
+        #region 引用
+
+        public void RefIncrease(string res_path)
+        {
+            if (!_map_res.ContainsKey(res_path)) return;
+            // 1.找到资源
+            AssetInfo asset_info = _map_res[res_path];
+            // 2.引用+1
+            asset_info.RefCount++;
+        }
+
+        public void RefDecrease(string res_path)
+        {
+            if (!_map_res.ContainsKey(res_path)) return;
+            // 1.找到资源
+            AssetInfo asset_info = _map_res[res_path];
+            // 2.引用-1
+            asset_info.RefCount--;
+            ResLog.Assert(asset_info.RefCount >= 0, "引用计数错误:[{0}]", res_path);
+        }
+
+        #endregion
+
+        #region public 
 
         public bool ContainsRes(string assetbundle_name)
         {

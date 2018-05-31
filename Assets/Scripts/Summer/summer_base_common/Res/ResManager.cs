@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Summer;
-using Summer.Loader;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -39,24 +38,7 @@ public class ResManager : I_ResManager
 
     #region 引用计数
 
-    public void RefIncrease(string res_path)
-    {
 
-        /* // 1.找到资源
-         AssetInfo asset_info = null;
-         // 2.引用+1
-         asset_info.RefCount++;*/
-    }
-
-    public void RefDecrease(string res_path)
-    {
-        /* // 1.找到资源
-         AssetInfo asset_info = null;
-         // 2.引用-1
-         asset_info.RefCount--;
-         if (asset_info.RefCount < 0)
-             LogManager.Error("");*/
-    }
 
     public RefCounter _internal_ref_increase(ResRequestInfo res_request, GameObject obj)
     {
@@ -103,7 +85,6 @@ public class ResManager : I_ResManager
             _internal_ref_decrease(obj);
             img.texture = texture;
             _internal_ref_increase(res_request, obj);
-
         }
         return texture;
     }
@@ -234,7 +215,7 @@ public class ResManager : I_ResManager
         return sprite;
     }
 
-    public Sprite LoadSprite(Image img, ResRequestInfo res_request)
+    /*public Sprite LoadSprite(Image img, ResRequestInfo res_request)
     {
         if (img == null) return null;
         Sprite sprite = _res_loader.LoadAsset<Sprite>(res_request);
@@ -243,7 +224,7 @@ public class ResManager : I_ResManager
             img.sprite = sprite;
         }
         return sprite;
-    }
+    }*/
 
     public void LoadSpriteAsync(Image img, ResRequestInfo res_request,
         Action<Sprite> complete = null)

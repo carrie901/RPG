@@ -114,12 +114,23 @@ namespace Summer
             for (int i = 0; i < count; i++)
                 UnloadAllSceneGameObjects(trans.GetChild(i).gameObject);
         }
-        public static T GetComponent<T>(GameObject go ) where T : MonoBehaviour
+        public static T GetComponent<T>(GameObject go) where T : MonoBehaviour
         {
-            T t= go.GetComponent<T>();
+            T t = go.GetComponent<T>();
             if (t == null)
                 t = go.AddComponent<T>();
             return t;
+        }
+
+        public static void DestroySelf(GameObject obj)
+        {
+
+            RefCounter[] refs = obj.GetComponentsInChildren<RefCounter>(true);
+            for (int i = 0; i < refs.Length; i++)
+            {
+                refs[i].RemoveRef();
+            }
+            Object.Destroy(obj);
         }
     }
 

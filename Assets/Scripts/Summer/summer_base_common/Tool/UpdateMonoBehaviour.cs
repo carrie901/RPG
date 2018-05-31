@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Summer.Loader;
 namespace Summer
 {
     public class UpdateMonoBehaviour : MonoBehaviour
