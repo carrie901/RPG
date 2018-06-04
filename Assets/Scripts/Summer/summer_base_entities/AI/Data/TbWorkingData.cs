@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Summer;
+using UnityEditor;
 namespace Summer.AI
 {
     public class TbWorkingData : TbAny
@@ -20,4 +21,5 @@ namespace Summer.AI
 
         }
     }
+
 }

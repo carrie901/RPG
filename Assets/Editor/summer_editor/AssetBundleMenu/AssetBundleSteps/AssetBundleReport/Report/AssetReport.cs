@@ -12,6 +12,7 @@ namespace SummerEditor
         public const string ASSET_REPORT_NAME = "Asset资源列表.csv";
 
         public static string asset_name = "资源名称";
+        public static string asset_size = "内存大小";
         public static string asset_type = "资源类型";
         public static string be_ref_count = "被引用的个数";
         public static string ab_list = "对应的AB包名称";
@@ -23,13 +24,13 @@ namespace SummerEditor
 
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine(string.Format("{0},{1},{2},{3}", asset_name, asset_type, be_ref_count, ab_list));
+            sb.AppendLine(string.Format("{0},{1},{2},{3}", asset_name, asset_size, asset_type, be_ref_count, ab_list));
 
             int length = asset_files.Count;
             for (int i = 0; i < length; i++)
             {
                 EAssetFileInfo info = asset_files[i];
-                sb.Append(info.asset_name + "," + info.asset_type + "," + info.included_bundles.Count);
+                sb.Append(info.asset_name + "," + info.GetMemorySize() + "," + info.asset_type + "," + info.included_bundles.Count);
                 int ref_count = info.included_bundles.Count;
                 for (int j = 0; j < ref_count; j++)
                 {

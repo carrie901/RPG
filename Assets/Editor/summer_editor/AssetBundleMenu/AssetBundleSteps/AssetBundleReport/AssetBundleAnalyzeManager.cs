@@ -217,7 +217,7 @@ namespace SummerEditor
 
 
             EAssetFileInfo asset_file_info = FindAssetFile(guid);
-            asset_file_info.size = EMemorySizeHelper.GetRuntimeMemorySize(asset_object);
+            asset_file_info.memorysize = EMemorySizeHelper.GetRuntimeMemorySize(asset_object);
             asset_file_info.InitAsset = true;
             asset_file_info.asset_name = asset_object.name;
             asset_file_info.asset_type = asset_type;

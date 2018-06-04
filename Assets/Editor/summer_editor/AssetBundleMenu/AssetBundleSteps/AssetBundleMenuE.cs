@@ -126,7 +126,7 @@ namespace SummerEditor
             }
             catch (Exception e)
             {
-
+                Debug.Log(e.Message);
             }
             finally
             {
@@ -137,7 +137,7 @@ namespace SummerEditor
         [MenuItem("Assets/AssetBundle/查看Dep/3")]
         public static void Look()
         {
-            
+
         }
         #endregion
 

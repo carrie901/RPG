@@ -60,8 +60,6 @@ public class ResManager : I_ResManager
 
     #endregion
 
-
-
     #region Load类型 Texture Audio Animation GameObject 
 
     #region Texture图片加载
@@ -115,31 +113,43 @@ public class ResManager : I_ResManager
 
     #endregion
 
-    #region Audio
+    #region Sprite
 
-    /*public AudioClip LoadAudio(AudioSource audio_source, string name, E_GameResType res_type = E_GameResType.quanming)
+    public Sprite LoadSprite(ResRequestInfo res_request)
     {
-        if (audio_source == null) return null;
-        AudioClip audio = LoadAsset<AudioClip>(name, res_type);
-        if (audio != null)
+        Sprite sprite = _res_loader.LoadAsset<Sprite>(res_request);
+        return sprite;
+    }
+
+    /*public Sprite LoadSprite(Image img, ResRequestInfo res_request)
+    {
+        if (img == null) return null;
+        Sprite sprite = _res_loader.LoadAsset<Sprite>(res_request);
+        if (sprite != null)
         {
-            audio_source.clip = audio;
+            img.sprite = sprite;
         }
-        return audio;
+        return sprite;
     }*/
 
-    /*public void LoadAudioAsync(AudioSource audio_source, string name, E_GameResType res_type, Action<AudioClip> complete)
+    public void LoadSpriteAsync(Image img, ResRequestInfo res_request,
+        Action<Sprite> complete = null)
     {
-        if (audio_source == null) return;
-        Action<AudioClip> action = delegate (AudioClip audio_clip)
+        if (img == null) return;
+        Action<Sprite> action = delegate (Sprite sprite)
         {
-            audio_source.clip = audio_clip;
+            img.sprite = sprite;
             if (complete != null)
-                complete.Invoke(audio_clip);
+                complete.Invoke(sprite);
         };
-        LoadAssetAsync(name, res_type, action);
-    }*/
+        _res_loader.LoadAssetAsync(res_request, action);
+    }
 
+
+    #endregion
+
+
+    #region Audio
 
     #endregion
 
@@ -206,41 +216,6 @@ public class ResManager : I_ResManager
         TextAsset text_asset = _res_loader.LoadAsset<TextAsset>(res_request);
         return text_asset.bytes;
     }
-
-    #endregion
-
-    #region Sprite
-
-    public Sprite LoadSprite(ResRequestInfo res_request)
-    {
-        Sprite sprite = _res_loader.LoadAsset<Sprite>(res_request);
-        return sprite;
-    }
-
-    /*public Sprite LoadSprite(Image img, ResRequestInfo res_request)
-    {
-        if (img == null) return null;
-        Sprite sprite = _res_loader.LoadAsset<Sprite>(res_request);
-        if (sprite != null)
-        {
-            img.sprite = sprite;
-        }
-        return sprite;
-    }*/
-
-    public void LoadSpriteAsync(Image img, ResRequestInfo res_request,
-        Action<Sprite> complete = null)
-    {
-        if (img == null) return;
-        Action<Sprite> action = delegate (Sprite sprite)
-        {
-            img.sprite = sprite;
-            if (complete != null)
-                complete.Invoke(sprite);
-        };
-        _res_loader.LoadAssetAsync(res_request, action);
-    }
-
 
     #endregion
 

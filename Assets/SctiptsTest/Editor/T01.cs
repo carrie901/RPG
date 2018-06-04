@@ -74,7 +74,7 @@ public class T01 : MonoBehaviour
     }
     static private BuildTarget GetBuildTarget()
     {
-        BuildTarget target = BuildTarget.WebPlayer;
+        BuildTarget target;
 #if UNITY_STANDALONE
         target = BuildTarget.StandaloneWindows;
 #elif UNITY_IPHONE

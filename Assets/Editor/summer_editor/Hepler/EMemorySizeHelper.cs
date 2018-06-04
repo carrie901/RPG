@@ -71,11 +71,22 @@ namespace SummerEditor
             return GetKb(size);
         }
 
-        public static string GetKb(float bytes)
+        public static string GetKb(float bytes,bool show=true )
         {
-            string size = (bytes / 1024).ToString("f2") + " Kb";
-            if ((bytes / 1024) > 1024)
-                size = ((float)bytes / (1024 * 1024)).ToString("f2") + " Mb";
+            string size = string.Empty;
+            if (show)
+            {
+                size= (bytes / 1024).ToString("f2") + " Kb";
+                if ((bytes / 1024) > 1024)
+                    size = ((float)bytes / (1024 * 1024)).ToString("f2") + " Mb";
+            }
+            else
+            {
+                size = (bytes / 1024).ToString("f2");
+                if ((bytes / 1024) > 1024)
+                    size = ((float)bytes / (1024 * 1024)).ToString("f2");
+            }
+           
             return size;
         }
 

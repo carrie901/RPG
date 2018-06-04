@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0bdc701260acda499eec7b9cffce70f, type: 3}
+  m_Name: MyScriptableObject
+  m_EditorClassIdentifier: 
+  testName: "\u6D4B\u8BD5\u540D\u5B57"
+  myData:
+  - dataNumber: 100
+    dataStr: "myData\u6D4B\u8BD5"
+  - dataNumber: 101
+    dataStr: "myData3\u6D4B\u8BD5"

@@ -12,8 +12,8 @@ namespace SummerEditor
         public const string ASSETBUNDLE_REPORT_NAME = "AssetBundle资源列表.csv";
 
         public static string assetbundle_name = "AssetBundle 名称";
-        public static string ab_memory_size = "AssetBundle 内存";
-        public static string cal_memory_size = "统计的 ab内存";
+        public static string ab_memory_size = "AssetBundle 内存 Kb";
+        public static string cal_memory_size = "统计的 ab内存 Kb";
         public static string ab_dep = "依赖AB数";
         public static string be_ref = "冗余资源数";
         public static string mesh = "   网格数";
@@ -23,7 +23,7 @@ namespace SummerEditor
         public static string shader = "着色器";
         public static string animation_clip = "动作文件";
         public static string audio_clip = "音效";
-     
+
         public static void CreateReport(string directory_path)
         {
             List<EAssetBundleFileInfo> assetbundle_files = AssetBundleAnalyzeManager.FindAssetBundleFiles();
@@ -48,7 +48,7 @@ namespace SummerEditor
                                         "{3},{4},{5}," +
                                         "{6},{7},{8}," +
                                         "{9},{10},{11}",
-                info.ab_name, EMemorySizeHelper.GetKb(info.file_ab_memory_size), " ",
+                info.ab_name, (info.file_ab_memory_size/1024).ToString("f2"), (info.GetMemorySize() / 1024).ToString("f2"),
                 info.all_depends.Count, info.FindRedundance(), info.GetAssetCount(E_AssetType.mesh),
                 info.GetAssetCount(E_AssetType.material), info.GetAssetCount(E_AssetType.texture), info.GetAssetCount(E_AssetType.shader),
                 info.GetAssetCount(E_AssetType.sprite), info.GetAssetCount(E_AssetType.animation_clip), info.GetAssetCount(E_AssetType.audio_clip)));

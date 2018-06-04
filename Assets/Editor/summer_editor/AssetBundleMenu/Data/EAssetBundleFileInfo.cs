@@ -35,6 +35,16 @@ namespace SummerEditor
 
         #region public
 
+        public float GetMemorySize()
+        {
+            float all_memory = 0;
+            for (int i = 0; i < dep_asset_files.Count; i++)
+            {
+                all_memory += dep_asset_files[i].GetMemorySize();
+            }
+            return all_memory;
+        }
+
         /// <summary>
         /// 获取相同类型的资产数量
         /// </summary>

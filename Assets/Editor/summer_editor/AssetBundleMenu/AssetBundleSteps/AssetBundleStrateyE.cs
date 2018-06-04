@@ -9,10 +9,6 @@ namespace SummerEditor
     /// </summary>
     public class EAssetBundleStrateyManager
     {
-        public static void BuildStratey()
-        {
-            Dictionary<string, EAssetObjectInfo> all_assets = EAssetBundleAnalysis._all_assets;
-        }
 
         #region private
 

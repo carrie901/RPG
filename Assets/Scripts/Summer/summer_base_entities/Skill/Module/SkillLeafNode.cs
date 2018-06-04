@@ -5,6 +5,9 @@ namespace Summer
     /// 每一个叶子节点都是独立执行的,通过触发事件调用外部接口
     /// 
     /// TODO 节点和外部之间的联系如何维持
+    /// 
+    /// 
+    /// 
     /// </summary>
     public abstract class SkillLeafNode
     {
@@ -26,6 +29,11 @@ namespace Summer
 
         public abstract void OnExit();
 
+        public virtual void OnUpdate(float dt)
+        {
+            Finish();
+        }
+
         public void LogExit()
         {
             if (!LogManager.open_skill) return;
@@ -36,11 +44,6 @@ namespace Summer
         {
             if (!LogManager.open_skill) return;
             SkillLog.Log("Time: {0} Enter [{1}] Leaf Action", TimeManager.FrameCount, ToDes());
-        }
-
-        public virtual void OnUpdate(float dt)
-        {
-            Finish();
         }
 
         #endregion

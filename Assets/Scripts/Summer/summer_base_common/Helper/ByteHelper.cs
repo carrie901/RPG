@@ -58,12 +58,22 @@ namespace Summer
             return value;
         }
 
+        /// <summary>
+        /// 强制性 只能用在cnf 静态数据表格中使用
+        /// </summary>
+        /// <param name="br"></param>
+        /// <returns></returns>
         public static string[] ReadStringS(BinaryReader br)
         {
             int length = br.ReadInt32();
             string[] value = new string[length];
             for (int i = 0; i < length; i++)
-                value[i] = br.ReadString();
+            {
+                string result = br.ReadString();
+                result = string.Intern(result);
+                value[i] = result;
+            }
+
             return value;
         }
 
@@ -160,6 +170,7 @@ namespace Summer
 
         public static string ToStr(string self_str)
         {
+            self_str = string.Intern(self_str);
             return self_str;
         }
 

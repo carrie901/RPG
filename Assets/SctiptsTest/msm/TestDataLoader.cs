@@ -9,6 +9,14 @@ public class TestDataLoader : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+
+        MyScriptableObject nameInfoObj = ScriptableObject.CreateInstance<MyScriptableObject>();
+        nameInfoObj.testName = "测试名字";
+        nameInfoObj.name = "MyScriptableObject";
+        nameInfoObj.myData.Add(new MyDataInfo(100, "myData测试"));
+        nameInfoObj.myData.Add(new MyDataInfo(101, "myData3测试"));
+        UnityEditor.AssetDatabase.CreateAsset(nameInfoObj, "Assets/" + nameInfoObj.name + ".asset");
+
         ConfigManager.ReadLocalConfig();
         //StaticCnfLoader.LoadAllCsvFile();
 
@@ -48,3 +56,7 @@ public class TestDataLoader : MonoBehaviour
 
     }
 }
+
+
+
+

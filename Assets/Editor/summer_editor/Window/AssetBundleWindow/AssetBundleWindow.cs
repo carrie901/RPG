@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿/*
+using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 namespace SummerEditor
@@ -26,7 +27,7 @@ namespace SummerEditor
             //window.minSize = new Vector2(t_width, t_height);
             //window.maxSize = new Vector2(t_width + 40, t_height + 40);
             window.Show();
-            _instance.GetAssets();*/
+            _instance.GetAssets();#1#
             // 创建树
         }
 
@@ -65,3 +66,4 @@ namespace SummerEditor
     }
 }
 
+*/

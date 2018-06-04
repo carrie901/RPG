@@ -28,5 +28,4 @@ namespace Summer
             return DES;
         }
     }
-
 }
