@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Summer.Tool;
 using UnityEngine;
 
 namespace Summer
@@ -17,7 +18,7 @@ namespace Summer
         public void CallVariable(int k, int v)
         {
             count = k + v;
-            
+
         }
 
         void Start()
@@ -34,13 +35,14 @@ namespace Summer
         {
             if (!flag) return;
             UnityEngine.Profiling.Profiler.BeginSample("AnonymousWithoutParam");  // 未使用外部变量的匿名函数
-            AnonymousWithoutVariable();
+            
+            AnonymousVariable();
             UnityEngine.Profiling.Profiler.EndSample();
             UnityEngine.Profiling.Profiler.BeginSample("FunctionWithoutVariable"); // 未使用外部变量的成员函数
             FunctionWithoutVariable();
             UnityEngine.Profiling.Profiler.EndSample();
             UnityEngine.Profiling.Profiler.BeginSample("AnonymousParam"); // 使用外部变量的匿名函数
-            AnonymousVariable();
+            AnonymousWithoutVariable();
             UnityEngine.Profiling.Profiler.EndSample();
             UnityEngine.Profiling.Profiler.BeginSample("FunctionVariable"); // 使用外部变量的成员函数
             FunctionVariable();
@@ -51,24 +53,18 @@ namespace Summer
         {
             table.Foreach((k, v) =>
             {
-                int c = 0;
-                c = k + v;
+                /*int c = 0;
+                c = k + v;*/
             });
         }
 
-
+        // 未使用外部变量的成员函数
         void FunctionWithoutVariable()
         {
-            //table.Forecah(AddWithoutVariable);
             table.Foreach(p_call);
         }
 
-        void AddWithoutVariable(int k, int v)
-        {
-            int c = 0;
-            c = k + v;
-        }
-
+        // 使用外部变量的匿名函数 AnonymousParam
         void AnonymousVariable()
         {
             table.Foreach((k, v) =>
@@ -77,6 +73,7 @@ namespace Summer
             });
         }
 
+        // 使用外部变量的成员函数
         void FunctionVariable()
         {
             table.Foreach(AddtVariable);

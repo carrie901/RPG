@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Summer.AI;
 using UnityEngine;
 
 namespace Summer
@@ -19,21 +20,33 @@ namespace Summer
         public BaseEntityController EntityController { get; private set; }                              // GameObject控制器
         public Vector3 WroldPosition { get { return EntityController.trans.position; } }                // 世界坐标
         public Vector3 Direction { get { return EntityController.trans.forward; } }                     // 当前方向
+        public bool CanMovement { get; set; }
         public EntityId entity_id;                                                                      // Entity的唯一表示
-        //public BuffContainer _buff_container;                                                           // Buff容器
-        public SkillSet _skill_set;
-        public HeroInfoCnf _cnf;
-        public EntitiesAttributeProperty _attr_prop;                                                    // 人物属性
-        public FsmSystem _fsm_system;
 
-        public List<BaseEntity> _targets = new List<BaseEntity>();                                      // 目标
-        public List<I_Update> update_list = new List<I_Update>();
+
+        public HeroInfoCnf _cnf;
+
+        public List<BaseEntity> _targets = new List<BaseEntity>();                                       // 目标
+
+
         public EventSet<E_EntityOutTrigger, EventSetData> _out_event_set                                // 角色的外部事件
            = new EventSet<E_EntityOutTrigger, EventSetData>();
         public EventSet<E_EntityInTrigger, EventSetData> _in_event_set                                  // 角色的内部事件
        = new EventSet<E_EntityInTrigger, EventSetData>();
 
-        public bool CanMovement { get; set; }
+
+
+        public List<I_Update> update_list = new List<I_Update>();                                       // 对应需要注册到容器中的组件 进行Update
+
+        #endregion
+
+        #region 附带属性
+
+        public BtEntityAi _entity_ai;                                                                   // 相关AI组件
+        public SkillSet _skill_set;                                                                     // 相关技能组件
+        public BuffContainer _buff_container;                                                           // 相关Buff组件
+        public EntitiesAttributeProperty _attr_prop;                                                    // 相关人物属性组件
+        public FsmSystem _fsm_system;                                                                   // 相关状态机组件
 
         #endregion
 
@@ -53,7 +66,7 @@ namespace Summer
 
         #endregion
 
-        #region 得到Entity的属性和数值
+        #region 得到Entity的属性和数值 想把这一块的东西转移到 EntitiesAttributeProperty内部来实现，整体思路死BaseEntity有很多内部组件，对应的功能在内部组件来实现 这块不好搞哦
 
         public AttributeIntParam FindAttribute(E_CharAttributeType type)
         {
@@ -128,6 +141,8 @@ namespace Summer
         {
             _skill_set = new SkillSet(this);
             _fsm_system = EntityFsmFactory.CreateFsmSystem(this);
+            _entity_ai = new BtEntityAi(this);
+            
         }
 
         public void OnPop(int hero_id)
@@ -136,9 +151,10 @@ namespace Summer
             Template = hero_id;
             RegisterHandler();
             entity_id = new EntityId();
-            _attr_prop = new EntitiesAttributeProperty(entity_id);
+            
             _cnf = StaticCnf.FindData<HeroInfoCnf>(Template);
             _skill_set.OnReset(Template);
+            _attr_prop = new EntitiesAttributeProperty(entity_id);
 
             // 更新通道
             update_list.Add(_skill_set);

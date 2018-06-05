@@ -28,7 +28,9 @@ namespace Summer
 
         public static string ReadString(BinaryReader br)
         {
-            return br.ReadString();
+            string result = br.ReadString();
+            result = string.Intern(result);
+            return result;
         }
 
         public static int[] ReadIntS(BinaryReader br)
@@ -59,7 +61,7 @@ namespace Summer
         }
 
         /// <summary>
-        /// 强制性 只能用在cnf 静态数据表格中使用
+        /// 强制性 只能用在cnf 静态数据表格中使用 
         /// </summary>
         /// <param name="br"></param>
         /// <returns></returns>

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Summer.AI;
+using UnityEngine;
 
 namespace Summer.Test
 {
@@ -10,17 +11,17 @@ namespace Summer.Test
         void Awake()
         {
             _aiUpdater =
-                delegate (AIEntity entity, float gameTime, float deltaTime)
+                delegate (BtEntityAi entity, float gameTime, float deltaTime)
                 {
                     return entity.UpdateAi(gameTime, deltaTime);
                 };
             _requestUpdater =
-                delegate (AIEntity entity, float gameTime, float deltaTime)
+                delegate (BtEntityAi entity, float gameTime, float deltaTime)
                 {
                     return entity.UpdateReqeust(gameTime, deltaTime);
                 };
             _behaviorUpdater =
-                delegate (AIEntity entity, float gameTime, float deltaTime)
+                delegate (BtEntityAi entity, float gameTime, float deltaTime)
                 {
                     return entity.UpdateBehavior(gameTime, deltaTime);
                 };
@@ -47,17 +48,17 @@ namespace Summer.Test
         void OnGUI()
         {
             //speed up/slow down
-            Time.timeScale = GUILayout.HorizontalSlider(Time.timeScale, 0, 2);
+            /*Time.timeScale = GUILayout.HorizontalSlider(Time.timeScale, 0, 2);
             //add unity
-            if (GUILayout.Button("Add Entity"))
+            if (GUILayout.Button("Add EntityAi"))
             {
                 ResRequestInfo res_request = ResRequestFactory.CreateRequest<GameObject>("Zombie/z", E_GameResType.quanming);
                 GameObject go = ResManager.instance.LoadPrefab(res_request);//GameResourceManager.instance.LoadResource("Zombie/z");
                 if (go != null)
                 {
-                    AIEnityManager.Instance.AddEntity(go.AddComponent<AIEntity>().Init());
+                    AIEnityManager.Instance.AddEntity(go.AddComponent<BtEntityAi>().Init());
                 }
-            }
+            }*/
         }
     }
 }

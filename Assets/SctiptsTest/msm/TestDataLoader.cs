@@ -10,7 +10,7 @@ public class TestDataLoader : MonoBehaviour
     void Start()
     {
 
-        MyScriptableObject nameInfoObj = ScriptableObject.CreateInstance<MyScriptableObject>();
+        /*MyScriptableObject nameInfoObj = ScriptableObject.CreateInstance<MyScriptableObject>();
         nameInfoObj.testName = "测试名字";
         nameInfoObj.name = "MyScriptableObject";
         nameInfoObj.myData.Add(new MyDataInfo(100, "myData测试"));
@@ -31,7 +31,7 @@ public class TestDataLoader : MonoBehaviour
             BaseEntity tmp = EntityPool.Instance.Pop(1001001);
             tmp.InitPosRot();
             EntitesManager.Instance.AddEntity(tmp);
-        }
+        }*/
         /*TransformPool.Instance.Pop<PoolVfxObject>("res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_01");
         TransformPool.Instance.Pop<PoolVfxObject>("res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_02");
         TransformPool.Instance.Pop<PoolVfxObject>("res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_03");

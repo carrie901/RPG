@@ -85,6 +85,18 @@ namespace Summer
         /// </summary>
         public static float WrapFloat(float val) { return val - Mathf.FloorToInt(val); }
 
+        #region Vector3
+
+        /// <summary>
+        /// 扁平化，y轴值强制为0
+        /// </summary>
+        public static Vector3 Vector3ZeroY(Vector3 v)
+        {
+            return new Vector3(v.x, 0, v.z);
+        }
+
+        #endregion
+
         #region 得到两个点之间的距离
 
         public static float Distance2D(Vector3 target, Vector3 source)
