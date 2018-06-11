@@ -2,13 +2,18 @@
 namespace Summer.AI
 {
 
-    public class TbActionLeafContext : TbActionContext
+    public class BtActionLeafContext : BtActionContext
     {
         #region 属性
 
         internal int status;                                    // 当前叶子节点状态
         internal bool need_exit;                                // 需要退出
         protected object user_data;                             // 节点数据
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public T GetUserData<T>() where T : class, new()
         {
             if (user_data == null)
@@ -20,7 +25,7 @@ namespace Summer.AI
 
         #region 构造
 
-        public TbActionLeafContext()
+        public BtActionLeafContext()
         {
             status = BtActionLeaf.ACTION_READY;
             need_exit = false;
@@ -53,8 +58,7 @@ namespace Summer.AI
 
         public void OnExit()
         {
-            status = BtActionLeaf.ACTION_READY;
-            need_exit = false;
+            ResetData();
         }
         #endregion
 
@@ -95,7 +99,7 @@ namespace Summer.AI
         protected override int OnUpdate(BtWorkingData work_data)
         {
             int running_state = BtRunningStatus.FINISHED;
-            TbActionLeafContext leaf_context = GetContext<TbActionLeafContext>(work_data);
+            BtActionLeafContext leaf_context = GetContext<BtActionLeafContext>(work_data);
             int curr_status = leaf_context.status;
             if (curr_status == ACTION_READY)
             {
@@ -118,6 +122,10 @@ namespace Summer.AI
                 {
                     OnExit(work_data, running_state);
                 }
+                else
+                {
+                    LogManager.Error("节点退出错误,[{0}]", TbName);
+                }
                 leaf_context.OnExit();
             }
 
@@ -126,7 +134,7 @@ namespace Summer.AI
 
         protected override void OnTransition(BtWorkingData work_data)
         {
-            TbActionLeafContext leaf_context = GetContext<TbActionLeafContext>(work_data);
+            BtActionLeafContext leaf_context = GetContext<BtActionLeafContext>(work_data);
             if (leaf_context.need_exit)
             {
                 OnExit(work_data, BtRunningStatus.TRANSITION);
@@ -137,7 +145,9 @@ namespace Summer.AI
 
         protected T GetUserContextData<T>(BtWorkingData work_data) where T : class, new()
         {
-            return GetContext<TbActionLeafContext>(work_data).GetUserData<T>();
+            BtActionLeafContext action_leaf_context = GetContext<BtActionLeafContext>(work_data);
+            T t = action_leaf_context.GetUserData<T>();
+            return t;
         }
 
         #endregion

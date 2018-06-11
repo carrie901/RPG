@@ -52,14 +52,14 @@ namespace Summer.AI
 
         public int GetChildCount() { return _childs.Count; }
 
-        public bool IsIndexValid(int index) { return index > 0 && index < _childs.Count; }
+        public bool IsIndexValid(int index) { return index >= 0 && index < _childs.Count; }
 
         public T GetChild<T>(int index) where T : BtTreeNode
         {
             bool result = IsIndexValid(index);
-            if (!result) return null;
-
-            return _childs[index] as T;
+            if (result)
+                return _childs[index] as T;
+            return null;
         }
 
         #endregion

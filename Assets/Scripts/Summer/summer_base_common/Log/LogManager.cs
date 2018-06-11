@@ -35,7 +35,7 @@ namespace Summer
         public static bool opne_entity_action = true;
         public static bool animation = false;
 
-        public static List<ILog> pipelines = new List<ILog>();
+        public static List<I_Log> pipelines = new List<I_Log>();
 
         #region 日志级别
 

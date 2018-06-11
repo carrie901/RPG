@@ -35,7 +35,6 @@ namespace Summer
         {
             if (!flag) return;
             UnityEngine.Profiling.Profiler.BeginSample("AnonymousWithoutParam");  // 未使用外部变量的匿名函数
-            
             AnonymousVariable();
             UnityEngine.Profiling.Profiler.EndSample();
             UnityEngine.Profiling.Profiler.BeginSample("FunctionWithoutVariable"); // 未使用外部变量的成员函数
@@ -53,8 +52,8 @@ namespace Summer
         {
             table.Foreach((k, v) =>
             {
-                /*int c = 0;
-                c = k + v;*/
+                int c = 0;
+                c = k + v;
             });
         }
 

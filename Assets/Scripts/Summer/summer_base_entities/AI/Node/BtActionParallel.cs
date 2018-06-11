@@ -2,12 +2,12 @@
 
 namespace Summer.AI
 {
-    public class TbActionParallelContext : TbActionContext
+    public class BtActionParallelContext : BtActionContext
     {
         internal List<bool> evaluation_status;
         internal List<int> running_status;
 
-        public TbActionParallelContext()
+        public BtActionParallelContext()
         {
             evaluation_status = new List<bool>();
             running_status = new List<int>();
@@ -20,25 +20,25 @@ namespace Summer.AI
     /// </summary>
     public class BtActionParallel : BtAction
     {
-        public enum ECHILDREN_RELATIONSHIP
+        public enum E_Children_RelationShip
         {
             and, or
         }
 
-        protected ECHILDREN_RELATIONSHIP _evaluation_relationship;
-        protected ECHILDREN_RELATIONSHIP _runningstatus_relationship;
+        protected E_Children_RelationShip _evaluation_relationship;
+        protected E_Children_RelationShip _runningstatus_relationship;
 
         public BtActionParallel() : base(-1)
         {
-            _evaluation_relationship = ECHILDREN_RELATIONSHIP.and;
-            _runningstatus_relationship = ECHILDREN_RELATIONSHIP.or;
+            _evaluation_relationship = E_Children_RelationShip.and;
+            _runningstatus_relationship = E_Children_RelationShip.or;
         }
-        public BtActionParallel SetEvaluationRelationship(ECHILDREN_RELATIONSHIP v)
+        public BtActionParallel SetEvaluationRelationship(E_Children_RelationShip v)
         {
             _evaluation_relationship = v;
             return this;
         }
-        public BtActionParallel SetRunningStatusRelationship(ECHILDREN_RELATIONSHIP v)
+        public BtActionParallel SetRunningStatusRelationship(E_Children_RelationShip v)
         {
             _runningstatus_relationship = v;
             return this;
@@ -48,7 +48,7 @@ namespace Summer.AI
 
         protected override bool OnEvaluate(BtWorkingData work_data)
         {
-            TbActionParallelContext this_context = GetContext<TbActionParallelContext>(work_data);
+            BtActionParallelContext this_context = GetContext<BtActionParallelContext>(work_data);
             _init_list_to(this_context.evaluation_status, false);
             bool final_result = false;
             for (int i = 0; i < GetChildCount(); ++i)
@@ -56,7 +56,7 @@ namespace Summer.AI
                 BtAction node = GetChild<BtAction>(i);
                 bool ret = node.Evaluate(work_data);
                 //early break
-                if (_evaluation_relationship == ECHILDREN_RELATIONSHIP.and && ret == false)
+                if (_evaluation_relationship == E_Children_RelationShip.and && ret == false)
                 {
                     final_result = false;
                     break;
@@ -71,7 +71,7 @@ namespace Summer.AI
         }
         protected override int OnUpdate(BtWorkingData work_data)
         {
-            TbActionParallelContext this_context = GetContext<TbActionParallelContext>(work_data);
+            BtActionParallelContext this_context = GetContext<BtActionParallelContext>(work_data);
             //first time initialization
             if (this_context.running_status.Count != GetChildCount())
             {
@@ -102,7 +102,7 @@ namespace Summer.AI
                 }
                 this_context.running_status[i] = running_status;
             }
-            if (_runningstatus_relationship == ECHILDREN_RELATIONSHIP.or && has_finished || _runningstatus_relationship == ECHILDREN_RELATIONSHIP.and && has_executing == false)
+            if (_runningstatus_relationship == E_Children_RelationShip.or && has_finished || _runningstatus_relationship == E_Children_RelationShip.and && has_executing == false)
             {
                 _init_list_to(this_context.running_status, BtRunningStatus.EXECUTING);
                 return BtRunningStatus.FINISHED;
@@ -111,7 +111,7 @@ namespace Summer.AI
         }
         protected override void OnTransition(BtWorkingData work_data)
         {
-            TbActionParallelContext this_context = GetContext<TbActionParallelContext>(work_data);
+            BtActionParallelContext this_context = GetContext<BtActionParallelContext>(work_data);
             for (int i = 0; i < GetChildCount(); ++i)
             {
                 BtAction node = GetChild<BtAction>(i);

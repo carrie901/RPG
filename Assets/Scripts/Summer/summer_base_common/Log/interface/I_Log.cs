@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Summer
 {
-    public interface ILog
+    public interface I_Log
     {
         void Log(string message);
         void Log(string message, params object[] args);
@@ -31,7 +31,7 @@ namespace Summer
     /// <summary>
     /// 文件的Debug工具
     /// </summary>
-    public class FileLog : ILog
+    public class FileLog : I_Log
     {
         private static FileLog instance;
         public static FileLog Instance
@@ -137,7 +137,7 @@ namespace Summer
     /// <summary>
     /// Unity的Debug工具
     /// </summary>
-    public class UnityLog : ILog
+    public class UnityLog : I_Log
     {
 
         private static UnityLog instance;
@@ -193,7 +193,7 @@ namespace Summer
         }
     }
 
-    public class StringBuilderLog : ILog
+    public class StringBuilderLog : I_Log
     {
         private static StringBuilderLog instance;
         public static StringBuilderLog Instance

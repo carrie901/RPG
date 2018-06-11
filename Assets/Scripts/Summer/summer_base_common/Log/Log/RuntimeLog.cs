@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Summer
 {
-    public class RuntimeLog : MonoBehaviour, ILog
+    public class RuntimeLog : MonoBehaviour, I_Log
     {
         protected static RuntimeLog _instance;
         public static RuntimeLog Instance

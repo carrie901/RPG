@@ -35,9 +35,6 @@ namespace Summer.AI
 
             _behavior_working_data = new AIEntityWorkingData();
             _behavior_working_data.EntityAi = this;
-            //_behavior_working_data.EntityTrans = _base_entity.EntityController.trans;
-            //_behavior_working_data.EntityAnimator = GetComponent<Animator>();
-
             _blackboard = new BtBlackBoard();
 
             _nexttime_to_gen_moving_target = 0;

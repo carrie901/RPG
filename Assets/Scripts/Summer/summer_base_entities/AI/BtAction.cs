@@ -1,11 +1,10 @@
 ﻿
 namespace Summer.AI
 {
-    public class TbActionContext
+    public class BtActionContext
     {
 
     }
-
     public abstract class BtAction : BtTreeNode
     {
         #region 属性
@@ -59,20 +58,20 @@ namespace Summer.AI
 
         #region protected virtual --> OnEvaluate.OnUpdate.OnTransition
 
-        protected T GetContext<T>(BtWorkingData work_data) where T : TbActionContext, new()
+        /// <summary>
+        /// 根据节点的Hashcode值得到节点的ACtionContext
+        /// </summary>
+        protected T GetContext<T>(BtWorkingData work_data) where T : BtActionContext, new()
         {
             int tmp_unique_key = GetHashCode();
-            T this_context;
-            if (work_data.Context.ContainsKey(tmp_unique_key) == false)
+            T t = work_data.GetContext<T>(tmp_unique_key);
+            if (t == null)
             {
-                this_context = new T();
-                work_data.Context.Add(tmp_unique_key, this_context);
+                t = new T();
+                work_data.AddContext(tmp_unique_key, t);
             }
-            else
-            {
-                this_context = work_data.Context[tmp_unique_key] as T;
-            }
-            return this_context;
+
+            return t;
         }
 
         #region virtual

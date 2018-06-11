@@ -10,12 +10,12 @@ namespace Summer.AI
     /// 序列（Sequence）：将其所有子节点依次执行，也就是说当前一个返回“完成”状态后，再运行先一个子节点
     /// 并行（Parallel）：将其所有子节点都运行一遍
     /// </summary>
-    public class TbActionPrioritizedSelectorContext : TbActionContext
+    public class BtActionPrioritizedSelectorContext : BtActionContext
     {
         internal int current_selected_index;
         internal int last_selected_index;
 
-        public TbActionPrioritizedSelectorContext()
+        public BtActionPrioritizedSelectorContext()
         {
             current_selected_index = -1;
             last_selected_index = -1;
@@ -38,7 +38,7 @@ namespace Summer.AI
 
         protected override bool OnEvaluate(BtWorkingData work_data)
         {
-            TbActionPrioritizedSelectorContext this_context = GetContext<TbActionPrioritizedSelectorContext>(work_data);
+            BtActionPrioritizedSelectorContext this_context = GetContext<BtActionPrioritizedSelectorContext>(work_data);
             this_context.current_selected_index = -1;
             int child_count = GetChildCount();
             for (int i = 0; i < child_count; i++)
@@ -55,7 +55,7 @@ namespace Summer.AI
 
         protected override int OnUpdate(BtWorkingData work_data)
         {
-            TbActionPrioritizedSelectorContext this_context = GetContext<TbActionPrioritizedSelectorContext>(work_data);
+            BtActionPrioritizedSelectorContext this_context = GetContext<BtActionPrioritizedSelectorContext>(work_data);
             int running_state = BtRunningStatus.FINISHED;
             if (this_context.current_selected_index != this_context.last_selected_index)
             {
@@ -82,7 +82,7 @@ namespace Summer.AI
 
         protected override void OnTransition(BtWorkingData work_data)
         {
-            TbActionPrioritizedSelectorContext this_context = GetContext<TbActionPrioritizedSelectorContext>(work_data);
+            BtActionPrioritizedSelectorContext this_context = GetContext<BtActionPrioritizedSelectorContext>(work_data);
             BtAction node = GetChild<BtAction>(this_context.last_selected_index);
             if (node != null)
             {

@@ -2,11 +2,11 @@
 
 namespace Summer.AI
 {
-    public class TbActionLoopContext : TbActionContext
+    public class BtActionLoopContext : BtActionContext
     {
         internal int current_count;
 
-        public TbActionLoopContext()
+        public BtActionLoopContext()
         {
             current_count = 0;
         }
@@ -33,7 +33,7 @@ namespace Summer.AI
         //-------------------------------------------------------
         protected override bool OnEvaluate(BtWorkingData work_data)
         {
-            TbActionLoopContext this_context = GetContext<TbActionLoopContext>(work_data);
+            BtActionLoopContext this_context = GetContext<BtActionLoopContext>(work_data);
             bool check_loop_count = (loop_count == INFINITY || this_context.current_count < loop_count);
             if (check_loop_count == false)
             {
@@ -48,7 +48,7 @@ namespace Summer.AI
         }
         protected override int OnUpdate(BtWorkingData work_data)
         {
-            TbActionLoopContext this_context = GetContext<TbActionLoopContext>(work_data);
+            BtActionLoopContext this_context = GetContext<BtActionLoopContext>(work_data);
             int running_status = BtRunningStatus.FINISHED;
             if (IsIndexValid(0))
             {
@@ -67,7 +67,7 @@ namespace Summer.AI
         }
         protected override void OnTransition(BtWorkingData work_data)
         {
-            TbActionLoopContext this_context = GetContext<TbActionLoopContext>(work_data);
+            BtActionLoopContext this_context = GetContext<BtActionLoopContext>(work_data);
             if (IsIndexValid(0))
             {
                 BtAction node = GetChild<BtAction>(0);

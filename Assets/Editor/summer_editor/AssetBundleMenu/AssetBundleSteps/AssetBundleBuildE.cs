@@ -17,7 +17,6 @@ namespace SummerEditor
             BuildPipeline.BuildAssetBundles(EAssetBundleConst.assetbundle_directory, FindBuildAssetBundleOptions(), FindBuildTarget());
             EditorUtility.DisplayDialog("资源打包", "打包完毕", "OK");
 
-
         }
 
         public static BuildTarget FindBuildTarget()

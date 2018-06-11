@@ -10,8 +10,8 @@ namespace Summer.AI
         public BtActionNonPrioritizedSelector() : base() { }
         protected override bool OnEvaluate(BtWorkingData work_data)
         {
-            TbActionPrioritizedSelectorContext this_context =
-                GetContext<TbActionPrioritizedSelectorContext>(work_data);
+            BtActionPrioritizedSelectorContext this_context =
+                GetContext<BtActionPrioritizedSelectorContext>(work_data);
 
             //check last node first
             if (IsIndexValid(this_context.current_selected_index))
