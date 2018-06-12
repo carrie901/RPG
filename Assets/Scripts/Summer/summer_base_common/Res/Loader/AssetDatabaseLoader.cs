@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Summer
@@ -44,8 +45,11 @@ namespace Summer
             return true;
         }
 
-        public bool UnloadAssetBundle(string assetbundle_path)
+        public bool UnloadAssetBundle(AssetInfo asset_info)
         {
+            Object obj = asset_info.GetAsset<Object>();
+            if (obj == null) return false;
+            Resources.UnloadAsset(obj);
             return true;
         }
 

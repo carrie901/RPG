@@ -20,7 +20,7 @@ namespace Summer
         /// </summary>
         bool HasInLoading(string res_path);
 
-        bool UnloadAssetBundle(string res_path);
+        bool UnloadAssetBundle(AssetInfo asset_info);
 
         void OnUpdate();
     }

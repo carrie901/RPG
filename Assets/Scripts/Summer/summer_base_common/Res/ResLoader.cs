@@ -97,9 +97,8 @@ namespace Summer
 
             AssetInfo asset_info = _map_res[res_request.res_path];
             _map_res.Remove(res_request.res_path);
-            bool result = _loader.UnloadAssetBundle(res_request.res_path);
+            bool result = _loader.UnloadAssetBundle(asset_info);
             ResLog.Assert(result, "卸载失败:[{0}]", res_request.res_path);
-            //Resources.UnloadAsset(asset_info._object);
             return false;
         }
 

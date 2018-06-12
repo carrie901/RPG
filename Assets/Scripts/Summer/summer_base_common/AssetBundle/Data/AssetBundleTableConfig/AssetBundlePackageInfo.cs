@@ -27,7 +27,6 @@ namespace Summer
         public List<AssetInfo> _asset_map = new List<AssetInfo>();
         public List<Object> _textures = new List<Object>();
         public List<Object> _fbx = new List<Object>();
-        //public bool IsMain { get; private set; }
 
         #endregion
 

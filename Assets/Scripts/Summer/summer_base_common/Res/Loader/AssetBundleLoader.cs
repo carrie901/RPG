@@ -133,10 +133,10 @@ namespace Summer
             return true;
         }
 
-        public bool UnloadAssetBundle(string res_path)
+        public bool UnloadAssetBundle(AssetInfo asset_info)
         {
             // 1.资源对应的包信息
-            AssetBundleRes res_info = GetAssetBundleRes(res_path);
+            AssetBundleRes res_info = GetAssetBundleRes(asset_info.ResPath);
             if (res_info == null) return false;
 
             // 2.得到AssetBundle包
