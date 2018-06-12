@@ -9,7 +9,7 @@ namespace Summer
         /// <returns></returns>
         public static FsmSystem CreateFsmSystem(BaseEntity entity)
         {
-            FsmSystem fsm_system = new FsmSystem();
+            FsmSystem fsm_system = new FsmSystem(entity);
 
             AddState<EntityIdleState>(entity, fsm_system, E_StateId.idle);
             AddState<EntityAttackState>(entity, fsm_system, E_StateId.attack);

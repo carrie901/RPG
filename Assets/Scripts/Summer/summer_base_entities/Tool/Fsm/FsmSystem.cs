@@ -2,7 +2,7 @@
 
 namespace Summer
 {
-    public class FsmSystem : I_Update
+    public class FsmSystem : I_Update, I_RegisterHandler
     {
         #region 属性
 
@@ -16,11 +16,16 @@ namespace Summer
         private FsmState _current_state;
         public FsmState CurrentState { get { return _current_state; } }
 
+
+        public BaseEntity _base_entity;
         #endregion
 
         #region 构造
 
-        public FsmSystem() { }
+        public FsmSystem(BaseEntity base_entity)
+        {
+            _base_entity = base_entity;
+        }
 
         #endregion
 
@@ -109,6 +114,26 @@ namespace Summer
         {
             if (_current_state != null)
                 _current_state.OnUpdate(dt);
+        }
+
+        public void OnRegisterHandler()
+        {
+            _base_entity.RegisterHandler(E_EntityInTrigger.change_state, ChangeState);
+        }
+
+        public void UnRegisterHandler()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        // 改变当前玩家状态
+        public void ChangeState(EventSetData param)
+        {
+            ChangeEntityStateEventData data = param as ChangeEntityStateEventData;
+            if (data == null) return;
+            if (GetState() == data.state_id && !data.force) return;
+            SkillLog.Log("之前状态:{0},改变之后状态:{1}", GetState(), data.state_id);
+            PerformTransition(data.state_id);
         }
     }
 }

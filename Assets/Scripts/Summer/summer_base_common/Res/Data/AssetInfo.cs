@@ -5,14 +5,17 @@ namespace Summer
     /// <summary>
     /// TODO 资源信息需要在加载之前创建，还是在加载之后之后创建
     ///     有上面的信息来得到资源加载的错误信息
+    /// TODO Bug
+    ///     如果内部有重名的情况下就会发生错误
     /// </summary>
+    [System.Serializable]
     public class AssetInfo
     {
         //资源对象  
         public Object _object;
-        public string ResPath { get; set; }                                        //路径  
+        public string ResPath;                                       //路径  
         //public string ResName { get; private set; }                 //名字
-        public int RefCount { get; set; }                                       //读取次数  
+        public int RefCount;                                    //读取次数  
 
         public AssetInfo(Object obj, ResRequestInfo res_info)
         {
@@ -29,7 +32,7 @@ namespace Summer
             ResLog.Assert(!string.IsNullOrEmpty(ResPath), "名字有异常:[{0}]", _object);
         }
 
-        public AssetInfo(Object obj,string res_path)
+        public AssetInfo(Object obj, string res_path)
         {
             _object = obj;
             ResPath = res_path;

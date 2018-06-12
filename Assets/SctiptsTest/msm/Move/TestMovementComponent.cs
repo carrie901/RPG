@@ -30,7 +30,7 @@ public class TestMovementComponent : MonoBehaviour
     //void FixedUpdate()
     void LateUpdate()
     {
-        
+
 
         /*if (!joystick.is_touch) return;*/
         Vector2 direction = Vector2.zero;
@@ -79,7 +79,7 @@ public class TestMovementComponent : MonoBehaviour
     public void OnClick()
     {
         //GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_source_add, source);
-        EntitesManager.Instance.Manual.CastSkill();
+        EntitesManager.Instance.Manual._skill_set.CastSkill();
     }
 
     void OnDrawGizmos()

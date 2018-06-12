@@ -1,19 +1,57 @@
-﻿
-
-namespace Summer
+﻿namespace Summer
 {
-    public class SkillSet : I_Update
+    /// <summary>
+    /// 技能的外壳
+    /// </summary>
+    public class SkillSet : I_Update, I_RegisterHandler
     {
         public SkillContainer _skill_container;                                 // 技能容器
-        public I_EntityInTrigger entity;
 
+        public BaseEntity _base_entity;
         public bool _next_attack;                                               // 下一个普攻
         public bool _is_normal_attack;                                          // 处于普通状态
-        public SkillSet(I_EntityInTrigger entity)
+        public SkillSet(BaseEntity entity)
         {
-            this.entity = entity;
+            _base_entity = entity;
             _skill_container = new SkillContainer(entity);
         }
+
+        #region
+
+        public void OnRegisterHandler()
+        {
+            _base_entity.RegisterHandler(E_EntityInTrigger.skill_release, ReleaseSkill);
+            _base_entity.RegisterHandler(E_EntityInTrigger.skill_finish, FinishSkill);
+
+            _base_entity.RegisterHandler(E_EntityOutTrigger.animation_event, ReceiveAnimationEvent);
+        }
+
+        public void UnRegisterHandler()
+        {
+
+        }
+
+        public void ReleaseSkill(EventSetData param)
+        {
+            _skill_container.ReleaseSkill();
+        }
+
+        // 技能结束
+        public void FinishSkill(EventSetData param)
+        {
+            // 技能结束
+            _skill_container.FinishSkill();
+        }
+
+        public void ReceiveAnimationEvent(EventSetData param)
+        {
+            AnimationEventData data = param as AnimationEventData;
+            if (data == null) return;
+            ReceiveTransitionEvent(data.event_data);
+        }
+
+        #endregion
+
 
         public void OnReset(int hero_id)
         {
@@ -26,7 +64,7 @@ namespace Summer
 
             if (_check_normal_attack())
             {
-                
+
                 bool result = _skill_container.CastAttack();
                 if (result)
                 {
@@ -39,14 +77,23 @@ namespace Summer
 
         #region public 
 
-        public void CastAttack()
+        public void OnCastAttack()
         {
             _next_attack = true;
             _is_normal_attack = true;
         }
 
+        public int _skill_id = 10007;//10013 // 10008
+        public void CastSkill()
+        {
+            if (_skill_id == 0)
+                OnCastAttack();
+            else
+                OnCastSkill(_skill_id);
+        }
+
         // 释放技能
-        public void CastSkill(int skill_id)
+        public void OnCastSkill(int skill_id)
         {
             bool result = _skill_container.CastSkill(skill_id);
             if (result)

@@ -151,16 +151,16 @@ public class Buff
 
     public void RemoveSelf()
     {
-        //_target._buff_container.Remove(this);
+        //_target.buff_set.Remove(this);
     }
 
     //过期函数
     public void OnExpire(Timer timer)
     {
-        /*if (_target == null || _target._buff_container == null)
+        /*if (_target == null || _target.buff_set == null)
             return;
 
-        _target._buff_container.Remove(this);*/
+        _target.buff_set.Remove(this);*/
     }
 
     public bool IsActive() { return _target != null; }

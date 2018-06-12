@@ -15,6 +15,7 @@ namespace Summer
 
     public class ResRequestFactory
     {
+        // TODO 小小的gc问题， 可优化
         public static Dictionary<E_GameResType, Dictionary<string, ResRequestInfo>> res_request_map
             = new Dictionary<E_GameResType, Dictionary<string, ResRequestInfo>>(32);
         public static ResRequestInfo CreateRequest<T>(string res_name, E_GameResType res_type = E_GameResType.quanming) where T : UnityEngine.Object
@@ -39,6 +40,8 @@ namespace Summer
 
             return res_request_info;
         }
+
+
     }
 }
 

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Summer
 {
@@ -21,8 +23,9 @@ namespace Summer
         //public List<string> _res_path_map = new List<string>();                                 // 资源路径
         public Dictionary<string, string> _res_path_map = new Dictionary<string, string>();
         public Dictionary<string, string> _res_names = new Dictionary<string, string>();
-        public Dictionary<string, AssetInfo> _asset_map = new Dictionary<string, AssetInfo>();
-
+        //public Dictionary<string, AssetInfo> _asset_map = new Dictionary<string, AssetInfo>();
+        public List<AssetInfo> _asset_map = new List<AssetInfo>();
+        public List<Object> _textures = new List<Object>();
         public List<Object> _fbx = new List<Object>();
         //public bool IsMain { get; private set; }
 
@@ -62,7 +65,8 @@ namespace Summer
                 if (_res_names.ContainsKey(obj_name))
                 {
                     AssetInfo info = new AssetInfo(objs[i], _res_names[obj_name]);
-                    _asset_map.Add(info.ResPath, info);
+                    _asset_map.Add(info);
+                    //_asset_map.Add(info.ResPath, info);
                 }
                 else
                 {
@@ -73,14 +77,28 @@ namespace Summer
             //ab.Unload(false);
         }
 
-        public AssetInfo GetAsset(string asset_name)
+        public AssetInfo GetAsset<T>(string asset_name) where T : UnityEngine.Object
         {
             if (_assetbundle == null) return null;
-            AssetInfo asset_info;
-            _asset_map.TryGetValue(asset_name, out asset_info);
+            AssetInfo re_asset_info = null;
 
-            ResLog.Assert((asset_info != null), "从资源主包[{0}]中找不到对应的AssetInfo:[{1}]的资源", _package_path, asset_name);
-            return asset_info;
+            Type t = typeof(T);
+            for (int i = 0; i < _asset_map.Count; i++)
+            {
+                AssetInfo asset_info = _asset_map[i];
+                if (asset_info.ResPath != asset_name) continue;
+
+                if (asset_info._object.GetType() == t)
+                {
+                    re_asset_info = _asset_map[i];
+                    break;
+                }
+            }
+
+            //_asset_map.TryGetValue(asset_name, out asset_info);
+
+            ResLog.Assert((re_asset_info != null), "从资源主包[{0}]中找不到对应的AssetInfo:[{1}]的资源", _package_path, asset_name);
+            return re_asset_info;
         }
 
         public bool HasAssetBundle(string res_path)
@@ -95,6 +113,7 @@ namespace Summer
             IsComplete = false;
             LogManager.Assert(_assetbundle != null, "不能为空[{0}]", _package_path);
             if (_assetbundle == null) return;
+            _asset_map.Clear();
             _assetbundle.Unload(true);
         }
 

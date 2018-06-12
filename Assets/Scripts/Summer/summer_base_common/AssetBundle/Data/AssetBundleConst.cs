@@ -11,7 +11,7 @@ namespace Summer
     {
         #region 依赖表格
 
-        public static string assetbundle_dep_name = "dep_config";
+        public static string assetbundle_dep_name = "depconfig";
         public static string assetbundle_dep_path = assetbundle_dep_name + ".ab";
         public static string dep_config_name = "Assets/res_bundle/DepConfig.bytes";                     // 配置文件名称
 

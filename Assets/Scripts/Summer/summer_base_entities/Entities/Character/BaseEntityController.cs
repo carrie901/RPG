@@ -23,12 +23,9 @@ namespace Summer
     {
         #region 属性
 
+        public BaseEntity _base_entity;
         protected I_EntityOutTrigger _out_entity;
         protected I_EntityInTrigger _in_entity;
-        [HideInInspector]
-        public EntityAnimationGroup anim_group;
-        [HideInInspector]
-        public EntityMovement movement;
         [HideInInspector]
         public Transform trans;                                                                         // 缓存Transform
         [HideInInspector]
@@ -42,13 +39,11 @@ namespace Summer
         {
             trans = transform;
             rigid_body = GetComponent<Rigidbody>();
-            anim_group = GetComponent<EntityAnimationGroup>();
-            movement = GetComponent<EntityMovement>();
             if (rigid_body != null)
                 rigid_body.useGravity = false;
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         { 
             
         }
@@ -59,7 +54,7 @@ namespace Summer
 
         public void OnUpdate(float dt)
         {
-            movement.OnUpdate(dt);
+            
             /*if (entity == null) return;
             entity.OnUpdate(dt);*/
 
@@ -73,7 +68,7 @@ namespace Summer
 
         #endregion
 
-        #region
+        #region 缓存池
 
         public override void OnPush()
         {
@@ -85,29 +80,31 @@ namespace Summer
 
         #region public 
 
+        public void OnRegisterHandler()
+        {
+            _base_entity.RegisterHandler(E_EntityInTrigger.play_effect, OnPlayEffect);
+        }
+
         public void InitOutTrigger(I_EntityOutTrigger out_trigger, I_EntityInTrigger in_trigger)
         {
             _out_entity = out_trigger;
             _in_entity = in_trigger;
-            movement._entity = in_trigger;
         }
 
-        public void AddDirection(Vector2 direction)
-        {
-            movement.AddDirection(direction);
-        }
 
-        #region 由动作文件触发的外部事件
 
-        // 由动作文件触发的外部事件
-        public void SkillEvent(E_SkillTransition skill_event)
-        {
-            AnimationEventData param = EventDataFactory.Pop<AnimationEventData>();
-            param.event_data = skill_event;
-            _out_entity.RaiseEvent(E_EntityOutTrigger.animation_event, param);
-        }
 
         #endregion
+
+        #region 注册响应
+
+
+        // 播放特效
+        public void OnPlayEffect(EventSetData param)
+        {
+            EntityActionFactory.OnAction<EntityPlayEffectAction>(_base_entity, param);
+        }
+
 
         #endregion
     }

@@ -18,9 +18,9 @@ namespace Summer
     public class RefCounter : MonoBehaviour
     {
         public string ref_res_path = string.Empty;
-
         public void AddRef(string res_path)
         {
+            ResLog.Assert(string.IsNullOrEmpty(ref_res_path), "已经存在了引用:[{0}]", ref_res_path);
             ref_res_path = res_path;
             ResLoader.instance.RefIncrease(res_path);
             AddExcute();
@@ -29,11 +29,10 @@ namespace Summer
         public void RemoveRef()
         {
             if (string.IsNullOrEmpty(ref_res_path))
-            {
-                ResLog.Error("Ref Decrease Error. Name:[{0}],GameResType:[{1}]", ref_res_path);
-            }
+                return;
             RemoveExcute();
             ResLoader.instance.RefDecrease(ref_res_path);
+            ref_res_path = string.Empty;
         }
 
         public virtual void AddExcute()
@@ -45,7 +44,6 @@ namespace Summer
         {
 
         }
-
     }
 }
 

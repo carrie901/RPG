@@ -2,7 +2,7 @@
 
 namespace Summer
 {
-    public class EntitiesAttributeProperty: I_CharacterProperty
+    public class EntitiesAttributeProperty: I_CharacterProperty,I_RegisterHandler
     {
         public EntityId _entity_id;
         public BaseEntitesAttribute _attribute;             //属性
@@ -14,6 +14,8 @@ namespace Summer
             _attribute = new BaseEntitesAttribute(entity_id);
             _property = new BaseEntitiesProperty(entity_id);
         }
+
+        #region 得到Entity的属性和数值 想把这一块的东西转移到 EntitiesAttributeProperty内部来实现，整体思路死BaseEntity有很多内部组件，对应的功能在内部组件来实现 这块不好搞哦
 
         public AttributeIntParam FindAttribute(E_CharAttributeType type)
         {
@@ -33,6 +35,18 @@ namespace Summer
         public void ResetValue(E_CharValueType type, float value)
         {
             _property.ResetValue(type, value);
+        }
+
+        #endregion
+
+        public void OnRegisterHandler()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UnRegisterHandler()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

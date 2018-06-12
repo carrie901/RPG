@@ -70,6 +70,12 @@ namespace SummerEditor
             AssetBundleSetNameE.OblyMainAbName();
         }
 
+        [MenuItem("Tools/AssetBundle/测试/设置选中的文件的AssetBundle")]
+        public static void TestSelectSetAllAssetBundleName()
+        {
+            AssetBundleSetNameE.SetSelectionAssetBundleName();
+        }
+
         #endregion
 
         #region 选中物体

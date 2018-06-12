@@ -14,7 +14,7 @@ namespace Summer
             new Dictionary<string, int>();
         #region I_ResourceLoad
 
-        public AssetInfo LoadAsset(string path)
+        public AssetInfo LoadAsset<T>(string path) where T : UnityEngine.Object
         {
             Object obj = Resources.Load(path);
             ResLog.Assert(obj != null, "ResoucesLoader 加载失败:[{0}]", path);
@@ -22,7 +22,7 @@ namespace Summer
             return info;
         }
 
-        public LoadOpertion LoadAssetAsync(string path)
+        public LoadOpertion LoadAssetAsync<T>(string path) where T : UnityEngine.Object
         {
             ResAsynLoadOpertion res_opertion = AddRequest(path);
             return res_opertion;

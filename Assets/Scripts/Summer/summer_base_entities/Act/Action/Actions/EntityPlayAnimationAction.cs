@@ -1,12 +1,12 @@
 ﻿namespace Summer
 {
-    public class EntityPlayAnimationAction : I_EntityAction
+    /*public class EntityPlayAnimationAction : I_EntityAction
     {
         public void OnAction(BaseEntity entity, EventSetData param)
         {
             PlayAnimationEventData data = param as PlayAnimationEventData;
             if (data == null) return;
-            entity.EntityController.anim_group.PlayAnimation(data.animation_name);
+            entity._anim_group.PlayAnimation(data.animation_name);
         }
     }
 
@@ -18,6 +18,6 @@
             if (data == null) return;
             entity.EntityController.anim_group.ChangeAnimationSpeed(data.animation_speed);
         }
-    }
+    }*/
 }
 

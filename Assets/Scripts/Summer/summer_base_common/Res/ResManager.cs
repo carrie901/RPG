@@ -26,9 +26,8 @@ public class ResManager : I_ResManager
 {
     public static ResManager instance = new ResManager();
     public Texture _bg_loading;                                     // 异步加载时的图片资源
+    public Sprite _default_sprite;
     public ResLoader _res_loader;
-
-
 
     public ResManager()
     {
@@ -37,8 +36,6 @@ public class ResManager : I_ResManager
     }
 
     #region 引用计数
-
-
 
     public RefCounter _internal_ref_increase(ResRequestInfo res_request, GameObject obj)
     {
@@ -73,9 +70,6 @@ public class ResManager : I_ResManager
     public Texture LoadTexture(RawImage img, ResRequestInfo res_request)
     {
         GameObject obj = img.gameObject;
-
-
-        img.texture = _bg_loading;
         Texture texture = _res_loader.LoadAsset<Texture>(res_request);
 
         if (texture != null)
@@ -83,6 +77,10 @@ public class ResManager : I_ResManager
             _internal_ref_decrease(obj);
             img.texture = texture;
             _internal_ref_increase(res_request, obj);
+        }
+        else
+        {
+            img.texture = _bg_loading;
         }
         return texture;
     }
@@ -115,11 +113,11 @@ public class ResManager : I_ResManager
 
     #region Sprite
 
-    public Sprite LoadSprite(ResRequestInfo res_request)
+    /*public Sprite LoadSprite(ResRequestInfo res_request)
     {
         Sprite sprite = _res_loader.LoadAsset<Sprite>(res_request);
         return sprite;
-    }
+    }*/
 
     /*public Sprite LoadSprite(Image img, ResRequestInfo res_request)
     {
@@ -132,7 +130,7 @@ public class ResManager : I_ResManager
         return sprite;
     }*/
 
-    public void LoadSpriteAsync(Image img, ResRequestInfo res_request,
+    /*public void LoadSpriteAsync(Image img, ResRequestInfo res_request,
         Action<Sprite> complete = null)
     {
         if (img == null) return;
@@ -143,11 +141,10 @@ public class ResManager : I_ResManager
                 complete.Invoke(sprite);
         };
         _res_loader.LoadAssetAsync(res_request, action);
-    }
+    }*/
 
 
     #endregion
-
 
     #region Audio
 
@@ -231,6 +228,8 @@ public class ResManager : I_ResManager
     {
         _bg_loading = Resources.Load<Texture>("default/bg_loading");
         ResLog.Assert(_bg_loading != null, "找不到默认的图片信息");
+
+        Resources.Load<Sprite>("default/default_sprite");
     }
 
     #endregion

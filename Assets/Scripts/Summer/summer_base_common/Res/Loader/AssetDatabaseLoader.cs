@@ -16,7 +16,7 @@ namespace Summer
             new Dictionary<string, int>();
         #region I_ResourceLoad
 
-        public AssetInfo LoadAsset(string path)
+        public AssetInfo LoadAsset<T>(string path) where T : UnityEngine.Object
         {
             Object obj = AssetDatabase.LoadAssetAtPath<Object>(EVN + path);
 
@@ -25,7 +25,7 @@ namespace Summer
             return info;
         }
 
-        public LoadOpertion LoadAssetAsync(string path)
+        public LoadOpertion LoadAssetAsync<T>(string path) where T : UnityEngine.Object
         {
             AssetDatabaseAsynLoadOpertion asyn_local = new AssetDatabaseAsynLoadOpertion(EVN + path);
             _load_opertions.Add(asyn_local);
@@ -57,7 +57,7 @@ namespace Summer
                 if (_load_opertions[i].OnUpdate())
                 {
                     RemoveRequest(_load_opertions[i]);
-                    
+
                 }
             }
         }

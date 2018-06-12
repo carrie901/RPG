@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 namespace Summer
 {
@@ -8,7 +9,16 @@ namespace Summer
     /// </summary>
     public class UpdateGameObject : MonoBehaviour
     {
+        #region 属性
+
         public TimerManager time_manager;
+        public EntitesManager entites;
+        public ResLoader rse_loader;
+        public SpritePool sprite_pool;
+
+        public List<I_Update> _update_list = new List<I_Update>();
+
+        #region static
 
         protected static UpdateGameObject _instance = null;
         protected static GameObject _update_root = null;
@@ -27,14 +37,28 @@ namespace Summer
             }
         }
 
+        #endregion
+
+        #endregion
+
         public void OnInit()
         {
             time_manager = TimerManager.Instance;
+            entites = EntitesManager.Instance;
+            rse_loader = ResLoader.instance;
+            sprite_pool = SpritePool.Instance;
         }
 
         void Update()
         {
-            time_manager.OnUpdate(Time.deltaTime);
+            float dt = Time.deltaTime;
+            sprite_pool.OnUpdate(dt);
+            time_manager.OnUpdate(dt);
+
+
+            entites.OnUpdate(dt);
+
+            rse_loader.OnUpdate(dt);
         }
 
     }

@@ -24,7 +24,7 @@ namespace Summer
 
                 direction.y = 0;
                 Vector3 distance = direction.normalized * data.distance;
-                target.MoveToTargetPostion(target_postion + distance, data.speed);
+                target._movement.MoveToTargetPostion(target_postion + distance, data.speed);
             }
         }
     }

@@ -79,7 +79,7 @@ namespace Summer
         #region I_ResourceLoad
 
         // TODO Bug没有好的防御机制，在加载失败的情况下，不会导致整个程序死掉
-        public AssetInfo LoadAsset(string res_path)
+        public AssetInfo LoadAsset<T>(string res_path) where T : UnityEngine.Object
         {
             // 1.资源对应的包信息
             AssetBundleRes res_info = GetAssetBundleRes(res_path);
@@ -100,11 +100,11 @@ namespace Summer
             _internal_syncload_package(main_package_info);
 
             // 3.包中的资源
-            AssetInfo asset_info = main_package_info.GetAsset(res_info.res_path);
+            AssetInfo asset_info = main_package_info.GetAsset<T>(res_info.res_path);
             return asset_info;
         }
 
-        public LoadOpertion LoadAssetAsync(string res_path)
+        public LoadOpertion LoadAssetAsync<T>(string res_path) where T : UnityEngine.Object
         {
             // 1.资源对应的包
             AssetBundleRes res_info = GetAssetBundleRes(res_path);
@@ -133,8 +133,25 @@ namespace Summer
             return true;
         }
 
-        public bool UnloadAssetBundle(string assetbundle_path)
+        public bool UnloadAssetBundle(string res_path)
         {
+            // 1.资源对应的包信息
+            AssetBundleRes res_info = GetAssetBundleRes(res_path);
+            if (res_info == null) return false;
+
+            // 2.得到AssetBundle包
+            AssetBundlePackageInfo main_package_info = GetPackageInfo(res_info.package_path);
+
+            // 3.加载依赖信息
+            AssetBundleDepInfo deps_info = GetDepInfo(res_info.package_path);
+            foreach (var dep_info in deps_info.child_ref)
+            {
+                string dependencies = dep_info.Key;
+                AssetBundlePackageInfo package_info = GetPackageInfo(dependencies);
+                if (!_need_load(package_info)) continue;
+                _internal_syncload_package(package_info);
+            }
+            main_package_info.UnLoad();
             return true;
         }
 

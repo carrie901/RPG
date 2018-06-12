@@ -9,8 +9,9 @@ namespace Summer
     [RequireComponent(typeof(Animator), typeof(BaseEntityController))]
     public class EntityAnimationGroup : MonoBehaviour
     {
-        [HideInInspector]
-        public BaseEntityController entity_controller;
+        #region 属性
+
+        public BaseEntity _base_entity;
         [HideInInspector]
         public Animator animator;
         //[HideInInspector]
@@ -40,21 +41,65 @@ namespace Summer
 
         };
 
+        #endregion
+
         private void Awake()
         {
             _init();
         }
 
+        public void OnInit(BaseEntity base_entity)
+        {
+            _base_entity = base_entity;
+        }
+
+        #region 注册
+
+        public void OnRegisterHandler()
+        {
+            _base_entity.RegisterHandler(E_EntityInTrigger.play_animation, OnPlayAnimation);
+            _base_entity.RegisterHandler(E_EntityInTrigger.change_animation_speed, OnChangeAnimationSpeed);
+        }
+
+        public void UnRegisterHandler()
+        {
+            _base_entity.UnRegisterHandler(E_EntityInTrigger.play_animation, OnPlayAnimation);
+            _base_entity.UnRegisterHandler(E_EntityInTrigger.change_animation_speed, OnChangeAnimationSpeed);
+        }
+
+        #endregion
+
+
+        #region 响应
+
+        // Entity播放动画
+        public void OnPlayAnimation(EventSetData param)
+        {
+            PlayAnimationEventData data = param as PlayAnimationEventData;
+            if (data == null) return;
+            PlayAnimation(data.animation_name);
+        }
+
+        // 改变动画的速率
+        public void OnChangeAnimationSpeed(EventSetData param)
+        {
+            AnimationSpeedEventData data = param as AnimationSpeedEventData;
+            if (data == null) return;
+            ChangeAnimationSpeed(data.animation_speed);
+        }
+
+
+        #endregion
+
         #region public
 
-        /*public string GetClipName(ClipType clip_type)
+        public void SkillEvent(E_SkillTransition skill_event)
         {
-            string anim_name = string.Empty;
-            int index = (int)clip_type;
-            if (index < anim_clips.Count && index >= 0 && anim_clips[index] != null)
-                anim_name = anim_clips[index].name;
-            return anim_name;
-        }*/
+            AnimationEventData param = EventDataFactory.Pop<AnimationEventData>();
+            param.event_data = skill_event;
+            _base_entity.RaiseEvent(E_EntityOutTrigger.animation_event, param);
+        }
+
 
         public void PlayAnim(string anim_name)
         {
@@ -101,35 +146,36 @@ namespace Summer
         {
             //AnimatorStateInfo anim_info = animator.GetCurrentAnimatorStateInfo(0);
             SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_start);
+            SkillEvent(E_SkillTransition.start);
         }
 
         public void SkillEvent01()
         {
             SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_event01);
-            entity_controller.SkillEvent(E_SkillTransition.anim_event01);
+            SkillEvent(E_SkillTransition.anim_event01);
         }
 
         public void SkillEvent02()
         {
             SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_event02);
-            entity_controller.SkillEvent(E_SkillTransition.anim_event02);
+            SkillEvent(E_SkillTransition.anim_event02);
         }
 
         public void SkillHit()
         {
             SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_hit);
-            entity_controller.SkillEvent(E_SkillTransition.anim_hit);
+            SkillEvent(E_SkillTransition.anim_hit);
         }
 
         public void SkillFinish()
         {
             SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_finish);
-            entity_controller.SkillEvent(E_SkillTransition.anim_finish);
+            SkillEvent(E_SkillTransition.anim_finish);
         }
 
         public void SkillRelease()
         {
-            entity_controller.SkillEvent(E_SkillTransition.anim_release);
+            SkillEvent(E_SkillTransition.anim_release);
         }
 
         #endregion
@@ -160,7 +206,6 @@ namespace Summer
 
         public void _init()
         {
-            entity_controller = gameObject.GetComponent<BaseEntityController>();
             animator = gameObject.GetComponent<Animator>();
 
             AnimatorOverrideController override_control = new AnimatorOverrideController();

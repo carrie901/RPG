@@ -7,12 +7,12 @@ namespace Summer
     {
         public static W3Loader instance = new W3Loader();
 
-        public AssetInfo LoadAsset(string path)
+        public AssetInfo LoadAsset<T>(string path) where T : UnityEngine.Object
         {
             throw new NotImplementedException();
         }
 
-        public LoadOpertion LoadAssetAsync(string path)
+        public LoadOpertion LoadAssetAsync<T>(string path) where T : UnityEngine.Object
         {
             throw new NotImplementedException();
         }

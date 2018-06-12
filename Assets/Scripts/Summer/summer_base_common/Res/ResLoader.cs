@@ -7,6 +7,10 @@ using Object = UnityEngine.Object;
 
 namespace Summer
 {
+    /// <summary>
+    /// 加载器
+    /// 1.加载器不参与引用统计
+    /// </summary>
     public class ResLoader : I_Update
     {
         #region 属性
@@ -87,8 +91,15 @@ namespace Summer
             return false;
         }
 
-        public bool UnloadAssetBundle(string ref_name, E_GameResType res_type)
+        public bool UnloadRes(ResRequestInfo res_request)
         {
+            if (!_map_res.ContainsKey(res_request.res_path)) return false;
+
+            AssetInfo asset_info = _map_res[res_request.res_path];
+            _map_res.Remove(res_request.res_path);
+            bool result = _loader.UnloadAssetBundle(res_request.res_path);
+            ResLog.Assert(result, "卸载失败:[{0}]", res_request.res_path);
+            //Resources.UnloadAsset(asset_info._object);
             return false;
         }
 
@@ -127,7 +138,7 @@ namespace Summer
             AssetInfo asset_info = _map_res[res_path];
             // 2.引用-1
             asset_info.RefCount--;
-            ResLog.Assert(asset_info.RefCount >= 0, "引用计数错误:[{0}]", res_path);
+            ResLog.Assert(asset_info.RefCount >= 0, "引用计数错误:[{0}]，Ref Count:[{1}]", res_path, asset_info.RefCount);
         }
 
         #endregion
@@ -137,6 +148,13 @@ namespace Summer
         public bool ContainsRes(string assetbundle_name)
         {
             return _on_loading_res.Contains(assetbundle_name);
+        }
+
+        public int GetRefCount(string assetbundle_name)
+        {
+            if (_map_res.ContainsKey(assetbundle_name))
+                return _map_res[assetbundle_name].RefCount;
+            return 0;
         }
 
         #endregion
@@ -152,7 +170,7 @@ namespace Summer
 
         public void _internal_load_asset<T>(ResRequestInfo request_info) where T : Object
         {
-            AssetInfo asset_info = _loader.LoadAsset(request_info.res_path);
+            AssetInfo asset_info = _loader.LoadAsset<T>(request_info.res_path);
             ResLog.Assert(asset_info != null, "ResLoader结论:内部加载失败,找不到对应的资源，路径:[{0}]", request_info.res_path);
             _push_asset_to_cache(asset_info);
         }
@@ -180,7 +198,7 @@ namespace Summer
                 curr_async_index++;
                 _on_loading_res.Add(res_request.res_path);
                 // 4.请求异步加载
-                LoadOpertion load_opertion = _loader.LoadAssetAsync(res_request.res_path);
+                LoadOpertion load_opertion = _loader.LoadAssetAsync<T>(res_request.res_path);
                 // 等待加载完成
                 yield return load_opertion;
                 AssetInfo asset_info = new AssetInfo(load_opertion.GetAsset(), res_request);

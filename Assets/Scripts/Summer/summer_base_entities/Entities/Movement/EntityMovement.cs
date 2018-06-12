@@ -7,23 +7,22 @@ namespace Summer
     /// <summary>
     /// TODO 一个严重bug 就是一切的基础是以原点作为基础，一旦摄像头错误了。那么就会导致所有方向都有问题
     /// </summary>
-    public class EntityMovement : MonoBehaviour
+    public class EntityMovement : MonoBehaviour, I_RegisterHandler
     {
-
         #region 属性
+
+        public BaseEntity _base_entity;
 
         public const float NAVMESH_RADIUS = 0.5f;
         public float capsule_collider_radius = 0.51f;                       // Capsule Collider半径
-        //public bool _reach_target_pos;                                  // 达到目的地
-        //public Vector3 move_velocity = Vector3.one;                   // 当前速度
+        //public bool _reach_target_pos;                                    // 达到目的地
+        //public Vector3 move_velocity = Vector3.one;                       // 当前速度
         public List<Vector3> directions = new List<Vector3>();
         [HideInInspector]
         public Vector3 _target_direction;                                   // 目标方向
         public float turn_smoothing = 10;
         public float movespeed = 15;
         public Transform trans;
-
-        public I_EntityInTrigger _entity;
         public I_Move _move_component;
         public I_Move direction_move = new DirectionMove();
         public I_Move target_pos_move = new TargetPosMove();
@@ -88,8 +87,8 @@ namespace Summer
 
         public void AddDirection(Vector2 target_direction)
         {
-            if (_entity.GetState() != E_StateId.move)
-                EntityEventFactory.ChangeInEntityState(_entity, E_StateId.move);
+            if (_base_entity.GetState() != E_StateId.move)
+                EntityEventFactory.ChangeInEntityState(_base_entity, E_StateId.move);
             //_reach_target_pos = true;
             DirectionMove move = direction_move as DirectionMove;
             move.move_direction = new Vector3(target_direction.x, 0, target_direction.y);
@@ -135,6 +134,36 @@ namespace Summer
         }
 
         #endregion
+
+        public void OnRegisterHandler()
+        {
+            _base_entity.RegisterHandler(E_EntityInTrigger.move_to_target_position, OnMoveToTargetPostion);
+        }
+
+        public void UnRegisterHandler()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnMoveToTargetPostion(EventSetData param)
+        {
+            MoveToTargetPositionData data = param as MoveToTargetPositionData;
+            if (data == null) return;
+
+            Vector3 entity_position = _base_entity.WroldPosition;
+            int length = _base_entity._targets.Count;
+            for (int i = 0; i < length; i++)
+            {
+                BaseEntity target = _base_entity._targets[i];
+
+                Vector3 target_postion = target.WroldPosition;
+                Vector3 direction = target_postion - entity_position;
+
+                direction.y = 0;
+                Vector3 distance = direction.normalized * data.distance;
+                target._movement.MoveToTargetPostion(target_postion + distance, data.speed);
+            }
+        }
     }
 
     public interface I_Move
@@ -149,13 +178,13 @@ namespace Summer
         public Vector3 move_direction = Vector3.zero;                       // 键盘目标方向
         public bool OnMove(EntityMovement entity_movement, float dt)
         {
-            if (entity_movement._entity.GetState() != E_StateId.move) return true;
+            if (entity_movement._base_entity.GetState() != E_StateId.move) return true;
 
             // 1.是否到达目的地
             //if (!_reach_target_pos) return;
             if (move_direction == Vector3.zero)
             {
-                EntityEventFactory.ChangeInEntityState(entity_movement._entity, E_StateId.idle);
+                EntityEventFactory.ChangeInEntityState(entity_movement._base_entity, E_StateId.idle);
                 return true;
             }
             Vector3 cur_position = entity_movement.trans.position;
@@ -228,7 +257,7 @@ namespace Summer
             var distance = (entity_movement.trans.position - target).magnitude;
             if (distance <= 0.01f)
             {
-                EntityEventFactory.ChangeInEntityState(entity_movement._entity, E_StateId.idle);
+                EntityEventFactory.ChangeInEntityState(entity_movement._base_entity, E_StateId.idle);
                 return true;
             }
             return false;

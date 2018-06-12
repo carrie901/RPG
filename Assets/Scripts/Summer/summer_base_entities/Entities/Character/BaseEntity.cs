@@ -11,8 +11,11 @@ namespace Summer
     ///     根据高内聚原则,entity相关的方法最好内聚在本类，如果需求是多样化的。那么提供get方法让外部进行操作，但最总基础的方法还是在本类
     /// QAQ:
     ///     关于涉及到生命周期的一些东西，比如技能特效，声音，目前不太好处理，目前把这些东西放到SkillModule中
+    /// 
+    /// 
+    /// 目前没有明确性质的方案来判断到底原子操作的具体逻辑是放在原子操作中来完成好，还是通过由原子操作来进行注册触发好
     /// </summary>
-    public class BaseEntity : I_CharacterProperty, I_Update, I_EntityInTrigger, I_EntityOutTrigger, I_EntityLife
+    public class BaseEntity : /*I_CharacterProperty,*/ I_Update, I_EntityInTrigger, I_EntityOutTrigger, I_EntityLife/*, I_RegisterHandler*/
     {
         #region 属性
 
@@ -22,13 +25,10 @@ namespace Summer
         public Vector3 Direction { get { return EntityController.trans.forward; } }                     // 当前方向
         public bool CanMovement { get; set; }
         public EntityId entity_id;                                                                      // Entity的唯一表示
-
-
         public HeroInfoCnf _cnf;
 
-        public List<BaseEntity> _targets = new List<BaseEntity>();                                       // 目标
-
-
+        // TODO 是否通过黑箱进行操作 来规避掉内部的响应
+        public List<BaseEntity> _targets = new List<BaseEntity>();                                       // 目标 是否通过黑箱进行操作
         public EventSet<E_EntityOutTrigger, EventSetData> _out_event_set                                // 角色的外部事件
            = new EventSet<E_EntityOutTrigger, EventSetData>();
         public EventSet<E_EntityInTrigger, EventSetData> _in_event_set                                  // 角色的内部事件
@@ -37,6 +37,12 @@ namespace Summer
 
 
         public List<I_Update> update_list = new List<I_Update>();                                       // 对应需要注册到容器中的组件 进行Update
+        public List<I_RegisterHandler> register_list = new List<I_RegisterHandler>();                   // 注册项
+
+        #region 缓存池相关
+
+        public bool IsUse { get; set; }                                                                 // true=使用中
+        public string ObjectName { get { return "BaseEntity"; } }
 
         #endregion
 
@@ -44,48 +50,35 @@ namespace Summer
 
         public BtEntityAi _entity_ai;                                                                   // 相关AI组件
         public SkillSet _skill_set;                                                                     // 相关技能组件
-        public BuffContainer _buff_container;                                                           // 相关Buff组件
+        public BuffSet _buff_set;                                                                        // 相关Buff组件
         public EntitiesAttributeProperty _attr_prop;                                                    // 相关人物属性组件
         public FsmSystem _fsm_system;                                                                   // 相关状态机组件
 
         #endregion
 
-        #region Override 各种接口
+        #region Mono的附带属性
+
+        public EntityAnimationGroup _anim_group;                                                        // 动画组件 播放动画
+        public EntityMovement _movement;                                                                // 移动组件 人物移动
+        public BaseEntityController _entity_controller;                                                 // 角色控制器 
+
+        #endregion
+
+        #endregion
+
+        #region I_Update/I_EntityInTrigger/I_EntityOutTrigger/I_EntityLife
 
         #region OnUpdate
 
         public void OnUpdate(float dt)
         {
             EntityController.OnUpdate(dt);
+            _movement.OnUpdate(dt);
             int length = update_list.Count;
             for (int i = 0; i < length; i++)
             {
                 update_list[i].OnUpdate(dt);
             }
-        }
-
-        #endregion
-
-        #region 得到Entity的属性和数值 想把这一块的东西转移到 EntitiesAttributeProperty内部来实现，整体思路死BaseEntity有很多内部组件，对应的功能在内部组件来实现 这块不好搞哦
-
-        public AttributeIntParam FindAttribute(E_CharAttributeType type)
-        {
-            return _attr_prop.FindAttribute(type);
-        }
-
-        public float FindValue(E_CharValueType type)
-        {
-            return _attr_prop.FindValue(type);
-        }
-
-        public void ChangeValue(E_CharValueType type, float value)
-        {
-            _attr_prop.ChangeValue(type, value);
-        }
-
-        public void ResetValue(E_CharValueType type, float value)
-        {
-            _attr_prop.ResetValue(type, value);
         }
 
         #endregion
@@ -135,77 +128,57 @@ namespace Summer
 
         #endregion
 
-        #region 缓存池相关函数
+        #region I_EntityLife 缓存池相关函数
 
-        public void OnInit()
+        // 第一次被初始化出来
+        public virtual void OnInit()
         {
             _skill_set = new SkillSet(this);
+            _buff_set = new BuffSet(this);
             _fsm_system = EntityFsmFactory.CreateFsmSystem(this);
             _entity_ai = new BtEntityAi(this);
-            
         }
 
-        public void OnPop(int hero_id)
+        // 从缓存池中提取
+        public virtual void OnPop(int hero_id)
         {
-            CanMovement = true;
-            Template = hero_id;
-            RegisterHandler();
-            entity_id = new EntityId();
-            
-            _cnf = StaticCnf.FindData<HeroInfoCnf>(Template);
-            _skill_set.OnReset(Template);
-            _attr_prop = new EntitiesAttributeProperty(entity_id);
+            Template = hero_id;             // 模板ID
+            _init_data();
+            _init_gameobject();
 
             // 更新通道
             update_list.Add(_skill_set);
-            //update_list.Add(_fsm_system);
-            // 加载模型
-            BaseEntityController go = TransformPool.Instance.Pop<BaseEntityController>
-                ("res_bundle/prefab/model/Character/" + "NPC_Zhaoyun_001_02"/*_cnf.prefab_name*/);
-            EntityController = go;
-            EntityController.InitOutTrigger(this, this);
+            update_list.Add(_fsm_system);
+            update_list.Add(_buff_set);
 
+            // 注册
+            _fsm_system.OnRegisterHandler();
+            _skill_set.OnRegisterHandler();
+            _buff_set.OnRegisterHandler();
+            _attr_prop.OnRegisterHandler();
+
+            OnRegisterHandler();
+
+            _anim_group.PlayAnimation(AnimationNameConst.IDLE);
             _fsm_system.Start();
-
-            PlayAnimationEventData param = EventDataFactory.Pop<PlayAnimationEventData>();
-            param.animation_name = "idle";
-            EntityActionFactory.OnAction<EntityPlayAnimationAction>(this, param);
-            EventDataFactory.Push(param);
         }
 
-        public void OnPush()
+        // 放入缓存池
+        public virtual void OnPush()
         {
             Clear();
             TransformPool.Instance.Push(EntityController);
             EntityController = null;
         }
 
-        public bool IsUse { get; set; }
-        public string ObjectName { get { return "BaseEntity"; } }
 
         #endregion
 
         #endregion
+
+        #region public
 
         #region 监听的内部事件,通过一些原子节点触发事件，迫使Entity做出某些行为
-
-        // Entity播放动画
-        public void PlayAnimation(EventSetData param)
-        {
-            EntityActionFactory.OnAction<EntityPlayAnimationAction>(this, param);
-        }
-
-        // 改变动画的速率
-        public void ChangeAnimationSpeed(EventSetData param)
-        {
-            EntityActionFactory.OnAction<EntityChangeAnimationSpeedAction>(this, param);
-        }
-
-        // 播放特效
-        public void PlayEffect(EventSetData param)
-        {
-            EntityActionFactory.OnAction<EntityPlayEffectAction>(this, param);
-        }
 
         // 找到目标
         public void FindTargets(EventSetData param)
@@ -219,122 +192,41 @@ namespace Summer
             EntityActionFactory.OnAction<EntityExportToTargetAction>(this, param);
         }
 
-        public void MoveToTargetPostion(EventSetData param)
-        {
-            EntityActionFactory.OnAction<MoveToTargetPositionAction>(this, param);
-        }
-
         // 目标死亡
         public void EntityDie(EventSetData param)
         {
             EntityEventFactory.ChangeInEntityState(this, E_StateId.die);
         }
-
-        // 改变当前玩家状态
-        public void ChangeState(EventSetData param)
-        {
-            ChangeEntityStateEventData data = param as ChangeEntityStateEventData;
-            if (data == null) return;
-            if (GetState() == data.state_id && !data.force) return;
-            SkillLog.Log("之前状态:{0},改变之后状态:{1}", GetState(), data.state_id);
-            _fsm_system.PerformTransition(data.state_id);
-        }
-
-        // 释放技能的控制，可以播放下一技能
-        public void ReleaseSkill(EventSetData param)
-        {
-            _skill_set._skill_container.ReleaseSkill();
-        }
-
-        // 技能结束
-        public void FinishSkill(EventSetData param)
-        {
-            // 技能结束
-            _skill_set._skill_container.FinishSkill();
-        }
-
         #endregion
 
         #region 监听的外部事件，比如动作文件为源头，触发动作事件
 
-        public void ReceiveAnimationEvent(EventSetData param)
-        {
-            AnimationEventData data = param as AnimationEventData;
-            if (data == null) return;
-            _skill_set.ReceiveTransitionEvent(data.event_data);
-        }
-
         public void OnBeHurt(EventSetData param)
         {
             EntityEventFactory.ChangeInEntityState(this, E_StateId.hurt);
-            /*PlayAnimationEventData data = EventDataFactory.Pop<PlayAnimationEventData>();
-            data.animation_name = "hit";
-            EntityActionFactory.OnAction<EntityPlayAnimationAction>(this, data);*/
         }
 
         #endregion
 
-        #region 注册事件
-
-        public void RegisterHandler()
+        public void OnRegisterHandler()
         {
-            RegisterHandler(E_EntityInTrigger.play_animation, PlayAnimation);
-            RegisterHandler(E_EntityInTrigger.change_animation_speed, ChangeAnimationSpeed);
-            RegisterHandler(E_EntityInTrigger.play_effect, PlayEffect);
-            RegisterHandler(E_EntityInTrigger.skill_release, ReleaseSkill);
-            RegisterHandler(E_EntityInTrigger.skill_finish, FinishSkill);
             RegisterHandler(E_EntityInTrigger.find_targets, FindTargets);
             RegisterHandler(E_EntityInTrigger.export_to_target, ExportToTarget);
-            RegisterHandler(E_EntityInTrigger.move_to_target_position, MoveToTargetPostion);
             RegisterHandler(E_EntityInTrigger.entity_die, EntityDie);
-            RegisterHandler(E_EntityInTrigger.change_state, ChangeState);
-
-            RegisterHandler(E_EntityOutTrigger.animation_event, ReceiveAnimationEvent);
             RegisterHandler(E_EntityOutTrigger.on_be_hurt, OnBeHurt);
         }
 
-
-        #endregion
-
-        #region
-
-
-        #endregion
-
-        #region public
-
         public bool IsDead() { return false; }
-        public string ToDes() { return ""; }
-        public int _skill_id = 10007;//10013 // 10008
-        public void CastSkill()
-        {
-            if (_skill_set == null) return;
-            if (_skill_id == 0)
-                _skill_set.CastAttack();
-            else
-                _skill_set.CastSkill(_skill_id);
-        }
-
-        public void CastSkill(int skill_id)
-        {
-            if (_skill_set == null) return;
-            _skill_set.CastSkill(skill_id);
-        }
 
         public void ReceiveCommandMove(Vector2 diretion)
         {
             if (!CanMovement) return;
-            EntityController.AddDirection(diretion);
+            _movement.AddDirection(diretion);
         }
 
         public void InitPosRot()
         {
             EntityController.trans.position = new Vector3(Random.value * 40 - 20f, 0, Random.value * 40 - 20f);
-        }
-
-        public void MoveToTargetPostion(Vector3 target_position, float speed)
-        {
-            EntityController.movement.MoveToTargetPostion(target_position, speed);
         }
 
         public virtual I_Transform GetTransform()
@@ -348,9 +240,42 @@ namespace Summer
             _in_event_set.Clear();
             _targets.Clear();
             update_list.Clear();
+            for (int i = 0; i < register_list.Count; i++)
+                register_list[i].UnRegisterHandler();
+            register_list.Clear();
+        }
+        public string ToDes() { return ""; }
+        #endregion
+
+        #region
+
+        // 初始化GameObject的相关东西
+        public void _init_gameobject()
+        {
+            // 加载模型
+            BaseEntityController go = TransformPool.Instance.Pop<BaseEntityController>
+                ("res_bundle/prefab/model/Character/" + "NPC_Zhaoyun_001_02"/*_cnf.prefab_name*/);
+            EntityController = go;
+            EntityController.InitOutTrigger(this, this);
+
+            _anim_group = go.GetComponent<EntityAnimationGroup>();
+            _anim_group.OnInit(this);
+            _anim_group.OnRegisterHandler();
+
+            _movement = go.GetComponent<EntityMovement>();
+            _movement._base_entity = this;
+        }
+
+        public void _init_data()
+        {
+            CanMovement = true;
+            entity_id = new EntityId();
+
+            _cnf = StaticCnf.FindData<HeroInfoCnf>(Template);
+            _skill_set.OnReset(Template);
+            _attr_prop = new EntitiesAttributeProperty(entity_id);
         }
 
         #endregion
-
     }
 }

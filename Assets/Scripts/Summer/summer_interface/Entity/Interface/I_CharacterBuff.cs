@@ -22,7 +22,7 @@ namespace Summer
         //触发回调点
         void RaiseEvent(E_BuffTrigger key, EventBuffSetData obj_info);
 
-        BuffContainer GetBuffContainer();
+        BuffSet GetBuffContainer();
     }*/
 
 }
