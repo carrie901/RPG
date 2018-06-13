@@ -7,10 +7,11 @@ using UnityEngine;
 
 namespace Summer
 {
+    /// <summary>
+    /// 引用计数
+    /// </summary>
     public class CheckRefCount : MonoBehaviour
     {
-
-
         public bool flag = false;
         // Use this for initialization
         void Start()
@@ -109,10 +110,6 @@ namespace Summer
         public IEnumerator WriteFile()
         {
             yield return null;
-
-
-
-
         }
     }
 }

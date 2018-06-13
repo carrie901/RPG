@@ -146,10 +146,10 @@ namespace Summer
             AssetBundleDepInfo deps_info = GetDepInfo(res_info.package_path);
             foreach (var dep_info in deps_info.child_ref)
             {
+                ResLog.Log("引用--,dep_info:[{0}]", dep_info.Key);
                 string dependencies = dep_info.Key;
-                AssetBundlePackageInfo package_info = GetPackageInfo(dependencies);
-                if (!_need_load(package_info)) continue;
-                _internal_syncload_package(package_info);
+                //AssetBundlePackageInfo package_info = GetPackageInfo(dependencies);
+                
             }
             main_package_info.UnLoad();
             return true;
