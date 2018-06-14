@@ -15,23 +15,22 @@ public class TestDataLoader : MonoBehaviour
         nameInfoObj.name = "MyScriptableObject";
         nameInfoObj.myData.Add(new MyDataInfo(100, "myData测试"));
         nameInfoObj.myData.Add(new MyDataInfo(101, "myData3测试"));
-        UnityEditor.AssetDatabase.CreateAsset(nameInfoObj, "Assets/" + nameInfoObj.name + ".asset");
+        UnityEditor.AssetDatabase.CreateAsset(nameInfoObj, "Assets/" + nameInfoObj.name + ".asset");*/
 
         ConfigManager.ReadLocalConfig();
-        //StaticCnfLoader.LoadAllCsvFile();
 
         BaseEntity entity = EntityPool.Instance.Pop(1001001);
         EntitesManager.Instance.AddEntity(entity);
         GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_set_player, entity);
         EntitesManager.Instance.SetManual(entity);
 
-        int count = 2;
+        int count = 10;
         for (int i = 0; i < count; i++)
         {
             BaseEntity tmp = EntityPool.Instance.Pop(1001001);
             tmp.InitPosRot();
             EntitesManager.Instance.AddEntity(tmp);
-        }*/
+        }
         /*TransformPool.Instance.Pop<PoolVfxObject>("res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_01");
         TransformPool.Instance.Pop<PoolVfxObject>("res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_02");
         TransformPool.Instance.Pop<PoolVfxObject>("res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_03");

@@ -11,7 +11,7 @@ namespace Summer
         public Vector3 _offset;
         public Vector3 _rotaion;
         public float time = 0.01f;
-        public override void OnEnter()
+        public override void OnEnter(EntityBlackBoard blackboard)
         {
             LogEnter();
             CameraSource camera_source = new CameraSource();
@@ -23,14 +23,14 @@ namespace Summer
             Finish();
         }
 
-        public override void OnExit()
+        public override void OnExit(EntityBlackBoard blackboard)
         {
             LogExit();
         }
 
-        public override void OnUpdate(float dt)
+        public override void OnUpdate(float dt, EntityBlackBoard blackboard)
         {
-            base.OnUpdate(dt);
+            base.OnUpdate(dt, blackboard);
         }
 
         public override string ToDes() { return DES; }

@@ -10,15 +10,24 @@ namespace Summer
     public class PlayPositionOffsetLeafNode : SkillLeafNode
     {
         public const string DES = "位置偏移";
-        public override void OnEnter()
+        public Vector3 _target_post;
+        public override void OnEnter(EntityBlackBoard blackboard)
         {
 
         }
 
-        public override void OnExit()
+        public override void OnExit(EntityBlackBoard blackboard)
         {
 
         }
+
+        public override void OnUpdate(float dt, EntityBlackBoard blackboard)
+        {
+            //Finish();
+            // 如果到达目标地点
+            
+        }
+
         public override string ToDes() { return DES; }
     }
 }

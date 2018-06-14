@@ -16,7 +16,7 @@ namespace Summer
 
         public bool debug = false;
         public Color debug_line_color = Color.yellow;
-        public override void OnEnter()
+        public override void OnEnter(EntityBlackBoard blackboard)
         {
             LogEnter();
             DoLookAt();
@@ -26,12 +26,12 @@ namespace Summer
             }
         }
 
-        public override void OnExit()
+        public override void OnExit(EntityBlackBoard blackboard)
         {
             LogExit();
         }
 
-        public override void OnUpdate(float dt)
+        public override void OnUpdate(float dt, EntityBlackBoard blackboard)
         {
             //base.OnUpdate(dt);
             UpdateLookAtPosition();

@@ -3,7 +3,7 @@ namespace Summer.AI
 {
     public class BtActionContext
     {
-
+        
     }
     public abstract class BtAction : BtTreeNode
     {

@@ -13,7 +13,7 @@ namespace Summer
         //public int frame_count = 10;
         //public int curr_frame = 0;
         public float speed = 0;
-        public override void OnEnter()
+        public override void OnEnter(EntityBlackBoard blackboard)
         {
             LogEnter();
             AnimationSpeedEventData data = EventDataFactory.Pop<AnimationSpeedEventData>();
@@ -34,7 +34,7 @@ namespace Summer
             }
         }*/
 
-        public override void OnExit()
+        public override void OnExit(EntityBlackBoard blackboard)
         {
             LogExit();
         }

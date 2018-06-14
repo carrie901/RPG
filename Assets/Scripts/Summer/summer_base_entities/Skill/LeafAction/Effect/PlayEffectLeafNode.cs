@@ -10,7 +10,7 @@ namespace Summer
         public const string DES = "播放特效";
         public string effect_name;             //特效名称
         //public GameObject bing_obj;            //绑定的GameObject
-        public override void OnEnter()
+        public override void OnEnter(EntityBlackBoard blackboard)
         {
             LogEnter();
             PlayEffectEventSkill data = EventDataFactory.Pop<PlayEffectEventSkill>();
@@ -20,7 +20,7 @@ namespace Summer
             Finish();
         }
 
-        public override void OnExit()
+        public override void OnExit(EntityBlackBoard blackboard)
         {
             LogExit();
         }

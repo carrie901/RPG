@@ -47,7 +47,7 @@ namespace Summer
             T t = _object as T;
             if (t == null)
             {
-                ResLog.Error("AssetInfo is Error,Info:[{0}],GameResType:[{1}]", ResPath);
+                ResLog.Error("AssetInfo Error,Info:[{0}]", ResPath);
             }
             return t;
         }

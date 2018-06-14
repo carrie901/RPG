@@ -9,7 +9,7 @@ namespace Summer
     public class AssetDatabaseLoader : I_ResourceLoad
     {
         public static AssetDatabaseLoader instance = new AssetDatabaseLoader();
-        public const string EVN = "Assets/res_bundle/";
+        public const string EVN = "Assets/";
 
         public List<LoadOpertion> _load_opertions                                  //加载的请求
          = new List<LoadOpertion>(32);

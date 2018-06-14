@@ -11,7 +11,7 @@ namespace Summer
         public float speed;
         public float distance;                           // 完成的最小距离
 
-        public override void OnEnter()
+        public override void OnEnter(EntityBlackBoard blackboard)
         {
             LogEnter();
             MoveToTargetPositionData data = EventDataFactory.Pop<MoveToTargetPositionData>();
@@ -21,16 +21,16 @@ namespace Summer
             Finish();
         }
 
-        public override void OnExit()
+        public override void OnExit(EntityBlackBoard blackboard)
         {
             LogExit();
         }
 
         public override string ToDes() { return DES; }
 
-        public override void OnUpdate(float dt)
+        public override void OnUpdate(float dt, EntityBlackBoard blackboard)
         {
-            base.OnUpdate(dt);
+            base.OnUpdate(dt, blackboard);
             //DoMoveToTarget(dt);
         }
 

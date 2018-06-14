@@ -25,11 +25,11 @@ namespace Summer
 
         #region abstract OnEnter/OnExit/OnUpdate
 
-        public abstract void OnEnter();
+        public abstract void OnEnter(EntityBlackBoard blackboard);
 
-        public abstract void OnExit();
+        public abstract void OnExit(EntityBlackBoard blackboard);
 
-        public virtual void OnUpdate(float dt)
+        public virtual void OnUpdate(float dt, EntityBlackBoard blackboard)
         {
             Finish();
         }

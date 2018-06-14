@@ -113,7 +113,7 @@ namespace Summer
         public List<SkillNode> _childnodes = new List<SkillNode>(16);                   // 子节点
         public bool _is_complete;                                                       // 是否结束序列节点
         public string des = string.Empty;                                               // 文本说明
-        public SkillContainer _skill_container;                                               // 属于哪一个容器
+        public SkillContainer _skill_container;                                         // 属于哪一个容器
 
         #endregion
 
@@ -183,6 +183,11 @@ namespace Summer
             }
             _childnodes.Add(state);
             state.SetParent(this);
+        }
+
+        public EntityBlackBoard GetBlackboard()
+        {
+            return _skill_container.GetBlackboard();
         }
 
         #endregion

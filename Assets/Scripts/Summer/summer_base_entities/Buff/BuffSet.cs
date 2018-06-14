@@ -391,12 +391,12 @@ namespace Summer
 
         public void OnRegisterHandler()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void UnRegisterHandler()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 

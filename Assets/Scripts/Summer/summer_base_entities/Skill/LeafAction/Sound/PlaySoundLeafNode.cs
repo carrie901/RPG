@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class PlaySound : SkillLeafNode
+    public class PlaySoundLeafNode : SkillLeafNode
     {
         public const string DES = "播放声音";
         public string sound_name;              //特效名称
         public Vector3 _position;
 
-        public override void OnEnter()
+        public override void OnEnter(EntityBlackBoard blackboard)
         {
             LogEnter();
 
@@ -22,12 +22,12 @@ namespace Summer
             Finish();
         }
 
-        public override void OnExit()
+        public override void OnExit(EntityBlackBoard blackboard)
         {
             LogExit();
         }
 
-        public override void OnUpdate(float dt)
+        public override void OnUpdate(float dt, EntityBlackBoard blackboard)
         {
 
         }
@@ -35,7 +35,7 @@ namespace Summer
         public override string ToDes() { return DES; }
     }
 
-    public class PlaySoundByAnimation : PlaySound
+    public class PlaySoundLeafNodeByAnimation : PlaySoundLeafNode
     {
 
     }

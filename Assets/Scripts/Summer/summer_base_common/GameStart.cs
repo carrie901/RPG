@@ -11,13 +11,16 @@ public class GameStart : MonoBehaviour
 
     private void Awake()
     {
-        UpdateGameObject.Instance.OnInit();
+
     }
 
     // Use this for initialization
     void Start()
     {
-
+        // 所有需要调用OnUpdate(dt)方法的入口
+        UpdateGameObject.Instance.OnInit();
+        // 读取csv表格内容
+        ConfigManager.ReadLocalConfig();
     }
 
     // Update is called once per frame

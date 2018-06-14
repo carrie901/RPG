@@ -12,7 +12,7 @@ namespace Summer
         public Dictionary<int, SkillSequence> _sequence_map
             = new Dictionary<int, SkillSequence>(8);                                        // Entity的技能容器
         public SkillSequence _curr_sequece;                                                 // 当前技能序列
-        public I_EntityInTrigger _entity;                                               // 内部触发器
+        public BaseEntity _entity;                                                   // 内部触发器
 
         public bool _can_cast_skill;                                                        // 可以释放下一个技能了
 
@@ -22,7 +22,7 @@ namespace Summer
 
         #endregion
 
-        public SkillContainer(I_EntityInTrigger entity)
+        public SkillContainer(BaseEntity entity)
         {
             _entity = entity;
         }
@@ -75,9 +75,10 @@ namespace Summer
         public void OnUpdate(float dt)
         {
             // 通过时间来触发事件，
-            SkillContainerTest.OnUpdate(dt);
+            //SkillContainerTest.OnUpdate(dt);
 
             if (_curr_sequece == null) return;
+
 
             _curr_sequece.OnUpdate(dt);
 
@@ -90,9 +91,16 @@ namespace Summer
             }
         }
 
+
         #endregion
 
         #region public 
+
+        public EntityBlackBoard GetBlackboard()
+        {
+            return _entity.GetBlackBorad();
+        }
+
 
         public bool CastAttack()
         {

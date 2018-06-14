@@ -15,7 +15,7 @@ namespace Summer
     /// 
     /// 目前没有明确性质的方案来判断到底原子操作的具体逻辑是放在原子操作中来完成好，还是通过由原子操作来进行注册触发好
     /// </summary>
-    public class BaseEntity : /*I_CharacterProperty,*/ I_Update, I_EntityInTrigger, I_EntityOutTrigger, I_EntityLife/*, I_RegisterHandler*/
+    public class BaseEntity : /*I_CharacterProperty,*/ I_Update, I_EntityInTrigger, I_EntityOutTrigger, I_EntityLife/*, I_SkillBlackBorad*//*, I_RegisterHandler*/
     {
         #region 属性
 
@@ -34,10 +34,13 @@ namespace Summer
         public EventSet<E_EntityInTrigger, EventSetData> _in_event_set                                  // 角色的内部事件
        = new EventSet<E_EntityInTrigger, EventSetData>();
 
+        public EntityBlackBoard _entity_blackboard = new EntityBlackBoard();
 
 
         public List<I_Update> update_list = new List<I_Update>();                                       // 对应需要注册到容器中的组件 进行Update
         public List<I_RegisterHandler> register_list = new List<I_RegisterHandler>();                   // 注册项
+
+
 
         #region 缓存池相关
 
@@ -83,7 +86,7 @@ namespace Summer
 
         #endregion
 
-        #region 注册监听人物的外部事件
+        #region I_EntityInTrigger 注册监听人物的外部事件
 
         public bool RegisterHandler(E_EntityOutTrigger key, EventSet<E_EntityOutTrigger, EventSetData>.EventHandler handler)
         {
@@ -103,7 +106,7 @@ namespace Summer
 
         #endregion
 
-        #region 注册监听人物的内部事件 基本都是一些原子节点
+        #region I_EntityOutTrigger 注册监听人物的内部事件 基本都是一些原子节点
 
         public bool RegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventSetData>.EventHandler handler)
         {
@@ -171,6 +174,21 @@ namespace Summer
             EntityController = null;
         }
 
+
+        #endregion
+
+        #region I_SkillBlackBorad 黑箱数据
+
+        public EntityBlackBoard GetBlackBorad()
+        {
+            return _entity_blackboard;
+        }
+
+        /*public T GetBlackBoradValue<T>(string key, T default_value)
+        {
+            T t = _skill_blackboard.GetValue<T>(key, default_value);
+            return t;
+        }*/
 
         #endregion
 

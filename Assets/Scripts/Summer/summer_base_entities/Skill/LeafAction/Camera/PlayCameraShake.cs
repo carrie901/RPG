@@ -16,7 +16,7 @@ namespace Summer
     {
         public const string DES = "镜头抖动";
 
-        public override void OnEnter()
+        public override void OnEnter(EntityBlackBoard blackboard)
         {
             LogEnter();
             PlayCameraShakeEventSkill data = EventDataFactory.Pop<PlayCameraShakeEventSkill>();
@@ -24,7 +24,7 @@ namespace Summer
             Finish();
         }
 
-        public override void OnExit()
+        public override void OnExit(EntityBlackBoard blackboard)
         {
 
         }

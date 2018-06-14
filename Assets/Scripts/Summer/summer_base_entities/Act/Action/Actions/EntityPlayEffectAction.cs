@@ -1,5 +1,8 @@
 ﻿namespace Summer
 {
+    /// <summary>
+    /// 播放特效
+    /// </summary>
     public class EntityPlayEffectAction : I_EntityAction
     {
         public void OnAction(BaseEntity entity, EventSetData param)

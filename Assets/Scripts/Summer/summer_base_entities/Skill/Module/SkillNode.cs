@@ -34,15 +34,19 @@ namespace Summer
     ///     1.进行节点，直接执行叶子动作，
     ///         1.1如果是默认动作，直接跳转到下一个节点
     ///         1.2如果有接受事件。那么只有接受到指定事件之后，才会跳转到下一个节点中去
-    ///
+    ///2018.6.14 把节点从接受事件修改为触发前置条件
+    ///     触发前置条件，可以是接受事件也可以是时间到达等等 
+    ///     写了一半太麻烦
+    /// 
+    /// BUG 可能涉及到过度一帧的问题
     /// </summary>
     public class SkillNode
     {
         #region 运行状态的枚举
 
-        public const int RUNING_NONE = 0;
-        public const int RUNING_START = 1;
-        public const int RUNING_ENTER = 2;
+        public const int RUNING_NONE = 0;                       // 无状态
+        public const int RUNING_START = 1;                      // 处于当前检测状态
+        public const int RUNING_ENTER = 2;                      // Enter--->Update-->Exit
         public const int RUNING_UPDATE = 3;
         public const int RUNING_EXIT = 4;
 
@@ -50,8 +54,8 @@ namespace Summer
 
         #region 属性
 
-        public StringBuilder _des;                                                         //  描述
-        public List<SkillLeafNode> _actions = new List<SkillLeafNode>(16);      //  这个节点下叶子节点
+        public StringBuilder _des;                                                  //  描述
+        public List<SkillLeafNode> _actions = new List<SkillLeafNode>(16);          //  这个节点下叶子节点
         public E_SkillTransition _start_transition = E_SkillTransition.start;       //  执行这个节点的开始运行的事件 目前只接受一个事件 默认情况下接受start事件
         //public E_SkillTransition _finish_transition = E_SkillTransition.start;
         public SkillSequence _parent_node;                                          //  属性某一个流程
@@ -90,18 +94,6 @@ namespace Summer
                 if (_des == null)
                     _des = new StringBuilder();
                 _des.AppendFormat("{0}. {1}     ", _actions.Count, action.ToDes());
-            }
-        }
-
-        public void RemoveAction(SkillLeafNode action)
-        {
-            int length = _actions.Count;
-            for (int i = length - 1; i >= 0; i--)
-            {
-                if (_actions[i] == action)
-                {
-                    _actions.Remove(_actions[i]);
-                }
             }
         }
 
@@ -157,7 +149,7 @@ namespace Summer
             bool all_action_result = true;
             for (int i = 0; i < length; i++)
             {
-                _actions[i].OnEnter();
+                _actions[i].OnEnter(GetBlackboard());
                 if (!_actions[i].IsFinish())
                     all_action_result = false;
             }
@@ -179,7 +171,7 @@ namespace Summer
             int length = _actions.Count;
             for (int i = 0; i < length; i++)
             {
-                _actions[i].OnExit();
+                _actions[i].OnExit(GetBlackboard());
             }
             SkillLog.LogExit(this);
         }
@@ -196,7 +188,7 @@ namespace Summer
                 // 如果节点已经结束就不在运行
                 if (_actions[i].IsFinish()) continue;
 
-                _actions[i].OnUpdate(dt);
+                _actions[i].OnUpdate(dt, GetBlackboard());
 
                 if (!_actions[i].IsFinish())
                     all_action_result = false;
@@ -229,6 +221,16 @@ namespace Summer
                 // 2.发送默认的开启事件
                 _parent_node.ReceiveWithInEvent(E_SkillTransition.start);
             }
+        }
+
+        public EntityBlackBoard _entity_blackboard;
+        public EntityBlackBoard GetBlackboard()
+        {
+            if (_entity_blackboard == null)
+            {
+                _entity_blackboard= _parent_node.GetBlackboard();
+            }
+            return _entity_blackboard;
         }
 
         #endregion

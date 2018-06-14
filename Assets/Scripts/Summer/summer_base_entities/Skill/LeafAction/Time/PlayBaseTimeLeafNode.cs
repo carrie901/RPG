@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 namespace Summer
@@ -16,7 +14,7 @@ namespace Summer
         public float _start_time;       //开始的时间
         public float _timer;            //累加的时间
 
-        public override void OnEnter()
+        public override void OnEnter(EntityBlackBoard blackboard)
         {
             LogEnter();
             if (duration < 0)
@@ -33,14 +31,14 @@ namespace Summer
             DoAction();
         }
 
-        public override void OnExit()
+        public override void OnExit(EntityBlackBoard blackboard)
         {
             LogExit();
             _start_time = Time.realtimeSinceStartup;
             _timer = 0;
         }
 
-        public override void OnUpdate(float dt)
+        public override void OnUpdate(float dt, EntityBlackBoard blackboard)
         {
             _timer += dt;
             if (_timer >= duration)

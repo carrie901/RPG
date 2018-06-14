@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-namespace Summer
+﻿namespace Summer
 {
     /// <summary>
     /// 查找目标 
@@ -11,7 +10,7 @@ namespace Summer
         //TODO 希望能通过抽象来描述查找目标
         public float radius;        //距离
         public float degree;        //角度
-        public override void OnEnter()
+        public override void OnEnter(EntityBlackBoard blackboard)
         {
             LogEnter();
             EntityFindTargetData data = EventDataFactory.Pop<EntityFindTargetData>();
@@ -21,14 +20,14 @@ namespace Summer
             Finish();
         }
 
-        public override void OnExit()
+        public override void OnExit(EntityBlackBoard blackboard)
         {
             LogExit();
         }
 
-        public override void OnUpdate(float dt)
+        public override void OnUpdate(float dt, EntityBlackBoard blackboard)
         {
-            base.OnUpdate(dt);
+            base.OnUpdate(dt, blackboard);
         }
 
         public override string ToDes()
