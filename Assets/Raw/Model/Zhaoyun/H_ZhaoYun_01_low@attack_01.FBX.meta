@@ -312,8 +312,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.20010245
+      - time: 0.3275777
         functionName: SkillHit
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9753806
+        functionName: SkillFinish
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -614,7 +621,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: M010_Chouun0:RF_Skeleton
+    rootMotionBoneName: M010_Chouun0:M010_Chouun0
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
