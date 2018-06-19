@@ -19,7 +19,7 @@ namespace Summer
         public override void DoBeforeEntering()
         {
             entity.CanMovement = true;
-            EntityEventFactory.PlayAnimation(entity, "Idle");
+            EntityEventFactory.PlayAnimation(entity, AnimationNameConst.IDLE);
         }
 
         public override void DoBeforeLeaving()

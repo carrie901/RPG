@@ -91,55 +91,6 @@ namespace Summer
 
         #endregion
 
-        #region public
-
-        public void SkillEvent(E_SkillTransition skill_event)
-        {
-            AnimationEventData param = EventDataFactory.Pop<AnimationEventData>();
-            param.event_data = skill_event;
-            _base_entity.RaiseEvent(E_EntityOutTrigger.animation_event, param);
-        }
-
-
-        public void PlayAnim(string anim_name)
-        {
-            curr_anim_name = anim_name;
-            if (animator == null) return;
-            animator.Play(anim_name);
-        }
-
-        public void PlayAnimation(string anim_name)
-        {
-            AnimationLog.Log("*****************播放动画:" + anim_name);
-            curr_anim_name = anim_name;
-            if (animator == null) return;
-            animator.CrossFade(anim_name, 0.2f);
-        }
-
-        public void ChangeAnimationSpeed(float speed)
-        {
-            animator.speed = speed;
-            //AnimatorTransitionInfo info = animator.GetAnimatorTransitionInfo(0);
-        }
-
-        public void StopAnim(string anim_name)
-        {
-            if (animator == null) return;
-            animator.StopPlayback();
-        }
-
-        public AnimatorStateInfo GetAnimatorStateInfo()
-        {
-            AnimatorStateInfo state_info = animator.GetCurrentAnimatorStateInfo(0);
-            return state_info;
-        }
-
-        public bool IsAttackNormal()
-        {
-            //AnimatorStateInfo anim_info = GetAnimatorStateInfo();
-            return false;
-        }
-
         #region ReceiveEvent
 
         public void SkillStart()
@@ -179,6 +130,48 @@ namespace Summer
         }
 
         #endregion
+
+        #region public
+
+        public void SkillEvent(E_SkillTransition skill_event)
+        {
+            AnimationEventData param = EventDataFactory.Pop<AnimationEventData>();
+            param.event_data = skill_event;
+            _base_entity.RaiseEvent(E_EntityOutTrigger.animation_event, param);
+        }
+
+        public void PlayAnimation(string anim_name)
+        {
+            AnimationLog.Log("*****************播放动画:" + anim_name);
+            curr_anim_name = anim_name;
+            if (animator == null) return;
+            //animator.CrossFade(anim_name, 0.2f);
+            animator.Play(anim_name);
+        }
+
+        public void ChangeAnimationSpeed(float speed)
+        {
+            animator.speed = speed;
+            //AnimatorTransitionInfo info = animator.GetAnimatorTransitionInfo(0);
+        }
+
+        public void StopAnim(string anim_name)
+        {
+            if (animator == null) return;
+            animator.StopPlayback();
+        }
+
+        public AnimatorStateInfo GetAnimatorStateInfo()
+        {
+            AnimatorStateInfo state_info = animator.GetCurrentAnimatorStateInfo(0);
+            return state_info;
+        }
+
+        public bool IsAttackNormal()
+        {
+            //AnimatorStateInfo anim_info = GetAnimatorStateInfo();
+            return false;
+        }
 
         #endregion
 
@@ -231,7 +224,7 @@ namespace Summer
 
     public class AnimationNameConst
     {
-        public const string IDLE = "";
+        public const string IDLE = "idle";
         public const string ATTACK_01 = "attack_01";
         public const string ATTACK_02 = "attack_02";
         public const string ATTACK_03 = "attack_03";
@@ -252,6 +245,7 @@ namespace Summer
 
         public const string ACTIONCMD = "ActionCMD";
 
+        public static int idle = Animator.StringToHash(IDLE);
         public static int attack_01 = Animator.StringToHash(ATTACK_01);
         public static int attack_02 = Animator.StringToHash(ATTACK_02);
         public static int attack_03 = Animator.StringToHash(ATTACK_03);

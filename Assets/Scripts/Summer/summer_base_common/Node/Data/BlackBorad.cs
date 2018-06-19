@@ -8,20 +8,36 @@ namespace Summer
     /// </summary>
     public class BlackBorad
     {
-        protected Dictionary<string, BlackBoardItem> _items
-            = new Dictionary<string, BlackBoardItem>();
+        private Dictionary<string, BlackboardItem> _items
+            = new Dictionary<string, BlackboardItem>();
+
+        class BlackboardItem
+        {
+            private System.Object _value;
+            public void SetValue(System.Object v)
+            {
+                _value = v;
+            }
+            public T GetValue<T>()
+            {
+                return (T)_value;
+            }
+        }
 
         public BlackBorad() { }
-        public void AddValue(string key, BlackBoardItem item)
+        public void SetValue(string key, System.Object v)
         {
-            if (_items.ContainsKey(key))
+            BlackboardItem item;
+            if (_items.ContainsKey(key) == false)
             {
-                _items[key] = item;
+                item = new BlackboardItem();
+                _items.Add(key, item);
             }
             else
             {
-                _items.Add(key, item);
+                item = _items[key];
             }
+            item.SetValue(v);
         }
 
         public void SetEmpty(string key)
@@ -32,36 +48,13 @@ namespace Summer
             }
         }
 
-        public BlackBoardItem GetValue(string key)
+        public T GetValue<T>(string key) where T : class, new()
         {
-            BlackBoardItem item;
-            _items.TryGetValue(key, out item);
-            return item;
+            if (!_items.ContainsKey(key))
+            {
+                SetValue(key, new T());
+            }
+            return _items[key].GetValue<T>();
         }
     }
-
-    public class BlackBoardItem
-    {
-        public virtual void Clear()
-        {
-
-        }
-    }
-
-    public class BlockBoradInt : BlackBoardItem
-    {
-        public int value;
-    }
-
-    public class BlockBoradFloat : BlackBoardItem
-    {
-        public float value;
-    }
-
-    public class BlockBoradString : BlackBoardItem
-    {
-        public float value;
-    }
-
-
 }

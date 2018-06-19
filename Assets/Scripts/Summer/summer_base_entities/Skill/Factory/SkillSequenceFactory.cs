@@ -128,7 +128,7 @@ namespace Summer
 
 
                 trigger_colllion.AddAction(CreateFindTarget(spell_info));
-                trigger_colllion.AddAction(CreateMoveToTargetLeafNode(spell_info));
+                //trigger_colllion.AddAction(CreateMoveToTargetLeafNode(spell_info));
                 trigger_colllion.AddAction(CreateExportToTarget(spell_info));
                 trigger_colllion.AddAction(CreateWait(0.2f));
             }
@@ -221,12 +221,23 @@ namespace Summer
                 anim_node.AddAction(CreateEffect(spell_info));
             }
 
-            // 释放控制
+            {
+                // 3.查找目标，并且输出技能到目标身上，接受动画播放完
+                SkillNode trigger_colllion = AddSkillNode(skill_sequence, E_SkillTransition.anim_hit);
+
+
+                trigger_colllion.AddAction(CreateFindTarget(spell_info));
+                trigger_colllion.AddAction(CreateMoveToTargetLeafNode(spell_info));
+                trigger_colllion.AddAction(CreateExportToTarget(spell_info));
+                trigger_colllion.AddAction(CreateWait(0.2f));
+            }
+
+            /*// 释放控制
             {
                 SkillNode node = AddSkillNode(skill_sequence, E_SkillTransition.anim_release);
                 node.AddAction(CreateReleaseSkill(spell_info));
 
-            }
+            }*/
             {
                 SkillNode node = AddSkillNode(skill_sequence, E_SkillTransition.anim_finish);
                 node.AddAction(CreateSkillFinish(spell_info));

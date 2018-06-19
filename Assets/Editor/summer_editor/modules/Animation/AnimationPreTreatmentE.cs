@@ -65,6 +65,7 @@ namespace SummerEditor
 
         public static void SavePrefab()
         {
+
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
             Resources.UnloadUnusedAssets();
@@ -115,6 +116,8 @@ namespace SummerEditor
             {
                 ani_config.AddAnims(anim_clips[i].name, anim_clips[i]);
             }
+
+            EditorUtility.SetDirty(obj);
         }
 
         // 查找指定目录下的所有动画文件

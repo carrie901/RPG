@@ -150,7 +150,7 @@ namespace Summer
             MoveToTargetPositionData data = param as MoveToTargetPositionData;
             if (data == null) return;
 
-            Vector3 entity_position = _base_entity.WroldPosition;
+            /*Vector3 entity_position = _base_entity.WroldPosition;
             int length = _base_entity._targets.Count;
             for (int i = 0; i < length; i++)
             {
@@ -162,7 +162,7 @@ namespace Summer
                 direction.y = 0;
                 Vector3 distance = direction.normalized * data.distance;
                 target._movement.MoveToTargetPostion(target_postion + distance, data.speed);
-            }
+            }*/
         }
     }
 

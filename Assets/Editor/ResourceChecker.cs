@@ -12,6 +12,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine.Profiling;
 using Object = UnityEngine.Object;
 
 public class TextureDetails : IEquatable<TextureDetails>
@@ -74,7 +75,7 @@ public class MeshDetails
 {
 
     public Mesh mesh;
-
+    public float size;
     public List<MeshFilter> FoundInMeshFilters = new List<MeshFilter>();
     public List<SkinnedMeshRenderer> FoundInSkinnedMeshRenderer = new List<SkinnedMeshRenderer>();
     public bool instance;
@@ -82,6 +83,12 @@ public class MeshDetails
     public MeshDetails()
     {
         instance = false;
+    }
+
+    public void Init()
+    {
+        size = (float)mesh.vertexCount / (6.4f);//7.845
+        Debug.Log("mesh:" + mesh.name + "_" + size);
     }
 };
 
@@ -240,6 +247,11 @@ public class ResourceChecker : EditorWindow
 
         TotalMeshVertices = 0;
         foreach (MeshDetails tMeshDetails in ActiveMeshDetails) TotalMeshVertices += tMeshDetails.mesh.vertexCount;
+        foreach (MeshDetails tMeshDetails in ActiveMeshDetails)
+        {
+            tMeshDetails.Init();
+        }
+
     }
 
     int GetBitsPerPixel(TextureFormat format)
@@ -299,7 +311,7 @@ public class ResourceChecker : EditorWindow
 			case TextureFormat.ATF_RGB_JPG://	 Flash-specific RGB JPG-compressed color texture format.
 			return 0; //Not supported yet  
 #endif
-          
+
         }
         Debug.LogError("没有这种类型的图片格式：" + format);
         return 0;
@@ -507,7 +519,8 @@ public class ResourceChecker : EditorWindow
                     SelectObject(tDetails.mesh, ctrlPressed);
                 }
                 GUI.color = defColor;
-                string sizeLabel = "" + tDetails.mesh.vertexCount + " vert";
+                float size1 = Profiler.GetRuntimeMemorySizeLong(tDetails.mesh);
+                string sizeLabel = "" + tDetails.mesh.vertexCount + " vert" + (size1 / 1024).ToString("f2");
 
                 GUILayout.Label(sizeLabel, GUILayout.Width(100));
 
@@ -621,7 +634,7 @@ public class ResourceChecker : EditorWindow
         thingsMissing = false;
 
         Renderer[] renderers = FindObjects<Renderer>();
-
+        Material[] materials = Resources.FindObjectsOfTypeAll<Material>();
         MaterialDetails skyMat = new MaterialDetails();
         skyMat.material = RenderSettings.skybox;
         skyMat.isSky = true;

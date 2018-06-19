@@ -28,7 +28,7 @@ namespace Summer
         public HeroInfoCnf _cnf;
 
         // TODO 是否通过黑箱进行操作 来规避掉内部的响应
-        public List<BaseEntity> _targets = new List<BaseEntity>();                                       // 目标 是否通过黑箱进行操作
+        //public List<BaseEntity> _targets = new List<BaseEntity>();                                       // 目标 是否通过黑箱进行操作
         public EventSet<E_EntityOutTrigger, EventSetData> _out_event_set                                // 角色的外部事件
            = new EventSet<E_EntityOutTrigger, EventSetData>();
         public EventSet<E_EntityInTrigger, EventSetData> _in_event_set                                  // 角色的内部事件
@@ -69,7 +69,7 @@ namespace Summer
 
         #endregion
 
-        #region I_Update/I_EntityInTrigger/I_EntityOutTrigger/I_EntityLife
+        #region I_Update/I_EntityInTrigger/I_EntityOutTrigger/I_EntityLife缓存池/黑箱
 
         #region OnUpdate
 
@@ -199,16 +199,16 @@ namespace Summer
         #region 监听的内部事件,通过一些原子节点触发事件，迫使Entity做出某些行为
 
         // 找到目标
-        public void FindTargets(EventSetData param)
+        /*public void FindTargets(EventSetData param)
         {
             EntityActionFactory.OnAction<EntityFindTargetAction>(this, param);
-        }
+        }*/
 
         // 输出伤害到目标身上
-        public void ExportToTarget(EventSetData param)
+        /*public void ExportToTarget(EventSetData param)
         {
             EntityActionFactory.OnAction<EntityExportToTargetAction>(this, param);
-        }
+        }*/
 
         // 目标死亡
         public void EntityDie(EventSetData param)
@@ -228,8 +228,8 @@ namespace Summer
 
         public void OnRegisterHandler()
         {
-            RegisterHandler(E_EntityInTrigger.find_targets, FindTargets);
-            RegisterHandler(E_EntityInTrigger.export_to_target, ExportToTarget);
+            //RegisterHandler(E_EntityInTrigger.find_targets, FindTargets);
+            //RegisterHandler(E_EntityInTrigger.export_to_target, ExportToTarget);
             RegisterHandler(E_EntityInTrigger.entity_die, EntityDie);
             RegisterHandler(E_EntityOutTrigger.on_be_hurt, OnBeHurt);
         }
@@ -256,7 +256,7 @@ namespace Summer
         {
             _out_event_set.Clear();
             _in_event_set.Clear();
-            _targets.Clear();
+            //_targets.Clear();
             update_list.Clear();
             for (int i = 0; i < register_list.Count; i++)
                 register_list[i].UnRegisterHandler();

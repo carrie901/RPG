@@ -10,7 +10,7 @@ namespace Summer
     {
         public void OnAction(BaseEntity entity, EventSetData param)
         {
-            MoveToTargetPositionData data = param as MoveToTargetPositionData;
+            /*MoveToTargetPositionData data = param as MoveToTargetPositionData;
             if (data == null) return;
 
             Vector3 entity_position = entity.WroldPosition;
@@ -25,7 +25,7 @@ namespace Summer
                 direction.y = 0;
                 Vector3 distance = direction.normalized * data.distance;
                 target._movement.MoveToTargetPostion(target_postion + distance, data.speed);
-            }
+            }*/
         }
     }
 }

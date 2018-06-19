@@ -14,7 +14,8 @@ namespace Summer
         {
             LogEnter();
             EntityExportToTargetData data = EventDataFactory.Pop<EntityExportToTargetData>();
-            RaiseEvent(E_EntityInTrigger.export_to_target, data);
+            _export_to_target_damage(data, blackboard);
+            EventDataFactory.Push(data);
             Finish();
         }
 
@@ -23,15 +24,29 @@ namespace Summer
             LogExit();
         }
 
-        public override void OnUpdate(float dt, EntityBlackBoard blackboard)
-        {
-
-        }
-
         public override string ToDes()
         {
             return DES;
         }
+
+        #region private
+
+        public List<BaseEntity> target_list;
+        public void _export_to_target_damage(EntityExportToTargetData data, EntityBlackBoard blackboard)
+        {
+            if (data == null) return;
+            BaseEntity entity = blackboard.entity;
+            target_list = blackboard.GetValue<List<BaseEntity>>(EntityBlackBoardConst.TARGET_LIST);
+            int length = target_list.Count;
+            for (int i = 0; i < length; i++)
+            {
+                DamageHelper.ExportDamageToTarget(entity, target_list[i], 10);
+                ActionLog.Log("对目标:[{0}]造成[{1}]点伤害", target_list[i].ToDes(), data.damage);
+            }
+            target_list.Clear();
+        }
+
+        #endregion
     }
 }
 

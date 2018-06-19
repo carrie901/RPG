@@ -2,11 +2,11 @@
 
 namespace Summer
 {
-    public class EntityFindTargetAction : I_EntityAction
+    /*public class EntityFindTargetAction : I_EntityAction
     {
         public void OnAction(BaseEntity entity, EventSetData param)
         {
-            EntityFindTargetData data = param as EntityFindTargetData;
+            /*EntityFindTargetData data = param as EntityFindTargetData;
             if (data == null) return;
 
             float angle = data.degree / 2;
@@ -32,9 +32,9 @@ namespace Summer
                 // 添加到目标
                 entity._targets.Add(tmp_entity);
                 ActionLog.Log("找到目标:{0}", tmp_entity.EntityController.gameObject.name);
-            }
+            }#1#
         }
-    }
+    }*/
 }
 
 

@@ -30,8 +30,8 @@ namespace Summer
 
         public override void OnUpdate(float dt, EntityBlackBoard blackboard)
         {
-            base.OnUpdate(dt, blackboard);
-            //DoMoveToTarget(dt);
+            //base.OnUpdate(dt, blackboard);
+            DoMoveToTarget(dt);
         }
 
         public void DoMoveToTarget(float dt)

@@ -93,7 +93,7 @@
             _is_normal_attack = true;
         }
 
-        public int _skill_id = 10007;//10013 // 10008
+        public int _skill_id = 0;//10007;//10013 // 10008
         public void CastSkill()
         {
             if (_skill_id == 0)

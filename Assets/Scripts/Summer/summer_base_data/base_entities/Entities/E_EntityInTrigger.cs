@@ -11,9 +11,10 @@ namespace Summer
         play_sound,                 // 播放声音
         play_animation,             // 播放动作
         change_animation_speed,     // 改变动作速度
-        find_targets,               // 找到目标
 
-        export_to_target,           // 输出伤害
+        //find_targets,               // 找到目标
+        //export_to_target,           // 输出伤害
+
         move_to_target_position,    // 移动到目标地点
         skill_release,              // 释放技能控制
         skill_finish,               // 技能结束

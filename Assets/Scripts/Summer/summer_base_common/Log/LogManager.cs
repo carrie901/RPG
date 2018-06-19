@@ -33,7 +33,7 @@ namespace Summer
         public static bool open_plot = false;
         public static bool open_skill = true;
         public static bool opne_entity_action = true;
-        public static bool animation = false;
+        public static bool animation = true;
 
         public static List<I_Log> pipelines = new List<I_Log>();
 
