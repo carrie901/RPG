@@ -198,23 +198,12 @@ namespace Summer
 
         #region 监听的内部事件,通过一些原子节点触发事件，迫使Entity做出某些行为
 
-        // 找到目标
-        /*public void FindTargets(EventSetData param)
-        {
-            EntityActionFactory.OnAction<EntityFindTargetAction>(this, param);
-        }*/
-
-        // 输出伤害到目标身上
-        /*public void ExportToTarget(EventSetData param)
-        {
-            EntityActionFactory.OnAction<EntityExportToTargetAction>(this, param);
-        }*/
-
         // 目标死亡
         public void EntityDie(EventSetData param)
         {
             EntityEventFactory.ChangeInEntityState(this, E_StateId.die);
         }
+
         #endregion
 
         #region 监听的外部事件，比如动作文件为源头，触发动作事件
@@ -228,8 +217,6 @@ namespace Summer
 
         public void OnRegisterHandler()
         {
-            //RegisterHandler(E_EntityInTrigger.find_targets, FindTargets);
-            //RegisterHandler(E_EntityInTrigger.export_to_target, ExportToTarget);
             RegisterHandler(E_EntityInTrigger.entity_die, EntityDie);
             RegisterHandler(E_EntityOutTrigger.on_be_hurt, OnBeHurt);
         }
@@ -247,11 +234,6 @@ namespace Summer
             EntityController.trans.position = new Vector3(Random.value * 40 - 20f, 0, Random.value * 40 - 20f);
         }
 
-        public virtual I_Transform GetTransform()
-        {
-            return null;
-        }
-
         public void Clear()
         {
             _out_event_set.Clear();
@@ -262,10 +244,12 @@ namespace Summer
                 register_list[i].UnRegisterHandler();
             register_list.Clear();
         }
+
         public string ToDes() { return ""; }
+
         #endregion
 
-        #region
+        #region private
 
         // 初始化GameObject的相关东西
         public void _init_gameobject()
