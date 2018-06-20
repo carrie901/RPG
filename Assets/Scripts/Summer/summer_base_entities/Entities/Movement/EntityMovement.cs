@@ -21,7 +21,7 @@ namespace Summer
         [HideInInspector]
         public Vector3 _target_direction;                                   // 目标方向
         public float turn_smoothing = 10;
-        public float movespeed = 15;
+        public float movespeed = 5;
         public Transform trans;
         public I_Move _move_component;
         public I_Move direction_move = new DirectionMove();

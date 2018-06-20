@@ -25,22 +25,13 @@ namespace Summer
             EntityFindTargetData data = EventDataFactory.Pop<EntityFindTargetData>();
             data.degree = degree;
             data.radius = radius;
-            //RaiseEvent(E_EntityInTrigger.find_targets, data);
-
-
-
-
+            _find_target(blackboard, data);
             Finish();
         }
 
         public override void OnExit(EntityBlackBoard blackboard)
         {
             LogExit();
-        }
-
-        public override void OnUpdate(float dt, EntityBlackBoard blackboard)
-        {
-            base.OnUpdate(dt, blackboard);
         }
 
         public override string ToDes()

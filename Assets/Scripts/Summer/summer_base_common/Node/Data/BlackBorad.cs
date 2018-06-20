@@ -56,5 +56,15 @@ namespace Summer
             }
             return _items[key].GetValue<T>();
         }
+
+        public void Clear()
+        {
+            foreach (var info in _items)
+            {
+
+            }
+
+            _items.Clear();
+        }
     }
 }

@@ -17,20 +17,25 @@ public class GameStart : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        // 所有需要调用OnUpdate(dt)方法的入口
-        UpdateGameObject.Instance.OnInit();
-        // 读取csv表格内容
-        ConfigManager.ReadLocalConfig();
 
-        TestGame test_game = new TestGame();
-        test_game.Main();
 
     }
 
+    bool flag = true;
     // Update is called once per frame
     void Update()
     {
+        if (flag)
+        {
+            // 所有需要调用OnUpdate(dt)方法的入口
+            UpdateGameObject.Instance.OnInit();
+            // 读取csv表格内容
+            ConfigManager.ReadLocalConfig();
 
+            TestGame test_game = new TestGame();
+            test_game.Main();
+            flag = false;
+        }
     }
 }
 
@@ -50,7 +55,7 @@ public class TestGame
         GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_set_player, entity);
         EntitesManager.Instance.SetManual(entity);
         //Time.timeScale = 0.1f;
-        int count = 0;
+        int count = 10;
         for (int i = 0; i < count; i++)
         {
             BaseEntity tmp = EntityPool.Instance.Pop(1001001);

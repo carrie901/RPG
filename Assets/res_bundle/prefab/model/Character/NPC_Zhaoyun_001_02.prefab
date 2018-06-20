@@ -3198,7 +3198,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: d77f5734858e26a44aa273558cc0cab5, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -3294,7 +3294,7 @@ MonoBehaviour:
   directions: []
   _target_direction: {x: 0, y: 0, z: 0}
   turn_smoothing: 10
-  movespeed: 15
+  movespeed: 5
   trans: {fileID: 0}
   _last_time: 0
 --- !u!136 &136433336775881160

@@ -45,7 +45,7 @@ namespace Summer
         }
 
 
-        public CameraSourceData _dest_data;
+        public CameraSourceData _dest_source_data;
         public Vector3 _move_speed_offset = Vector3.zero;
         public float smoothing = 5;
         public void Process(CameraPipelineData data, float dt)
@@ -56,38 +56,30 @@ namespace Summer
                 return;
             }
 
-            // 1.转换成camerasourcedata 剔除掉_player.WroldPosition
+            // 1.当前的镜头数据
             CameraSourceData cur_source_data = Convert2CameraSource(data._now_data_witout_shake, _player.WroldPosition);
 
             // 混合 source源，根据时间 递归的时候会对_dest_data数据进行赋值
             _blend_source(dt);
 
-            if (_dest_data._offset.z >= -0.001f)
-                _dest_data._offset.z = -0.001f;
+            if (_dest_source_data._offset.z >= -0.001f)
+                _dest_source_data._offset.z = -0.001f;
 
-            Vector3 dest_offset = _dest_data._offset;
+            // 做一个递归的操作
+            Vector3 dest_offset = _dest_source_data._offset;
 
-            // dest_offset=
-            /*Vector3 dir = dest_offset - cur_source_data._offset;
             float offset_speed = _default_lerp._offset_speed;
-            if (dir.sqrMagnitude > offset_speed * offset_speed) //太远用lerp
+            if (cur_source_data._offset.sqrMagnitude > offset_speed * offset_speed) //太远用lerp
             {
                 dest_offset = Vector3.Lerp(cur_source_data._offset, dest_offset, dt * _default_lerp._offset_speed);
             }
             else
-                dest_offset = Vector3.SmoothDamp(cur_source_data._offset, dest_offset, ref _move_speed_offset, dt, _default_lerp._offset_speed);*/
-
+                dest_offset = Vector3.SmoothDamp(cur_source_data._offset, dest_offset, ref _move_speed_offset, dt, _default_lerp._offset_speed);
 
             // 数据复制
-            data._dest_data_without_shake._rot = Quaternion.Euler(_dest_data._rotaion);
+            data._dest_data_without_shake._rot = Quaternion.Euler(_dest_source_data._rotaion);
             data._dest_data_without_shake._pos = dest_offset + _player.WroldPosition;
             data._dest_data = data._dest_data_without_shake;
-
-            /*Quaternion dest_rot = Quaternion.Euler(_dest_data._rotaion);
-            data._dest_data_without_shake._rot = dest_rot;
-
-            data._dest_data_without_shake._pos = dest_rot * dest_offset + _player.WroldPosition;
-            data._dest_data = data._dest_data_without_shake;*/
         }
 
         #endregion
@@ -148,7 +140,7 @@ namespace Summer
             if (_next_camera_source_timer != null)
                 _next_camera_source_timer.OnUpdate(dt);
 
-            _dest_data = _blend_next(dt);
+            _dest_source_data = _blend_next(dt);
 
             if (_next_camera_source_timer != null)
             {
@@ -217,19 +209,13 @@ namespace Summer
             _next_camera_source_timer.OnReset();
         }
 
-        // 通过当前镜头的数据，剔除掉人物距离，得到实际的数据
+        /// <summary>
+        /// 通过当前镜头的数据，剔除掉人物距离，得到实际的数据
+        /// </summary>
         public CameraSourceData Convert2CameraSource(CameraData data, Vector3 target_pos)
         {
-            //return Convert2CameraSource(data._pos, data._rot, target_pos);
             CameraSourceData ret;
-
-            Vector3 world_offset = data._pos - target_pos;
-            /*Quaternion rot_orig = data._rot;
-            Quaternion rot_orig_inv = Quaternion.Inverse(rot_orig);
-            ret._offset = rot_orig_inv * world_offset;*/
-
-            ret._offset = world_offset;
-
+            ret._offset = data._pos - target_pos;
             ret._rotaion = data._rot.eulerAngles;
 
             return ret;

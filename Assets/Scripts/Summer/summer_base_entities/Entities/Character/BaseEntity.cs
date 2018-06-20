@@ -149,6 +149,8 @@ namespace Summer
             _init_data();
             _init_gameobject();
 
+            _entity_blackboard = new EntityBlackBoard();
+            _entity_blackboard.entity = this;
             // 更新通道
             update_list.Add(_skill_set);
             update_list.Add(_fsm_system);
@@ -172,6 +174,8 @@ namespace Summer
             Clear();
             TransformPool.Instance.Push(EntityController);
             EntityController = null;
+            _entity_blackboard.entity = null;
+            _entity_blackboard.Clear();
         }
 
 

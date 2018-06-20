@@ -97,7 +97,7 @@ namespace Summer
             }
             trans.rotation = _pipe_line_data._dest_data._rot;
             trans.position = _pipe_line_data._dest_data._pos;
-            //_camera.fieldOfView = _pipe_line_data._dest_data._fov;
+            //_camera.fieldOfView = _pipe_line_data._dest_source_data._fov;
 
             _pipe_line_data.OnUpdate();
 
@@ -113,7 +113,6 @@ namespace Summer
             _register_flag = true;
 
             GameEventSystem ges = GameEventSystem.Instance;
-
         }
 
         private void UnReigsterEvents()
