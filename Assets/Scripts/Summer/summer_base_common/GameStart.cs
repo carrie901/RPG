@@ -55,7 +55,7 @@ public class TestGame
         GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_set_player, entity);
         EntitesManager.Instance.SetManual(entity);
         //Time.timeScale = 0.1f;
-        int count = 10;
+        int count = 0;
         for (int i = 0; i < count; i++)
         {
             BaseEntity tmp = EntityPool.Instance.Pop(1001001);
@@ -78,5 +78,6 @@ public class TestGame
         TransformPool.Instance.Pop<PoolVfxObject>("res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_05_G");
         TransformPool.Instance.Pop<PoolVfxObject>("res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_05_G_1");*/
         //GameObject go = ResManager.instance.LoadPrefab("test/Plane", E_GameResType.quanming);
+
     }
 }

@@ -214,19 +214,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055bf37362003f14987922499d571e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _last_default_type: 0
   _default_source:
-    _type: 0
     _data:
       _offset: {x: 0, y: 7, z: -7}
       _rotaion: {x: 45, y: 0, z: 0}
     _timer: 1
-    _priority: 0
-  _default_source_lerp:
+  _default_speed:
     _rot_speed: 2
     _fast_rot_speed: 1
-    _slow_rot_speed: 0.4
-    _offset_speed: 10
+    _slow_rot_speed: 0.1
+    _offset_speed: 0.2
 --- !u!114 &38035062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,7 +966,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 847799957}
-  - component: {fileID: 847799959}
   - component: {fileID: 847799958}
   m_Layer: 0
   m_Name: Manager
@@ -1000,17 +996,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 673614e4a962aaa4d9343bac4667ac01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &847799959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 847799955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 003de741ff826bc4891fd1234202fef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1022771123
@@ -1191,12 +1176,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source:
-    _type: 0
     _data:
       _offset: {x: 0, y: 0, z: -5}
       _rotaion: {x: 30, y: -90, z: 0}
     _timer: 1
-    _priority: 0
   target_form: {fileID: 0}
   joystick: {fileID: 555414132}
   movement: {fileID: 0}

@@ -2,23 +2,23 @@
 
 namespace Summer
 {
-    /// <summary>
-    /// 镜头移动的相关速度
-    /// </summary>
-    [System.Serializable]
-    public class CameraSourceLerp
+    public class CameraSourceLerpNew
     {
-        [Header("rotaion移动的速度")]
-        public float _rot_speed = 2;
+        public virtual CameraSourceData CameraLerp(CameraSourceData from, CameraSourceData to, float dt)
+        {
+            return Lerp(from, to, dt);
+        }
 
-        [Header("rotaion快速移动的速度")]
-        public float _fast_rot_speed = 1;
+        public static CameraSourceData Lerp(CameraSourceData from, CameraSourceData to, float dt)
+        {
+            CameraSourceData d;
 
-        [Header("rotaion慢速移动的速度")]
-        public float _slow_rot_speed = 0.4f;
+            d._rotaion.x = Mathf.LerpAngle(from._rotaion.x, to._rotaion.x, dt);
+            d._rotaion.y = Mathf.LerpAngle(from._rotaion.y, to._rotaion.y, dt);
+            d._rotaion.z = Mathf.LerpAngle(from._rotaion.z, to._rotaion.z, dt);
 
-        [Header("offset的移动速度")]
-        public float _offset_speed = 1;
-
+            d._offset = Vector3.Lerp(from._offset, to._offset, dt);
+            return d;
+        }
     }
 }

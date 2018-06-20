@@ -147,6 +147,7 @@ namespace Summer
             if (animator == null) return;
             //animator.CrossFade(anim_name, 0.2f);
             animator.Play(anim_name);
+            //animator.Play(anim_name, 0, 0);
         }
 
         public void ChangeAnimationSpeed(float speed)

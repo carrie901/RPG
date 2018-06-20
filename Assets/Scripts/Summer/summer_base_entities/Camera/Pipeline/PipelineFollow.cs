@@ -9,17 +9,24 @@ namespace Summer
         #region 属性
 
         //根据timer来blend
-        public List<CameraSourceTimer> _list_camera_source_timer = new List<CameraSourceTimer>();
+        public List<CameraSourceTimerWrapper> _list_camera_source_timer
+            = new List<CameraSourceTimerWrapper>();                                 // 下一个镜头源包装列表
 
-        public CameraSource _to_source;
-        public CameraSource _form_source;
-        public CameraSourceTimer _next_camera_source_timer;
+        public CameraSourceTimerWrapper next_camera_source_timer_timer;             // 下一个镜头源的数据
 
-        public CameraSourceWrapper _default_source;
-        public CameraSourceLerp _default_lerp;
+        //public CameraData _default_camera_data;                                     // 默认的镜头数据
+
+        public CameraSourceData _form_source;                                       // 当前的镜头数据
+        public CameraSourceData _to_source;                                         // 下一个镜头数据
+
+        public CameraSource _default_source;
+        public CameraSourceSpeed _default_speed;
 
         public BaseEntity _player;
         public I_Transform _target;
+
+
+        public float _offset_speed = 5;                                                 // 便宜速度
 
         #endregion
 
@@ -47,56 +54,62 @@ namespace Summer
 
         public CameraSourceData _dest_source_data;
         public Vector3 _move_speed_offset = Vector3.zero;
-        public float smoothing = 5;
         public void Process(CameraPipelineData data, float dt)
         {
             // 如果默认的source没有，或者 _player 没有就直接返回
-            if (_default_source == null || _player == null || _default_lerp == null)
+            if (_player == null)
             {
                 return;
             }
 
             // 1.当前的镜头数据
-            CameraSourceData cur_source_data = Convert2CameraSource(data._now_data_witout_shake, _player.WroldPosition);
+            //CameraSourceData cur_source_data = Convert2CameraSource(data._now_data_witout_shake, _player.WroldPosition);
+
+            // 
+            CameraData cur_source_data = data._now_data_witout_shake;
 
             // 混合 source源，根据时间 递归的时候会对_dest_data数据进行赋值
             _blend_source(dt);
 
-            if (_dest_source_data._offset.z >= -0.001f)
-                _dest_source_data._offset.z = -0.001f;
+            /*if (_dest_source_data._offset.z >= -0.001f)
+                _dest_source_data._offset.z = -0.001f;*/
 
             // 做一个递归的操作
             Vector3 dest_offset = _dest_source_data._offset;
-
-            float offset_speed = _default_lerp._offset_speed;
-            if (cur_source_data._offset.sqrMagnitude > offset_speed * offset_speed) //太远用lerp
+            Vector3 tmp = dest_offset;
+            Vector3 dir = (dest_offset - cur_source_data._pos);
+            /*if (dir.sqrMagnitude > _offset_speed * _offset_speed) //太远用lerp
             {
-                dest_offset = Vector3.Lerp(cur_source_data._offset, dest_offset, dt * _default_lerp._offset_speed);
+                dest_offset = Vector3.Lerp(cur_source_data._pos, dest_offset, /*dt * _offset_speed#1#_default_speed._offset_speed);
             }
             else
-                dest_offset = Vector3.SmoothDamp(cur_source_data._offset, dest_offset, ref _move_speed_offset, dt, _default_lerp._offset_speed);
+            {
+                dest_offset = Vector3.SmoothDamp(cur_source_data._pos, dest_offset, ref _move_speed_offset, _default_speed._offset_speed/*, #1#);
+            }*/
+            dest_offset = Vector3.SmoothDamp(cur_source_data._pos, dest_offset, ref _move_speed_offset, _default_speed._offset_speed/*, */);
+
 
             // 数据复制
             data._dest_data_without_shake._rot = Quaternion.Euler(_dest_source_data._rotaion);
-            data._dest_data_without_shake._pos = dest_offset + _player.WroldPosition;
+            data._dest_data_without_shake._pos = dest_offset;
             data._dest_data = data._dest_data_without_shake;
         }
 
         #endregion
 
         #region public
-        public void SetDefaultSourceLerp(CameraSourceLerp default_source_lerp)
-        {
-            _default_lerp = default_source_lerp;
-        }
 
         // 默认源之间的切换Bug
         public void SetDefaultSource(CameraSource default_source)
         {
-            _default_source = CameraSourceWrapperFactory.Create(default_source);
-            _default_source.SetDefaultSourceLerp(_default_lerp);
+            _default_source = default_source;
         }
 
+        public void SetDefaultSourceSpeed(CameraSourceSpeed default_speed)
+        {
+            _default_speed = default_speed;
+
+        }
 
         #region 监听的消息的反馈
 
@@ -116,17 +129,10 @@ namespace Summer
             CameraSource source = obj as CameraSource;
             if (source == null) return;
 
-            CameraSourceWrapper wrapper = CameraSourceWrapperFactory.Create(source);
-            wrapper.SetDefaultSourceLerp(_default_lerp);
+            CameraSourceTimerWrapper timer = CameraSourceWrapperFactory.Create(source);
 
-
-            CameraSourceTimer timer = new CameraSourceTimer
-            {
-                _source = wrapper,
-                _timer = 0
-            };
             _list_camera_source_timer.Add(timer);
-            if (_next_camera_source_timer == null)
+            if (next_camera_source_timer_timer == null)
                 _init_next_camera_source(timer);
 
         }
@@ -135,31 +141,31 @@ namespace Summer
 
         #endregion
 
+        #region private
+
         public void _blend_source(float dt)
         {
-            if (_next_camera_source_timer != null)
-                _next_camera_source_timer.OnUpdate(dt);
+            // 更新下一个镜头源的数据
+            if (next_camera_source_timer_timer != null)
+                next_camera_source_timer_timer.OnUpdate(dt);
 
             _dest_source_data = _blend_next(dt);
 
-            if (_next_camera_source_timer != null)
+            if (next_camera_source_timer_timer != null)
             {
-                bool reulst = _next_camera_source_timer.IsEnd();
+                bool reulst = next_camera_source_timer_timer.IsEnd();
                 if (!reulst) return;
 
-                if (_list_camera_source_timer.Count >= 2)
+                _list_camera_source_timer.Remove(next_camera_source_timer_timer);
+
+                int last_index = _list_camera_source_timer.Count - 1;
+                if (last_index >= 0)
                 {
-                    _list_camera_source_timer.RemoveAt(0);
-                    _init_next_camera_source(_list_camera_source_timer[0]);
-                }
-                else if (_list_camera_source_timer.Count == 1)
-                {
-                    _list_camera_source_timer.RemoveAt(0);
-                    _init_back_camera_source();
+                    _init_next_camera_source(_list_camera_source_timer[last_index]);
                 }
                 else
                 {
-                    _next_camera_source_timer = null;
+                    next_camera_source_timer_timer = null;
                 }
             }
         }
@@ -167,46 +173,41 @@ namespace Summer
         // 混合form和to之间权重
         public CameraSourceData _blend_next(float dt)
         {
-            if (_to_source == null || _form_source == null || _next_camera_source_timer == null)
+            if (next_camera_source_timer_timer != null)
             {
-                return _default_source.GetData(dt, _player, _target);
+                CameraSourceData data = next_camera_source_timer_timer.GetData(_form_source, dt);
+                return data;
             }
             else
             {
-                return CameraSourceData.Lerp(_form_source._data, _to_source._data,
-                    _next_camera_source_timer._blend_priority);
+                CameraSourceData data = CameraData2Player(_default_source, _player.WroldPosition);
+                return data;
             }
+
         }
 
         // 初始化回归镜头源
         public void _init_back_camera_source()
         {
-            _next_camera_source_timer.OnReset(_default_source);
-            _init_camera_source_data();
+            //next_camera_source_timer_timer.OnReset(_default_source);
+            //_init_camera_source_data();
         }
 
-        // 初始化下一个镜头源
-        public void _init_next_camera_source(CameraSourceTimer timer)
+        /// <summary>
+        /// 初始化下一个镜头源
+        /// </summary>
+        public void _init_next_camera_source(CameraSourceTimerWrapper timer)
         {
-            TimeManager.BeginSampleTime();
-            _next_camera_source_timer = timer;
+            next_camera_source_timer_timer = timer;
             _init_camera_source_data();
         }
 
+        // 初始化
         public void _init_camera_source_data()
         {
-            if (_to_source != null)
-            {
-                _form_source = _to_source;
-            }
-            else
-            {
-                _form_source = _default_source._source;
-                Debug.Log("老目标");
-            }
-
-            _to_source = _next_camera_source_timer._source._source;
-            _next_camera_source_timer.OnReset();
+            _form_source = _to_source;
+            _to_source = next_camera_source_timer_timer._target._data;
+            next_camera_source_timer_timer.OnReset();
         }
 
         /// <summary>
@@ -220,6 +221,26 @@ namespace Summer
 
             return ret;
         }
+
+        public CameraSourceData Source2Data(CameraData data)
+        {
+            CameraSourceData ret;
+            ret._offset = data._pos;
+            ret._rotaion = data._rot.eulerAngles;
+
+            return ret;
+        }
+
+        public CameraSourceData CameraData2Player(CameraSource data, Vector3 target_pos)
+        {
+            CameraSourceData ret;
+            ret._offset = data._data._offset + target_pos;
+            ret._rotaion = data._data._rotaion;
+
+            return ret;
+        }
+
+        #endregion
     }
 }
 

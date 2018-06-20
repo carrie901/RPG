@@ -3,7 +3,7 @@
     /// <summary>
     /// 镜头的相关的权重信息和时间
     /// </summary>
-    public class CameraSourceTimer
+    /*public class CameraSourceTimer
     {
         public CameraSourceWrapper _source;
         public float _timer = 0;
@@ -54,5 +54,5 @@
             }
             return progress;
         }
-    }
+    }*/
 }
