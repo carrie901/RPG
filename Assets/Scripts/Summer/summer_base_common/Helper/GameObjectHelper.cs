@@ -131,6 +131,7 @@ namespace Summer
                 refs[i].RemoveRef();
             }
             Object.Destroy(obj);
+            obj = null;
         }
     }
 

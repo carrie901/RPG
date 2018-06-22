@@ -8,7 +8,7 @@
 
 namespace Summer
 {
-	public class EffectRectTrans : PoolDefaultRectTransform
+    public class EffectRectTrans : PoolDefaultRectTransform
     {
         public float _left_time;
         public bool _is_avlie;
@@ -41,6 +41,7 @@ namespace Summer
         public override void OnRecycled()
         {
             base.OnRecycled();
+            GameObjectHelper.DestroySelf(gameObject);
         }
 
         public override void OnPop()

@@ -9,4 +9,8 @@
         follow_target,
         follow_target_once,
     }*/
+
+    /// <summary>
+    /// 镜头源类型
+    /// </summary>
 }

@@ -2,7 +2,10 @@
 
 namespace Summer
 {
-    public class CameraSourceLerpNew
+    /// <summary>
+    /// 镜头过度的方式，默认直线过度
+    /// </summary>
+    public class CameraSourceLerp
     {
         public virtual CameraSourceData CameraLerp(CameraSourceData from, CameraSourceData to, float dt)
         {

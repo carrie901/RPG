@@ -9,10 +9,10 @@ namespace Summer
         #region 属性
 
         //根据timer来blend
-        public List<CameraSourceTimerWrapper> _list_camera_source_timer
-            = new List<CameraSourceTimerWrapper>();                                 // 下一个镜头源包装列表
+        public List<CameraSourceTimer> _list_camera_source_timer
+            = new List<CameraSourceTimer>();                                 // 下一个镜头源包装列表
 
-        public CameraSourceTimerWrapper next_camera_source_timer_timer;             // 下一个镜头源的数据
+        public CameraSourceTimer next_camera_source_timer_timer;             // 下一个镜头源的数据
 
         //public CameraData _default_camera_data;                                     // 默认的镜头数据
 
@@ -129,7 +129,7 @@ namespace Summer
             CameraSource source = obj as CameraSource;
             if (source == null) return;
 
-            CameraSourceTimerWrapper timer = CameraSourceWrapperFactory.Create(source);
+            CameraSourceTimer timer = CameraSourceWrapperFactory.Create(source);
 
             _list_camera_source_timer.Add(timer);
             if (next_camera_source_timer_timer == null)
@@ -196,7 +196,7 @@ namespace Summer
         /// <summary>
         /// 初始化下一个镜头源
         /// </summary>
-        public void _init_next_camera_source(CameraSourceTimerWrapper timer)
+        public void _init_next_camera_source(CameraSourceTimer timer)
         {
             next_camera_source_timer_timer = timer;
             _init_camera_source_data();

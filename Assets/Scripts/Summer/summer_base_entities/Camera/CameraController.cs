@@ -17,7 +17,7 @@ namespace Summer
         //public E_CameraSourceType _last_default_type;
         public CameraSource _default_source;
         public CameraSourceSpeed _default_speed;
-        public CameraSourceLerpNew _default_source_lerp;
+        public CameraSourceLerp _default_source_lerp;
 
 
         protected PipelineFollow _pipe_line_follow;

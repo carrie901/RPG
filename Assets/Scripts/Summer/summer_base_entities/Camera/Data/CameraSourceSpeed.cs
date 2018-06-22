@@ -21,7 +21,6 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
                                              
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Summer

@@ -78,6 +78,7 @@ namespace Summer
         #endregion
 
         #region Update
+
         public void OnUpdate(float dt)
         {
             if (_pause) return;
@@ -120,6 +121,7 @@ namespace Summer
 
             _timeout_timers.Clear();
         }
+        
         #endregion
     }
 }

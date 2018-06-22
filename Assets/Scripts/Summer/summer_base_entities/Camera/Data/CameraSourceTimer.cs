@@ -1,13 +1,43 @@
 ﻿namespace Summer
 {
     /// <summary>
-    /// 镜头的相关的权重信息和时间
+    /// 镜头移动数据的相关包装
+    /// 1.镜头目标数据
+    /// 2.镜头移动到目标地点的相关速度
+    /// 3.以及如何绕过去
     /// </summary>
-    /*public class CameraSourceTimer
+    [System.Serializable]
+    public class CameraSourceTimer
     {
-        public CameraSourceWrapper _source;
-        public float _timer = 0;
-        public float _blend_priority = 0; //混合的权重
+        public CameraSource _target;                                // 镜头源数据
+        public CameraSourceLerp _default_source_lerp;               // 过渡方式 是直线过度，还是曲线过去
+        public float _timer;                                        // 当前时间流逝
+        public float _blend_priority;                               // 混合的权重
+
+        public CameraSourceTimer(CameraSource target)
+        {
+            _target = target;
+        }
+
+        public CameraSourceTimer(CameraSource target, CameraSourceLerp lerp)
+        {
+            _target = target;
+            _default_source_lerp = lerp;
+        }
+
+        public void SetDefaultSourceLerp(CameraSourceLerp source_lerp)
+        {
+            _default_source_lerp = source_lerp;
+        }
+
+        public CameraSourceData GetData(CameraSourceData from, float dt)
+        {
+            if (_default_source_lerp == null)
+            {
+                return CameraSourceLerp.Lerp(from, _target._data, dt);
+            }
+            return _default_source_lerp.CameraLerp(from, _target._data, dt);
+        }
 
         public void OnUpdate(float dt)
         {
@@ -15,9 +45,9 @@
             _blend_priority = _cal_progress();
         }
 
-        public void OnReset(CameraSourceWrapper wrapper)
+        public void OnReset(CameraSource target)
         {
-            _source = wrapper;
+            _target = target;
             OnReset();
         }
 
@@ -35,17 +65,17 @@
         public float _cal_progress()
         {
             float progress = 0;
-            if (_source._source._timer < 0.001f) //防止策划填的数值为0，然后dt时间为0，比如暂停，导致出问题
+            if (_target._timer < 0.001f) //防止策划填的数值为0，然后dt时间为0，比如暂停，导致出问题
             {
                 progress = 1;
             }
-            else if (_timer > _source._source._timer)
+            else if (_timer > _target._timer)
             {
                 progress = 1;
             }
             else
             {
-                progress = _timer / _source._source._timer;
+                progress = _timer / _target._timer;
 
                 if (progress >= 1)
                     progress = 1;
@@ -54,5 +84,42 @@
             }
             return progress;
         }
+    }
+
+
+    /*public class Cs_NewFollowTargetWrapper : CameraSourceWrapper
+    {
+        public Cs_NewFollowTargetWrapper(CameraSource source) : base(source)
+        {
+        }
     }*/
+
+
+    public class CameraSourceWrapperFactory
+    {
+        public static CameraSourceLerp _default_camera_lerp = new CameraSourceLerp();
+        public static CameraSourceTimer Create(CameraSource source)
+        {
+            CameraSourceTimer ret_val = null;
+            ret_val = new CameraSourceTimer(source, _default_camera_lerp);
+            /*switch (source._type)
+            {
+                case E_CameraSourceType.follow_simple:
+                    ret_val = new CameraSourceWrapper(source);
+                    break;
+
+                case E_CameraSourceType.follow_target:
+                    ret_val = new Cs_NewFollowTargetWrapper(source);
+                    break;
+                case E_CameraSourceType.follow_target_once:
+                    ret_val = new Cs_NewFollowTargetWrapper(source);
+                    break;
+
+                default:
+                    ret_val = new CameraSourceWrapper(source);
+                    break;
+            }*/
+            return ret_val;
+        }
+    }
 }

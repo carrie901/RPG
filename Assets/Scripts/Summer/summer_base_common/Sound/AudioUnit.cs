@@ -162,7 +162,11 @@ namespace Summer
             base.OnInit();
         }
 
-        public override void OnRecycled() { base.OnRecycled(); }
+        public override void OnRecycled()
+        {
+            base.OnRecycled();
+            GameObjectHelper.DestroySelf(gameObject);
+        }
 
         public override void OnPop()
         {

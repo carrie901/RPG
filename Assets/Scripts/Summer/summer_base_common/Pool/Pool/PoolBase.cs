@@ -67,6 +67,7 @@ namespace Summer
             {
                 LogManager.Log("超过对象池大小,立马释放对象");
                 obj.OnRecycled();
+                obj = null;
                 return false;
             }
 
