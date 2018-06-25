@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace Summer
 {
-    public enum E_GLOBAL_EVT
+    public enum E_GLOBAL_EVT : int
     {
+        none = 0,
         char_hp_update,                     //char血量更新
         char_armor_update,                  //char霸体值更新
         char_armor_store_update,            //char霸体储备值更新

@@ -1,4 +1,27 @@
-﻿using System.Collections.Generic;
+﻿
+//
+//                            _ooOoo_
+//                           o8888888o
+//                           88" . "88
+//                           (| -_- |)
+//                           O\  =  /O
+//                        ____/`---'\____
+//                      .'  \\|     |//  `.
+//                     /  \\|||  :  |||//  \
+//                    /  _||||| -:- |||||-  \
+//                    |   | \\\  -  /// |   |
+//                    | \_|  ''\---/''  |   |
+//                    \  .-\__  `-`  ___/-. /
+//                  ___`. .'  /--.--\  `. . __
+//               ."" '<  `.___\_<|>_/___.'  >'"".
+//              | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//              \  \ `-.   \_ __\ /__ _/   .-` /  /
+//         ======`-.____`-.___\_____/___.-`____.-'======
+//                            `=---='
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//  
+
+using System.Collections.Generic;
 
 namespace Summer
 {
@@ -8,7 +31,7 @@ namespace Summer
     /// CreateTime : 2017-7-25 11:57:58
     /// FileName : EventSet.cs
     //=============================================================================
-    public class EventSet<TKey, TValue>
+    public class EventSet<TKey, TValue/*, TComparer*/> /*where TComparer : IEqualityComparer<TKey>, new()*/
     {
         #region DelayEvent
 
@@ -26,9 +49,20 @@ namespace Summer
 
         private Queue<DelayEvent> _delay_quene = new Queue<DelayEvent>();
 
-        private readonly Dictionary<TKey, EventHandler> _events = new Dictionary<TKey, EventHandler>();
+        protected Dictionary<TKey, EventHandler> _events /*= new Dictionary<TKey, EventHandler>(/*new TComparer()#1#)*/;
 
         #endregion
+
+        public EventSet()
+        {
+            _events = new Dictionary<TKey, EventHandler>(/*new TComparer()*/);
+        }
+
+        public EventSet(IEqualityComparer<TKey> comparer)
+        {
+            _events = new Dictionary<TKey, EventHandler>(comparer);
+        }
+
 
         #region Register/UnRegister/Raise
 

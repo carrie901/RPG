@@ -1,5 +1,29 @@
+
+//
+//                            _ooOoo_
+//                           o8888888o
+//                           88" . "88
+//                           (| -_- |)
+//                           O\  =  /O
+//                        ____/`---'\____
+//                      .'  \\|     |//  `.
+//                     /  \\|||  :  |||//  \
+//                    /  _||||| -:- |||||-  \
+//                    |   | \\\  -  /// |   |
+//                    | \_|  ''\---/''  |   |
+//                    \  .-\__  `-`  ___/-. /
+//                  ___`. .'  /--.--\  `. . __
+//               ."" '<  `.___\_<|>_/___.'  >'"".
+//              | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//              \  \ `-.   \_ __\ /__ _/   .-` /  /
+//         ======`-.____`-.___\_____/___.-`____.-'======
+//                            `=---='
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//                 			 ·ð×æ ±£ÓÓ             
+
 using System.Collections.Generic;
-using Object = System.Object;
+using UnityEngine;
+
 namespace Summer
 {
     //=============================================================================
@@ -23,8 +47,13 @@ namespace Summer
         #region param
 
         private List<DelayEvent> _event_quene;
-        public EventSet<E_GLOBAL_EVT, Object> _event_set = new EventSet<E_GLOBAL_EVT, Object>();
-        public GameEventSystem() { }
+        public EventSet<E_GLOBAL_EVT, Object> _event_set; //= new EventSet<E_GLOBAL_EVT, Object>();
+
+        public GameEventSystem()
+        {
+            GlobalEvtComparer comparer = new GlobalEvtComparer();
+            _event_set = new EventSet<E_GLOBAL_EVT, Object>(comparer);
+        }
 
         #endregion
 
@@ -98,6 +127,19 @@ namespace Summer
         }
 
         #endregion
+    }
+
+    public class GlobalEvtComparer : IEqualityComparer<E_GLOBAL_EVT>
+    {
+        public bool Equals(E_GLOBAL_EVT x, E_GLOBAL_EVT y)
+        {
+            return x == y;
+        }
+
+        public int GetHashCode(E_GLOBAL_EVT obj)
+        {
+            return (int)obj;
+        }
     }
 }
 
