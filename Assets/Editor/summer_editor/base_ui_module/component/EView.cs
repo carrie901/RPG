@@ -26,7 +26,7 @@ namespace SummerEditor
 
         public static bool Toggle(Rect position, bool value, string text)
         {
-            return EditorGUI.Toggle(position, value, text);
+            return GUI.Toggle(position, value, text);
         }
 
         public static int Toolbar(Rect position, int selected, string[] texts)

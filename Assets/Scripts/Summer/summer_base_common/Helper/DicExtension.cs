@@ -14,7 +14,8 @@ namespace Summer
         /// <summary>
         /// 提供一个方法遍历所有项
         /// </summary>
-        public static void Foreach<TKey, TValue>(this Dictionary<TKey, TValue> dic, Action<TKey, TValue> action, int max_count = 10000)
+        public static void Foreach<TKey, TValue>(this Dictionary<TKey, TValue> dic, Action<TKey, TValue> action,
+            int max_count = 10000)
         {
             if (action == null) return;
             var enumerator = dic.GetEnumerator();
@@ -30,7 +31,8 @@ namespace Summer
         /// <summary>
         /// 提供一个方法遍历所有key值
         /// </summary>
-        public static void ForeachKey<TKey, TValue>(this Dictionary<TKey, TValue> dic, Action<TKey> action, int max_count = 10000)
+        public static void ForeachKey<TKey, TValue>(this Dictionary<TKey, TValue> dic, Action<TKey> action,
+            int max_count = 10000)
         {
             if (action == null) return;
             var enumerator = dic.GetEnumerator();
@@ -46,7 +48,8 @@ namespace Summer
         /// <summary>
         /// 提供一个方法遍历所有value值
         /// </summary>
-        public static void ForeachValue<TKey, TValue>(this Dictionary<TKey, TValue> dic, Action<TValue> action, int max_count = 1000)
+        public static void ForeachValue<TKey, TValue>(this Dictionary<TKey, TValue> dic, Action<TValue> action,
+            int max_count = 1000)
         {
             if (action == null) return;
             var enumerator = dic.GetEnumerator();
@@ -60,4 +63,35 @@ namespace Summer
         }
 
     }
+
+
+    /*public class MyEnumComparer : IEqualityComparer<MyEnum1>
+    {
+        public bool Equals(MyEnum1 x, MyEnum1 y)
+        {
+            return x == y;
+        }
+
+
+
+        public int GetHashCode(MyEnum1 x)
+        {
+            return (int)x;
+        }
+    }*/
+
+    public class GameResTypeComparer : IEqualityComparer<E_GameResType>
+    {
+        public bool Equals(E_GameResType x, E_GameResType y)
+        {
+            return x == y;
+        }
+
+        public int GetHashCode(E_GameResType obj)
+        {
+            return (int)obj;
+        }
+    }    
+
+
 }

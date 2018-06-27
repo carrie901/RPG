@@ -13,11 +13,7 @@ namespace SummerEditor
 
         public event ToggleBarChange on_change;
 
-        public EToggleBar(float width, string lab) : base(width, 20)
-        {
-            text = lab;
-        }
-        public EToggleBar(float width, float height, string lab) : base(width, height)
+        public EToggleBar( string lab, float width,float height=DEFAULT_HEIGHT) : base(width, height)
         {
             text = lab;
         }

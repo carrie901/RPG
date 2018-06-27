@@ -25,7 +25,7 @@ namespace SummerEditor
             float x = _size.x / 2;
             _cur_height += _cur_height + rect.Eh / 2 + height_interval;
             rect.ResetPosition(x, _cur_height);
-            _childs.Add(rect);
+            _internal_add_chile(rect);
         }
     }
 }

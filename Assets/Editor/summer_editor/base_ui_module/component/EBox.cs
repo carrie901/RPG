@@ -6,7 +6,7 @@ namespace SummerEditor
     public class EBox : ERectItem
     {
         public string text;
-        public EBox(float width, float height, string lab) : base(width, height)
+        public EBox(string lab, float width, float height = DEFAULT_HEIGHT) : base(width, height)
         {
             text = lab;
         }

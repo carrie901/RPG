@@ -6,7 +6,7 @@ namespace SummerEditor
 {
     public class EObjectFiled : ERectItem
     {
-        public EObjectFiled(float width, float height) : base(width, height)
+        public EObjectFiled(float width, float height=DEFAULT_HEIGHT) : base(width, height)
         {
         }
 

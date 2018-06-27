@@ -9,7 +9,7 @@ namespace SummerEditor
         public GUIStyle _gui_style;
         public bool _result = false;
 
-        public EButton(float width, string lab) : base(width, 20)
+        public EButton(string lab, float width, float height = DEFAULT_HEIGHT) : base(width, height)
         {
             text = lab;
         }

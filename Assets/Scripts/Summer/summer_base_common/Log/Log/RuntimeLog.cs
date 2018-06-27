@@ -77,9 +77,6 @@ namespace Summer
 
         #endregion
 
-
-
-
         public int max_logs = 1000;
 
 
@@ -121,7 +118,6 @@ namespace Summer
             // 拖拽活动区域
             GUI.DragWindow(title_bar_rect);
         }
-
 
         public void LimitLogCount()
         {

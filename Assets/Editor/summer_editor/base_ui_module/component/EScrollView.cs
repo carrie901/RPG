@@ -8,14 +8,16 @@ namespace SummerEditor
     /// </summary>
     public class EScrollView : EComponent
     {
-        public float height_interval = 15;      //高度间隔
-        protected float _view_height = 15;
+        public float height_interval = 10;      //高度间隔
+        public float offset_x = 10;
+        protected float _view_height = 10;      // 初始的offset_y
         private float _cur_height = 0;
         protected Vector2 scroll_position;
         protected Rect _view;
 
         public EScrollView(float width, float height) : base(width, height)
         {
+
         }
 
         public override void _on_draw()
@@ -23,6 +25,11 @@ namespace SummerEditor
             // 1.背景
             if (show_bg)
                 EView.DrawTexture(_world_pos, EStyle.GetColorTexture(bg_color));
+
+            if (show_box)
+            {
+                GUI.Box(_world_pos, "");
+            }
 
             _view = new Rect(_world_pos.x, _world_pos.y, _world_pos.width, _view_height);
 
@@ -48,10 +55,10 @@ namespace SummerEditor
         public bool _change_color = false;
         public virtual void AddItem(ERect rect)
         {
-            float x = _size.x / 2;
+            float x = rect.Ew / 2 + offset_x;
             _cur_height = (_view_height + rect.Eh / 2);
             rect.ResetPosition(x, _cur_height);
-            _childs.Add(rect);
+            _internal_add_chile(rect);
             _view_height = (_cur_height + rect.Eh / 2 + height_interval);
         }
 

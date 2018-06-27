@@ -354,7 +354,7 @@ namespace Summer
 
             if (_socket.Connected)
             {
-                //NetworkEventSystem.Instance.DispatchMessageAsync((uint)EModelMessage.SOCKET_CONNECTED, null);
+                NetworkEventSystem.Instance.RaiseEvent((int)E_NetModuleMessage.socket_connected, null);
             }
         }
 

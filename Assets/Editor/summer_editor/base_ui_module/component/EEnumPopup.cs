@@ -9,7 +9,7 @@ namespace SummerEditor
     {
         public System.Enum _data;
         public Action<System.Enum> change_action;
-        public EEnumPopup(float width, float height) : base(width, height)
+        public EEnumPopup(float width, float height=DEFAULT_HEIGHT) : base(width, height)
         {
         }
 

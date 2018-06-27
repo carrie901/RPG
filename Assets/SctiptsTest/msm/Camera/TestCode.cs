@@ -21,6 +21,7 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Summer;
@@ -38,7 +39,11 @@ public class TestCode : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        Days meetingDay = Days.Monday | Days.Tuesday;
+        if ((meetingDay & Days.Monday) == Days.Monday)
+            Debug.Log("yes");
+        else
+            Debug.Log("none");
     }
 
     public float speed;
@@ -68,4 +73,16 @@ public class TestCode : MonoBehaviour
 
 
     #endregion
+
+    [Flags]
+    enum Days
+    {
+        Sunday = 0x01,
+        Monday = 0x02,
+        Tuesday = 0x04,
+        Wednesday = 0x08,
+        Thursday = 0x10,
+        Friday = 0x20,
+        Saturday = 0x40
+    }
 }

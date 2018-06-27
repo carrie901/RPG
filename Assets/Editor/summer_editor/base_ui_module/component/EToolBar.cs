@@ -24,7 +24,7 @@ namespace SummerEditor
 
         public event OnToolBarSelect on_select;
 
-        public EToolBar(float width, string[] texts) : base(width, 20)
+        public EToolBar(string[] texts, float width, float height=DEFAULT_HEIGHT) : base(width, height)
         {
             _texts = texts;
             _text_count = _texts.Length;

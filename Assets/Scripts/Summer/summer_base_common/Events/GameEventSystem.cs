@@ -22,8 +22,7 @@
 //                 			 ·ð×æ ±£ÓÓ             
 
 using System.Collections.Generic;
-using UnityEngine;
-
+using Object=System.Object;
 namespace Summer
 {
     //=============================================================================

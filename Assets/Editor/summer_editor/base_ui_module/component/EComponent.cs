@@ -1,29 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace SummerEditor
 {
-
+    [Flags]
     public enum E_Anchor
     {
-        none,
-        left,
-        right,
-        up,
-        down,
-        left_up,
-        left_down,
-        right_up,
-        right_down,
-        center,
+        none = 0,
+        left = 0x01,
+        right = 0x02,
+        up = 0x04,
+        down = 0x08,
+        center = 0x16,
     }
 
     public class EComponent : ERect
     {
-        public bool show_bg = true;
+        protected bool show_bg = false;
         protected List<ERect> _childs = new List<ERect>();
         protected Color bg_color = new Color32(128, 128, 128, 255);
-
+        public bool show_box = true;
         public EComponent(float width, float height) : base(width, height)
         {
         }
@@ -34,6 +31,10 @@ namespace SummerEditor
             if (show_bg)
                 EView.DrawTexture(_world_pos, EStyle.GetColorTexture(bg_color));
 
+            if (show_box)
+            {
+                GUI.Box(_world_pos, "");
+            }
 
             // TODO GUILayout.BeginArea(_position); //导致奔溃掉
             // 所以启用了另外一套方式
@@ -52,53 +53,99 @@ namespace SummerEditor
             pos_x = pos_x + rect.Ew / 2;
             pos_y = pos_y + rect.Eh / 2;
             rect.ResetPosition(pos_x, pos_y);
-            _childs.Add(rect);
+            _internal_add_chile(rect);
         }
 
         //添加
         public virtual void AddComponent(ERect rect)
         {
-            AddComponent(rect, E_Anchor.left_up);
+            E_Anchor a = E_Anchor.left | E_Anchor.up;
+            AddComponent(rect, a);
         }
         //添加 带锚点
         public virtual void AddComponent(ERect rect, E_Anchor anchor)
         {
             float pos_x = rect.Ex;
             float pos_y = rect.Ey;
-            if (anchor == E_Anchor.left || anchor == E_Anchor.left_down || anchor == E_Anchor.left_up)
+            E_Anchor e = (anchor & E_Anchor.left);
+            if ((anchor & E_Anchor.left) == E_Anchor.left)
             {
                 //pos_x =  pos_x;
             }
-            else if (anchor == E_Anchor.right || anchor == E_Anchor.right_down || anchor == E_Anchor.right_up)
+            else if ((anchor & E_Anchor.right) == E_Anchor.right)
             {
-                pos_x = _size.x - pos_x;
+                pos_x = _size.x - pos_x - rect.Ew / 2;
             }
-            else if (anchor == E_Anchor.center)
+            else if ((anchor & E_Anchor.center) == E_Anchor.center)
             {
                 pos_x = _size.x / 2 + pos_x;
             }
 
-            if (anchor == E_Anchor.center)
+            if ((anchor & E_Anchor.center) == E_Anchor.center)
             {
                 pos_y = _size.y / 2 + pos_y;
             }
-            else if (anchor == E_Anchor.up || anchor == E_Anchor.left_up || anchor == E_Anchor.right_up)
+            else if ((anchor & E_Anchor.up) == E_Anchor.up)
             {
-
+                pos_y = pos_y + rect.Eh / 2;
             }
-            else if (anchor == E_Anchor.down || anchor == E_Anchor.right_down || anchor == E_Anchor.right_up)
+            else if ((anchor & E_Anchor.down) == E_Anchor.down)
             {
-                pos_y = _size.y - pos_y;
+                pos_y = _size.y + pos_y - rect.Eh / 2;
             }
 
             rect.ResetPosition(pos_x, pos_y);
-            _childs.Add(rect);
+            _internal_add_chile(rect);
         }
+
+        // rect 在rect_a的右边
+        public virtual void AddComponentRight(ERect rect, ERect rect_a, float r_width = 5)
+        {
+
+            float pos_x = rect_a.Ex + rect_a.Ew / 2 + r_width + rect.Ew / 2;
+            //float pos_y = rect_a.Ey + (rect_a.Eh - rect.Eh) / 2;
+            float pos_y = rect_a.Ey - rect_a.Eh / 2 + rect.Eh / 2;
+            rect.ResetPosition(pos_x, pos_y);
+            _internal_add_chile(rect);
+        }
+
+        public void AddComponentDown(ERect rect, ERect rect_a, float r_heigth = 5)
+        {
+            float pos_x = rect_a.Ex - rect_a.Ew / 2 + rect.Ew / 2;
+            float pos_y = rect_a.Ey + rect_a.Eh / 2 + r_heigth + rect.Eh / 2;
+            rect.ResetPosition(pos_x, pos_y);
+            _internal_add_chile(rect);
+        }
+
         //设置背景
         public void SetBg(byte color_r, byte color_g, byte color_b)
         {
             bg_color = new Color32(color_r, color_g, color_b, 255);
         }
+
+        public void SetBg(bool show)
+        {
+            show_bg = show;
+        }
+        public void SetColor(Color color)
+        {
+            bg_color = color;
+        }
+
+        public List<ERect> GetChilds()
+        {
+            return _childs;
+        }
+
+        #region privat
+
+        public void _internal_add_chile(ERect item)
+        {
+            item.parent = this;
+            _childs.Add(item);
+        }
+
+        #endregion
     }
 
 

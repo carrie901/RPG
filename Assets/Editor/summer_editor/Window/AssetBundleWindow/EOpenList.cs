@@ -22,13 +22,13 @@ namespace SummerEditor
         public const float FONT_W = 20;
         public EOpenList(float width, float height) : base(width, height)
         {
-            _asset_path_btn = new EButton(500, "资源名称");
+            /*_asset_path_btn = new EButton(500, "资源名称");
             _ref_btn = new EButton(ref_count_w, "资源引用数");
             _be_ref_btn = new EButton(be_ref_count_w, "资源被引用数");
             _mem_size_btn = new EButton(men_size_w, "资源加载内存评估");
             _file_size_btn = new EButton(fil_size_w,"资源本身大小");
             _ref_texture_btn = new EButton(ref_texture_w, "资源引用贴图数量");
-            InitComponent();
+            InitComponent();*/
         }
 
         public void InitComponent()

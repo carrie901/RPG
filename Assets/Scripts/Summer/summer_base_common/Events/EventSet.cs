@@ -30,16 +30,18 @@ namespace Summer
     /// Author : Ma ShaoMin
     /// CreateTime : 2017-7-25 11:57:58
     /// FileName : EventSet.cs
+    /// 
+    /// TODO 暂时剔除掉延迟一帧数广播时间
     //=============================================================================
     public class EventSet<TKey, TValue/*, TComparer*/> /*where TComparer : IEqualityComparer<TKey>, new()*/
     {
         #region DelayEvent
 
-        private struct DelayEvent
+        /*private struct DelayEvent
         {
             public TKey key;
             public TValue param;
-        };
+        };*/
 
         #endregion
 
@@ -47,20 +49,20 @@ namespace Summer
 
         public delegate void EventHandler(TValue param);
 
-        private Queue<DelayEvent> _delay_quene = new Queue<DelayEvent>();
+        //private Queue<DelayEvent> _delay_quene = new Queue<DelayEvent>();
 
         protected Dictionary<TKey, EventHandler> _events /*= new Dictionary<TKey, EventHandler>(/*new TComparer()#1#)*/;
 
         #endregion
 
-        public EventSet()
+        public EventSet(int dic_size = 8)
         {
-            _events = new Dictionary<TKey, EventHandler>(/*new TComparer()*/);
+            _events = new Dictionary<TKey, EventHandler>(dic_size);
         }
 
-        public EventSet(IEqualityComparer<TKey> comparer)
+        public EventSet(IEqualityComparer<TKey> comparer, int dic_size = 8)
         {
-            _events = new Dictionary<TKey, EventHandler>(comparer);
+            _events = new Dictionary<TKey, EventHandler>(dic_size, comparer);
         }
 
 
@@ -105,7 +107,7 @@ namespace Summer
 
         public bool RaiseEvent(TKey key, TValue param, bool b_delay = false)
         {
-            if (b_delay)
+            /*if (b_delay)
             {
                 DelayEvent de = new DelayEvent
                 {
@@ -119,13 +121,13 @@ namespace Summer
                 _delay_quene.Enqueue(de);
 
                 return true;
-            }
+            }*/
             return _internal_real_raiser_event(key, param);
         }
 
         public void Clear()
         {
-            _delay_quene.Clear();
+            //_delay_quene.Clear();
             _events.Clear();
         }
 
@@ -138,7 +140,7 @@ namespace Summer
         {
             int n_ret = 0;
 
-            //只处理当前帧的所有消息
+           /* //只处理当前帧的所有消息
             int n_count = _delay_quene.Count;
             while (n_count > 0 && _delay_quene != null && _events != null && _delay_quene.Count > 0)
             {
@@ -146,7 +148,7 @@ namespace Summer
                 _internal_real_raiser_event(de.key, de.param);
                 n_ret++;
                 n_count--;
-            }
+            }*/
 
             return n_ret;
         }
@@ -154,13 +156,13 @@ namespace Summer
         public int ProcessAllDelayEvents()
         {
             int n_ret = 0;
-            int n_count = 0;
+            /*int n_count = 0;
             do
             {
                 n_count = ProcessDelayEvents();
                 n_ret += n_count;
             }
-            while (n_count > 0);
+            while (n_count > 0);*/
 
             return n_ret;
         }

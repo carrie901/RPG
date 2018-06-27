@@ -7,7 +7,7 @@ namespace SummerEditor
     {
         public string text;
         public bool CanEditor { get; set; }
-        public EInput(float width, float height, string text) : base(width, height)
+        public EInput(string text, float width, float height = DEFAULT_HEIGHT) : base(width, height)
         {
             this.text = text;
             CanEditor = true;

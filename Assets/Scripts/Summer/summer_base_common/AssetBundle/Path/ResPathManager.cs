@@ -3,7 +3,7 @@ using Summer;
 using Object = UnityEngine.Object;
 
 
-public enum E_GameResType
+public enum E_GameResType 
 {
     none = 0,
     quanming,
@@ -33,7 +33,7 @@ public class ResPathManager
         _excute(E_GameResType.quanming, "", "");
     }
 
-    public static string FindPath<T>(E_GameResType res_type, string name)where T:Object
+    public static string FindPath<T>(E_GameResType res_type, string name) where T : Object
     {
         string path = string.Empty;
 
