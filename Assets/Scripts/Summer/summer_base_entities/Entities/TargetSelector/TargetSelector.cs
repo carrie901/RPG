@@ -44,5 +44,10 @@ namespace Summer
                 _lists[i].FilterTarget(targets);
             }
         }
+
+        public void Init(TextNode textnode)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

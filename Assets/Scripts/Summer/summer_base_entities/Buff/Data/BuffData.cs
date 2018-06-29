@@ -38,8 +38,7 @@ namespace Summer
         public string des;                                          // 效果描述
         public string trigger_evt;                                  // 触发器事件
         public EffectConditionInfo condition;                       // 触发条件
-        public List<TargetSelectInfo> target_selects
-            = new List<TargetSelectInfo>();                         // 过滤类型
+        public TextNode target_select_node;                             // 过滤类型
 
         public E_EffectType effect_type;
         public TextNode node;

@@ -9,5 +9,7 @@ namespace Summer
     public interface I_TargetSelector
     {
         void FilterTarget(List<BaseEntity> targets);
+        void Init(TextNode textnode);
+
     }
 }

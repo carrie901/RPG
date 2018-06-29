@@ -55,6 +55,14 @@ namespace Summer
             NodeList.Add(node);
             return node;
         }
+
+        public TextNode AddNode(TextNode node)
+        {
+            if (NodeList == null)
+                NodeList = new List<TextNode>();
+            NodeList.Add(node);
+            return node;
+        }
     }
 
     [System.Serializable]

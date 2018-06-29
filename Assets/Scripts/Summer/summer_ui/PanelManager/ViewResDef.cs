@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using UnityEngine;
 
 namespace Summer
 {
@@ -43,7 +44,6 @@ namespace Summer
             view_count = 0;
             InitPanel();
             InitDialog();
-
             LogManager.Assert(view_count == ((int)E_ViewId.max - 1), "注册的UI数量不对");
         }
 

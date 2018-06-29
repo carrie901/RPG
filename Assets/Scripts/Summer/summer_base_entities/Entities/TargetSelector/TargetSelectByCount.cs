@@ -17,6 +17,11 @@ namespace Summer
                 targets.RemoveAt(i);
             }
         }
+
+        public void Init(TextNode textnode)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     /// <summary>
@@ -27,6 +32,11 @@ namespace Summer
         public void FilterTarget(List<BaseEntity> targets)
         {
 
+        }
+
+        public void Init(TextNode textnode)
+        {
+            throw new System.NotImplementedException();
         }
     }
 
@@ -39,6 +49,11 @@ namespace Summer
         {
             
         }
+
+        public void Init(TextNode textnode)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     /// <summary>
@@ -49,6 +64,11 @@ namespace Summer
         public void FilterTarget(List<BaseEntity> targets)
         {
             
+        }
+
+        public void Init(TextNode textnode)
+        {
+            throw new System.NotImplementedException();
         }
     }
 
@@ -61,6 +81,11 @@ namespace Summer
         {
             
         }
+
+        public void Init(TextNode textnode)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     /// <summary>
@@ -71,6 +96,11 @@ namespace Summer
         public void FilterTarget(List<BaseEntity> targets)
         {
             
+        }
+
+        public void Init(TextNode textnode)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
