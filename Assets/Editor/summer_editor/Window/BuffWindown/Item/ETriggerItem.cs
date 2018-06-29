@@ -35,7 +35,7 @@ namespace SummerEditor
         public ELabel _title_lab;
         public EInput _des_input;                                           // 触发器的描述 输入框
         public ELabel _trigger_event_lab;                                   // 触发事件 文本
-        public EEnumPopup _trigger_event_popup;                             // 触发事件 下拉列表
+        public EStringPopup _trigger_event_popup;                             // 触发事件 下拉列表
 
         public ELabel _condition_lab;                                       // 触发文本
         public EEnumPopup _condition_popup;                                 // 触发条件 下拉列表
@@ -65,9 +65,11 @@ namespace SummerEditor
             _des_input = new EInput("触发器描述", 200);
 
 
-            _trigger_event_lab = new ELabel("触事件:", 50);
-            _trigger_event_popup = new EEnumPopup(200);
-            _trigger_event_popup.SetData(E_GLOBAL_EVT.buff_attach);
+            _trigger_event_lab = new ELabel("触发事件:", 50);
+            _trigger_event_popup = new EStringPopup("", 200);
+
+            List<StringPopupInfo> info = GetPop();
+            _trigger_event_popup.SetData(info);
 
             _condition_lab = new ELabel("触发条件:", 50);
             _condition_popup = new EEnumPopup(200);
@@ -100,5 +102,30 @@ namespace SummerEditor
         }
 
         #endregion
+
+        public List<StringPopupInfo> GetPop()
+        {
+            List<StringPopupInfo> pop = new List<StringPopupInfo>();
+            for (int i = 0; i < evt.Length / 2; i++)
+            {
+                StringPopupInfo info = new StringStringPopupInfo
+                {
+                    des = evt[i, 1],
+                    value = evt[i, 0]
+                };
+                pop.Add(info);
+            }
+            return pop;
+        }
+
+        public static string[,] evt =
+        {
+            { TriggerEvt.buff_on_tick,"Buff 间隔触发"},
+            { TriggerEvt.buff_on_attach,"Buff添加到角色身上"},
+            { TriggerEvt.buff_add_layer,"Buff层级增加"},
+            { TriggerEvt.buff_layer_max,"Buff层级到达最大等级"},
+            { TriggerEvt.buff_remove_layer,"Buff层级减少"},
+            { TriggerEvt.buff_on_detach,"Buff从角色身上移除"}
+        };
     }
 }

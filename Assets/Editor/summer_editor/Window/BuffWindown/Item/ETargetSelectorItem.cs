@@ -30,7 +30,7 @@ namespace SummerEditor
     public class ETargetSelectorItem : EComponent
     {
         public EButton _target_filter_btn;                                  // 增加目标过滤类型   
-        public EEnumPopup _target_popup;                                    // 目标类型 下拉列表
+        public EStringPopup _target_popup;                                    // 目标类型 下拉列表
         public EScrollView _scrollview;
         public ETargetSelectorItem(float width, float height) : base(width, height)
         {
@@ -39,18 +39,43 @@ namespace SummerEditor
             _init_click();
         }
 
-        public void GetValue(List<TargetSelectInfo> filters)
+        public TextNode GetValue()
         {
-            //取得过滤器的列表数据
+            TextNode node = new TextNode();
+            node.Name = "Root";
+            List<ERect> items = _scrollview.GetChilds();
+            for (int i = 0; i < items.Count; i++)
+            {
+                ETargetItem item = items[i] as ETargetItem;
+                if (item == null) continue;
+                node.AddNode(item.GetValue());
+            }
+
+            return node;
         }
+
+        public List<StringPopupInfo> GetInof()
+        {
+            List<StringPopupInfo> infos = new List<StringPopupInfo>();
+            foreach (var info in TargetSelectFactory._target_select_map)
+            {
+                StringPopupInfo s_info = new StringPopupInfo()
+                {
+                    des = info.Key
+                };
+                infos.Add(s_info);
+            }
+            return infos;
+        }
+
 
         #region private 
 
         public void _init()
         {
             _target_filter_btn = new EButton("增加过滤类型", 100);
-            _target_popup = new EEnumPopup(200);
-            _target_popup.SetData(E_GLOBAL_EVT.buff_attach);
+            _target_popup = new EStringPopup("", 200);
+            _target_popup.SetData(GetInof());
 
             _scrollview = new EScrollView(Ew - 20, Eh - 50);
             _scrollview.SetColor(Color.black);
@@ -77,7 +102,7 @@ namespace SummerEditor
         private void AddTargetFilter(EButton button)
         {
             ETargetItem item = new ETargetItem(_scrollview.Ew - 30, 30);
-            item.SetData("测试:", E_GLOBAL_EVT.buff_attach);
+            item.SetData(GetInof());
             _scrollview.AddItem(item);
             item.Init();
             item._remove_btn.on_click += OnRemoveItem;
@@ -93,34 +118,36 @@ namespace SummerEditor
 
     public class ETargetItem : EComponent
     {
-        public ELabel _title_lab;
         public EButton _remove_btn;                                         // 移除  
-        public EEnumPopup _target_popup;                                    // 过滤类型   下拉列表
+        public EStringPopup _target_popup;                                    // 过滤类型   下拉列表
         public ETargetItem(float width, float height) : base(width, height)
         {
             _remove_btn = new EButton("X", 20);
         }
 
-        public void SetData(string text, E_GLOBAL_EVT type)
+        public void SetData(List<StringPopupInfo> infos)
         {
-            _title_lab = new ELabel(text, 50);
-            _target_popup = new EEnumPopup(200);
-            _target_popup.SetData(type);
+            _target_popup = new EStringPopup("", 200);
+            _target_popup.SetData(infos);
+        }
+
+        public TextNode GetValue()
+        {
+            StringPopupInfo info = _target_popup.GetValue();
+            TextNode node = new TextNode();
+            node.Name = info.des;
+            return node;
         }
 
         public void Init()
         {
-            AddComponent(_title_lab, 10, 10);
-            AddComponentRight(_target_popup, _title_lab, 10);
-
+            AddComponent(_target_popup, 10, 10);
             AddComponent(_remove_btn, E_Anchor.right | E_Anchor.up);
             //AddComponentRight(_target_filter_btn, _title_lab, 80);
 
             //Vector2 size = ERectHelper.GetSize(GetChilds());
             //SetSize(size.x + 5, size.y + 5);
         }
-
-
     }
 }
 

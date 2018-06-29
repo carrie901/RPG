@@ -16,7 +16,7 @@ namespace SummerEditor
 
         public static string TextArea(Rect position, string text)
         {
-           return EditorGUI.TextArea(position, text);
+            return EditorGUI.TextArea(position, text);
         }
 
         public static bool Button(Rect position, string text, GUIStyle style)
@@ -65,10 +65,17 @@ namespace SummerEditor
             return game_object;
         }
 
-        public static Enum EnumPopup(Rect position,System.Enum selected)
+        public static Enum EnumPopup(Rect position, System.Enum selected)
         {
             return EditorGUI.EnumPopup(position, selected);
         }
+
+        public static int EnumPopup(Rect position, string des, int index, string[] names)
+        {
+            int i = EditorGUI.Popup(position, des, index, names);
+            return i;
+        }
+
 
         public static void EndScrollView()
         {

@@ -61,9 +61,8 @@ namespace SummerEditor
             _info.des = "";
             _info.trigger_evt = _trigger_item.GetTriggerEvt();
             _info.condition = _trigger_item.GetCondition();
-            _info.target_selects.Clear();
 
-            _target_select_item.GetValue(_info.target_selects);
+            _info.target_select_node = _target_select_item.GetValue();
 
             _info.effect_type = _e_component.GetEffectType();
             _info.node = _e_component.GetValue();
