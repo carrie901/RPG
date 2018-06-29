@@ -234,7 +234,7 @@ namespace Summer
         }
 
         /// <summary>
-        /// int[] 转到 （key,value）
+        /// int[] 转到 （Key,value）
         /// </summary>
         public static Dictionary<int, int> IntToDic(int[] value)
         {

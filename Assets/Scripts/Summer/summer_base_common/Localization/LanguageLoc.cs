@@ -16,11 +16,11 @@ namespace Summer
                 _text = gameObject.GetComponent<Text>();
             if (_text != null)
             {
-                _text.text = LangLocSet.Instance.FindTextIdByKey(pfb_name, key).Loc();
+                _text.text = LangLocSet.Instance.FindTextIdByKey(pfb_name, Key).Loc();
             }
             else
             {
-                LogManager.Log("view:[{0}],Key:[{1}]", pfb_name, key);
+                LogManager.Log("view:[{0}],Key:[{1}]", pfb_name, Key);
             }*/
         }
 

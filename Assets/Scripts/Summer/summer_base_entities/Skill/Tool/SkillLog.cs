@@ -42,8 +42,6 @@ namespace Summer
         {
             if (!LogManager.open_skill) return;
             LogManager.Log("Time: {1}    进入[{0}]节点,同时这个节点接受[{2}]事件", node.ToDes(), TimeManager.FrameCount, node._start_transition);
-
-
         }
 
         #endregion

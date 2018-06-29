@@ -25,11 +25,11 @@
             /*float old_speed = _owner.speed;
             float new_speed = 0;
 
-            if (_param._calc_type == E_CharDataUpdateType.multiply_plus)
+            if (_param._calc_type == E_DataUpdateType.multiply_plus)
             {
                 new_speed = _owner.ChangeMoveSpeedMultiplyPlus(_param._calc_data);
             }
-            else if (_param._calc_type == E_CharDataUpdateType.plus)
+            else if (_param._calc_type == E_DataUpdateType.plus)
             {
                 new_speed = _owner.ChangeeMoveSpeed(_param._calc_data / 100f);
             }
@@ -45,11 +45,11 @@
         public override void _on_reverse()
         {
             /*float old_speed = _owner.speed;
-            if (_param._calc_type == E_CharDataUpdateType.multiply_plus)
+            if (_param._calc_type == E_DataUpdateType.multiply_plus)
             {
                 _owner.ChangeMoveSpeedMultiplyPlus(-_cumulative_data);
             }
-            else if (_param._calc_type == E_CharDataUpdateType.plus)
+            else if (_param._calc_type == E_DataUpdateType.plus)
             {
                 _owner.ChangeeMoveSpeed(-(_cumulative_data / 100f));
             }

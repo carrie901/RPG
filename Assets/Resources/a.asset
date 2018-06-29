@@ -9,11 +9,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0bdc701260acda499eec7b9cffce70f, type: 3}
-  m_Name: MyScriptableObject
+  m_Name: a
   m_EditorClassIdentifier: 
-  testName: "\u6D4B\u8BD5\u540D\u5B57"
-  myData:
-  - dataNumber: 100
-    dataStr: "myData\u6D4B\u8BD5"
-  - dataNumber: 101
-    dataStr: "myData3\u6D4B\u8BD5"
+  s: 121
+  a:
+    name: MyScriptableObject1
+  tri: 103
+  playSound: 0
+  configeration: 2

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Summer
 {
-    public class TimerManager : TSingleton<TimerManager>,I_Update
+    public class TimerManager : TSingleton<TimerManager>, I_Update
     {
         #region TimerSeq
         public class TimerSeq
@@ -38,6 +38,8 @@ namespace Summer
         }
         #endregion
 
+        #region 属性
+
         protected float _timer;                                         //
         protected bool _pause;                                          //暂停
         public bool _need_clear;
@@ -47,6 +49,8 @@ namespace Summer
         public TimerComparer comparer = new TimerComparer();            //比较器
         public float CurrentTime() { return _timer; }                   //Query
         readonly List<Timer> _timeout_timers = new List<Timer>();       //超时的队列
+
+        #endregion
 
         #region 上层操作
         public void Pause() { _pause = true; }
@@ -121,7 +125,7 @@ namespace Summer
 
             _timeout_timers.Clear();
         }
-        
+
         #endregion
     }
 }

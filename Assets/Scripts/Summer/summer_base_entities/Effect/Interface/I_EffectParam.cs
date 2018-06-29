@@ -11,4 +11,9 @@ namespace Summer
         void ParseParam(EffCnf cnf);
         string GetValueText();
     }
+
+    public interface I_EffectParamNew
+    {
+        void ParseParam(string text);
+    }
 }

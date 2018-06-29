@@ -63,7 +63,7 @@ namespace Summer
 
     public class ChangeModelValue
     {
-        public const string KEY = "key";
+        public const string KEY = "Key";
         public const string FRESNEL = "_fresnel";
         public const string COLOR = "_Color";
 

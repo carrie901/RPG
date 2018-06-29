@@ -21,22 +21,13 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using UnityEngine;
-
 namespace Summer
 {
-    /// <summary>
-    /// 目标过滤类型
-    /// </summary>
-    public class TargetSelectInfo : ScriptableObject
+    /*public class TriggerEffectAction : I_TriggerAction
     {
+        public void Excute(EventSetData data)
+        {
 
-        #region 属性
-
-        public string target_select_type;                                       // 目标过滤类型
-        public string target_select_data;
-
-        #endregion
-
-    }
+        }
+    }*/
 }

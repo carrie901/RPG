@@ -41,7 +41,7 @@
     /// 实际值
     /// 清零
     /// </summary>
-    public enum E_CharDataUpdateType
+    public enum E_DataUpdateType
     {
         plus = 0,           //  1 = +1
         multiply_plus = 1,  //  1 = +1%

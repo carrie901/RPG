@@ -14,7 +14,7 @@ namespace Summer
     /// <summary>
     /// 角色某种属性更新
     /// </summary>
-    public enum E_CharAttributeType
+    public enum E_EntityAttributeType
     {
         none = 0,
 

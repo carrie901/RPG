@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 namespace Summer
 {
-    public class BaseEntitesAttribute
+    public class EntitesAttribute
     {
 
         public AttributeIntParam max_hp = new AttributeIntParam();
-        public Dictionary<E_CharAttributeType, AttributeIntParam> _param
-            = new Dictionary<E_CharAttributeType, AttributeIntParam>();
+        public Dictionary<E_EntityAttributeType, AttributeIntParam> _param
+            = new Dictionary<E_EntityAttributeType, AttributeIntParam>();
 
         public EntityId _entity_iid;
-        public BaseEntitesAttribute(EntityId entity_iid)
+        public EntitesAttribute(EntityId entity_iid)
         {
             _entity_iid = entity_iid;
-            _param.Add(E_CharAttributeType.max_hp, max_hp);
+            _param.Add(E_EntityAttributeType.max_hp, max_hp);
         }
 
-        public AttributeIntParam FindAttribute(E_CharAttributeType type)
+        public AttributeIntParam FindAttribute(E_EntityAttributeType type)
         {
             AttributeIntParam param;
             if (_param.TryGetValue(type, out param))

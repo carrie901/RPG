@@ -42,7 +42,7 @@ public class Buff
 
     public virtual void Init(BuffCnf buff_obj)
     {
-        info = new BuffInfo(buff_obj);
+        //info = new BuffInfo(buff_obj);
     }
 
     #endregion
@@ -258,7 +258,7 @@ public class Buff
     public void _internal_buff_trigger(E_AbilityTrigger trigger, EventSetData data = null)
     {
         //if (_effs == null) return;
-        Log("Buff Self Raise: [{1}] event,[{0}] Left Time:[{2}] ", info.ToDes(), trigger, info.LifeTime());
+        Log("Buff Self Raise: [{1}] event,[{0}]", info.ToDes(), trigger);
         int length = _effs.Count;
         for (int i = 0; i < length; i++)
         {
@@ -272,7 +272,7 @@ public class Buff
     public void _internal_buff_trigger_on_detach()
     {
         if (_effs == null) return;
-        Log("Buff Self Raise: [{1}] event,[{0}] Left Time:[{2}] ", info.ToDes(), E_AbilityTrigger.buff_on_detach, info.LifeTime());
+        Log("Buff Self Raise: [{1}] event,[{0}] ", info.ToDes(), E_AbilityTrigger.buff_on_detach);
         int length = _effs.Count;
         for (int i = 0; i < length; i++)
         {

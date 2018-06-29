@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca838dc708ce05c4b841819601bebfce, type: 3}
+  m_Name: test_buff_dat
+  m_EditorClassIdentifier: 
+  id: 1001
+  desc: 
+  duration: 1001
+  interval_time: 1000
+  max_layer: 1000
+  _effs:
+  - des: 
+    trigger_evt: 
+    condition:
+      condition: 
+      condition_data: 
+    target_selects: []
+    effect_type: 1
+    node:
+      Name: Root
+      AttributeList:
+      - Key: AttributeType
+        Value: anti_cri
+      NodeList:
+      - Name: Group
+        AttributeList:
+        - Key: DataUpdateType
+          Value: plus
+        - Key: Value
+          Value: 1
+        NodeList: []
+      - Name: Group
+        AttributeList:
+        - Key: DataUpdateType
+          Value: multiply_plus
+        - Key: Value
+          Value: 100
+        NodeList: []

@@ -25,7 +25,7 @@ namespace Summer
             return result;
         }
 
-        //public static float GetFloat(string key, [DefaultValue("0.0F")] float defaultValue)
+        //public static float GetFloat(string Key, [DefaultValue("0.0F")] float defaultValue)
 
         public static int GetInt(string key)
         {
@@ -40,7 +40,7 @@ namespace Summer
             return result;
         }
 
-        //public static string GetString(string key, [DefaultValue("\"\"")] string defaultValue)
+        //public static string GetString(string Key, [DefaultValue("\"\"")] string defaultValue)
 
         public static bool HasKey(string key)
         {

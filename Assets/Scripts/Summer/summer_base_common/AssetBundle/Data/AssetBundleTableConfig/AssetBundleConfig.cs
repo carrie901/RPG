@@ -8,9 +8,9 @@ namespace Summer
     {
 
         /// <summary>
-        /// key = assetbundle_name,value=info
+        /// Key = assetbundle_name,value=info
         /// key要在StreamingAssets目录下
-        /// key = ab
+        /// Key = ab
         /// </summary>
         public static List<string[]> GetAbInfo(string asset_name)
         {

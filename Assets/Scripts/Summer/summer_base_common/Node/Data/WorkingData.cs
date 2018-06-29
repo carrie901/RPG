@@ -37,7 +37,7 @@ namespace Summer
         {
             if (_context.ContainsKey(key))
             {
-                LogManager.Error("key:[{0}] Error,Type:[{1}]", key, context.GetType());
+                LogManager.Error("Key:[{0}] Error,Type:[{1}]", key, context.GetType());
             }
             else
             {

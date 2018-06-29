@@ -21,18 +21,27 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace Summer
 {
-    /// <summary>
-    /// 效果
-    /// </summary>
-    public class EffectLogicInfo
-    {
-        public string des;                                          // 效果描述
-        public E_TRIGGER_EVT trigger;                               // 触发器事件
-        public EffectConditionInfo condition;
+    #region Buff的逻辑数据
 
-        public EffectDesInfo eff_info;
+    /// <summary>
+    /// Buff的逻辑数据
+    /// </summary>
+    public class BuffTemplateInfo : ScriptableObject
+    {
+        public int id;                              // 模板id
+
+        public string desc;                         // 模板描述
+        public int duration;                        // 持续时间
+        public int interval_time;                   // 间隔时间
+        public int max_layer;                       // 最大层级
+        public List<EffectLogicInfo> _effs
+            = new List<EffectLogicInfo>();          // 包含的效果
     }
 
+    #endregion
 }

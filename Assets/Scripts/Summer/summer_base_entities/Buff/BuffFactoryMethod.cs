@@ -1,20 +1,33 @@
 ﻿
 using Summer;
+using UnityEngine;
 
-public class BuffFactoryMethod
+namespace Summer
 {
-    static BuffFactoryMethod()
+    public class BuffFactoryMethod
     {
+        static BuffFactoryMethod()
+        {
+
+        }
+
+        public static BaseBuff Create(int buff_id)
+        {
+            TestBuffFactoryMethod.CreateData();
+            BuffCnf buff_obj = StaticCnf.FindData<BuffCnf>(buff_id);
+            BaseBuff buff = new BaseBuff(TestBuffFactoryMethod.info);
+            return buff;
+        }
 
     }
 
-    public static Buff Create(int buff_id)
+    public class TestBuffFactoryMethod
     {
-        Buff buff = new BuffNormal();
-        BuffCnf buff_obj = StaticCnf.FindData<BuffCnf>(buff_id);
-        if (buff_obj != null)
-            buff.Init(buff_obj);
-        return buff;
+        public static BuffTemplateInfo info;
+        public static void CreateData()
+        {
+            Object obj = Resources.Load("test_buff_data");
+            info = obj as BuffTemplateInfo;
+        }
     }
-
 }

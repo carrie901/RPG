@@ -68,13 +68,13 @@ namespace Summer
             }
         }
 
-        /*public bool TryGet(TKey key, out TValue value)
+        /*public bool TryGet(TKey Key, out TValue value)
         {
-            bool b = _dictionary.TryGetValue(key, out value);
+            bool b = _dictionary.TryGetValue(Key, out value);
             if (b)
             {
-                _linked_list.Remove(key);
-                _linked_list.AddFirst(key);
+                _linked_list.Remove(Key);
+                _linked_list.AddFirst(Key);
             }
             return b;
         }*/

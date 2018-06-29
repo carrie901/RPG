@@ -98,8 +98,14 @@ namespace Summer
             if (effect != null)
                 effect.Init(cnf, owner, parent);
             else
-                Buff.Log("找不到对应的效果" + effect_type);
+                BuffLog.Log("找不到对应的效果" + effect_type);
             return effect;
+        }
+
+        public BaseEffect Create(I_Trigger entiry_trigger, EffectLogicInfo logic_info)
+        {
+            BaseEffect eff = new AttributeEffect(entiry_trigger, logic_info);
+            return eff;
         }
     }
 }

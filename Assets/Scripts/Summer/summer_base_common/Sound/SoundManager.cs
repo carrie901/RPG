@@ -38,9 +38,9 @@ public class SoundManager : MonoBehaviour
     #region Csv表格数据
 
     public Dictionary<int, E_GameResType> _sound_type
-        = new Dictionary<int, E_GameResType>();                                     // key = （BGM,Voice,Sound）
-    private Dictionary<int, SoundCnf> _sound_map_id;                                // 原始数据 csv表格声音数据 key=sound_Id，value=声音信息
-    private Dictionary<string, SoundCnf> _sound_map_name;                           // 根据原始数据进行转换 csv表格声音数据 key=sound_name，value=声音信息
+        = new Dictionary<int, E_GameResType>();                                     // Key = （BGM,Voice,Sound）
+    private Dictionary<int, SoundCnf> _sound_map_id;                                // 原始数据 csv表格声音数据 Key=sound_Id，value=声音信息
+    private Dictionary<string, SoundCnf> _sound_map_name;                           // 根据原始数据进行转换 csv表格声音数据 Key=sound_name，value=声音信息
 
     #endregion
 

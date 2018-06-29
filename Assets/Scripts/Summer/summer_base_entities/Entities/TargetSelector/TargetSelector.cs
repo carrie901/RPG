@@ -22,18 +22,27 @@
 //                 			 佛祖 保佑             
 
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Summer
 {
     /// <summary>
-    /// Buff的逻辑数据
+    /// 目标过滤
     /// </summary>
-    public class BuffLogicInfo
+    public class TargetSelector : I_TargetSelector
     {
-        public int template_id;                     // 模板id
-        public string des;                          // 模板描述
+        public List<I_TargetSelector> _lists = new List<I_TargetSelector>(4);
+        public void AddFilter(I_TargetSelector selector)
+        {
+            _lists.Add(selector);
+        }
 
-        public List<EffectLogicInfo> _effs;
+        public void FilterTarget(List<BaseEntity> targets)
+        {
+            int length = _lists.Count;
+            for (int i = 0; i < length; i++)
+            {
+                _lists[i].FilterTarget(targets);
+            }
+        }
     }
 }

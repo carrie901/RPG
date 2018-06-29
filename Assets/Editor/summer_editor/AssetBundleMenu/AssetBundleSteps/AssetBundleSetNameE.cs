@@ -6,6 +6,12 @@ namespace SummerEditor
 {
     public class AssetBundleSetNameE
     {
+
+        public static void BuildAssetBundle()
+        {
+            
+        }
+
         #region 主资源设置名字，进行打包
 
         /// <summary>

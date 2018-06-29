@@ -33,7 +33,7 @@ namespace Summer
         public static SoundDic Instance = new SoundDic();
         public Dictionary<int, int> _map = new Dictionary<int, int>();
 
-        public int GetSoundId(int key)
+        public int GetSoundId(int Key)
         {
             return 0;
         }

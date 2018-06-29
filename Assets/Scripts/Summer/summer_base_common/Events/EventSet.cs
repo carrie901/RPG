@@ -39,7 +39,7 @@ namespace Summer
 
         /*private struct DelayEvent
         {
-            public TKey key;
+            public TKey Key;
             public TValue param;
         };*/
 
@@ -111,7 +111,7 @@ namespace Summer
             {
                 DelayEvent de = new DelayEvent
                 {
-                    key = key,
+                    Key = Key,
                     param = param
                 };
 
@@ -145,7 +145,7 @@ namespace Summer
             while (n_count > 0 && _delay_quene != null && _events != null && _delay_quene.Count > 0)
             {
                 DelayEvent de = _delay_quene.Dequeue();
-                _internal_real_raiser_event(de.key, de.param);
+                _internal_real_raiser_event(de.Key, de.param);
                 n_ret++;
                 n_count--;
             }*/

@@ -49,6 +49,11 @@ namespace SummerEditor
             return GUI.BeginScrollView(position, scroll_position, view_rect);
         }
 
+        public static int IntInput(Rect position, int value)
+        {
+            return EditorGUI.IntField(position, value);
+        }
+
         public static string Input(Rect position, string text)
         {
             return GUI.TextField(position, text);

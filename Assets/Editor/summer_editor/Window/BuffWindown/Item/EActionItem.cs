@@ -30,7 +30,7 @@ namespace SummerEditor
     /// <summary>
     /// 动作
     /// </summary>
-    public class EActionItem : EComponent
+    public class EActionItem : EBaseffectInfoItem
     {
         public ELabel _title_lab;
 
@@ -38,7 +38,9 @@ namespace SummerEditor
         public EEnumPopup _value_popup;                 // 触发事件 下拉列表
 
         public EToggleBar _gudingzhi_toggle;            // 固定值
+        public EInput _gudingzhi_input;                 // 固定值数值
         public EToggleBar _baifenbi_toggle;             // 百分比
+        public EInput _baifenbi_input;                  // 百分比数值
         public ELabel _source_lab;                      // 数据源
         public EEnumPopup _value_source_popup;          // 触发事件 下拉列表
 
@@ -56,9 +58,10 @@ namespace SummerEditor
             _value_popup = new EEnumPopup(200);
             _value_popup.SetData(E_GLOBAL_EVT.buff_attach);
 
-            _gudingzhi_toggle = new EToggleBar("固定值", 120);
-            _gudingzhi_toggle.SetBg(true);
-            _baifenbi_toggle = new EToggleBar("百分比", 120);
+            _gudingzhi_toggle = new EToggleBar("固定值", 60);
+            _gudingzhi_input = new EInput("100", 100);
+            _baifenbi_toggle = new EToggleBar("百分比", 60);
+            _baifenbi_input = new EInput("100", 100);
 
             _source_lab = new ELabel("数据源:", 50);
             _value_source_popup = new EEnumPopup(200);
@@ -72,12 +75,27 @@ namespace SummerEditor
             AddComponentRight(_value_popup, _attribute_lab);
 
             AddComponentDown(_gudingzhi_toggle, _attribute_lab);
+            AddComponentRight(_gudingzhi_input, _gudingzhi_toggle);
 
             AddComponentDown(_baifenbi_toggle, _gudingzhi_toggle);
-            AddComponentRight(_source_lab, _baifenbi_toggle, 15);
+            AddComponentRight(_baifenbi_input, _baifenbi_toggle);
+            AddComponentRight(_source_lab, _baifenbi_input, 15);
             AddComponentRight(_value_source_popup, _source_lab);
         }
 
+       /* public override EffectDesInfo GetValue()
+        {
+            throw new System.NotImplementedException();
+        }*/
+        public override E_EffectType GetEffectType()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override TextNode GetValue()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
 }

@@ -14,13 +14,13 @@ namespace Summer
     {
 
         //注册回调点
-        bool RegisterHandler(E_BuffTrigger key, EventSet<E_BuffTrigger, EventBuffSetData>.EventHandler handler);
+        bool RegisterHandler(E_BuffTrigger Key, EventSet<E_BuffTrigger, EventBuffSetData>.EventHandler handler);
 
         //卸载回调点
-        bool UnRegisterHandler(E_BuffTrigger key, EventSet<E_BuffTrigger, EventBuffSetData>.EventHandler handler);
+        bool UnRegisterHandler(E_BuffTrigger Key, EventSet<E_BuffTrigger, EventBuffSetData>.EventHandler handler);
 
         //触发回调点
-        void RaiseEvent(E_BuffTrigger key, EventBuffSetData obj_info);
+        void RaiseEvent(E_BuffTrigger Key, EventBuffSetData obj_info);
 
         BuffSet GetBuffContainer();
     }*/

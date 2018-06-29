@@ -3,11 +3,13 @@ using System.Collections;
 
 namespace Summer
 {
-/*    public interface I_Effect
+    public interface I_Effect
     {
+        void OnAttach();
 
-        void OnExcute(BaseEntity target);
-        void OnReverse(BaseEntity target);
-    }*/
+        void OnUpdate();
+
+        void OnDetach();
+    }
 }
 

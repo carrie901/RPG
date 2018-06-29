@@ -23,6 +23,7 @@
 
 using Summer;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace SummerEditor
 {
@@ -37,6 +38,13 @@ namespace SummerEditor
             _init_position();
             _init_click();
         }
+
+        public void GetValue(List<TargetSelectInfo> filters)
+        {
+            //取得过滤器的列表数据
+        }
+
+        #region private 
 
         public void _init()
         {
@@ -79,6 +87,8 @@ namespace SummerEditor
         {
             //_scrollview.Remove();
         }
+
+        #endregion
     }
 
     public class ETargetItem : EComponent

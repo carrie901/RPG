@@ -141,7 +141,7 @@ namespace PureMVC.Core
                     }
 
                     // Also, when a Notification's Observer list length falls to 
-                    // zero, delete the notification key from the observer map
+                    // zero, delete the notification Key from the observer map
                     if (observers.Count == 0)
                     {
                         m_observerMap.Remove(notificationName);

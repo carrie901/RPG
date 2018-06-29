@@ -31,7 +31,7 @@ public class Timer
     #endregion
 
     public int SeqId { get; set; }
-
+    public int UniqueKey { get; set; }
     public float _elapsed_time;                                     //流逝的时间
     public float ElapsedTime { get { return _elapsed_time; } }
 

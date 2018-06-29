@@ -17,7 +17,7 @@
             // 当前值
             float old_value = _owner.peerLess.GetValue();
             // 通过参数计算数值
-            BuffHelper.Calc(origin, ref cur, E_CharDataUpdateType.plus, data);
+            BuffHelper.Calc(origin, ref cur, E_DataUpdateType.plus, data);
             // 计算数值
             if (cur > 0)
                 _owner.peerLess.AddAnger(cur);

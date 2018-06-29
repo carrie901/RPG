@@ -6,7 +6,7 @@
     public class EffectValue : SEffect
     {
         public EffectValueData _param = new EffectValueData();
-        public E_CharDataValueRegion _region;
+        //public E_CharDataValueRegion _region;
         public override void _on_parse()
         {
             /*_region = (E_CharDataValueRegion)cnf.sub_type;

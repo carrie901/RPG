@@ -25,6 +25,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Summer;
+using UnityEditor;
+
 public class TestCode : MonoBehaviour
 {
 
@@ -39,25 +41,42 @@ public class TestCode : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Days meetingDay = Days.Monday | Days.Tuesday;
-        if ((meetingDay & Days.Monday) == Days.Monday)
-            Debug.Log("yes");
-        else
-            Debug.Log("none");
+        MyScriptableObject ass = ScriptableObject.CreateInstance<MyScriptableObject>();
+        ass.s = "121";
+        ass.playSound = false;
+        ass.configeration = MyScriptableObject.Configeration.HIGH;
+        ass.tri = E_AbilityTrigger.buff_add_layer;
+
+        AssetDatabase.CreateAsset(ass, "Assets/Resources/a.asset");
+        EditorUtility.SetDirty(ass);
+
     }
 
     public float speed;
     public Vector3 _move_speed_offset = Vector3.zero;
     public Vector3 result;
+    public string text = "";
+    public int num;
     // Update is called once per frame
     void Update()
     {
-        if (interval.OnUpdate())
+        /* if (interval.OnUpdate())
+         {
+             result = Vector3.SmoothDamp(Vector3.zero, Vector3.one, ref _move_speed_offset, speed);
+             Debug.Log(result);
+         }
+ */
+        UnityEngine.Profiling.Profiler.BeginSample("03");
+        text += "1";
+        UnityEngine.Profiling.Profiler.EndSample();
+    }
+
+    private void OnGUI()
+    {
+        if (GUI.Button(new Rect(100, 100, 100, 100), ""))
         {
-            result = Vector3.SmoothDamp(Vector3.zero, Vector3.one, ref _move_speed_offset, speed);
-            Debug.Log(result);
+            _excute_string_gc();
         }
-        
     }
 
     #endregion
@@ -70,7 +89,20 @@ public class TestCode : MonoBehaviour
 
     #region Private Methods
 
+    public void _excute_string_gc()
+    {
+        UnityEngine.Profiling.Profiler.BeginSample("01");
+        string[] tmp = new string[1000];
+        UnityEngine.Profiling.Profiler.EndSample();
 
+        UnityEngine.Profiling.Profiler.BeginSample("02");
+        for (int i = 0; i < 1000; i++)
+        {
+            string a = "_excute_string_gc";
+            tmp[i] = a;
+        }
+        UnityEngine.Profiling.Profiler.EndSample();
+    }
 
     #endregion
 
@@ -85,4 +117,17 @@ public class TestCode : MonoBehaviour
         Friday = 0x20,
         Saturday = 0x40
     }
+}
+
+
+[System.Serializable]
+public class A
+{
+    public string name;
+}
+
+[System.Serializable]
+public class B : A
+{
+    public int index;
 }

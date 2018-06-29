@@ -27,13 +27,7 @@ using UnityEngine;
 namespace SummerEditor
 {
 
-    public enum E_Enum_Effect_Type
-    {
-        attribute,
-        value,
-        state,
-        action,
-    }
+
     /// <summary>
     /// 效果
     /// </summary>
@@ -43,18 +37,45 @@ namespace SummerEditor
         public ETextArea _des_text_area;
         public ETriggerItem _trigger_item;
         public ETargetSelectorItem _target_select_item;
-        public EComponent _e_component;
-        public E_Enum_Effect_Type _eff_type;
+        public EBaseffectInfoItem _e_component;
 
+        public E_EffectType _eff_type;
         public ELabel _overlay_lab;                                 // 叠加文本
         public EEnumPopup _overlay_popup;                           // 叠加效果
         public EButton _remove_btn;
-        public EEffectInfoItem(float width, float height, E_Enum_Effect_Type effect_type) : base(width, height)
+        public EEffectInfoItem(float width, float height, E_EffectType effect_type) : base(width, height)
         {
             _eff_type = effect_type;
             _init();
             _init_position();
         }
+
+        public EffectLogicInfo _info;
+
+        public EffectLogicInfo GetValue()
+        {
+            if (_info == null)
+            {
+                _info = new EffectLogicInfo();
+            }
+            _info.des = "";
+            _info.trigger_evt = _trigger_item.GetTriggerEvt();
+            _info.condition = _trigger_item.GetCondition();
+            _info.target_selects.Clear();
+
+            _target_select_item.GetValue(_info.target_selects);
+
+            _info.effect_type = _e_component.GetEffectType();
+            _info.node = _e_component.GetValue();
+            /*if (_info.eff_info == null)
+            {
+                _info.eff_info = new EffectDesInfo();
+            }
+            _info.eff_info = _e_component.GetValue();*/
+            return _info;
+        }
+
+        #region private
 
         public void _init()
         {
@@ -66,25 +87,17 @@ namespace SummerEditor
 
             _overlay_lab = new ELabel("叠加效果:", 70);
             _overlay_popup = new EEnumPopup(200);
-            _overlay_popup.SetData(E_GLOBAL_EVT.camera_effect_motion_blur);
+            _overlay_popup.SetData(E_EffectOverlayType.can_overlay_can_refresh);
 
             _remove_btn = new EButton("X", 20);
 
-            if (_eff_type == E_Enum_Effect_Type.attribute)
+            if (_eff_type == E_EffectType.attribute)
             {
                 _e_component = new EAttributeItem(Ew - 20, 115);
             }
-            else if (_eff_type == E_Enum_Effect_Type.value)
+            else if (_eff_type == E_EffectType.value)
             {
                 _e_component = new EValueItem(Ew - 20, 115);
-            }
-            else if (_eff_type == E_Enum_Effect_Type.action)
-            {
-                _e_component = new EActionItem(Ew - 20, 115);
-            }
-            else if (_eff_type == E_Enum_Effect_Type.state)
-            {
-                _e_component = new EStateitem(Ew - 20, 75);
             }
         }
 
@@ -108,5 +121,7 @@ namespace SummerEditor
         {
             base._on_draw();
         }
+
+        #endregion
     }
 }

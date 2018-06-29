@@ -11,7 +11,7 @@ namespace Summer
         /// </summary>
         /// <param name="type">力量/耐力/攻击力</param>
         /// <returns></returns>
-        AttributeIntParam FindAttribute(E_CharAttributeType type);
+        AttributeIntParam FindAttribute(E_EntityAttributeType type);
 
         /// <summary`>
         /// 角色数值

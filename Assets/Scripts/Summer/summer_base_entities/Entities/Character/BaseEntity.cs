@@ -23,6 +23,7 @@ namespace Summer
         public BaseEntityController EntityController { get; private set; }                              // GameObject控制器
         public Vector3 WroldPosition { get { return EntityController.trans.position; } }                // 世界坐标
         public Vector3 Direction { get { return EntityController.trans.forward; } }                     // 当前方向
+        public EntityAttributeProperty AttributeProp { get { return _attr_prop; } }
         public bool CanMovement { get; set; }
         public EntityId entity_id;                                                                      // Entity的唯一表示
         public HeroInfoCnf _cnf;
@@ -54,7 +55,7 @@ namespace Summer
         public BtEntityAi _entity_ai;                                                                   // 相关AI组件
         public SkillSet _skill_set;                                                                     // 相关技能组件
         public BuffSet _buff_set;                                                                        // 相关Buff组件
-        public EntitiesAttributeProperty _attr_prop;                                                    // 相关人物属性组件
+        public EntityAttributeProperty _attr_prop;                                                    // 相关人物属性组件
         public FsmSystem _fsm_system;                                                                   // 相关状态机组件
 
         #endregion
@@ -188,9 +189,9 @@ namespace Summer
             return _entity_blackboard;
         }
 
-        /*public T GetBlackBoradValue<T>(string key, T default_value)
+        /*public T GetBlackBoradValue<T>(string Key, T default_value)
         {
-            T t = _skill_blackboard.GetValue<T>(key, default_value);
+            T t = _skill_blackboard.GetValue<T>(Key, default_value);
             return t;
         }*/
 
@@ -249,11 +250,18 @@ namespace Summer
             register_list.Clear();
         }
 
-        public string ToDes() { return ""; }
+        public string ToDes()
+        {
+#if UNITY_EDITOR
+            return "";
+#else
+            return string.Empty;
+#endif
+        }
 
-        #endregion
+#endregion
 
-        #region private
+#region private
 
         // 初始化GameObject的相关东西
         public void _init_gameobject()
@@ -279,9 +287,9 @@ namespace Summer
 
             _cnf = StaticCnf.FindData<HeroInfoCnf>(Template);
             _skill_set.OnReset(Template);
-            _attr_prop = new EntitiesAttributeProperty(entity_id);
+            _attr_prop = new EntityAttributeProperty(entity_id);
         }
 
-        #endregion
+#endregion
     }
 }

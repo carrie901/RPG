@@ -18,7 +18,7 @@ namespace Summer
             if (sound_id == -1)
             {
                 sound_id = SoundConst.COMMON;
-                //LogManager.Error("[{0}]找不到对应的声音的信息.UI:[{1}],Key[{2}]", gameObject.name, view, key);
+                //LogManager.Error("[{0}]找不到对应的声音的信息.UI:[{1}],Key[{2}]", gameObject.name, view, Key);
             }
         }
 

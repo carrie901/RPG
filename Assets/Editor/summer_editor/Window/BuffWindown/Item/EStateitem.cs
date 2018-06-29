@@ -25,7 +25,7 @@ using Summer;
 
 namespace SummerEditor
 {
-    public class EStateitem : EComponent
+    public class EStateitem : EBaseffectInfoItem
     {
         public ELabel _title_lab;
 
@@ -52,6 +52,20 @@ namespace SummerEditor
             AddComponent(_title_lab, 10, 10);
             AddComponentDown(_attribute_lab, _title_lab);
             AddComponentRight(_value_popup, _attribute_lab);
+        }
+
+        /*public  EffectDesInfo GetValue()
+        {
+            throw new System.NotImplementedException();
+        }*/
+        public override E_EffectType GetEffectType()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override TextNode GetValue()
+        {
+            throw new System.NotImplementedException();
         }
     }
 

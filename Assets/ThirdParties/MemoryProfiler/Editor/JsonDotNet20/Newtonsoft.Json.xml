@@ -1221,7 +1221,7 @@
         </member>
         <member name="P:Newtonsoft.Json.Linq.IJEnumerable`1.Item(System.Object)">
             <summary>
-            Gets the <see cref="T:Newtonsoft.Json.Linq.IJEnumerable`1"/> with the specified key.
+            Gets the <see cref="T:Newtonsoft.Json.Linq.IJEnumerable`1"/> with the specified Key.
             </summary>
             <value></value>
         </member>
@@ -1294,11 +1294,11 @@
         </member>
         <member name="M:Newtonsoft.Json.Linq.Extensions.Values(System.Collections.Generic.IEnumerable{Newtonsoft.Json.Linq.JToken},System.Object)">
             <summary>
-            Returns a collection of child values of every object in the source collection with the given key.
+            Returns a collection of child values of every object in the source collection with the given Key.
             </summary>
             <param name="source">An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:Newtonsoft.Json.Linq.JToken"/> that contains the source collection.</param>
-            <param name="key">The token key.</param>
-            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:Newtonsoft.Json.Linq.JToken"/> that contains the values of every token in the source collection with the given key.</returns>
+            <param name="Key">The token Key.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:Newtonsoft.Json.Linq.JToken"/> that contains the values of every token in the source collection with the given Key.</returns>
         </member>
         <member name="M:Newtonsoft.Json.Linq.Extensions.Values(System.Collections.Generic.IEnumerable{Newtonsoft.Json.Linq.JToken})">
             <summary>
@@ -1309,12 +1309,12 @@
         </member>
         <member name="M:Newtonsoft.Json.Linq.Extensions.Values``1(System.Collections.Generic.IEnumerable{Newtonsoft.Json.Linq.JToken},System.Object)">
             <summary>
-            Returns a collection of converted child values of every object in the source collection with the given key.
+            Returns a collection of converted child values of every object in the source collection with the given Key.
             </summary>
             <typeparam name="U">The type to convert the values to.</typeparam>
             <param name="source">An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:Newtonsoft.Json.Linq.JToken"/> that contains the source collection.</param>
-            <param name="key">The token key.</param>
-            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that contains the converted values of every token in the source collection with the given key.</returns>
+            <param name="Key">The token Key.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that contains the converted values of every token in the source collection with the given Key.</returns>
         </member>
         <member name="M:Newtonsoft.Json.Linq.Extensions.Values``1(System.Collections.Generic.IEnumerable{Newtonsoft.Json.Linq.JToken})">
             <summary>
@@ -1436,9 +1436,9 @@
         </member>
         <member name="P:Newtonsoft.Json.Linq.JConstructor.Item(System.Object)">
             <summary>
-            Gets the <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified key.
+            Gets the <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified Key.
             </summary>
-            <value>The <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified key.</value>
+            <value>The <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified Key.</value>
         </member>
         <member name="M:Newtonsoft.Json.Linq.JConstructor.Load(Newtonsoft.Json.JsonReader)">
             <summary>
@@ -1625,7 +1625,7 @@
         </member>
         <member name="P:Newtonsoft.Json.Linq.JEnumerable`1.Item(System.Object)">
             <summary>
-            Gets the <see cref="T:Newtonsoft.Json.Linq.IJEnumerable`1"/> with the specified key.
+            Gets the <see cref="T:Newtonsoft.Json.Linq.IJEnumerable`1"/> with the specified Key.
             </summary>
             <value></value>
         </member>
@@ -1724,9 +1724,9 @@
         </member>
         <member name="P:Newtonsoft.Json.Linq.JObject.Item(System.Object)">
             <summary>
-            Gets the <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified key.
+            Gets the <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified Key.
             </summary>
-            <value>The <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified key.</value>
+            <value>The <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified Key.</value>
         </member>
         <member name="P:Newtonsoft.Json.Linq.JObject.Item(System.String)">
             <summary>
@@ -2063,9 +2063,9 @@
         </member>
         <member name="P:Newtonsoft.Json.Linq.JArray.Item(System.Object)">
             <summary>
-            Gets the <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified key.
+            Gets the <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified Key.
             </summary>
-            <value>The <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified key.</value>
+            <value>The <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified Key.</value>
         </member>
         <member name="P:Newtonsoft.Json.Linq.JArray.Item(System.Int32)">
             <summary>
@@ -2491,16 +2491,16 @@
         </member>
         <member name="P:Newtonsoft.Json.Linq.JToken.Item(System.Object)">
             <summary>
-            Gets the <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified key.
+            Gets the <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified Key.
             </summary>
-            <value>The <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified key.</value>
+            <value>The <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified Key.</value>
         </member>
         <member name="M:Newtonsoft.Json.Linq.JToken.Value``1(System.Object)">
             <summary>
-            Gets the <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified key converted to the specified type.
+            Gets the <see cref="T:Newtonsoft.Json.Linq.JToken"/> with the specified Key converted to the specified type.
             </summary>
             <typeparam name="T">The type to convert the token to.</typeparam>
-            <param name="key">The token key.</param>
+            <param name="Key">The token Key.</param>
             <returns>The converted token value.</returns>
         </member>
         <member name="P:Newtonsoft.Json.Linq.JToken.First">
@@ -3674,7 +3674,7 @@
             Initializes a new instance of the <see cref="T:Newtonsoft.Json.Serialization.CamelCaseNamingStrategy"/> class.
             </summary>
             <param name="processDictionaryKeys">
-            A flag indicating whether dictionary keys should be processed.
+            A flag indicating whether dictionary Keys should be processed.
             </param>
             <param name="overrideSpecifiedNames">
             A flag indicating whether explicitly specified property names should be processed,
@@ -3695,7 +3695,7 @@
         </member>
         <member name="T:Newtonsoft.Json.Serialization.DefaultNamingStrategy">
             <summary>
-            The default naming strategy. Property names and dictionary keys are unchanged.
+            The default naming strategy. Property names and dictionary Keys are unchanged.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Serialization.DefaultNamingStrategy.ResolvePropertyName(System.String)">
@@ -3849,12 +3849,12 @@
         </member>
         <member name="T:Newtonsoft.Json.Serialization.NamingStrategy">
             <summary>
-            A base class for resolving how property names and dictionary keys are serialized.
+            A base class for resolving how property names and dictionary Keys are serialized.
             </summary>
         </member>
         <member name="P:Newtonsoft.Json.Serialization.NamingStrategy.ProcessDictionaryKeys">
             <summary>
-            A flag indicating whether dictionary keys should be processed.
+            A flag indicating whether dictionary Keys should be processed.
             Defaults to <c>false</c>.
             </summary>
         </member>
@@ -3875,10 +3875,10 @@
         </member>
         <member name="M:Newtonsoft.Json.Serialization.NamingStrategy.GetDictionaryKey(System.String)">
             <summary>
-            Gets the serialized key for a given dictionary key.
+            Gets the serialized Key for a given dictionary Key.
             </summary>
-            <param name="key">The initial dictionary key.</param>
-            <returns>The serialized dictionary key.</returns>
+            <param name="Key">The initial dictionary Key.</param>
+            <returns>The serialized dictionary Key.</returns>
         </member>
         <member name="M:Newtonsoft.Json.Serialization.NamingStrategy.ResolvePropertyName(System.String)">
             <summary>
@@ -3923,7 +3923,7 @@
             Initializes a new instance of the <see cref="T:Newtonsoft.Json.Serialization.SnakeCaseNamingStrategy"/> class.
             </summary>
             <param name="processDictionaryKeys">
-            A flag indicating whether dictionary keys should be processed.
+            A flag indicating whether dictionary Keys should be processed.
             </param>
             <param name="overrideSpecifiedNames">
             A flag indicating whether explicitly specified property names should be processed,
@@ -3998,9 +3998,9 @@
         </member>
         <member name="P:Newtonsoft.Json.Serialization.DefaultContractResolver.NamingStrategy">
             <summary>
-            Gets or sets the naming strategy used to resolve how property names and dictionary keys are serialized.
+            Gets or sets the naming strategy used to resolve how property names and dictionary Keys are serialized.
             </summary>
-            <value>The naming strategy used to resolve how property names and dictionary keys are serialized.</value>
+            <value>The naming strategy used to resolve how property names and dictionary Keys are serialized.</value>
         </member>
         <member name="M:Newtonsoft.Json.Serialization.DefaultContractResolver.#ctor">
             <summary>
@@ -4143,10 +4143,10 @@
         </member>
         <member name="M:Newtonsoft.Json.Serialization.DefaultContractResolver.ResolveDictionaryKey(System.String)">
             <summary>
-            Resolves the key of the dictionary. By default <see cref="M:Newtonsoft.Json.Serialization.DefaultContractResolver.ResolvePropertyName(System.String)"/> is used to resolve dictionary keys.
+            Resolves the Key of the dictionary. By default <see cref="M:Newtonsoft.Json.Serialization.DefaultContractResolver.ResolvePropertyName(System.String)"/> is used to resolve dictionary Keys.
             </summary>
             <param name="dictionaryKey">Key of the dictionary.</param>
-            <returns>Resolved key of the dictionary.</returns>
+            <returns>Resolved Key of the dictionary.</returns>
         </member>
         <member name="M:Newtonsoft.Json.Serialization.DefaultContractResolver.GetResolvedPropertyName(System.String)">
             <summary>
@@ -4344,7 +4344,7 @@
             Sets extension data for an object during deserialization.
             </summary>
             <param name="o">The object to set extension data on.</param>
-            <param name="key">The extension data key.</param>
+            <param name="Key">The extension data Key.</param>
             <param name="value">The extension data value.</param>
         </member>
         <member name="T:Newtonsoft.Json.Serialization.ExtensionDataGetter">
@@ -4467,15 +4467,15 @@
         </member>
         <member name="P:Newtonsoft.Json.Serialization.JsonDictionaryContract.DictionaryKeyResolver">
             <summary>
-            Gets or sets the dictionary key resolver.
+            Gets or sets the dictionary Key resolver.
             </summary>
-            <value>The dictionary key resolver.</value>
+            <value>The dictionary Key resolver.</value>
         </member>
         <member name="P:Newtonsoft.Json.Serialization.JsonDictionaryContract.DictionaryKeyType">
             <summary>
-            Gets the <see cref="T:System.Type"/> of the dictionary keys.
+            Gets the <see cref="T:System.Type"/> of the dictionary Keys.
             </summary>
-            <value>The <see cref="T:System.Type"/> of the dictionary keys.</value>
+            <value>The <see cref="T:System.Type"/> of the dictionary Keys.</value>
         </member>
         <member name="P:Newtonsoft.Json.Serialization.JsonDictionaryContract.DictionaryValueType">
             <summary>
@@ -4743,10 +4743,10 @@
         </member>
         <member name="M:Newtonsoft.Json.Serialization.JsonPropertyCollection.GetKeyForItem(Newtonsoft.Json.Serialization.JsonProperty)">
             <summary>
-            When implemented in a derived class, extracts the key from the specified element.
+            When implemented in a derived class, extracts the Key from the specified element.
             </summary>
-            <param name="item">The element from which to extract the key.</param>
-            <returns>The key for the specified element.</returns>
+            <param name="item">The element from which to extract the Key.</param>
+            <returns>The Key for the specified element.</returns>
         </member>
         <member name="M:Newtonsoft.Json.Serialization.JsonPropertyCollection.AddProperty(Newtonsoft.Json.Serialization.JsonProperty)">
             <summary>
@@ -5247,85 +5247,85 @@
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.ToLookup``2(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1})">
             <summary>
             Creates a <see cref="T:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2" /> from an 
-            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to a specified key 
+            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to a specified Key 
             selector function.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.ToLookup``2(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
             <summary>
             Creates a <see cref="T:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2" /> from an 
-            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to a specified key 
-            selector function and a key comparer.
+            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to a specified Key 
+            selector function and a Key comparer.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.ToLookup``3(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},Newtonsoft.Json.Serialization.Func{``0,``2})">
             <summary>
             Creates a <see cref="T:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2" /> from an 
-            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to specified key 
+            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to specified Key 
             and element selector functions.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.ToLookup``3(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},Newtonsoft.Json.Serialization.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
             <summary>
             Creates a <see cref="T:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2" /> from an 
-            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to a specified key 
+            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to a specified Key 
             selector function, a comparer and an element selector function.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.GroupBy``2(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1})">
             <summary>
-            Groups the elements of a sequence according to a specified key 
+            Groups the elements of a sequence according to a specified Key 
             selector function.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.GroupBy``2(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
             <summary>
-            Groups the elements of a sequence according to a specified key 
-            selector function and compares the keys by using a specified 
+            Groups the elements of a sequence according to a specified Key 
+            selector function and compares the Keys by using a specified 
             comparer.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.GroupBy``3(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},Newtonsoft.Json.Serialization.Func{``0,``2})">
             <summary>
-            Groups the elements of a sequence according to a specified key 
+            Groups the elements of a sequence according to a specified Key 
             selector function and projects the elements for each group by 
             using a specified function.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.GroupBy``3(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},Newtonsoft.Json.Serialization.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
             <summary>
-            Groups the elements of a sequence according to a specified key 
+            Groups the elements of a sequence according to a specified Key 
             selector function and creates a result value from each group and 
-            its key.
+            its Key.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.GroupBy``3(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},Newtonsoft.Json.Serialization.Func{``1,System.Collections.Generic.IEnumerable{``0},``2})">
             <summary>
-            Groups the elements of a sequence according to a key selector 
-            function. The keys are compared by using a comparer and each 
+            Groups the elements of a sequence according to a Key selector 
+            function. The Keys are compared by using a comparer and each 
             group's elements are projected by using a specified function.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.GroupBy``3(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},Newtonsoft.Json.Serialization.Func{``1,System.Collections.Generic.IEnumerable{``0},``2},System.Collections.Generic.IEqualityComparer{``1})">
             <summary>
-            Groups the elements of a sequence according to a specified key 
+            Groups the elements of a sequence according to a specified Key 
             selector function and creates a result value from each group and 
-            its key. The elements of each group are projected by using a 
+            its Key. The elements of each group are projected by using a 
             specified function.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.GroupBy``4(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},Newtonsoft.Json.Serialization.Func{``0,``2},Newtonsoft.Json.Serialization.Func{``1,System.Collections.Generic.IEnumerable{``2},``3})">
             <summary>
-            Groups the elements of a sequence according to a specified key 
+            Groups the elements of a sequence according to a specified Key 
             selector function and creates a result value from each group and 
-            its key. The keys are compared by using a specified comparer.
+            its Key. The Keys are compared by using a specified comparer.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.GroupBy``4(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},Newtonsoft.Json.Serialization.Func{``0,``2},Newtonsoft.Json.Serialization.Func{``1,System.Collections.Generic.IEnumerable{``2},``3},System.Collections.Generic.IEqualityComparer{``1})">
             <summary>
-            Groups the elements of a sequence according to a specified key 
+            Groups the elements of a sequence according to a specified Key 
             selector function and creates a result value from each group and 
-            its key. Key values are compared by using a specified comparer, 
+            its Key. Key values are compared by using a specified comparer, 
             and the elements of each group are projected by using a 
             specified function.
             </summary>
@@ -5458,7 +5458,7 @@
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.OrderBy``2(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1})">
             <summary>
-            Sorts the elements of a sequence in ascending order according to a key.
+            Sorts the elements of a sequence in ascending order according to a Key.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.OrderBy``2(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
@@ -5469,7 +5469,7 @@
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.OrderByDescending``2(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1})">
             <summary>
-            Sorts the elements of a sequence in descending order according to a key.
+            Sorts the elements of a sequence in descending order according to a Key.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.OrderByDescending``2(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
@@ -5481,7 +5481,7 @@
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.ThenBy``2(Newtonsoft.Json.Utilities.LinqBridge.IOrderedEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1})">
             <summary>
             Performs a subsequent ordering of the elements in a sequence in 
-            ascending order according to a key.
+            ascending order according to a Key.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.ThenBy``2(Newtonsoft.Json.Utilities.LinqBridge.IOrderedEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
@@ -5493,7 +5493,7 @@
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.ThenByDescending``2(Newtonsoft.Json.Utilities.LinqBridge.IOrderedEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1})">
             <summary>
             Performs a subsequent ordering of the elements in a sequence in 
-            descending order, according to a key.
+            descending order, according to a Key.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.ThenByDescending``2(Newtonsoft.Json.Utilities.LinqBridge.IOrderedEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
@@ -5534,57 +5534,57 @@
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.ToDictionary``2(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1})">
             <summary>
             Creates a <see cref="T:System.Collections.Generic.Dictionary`2" /> from an 
-            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to a specified key 
+            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to a specified Key 
             selector function.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.ToDictionary``2(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
             <summary>
             Creates a <see cref="T:System.Collections.Generic.Dictionary`2" /> from an 
-            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to a specified key 
-            selector function and key comparer.
+            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to a specified Key 
+            selector function and Key comparer.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.ToDictionary``3(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},Newtonsoft.Json.Serialization.Func{``0,``2})">
             <summary>
             Creates a <see cref="T:System.Collections.Generic.Dictionary`2" /> from an 
-            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to specified key 
+            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to specified Key 
             selector and element selector functions.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.ToDictionary``3(System.Collections.Generic.IEnumerable{``0},Newtonsoft.Json.Serialization.Func{``0,``1},Newtonsoft.Json.Serialization.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
             <summary>
             Creates a <see cref="T:System.Collections.Generic.Dictionary`2" /> from an 
-            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to a specified key 
+            <see cref="T:System.Collections.Generic.IEnumerable`1" /> according to a specified Key 
             selector function, a comparer, and an element selector function.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.Join``4(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},Newtonsoft.Json.Serialization.Func{``0,``2},Newtonsoft.Json.Serialization.Func{``1,``2},Newtonsoft.Json.Serialization.Func{``0,``1,``3})">
             <summary>
-            Correlates the elements of two sequences based on matching keys. 
-            The default equality comparer is used to compare keys.
+            Correlates the elements of two sequences based on matching Keys. 
+            The default equality comparer is used to compare Keys.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.Join``4(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},Newtonsoft.Json.Serialization.Func{``0,``2},Newtonsoft.Json.Serialization.Func{``1,``2},Newtonsoft.Json.Serialization.Func{``0,``1,``3},System.Collections.Generic.IEqualityComparer{``2})">
             <summary>
-            Correlates the elements of two sequences based on matching keys. 
-            The default equality comparer is used to compare keys. A 
-            specified <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> is used to compare keys.
+            Correlates the elements of two sequences based on matching Keys. 
+            The default equality comparer is used to compare Keys. A 
+            specified <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> is used to compare Keys.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.GroupJoin``4(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},Newtonsoft.Json.Serialization.Func{``0,``2},Newtonsoft.Json.Serialization.Func{``1,``2},Newtonsoft.Json.Serialization.Func{``0,System.Collections.Generic.IEnumerable{``1},``3})">
             <summary>
             Correlates the elements of two sequences based on equality of 
-            keys and groups the results. The default equality comparer is 
-            used to compare keys.
+            Keys and groups the results. The default equality comparer is 
+            used to compare Keys.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.GroupJoin``4(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},Newtonsoft.Json.Serialization.Func{``0,``2},Newtonsoft.Json.Serialization.Func{``1,``2},Newtonsoft.Json.Serialization.Func{``0,System.Collections.Generic.IEnumerable{``1},``3},System.Collections.Generic.IEqualityComparer{``2})">
             <summary>
             Correlates the elements of two sequences based on equality of 
-            keys and groups the results. The default equality comparer is 
-            used to compare keys. A specified <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> 
-            is used to compare keys.
+            Keys and groups the results. The default equality comparer is 
+            used to compare Keys. A specified <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> 
+            is used to compare Keys.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Enumerable.Sum(System.Collections.Generic.IEnumerable{System.Int32})">
@@ -5949,18 +5949,18 @@
         </member>
         <member name="T:Newtonsoft.Json.Utilities.LinqBridge.IGrouping`2">
             <summary>
-            Represents a collection of objects that have a common key.
+            Represents a collection of objects that have a common Key.
             </summary>
         </member>
         <member name="P:Newtonsoft.Json.Utilities.LinqBridge.IGrouping`2.Key">
             <summary>
-            Gets the key of the <see cref="T:Newtonsoft.Json.Utilities.LinqBridge.IGrouping`2" />.
+            Gets the Key of the <see cref="T:Newtonsoft.Json.Utilities.LinqBridge.IGrouping`2" />.
             </summary>
         </member>
         <member name="T:Newtonsoft.Json.Utilities.LinqBridge.ILookup`2">
             <summary>
             Defines an indexer, size property, and Boolean search method for 
-            data structures that map keys to <see cref="T:System.Collections.Generic.IEnumerable`1"/> 
+            data structures that map Keys to <see cref="T:System.Collections.Generic.IEnumerable`1"/> 
             sequences of values.
             </summary>
         </member>
@@ -5972,32 +5972,32 @@
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.IOrderedEnumerable`1.CreateOrderedEnumerable``1(Newtonsoft.Json.Serialization.Func{`0,``0},System.Collections.Generic.IComparer{``0},System.Boolean)">
             <summary>
             Performs a subsequent ordering on the elements of an 
-            <see cref="T:Newtonsoft.Json.Utilities.LinqBridge.IOrderedEnumerable`1"/> according to a key.
+            <see cref="T:Newtonsoft.Json.Utilities.LinqBridge.IOrderedEnumerable`1"/> according to a Key.
             </summary>
         </member>
         <member name="T:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2">
             <summary>
-            Represents a collection of keys each mapped to one or more values.
+            Represents a collection of Keys each mapped to one or more values.
             </summary>
         </member>
         <member name="P:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2.Count">
             <summary>
-            Gets the number of key/value collection pairs in the <see cref="T:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2" />.
+            Gets the number of Key/value collection pairs in the <see cref="T:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2" />.
             </summary>
         </member>
         <member name="P:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2.Item(`0)">
             <summary>
-            Gets the collection of values indexed by the specified key.
+            Gets the collection of values indexed by the specified Key.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2.Contains(`0)">
             <summary>
-            Determines whether a specified key is in the <see cref="T:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2" />.
+            Determines whether a specified Key is in the <see cref="T:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2" />.
             </summary>
         </member>
         <member name="M:Newtonsoft.Json.Utilities.LinqBridge.Lookup`2.ApplyResultSelector``1(Newtonsoft.Json.Serialization.Func{`0,System.Collections.Generic.IEnumerable{`1},``0})">
             <summary>
-            Applies a transform function to each key and its associated 
+            Applies a transform function to each Key and its associated 
             values and returns the results.
             </summary>
         </member>

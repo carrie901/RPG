@@ -1,16 +1,16 @@
 ﻿
 namespace Summer
 {
-    public interface I_EntityTrigger
+    public interface I_Trigger
     {
         //注册回调点
-        bool RegisterHandler(E_TRIGGER_EVT key, EventSet<E_TRIGGER_EVT, BlackBorad>.EventHandler handler);
+        bool RegisterHandler(string key, EventSet<string, EventSetData>.EventHandler handler);
 
         //卸载回调点
-        bool UnRegisterHandler(E_TRIGGER_EVT key, EventSet<E_TRIGGER_EVT, BlackBorad>.EventHandler handler);
+        bool UnRegisterHandler(string key, EventSet<string, EventSetData>.EventHandler handler);
 
         //触发回调点
-        void RaiseEvent(E_TRIGGER_EVT key, BlackBorad param);
+        void RaiseEvent(string key, EventSetData data);
     }
 
     /// <summary>
@@ -18,14 +18,6 @@ namespace Summer
     /// </summary>
     public interface I_TriggerCondition
     {
-        bool IsTrue(BlackBorad blackboard);
-    }
-
-    /// <summary>
-    /// 动作
-    /// </summary>
-    public interface I_ActionCondition
-    {
-        void Excute(BlackBorad blackboard);
+        bool IsTrue(EventSetData data);
     }
 }

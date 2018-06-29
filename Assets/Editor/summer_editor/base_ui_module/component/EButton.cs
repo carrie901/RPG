@@ -14,12 +14,6 @@ namespace SummerEditor
             text = lab;
         }
 
-        public EButton(float width, float height, string lab) : base(width, height)
-        {
-            text = lab;
-        }
-
-
         public delegate void OnButtonClick(EButton button);
 
         public event OnButtonClick on_click;

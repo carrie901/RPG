@@ -46,6 +46,18 @@ namespace SummerEditor
             _init_position();
         }
 
+        public string GetTriggerEvt()
+        {
+            return "";
+        }
+
+        public EffectConditionInfo GetCondition()
+        {
+            return null;
+        }
+
+        #region private
+
         public void _init()
         {
             _title_lab = new ELabel("触发器:", 50);
@@ -86,5 +98,7 @@ namespace SummerEditor
         {
             base._on_draw();
         }
+
+        #endregion
     }
 }
