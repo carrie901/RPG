@@ -63,6 +63,29 @@ namespace Summer
             NodeList.Add(node);
             return node;
         }
+
+        public string GetAttribute(string key)
+        {
+            if (AttributeList == null) return string.Empty;
+            for (int i = 0; i < AttributeList.Count; i++)
+            {
+                if (AttributeList[i].Key == key)
+                    return AttributeList[i].Value;
+            }
+
+            return string.Empty;
+        }
+
+        public TextNode GetNode(string key)
+        {
+            if (NodeList == null) return null;
+            for (int i = 0; i < AttributeList.Count; i++)
+            {
+                if (NodeList[i].Name == key)
+                    return NodeList[i];
+            }
+            return null;
+        }
     }
 
     [System.Serializable]
@@ -71,15 +94,4 @@ namespace Summer
         public string Key;
         public string Value;
     }
-
-
-    /*public class TextMd
-    {
-        /*public static TextNode Create(EdNode node)
-        {
-           /* TextNode textnode = new TextNode();
-            textnode.Parse(node);
-            return textnode;#2#
-        }#1#
-    }*/
 }

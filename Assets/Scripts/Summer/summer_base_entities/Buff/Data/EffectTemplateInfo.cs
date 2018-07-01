@@ -21,27 +21,44 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Summer
 {
-    #region Buff的逻辑数据
+
+
+    #region Effect
 
     /// <summary>
-    /// Buff的逻辑数据
+    /// Effect
     /// </summary>
-    public class BuffTemplateInfo : ScriptableObject
+    [System.Serializable]
+    public class EffectTemplateInfo
     {
-        public int id;                              // 模板id
+        public const string TRIGGER_EVENT = "TriggerEvent";
 
-        public string desc;                         // 模板描述
-        public int duration;                        // 持续时间
-        public int interval_time;                   // 间隔时间
-        public int max_layer;                       // 最大层级
-        public List<EffectTemplateInfo> _effs
-            = new List<EffectTemplateInfo>();          // 包含的效果
+        public E_EffectType effect_type;
+
+        /// <summary>
+        /// <Root>
+        ///     TriggerEvent=触发事件
+        ///     <Condition>
+        ///         ConditonEvent=触发条件
+        ///         <ConditionParam>
+        ///             param1=
+        ///         </ConditionParam>
+        ///     </Condition>
+        /// </Root>           
+        /// </summary>
+        public TextNode trigger_node;                               // 触发条件
+        public TextNode target_select_node;                         // 过滤类型
+        public TextNode effect_node;
+
+        public string GetTriggerEvent()
+        {
+            if (trigger_node == null) return string.Empty;
+            return trigger_node.GetAttribute(TRIGGER_EVENT);
+        }
     }
 
     #endregion
 }
+

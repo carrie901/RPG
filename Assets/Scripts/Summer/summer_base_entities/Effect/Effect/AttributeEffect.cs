@@ -30,7 +30,7 @@ namespace Summer
     {
         public float _cumulative_data;
 
-        public AttributeEffect(I_Trigger entiry_trigger, EffectLogicInfo info)
+        public AttributeEffect(I_Trigger entiry_trigger, EffectTemplateInfo info)
             : base(entiry_trigger, info) { }
 
         public override void OnAttach()

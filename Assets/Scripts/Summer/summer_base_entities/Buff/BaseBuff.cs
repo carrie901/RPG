@@ -182,7 +182,7 @@ namespace Summer
 
         public void _init_effs()
         {
-            List<EffectLogicInfo> effs = info_template._effs;
+            List<EffectTemplateInfo> effs = info_template._effs;
 
             int length = effs.Count;
             for (int i = 0; i < length; i++)

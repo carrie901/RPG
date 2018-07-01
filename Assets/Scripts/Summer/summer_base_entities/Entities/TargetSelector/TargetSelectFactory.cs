@@ -7,12 +7,12 @@ namespace Summer
     {
         public static Dictionary<string, Type> _target_select_map = new Dictionary<string, Type>()
         {
-            { "数量过滤",typeof(TargetSelectByCount) },
-            { "范围过滤" ,typeof(TargetSelectByArea)},
-            { "目标类型过滤",typeof(TargetSelectByType)},
-            { "目标职业过滤",typeof(TargetSelectByCareer)},
-            { "目标性别过滤",typeof(TargetSelectBySex)},
-            { "目标流派过滤",typeof(TargetSelectByPai)}
+            { "Count",typeof(TargetSelectByCount) },
+            { "Area" ,typeof(TargetSelectByArea)},
+            { "TargetType",typeof(TargetSelectByType)},
+            { "TargetCareer",typeof(TargetSelectByCareer)},
+            { "TargetSex",typeof(TargetSelectBySex)},
+            { "TargetPai",typeof(TargetSelectByPai)}
         };
 
 

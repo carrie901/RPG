@@ -102,9 +102,9 @@ namespace Summer
             return effect;
         }
 
-        public BaseEffect Create(I_Trigger entiry_trigger, EffectLogicInfo logic_info)
+        public BaseEffect Create(I_Trigger entiry_trigger, EffectTemplateInfo templateInfo)
         {
-            BaseEffect eff = new AttributeEffect(entiry_trigger, logic_info);
+            BaseEffect eff = new AttributeEffect(entiry_trigger, templateInfo);
             return eff;
         }
     }
