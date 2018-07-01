@@ -32,8 +32,6 @@ namespace SummerEditor
     /// </summary>
     public class ETriggerItem : EComponent
     {
-        public ELabel _title_lab;
-        public EInput _des_input;                                           // 触发器的描述 输入框
         public ELabel _trigger_event_lab;                                   // 触发事件 文本
         public EStringPopup _trigger_event_popup;                             // 触发事件 下拉列表
 
@@ -46,23 +44,16 @@ namespace SummerEditor
             _init_position();
         }
 
-        public string GetTriggerEvt()
+        public TextNode GetTriggerEvt()
         {
-            return "";
-        }
-
-        public EffectConditionInfo GetCondition()
-        {
-            return null;
+            StringStringPopupInfo info = _trigger_event_popup.GetValue() as StringStringPopupInfo;
+            return info.value;
         }
 
         #region private
 
         public void _init()
         {
-            _title_lab = new ELabel("触发器:", 50);
-
-            _des_input = new EInput("触发器描述", 200);
 
 
             _trigger_event_lab = new ELabel("触发事件:", 50);
@@ -82,10 +73,7 @@ namespace SummerEditor
             float tmp_height = 5;
             float tmp_width = 5;
 
-            AddComponent(_title_lab, 10, 10);
-            AddComponentRight(_des_input, _title_lab, tmp_width);
-
-            AddComponentDown(_trigger_event_lab, _title_lab, tmp_height);
+            AddComponent(_trigger_event_lab, 10, 10);
             AddComponentRight(_trigger_event_popup, _trigger_event_lab, tmp_width);
 
             AddComponentRight(_condition_lab, _trigger_event_popup, 30);

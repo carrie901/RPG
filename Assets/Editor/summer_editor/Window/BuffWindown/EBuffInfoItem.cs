@@ -100,7 +100,7 @@ namespace SummerEditor
                 EEffectInfoItem item = effect_list[i] as EEffectInfoItem;
                 if (item == null) continue;
 
-                EffectLogicInfo eff_info = item.GetValue();
+                EffectTemplateInfo eff_info = item.GetValue();
                 info._effs.Add(eff_info);
             }
             AssetDatabase.CreateAsset(info, "Assets/Resources/test_buff_dat.asset");

@@ -50,27 +50,20 @@ namespace SummerEditor
             _init_position();
         }
 
-        public EffectLogicInfo _info;
+        public EffectTemplateInfo _info;
 
-        public EffectLogicInfo GetValue()
+        public EffectTemplateInfo GetValue()
         {
             if (_info == null)
             {
-                _info = new EffectLogicInfo();
+                _info = new EffectTemplateInfo();
             }
-            _info.des = "";
-            _info.trigger_evt = _trigger_item.GetTriggerEvt();
-            _info.condition = _trigger_item.GetCondition();
+            _info.trigger_node = _trigger_item.GetTriggerEvt();
 
             _info.target_select_node = _target_select_item.GetValue();
 
             _info.effect_type = _e_component.GetEffectType();
-            _info.node = _e_component.GetValue();
-            /*if (_info.eff_info == null)
-            {
-                _info.eff_info = new EffectDesInfo();
-            }
-            _info.eff_info = _e_component.GetValue();*/
+            _info.effect_node = _e_component.GetValue();
             return _info;
         }
 
