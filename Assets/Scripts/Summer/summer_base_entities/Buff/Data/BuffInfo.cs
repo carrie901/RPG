@@ -1,4 +1,5 @@
-﻿
+﻿using System.Collections.Generic;
+
 namespace Summer
 {
 
@@ -122,6 +123,11 @@ namespace Summer
                 return GREATER;
             return LESS;*/
             return EQUAL;
+        }
+
+        public List<EffectTemplateInfo> GetEffs()
+        {
+            return _info._effs;
         }
 
         #endregion

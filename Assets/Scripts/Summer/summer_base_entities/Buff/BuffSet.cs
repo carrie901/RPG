@@ -281,7 +281,7 @@ namespace Summer
                 _internal_buff_refresh_time(old_buff);
             }
             // 触发回调
-            old_buff.RaiseEvent(E_Buff_Event.buff_add_layer);
+            // old_buff.RaiseEvent(E_Buff_Event.buff_add_layer);
         }
 
         // buff 时间刷新

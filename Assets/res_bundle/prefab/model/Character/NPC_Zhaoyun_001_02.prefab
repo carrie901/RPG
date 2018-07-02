@@ -446,6 +446,7 @@ GameObject:
   - component: {fileID: 114366713109712824}
   - component: {fileID: 114030708262960088}
   - component: {fileID: 114998840506096628}
+  - component: {fileID: 114842787780592938}
   m_Layer: 0
   m_Name: NPC_Zhaoyun_001_02
   m_TagString: Untagged
@@ -3279,6 +3280,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trans: {fileID: 0}
   rigid_body: {fileID: 0}
+--- !u!114 &114842787780592938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1283884849094766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7592619e3d157754d808b8ced2ead972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  base_controller: {fileID: 114366713109712824}
+  flag: 0
 --- !u!114 &114998840506096628
 MonoBehaviour:
   m_ObjectHideFlags: 1

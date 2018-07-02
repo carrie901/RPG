@@ -1,4 +1,5 @@
-﻿
+﻿/*
+
 namespace Summer
 {
     /// <summary>
@@ -11,19 +12,19 @@ namespace Summer
         public override void _on_parse()
         {
             /*_health_type = (E_EffectDamgeAndhealth)cnf.sub_type;
-            value = int.Parse(cnf.param1);*/
+            value = int.Parse(cnf.param1);#1#
             _health_type.ParseParam(_cnf);
         }
 
         public override bool _on_excute()
         {
-            /*//float health_value = EffectHelper.FindDamgeByType(_owner, _health_type, value);
+            /#1#/float health_value = EffectHelper.FindDamgeByType(_owner, _health_type, value);
             float health_value = _health_type._calc_data;
             float old_hp = _owner.Hp;
 
             DamageInterFace.CalculaterBuffTreatment(_owner, (int)health_value);
             Log("Effect Excute-->治疗效果,对目标[{0}]造成[{1}]治疗,原始血量:[{2}],现在血量[{3}]",
-                _owner.CharacterTemplateID, health_value, old_hp, _owner.Hp);*/
+                _owner.CharacterTemplateID, health_value, old_hp, _owner.Hp);#1#
 
             return false;
 
@@ -35,3 +36,4 @@ namespace Summer
     }
 }
 
+*/

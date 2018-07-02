@@ -1,4 +1,5 @@
-﻿namespace Summer
+﻿/*
+namespace Summer
 {
     /// <summary>
     /// 属性移动速度的修改
@@ -38,7 +39,7 @@
             //_send_event_data(old_speed, new_speed);
             Log("Effect Excute---> attribute:[{0}],before:[{1}],after[{2}]", _param._region, old_speed, new_speed);
             _cumulative_data += _param._calc_data;
-*/
+#1#
             return false;
         }
 
@@ -54,7 +55,7 @@
                 _owner.ChangeeMoveSpeed(-(_cumulative_data / 100f));
             }
 
-            Log("Effect Reverse---> attribute:[{0}],before:[{1}],after[{2}]", _param._region, old_speed, _owner.speed);*/
+            Log("Effect Reverse---> attribute:[{0}],before:[{1}],after[{2}]", _param._region, old_speed, _owner.speed);#1#
         }
 
         public void _send_event_data(float old_value, float new_value)
@@ -71,3 +72,4 @@
 
 }
 
+*/

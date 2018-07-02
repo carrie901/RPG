@@ -85,10 +85,11 @@ namespace Summer
             _base_entity.RegisterHandler(E_EntityInTrigger.play_effect, OnPlayEffect);
         }
 
-        public void InitOutTrigger(I_Entity trigger, I_EntityInTrigger in_trigger)
+        public void InitOutTrigger(I_Entity trigger, I_EntityInTrigger in_trigger,BaseEntity base_entity)
         {
             entity = trigger;
             _in_entity = in_trigger;
+            _base_entity = base_entity;
         }
 
 

@@ -1,4 +1,5 @@
-﻿
+﻿/*
+
 
 namespace Summer
 {
@@ -21,7 +22,7 @@ namespace Summer
         {
            /* string[] content = StringHelper.SplitString(_cnf.param1);
             buff_id = int.Parse(content[1]);
-            target_type = (E_EffectBuffTarget)int.Parse(content[0]);*/
+            target_type = (E_EffectBuffTarget)int.Parse(content[0]);#1#
         }
 
         public override bool _on_excute()
@@ -31,7 +32,7 @@ namespace Summer
             else if(target!=null&& target_type == E_EffectBuffTarget.target)
             {
                 BaseEntity.AddBuffToTarget(_owner, target, buff_id);
-            }*/
+            }#1#
             return false;
         }
 
@@ -42,3 +43,4 @@ namespace Summer
     }
 
 }
+*/

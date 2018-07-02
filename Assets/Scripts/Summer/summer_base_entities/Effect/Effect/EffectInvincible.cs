@@ -1,4 +1,5 @@
-﻿
+﻿/*
+
 
 namespace Summer
 {
@@ -10,14 +11,15 @@ namespace Summer
         public override void _on_change_state()
         {
             /*Log("状态改变--->开启超人模式");
-            _owner.m_isAvalidTarget = true;*/
+            _owner.m_isAvalidTarget = true;#1#
         }
 
         public override void _on_on_reverse_state()
         {
             /*Log("状态还原--->取消超人模式");
-            _owner.m_isAvalidTarget = false;*/
+            _owner.m_isAvalidTarget = false;#1#
         }
     }
 
 }
+*/

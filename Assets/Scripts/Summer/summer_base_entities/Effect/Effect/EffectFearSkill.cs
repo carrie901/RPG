@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 using System.Collections;
 
 //=============================================================================
@@ -17,13 +18,14 @@ namespace Summer
         public override void _on_change_state()
         {
            /* _owner.inAfraid = true;
-            Log("状态改变--->恐惧");*/
+            Log("状态改变--->恐惧");#1#
         }
 
         public override void _on_on_reverse_state()
         {
            /* _owner.inAfraid = false;
-            Log("状态改变--->解除恐惧");*/
+            Log("状态改变--->解除恐惧");#1#
         }
     }
 }
+*/

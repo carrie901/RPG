@@ -15,7 +15,7 @@ MonoBehaviour:
   desc: 
   duration: 1001
   interval_time: 1000
-  max_layer: 1000
+  max_layer: 1
   _effs:
   - effect_type: 1
     trigger_node:
@@ -27,10 +27,7 @@ MonoBehaviour:
     target_select_node:
       Name: Root
       AttributeList: []
-      NodeList:
-      - Name: Count
-        AttributeList: []
-        NodeList: []
+      NodeList: []
     effect_node:
       Name: Root
       AttributeList:
@@ -49,5 +46,5 @@ MonoBehaviour:
         - Key: DataUpdateType
           Value: multiply_plus
         - Key: Value
-          Value: 100
+          Value: 20
         NodeList: []

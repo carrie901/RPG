@@ -8,7 +8,7 @@ namespace Summer
     /// </summary>
     public abstract class SEffect
     {
-        public EffCnf _cnf;
+       /* public EffCnf _cnf;
         public BaseEntity _owner;         // 效果的拥有者
 
         public Buff _buff;                              // 效果属于哪一个Buff
@@ -118,46 +118,6 @@ namespace Summer
             LogManager.Assert(condition, message, args);
         }
 
-        #endregion
-    }
-
-    public static class EffectLog
-    {
-        public static void Log(string message)
-        {
-            if (!LogManager.open_debug_effect) return;
-            LogManager.Log(message);
-        }
-
-        public static void Log(string message, params object[] args)
-        {
-            if (!LogManager.open_debug_effect) return;
-            LogManager.Log(message, args);
-        }
-
-        public static void Error(string message)
-        {
-            if (!LogManager.open_debug_effect) return;
-            LogManager.Error(message);
-        }
-
-        public static void Error(string message, params object[] args)
-        {
-            if (!LogManager.open_debug_effect) return;
-            LogManager.Error(message, args);
-        }
-
-        public static void Assert(bool condition, string message)
-        {
-            if (!LogManager.open_debug_effect) return;
-            LogManager.Assert(condition, message);
-        }
-
-        public static void Assert(bool condition, string message, params object[] args)
-        {
-            if (!LogManager.open_debug_effect) return;
-            LogManager.Assert(condition, message, args);
-        }
-
+        #endregion*/
     }
 }

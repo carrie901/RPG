@@ -89,6 +89,20 @@ namespace Summer
             }
             return null;
         }
+
+        public List<TextNode> GetNodes(string key)
+        {
+            List<TextNode> tmp_node = new List<TextNode>();
+            if (NodeList == null) return tmp_node;
+
+            int length = NodeList.Count;
+            for (int i = 0; i < length; i++)
+            {
+                if (NodeList[i].Name == key)
+                    tmp_node.Add(NodeList[i]);
+            }
+            return tmp_node;
+        }
     }
 
     [System.Serializable]

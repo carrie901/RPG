@@ -1,4 +1,5 @@
-﻿
+﻿/*
+
 
 namespace Summer
 {
@@ -44,8 +45,9 @@ namespace Summer
             float origin = opertion_info.value;
             BuffHelper.Calc(origin, ref tmp_curr, _value_data._calc_type, _value_data._calc_data);
             DamageInterFace.CalculaterBuffTreatment(opertion_info._target, (int)tmp_curr);
-            Log("自身攻击造成目标造成的伤害,以伤害值的百分比或者固定值为自身恢复生命--->对目标造成伤害[0],治疗自身[1]", origin, tmp_curr);*/
+            Log("自身攻击造成目标造成的伤害,以伤害值的百分比或者固定值为自身恢复生命--->对目标造成伤害[0],治疗自身[1]", origin, tmp_curr);#1#
         }
     }
 
 }
+*/

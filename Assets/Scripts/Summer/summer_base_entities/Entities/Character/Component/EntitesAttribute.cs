@@ -7,6 +7,7 @@ namespace Summer
     {
 
         public AttributeIntParam max_hp = new AttributeIntParam();
+        public AttributeIntParam anti_cri = new AttributeIntParam();
         public Dictionary<E_EntityAttributeType, AttributeIntParam> _param
             = new Dictionary<E_EntityAttributeType, AttributeIntParam>();
 
@@ -14,7 +15,8 @@ namespace Summer
         public EntitesAttribute(EntityId entity_iid)
         {
             _entity_iid = entity_iid;
-            _param.Add(E_EntityAttributeType.max_hp, max_hp);
+            _param.Add(E_EntityAttributeType.anti_cri, anti_cri);
+            anti_cri.SetBase(1000);
         }
 
         public AttributeIntParam FindAttribute(E_EntityAttributeType type)

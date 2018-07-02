@@ -7,7 +7,7 @@ namespace Summer
     /// </summary>
     public class EffectAbsorbDamage : SEffect
     {
-        public EffectValueData _param = new EffectValueData();
+        /*public EffectValueData _param = new EffectValueData();
         public int left_absorb_damge;          // 剩余可以抵消的伤害
 
         public EventEntityOpertionData event_data;
@@ -30,7 +30,7 @@ namespace Summer
             float temp_absorb_damge = 0;
             // 3.自身最大血量 
             BuffHelper.Calc(max_hp, ref temp_absorb_damge, _param._calc_type, _param._calc_data);
-            left_absorb_damge = (int)temp_absorb_damge;*/
+            left_absorb_damge = (int)temp_absorb_damge;#1#
         }
 
         public override bool _on_excute()
@@ -76,7 +76,7 @@ namespace Summer
 
         public override void _on_reverse()
         {
-        }
+        }*/
     }
 }
 

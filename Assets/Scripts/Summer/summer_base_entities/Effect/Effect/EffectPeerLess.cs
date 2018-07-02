@@ -1,4 +1,5 @@
-﻿namespace Summer
+﻿/*
+namespace Summer
 {
 
     public class EffectPeerLess : SEffect
@@ -27,7 +28,7 @@
             float new_value = _owner.peerLess.GetValue();
 
             _send_event_data(old_value, new_value);
-            Log("Effect Excute---> 无双值更新,before:[{0}],after[{1}]", old_value, new_value);*/
+            Log("Effect Excute---> 无双值更新,before:[{0}],after[{1}]", old_value, new_value);#1#
             return false;
         }
 
@@ -46,7 +47,7 @@
                 event_data.target = _owner;
                 CharacterEventManager.RaiseEvent(E_BattleCharacter.wushuang, event_data);
                 EventDataFactory.Push(event_data);
-            }*/
+            }#1#
         }
     }
 
@@ -98,7 +99,8 @@
                 EventDataFactory.Push(event_data);
             }
 
-}*/
+}#1#
     
 
 }
+*/

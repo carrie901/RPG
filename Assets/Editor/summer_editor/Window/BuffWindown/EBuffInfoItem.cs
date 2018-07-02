@@ -61,11 +61,11 @@ namespace SummerEditor
             _add_effect_btn.on_click += AddEffect;
 
             _effect_popup = new EEnumPopup(200);
-            _effect_popup.SetData(E_EffectType.value);
+            _effect_popup.SetData(E_EffectType.attribute);
 
             duration_input = new ELabelIntInput("持续时间(ms)", 100, 1000, 100);
             interval_time_input = new ELabelIntInput("间隔时间(ms)", 100, 1000, 100);
-            max_layer_input = new ELabelIntInput("最大层级", 100, 1000, 100);
+            max_layer_input = new ELabelIntInput("最大层级", 100, 1, 100);
             _scroll_view = new EScrollView(Ew - 20, Eh - 100);
 
             _save_btn = new EButton("保存", 50);

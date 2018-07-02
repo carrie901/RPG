@@ -33,9 +33,9 @@ namespace Summer
     public class BuffLayerMaxEventBuff : EventSetData
     {
 
-        public Buff buff;
+       /* public Buff buff;
         public BuffLayerMaxEventBuff() { }
-        public override void Reset() { buff = null; }
+        public override void Reset() { buff = null; }*/
     }
 
 

@@ -1,4 +1,5 @@
-﻿namespace Summer
+﻿/*
+namespace Summer
 {
     /// <summary>
     /// 数值修改
@@ -10,7 +11,7 @@
         public override void _on_parse()
         {
             /*_region = (E_CharDataValueRegion)cnf.sub_type;
-            _param.ParseParam(cnf.param1);*/
+            _param.ParseParam(cnf.param1);#1#
         }
 
         public override bool _on_excute()
@@ -23,3 +24,4 @@
         }
     }
 }
+*/

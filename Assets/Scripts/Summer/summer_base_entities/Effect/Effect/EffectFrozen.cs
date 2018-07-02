@@ -1,4 +1,5 @@
-﻿
+﻿/*
+
 namespace Summer
 {
     /// <summary>
@@ -11,7 +12,7 @@ namespace Summer
         {
            /* Log("状态改变--->开启冰冻效果");
             _owner.AiController.AttachBehavior(CharacterBehavior.Ice,5);
-            _owner.Break();*/
+            _owner.Break();#1#
         }
 
         public override void _on_on_reverse_state()
@@ -23,3 +24,4 @@ namespace Summer
     }
 }
 
+*/

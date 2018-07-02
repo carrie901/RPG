@@ -1,4 +1,5 @@
-﻿namespace Summer
+﻿/*
+namespace Summer
 {
     /// <summary>
     /// 移除指定IDBuff
@@ -19,7 +20,7 @@
         {
             /*string[] content = StringHelper.SplitString(_cnf.param1);
             buff_id = int.Parse(content[1]);
-            target_type = (E_EffectBuffTarget)int.Parse(content[0]);*/
+            target_type = (E_EffectBuffTarget)int.Parse(content[0]);#1#
         }
 
         public override bool _on_excute()
@@ -34,10 +35,11 @@
             {
                 Error("EffectBuffRemove: 没做");
                 return false;
-            }*/
+            }#1#
             return false;
         }
 
         public override void _on_reverse() { }
     }
 }
+*/

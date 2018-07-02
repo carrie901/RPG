@@ -26,7 +26,7 @@ namespace Summer
         public static BuffTemplateInfo info;
         public static void CreateData()
         {
-            Object obj = Resources.Load("test_buff_data");
+            Object obj = Resources.Load("test_buff_dat");
             info = obj as BuffTemplateInfo;
         }
     }

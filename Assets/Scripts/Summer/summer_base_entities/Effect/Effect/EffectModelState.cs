@@ -1,4 +1,5 @@
-﻿
+﻿/*
+
 //=============================================================================
 // Author : mashao
 // CreateTime : 2018-1-10 19:38:7
@@ -34,3 +35,4 @@ namespace Summer
         public abstract void _on_on_reverse_state();
     }
 }
+*/

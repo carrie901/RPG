@@ -58,7 +58,6 @@ namespace Summer
     {
         public BuffId _bid;
         public BuffInfo info;
-        public BuffTemplateInfo info_template;
         public BaseEntity _caster;        //buff释放者
         public BaseEntity _target;        //buff释放目标 抽象成接口，依赖倒置
         public List<BaseEffect> _effects = new List<BaseEffect>();
@@ -152,7 +151,7 @@ namespace Summer
 
         #endregion
 
-        #region Trigger
+        #region 触发器 RegisterHandler
 
         #region Buff 自身
 
@@ -177,7 +176,8 @@ namespace Summer
 
         public void RaiseEvent(E_Buff_Event key)
         {
-            EventSetData data = EventDataFactory.Pop<EventSetData>();
+            EventSetEffectData data = EventDataFactory.Pop<EventSetEffectData>();
+            data.entity = _target;
             _buff_event_set.RaiseEvent(key, data);
         }
 
@@ -212,13 +212,15 @@ namespace Summer
 
         public void _init_effs()
         {
-            List<EffectTemplateInfo> effs = info_template._effs;
+            List<EffectTemplateInfo> effs = info.GetEffs();
 
             int length = effs.Count;
             for (int i = 0; i < length; i++)
             {
                 BaseEffect base_effect = EffectFactory.instance.Create(this, effs[i]);
                 _effects.Add(base_effect);
+
+                base_effect.OnAttach();
             }
         }
 

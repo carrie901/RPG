@@ -1,4 +1,5 @@
-﻿namespace Summer
+﻿/*
+namespace Summer
 {
     /// <summary>
     /// 状态改变
@@ -32,3 +33,4 @@
     }
 
 }
+*/

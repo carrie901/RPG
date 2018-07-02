@@ -1,4 +1,5 @@
-﻿namespace Summer
+﻿/*
+namespace Summer
 {
     /// <summary>
     /// 对目标造成多少多少伤害
@@ -21,7 +22,7 @@
 
             DamageInterFace.CalculaterBuffDamage(_owner, (int)damage, _buff);
             Log("Effect Excute-->伤害效果,对目标[{0}]造成[{1}]伤害,原始血量:[{2}],现在血量[{3}]",
-                _owner.CharacterTemplateID, damage, old_hp, _owner.Hp);*/
+                _owner.CharacterTemplateID, damage, old_hp, _owner.Hp);#1#
             return false;
         }
 
@@ -34,3 +35,4 @@
 
 }
 
+*/

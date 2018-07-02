@@ -7,8 +7,10 @@ using System.Collections;
 /// FileName : EffectAttributeMaxHp.cs
 //=============================================================================
 
+/*
 namespace Summer
 {
+    
     /// <summary>
     /// 修改属性 属性为生命最大值
     /// 最大生命的规则是 上限提升，同时当前血量+ 提升的数值，
@@ -33,7 +35,7 @@ namespace Summer
 
             GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.buff_effect_excute, this);
             Log("Effect Excute---> 属性更新 attribute:[{0}],before:[{1}],after[{2}]", _param._region, old_value, property_value.Value);
-            _cumulative_data += _param._calc_data;*/
+            _cumulative_data += _param._calc_data;#1#
             return false;
         }
 
@@ -43,8 +45,9 @@ namespace Summer
             int old_value = _owner.property.GetHp();
             _owner.NormalizeHp();
             int new_value = _owner.property.GetHp();
-            Log("由于最大血量的改变，导致当前血量收到影响，当前血量:before:[{0}],after[{1}]", old_value, new_value);*/
+            Log("由于最大血量的改变，导致当前血量收到影响，当前血量:before:[{0}],after[{1}]", old_value, new_value);#1#
         }
 
     }
 }
+*/

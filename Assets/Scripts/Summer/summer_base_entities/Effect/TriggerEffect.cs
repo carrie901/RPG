@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿/*
+using System.Collections.Generic;
 
 namespace Summer
 {
@@ -55,7 +56,7 @@ namespace Summer
             _effect.OnAttach();
             if (_self_trigger_map.ContainsKey(_trigger)) return;
             Buff.Log("[{0}] Register :[{1}] event--->[{2}]", _owner.ToDes(), _trigger, _effect.ToDes());
-            _owner.RegisterHandler(_trigger, OnExcute);*/
+            _owner.RegisterHandler(_trigger, OnExcute);#1#
         }
 
         public void OnDetach()
@@ -69,7 +70,7 @@ namespace Summer
             if (_self_trigger_map.ContainsKey(_trigger)) return;
 
             Buff.Log("[{0}] UnReigster :[{1}]", _owner.ToDes(), _trigger);
-            _owner.UnRegisterHandler(_trigger, OnExcute);*/
+            _owner.UnRegisterHandler(_trigger, OnExcute);#1#
         }
 
         #endregion
@@ -107,3 +108,4 @@ namespace Summer
 
     }
 }
+*/

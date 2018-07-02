@@ -1,4 +1,5 @@
-﻿
+﻿/*
+
 //=============================================================================
 // Author : mashao
 // CreateTime : 2018-1-12 15:37:27
@@ -17,10 +18,10 @@ namespace Summer
 
         public string value_text = string.Empty;
 
-        public void ParseParam(EffCnf cnf)
+        public void ParseParam(TextNode text_node)
         {
-            int.TryParse(cnf.datas[0], out interval_time);
-            float.TryParse(cnf.datas[1], out _calc_data);
+            /*int.TryParse(cnf.datas[0], out interval_time);
+            float.TryParse(cnf.datas[1], out _calc_data);#1#
         }
 
         public string GetValueText()
@@ -29,3 +30,4 @@ namespace Summer
         }
     }
 }
+*/

@@ -27,7 +27,7 @@ namespace Summer
         public static bool open_debug = true;
 
         public static bool open_debug_buff = false;
-        public static bool open_debug_effect = false;
+        public static bool open_debug_effect = true;
         public static bool open_load_res = true;
         public static bool open_send_notification = false;
         public static bool open_plot = false;

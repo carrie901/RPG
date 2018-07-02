@@ -1,15 +1,16 @@
-﻿
+﻿/*
+
 namespace Summer
 {
     public class EffectStateData : I_EffectParam
     {
         public int rate;            //几率
         public string value_text = string.Empty;
-        public void ParseParam(EffCnf cnf)
+        public void ParseParam(TextNode text_node)
         {
             /* bool result = int.TryParse(param, out rate);
              if (result)
-                 rate = 100;*/
+                 rate = 100;#1#
         }
 
         public string GetValueText()
@@ -26,3 +27,4 @@ namespace Summer
     }
 
 }
+*/

@@ -41,22 +41,20 @@ namespace Summer
         public List<I_Update> update_list = new List<I_Update>();                                       // 对应需要注册到容器中的组件 进行Update
         public List<I_RegisterHandler> register_list = new List<I_RegisterHandler>();                   // 注册项
 
-
-
-        #region 缓存池相关
-
-        public bool IsUse { get; set; }                                                                 // true=使用中
-        public string ObjectName { get { return "BaseEntity"; } }
-
-        #endregion
-
-        #region 附带属性
+        #region 附带属性 AI/SkillSet/BuffSet/Attribute/Fsm
 
         public BtEntityAi _entity_ai;                                                                   // 相关AI组件
         public SkillSet _skill_set;                                                                     // 相关技能组件
         public BuffSet _buff_set;                                                                        // 相关Buff组件
         public EntityAttributeProperty _attr_prop;                                                    // 相关人物属性组件
         public FsmSystem _fsm_system;                                                                   // 相关状态机组件
+
+        #endregion
+
+        #region 缓存池相关
+
+        public bool IsUse { get; set; }                                                                 // true=使用中
+        public string ObjectName { get { return "BaseEntity"; } }
 
         #endregion
 
@@ -270,7 +268,7 @@ namespace Summer
             BaseEntityController go = TransformPool.Instance.Pop<BaseEntityController>
                 ("res_bundle/prefab/model/Character/" + "NPC_Zhaoyun_001_02"/*_cnf.prefab_name*/);
             EntityController = go;
-            EntityController.InitOutTrigger(this, this);
+            EntityController.InitOutTrigger(this, this,this);
 
             _anim_group = go.GetComponent<EntityAnimationGroup>();
             _anim_group.OnInit(this);
@@ -288,6 +286,15 @@ namespace Summer
             _cnf = StaticCnf.FindData<HeroInfoCnf>(Template);
             _skill_set.OnReset(Template);
             _attr_prop = new EntityAttributeProperty(entity_id);
+        }
+
+        #endregion
+
+        #region Test
+
+        public void AddBuff()
+        {
+            _buff_set.AttachBuff(this, 1300011);
         }
 
         #endregion

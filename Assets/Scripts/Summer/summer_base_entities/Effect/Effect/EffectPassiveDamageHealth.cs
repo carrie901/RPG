@@ -1,4 +1,5 @@
-﻿
+﻿/*
+
 namespace Summer
 {
     /// <summary>
@@ -18,7 +19,7 @@ namespace Summer
         {
             base.OnDetach();
             _owner.UnRegisterHandler(E_AbilityTrigger.on_be_attack_damage, _on_be_attack_damage);
-        }*/
+        }#1#
 
         //自身收到伤害的时候，回复血量
         public void _on_be_attack_damage(EventSetData param)
@@ -30,8 +31,9 @@ namespace Summer
             float origin = damage_info.value;
             BuffHelper.Calc(origin, ref tmp_curr, _param._calc_type, _param._calc_data);
             DamageInterFace.CalculaterBuffTreatment(damage_info._caster, (int)tmp_curr);
-            Log("自身收到伤害,回复一部分治疗给自身--->收到伤害[0],治疗给自身[1]", _region, origin, tmp_curr);*/
+            Log("自身收到伤害,回复一部分治疗给自身--->收到伤害[0],治疗给自身[1]", _region, origin, tmp_curr);#1#
         }
     }
 
 }
+*/
