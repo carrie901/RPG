@@ -21,27 +21,26 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Summer
 {
-    public class TriggerEvt
+    public class BuffEvtComparer : IEqualityComparer<E_Buff_Event>
     {
-        #region Buff的相关事件
 
-        public static string buff_on_tick = "buff_on_tick";                         //一定时间触发一次
-        public static string buff_on_attach = "buff_on_attach";
-        public static string buff_add_layer = "buff_add_layer";
-        public static string buff_layer_max = "buff_layer_max";
-        public static string buff_remove_layer = "buff_remove_layer";
-        public static string buff_on_detach = "buff_on_detach";
+        public static BuffEvtComparer Instance = new BuffEvtComparer();
+        private BuffEvtComparer() { }
+        public bool Equals(E_Buff_Event x, E_Buff_Event y)
+        {
+            return x == y;
+        }
 
-        #endregion
-
-        
-
+        public int GetHashCode(E_Buff_Event obj)
+        {
+            return (int)obj;
+        }
     }
 }
-
 
 

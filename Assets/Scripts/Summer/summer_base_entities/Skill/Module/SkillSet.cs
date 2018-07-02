@@ -33,7 +33,7 @@
             _base_entity.RegisterHandler(E_EntityInTrigger.skill_release, ReleaseSkill);
             _base_entity.RegisterHandler(E_EntityInTrigger.skill_finish, FinishSkill);
 
-            _base_entity.RegisterHandler(E_EntityOutTrigger.animation_event, ReceiveAnimationEvent);
+            _base_entity.RegisterHandler(E_Entity_Event.animation_event, ReceiveAnimationEvent);
         }
 
         public void UnRegisterHandler()

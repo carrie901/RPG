@@ -34,6 +34,9 @@ namespace Summer
         public List<TextAttribute> AttributeList;
         public List<TextNode> NodeList;
 
+        public TextNode() { }
+
+        public TextNode(string name) { Name = name; }
         public TextAttribute AddAttribute(string key, string text)
         {
             if (AttributeList == null)

@@ -54,7 +54,7 @@ namespace Summer
     ///     护盾--> 等于护盾值
     ///     免伤-->免伤值
     /// </summary>
-    public class BaseBuff : I_Trigger
+    public class BaseBuff : I_Buff
     {
         public BuffId _bid;
         public BuffInfo info;
@@ -62,7 +62,7 @@ namespace Summer
         public BaseEntity _caster;        //buff释放者
         public BaseEntity _target;        //buff释放目标 抽象成接口，依赖倒置
         public List<BaseEffect> _effects = new List<BaseEffect>();
-        public EventSet<string, EventSetData> _event_set = new EventSet<string, EventSetData>();
+
         public BaseBuff(BuffTemplateInfo buff_obj)
         {
             info = new BuffInfo(buff_obj);
@@ -84,14 +84,14 @@ namespace Summer
             //_add_Vfx();
             //_add_sound();
             // 4.触发OnAttach回调
-            RaiseEvent(TriggerEvt.buff_on_attach);
+            RaiseEvent(E_Buff_Event.buff_on_attach);
             GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.buff_attach, this);
         }
 
         public void OnDetach()
         {
             GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.buff_detach, this);
-            RaiseEvent(TriggerEvt.buff_on_detach);
+            RaiseEvent(E_Buff_Event.buff_on_detach);
 
             // 1.移除vfx/sound
             //_remove_Vfx();
@@ -122,7 +122,7 @@ namespace Summer
 
         protected void OnTick()
         {
-            RaiseEvent(TriggerEvt.buff_on_tick);
+            RaiseEvent(E_Buff_Event.buff_on_tick);
         }
 
 
@@ -154,27 +154,57 @@ namespace Summer
 
         #region Trigger
 
-        public bool RegisterHandler(string key, EventSet<string, EventSetData>.EventHandler handler)
+        #region Buff 自身
+
+        public EventConditionSet<E_Buff_Event> _buff_event_set =
+           new EventConditionSet<E_Buff_Event>(BuffEvtComparer.Instance);
+
+
+        public bool RegisterHandler(E_Buff_Event key, EventSet<E_Buff_Event, EventSetData>.EventHandler handler)
         {
-            return _event_set.RegisterHandler(key, handler);
+            return _buff_event_set.RegisterHandler(key, handler);
         }
 
-        public bool UnRegisterHandler(string key, EventSet<string, EventSetData>.EventHandler handler)
+        public bool UnRegisterHandler(E_Buff_Event key, EventSet<E_Buff_Event, EventSetData>.EventHandler handler)
         {
-            return _event_set.UnRegisterHandler(key, handler);
+            return _buff_event_set.UnRegisterHandler(key, handler);
         }
 
-        public void RaiseEvent(string key, EventSetData data)
+        public void RaiseEvent(E_Buff_Event key, EventSetData data)
         {
-            _event_set.RaiseEvent(key, data);
+            _buff_event_set.RaiseEvent(key, data);
         }
 
-        public void RaiseEvent(string key)
+        public void RaiseEvent(E_Buff_Event key)
         {
-            EventSetEffectData data = EventDataFactory.Pop<EventSetEffectData>();
-            data.entity = _target;
-            RaiseEvent(key, data);
+            EventSetData data = EventDataFactory.Pop<EventSetData>();
+            _buff_event_set.RaiseEvent(key, data);
         }
+
+        #endregion
+
+        #region Entity 自身
+
+
+        public Dictionary<E_Entity_Event, I_Condition> _condition_set
+            = new Dictionary<E_Entity_Event, I_Condition>(EntityEvtComparer.Instance);
+        public bool RegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler, I_Condition condition = null)
+        {
+            if (condition != null)
+                _condition_set.Add(key, condition);
+
+            return _target.RegisterHandler(key, handler);
+        }
+
+        public bool UnRegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler, I_Condition condition = null)
+        {
+            if (condition != null)
+                _condition_set.Remove(key);
+
+            return _target.UnRegisterHandler(key, handler);
+        }
+
+        #endregion
 
         #endregion
 

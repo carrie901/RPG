@@ -25,41 +25,28 @@ using System;
 
 namespace Summer
 {
-    public class BaseTrigger
+/*    public abstract class BaseTrigger
     {
-
         #region 属性
 
-        protected static int iindex = 0;
-
-        public int id_unique;                               // uid 数据，唯一表示一个触发器。有系统自动生成，游戏中，所有触发器的 
-        public float _life_time;                            // 触发器的生命周期
-        public string _trigger_evt;
         public Action<EventSetData> _action;
-        public I_TriggerCondition _condition;
-        //public EventSet<string, EventSetData> _event_map = new EventSet<string, EventSetData>(/*TriggerEqualityComparer.Instance,*/ 1);
+        public I_Condition _condition;
         public I_Trigger _entiry_trigger;
 
         #endregion
 
         #region 构造
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="entiry_trigger">触发的结构体</param>
-        /// <param name="trigger_evt">触发事件</param>
-        /// <param name="action">触发之后的动作</param>
-        /// <param name="condition">触发条件(非必须)</param>
-        public void Init(I_Trigger entiry_trigger, string trigger_evt, Action<EventSetData> action,
-            I_TriggerCondition condition = null)
+        public void Init(Action<EventSetData> action,
+            I_Condition condition = null)
         {
-            _entiry_trigger = entiry_trigger;
-            _trigger_evt = trigger_evt;
             _action = action;
             _condition = condition;
+            OnInit();
             _init_id();
         }
+
+        public abstract void OnInit();
 
         #endregion
 
@@ -105,14 +92,14 @@ namespace Summer
 
         public void _init_id()
         {
-            iindex++;
-            id_unique = iindex;
+            /*iindex++;
+            id_unique = iindex;#1#
 
-            _entiry_trigger.RegisterHandler(_trigger_evt, OnTrigger);
+            //_entiry_trigger.RegisterHandler(evt, OnTrigger);
         }
 
         #endregion
-    }
+    }*/
 }
 
 

@@ -1,6 +1,22 @@
 ﻿namespace Summer
 {
     /// <summary>
+    /// Buff内部触发事件
+    /// </summary>
+    public enum E_Buff_Event
+    {
+        none = 0,
+        buff_on_attach = 1,
+        buff_add_layer,
+        buff_layer_max,
+        buff_remove_layer,
+        buff_on_detach,
+        buff_on_tick,
+    }
+
+
+
+    /// <summary>
     /// 对角色某种数据更新
     /// </summary>
     public enum E_CharAttributeRegion

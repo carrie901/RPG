@@ -74,6 +74,18 @@ namespace SummerEditor
             }
         }
 
+        public void SetSelect(string select_des)
+        {
+            if (_data == null) return;
+            for (int i = 0; i < _data.Count; i++)
+            {
+                if (_data[i].des == select_des)
+                {
+                    select_index = i;
+                }
+            }
+        }
+
         public StringPopupInfo GetValue()
         {
             return _data[select_index];

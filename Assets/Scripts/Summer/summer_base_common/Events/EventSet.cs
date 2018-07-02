@@ -87,7 +87,6 @@ namespace Summer
             }
 
             return true;
-
         }
 
         public bool UnRegisterHandler(TKey key, EventHandler handler)
@@ -125,7 +124,7 @@ namespace Summer
             return _internal_real_raiser_event(key, param);
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             //_delay_quene.Clear();
             _events.Clear();
@@ -140,15 +139,15 @@ namespace Summer
         {
             int n_ret = 0;
 
-           /* //只处理当前帧的所有消息
-            int n_count = _delay_quene.Count;
-            while (n_count > 0 && _delay_quene != null && _events != null && _delay_quene.Count > 0)
-            {
-                DelayEvent de = _delay_quene.Dequeue();
-                _internal_real_raiser_event(de.Key, de.param);
-                n_ret++;
-                n_count--;
-            }*/
+            /* //只处理当前帧的所有消息
+             int n_count = _delay_quene.Count;
+             while (n_count > 0 && _delay_quene != null && _events != null && _delay_quene.Count > 0)
+             {
+                 DelayEvent de = _delay_quene.Dequeue();
+                 _internal_real_raiser_event(de.Key, de.param);
+                 n_ret++;
+                 n_count--;
+             }*/
 
             return n_ret;
         }

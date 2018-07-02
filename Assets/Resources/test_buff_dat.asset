@@ -17,19 +17,37 @@ MonoBehaviour:
   interval_time: 1000
   max_layer: 1000
   _effs:
-  - des: 
-    trigger_evt: buff_on_tick
-    effect_type: 1
-    condition:
-      condition: 
-      condition_data: 
+  - effect_type: 1
+    trigger_node:
+      Name: TriggerNodeName
+      AttributeList:
+      - Key: TriggerEvent
+        Value: buff_on_attach
+      NodeList: []
     target_select_node:
       Name: Root
       AttributeList: []
-      NodeList: []
-    node:
+      NodeList:
+      - Name: Count
+        AttributeList: []
+        NodeList: []
+    effect_node:
       Name: Root
       AttributeList:
       - Key: AttributeType
         Value: anti_cri
-      NodeList: []
+      NodeList:
+      - Name: Group
+        AttributeList:
+        - Key: DataUpdateType
+          Value: plus
+        - Key: Value
+          Value: 1
+        NodeList: []
+      - Name: Group
+        AttributeList:
+        - Key: DataUpdateType
+          Value: multiply_plus
+        - Key: Value
+          Value: 100
+        NodeList: []

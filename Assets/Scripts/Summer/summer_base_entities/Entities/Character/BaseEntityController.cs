@@ -24,7 +24,7 @@ namespace Summer
         #region 属性
 
         public BaseEntity _base_entity;
-        protected I_EntityOutTrigger _out_entity;
+        protected I_Entity entity;
         protected I_EntityInTrigger _in_entity;
         [HideInInspector]
         public Transform trans;                                                                         // 缓存Transform
@@ -73,7 +73,7 @@ namespace Summer
         public override void OnPush()
         {
             base.OnPush();
-            _out_entity = null;
+            entity = null;
         }
 
         #endregion
@@ -85,9 +85,9 @@ namespace Summer
             _base_entity.RegisterHandler(E_EntityInTrigger.play_effect, OnPlayEffect);
         }
 
-        public void InitOutTrigger(I_EntityOutTrigger out_trigger, I_EntityInTrigger in_trigger)
+        public void InitOutTrigger(I_Entity trigger, I_EntityInTrigger in_trigger)
         {
-            _out_entity = out_trigger;
+            entity = trigger;
             _in_entity = in_trigger;
         }
 

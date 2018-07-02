@@ -58,7 +58,7 @@ namespace SummerEditor
             {
                 _info = new EffectTemplateInfo();
             }
-            _info.trigger_node = _trigger_item.GetTriggerEvt();
+            _info.trigger_node = _trigger_item.GetValue();
 
             _info.target_select_node = _target_select_item.GetValue();
 

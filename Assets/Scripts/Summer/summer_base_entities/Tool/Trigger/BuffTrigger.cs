@@ -21,13 +21,23 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
+using System;
+
 namespace Summer
 {
-    /*public class TriggerEffectAction : I_TriggerAction
+   /* public class BuffTrigger : BaseTrigger
     {
-        public void Excute(EventSetData data)
+        public E_Buff_Event _evt;
+        public BaseBuff _buff;
+        public BuffTrigger(E_Buff_Event evt, BaseBuff buff)
         {
+            _evt = evt;
+            _buff = buff;
+        }
 
+        public override void OnInit()
+        {
+            _buff.RegisterHandler(_evt, OnTrigger);
         }
     }*/
 }

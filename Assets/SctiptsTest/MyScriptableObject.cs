@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MyScriptableObject : ScriptableObject
 {
-    public string s;
+    public string[] names;
+    /*public string s;
 
     public enum Configeration
     {
@@ -27,5 +28,5 @@ public class MyScriptableObject : ScriptableObject
         b.name = "MyScriptableObject1";
         b.index = 1;
         a = b;
-    }
+    }*/
 }

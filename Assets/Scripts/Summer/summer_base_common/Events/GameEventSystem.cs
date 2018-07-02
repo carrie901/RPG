@@ -77,21 +77,21 @@ namespace Summer
 
         #region Delay GetProcess 延迟执行/是否有必要做这些操作/预先提供这样的操作
 
-        public int ProcessDelayEvents()
+        /*public int ProcessDelayEvents()
         {
             return _event_set.ProcessDelayEvents();
-        }
+        }*/
 
-        public int ProcessAllDelayEvents()
+        /*public int ProcessAllDelayEvents()
         {
             return _event_set.ProcessAllDelayEvents();
-        }
+        }*/
 
         #endregion
 
         #region Push/Peek
 
-        public void PushEvent(E_GLOBAL_EVT key, Object param)
+        /*public void PushEvent(E_GLOBAL_EVT key, Object param)
         {
             if (_event_quene == null)
             {
@@ -104,10 +104,10 @@ namespace Summer
                 param = param
             };
             _event_quene.Add(de);
-        }
+        }*/
 
         //会回调call back
-        public bool PeekEvent(E_GLOBAL_EVT key)
+        /*public bool PeekEvent(E_GLOBAL_EVT key)
         {
             if (_event_quene == null)
                 return false;
@@ -123,7 +123,7 @@ namespace Summer
                 }
             }
             return false;
-        }
+        }*/
 
         #endregion
     }

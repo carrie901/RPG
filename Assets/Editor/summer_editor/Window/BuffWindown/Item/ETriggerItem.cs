@@ -33,7 +33,7 @@ namespace SummerEditor
     public class ETriggerItem : EComponent
     {
         public ELabel _trigger_event_lab;                                   // 触发事件 文本
-        public EStringPopup _trigger_event_popup;                             // 触发事件 下拉列表
+        public EStringPopup _trigger_event_popup;                           // 触发事件 下拉列表
 
         public ELabel _condition_lab;                                       // 触发文本
         public EEnumPopup _condition_popup;                                 // 触发条件 下拉列表
@@ -44,18 +44,25 @@ namespace SummerEditor
             _init_position();
         }
 
-        public TextNode GetTriggerEvt()
+        public void SetData(TextNode node)
         {
+            string trigger_event = node.GetAttribute(EffectTemplateInfo.TRIGGER_EVENT);
+
+            _trigger_event_popup.SetSelect(GetTriggerEvent(trigger_event));
+        }
+
+        public TextNode GetValue()
+        {
+            TextNode node = new TextNode(EffectTemplateInfo.TRIGGER_NODE_NAME);
             StringStringPopupInfo info = _trigger_event_popup.GetValue() as StringStringPopupInfo;
-            return info.value;
+            node.AddAttribute(EffectTemplateInfo.TRIGGER_EVENT, info.value);
+            return node;
         }
 
         #region private
 
         public void _init()
         {
-
-
             _trigger_event_lab = new ELabel("触发事件:", 50);
             _trigger_event_popup = new EStringPopup("", 200);
 
@@ -64,7 +71,7 @@ namespace SummerEditor
 
             _condition_lab = new ELabel("触发条件:", 50);
             _condition_popup = new EEnumPopup(200);
-            _condition_popup.SetData(E_GLOBAL_EVT.buff_attach);
+            _condition_popup.SetData(E_GLOBAL_EVT.none);
         }
 
         public void _init_position()
@@ -91,22 +98,38 @@ namespace SummerEditor
 
         #endregion
 
-        public List<StringPopupInfo> GetPop()
+        #region static 
+
+        public static List<StringPopupInfo> _pop;
+        public static List<StringPopupInfo> GetPop()
         {
-            List<StringPopupInfo> pop = new List<StringPopupInfo>();
-            for (int i = 0; i < evt.Length / 2; i++)
+            if (_pop != null)
+                return _pop;
+            _pop = new List<StringPopupInfo>();
+            foreach (var var_info in _evt)
             {
                 StringPopupInfo info = new StringStringPopupInfo
                 {
-                    des = evt[i, 1],
-                    value = evt[i, 0]
+                    des = var_info.Value,
+                    value = var_info.Key.ToString()
                 };
-                pop.Add(info);
+                _pop.Add(info);
             }
-            return pop;
+            return _pop;
         }
 
-        public static string[,] evt =
+        public static string GetTriggerEvent(string des)
+        {
+            foreach (var info in _evt)
+            {
+                if (info.Key.ToString() == des)
+                    return info.Value;
+            }
+            Debug.Log("Error 没找到对应的 数据");
+            return string.Empty;
+        }
+
+        /*public static string[,] evt =
         {
             { TriggerEvt.buff_on_tick,"Buff 间隔触发"},
             { TriggerEvt.buff_on_attach,"Buff添加到角色身上"},
@@ -114,6 +137,21 @@ namespace SummerEditor
             { TriggerEvt.buff_layer_max,"Buff层级到达最大等级"},
             { TriggerEvt.buff_remove_layer,"Buff层级减少"},
             { TriggerEvt.buff_on_detach,"Buff从角色身上移除"}
+        };*/
+
+        public static Dictionary<E_Buff_Event, string> _evt = new Dictionary<E_Buff_Event, string>()
+        {
+            { E_Buff_Event.buff_on_tick,"Buff 间隔触发"},
+            { E_Buff_Event.buff_on_attach,"Buff添加到角色身上"},
+            { E_Buff_Event.buff_add_layer,"Buff层级增加"},
+            { E_Buff_Event.buff_layer_max,"Buff层级到达最大等级"},
+            { E_Buff_Event.buff_remove_layer,"Buff层级减少"},
+            { E_Buff_Event.buff_on_detach,"Buff从角色身上移除"}
         };
+
+
+
+
+        #endregion
     }
 }

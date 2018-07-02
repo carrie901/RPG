@@ -6,16 +6,16 @@
     /// 2.如果在Buff中调用处理一些比如掉血，乃至其他改变状态等等，发生需求变更的时候入口太多导致需要多处修改
     /// 3.完全把Buff从角色身上剥离处理，提炼角色以一个接口的性质注入到角色中去
     /// </summary>
-    public interface I_EntityOutTrigger
+    public interface I_Entity
     {
         //注册回调点
-        bool RegisterHandler(E_EntityOutTrigger key, EventSet<E_EntityOutTrigger, EventSetData>.EventHandler handler);
+        bool RegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler);
 
         //卸载回调点
-        bool UnRegisterHandler(E_EntityOutTrigger key, EventSet<E_EntityOutTrigger, EventSetData>.EventHandler handler);
+        bool UnRegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler);
 
         //触发回调点
-        void RaiseEvent(E_EntityOutTrigger key, EventSetData param);
+        void RaiseEvent(E_Entity_Event key, EventSetData param);
 
 
         // 这个有严重违反依赖导致原则，会整体的破坏了接口

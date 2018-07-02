@@ -137,7 +137,7 @@ namespace Summer
         {
             AnimationEventData param = EventDataFactory.Pop<AnimationEventData>();
             param.event_data = skill_event;
-            _base_entity.RaiseEvent(E_EntityOutTrigger.animation_event, param);
+            _base_entity.RaiseEvent(E_Entity_Event.animation_event, param);
         }
 
         public void PlayAnimation(string anim_name)

@@ -41,14 +41,19 @@ public class TestCode : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        MyScriptableObject ass = ScriptableObject.CreateInstance<MyScriptableObject>();
-        ass.s = "121";
-        ass.playSound = false;
-        ass.configeration = MyScriptableObject.Configeration.HIGH;
-        ass.tri = E_AbilityTrigger.buff_add_layer;
+        /*MyScriptableObject ass = ScriptableObject.CreateInstance<MyScriptableObject>();
+        ass.names = new string[100];
+        for (int i = 0; i < ass.names.Length; i++)
+        {
+            ass.names[i] = "AA";
+        }
+        /* ass.s = "121";
+         ass.playSound = false;
+         ass.configeration = MyScriptableObject.Configeration.HIGH;
+         ass.tri = E_AbilityTrigger.buff_add_layer;#1#
 
         AssetDatabase.CreateAsset(ass, "Assets/Resources/a.asset");
-        EditorUtility.SetDirty(ass);
+        EditorUtility.SetDirty(ass);*/
 
     }
 
@@ -66,16 +71,17 @@ public class TestCode : MonoBehaviour
              Debug.Log(result);
          }
  */
-        UnityEngine.Profiling.Profiler.BeginSample("03");
+       /* UnityEngine.Profiling.Profiler.BeginSample("03");
         text += "1";
-        UnityEngine.Profiling.Profiler.EndSample();
+        UnityEngine.Profiling.Profiler.EndSample();*/
     }
 
     private void OnGUI()
     {
         if (GUI.Button(new Rect(100, 100, 100, 100), ""))
         {
-            _excute_string_gc();
+            _excute_load();
+            //_excute_string_gc();
         }
     }
 
@@ -102,6 +108,15 @@ public class TestCode : MonoBehaviour
             tmp[i] = a;
         }
         UnityEngine.Profiling.Profiler.EndSample();
+    }
+
+    public void _excute_load()
+    {
+        MyScriptableObject s = Resources.Load("a") as MyScriptableObject;
+        if (s.names.Length == 100)
+        {
+
+        }
     }
 
     #endregion

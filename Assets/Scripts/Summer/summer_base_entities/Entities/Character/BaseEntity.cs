@@ -15,7 +15,7 @@ namespace Summer
     /// 
     /// 目前没有明确性质的方案来判断到底原子操作的具体逻辑是放在原子操作中来完成好，还是通过由原子操作来进行注册触发好
     /// </summary>
-    public class BaseEntity : /*I_CharacterProperty,*/ I_Update, I_EntityInTrigger, I_EntityOutTrigger, I_EntityLife/*, I_SkillBlackBorad*//*, I_RegisterHandler*/
+    public class BaseEntity : /*I_CharacterProperty,*/ I_Update, I_EntityInTrigger, I_Entity, I_EntityLife/*, I_SkillBlackBorad*//*, I_RegisterHandler*/
     {
         #region 属性
 
@@ -30,8 +30,8 @@ namespace Summer
 
         // TODO 是否通过黑箱进行操作 来规避掉内部的响应
         //public List<BaseEntity> _targets = new List<BaseEntity>();                                       // 目标 是否通过黑箱进行操作
-        public EventSet<E_EntityOutTrigger, EventSetData> _out_event_set                                // 角色的外部事件
-           = new EventSet<E_EntityOutTrigger, EventSetData>();
+        public EventSet<E_Entity_Event, EventSetData> _out_event_set                                // 角色的外部事件
+           = new EventSet<E_Entity_Event, EventSetData>(EntityEvtComparer.Instance);
         public EventSet<E_EntityInTrigger, EventSetData> _in_event_set                                  // 角色的内部事件
        = new EventSet<E_EntityInTrigger, EventSetData>();
 
@@ -70,7 +70,7 @@ namespace Summer
 
         #endregion
 
-        #region I_Update/I_EntityInTrigger/I_EntityOutTrigger/I_EntityLife缓存池/黑箱
+        #region I_Update/I_EntityInTrigger/I_Entity/I_EntityLife缓存池/黑箱
 
         #region OnUpdate
 
@@ -89,17 +89,17 @@ namespace Summer
 
         #region I_EntityInTrigger 注册监听人物的外部事件
 
-        public bool RegisterHandler(E_EntityOutTrigger key, EventSet<E_EntityOutTrigger, EventSetData>.EventHandler handler)
+        public bool RegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler)
         {
             return _out_event_set.RegisterHandler(key, handler);
         }
 
-        public bool UnRegisterHandler(E_EntityOutTrigger key, EventSet<E_EntityOutTrigger, EventSetData>.EventHandler handler)
+        public bool UnRegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler)
         {
             return _out_event_set.UnRegisterHandler(key, handler);
         }
 
-        public void RaiseEvent(E_EntityOutTrigger key, EventSetData obj_info)
+        public void RaiseEvent(E_Entity_Event key, EventSetData obj_info)
         {
             if (_out_event_set == null) return;
             _out_event_set.RaiseEvent(key, obj_info);
@@ -107,7 +107,7 @@ namespace Summer
 
         #endregion
 
-        #region I_EntityOutTrigger 注册监听人物的内部事件 基本都是一些原子节点
+        #region I_Entity 注册监听人物的内部事件 基本都是一些原子节点
 
         public bool RegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventSetData>.EventHandler handler)
         {
@@ -223,7 +223,7 @@ namespace Summer
         public void OnRegisterHandler()
         {
             RegisterHandler(E_EntityInTrigger.entity_die, EntityDie);
-            RegisterHandler(E_EntityOutTrigger.on_be_hurt, OnBeHurt);
+            RegisterHandler(E_Entity_Event.on_be_hurt, OnBeHurt);
         }
 
         public bool IsDead() { return false; }
@@ -259,9 +259,9 @@ namespace Summer
 #endif
         }
 
-#endregion
+        #endregion
 
-#region private
+        #region private
 
         // 初始化GameObject的相关东西
         public void _init_gameobject()
@@ -290,6 +290,6 @@ namespace Summer
             _attr_prop = new EntityAttributeProperty(entity_id);
         }
 
-#endregion
+        #endregion
     }
 }

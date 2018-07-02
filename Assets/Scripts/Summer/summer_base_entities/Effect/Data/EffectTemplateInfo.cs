@@ -21,6 +21,8 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
+using System;
+
 namespace Summer
 {
 
@@ -33,7 +35,18 @@ namespace Summer
     [System.Serializable]
     public class EffectTemplateInfo
     {
+        #region Node 参数
+
+        #region 触发器 相关
+
+        public const string TRIGGER_NODE_NAME = "TriggerNodeName";
         public const string TRIGGER_EVENT = "TriggerEvent";
+        public const string TRIGGER_CONITION_EVNET = "TriggerConditionEvent";
+        public const string TRIGGER_CONITION_PARAM = "";
+
+        #endregion
+
+        #endregion
 
         public E_EffectType effect_type;
 
@@ -52,11 +65,23 @@ namespace Summer
         public TextNode target_select_node;                         // 过滤类型
         public TextNode effect_node;
 
+        #region 
+
         public string GetTriggerEvent()
         {
             if (trigger_node == null) return string.Empty;
             return trigger_node.GetAttribute(TRIGGER_EVENT);
         }
+
+        private E_Buff_Event _buff_evt;
+        public E_Buff_Event GetBuffEvt()
+        {
+            if (_buff_evt == E_Buff_Event.none)
+                _buff_evt = (E_Buff_Event)Enum.Parse(typeof(E_Buff_Event), GetTriggerEvent());
+            return _buff_evt;
+        }
+
+        #endregion
     }
 
     #endregion
