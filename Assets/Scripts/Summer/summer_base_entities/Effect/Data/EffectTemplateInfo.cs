@@ -25,8 +25,6 @@ using System;
 
 namespace Summer
 {
-    #region Effect
-
     /// <summary>
     /// Effect
     /// </summary>
@@ -108,7 +106,5 @@ namespace Summer
 
         #endregion
     }
-
-    #endregion
 }
 

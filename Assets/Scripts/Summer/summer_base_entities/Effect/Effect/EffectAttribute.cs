@@ -1,55 +1,102 @@
-﻿/*namespace Summer
+﻿
+//
+//                            _ooOoo_
+//                           o8888888o
+//                           88" . "88
+//                           (| -_- |)
+//                           O\  =  /O
+//                        ____/`---'\____
+//                      .'  \\|     |//  `.
+//                     /  \\|||  :  |||//  \
+//                    /  _||||| -:- |||||-  \
+//                    |   | \\\  -  /// |   |
+//                    | \_|  ''\---/''  |   |
+//                    \  .-\__  `-`  ___/-. /
+//                  ___`. .'  /--.--\  `. . __
+//               ."" '<  `.___\_<|>_/___.'  >'"".
+//              | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//              \  \ `-.   \_ __\ /__ _/   .-` /  /
+//         ======`-.____`-.___\_____/___.-`____.-'======
+//                            `=---='
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//                 			 佛祖 保佑             
+
+namespace Summer
 {
     /// <summary>
     /// 修改属性
     /// </summary>
-public class EffectAttribute : SEffect
-{
-    public EffectAttributeParam _param = new EffectAttributeParam();
-    public float _cumulative_data;
-
-    public override string GetValueText()
+    public class EffectAttribute : BaseEffect
     {
-        return _param.GetValueText();
-    }
+        public float _cumulative_data;
+        public EffectAttributeParam _att_param = new EffectAttributeParam();                 // 每一个效果的参数
 
-    public override void _on_parse()
-    {
-        _param.ParseParam(_cnf);
-    }
+        public override void OnAttach()
+        {
+            base.OnAttach();
+            _att_param.ParseParam(_info.effect_node);
+        }
 
-    public override bool _on_excute()
-    {
+        public override void OnDetach()
+        {
+            base.OnDetach();
+            _att_param.Clear();
+            _att_param = null;
+        }
 
-       /* // 1.找到要更新的属性
-        PropertyIntParam property_value = _owner.property.FindProperty(_param._region);
+        public override void ExcuteEffect(EventSetData data)
+        {
+            // 参数
+            EventSetEffectData attribute_data = data as EventSetEffectData;
+            EffectLog.Assert(attribute_data != null, "属性变更 参数类型不对[{0}]", data);
+            if (attribute_data == null) return;
 
-        //TODO 2.根据层级计算属性具体伤害值（如果直接计算层级最终的结果。那么再重新增加层级的时候，进行reset操作，再添加）
-        int old_value = property_value.Value;
+            // 属性和数值
+            EntityAttributeProperty att_pro = attribute_data.entity.AttributeProp;
 
-        // 3.按照百分比/固定值更新属性
-        BuffHelper.Calc(property_value, _param._calc_type, (int)_param._calc_data);
-        // 4.广播数据
-        GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.buff_effect_excute, this);
-        //_send_event_data(old_value, property_value.Value);
-        Log("Effect Excute---> 属性更新 attribute:[{0}],before:[{1}],after[{2}]", _param._region, old_value, property_value.Value);
-        _cumulative_data += _param._calc_data;#1#
-        return false;
-    }
+            // 1.更新的属性类型
+            E_EntityAttributeType attribute_type = _att_param.entity_attribute_type;
+            AttributeIntParam attribute_param = att_pro.FindAttribute(attribute_type);
+            float old_value = attribute_param.Value;
 
-    public override void _on_reverse()
-    {
-       /* // 1.找到要更新的属性
-        PropertyIntParam property_value = _owner.property.FindProperty(_param._region);
+            float new_value = 0;
+            int length = _att_param.values.Count;
+            for (int i = 0; i < length; i++)
+            {
+                float tmp_value = attribute_param.Value;
+                // 2.更新的数据的类型(百分比、固定数值)
+                E_DataUpdateType data_update_type = _att_param.values[i].data_type;
+                // 3.数值
+                float data_value = _att_param.values[i].value;
 
-        // 2.根据层级计算属性具体伤害值（如果直接计算层级最终的结果。那么再重新增加层级的时候，进行reset操作，再添加）
-        int origin = property_value.Value;
+                // 4.计算
+                ValueHelper.Calc(attribute_param, data_update_type, (int)data_value);
 
-        // 3.按照百分比/固定值更新属性
-        BuffHelper.Calc(property_value, _param._calc_type, -(int)_cumulative_data);
+                new_value += (attribute_param.Value - tmp_value);
+            }
 
-        Log("Effect Reverse---> attribute:[{0}],before:[{1}],after[{2}]", _param._region, origin, property_value.Value);#1#
+            _cumulative_data += new_value;
+            EffectLog.Log("执行计算--->属性:[{0}],before:[{1}],after:[{2}],change:[{3}]", attribute_type, old_value, attribute_param.Value, new_value);
+        }
+
+        public override void ReverseEffect(EventSetData data)
+        {
+            EventSetEffectData attribute_data = data as EventSetEffectData;
+            EffectLog.Assert(attribute_data != null, "属性变更 参数类型不对[{0}]", data);
+            if (attribute_data == null) return;
+
+            // 属性和数值
+            EntityAttributeProperty att_pro = attribute_data.entity.AttributeProp;
+
+            // 1.更新的属性类型
+            E_EntityAttributeType attribute_type = _att_param.entity_attribute_type;
+            AttributeIntParam attribute_param = att_pro.FindAttribute(attribute_type);
+
+            float old_value = attribute_param.Value;
+            attribute_param.SetPlus(_cumulative_data);
+
+            float change_value = attribute_param.Value - old_value;
+            EffectLog.Log("属性变更回退--->属性:[{0}],before:[{1}],after:[{2}],change:[{3}]", attribute_type, old_value, attribute_param.Value, change_value);
+        }
     }
 }
-}
-*/

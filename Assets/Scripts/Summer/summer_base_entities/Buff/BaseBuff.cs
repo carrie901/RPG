@@ -60,7 +60,8 @@ namespace Summer
         public BuffInfo info;
         public BaseEntity _caster;        //buff释放者
         public BaseEntity _target;        //buff释放目标 抽象成接口，依赖倒置
-        public List<BaseEffect> _effects = new List<BaseEffect>();
+        public List<BaseEffect> _effects
+            = new List<BaseEffect>();
 
         public BaseBuff(BuffTemplateInfo buff_obj)
         {
@@ -218,10 +219,18 @@ namespace Summer
             for (int i = 0; i < length; i++)
             {
                 BaseEffect base_effect = EffectFactory.instance.Create(this, effs[i]);
-                _effects.Add(base_effect);
+                if (base_effect == null) continue;
 
-                base_effect.OnAttach();
+                _effects.Add(base_effect);
+                _init_single_effect(base_effect);
             }
+        }
+
+        public void _init_single_effect(BaseEffect base_effect)
+        {
+            base_effect.OnAttach();
+            E_Buff_Event buff_event = base_effect._info.GetBuffEvt();
+            RegisterHandler(buff_event, base_effect.ExcuteEffect);
         }
 
         #endregion

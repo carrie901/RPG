@@ -9,7 +9,8 @@ namespace Summer
         {
             if (bytes.Length < 4) return -1;
             Array.Reverse(bytes, start_index, 4);
-            return BitConverter.ToInt32(bytes, start_index);
+            int result = BitConverter.ToInt32(bytes, start_index);
+            return result;
         }
 
         public static byte[] IntToBytes(int value)

@@ -108,10 +108,11 @@ namespace Summer
 
         public BaseEffect Create(BaseBuff target_buff, EffectTemplateInfo info)
         {
-            string type_name = "Summer.AttributeEffect";
+            string type_name = "Summer.EffectAttribute";
             Type type = Type.GetType(type_name);
             BaseEffect effect = Activator.CreateInstance(type) as BaseEffect;
-            effect.OnInit(target_buff, info);
+            if (effect == null) return null;
+            effect.OnInit(target_buff._bid, info);
             return effect;
         }
     }

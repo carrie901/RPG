@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 
 namespace Summer
 {
@@ -30,7 +31,7 @@ namespace Summer
             float temp_absorb_damge = 0;
             // 3.自身最大血量 
             BuffHelper.Calc(max_hp, ref temp_absorb_damge, _param._calc_type, _param._calc_data);
-            left_absorb_damge = (int)temp_absorb_damge;#1#
+            left_absorb_damge = (int)temp_absorb_damge;#2#
         }
 
         public override bool _on_excute()
@@ -76,7 +77,8 @@ namespace Summer
 
         public override void _on_reverse()
         {
-        }*/
+        }#1#
     }
 }
 
+*/

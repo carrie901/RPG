@@ -251,10 +251,6 @@ namespace Summer
         // buff 覆盖 高等级覆盖低等级
         public void _internal_buff_overlay(BaseEntity caster, BaseBuff old_buff, BuffCnf buff_cnf)
         {
-            BuffLog.Log(
-                "high buff overlay low buff -->(覆盖)icharacter:[{0}]  Buff:[{1}] level:[{2}] overlay Buff:[{3}] level:[{4}] ",
-                _owner.ToDes(), old_buff.info.ToDes(), old_buff.info.Level, buff_cnf.desc, buff_cnf.level);
-
             DetachBuff(old_buff._bid);
             _internal_add_new_buff(caster, buff_cnf);
         }
@@ -262,9 +258,6 @@ namespace Summer
         // buff 叠加
         public void _internal_buff_overlap(BaseBuff old_buff, BuffCnf buff_cnf)
         {
-            BuffLog.Log(
-                "high buff overlap low buff -->(叠加)icharacter:[{0}]  Buff:[{1}] level:[{2}] overlay Buff:[{3}] level:[{4}] ",
-                _owner.ToDes(), old_buff.info.ToDes(), old_buff.info.Level, buff_cnf.desc, buff_cnf.level);
             // 层级+1
             bool result = old_buff.AddLayer();
 
@@ -287,9 +280,6 @@ namespace Summer
         // buff 时间刷新
         public void _internal_buff_refresh_time(BaseBuff buff)
         {
-            BuffLog.Log("Refresh Buff Time--> icharacter [{0}] refresh time for buff  [{1}] ", _owner.ToDes(),
-                buff.info.ToDes());
-
             buff.info.ResetTimeOut();
         }
 

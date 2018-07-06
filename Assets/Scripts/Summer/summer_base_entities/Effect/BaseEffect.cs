@@ -29,33 +29,34 @@ namespace Summer
     public abstract class BaseEffect
     {
         public E_EffectOverlayType _eff_overlay_type;                               // 叠加效果
-
         public TargetSelector _target_select;                                       // 目标过滤器
+        public EffectTemplateInfo _info;                                            // 效果的配置信息
+        public BuffId _bid;
 
-        public Action<EventSetData> _action;                                        // 触发器执行的动作
-        public EffectTemplateInfo _info;
-        public BaseBuff _target_buff;
-
-        public virtual void OnInit(BaseBuff target_buff, EffectTemplateInfo info)
+        public virtual void OnInit(BuffId bid, EffectTemplateInfo info)
         {
             _info = info;
-            _target_buff = target_buff;
-            E_Buff_Event evt = info.GetBuffEvt();
-            _target_buff.RegisterHandler(evt, ExcuteEffect);
+            _bid = bid;
         }
 
         public virtual void OnAttach() { }
 
         public virtual void OnDetach()
         {
-            _action = null;
             _info = null;
-            _target_buff = null;
             _target_select = null;
         }
 
-        public abstract void ExcuteEffect(EventSetData data);
+        public virtual void ExcuteEffect(EventSetData data)
+        {
 
-        public abstract void ReverseEffect(EventSetData data);
+        }
+
+        public virtual void ReverseEffect(EventSetData data)
+        {
+
+        }
+
+
     }
 }

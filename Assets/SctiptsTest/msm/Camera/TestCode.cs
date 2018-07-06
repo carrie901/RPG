@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using MsgPb;
 using UnityEngine;
 using Summer;
 using UnityEditor;
@@ -37,7 +38,6 @@ public class TestCode : MonoBehaviour
     #endregion
 
     #region MONO Override
-
     // Use this for initialization
     void Start()
     {
@@ -55,7 +55,9 @@ public class TestCode : MonoBehaviour
         AssetDatabase.CreateAsset(ass, "Assets/Resources/a.asset");
         EditorUtility.SetDirty(ass);*/
 
+        NetManager instance = NetManager.Instance;
     }
+
 
     public float speed;
     public Vector3 _move_speed_offset = Vector3.zero;
@@ -71,9 +73,9 @@ public class TestCode : MonoBehaviour
              Debug.Log(result);
          }
  */
-       /* UnityEngine.Profiling.Profiler.BeginSample("03");
-        text += "1";
-        UnityEngine.Profiling.Profiler.EndSample();*/
+        /* UnityEngine.Profiling.Profiler.BeginSample("03");
+         text += "1";
+         UnityEngine.Profiling.Profiler.EndSample();*/
     }
 
     private void OnGUI()
@@ -112,37 +114,18 @@ public class TestCode : MonoBehaviour
 
     public void _excute_load()
     {
-        MyScriptableObject s = Resources.Load("a") as MyScriptableObject;
+        /*MyScriptableObject s = Resources.Load("a") as MyScriptableObject;
         if (s.names.Length == 100)
         {
 
-        }
+        }*/
+
+        ReqVersion req_version_data = new ReqVersion();
+        req_version_data.ver = 1;
+        NetManager.Send<ReqVersion>(NetworkMessageCode.REQVERSION, req_version_data);
     }
 
     #endregion
 
-    [Flags]
-    enum Days
-    {
-        Sunday = 0x01,
-        Monday = 0x02,
-        Tuesday = 0x04,
-        Wednesday = 0x08,
-        Thursday = 0x10,
-        Friday = 0x20,
-        Saturday = 0x40
-    }
 }
 
-
-[System.Serializable]
-public class A
-{
-    public string name;
-}
-
-[System.Serializable]
-public class B : A
-{
-    public int index;
-}
