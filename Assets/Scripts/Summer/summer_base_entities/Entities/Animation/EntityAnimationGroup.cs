@@ -260,20 +260,4 @@ namespace Summer
         public EntityAnimationGroup.ClipType clip_type;
         public float mormalized_time;
     }
-
-    public class AnimationLog
-    {
-        public static void Log(string message)
-        {
-            if (!LogManager.animation) return;
-            LogManager.Log(message);
-        }
-
-        public static void Log(string message, params object[] args)
-        {
-            if (!LogManager.animation) return;
-            LogManager.Log(message);
-        }
-
-    }
 }

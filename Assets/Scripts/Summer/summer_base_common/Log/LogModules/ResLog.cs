@@ -1,4 +1,5 @@
-﻿ namespace Summer
+﻿
+namespace Summer
 {
     public class ResLog
     {
@@ -26,6 +27,7 @@
             if (!LogManager.open_load_res) return;
             LogManager.Error(message, args);
         }
+
 
         public static bool Assert(bool condition, string message)
         {

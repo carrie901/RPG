@@ -30,22 +30,29 @@ namespace Summer
         public static bool open_debug_buff = false;
         public static bool open_debug_effect = true;
         public static bool open_load_res = true;
-        public static bool open_send_notification = false;
-        public static bool open_plot = false;
-        public static bool open_skill = false;
+
+        public static bool open_skill = true;
         public static bool opne_entity_action = true;
         public static bool animation = true;
 
-        public static List<I_Log> pipelines = new List<I_Log>();
+        /// <summary>
+        /// 能显示的级别
+        /// </summary>
+        public static int error_level = ASSET;   // none=0,log=1,waring=2,error=3,asset=4
 
         #region 日志级别
 
-        public static int error_level = ASSET;   // none=0,log=1,waring=2,error=3,asset=4
         public const int NONE = 0;
         public const int LOG = 1;
         public const int WARING = 2;
         public const int ERROR = 3;
         public const int ASSET = 4;
+
+        #endregion
+
+        #region Log通道
+
+        public static List<I_Log> pipelines = new List<I_Log>();
 
         #endregion
 

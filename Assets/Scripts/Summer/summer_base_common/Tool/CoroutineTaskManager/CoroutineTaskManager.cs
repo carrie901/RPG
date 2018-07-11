@@ -155,10 +155,10 @@ namespace Summer.Tool
         #region 等待一段时间/等到下一帧/等待直到某个条件成立时/当条件成立时等待 执行Task
 
         /// <summary>
-        /// 等待一段时间再执行协同
+        /// 等待一段时间再执行回调
         /// </summary>
         public CoroutineTask WaitSecondTodo(Action call_back, float wait_time, object bind_object = null)
-        {
+        {                    
             // ReSharper disable once RedundantLambdaSignatureParentheses
             Action<bool> call_back2 = (bo) =>
             {

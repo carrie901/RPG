@@ -10,7 +10,9 @@ using System.Collections;
 namespace Summer.Tool
 {
     /// <summary>
-    /// 协同任务
+    /// 协同任务 这个模块是很奇怪的
+    /// TODO 都忘记自己写的时候的意图是什么了
+    /// 这块感觉可以更好的通过Timer来进行模拟
     /// </summary>
     public class CoroutineTask
     {

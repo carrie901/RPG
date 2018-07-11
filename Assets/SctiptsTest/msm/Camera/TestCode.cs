@@ -55,7 +55,10 @@ public class TestCode : MonoBehaviour
         AssetDatabase.CreateAsset(ass, "Assets/Resources/a.asset");
         EditorUtility.SetDirty(ass);*/
 
-        NetManager instance = NetManager.Instance;
+        //NetManager instance = NetManager.Instance;
+        LogManager.Log("3");
+        Summer.SkillLog.Log("1");
+        UnityLog.Instance.Log("2");
     }
 
 

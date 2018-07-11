@@ -36,13 +36,11 @@ namespace Summer
 
         public void LogExit()
         {
-            if (!LogManager.open_skill) return;
-            //LogManager.Log("Time: {0}   Exit [{1}] Leaf Action", TimeManager.FrameCount, ToDes());
+            SkillLog.Log("Time: {0}   Exit [{1}] Leaf Action", TimeManager.FrameCount, ToDes());
         }
 
         public void LogEnter()
         {
-            if (!LogManager.open_skill) return;
             SkillLog.Log("Time: {0} Enter [{1}] Leaf Action", TimeManager.FrameCount, ToDes());
         }
 
