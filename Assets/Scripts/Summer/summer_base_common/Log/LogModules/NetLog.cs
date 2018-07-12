@@ -42,6 +42,7 @@ namespace Summer
         {
             //if (!LogManager.open_net) return;
             LogManager.Error(message);
+
         }
 
         public static void Error(string message, params object[] args)
@@ -58,7 +59,7 @@ namespace Summer
 
         public static void Assert(bool condition, string message, params object[] args)
         {
-            //if (!LogManager.open_net) return;
+            if (!LogManager.open_net) return;
             LogManager.Assert(condition, message, args);
         }
     }
