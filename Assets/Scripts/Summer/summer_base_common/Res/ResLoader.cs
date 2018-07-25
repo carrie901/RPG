@@ -86,7 +86,13 @@ namespace Summer
             StartCoroutineManager.Start(_internal_load_asset_async(res_request, callback, default_callback));
         }
 
-        public bool UnloadAll()
+        /// <summary>
+        /// 特殊的一个方法 检测某一个主资源的依赖资源是否完毕，如果不完整就进行加载
+        /// </summary>
+        /// <param name="res_request"></param>
+        public void CheckChildAssetAndLoad(ResRequestInfo res_request) { }
+
+        public bool UnLoadChildRes(ResRequestInfo res_request)
         {
             return false;
         }

@@ -39,6 +39,7 @@ namespace SummerEditor
             {
                 LogEditorConfig config_tmp = LogEditorConst.log_editor_configs[i];
                 UpdateLogInstanceId(config_tmp);
+                
                 if (instance_id == config_tmp.instance_id)
                 {
                     string statck_track = GetStackTrace();

@@ -41,9 +41,9 @@ namespace Summer
 
     public interface I_PrefabLoad
     {
-        GameObject LoadPrefab(ResRequestInfo res_request, bool is_copy = true);
+        GameObject LoadPrefab(string res_name, E_GameResType res_type = E_GameResType.quanming, bool is_copy = true);
 
-        void LoadPrefabAsync(ResRequestInfo res_request, Action<GameObject> complete);
+        void LoadPrefabAsync(string res_name, E_GameResType res_type = E_GameResType.quanming, Action<GameObject> complete = null);
     }
 
     #endregion

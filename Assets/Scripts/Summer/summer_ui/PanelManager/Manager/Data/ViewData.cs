@@ -14,25 +14,31 @@ namespace Summer
     {
         public E_ViewId _view_id;                           //View ID
         public string pfb_name;
-        public E_ViewType _view_type;                       //View Type 指向是否可以进入导航队列
-        public string _path;
+        public E_PanelType _view_type;                       //View Type 指向是否可以进入导航队列
 
-        public E_ViewShowMode show_mode = E_ViewShowMode.nothing;
+        public E_PanelBgType show_mode = E_PanelBgType.nothing;
         public bool has_bg_click_close = true;             //点击不关闭本界面
-        public bool need_close_other = false;               //打开这个界面的的时候，不关闭其他界面
+
+        public System.Object Info { get; set; }
 
         public ViewData(E_ViewId view_id,
-            E_ViewType view_type, string path, string name)
+            E_PanelType view_type, string name)
         {
             _view_id = view_id;
             _view_type = view_type;
-            _path = path;
             pfb_name = name;
         }
 
         public E_ViewId ViewId() { return _view_id; }
-        public E_ViewType ViewType() { return _view_type; }
-        public string GetViewPath() { return _path + pfb_name; }
+        public E_PanelType ViewType() { return _view_type; }
+        public string GetPfbName() { return pfb_name; }
+
+        public bool IsPanel()
+        {
+            return _view_type == E_PanelType.panel;
+        }
+
+
 
         public bool Equal(ViewData data)
         {

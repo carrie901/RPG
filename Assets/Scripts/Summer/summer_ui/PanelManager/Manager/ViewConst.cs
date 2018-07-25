@@ -18,14 +18,14 @@ namespace Summer
 
     }
 
-    public enum E_ViewType
+    public enum E_PanelType
     {
         panel,      // 同类只允许出现一个界面，覆盖的形式
         fxd,        // 固定窗口 
         dialog      // 模式窗口 dialog 可以出现多个，叠加
     }
 
-    public enum E_ViewShowMode
+    public enum E_PanelBgType
     {
         nothing,
         col,            //拥有背景碰撞框

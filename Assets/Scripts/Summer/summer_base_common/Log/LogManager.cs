@@ -30,7 +30,7 @@ namespace Summer
         public static bool open_debug_buff = false;
         public static bool open_debug_effect = true;
         public static bool open_load_res = true;
-
+        public static bool open_panel = true;
         public static bool open_skill = true;
         public static bool opne_entity_action = true;
         public static bool animation = true;

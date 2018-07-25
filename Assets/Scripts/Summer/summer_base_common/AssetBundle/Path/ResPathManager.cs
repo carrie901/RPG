@@ -31,6 +31,7 @@ public class ResPathManager
     {
         // 不同的加载方式，后缀名会不一样
         _excute(E_GameResType.quanming, "", "");
+        _excute(E_GameResType.ui_prefab, "res_bundle/prefab/ui/", "");
     }
 
     public static string FindPath<T>(E_GameResType res_type, string name) where T : Object

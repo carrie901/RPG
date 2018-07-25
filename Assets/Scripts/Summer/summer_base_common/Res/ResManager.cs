@@ -167,8 +167,9 @@ public class ResManager : I_ResManager
 
     #region GameObject
 
-    public GameObject LoadPrefab(ResRequestInfo res_request, bool is_copy = true)
+    public GameObject LoadPrefab(string res_name, E_GameResType res_type = E_GameResType.quanming, bool is_copy = true)
     {
+        ResRequestInfo res_request = ResRequestFactory.CreateRequest<GameObject>(res_name, res_type);
         GameObject prefab_gameobj = _res_loader.LoadAsset<GameObject>(res_request);
         if (prefab_gameobj == null) return null;
         if (!is_copy)
@@ -180,8 +181,9 @@ public class ResManager : I_ResManager
         return instantiste_gameobj;
     }
 
-    public void LoadPrefabAsync(ResRequestInfo res_request, Action<GameObject> complete = null)
+    public void LoadPrefabAsync(string res_name, E_GameResType res_type = E_GameResType.quanming, Action<GameObject> complete = null)
     {
+        ResRequestInfo res_request = ResRequestFactory.CreateRequest<GameObject>(res_name, res_type);
         Action<GameObject> action = delegate (GameObject game_object)
         {
             GameObject instantiste_gameobj = GameObjectHelper.Instantiate(game_object);

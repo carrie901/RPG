@@ -26,7 +26,7 @@ namespace Summer
             obj.gameObject.SetActive(true);
         }
 
-        public static void SetParent(GameObject go, GameObject parent)
+        public static void SetParent(GameObject go, GameObject parent,bool after=false)
         {
             Transform t = go.transform;
             if (parent != null)
@@ -38,6 +38,11 @@ namespace Summer
             t.localScale = Vector3.one;
             if (parent != null)
                 go.layer = parent.layer;
+
+            if (after)
+            {
+                t.SetAsLastSibling();
+            }
         }
 
         public static void SetParent(GameObject go, Transform parent_trans)

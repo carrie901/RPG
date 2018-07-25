@@ -31,7 +31,14 @@ namespace SummerEditor
         {
             new LogEditorConfig("Assets/Scripts/Summer/summer_base_common/Log/LogManager.cs", typeof(Summer.LogManager)),
             new LogEditorConfig("Assets/Scripts/Summer/summer_base_common/Log/Log/UnityLog.cs", typeof(Summer.UnityLog)),
-            new LogEditorConfig("Assets/Scripts/Summer/summer_base_entities/Skill/Tool/SkillLog.cs", typeof(Summer.SkillLog)),
+            
+            new LogEditorConfig("Assets/Scripts/Summer/summer_base_common/Log/LogModules/ActionLog.cs", typeof(Summer.ActionLog)),
+            new LogEditorConfig("Assets/Scripts/Summer/summer_base_common/Log/LogModules/AnimationLog.cs", typeof(Summer.AnimationLog)),
+            new LogEditorConfig("Assets/Scripts/Summer/summer_base_common/Log/LogModules/BuffLog.cs", typeof(Summer.BuffLog)),
+            new LogEditorConfig("Assets/Scripts/Summer/summer_base_common/Log/LogModules/NetLog.cs", typeof(Summer.NetLog)),
+            new LogEditorConfig("Assets/Scripts/Summer/summer_base_common/Log/LogModules/ResLog.cs", typeof(Summer.ResLog)),
+            new LogEditorConfig("Assets/Scripts/Summer/summer_base_common/Log/LogModules/SkillLog.cs", typeof(Summer.SkillLog)),
+            new LogEditorConfig("Assets/Scripts/Summer/summer_base_common/Log/LogModules/PanelLog.cs", typeof(Summer.PanelLog)),
         };
     }
 }

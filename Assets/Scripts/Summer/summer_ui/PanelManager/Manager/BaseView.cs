@@ -43,12 +43,12 @@ namespace Summer
 
         public virtual void CloseView()
         {
-            ViewManager.CloseView(GetId());
+            PanelManager.Back(GetId());
         }
 
-        public BaseView OpenView(E_ViewId id)
+        public void OpenView(E_ViewId id)
         {
-            return ViewManager.OpenView(id);
+            PanelManager.Open(id);
         }
 
         public E_ViewId GetId() { return _data._view_id; }
@@ -56,14 +56,14 @@ namespace Summer
         {
             _data = data;
 
-            if (_data.show_mode == E_ViewShowMode.col)
+            if (_data.show_mode == E_PanelBgType.col)
             {
-               /* RectTransform rect_trans = new RectTransform();
-                rect_trans.sizeDelta = new Vector2(1280, 720);
-                rect_trans.gameObject.AddComponent<EmptyGraphics>();
-                GameObjectHelper.AddChild(rect_trans, transform, true);*/
+                /* RectTransform rect_trans = new RectTransform();
+                 rect_trans.sizeDelta = new Vector2(1280, 720);
+                 rect_trans.gameObject.AddComponent<EmptyGraphics>();
+                 GameObjectHelper.AddChild(rect_trans, transform, true);*/
             }
-            else if (_data.show_mode == E_ViewShowMode.col_and_img)
+            else if (_data.show_mode == E_PanelBgType.col_and_img)
             {
 
                 /*  RectTransform rect_trans = new RectTransform();
@@ -74,9 +74,14 @@ namespace Summer
             }
         }
 
+        public virtual void SetData(System.Object data)
+        {
+
+        }
+
         public void CloseExtraOpertion()
         {
-            
+
         }
     }
 }

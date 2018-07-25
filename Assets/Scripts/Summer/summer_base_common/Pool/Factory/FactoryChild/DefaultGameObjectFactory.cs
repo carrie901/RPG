@@ -20,8 +20,7 @@ namespace Summer
 
         public override I_PoolObjectAbility Create()
         {
-            ResRequestInfo res_request = ResRequestFactory.CreateRequest<GameObject>(FactoryName);
-            GameObject go = ResManager.instance.LoadPrefab(res_request);
+            GameObject go = ResManager.instance.LoadPrefab(FactoryName);
             if (go == null)
             {
                 LogManager.Error("缓存池_加载[{0}]失败", _factory_name);
