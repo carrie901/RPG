@@ -34,27 +34,28 @@ namespace Summer
     /// </summary>
     public class PanelFactory
     {
-        public Dictionary<E_ViewId, BaseView> _panel_map = new Dictionary<E_ViewId, BaseView>(new PanelComparer());
+        /// <summary>
+        /// 限制了相同的界面只能出现一个
+        /// </summary>
+        public Dictionary<E_ViewId, BaseView> _panel_map = new Dictionary<E_ViewId, BaseView>(PanelComparer.Instance);
 
         #region public 
 
-        public BaseView Open(ViewData view_info)
+        public BaseView Open(PanelInfo view_info)
         {
             BaseView base_view = _internal_open(view_info);
             return base_view;
         }
 
-        public void Close(ViewData view_info)
+        public void Close(PanelInfo view_info)
         {
             if (view_info == null) return;
-            E_ViewId view_id = view_info.ViewId();
             _internal_close(view_info);
         }
 
-        public void Destory(ViewData view_info)
+        public void Destory(PanelInfo view_info)
         {
             if (view_info == null) return;
-            E_ViewId view_id = view_info.ViewId();
             _internal_destroy(view_info);
         }
 
@@ -62,82 +63,78 @@ namespace Summer
 
         #region private
 
-        public BaseView _internal_open(ViewData data)
+        public BaseView _internal_open(PanelInfo data)
         {
             if (data == null) return null;
 
-            E_ViewId view_id = data.ViewId();
+            E_ViewId view_id = data.ViewId;
             BaseView base_view;
             if (!_panel_map.ContainsKey(view_id))
             {
-                base_view = _internal_load_panel(data);
+                base_view = _first_open_panel(data);
             }
             else
             {
-                base_view = _inter_again_open(data);
+                base_view = _again_open_panel(data);
             }
+            base_view.SetPanelData(data);
+            base_view.OnEnter();
             GameObjectHelper.SetActive(base_view.gameObject, true);
             return base_view;
         }
 
-        public void _internal_close(ViewData data)
+        public void _internal_close(PanelInfo data)
         {
-            E_ViewId view_id = data.ViewId();
+            E_ViewId view_id = data.ViewId;
             if (!_panel_map.ContainsKey(view_id)) return;
             BaseView base_view = _panel_map[view_id];
+            base_view.OnExit();
             GameObjectHelper.SetActive(base_view.gameObject, false);
         }
 
-
-        public void _internal_destroy(ViewData data)
+        public void _internal_destroy(PanelInfo data)
         {
-            E_ViewId view_id = data.ViewId();
+            E_ViewId view_id = data.ViewId;
             if (!_panel_map.ContainsKey(view_id)) return;
             BaseView base_view = _panel_map[view_id];
-
-            ResRequestInfo res_request_info = ResRequestFactory.CreateRequest<GameObject>(data.GetPfbName(), E_GameResType.quanming);
+            base_view.OnDestroySelf();
+            ResRequestInfo res_request_info = ResRequestFactory.CreateRequest<GameObject>(data.GetPfbName, E_GameResType.quanming);
             ResLoader.instance.UnLoadChildRes(res_request_info);
         }
 
-        public BaseView _internal_load_panel(ViewData data)
+        // 第一次打开界面的相关步骤
+        public BaseView _first_open_panel(PanelInfo data)
         {
-            E_ViewId view_id = data.ViewId();
+            E_ViewId view_id = data.ViewId;
             // 2.加载GameObject 并且 _instantiate
-            BaseView view = _real_load_panel(data);
+            GameObject go = ResManager.instance.LoadPrefab(data.GetPfbName, E_GameResType.ui_prefab);
+            BaseView base_view = go.GetComponent<BaseView>();
             // 3.Instantiate
             //view = _instantiate(obj, data);
             // 4.view的额外操作
-            view.OpenExtraOpertion(data);
-            // 5.view的额外data
-            view.SetData(data.Info);
+            //base_view.OpenExtraOpertion(data);
+           
             // 6.添加到层
             //_add_layer(view.gameObject);
-            view.OnInit();
+            base_view.OnInit();
+            // 5.view的额外data
+            //base_view.SetPanelData(data);
             // 8.添加到缓存
-            _panel_map.Add(view_id, view);
-            return view;
-        }
-
-        public BaseView _real_load_panel(ViewData data)
-        {
-            if (data == null) return null;
-            GameObject go = ResManager.instance.LoadPrefab(data.GetPfbName(), E_GameResType.ui_prefab);
-            BaseView base_view = go.GetComponent<BaseView>();
+            _panel_map.Add(view_id, base_view);
             return base_view;
         }
-
-        public BaseView _inter_again_open(ViewData data)
+        // 再一次打开
+        public BaseView _again_open_panel(PanelInfo data)
         {
-            ResRequestInfo res_request = ResRequestFactory.CreateRequest<GameObject>(data.GetPfbName(), E_GameResType.ui_prefab);
+            ResRequestInfo res_request = ResRequestFactory.CreateRequest<GameObject>(data.GetPfbName, E_GameResType.ui_prefab);
             ResLoader.instance.CheckChildAssetAndLoad(res_request);
 
-            BaseView base_view = _panel_map[data.ViewId()];
-            base_view.OpenExtraOpertion(data);
-            base_view.SetData(data.Info);
+            BaseView base_view = _panel_map[data.ViewId];
+            //base_view.SetPanelData(data);
 
             return base_view;
         }
-
+        
         #endregion
     }
 }

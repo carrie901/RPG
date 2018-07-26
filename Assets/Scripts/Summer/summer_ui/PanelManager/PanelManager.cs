@@ -41,7 +41,7 @@ namespace Summer
 
         protected static PanelManager _instance;
         protected static int _lock_count;
-        protected PanelStack _panel_stack = new PanelStack();
+        protected PanelHistoryStack panel_history_stack = new PanelHistoryStack();
         protected PanelFactory _panel_factory = new PanelFactory();
         public Transform panel_canvas;                                  // Panel层
         public Transform dialog_canvas;                                 // Dialog层
@@ -58,9 +58,9 @@ namespace Summer
         {
             _instance = this;
             _mgr_root = transform;
-            PanelConfig.Init();
-            _panel_stack.OnOpen += _real_open;
-            _panel_stack.OnClose += _real_close;
+            PanelInfoConfig.Init();
+            panel_history_stack.OnOpen += _real_open;
+            panel_history_stack.OnClose += _real_close;
         }
 
         #endregion
@@ -99,32 +99,32 @@ namespace Summer
 
         public BaseView OnOpen(E_ViewId view_id, System.Object info = null)
         {
-            ViewData view_data = PanelConfig.Get(view_id);
+            PanelInfo view_data = PanelInfoConfig.Get(view_id);
             view_data.Info = info;
-            BaseView base_view = _panel_stack.Open(view_data);
+            BaseView base_view = panel_history_stack.Open(view_data);
             return base_view;
         }
 
         public void OnBack(E_ViewId view_id)
         {
-            bool result = _panel_stack.AssetView(view_id);
+            bool result = panel_history_stack.AssetView(view_id);
             PanelLog.Assert(result, "回退的界面，和当前的界面历史不一致");
             if (!result) return;
-            _panel_stack.Back(view_id);
+            panel_history_stack.Back(view_id);
         }
 
         #endregion
 
         #region Private Methods
 
-        public BaseView _real_open(ViewData view_data)
+        public BaseView _real_open(PanelInfo view_data)
         {
             BaseView base_view = _panel_factory.Open(view_data);
             GameObjectHelper.SetParent(base_view.gameObject, panel_canvas.gameObject, true);
             return base_view;
         }
 
-        public BaseView _real_close(ViewData view_data)
+        public BaseView _real_close(PanelInfo view_data)
         {
             _panel_factory.Close(view_data);
             return null;

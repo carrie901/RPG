@@ -29,19 +29,19 @@ namespace Summer
     /// <summary>
     /// 界面是通道
     /// </summary>
-    public class PanelStack
+    public class PanelHistoryStack
     {
         #region 属性
 
 
         public static EventSet<string, string> _event = new EventSet<string, string>();
-        public delegate BaseView OnStack(ViewData view_data);
+        public delegate BaseView OnStack(PanelInfo view_data);
 
         public event OnStack OnOpen;
         public event OnStack OnClose;
 
-        protected readonly List<ViewData> _panel_history = new List<ViewData>(64);
-        protected ViewData _curr_view;
+        protected readonly List<PanelInfo> _panel_history = new List<PanelInfo>(64);
+        protected PanelInfo _curr_view;
 
 
 
@@ -49,12 +49,12 @@ namespace Summer
 
         #region Public
 
-        public BaseView Open(ViewData view_data)
+        public BaseView Open(PanelInfo view_data)
         {
 
             BaseView base_view = _internal_open(view_data);
 
-            //PanelLog.Log("-->当前界面:[{0}]",_curr_view.ViewId());
+            //PanelLog.Log("-->当前界面:[{0}]",_curr_view.ViewId);
             return base_view;
         }
 
@@ -62,7 +62,7 @@ namespace Summer
         public void Back(E_ViewId view_id)
         {
             _internal_back(view_id);
-            //PanelLog.Log("<--当前界面:[{0}]", _curr_view.ViewId());
+            //PanelLog.Log("<--当前界面:[{0}]", _curr_view.ViewId);
         }
 
         // 关闭指定的界面，这里特指某一个指定的界面
@@ -71,12 +71,12 @@ namespace Summer
             _internal_close(view_id);
         }
 
-        public ViewData GetCurrView() { return _curr_view; }
+        public PanelInfo GetCurrView() { return _curr_view; }
 
         public bool AssetView(E_ViewId view_id)
         {
             if (_curr_view == null) return false;
-            return _curr_view.ViewId() == view_id;
+            return _curr_view.ViewId == view_id;
         }
 
         #endregion
@@ -84,7 +84,7 @@ namespace Summer
         #region Private Methods
 
 
-        public BaseView _internal_open(ViewData view_data)
+        public BaseView _internal_open(PanelInfo view_data)
         {
             if (view_data.IsPanel() && _curr_view != null)
             {
@@ -120,7 +120,7 @@ namespace Summer
         {
             if (_internal_close_top_view(view_id)) return;
 
-            ViewData tmp_data = _curr_view;
+            PanelInfo tmp_data = _curr_view;
             int index = _panel_history.Count - 1;
             while (_panel_history.Count >= 1 && tmp_data != null)
             {
@@ -146,7 +146,7 @@ namespace Summer
             PanelLog.Assert(_panel_history.Count != 1, "已经回退到最后一个历史界面");
             if (_panel_history.Count <= 1) return true;
 
-            if (view_id != _curr_view.ViewId()) return true;
+            if (view_id != _curr_view.ViewId) return true;
 
             bool result = _curr_view.IsPanel();
             // 关闭当前界面
@@ -156,7 +156,7 @@ namespace Summer
         }
 
         // 添加到历史记录并且打开
-        public BaseView _internal_real_open(ViewData view_data)
+        public BaseView _internal_real_open(PanelInfo view_data)
         {
             _curr_view = view_data;
             PushHistory(view_data);
@@ -166,7 +166,7 @@ namespace Summer
         }
 
         // 剔除历史记录，并且关闭
-        public void _internal_real_close(ViewData view_data)
+        public void _internal_real_close(PanelInfo view_data)
         {
             Remove(view_data);
             _curr_view = PeekHistory();
@@ -174,13 +174,13 @@ namespace Summer
                 OnClose(view_data);
         }
 
-        public void _internal_history_open(ViewData view_data)
+        public void _internal_history_open(PanelInfo view_data)
         {
             if (OnOpen != null)
                 OnOpen(view_data);
         }
 
-        public void _internal_history_close(ViewData view_data)
+        public void _internal_history_close(PanelInfo view_data)
         {
             if (OnClose != null)
                 OnClose(view_data);
@@ -190,39 +190,39 @@ namespace Summer
 
         #region 界面历史
 
-        public void PushHistory(ViewData view_data)
+        public void PushHistory(PanelInfo view_data)
         {
-            PanelLog.Log("Add :[{0}]", view_data.ViewId());
+            PanelLog.Log("Add :[{0}]", view_data.ViewId);
             _panel_history.Add(view_data);
         }
 
-        public ViewData PopHistory()
+        public PanelInfo PopHistory()
         {
-            ViewData view_data = null;
+            PanelInfo view_data = null;
             if (_panel_history.Count > 0)
             {
                 view_data = _panel_history[_panel_history.Count - 1];
 
-                PanelLog.Log("Remove :[{0}]", view_data.ViewId());
+                PanelLog.Log("Remove :[{0}]", view_data.ViewId);
                 _panel_history.RemoveAt(_panel_history.Count - 1);
             }
             return view_data;
         }
 
-        public ViewData PeekHistory()
+        public PanelInfo PeekHistory()
         {
             if (_panel_history.Count > 0)
                 return _panel_history[_panel_history.Count - 1];
             return null;
         }
 
-        public bool Remove(ViewData view_data)
+        public bool Remove(PanelInfo view_data)
         {
             for (int i = _panel_history.Count - 1; i >= 0; i--)
             {
                 if (view_data == _panel_history[i])
                 {
-                    PanelLog.Log("Remove :[{0}]", view_data.ViewId());
+                    PanelLog.Log("Remove :[{0}]", view_data.ViewId);
                     _panel_history.RemoveAt(i);
                     return true;
                 }

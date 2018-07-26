@@ -20,43 +20,37 @@
 //                            `=---='
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
-                                             
+
 using System.Collections.Generic;
-using UnityEngine;
 
-public class PanelConfig : MonoBehaviour {
-
-    #region 属性
-	
-	
-	
-    #endregion
-
-	#region MONO Override
-	
-    // Use this for initialization
-    void Start()
+namespace Summer
+{
+    /// <summary>
+    /// 对应的UI枚举需要对应的信息配置
+    /// </summary>
+    public enum E_ViewId
     {
-        
+        invaild = 0,
+        login = 1,                      // 登陆界面
+        main = 2,                       // 主界面
+        alert = 3,
+        alert_main = 4,
+        max,
     }
-     
-    // Update is called once per frame
-    void Update()
+
+    public class PanelComparer : IEqualityComparer<E_ViewId>
     {
-     
+        public static PanelComparer Instance = new PanelComparer();
+
+        public bool Equals(E_ViewId x, E_ViewId y)
+        {
+            return x == y;
+        }
+
+        public int GetHashCode(E_ViewId obj)
+        {
+            return (int)obj;
+        }
     }
-	
-	#endregion
- 
-    #region Public
-	
-	
-	
-    #endregion
- 
-    #region Private Methods
-	
-	
-	
-    #endregion
 }
+
