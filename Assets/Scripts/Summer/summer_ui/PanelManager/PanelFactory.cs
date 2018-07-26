@@ -77,7 +77,6 @@ namespace Summer
             {
                 base_view = _again_open_panel(data);
             }
-            base_view.SetPanelData(data);
             base_view.OnEnter();
             GameObjectHelper.SetActive(base_view.gameObject, true);
             return base_view;
@@ -113,7 +112,7 @@ namespace Summer
             //view = _instantiate(obj, data);
             // 4.view的额外操作
             //base_view.OpenExtraOpertion(data);
-           
+            base_view.SetPanelData(data);
             // 6.添加到层
             //_add_layer(view.gameObject);
             base_view.OnInit();
@@ -130,7 +129,7 @@ namespace Summer
             ResLoader.instance.CheckChildAssetAndLoad(res_request);
 
             BaseView base_view = _panel_map[data.ViewId];
-            //base_view.SetPanelData(data);
+            base_view.SetPanelData(data);
 
             return base_view;
         }

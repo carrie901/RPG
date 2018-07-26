@@ -27,14 +27,24 @@ namespace Summer
         /// <summary>
         /// 只执行一次 主要侧重于按钮的监听,初始化
         /// </summary>
-        public virtual void OnInit() { _init_id(); }
+        public virtual void OnInit()
+        {
+            PanelLog.Log("初始化界面[{0}]", _data.ViewId);
+            _init_id();
+        }
 
         /// <summary>
         /// 一些界面的相关内容的初始化，会被反复初始化
         /// </summary>
-        public virtual void OnEnter() { }
+        public virtual void OnEnter()
+        {
+            PanelLog.Log("进入界面[{0}]", _data.ViewId);
+        }
 
-        public virtual void OnExit() { }
+        public virtual void OnExit()
+        {
+            PanelLog.Log("退出界面[{0}]", _data.ViewId);
+        }
 
         public virtual void OnDestroySelf() { }
 

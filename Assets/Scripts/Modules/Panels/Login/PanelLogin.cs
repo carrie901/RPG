@@ -45,17 +45,14 @@ public class PanelLogin : BaseView
         _alert_btn.onClick.AddListener(OnAlert);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     #endregion
 
     #region Public
 
+    public override void OnInit()
+    {
 
+    }
 
     #endregion
 
