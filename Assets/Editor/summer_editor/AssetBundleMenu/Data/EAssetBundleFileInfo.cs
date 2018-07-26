@@ -16,7 +16,7 @@ namespace SummerEditor
         public List<string> all_depends = new List<string>();                           // 所有依赖的AssetBundle列表
         public List<string> be_depends = new List<string>();                            // 所有被依赖的AssetBundle列表                                             // 是主包资源
         public List<EAssetFileInfo> dep_asset_files = new List<EAssetFileInfo>();       // 包含的资源名称
-
+        //public bool in_built = false;
         #endregion
 
         #region 构造
@@ -25,7 +25,7 @@ namespace SummerEditor
         {
             ab_name = tmp_ab_name;
             file_path = EAssetBundleConst.assetbundle_directory + "/" + ab_name;//Path.Combine(, ab_name);
-            file_ab_memory_size = new FileInfo(file_path).Length;
+            //file_ab_memory_size = new FileInfo(file_path).Length;
             all_depends.Clear();
             be_depends.Clear();
             dep_asset_files.Clear();

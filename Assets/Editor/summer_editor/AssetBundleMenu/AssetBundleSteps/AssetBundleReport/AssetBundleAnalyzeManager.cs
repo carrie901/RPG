@@ -188,8 +188,9 @@ namespace SummerEditor
         // 分析Asset Object信息
         public static void _analyze_asset_object(Object asset_object, EAssetBundleFileInfo assetbundle_file_info)
         {
+            bool in_built = false;
             // 1.检测类型需要符合要求
-            E_AssetType asset_type = AssetBundleAnallyzeObject.CheckObject(asset_object, assetbundle_file_info);
+            E_AssetType asset_type = AssetBundleAnallyzeObject.CheckObject(asset_object, assetbundle_file_info,ref in_built);
             if (asset_type == E_AssetType.none) return;
 
             if (inspector_mode == null)
@@ -221,7 +222,7 @@ namespace SummerEditor
             asset_file_info.InitAsset = true;
             asset_file_info.asset_name = asset_object.name;
             asset_file_info.asset_type = asset_type;
-
+            asset_file_info.in_built = in_built;
             if (AssetBundleAnallyzeObject.fun_map.ContainsKey(asset_type))
                 asset_file_info.propertys = AssetBundleAnallyzeObject.fun_map[asset_type].Invoke(asset_object, serialized_object);
 

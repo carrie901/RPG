@@ -43,15 +43,26 @@ namespace SummerEditor
             int length = assetbundle_files.Count;
             for (int i = 0; i < length; i++)
             {
+
                 EAssetBundleFileInfo info = assetbundle_files[i];
+
+
+                /*StringBuilder tmp = new StringBuilder();
+                for (int k = 0; k < info.all_depends.Count; k++)
+                {
+                    tmp.Append(info.all_depends[k] + ",");
+                }*/
+
                 sb.AppendLine(string.Format("{0},{1},{2}," +
-                                        "{3},{4},{5}," +
-                                        "{6},{7},{8}," +
-                                        "{9},{10},{11}",
-                info.ab_name, (info.file_ab_memory_size/1024).ToString("f2"), (info.GetMemorySize() / 1024).ToString("f2"),
-                info.all_depends.Count, info.FindRedundance(), info.GetAssetCount(E_AssetType.mesh),
-                info.GetAssetCount(E_AssetType.material), info.GetAssetCount(E_AssetType.texture), info.GetAssetCount(E_AssetType.shader),
-                info.GetAssetCount(E_AssetType.sprite), info.GetAssetCount(E_AssetType.animation_clip), info.GetAssetCount(E_AssetType.audio_clip)));
+                                    "{3},{4},{5}," +
+                                    "{6},{7},{8}," +
+                                    "{9},{10},{11}",
+            info.ab_name, (info.file_ab_memory_size / 1024).ToString("f2"), (info.GetMemorySize() / 1024).ToString("f2"),
+            info.all_depends.Count, info.FindRedundance(), info.GetAssetCount(E_AssetType.mesh),
+            info.GetAssetCount(E_AssetType.material), info.GetAssetCount(E_AssetType.texture), info.GetAssetCount(E_AssetType.shader),
+            info.GetAssetCount(E_AssetType.sprite), info.GetAssetCount(E_AssetType.animation_clip), info.GetAssetCount(E_AssetType.audio_clip)));
+
+
             }
 
             FileHelper.WriteTxtByFile(directory_path + "/" + ASSETBUNDLE_REPORT_NAME, sb.ToString());

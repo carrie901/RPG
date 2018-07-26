@@ -21,6 +21,8 @@ namespace SummerEditor
         public List<EAssetBundleFileInfo> included_bundles                                  // 属于哪一个AssetBundle资源，就是爸爸是谁
             = new List<EAssetBundleFileInfo>();
 
+        public bool in_built;
+
         public bool InitAsset { get; set; }
 
         #endregion
@@ -41,18 +43,21 @@ namespace SummerEditor
         {
             if (asset_type == E_AssetType.texture)
             {
-                float memorysize_texture = (float)propertys[5].Value;
+                //float memorysize_texture = 0;
+                List<KeyValuePair<string, System.Object>> values = propertys;
+                //float memorysize_texture = (float)values[5].Value;
                 /*try
                 {
-                    float memorysize_texture = (float)propertys[5].Value;
+                    memorysize_texture = (float)propertys[5].Value;
                     Debug.Log("memorysize:" + memorysize + "_" + memorysize_texture);
                 }
                 catch (Exception e)
                 {
                     UnityEngine.Debug.LogError("--------------asset_name:" + asset_name);
-                }
-                return 0;*/
-                return memorysize_texture;
+                }*/
+                //return 0;
+                //return memorysize_texture;
+                return memorysize;
             }
             else
             {

@@ -55,8 +55,9 @@ namespace SummerEditor
         #region public
 
         // 是否加入引用
-        public static E_AssetType CheckObject(Object ob, EAssetBundleFileInfo assetbundle_file_info)
+        public static E_AssetType CheckObject(Object ob, EAssetBundleFileInfo assetbundle_file_info,ref bool in_built)
         {
+            in_built = false;
             if (ob == null) return E_AssetType.none;
             Type object_type = ob.GetType();
             // 1.剔除掉部分 比如Transform 脚本.cs等
@@ -77,10 +78,15 @@ namespace SummerEditor
             {
                 return analyze_map[object_type];
             }
-            if (ob as Mesh)// 先排除掉网格的内建资源
+
+            in_built = true;
+            //assetbundle_file_info.in_built = true;
+            if (ob as Mesh) // 先排除掉网格的内建资源
                 return E_AssetType.none;
             else
-                Debug.LogError("使用了内建的资源" + asset_path + "_" + object_type + "_" + assetbundle_file_info.ab_name);
+            {
+                //Debug.LogError("使用了内建的资源" + asset_path + "_____" + object_type + "______" + assetbundle_file_info.ab_name);
+            } 
             return analyze_map[object_type];
         }
 
@@ -156,7 +162,7 @@ namespace SummerEditor
                     string path = AssetDatabase.GetAssetPath(tex);
                 }
             }
-          
+
             return propertys;
         }
 
