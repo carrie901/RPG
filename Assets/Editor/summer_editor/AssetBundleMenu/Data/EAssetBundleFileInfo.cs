@@ -25,7 +25,7 @@ namespace SummerEditor
         {
             ab_name = tmp_ab_name;
             file_path = EAssetBundleConst.assetbundle_directory + "/" + ab_name;//Path.Combine(, ab_name);
-            //file_ab_memory_size = new FileInfo(file_path).Length;
+            file_ab_memory_size = new FileInfo(file_path).Length;
             all_depends.Clear();
             be_depends.Clear();
             dep_asset_files.Clear();
@@ -41,6 +41,19 @@ namespace SummerEditor
             for (int i = 0; i < dep_asset_files.Count; i++)
             {
                 all_memory += dep_asset_files[i].GetMemorySize();
+            }
+            return all_memory;
+        }
+
+        public float GetRepeatMemSize()
+        {
+            float all_memory = 0;
+            for (int i = 0; i < dep_asset_files.Count; i++)
+            {
+                if (dep_asset_files[i].included_bundles.Count > 1)
+                {
+                    all_memory += dep_asset_files[i].GetMemorySize();
+                }
             }
             return all_memory;
         }

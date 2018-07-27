@@ -2,7 +2,6 @@
 using System.Text;
 using System.Collections.Generic;
 using Summer;
-using UnityEngine.EventSystems;
 
 namespace SummerEditor
 {
@@ -49,13 +48,13 @@ namespace SummerEditor
         public static void AppendLine(StringBuilder sb, EAssetBundleFileInfo ab_file_info)
         {
             sb.AppendLine(" , OK");
-            AppendType(sb, ab_file_info, E_AssetType.texture, false, texture);
-            AppendType(sb, ab_file_info, E_AssetType.mesh, false, mesh);
-            AppendType(sb, ab_file_info, E_AssetType.material, false, material);
-            AppendType(sb, ab_file_info, E_AssetType.sprite, false, sprite);
-            AppendType(sb, ab_file_info, E_AssetType.shader, false, shader);
-            AppendType(sb, ab_file_info, E_AssetType.animation_clip, false, animation_clip);
-            AppendType(sb, ab_file_info, E_AssetType.audio_clip, false, audio_clip);
+            AppendType0(sb, ab_file_info, E_AssetType.texture, false, texture);
+            AppendType0(sb, ab_file_info, E_AssetType.mesh, false, mesh);
+            AppendType0(sb, ab_file_info, E_AssetType.material, false, material);
+            AppendType0(sb, ab_file_info, E_AssetType.sprite, false, sprite);
+            AppendType0(sb, ab_file_info, E_AssetType.shader, false, shader);
+            AppendType0(sb, ab_file_info, E_AssetType.animation_clip, false, animation_clip);
+            AppendType0(sb, ab_file_info, E_AssetType.audio_clip, false, audio_clip);
         }
 
         public static void AppendLineRedundance(StringBuilder sb, EAssetBundleFileInfo ab_file_info)
@@ -70,14 +69,15 @@ namespace SummerEditor
             AppendType(sb, ab_file_info, E_AssetType.audio_clip, true, audio_clip);
         }
 
-
-        public static void AppendType(StringBuilder sb, EAssetBundleFileInfo ab_file_info, E_AssetType asset_type, bool is_edundance, string des)
+        public static void AppendType0(StringBuilder sb, EAssetBundleFileInfo ab_file_info, E_AssetType asset_type, bool is_edundance, string des)
         {
             List<EAssetFileInfo> asset_files = new List<EAssetFileInfo>();
             ab_file_info.FindAssetFiles(asset_files, asset_type);
             if (asset_files.Count == 0) return;
+
             sb.Append(",," + des);
-            for (int i = 0; i < asset_files.Count; i++)
+            int length = asset_files.Count;
+            for (int i = 0; i < length; i++)
             {
                 bool result = asset_files[i].included_bundles.Count > 1;
                 if (result == is_edundance)
@@ -88,13 +88,41 @@ namespace SummerEditor
             sb.AppendLine();
         }
 
+        public static void AppendType(StringBuilder sb, EAssetBundleFileInfo ab_file_info, E_AssetType asset_type, bool is_edundance, string des)
+        {
+            List<EAssetFileInfo> asset_files = new List<EAssetFileInfo>();
+            ab_file_info.FindAssetFiles(asset_files, asset_type);
+            if (asset_files.Count == 0) return;
+
+            float all_size = 0;
+            int length = asset_files.Count;
+            for (int i = 0; i < length; i++)
+            {
+                bool result = asset_files[i].included_bundles.Count > 1;
+                if (result == is_edundance)
+                {
+                    all_size += asset_files[i].GetMemorySize();
+                }
+            }
+
+            sb.Append(",," + des + "(" + (all_size / 1024).ToString("f2") + ")");
+            for (int i = 0; i < length; i++)
+            {
+                bool result = asset_files[i].included_bundles.Count > 1;
+                if (result == is_edundance)
+                {
+                    string tmp_size = (asset_files[i].GetMemorySize() / 1024).ToString("f2");
+                    sb.Append("," + asset_files[i].asset_name + "(" + tmp_size + "Kb)");
+                }
+            }
+            sb.AppendLine();
+        }
+
         public static int SortAsset(EAssetBundleFileInfo a, EAssetBundleFileInfo b)
         {
             if (a == null || b == null) return 0;
             return String.Compare(a.ab_name, b.ab_name, StringComparison.Ordinal);
         }
-
-
 
     }
 }
