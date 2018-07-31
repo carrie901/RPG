@@ -37,7 +37,7 @@ namespace Summer
             _internal_action = OnTrigger;
         }
 
-        public override void OnInit()
+        public override void OnEnter()
         {
             _base_entity.RegisterHandler(_evt, OnTrigger);
         }

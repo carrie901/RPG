@@ -128,6 +128,33 @@ namespace Summer
                 text_length = 0;
             return text_length;
         }
+
+        /// <summary>
+        /// 对
+        ///     ,,,
+        ///     ,,,
+        ///     ,,,
+        /// 这样的csv文本进行解析
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static List<string[]> ParseData(string text)
+        {
+            List<string[]> result = new List<string[]>();
+            string[] lines = text.ToStrs(StringHelper.split_huanhang);
+            int length = lines.Length;
+
+            for (int i = 0; i < length; i++)
+            {
+                string[] results = lines[i].ToStrs(StringHelper.split_douhao);
+                if (results.Length <= 1)
+                {
+                    continue;
+                }
+                result.Add(results);
+            }
+            return result;
+        }
     }
 
     public static class StringExtension

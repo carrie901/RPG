@@ -49,6 +49,8 @@ namespace Summer
         public Transform message_canvas;                                // 消息层
         public GameObject lock_canvas;                                  // 锁屏层
         protected Transform _mgr_root;
+
+
         #endregion
 
         #region MONO Override

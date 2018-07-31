@@ -45,7 +45,7 @@ res_bundle/prefab/model/character/ch_thunderreaper01_w_hfat1.ab,0
 res_bundle/prefab/model/character/ch_windelite01_w_elite1.ab,0
 res_bundle/prefab/model/character/npc_zhaoyun_001_01.ab,1,raw/animator/normal.ab
 res_bundle/prefab/model/character/npc_zhaoyun_001_02.ab,2,raw/animator/normal.ab,raw/model/zhaoyun/h_zhaoyun_01_low.ab
-res_bundle/prefab/model/character/npc_zhaoyun_001_03.ab,1,raw/model/zhaoyun/h_zhaoyun_01_low.ab
+res_bundle/prefab/model/character/npc_zhaoyun_001_03.ab,2,raw/animator/normal.ab,raw/model/zhaoyun/h_zhaoyun_01_low.ab
 res_bundle/prefab/other/skillarea/chang_hero.ab,0
 res_bundle/prefab/other/skillarea/cir_hero.ab,1,raw/other/skillarea/materials/item_028_p_3_blue.ab
 res_bundle/prefab/other/skillarea/quan_hero.ab,1,raw/other/skillarea/materials/item_028_p_3_blue.ab

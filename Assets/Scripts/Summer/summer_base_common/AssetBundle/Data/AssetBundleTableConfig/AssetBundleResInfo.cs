@@ -2,14 +2,14 @@
 
 namespace Summer
 {
-    public class AssetBundleRes
+    public class AssetBundleResInfo
     {
         /// <summary>
         /// 资源的路径 .prefab /.Animation /.bytes
         /// </summary>
         public string res_path;
         /// <summary>
-        /// 对应的包的路径.ab 路径 StreamingAssets/rpg
+        /// 对应的包的路径.ab 路径-->StreamingAssets/rpg
         /// </summary>
         public string package_path;
         /// <summary>
@@ -17,7 +17,7 @@ namespace Summer
         /// </summary>
         public string res_name;
 
-        public AssetBundleRes(string[] infos)
+        public AssetBundleResInfo(string[] infos)
         {
             res_path = infos[0];
             package_path = infos[1];

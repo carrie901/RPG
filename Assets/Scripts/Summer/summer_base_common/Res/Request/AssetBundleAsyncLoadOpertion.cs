@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using Object = UnityEngine.Object;
 
 namespace Summer
 {
@@ -11,74 +11,67 @@ namespace Summer
     /// </summary>
     public class AssetBundleAsyncLoadOpertion : LoadOpertion
     {
-        public string _bundle_name;             // 打包成ab的名称
+        public string _bundle_path;             // 打包成ab的名称
         public AssetBundleRequest _request;     // AssetBundle的资源加载请求
         public AssetBundle _assetbundle;
         public AssetBundlePackageInfo _package_info;
-        public bool _init_complete;
-        public AssetBundleAsyncLoadOpertion(AssetBundlePackageInfo package_info)
+        public string _res_path;
+        public string _parent_path;
+
+        public AssetBundleAsyncLoadOpertion(AssetBundlePackageInfo package_info, string res_path, string parent_path)
         {
             if (package_info != null)
             {
+                _res_path = res_path;
                 RequestResPath = package_info.PackagePath;
                 _package_info = package_info;
-                _bundle_name = package_info.FullPath;
+                _bundle_path = package_info.FullPath;
             }
+            _parent_path = parent_path;
         }
 
-        public override void OnInit()
+        #region public 
+
+
+        public override void UnloadRequest()
         {
-            _assetbundle = AssetBundle.LoadFromFile(_bundle_name);
-            _init_complete = true;
+            base.UnloadRequest();
+            _request = null;
+            _assetbundle = null;
+            _package_info = null;
+        }
+
+
+        #region 生命周期
+
+        protected override void Init()
+        {
+            _assetbundle = AssetBundle.LoadFromFile(_bundle_path);
             _request = _assetbundle.LoadAllAssetsAsync();
         }
 
         protected override bool Update()
         {
-            /*if (_request != null)
-                return false;
-
-            _assetbundle = AssetBundle.LoadFromFile(_bundle_name);
-            if (_assetbundle != null)
-            {
-                _init_complete = true;
-                _request = _assetbundle.LoadAllAssetsAsync();
-                return true;
-            }
-
-            return true;*/
-            return true;
-        }
-
-        public override bool IsDone()
-        {
-            if (!_init_complete) return false;
-
-            if (_request == null)
-            {
-                ResLog.Error("Class AssetBundleAsyncLoadOpertion Error,Path:[0]", _bundle_name);
-                return false;
-            }
-
-            if (_package_info != null && !_package_info.IsDone())
-                return false;
+            if (_package_info == null) return false;
+            if (!_package_info.IsDone()) return false;
             return _request.isDone;
         }
 
-        public override Object GetAsset()
+        protected override void Complete()
         {
-            if (_request != null && _request.isDone)
-                return _request.asset;
-            return null;
+            if (_asset_info == null)
+            {
+                Object[] objs = _request.allAssets;
+                _package_info.RefParent(_parent_path);
+                _package_info.InitAssetBundle(_assetbundle, objs);
+                _asset_info = _package_info.GetAsset(_res_path);
+            }
         }
 
-        public override void UnloadRequest()
-        {
-            /*if (_assetbundle != null)
-                _assetbundle.Unload(false);
-            else
-                LogManager.Error("OabDepLoadOpertion Error,AssetBundle is null.Path:[0]", _bundle_name);*/
-        }
+        #endregion
+
+        #endregion
+
     }
 }
 

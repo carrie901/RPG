@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-//using Object = UnityEngine.Object;
 
 namespace Summer
 {
@@ -11,10 +10,14 @@ namespace Summer
     /// </summary>
     public abstract class LoadOpertion : IEnumerator
     {
-        public string RequestResPath { get; protected set; }       // 请求命令的名字
-        public string Error { get; private set; }               // 错误信息
-        protected bool _is_complete_request;                    // 结束请求
-        protected bool _is_start_init;                          // 开始初始化
+        #region 属性
+
+        public string RequestResPath { get; protected set; }                    // 请求命令的名字
+        public string Error { get; private set; }                               // 错误信息
+        protected E_LoadOpertion _loading = E_LoadOpertion.init;
+        protected AssetInfo _asset_info;
+
+        #endregion
 
         #region IEnumerator
 
@@ -32,53 +35,97 @@ namespace Summer
 
         #endregion
 
-        #region abstract
+        #region public 
 
         /// <summary>
-        /// 开始加载请求
+        /// 生命周期
         /// </summary>
-        public virtual void OnInit()
+        public void OnUpdate()
         {
-            Error = string.Empty;
-            _is_complete_request = false;
-            _is_start_init = true;
-            OnUpdate();
+            if (_loading == E_LoadOpertion.init)
+            {
+                Init();
+                _loading = E_LoadOpertion.loading;
+            }
+
+            if (_loading == E_LoadOpertion.loading)
+            {
+                bool result = Update();
+                if (result)
+                    FinishLoading();
+            }
+
+            if (_loading == E_LoadOpertion.complete)
+            {
+                Complete();
+                _loading = E_LoadOpertion.exit;
+            }
         }
 
-        public bool OnUpdate()
+        public bool IsExit()
         {
-            if (!_is_start_init) return false;
-            return Update();
+            return _loading == E_LoadOpertion.exit;
         }
-
-        protected abstract bool Update();
 
         /// <summary>
         /// 是否加载完成
         /// </summary>
-        public abstract bool IsDone();
+        public bool IsDone() { return IsExit(); }
 
-        /// <summary>
-        /// 请求结束
-        /// </summary>
-        /// <returns></returns>
-        public virtual void OnCompleteRequest(string msg)
+        public void FinishLoading() { _loading = E_LoadOpertion.complete; }
+
+        public void ForceExit(string error_msg)
         {
-            _is_complete_request = true;
-            Error = msg;
+            _loading = E_LoadOpertion.exit;
+            Error = error_msg;
         }
 
         /// <summary>
         /// 得到资源
         /// </summary>
-        public abstract UnityEngine.Object GetAsset();
+        public AssetInfo GetAsset() { return _asset_info; }
+
+        #endregion
+
+        #region abstract
+
+        #region 生命周期的方法
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        protected abstract void Init();
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <returns></returns>
+        protected abstract bool Update();
+
+        /// <summary>
+        /// 完成
+        /// </summary>
+        protected abstract void Complete();
+
+        #endregion
 
         /// <summary>
         /// 卸载加载请求
         /// </summary>
-        public abstract void UnloadRequest();
+        public virtual void UnloadRequest()
+        {
+            _asset_info = null;
+        }
 
         #endregion
+
+    }
+
+    public enum E_LoadOpertion
+    {
+        init,
+        loading,
+        complete,
+        exit,
     }
 }
 

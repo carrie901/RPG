@@ -20,6 +20,8 @@ namespace Summer
     /// </summary>
     public class AssetBundleLoader : I_ResourceLoad
     {
+        #region param
+
         #region 静态
 
         public static AssetBundleLoader _instance;
@@ -35,54 +37,35 @@ namespace Summer
                 return _instance;
             }
         }
-        public static int max_loading_count = 5;                                                // 一次性最大加载个数
-        public static Dictionary<string, AssetBundleDepInfo> dep_map
+        public static int max_loading_count = 5;                                                    // 一次性最大加载个数
+        public static Dictionary<string, AssetBundleDepInfo> dep_map                                // 依赖表信息
               = new Dictionary<string, AssetBundleDepInfo>();
-        public static Dictionary<string, AssetBundleRes> res_map
-           = new Dictionary<string, AssetBundleRes>();
+        public static Dictionary<string, AssetBundleResInfo> res_map                                // 资源-->Ab包 通过资源名得到对应的Ab包
+           = new Dictionary<string, AssetBundleResInfo>();
+        public static Dictionary<string, AssetBundlePackageInfo> package_map                        // Ab包信息
+          = new Dictionary<string, AssetBundlePackageInfo>();
 
         #endregion
+
+        protected List<LoadOpertion> _on_loading_request = new List<LoadOpertion>();                // 正在加载的请求           
+        protected Queue<LoadOpertion> _wait_to_load_request = new Queue<LoadOpertion>();            // 等待加载的请求   
+        protected List<string> on_loading_ab_package = new List<string>();                          // 加载中的资源包
+        protected Dictionary<string, int> on_wait_ab_package = new Dictionary<string, int>();       // 加载中的资源包
+
 
         #region 构造
 
-        public Dictionary<string, string[]> dep_maps = new Dictionary<string, string[]>();
-        public AssetBundleLoader()
-        {
-            AssetBundle ab = AssetBundle.LoadFromFile(AssetBundleConst.GetAssetBundleRootDirectory() + "/rpg");
-            AssetBundleManifest manifest = ab.LoadAllAssets()[0] as AssetBundleManifest;
-
-            string[] all_ab = manifest.GetAllAssetBundles();
-            for (int i = 0; i < all_ab.Length; i++)
-            {
-                string[] deps = manifest.GetAllDependencies(all_ab[i]);
-                dep_maps.Add(all_ab[i], deps);
-            }
-        }
-
         #endregion
-
-        #region param
-
-        public static Dictionary<string, AssetBundlePackageInfo> package_map
-          = new Dictionary<string, AssetBundlePackageInfo>();
-
-
-        public List<LoadOpertion> _on_loading_request = new List<LoadOpertion>();               // 正在加载的请求           
-        public Queue<LoadOpertion> _wait_to_load_request = new Queue<LoadOpertion>();           // 等待加载的请求   
-        protected List<string> on_loading_ab_package                                            //加载中的资源包
-            = new List<string>();
-
-        protected Dictionary<string, int> on_wait_ab_package = new Dictionary<string, int>();   //加载中的资源包
 
         #endregion
 
         #region I_ResourceLoad
 
         // TODO Bug没有好的防御机制，在加载失败的情况下，不会导致整个程序死掉
-        public AssetInfo LoadAsset<T>(string res_path) where T : UnityEngine.Object
+        public AssetInfo LoadAsset(string res_path)
         {
             // 1.资源对应的包信息
-            AssetBundleRes res_info = GetAssetBundleRes(res_path);
+            AssetBundleResInfo res_info = GetAssetBundleRes(res_path);
             if (res_info == null) return null;
 
             // 2.得到AssetBundle包
@@ -91,68 +74,82 @@ namespace Summer
             AssetBundleDepInfo deps_info = GetDepInfo(res_info.package_path);
             foreach (var dep_info in deps_info.child_ref)
             {
-                string dependencies = dep_info.Key;
-                AssetBundlePackageInfo package_info = GetPackageInfo(dependencies);
-                if (!_need_load(package_info)) continue;
-                _internal_syncload_package(package_info);
+                AssetBundlePackageInfo dep_package_info = GetPackageInfo(dep_info.Key);
+
+                if (!_need_load(dep_package_info))
+                {
+                    dep_package_info.RefParent(main_package_info.PackagePath);
+                    continue;
+                }
+                _internal_syncload_package(dep_package_info, main_package_info.PackagePath);
             }
 
-            _internal_syncload_package(main_package_info);
+            _internal_syncload_package(main_package_info, string.Empty);
 
             // 3.包中的资源
-            AssetInfo asset_info = main_package_info.GetAsset<T>(res_info.res_path);
+            AssetInfo asset_info = main_package_info.GetAsset(res_info.res_path);
             return asset_info;
         }
 
-        public LoadOpertion LoadAssetAsync<T>(string res_path) where T : UnityEngine.Object
+        public void LoadSyncChildRes(string res_path)
         {
-            // 1.资源对应的包
-            AssetBundleRes res_info = GetAssetBundleRes(res_path);
+            // 1.资源对应的包信息
+            AssetBundleResInfo res_info = GetAssetBundleRes(res_path);
+            if (res_info == null) return;
+
+            // 3.加载依赖信息
+            AssetBundleDepInfo deps_info = GetDepInfo(res_info.package_path);
+            foreach (var dep_info in deps_info.child_ref)
+            {
+                AssetBundlePackageInfo dep_package_info = GetPackageInfo(dep_info.Key);
+                if (!_need_load(dep_package_info))
+                {
+                    dep_package_info.RefParent(res_info.package_path);
+                    continue;
+                }
+
+                _internal_syncload_package(dep_package_info, res_info.package_path);
+            }
+        }
+
+        public LoadOpertion LoadAssetAsync(string res_path)
+        {
+            UnityEditor.AssetDatabase.GetAllAssetPaths();
+            // 1.根据资源的路径找到 AB包
+            AssetBundleResInfo res_info = GetAssetBundleRes(res_path);
             if (res_info == null) return null;
             AssetBundlePackageInfo main_package_info = GetPackageInfo(res_info.package_path);
 
+            // 2.通过AB包得到相关的依赖信息
             AssetBundleDepInfo dep_info = GetDepInfo(res_info.package_path);
             foreach (var info in dep_info.child_ref)
             {
                 AssetBundlePackageInfo dep_package_info = GetPackageInfo(info.Key);
-                if (!_need_load(dep_package_info)) continue;
-                _internal_asyncload_package(dep_package_info);
+
+                if (!_need_load(dep_package_info))
+                {
+                    dep_package_info.RefParent(main_package_info.PackagePath);
+                    continue;
+                }
+
+                AssetBundleAsyncLoadOpertion dep_package_opertion =
+                    new AssetBundleAsyncLoadOpertion(dep_package_info, string.Empty, res_info.package_path);
+                _wait_to_load_request.Enqueue(dep_package_opertion);
+
             }
 
-            AssetBundleAsyncLoadOpertion main_opertion = _internal_asyncload_package(main_package_info);
+            AssetBundleAsyncLoadOpertion main_opertion = new AssetBundleAsyncLoadOpertion(main_package_info, res_path, string.Empty);
             return main_opertion;
-        }
-
-        public bool HasInLoading(string name)
-        {
-            return true;
-        }
-
-        public bool UnloadAll()
-        {
-            return true;
         }
 
         public bool UnloadAssetBundle(AssetInfo asset_info)
         {
-            // 1.资源对应的包信息
-            AssetBundleRes res_info = GetAssetBundleRes(asset_info.ResPath);
-            if (res_info == null) return false;
+            return _un_load_assetbundle(asset_info);
+        }
 
-            // 2.得到AssetBundle包
-            AssetBundlePackageInfo main_package_info = GetPackageInfo(res_info.package_path);
-
-            // 3.加载依赖信息
-            AssetBundleDepInfo deps_info = GetDepInfo(res_info.package_path);
-            foreach (var dep_info in deps_info.child_ref)
-            {
-                ResLog.Log("引用--,dep_info:[{0}]", dep_info.Key);
-                string dependencies = dep_info.Key;
-                //AssetBundlePackageInfo package_info = GetPackageInfo(dependencies);
-                
-            }
-            main_package_info.UnLoad();
-            return true;
+        public bool UnLoadChildRes(AssetInfo asset_info)
+        {
+            return _un_load_assetbundle(asset_info, false);
         }
 
         public void OnUpdate()
@@ -161,7 +158,8 @@ namespace Summer
             int length = _on_loading_request.Count - 1;
             for (int i = length; i >= 0; i--)
             {
-                if (_on_loading_request[i].OnUpdate())
+                _on_loading_request[i].OnUpdate();
+                if (_on_loading_request[i].IsExit())
                 {
                     _on_loading_request.RemoveAt(i);
                 }
@@ -172,7 +170,6 @@ namespace Summer
             {
                 if (_wait_to_load_request.Count <= 0) continue;
                 LoadOpertion load_opertion = _wait_to_load_request.Dequeue();
-                load_opertion.OnInit();
                 _on_loading_request.Add(load_opertion);
             }
         }
@@ -191,25 +188,18 @@ namespace Summer
 
         #region private
 
-        public void _internal_syncload_package(AssetBundlePackageInfo package_info)
+        public void _internal_syncload_package(AssetBundlePackageInfo package_info, string parent_path)
         {
             AssetBundle assetbundle = AssetBundle.LoadFromFile(package_info.FullPath);
-            bool result = (assetbundle != null);
+            bool result = assetbundle != null;
             ResLog.Assert(result, "同步加载AssetBundlePack失败，路径不存在:[{0}]", package_info.PackagePath);
 
-            if (assetbundle == null) return;
+            if (!result) return;
             Object[] objs = assetbundle.LoadAllAssets();
+            package_info.RefParent(parent_path);
             package_info.InitAssetBundle(assetbundle, objs);
         }
 
-        // 增加一个请求
-        public AssetBundleAsyncLoadOpertion _internal_asyncload_package(AssetBundlePackageInfo package_info)
-        {
-            AssetBundleAsyncLoadOpertion package_opertion = new AssetBundleAsyncLoadOpertion(package_info);
-            _wait_to_load_request.Enqueue(package_opertion);
-
-            return package_opertion;
-        }
 
         public bool _need_load(AssetBundlePackageInfo package_info)
         {
@@ -224,13 +214,36 @@ namespace Summer
             return true;
         }
 
+        public bool _un_load_assetbundle(AssetInfo asset_info, bool include_main = true)
+        {
+            // 1.资源对应的包信息
+            AssetBundleResInfo res_info = GetAssetBundleRes(asset_info.ResPath);
+            if (res_info == null) return false;
+
+            // 2.得到AssetBundle包
+            AssetBundlePackageInfo main_package_info = GetPackageInfo(res_info.package_path);
+
+            // 3.加载依赖信息
+            AssetBundleDepInfo deps_info = GetDepInfo(res_info.package_path);
+            foreach (var dep_info in deps_info.child_ref)
+            {
+                ResLog.Log("引用--,dep_info:[{0}]", dep_info.Key);
+                string dependencies = dep_info.Key;
+                AssetBundlePackageInfo package_info = GetPackageInfo(dependencies);
+                package_info.UnLoad();
+            }
+            if (include_main)
+                main_package_info.UnLoad();
+            return true;
+        }
+
         #endregion
 
         #region static
 
-        public static AssetBundleRes GetAssetBundleRes(string res_path)
+        public static AssetBundleResInfo GetAssetBundleRes(string res_path)
         {
-            AssetBundleRes res_info;
+            AssetBundleResInfo res_info;
             res_map.TryGetValue(res_path, out res_info);
             ResLog.Assert((res_info != null), "资源[{0}]找不到对应的包", res_path);
             return res_info;
@@ -279,7 +292,7 @@ namespace Summer
             length = res_result.Count;
             for (int i = 0; i < length; i++)
             {
-                AssetBundleRes res = new AssetBundleRes(res_result[i]);
+                AssetBundleResInfo res = new AssetBundleResInfo(res_result[i]);
                 res_map.Add(res.res_path, res);
             }
         }

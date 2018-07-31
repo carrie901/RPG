@@ -18,7 +18,10 @@ namespace Summer
         public static ResLoader instance = new ResLoader();
 
         public Dictionary<string, AssetInfo> _map_res =
-        new Dictionary<string, AssetInfo>();
+            new Dictionary<string, AssetInfo>();
+
+        public List<LoadOpertion> _load_opertions
+            = new List<LoadOpertion>();                                 // 加载中的操作
 
         protected List<string> _on_loading_res = new List<string>();    // 加载中的资源
         public static int max_async_count = 5;                          // 异步最大加载的数量
@@ -43,13 +46,10 @@ namespace Summer
             //_loader = W3Loader.instance;
 
             // 1.LOCAL 本地加载做研发用
-
-
 #if UNITY_EDITOR
             _loader = AssetDatabaseLoader.instance;
             ResPathManager._suffix = new AssetDatabaseSuffix();
 #endif
-
             _init();
         }
 
@@ -60,20 +60,16 @@ namespace Summer
         public T LoadAsset<T>(ResRequestInfo res_request) where T : Object
         {
             // 1.优先从缓存中提取资源信息
-            AssetInfo asset_info = _pop_asset_for_cache(res_request);
-            if (asset_info != null)
-                return asset_info.GetAsset<T>();
+            T t = _pop_asset_for_cache<T>(res_request);
+            if (t != null) return t;
 
             // 2.通过加载器加载
-            _internal_load_asset<T>(res_request);
+            _internal_load_asset(res_request);
 
             // 3.从缓存中得到资源
-            asset_info = _pop_asset_for_cache(res_request);
-            if (asset_info != null)
-                return asset_info.GetAsset<T>();
-
-            //ResLog.Error("ResLoader结论,加载资源失败路径:[{0}]", res_request.res_path);
-            return null;
+            t = _pop_asset_for_cache<T>(res_request);
+            ResLog.Assert(t != null, "ResLoader结论,加载资源失败路径:[{0}]", res_request.res_path);
+            return t;
         }
 
         public void LoadAssetAsync<T>(ResRequestInfo res_request, Action<T> callback, Action<T> default_callback = null) where T : Object
@@ -89,12 +85,19 @@ namespace Summer
         /// <summary>
         /// 特殊的一个方法 检测某一个主资源的依赖资源是否完毕，如果不完整就进行加载
         /// </summary>
-        /// <param name="res_request"></param>
-        public void CheckChildAssetAndLoad(ResRequestInfo res_request) { }
+        public void CheckChildAssetAndLoad(ResRequestInfo res_request)
+        {
+            _loader.LoadSyncChildRes(res_request.res_path);
+        }
 
         public bool UnLoadChildRes(ResRequestInfo res_request)
         {
-            return false;
+            if (!_map_res.ContainsKey(res_request.res_path)) return false;
+
+            AssetInfo asset_info = _map_res[res_request.res_path];
+            bool result = _loader.UnLoadChildRes(asset_info);
+            ResLog.Assert(result, "卸载子依赖失败:[{0}]", res_request.res_path);
+            return result;
         }
 
         public bool UnloadRes(ResRequestInfo res_request)
@@ -103,24 +106,28 @@ namespace Summer
 
             AssetInfo asset_info = _map_res[res_request.res_path];
             _map_res.Remove(res_request.res_path);
+
             bool result = _loader.UnloadAssetBundle(asset_info);
             ResLog.Assert(result, "卸载失败:[{0}]", res_request.res_path);
-            return false;
+            return result;
         }
 
         public void OnUpdate(float dt)
         {
-            /*int length = _load_opertions.Count - 1;
-            for (int i = length; i >= 0; i--)
-            {
-                if (!_load_opertions[i].Update())
-                {
-                    _load_opertions.RemoveAt(i);
-                }
-            }
-            */
             if (_loader != null)
                 _loader.OnUpdate();
+
+            int length = _load_opertions.Count - 1;
+            for (int i = length; i >= 0; i--)
+            {
+                _load_opertions[i].OnUpdate();
+                if (_load_opertions[i].IsExit())
+                {
+                    _load_opertions.RemoveAt(i);
+                    _on_loading_res.Remove(_load_opertions[i].RequestResPath);
+                    _load_opertions[i] = null;
+                }
+            }
         }
 
         #endregion
@@ -150,11 +157,6 @@ namespace Summer
 
         #region public 
 
-        public bool ContainsRes(string assetbundle_name)
-        {
-            return _on_loading_res.Contains(assetbundle_name);
-        }
-
         public int GetRefCount(string assetbundle_name)
         {
             if (_map_res.ContainsKey(assetbundle_name))
@@ -162,20 +164,22 @@ namespace Summer
             return 0;
         }
 
+        public bool ContainsRes(string res_path)
+        {
+            return _map_res.ContainsKey(res_path);
+        }
+
         #endregion
 
         #region private 
 
-        public void _init()
-        {
-
-        }
+        public void _init() { }
 
         #region internal Loader
 
-        public void _internal_load_asset<T>(ResRequestInfo request_info) where T : Object
+        public void _internal_load_asset(ResRequestInfo request_info)
         {
-            AssetInfo asset_info = _loader.LoadAsset<T>(request_info.res_path);
+            AssetInfo asset_info = _loader.LoadAsset(request_info.res_path);
             ResLog.Assert(asset_info != null, "ResLoader结论:内部加载失败,找不到对应的资源，路径:[{0}]", request_info.res_path);
             _push_asset_to_cache(asset_info);
         }
@@ -203,15 +207,17 @@ namespace Summer
                 curr_async_index++;
                 _on_loading_res.Add(res_request.res_path);
                 // 4.请求异步加载
-                LoadOpertion load_opertion = _loader.LoadAssetAsync<T>(res_request.res_path);
+                LoadOpertion load_opertion = _loader.LoadAssetAsync(res_request.res_path);
+                _load_opertions.Add(load_opertion);
                 // 等待加载完成
                 yield return load_opertion;
-                AssetInfo asset_info = new AssetInfo(load_opertion.GetAsset(), res_request);
+
+                AssetInfo asset_info = load_opertion.GetAsset();
                 // 6.卸载信息
                 load_opertion.UnloadRequest();
                 // 7.t推送到内存中
                 _push_asset_to_cache(asset_info);
-                _on_loading_res.Remove(res_request.res_path);
+
                 curr_async_index--;
             }
             bool result = _callback_asset_by_cache(res_request, callback, default_callback);
@@ -222,41 +228,30 @@ namespace Summer
         #endregion
 
         //从缓存中得到
-        public AssetInfo _pop_asset_for_cache(ResRequestInfo res_request)
+        public T _pop_asset_for_cache<T>(ResRequestInfo res_request) where T : UnityEngine.Object
         {
             AssetInfo asset_info;
-            if (!_map_res.TryGetValue(res_request.res_path, out asset_info))
-                return null;
-            //asset_info.RefCount++;
-            return asset_info;
+            _map_res.TryGetValue(res_request.res_path, out asset_info);
+            if (asset_info != null)
+                return asset_info.GetAsset<T>();
+            return null;
         }
 
         //放到缓存中
         public bool _push_asset_to_cache(AssetInfo asset_info)
         {
-            if (asset_info == null) return false;
-            // 1.根据资源类型和名字找到对应的cache
-            // 2.如果已经存在引用-1，如果不存在，填入到缓存
-            if (!_map_res.ContainsKey(asset_info.ResPath))
-            {
-                // 2.添加到cache中去
-                _map_res.Add(asset_info.ResPath, asset_info);
-                //LogManager.Log("添加到缓存中[{0}]", asset_info.ToString());
-            }
-            else
-            {
-                //asset_info.RefCount--;
-            }
+            if (asset_info == null || _map_res.ContainsKey(asset_info.ResPath)) return false;
+            _map_res.Add(asset_info.ResPath, asset_info);
             return true;
         }
 
         // 异步从缓冲得到资源，并且回复
-        public bool _callback_asset_by_cache<T>(ResRequestInfo res_request_info, Action<T> callback, Action<T> default_callback = null) where T : Object
+        public bool _callback_asset_by_cache<T>(ResRequestInfo res_request, Action<T> callback, Action<T> default_callback = null) where T : Object
         {
             // 1.优先从缓存中提取资源信息
-            AssetInfo asset_info = _pop_asset_for_cache(res_request_info);
-            if (asset_info == null) return false;
-            T t = asset_info.GetAsset<T>();
+            T t = _pop_asset_for_cache<T>(res_request);
+            if (t == null) return false;
+
             if (callback != null)
                 callback.Invoke(t);
             if (default_callback != null)

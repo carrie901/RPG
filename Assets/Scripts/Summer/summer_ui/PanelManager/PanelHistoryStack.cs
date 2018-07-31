@@ -33,8 +33,6 @@ namespace Summer
     {
         #region 属性
 
-
-        public static EventSet<string, string> _event = new EventSet<string, string>();
         public delegate BaseView OnStack(PanelInfo view_data);
 
         public event OnStack OnOpen;
@@ -43,7 +41,7 @@ namespace Summer
         protected readonly List<PanelInfo> _panel_history = new List<PanelInfo>(64);
         protected PanelInfo _curr_view;
 
-
+        
 
         #endregion
 
@@ -51,9 +49,8 @@ namespace Summer
 
         public BaseView Open(PanelInfo view_data)
         {
-
             BaseView base_view = _internal_open(view_data);
-
+            
             //PanelLog.Log("-->当前界面:[{0}]",_curr_view.ViewId);
             return base_view;
         }
@@ -81,8 +78,7 @@ namespace Summer
 
         #endregion
 
-        #region Private Methods
-
+        #region Private Methods Close Open
 
         public BaseView _internal_open(PanelInfo view_data)
         {
@@ -233,4 +229,12 @@ namespace Summer
         #endregion
     }
 
+    public class PanelHistoryInfo : I_PoolCacheRef
+    {
+        public static PanelHistoryInfo Instance = new PanelHistoryInfo();
+        public int GetRefCount()
+        {
+            return 0;
+        }
+    }
 }

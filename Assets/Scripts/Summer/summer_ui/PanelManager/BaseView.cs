@@ -22,7 +22,7 @@ namespace Summer
 
         #endregion
 
-        #region 生命周期 OnInit-->OnEnter-->OnExit-->OnDestroySelf
+        #region 生命周期 OnEnter-->OnEnter-->OnExit-->OnDestroySelf
 
         /// <summary>
         /// 只执行一次 主要侧重于按钮的监听,初始化

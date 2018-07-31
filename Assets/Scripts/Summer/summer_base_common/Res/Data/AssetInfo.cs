@@ -14,9 +14,9 @@ namespace Summer
     {
         //资源对象  
         public Object _object;
-        public string ResPath;                                       //路径  
-        //public string ResName { get; private set; }                 //名字
-        public int RefCount;                                    //读取次数  
+        public string ResPath { get; private set; }                                     // 路径  
+        //public string ResName { get; private set; }                                   // 名字
+        public int RefCount { get; set; }                                               // 读取次数  
 
         public AssetInfo(Object obj, ResRequestInfo res_info)
         {
@@ -41,15 +41,25 @@ namespace Summer
             ResLog.Assert(!string.IsNullOrEmpty(ResPath), "名字有异常:[{0}]", _object);
         }
 
-
         public T GetAsset<T>() where T : Object
         {
+            if (_object == null)
+            {
+                ResLog.Error("AssetInfo Error,Object Is Null. Path:[{0}]", ResPath);
+                return null;
+            }
             T t = _object as T;
             if (t == null)
             {
-                ResLog.Error("AssetInfo Error,Info:[{0}]", ResPath);
+                ResLog.Error("AssetInfo Error,Object 类型不对.Path:[{0}]", ResPath);
             }
             return t;
+        }
+
+        public void UnLoad()
+        {
+            _object = null;
+
         }
     }
 }

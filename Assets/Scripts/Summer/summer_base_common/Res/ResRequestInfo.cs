@@ -7,9 +7,18 @@ namespace Summer
     /// </summary>
     public class ResRequestInfo
     {
-        public string res_name;                         // 资源的名字
-        public string res_path;                         // 资源实际的路径
-        public E_GameResType res_type;                  // 资源的游戏类型，比如是技能icon，技能的Prefab,为了确定路径的类型
+        /// <summary>
+        /// 资源的名字
+        /// </summary>
+        public string res_name;                          
+        /// <summary>
+        /// 资源实际的路径 存放在res_bundle下的路径（非AB路径）
+        /// </summary>
+        public string res_path;                          
+        /// <summary>
+        /// 资源的游戏类型，比如是技能icon，技能的Prefab,为了确定路径的类型
+        /// </summary>
+        public E_GameResType res_type;                   
     }
 
 

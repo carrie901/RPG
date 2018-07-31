@@ -8,19 +8,20 @@ namespace Summer
         /// <summary>
         /// 同步加载
         /// </summary>
-        AssetInfo LoadAsset<T>(string res_path) where T : UnityEngine.Object;
-
+        AssetInfo LoadAsset(string res_path);
+        /// <summary>
+        /// 偷懒写的
+        /// </summary>
+        /// <param name="res_path"></param>
+        void LoadSyncChildRes(string res_path);
         /// <summary>
         /// 异步加载
         /// </summary>
-        LoadOpertion LoadAssetAsync<T>(string res_path) where T : UnityEngine.Object;
-
-        /// <summary>
-        /// 处于加载中
-        /// </summary>
-        bool HasInLoading(string res_path);
+        LoadOpertion LoadAssetAsync(string res_path);
 
         bool UnloadAssetBundle(AssetInfo asset_info);
+
+        bool UnLoadChildRes(AssetInfo asset_info);
 
         void OnUpdate();
     }

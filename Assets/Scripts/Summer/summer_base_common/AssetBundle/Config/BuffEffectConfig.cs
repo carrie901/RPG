@@ -4,14 +4,14 @@ using UnityEngine;
 //=============================================================================
 // Author : mashao
 // CreateTime : 2018-1-17 10:42:39
-// FileName : ResConfig.cs
+// FileName : BuffEffectConfig.cs
 //=============================================================================
 
 namespace Summer
 {
-    public class ResConfig
+    public class BuffEffectConfig
     {
-        public static ResConfig Instance = new ResConfig();
+        public static BuffEffectConfig Instance = new BuffEffectConfig();
         public const string ROOT = "Root";
         // Buff相关参数
         public const string BUFF_TEMPLATE = "BuffTemplate";
@@ -19,7 +19,7 @@ namespace Summer
         public EdNode root_node;
         public ChangeModelConfig change_model_config;
 
-        private ResConfig()
+        private BuffEffectConfig()
         {
             string text = ResManager.instance.LoadText(ResRequestFactory.CreateRequest<TextAsset>("Config/BuffEffectConfig"));
 

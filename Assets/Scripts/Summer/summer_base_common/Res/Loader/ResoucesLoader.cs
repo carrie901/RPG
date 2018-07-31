@@ -7,14 +7,13 @@ namespace Summer
     public class ResoucesLoader : I_ResourceLoad
     {
         public static ResoucesLoader instance = new ResoucesLoader();
-        public List<ResAsynLoadOpertion> _load_opertions                                  //加载的请求
-          = new List<ResAsynLoadOpertion>(32);
 
         public Dictionary<string, int> _loading =
             new Dictionary<string, int>();
+
         #region I_ResourceLoad
 
-        public AssetInfo LoadAsset<T>(string path) where T : Object
+        public AssetInfo LoadAsset(string path)
         {
             Object obj = Resources.Load(path);
             ResLog.Assert(obj != null, "ResoucesLoader 加载失败:[{0}]", path);
@@ -22,15 +21,12 @@ namespace Summer
             return info;
         }
 
-        public LoadOpertion LoadAssetAsync<T>(string path) where T : Object
-        {
-            ResAsynLoadOpertion res_opertion = AddRequest(path);
-            return res_opertion;
-        }
+        public void LoadSyncChildRes(string res_path) { }
 
-        public bool HasInLoading(string res_path)
+        public LoadOpertion LoadAssetAsync(string res_path)
         {
-            return _loading.ContainsKey(res_path);
+            ResAsynLoadOpertion res_opertion = new ResAsynLoadOpertion(res_path);
+            return res_opertion;
         }
 
         public bool UnloadAssetBundle(AssetInfo asset_info)
@@ -40,37 +36,18 @@ namespace Summer
             Resources.UnloadAsset(obj);
             return true;
         }
-
+        public bool UnLoadChildRes(AssetInfo asset_info)
+        {
+            return true;
+        }
         public void OnUpdate()
         {
-            int length = _load_opertions.Count - 1;
-            for (int i = length; i >= 0; i--)
-            {
-                if (_load_opertions[i].OnUpdate())
-                {
-                    RemoveRequest(_load_opertions[i]);
-                }
-            }
+
         }
 
         #endregion
 
         #region private 
-
-        protected ResAsynLoadOpertion AddRequest(string res_path)
-        {
-            ResAsynLoadOpertion res_opertion = new ResAsynLoadOpertion(res_path);
-            res_opertion.OnInit();
-            _load_opertions.Add(res_opertion);
-            _loading.Add(res_path, 1);
-            return res_opertion;
-        }
-
-        protected void RemoveRequest(ResAsynLoadOpertion opertion)
-        {
-            _load_opertions.Remove(opertion);
-            _loading.Remove(opertion.RequestResPath);
-        }
 
         #endregion
     }

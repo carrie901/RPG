@@ -37,13 +37,24 @@ namespace Summer
         /// <summary>
         /// 限制了相同的界面只能出现一个
         /// </summary>
-        public Dictionary<E_ViewId, BaseView> _panel_map = new Dictionary<E_ViewId, BaseView>(PanelComparer.Instance);
+        public Dictionary<E_ViewId, BaseView> _panel_map
+            = new Dictionary<E_ViewId, BaseView>(PanelComparer.Instance);
+
+        public PoolPanelCache<E_ViewId, PanelHistoryInfo> _panel_cache
+            = new PoolPanelCache<E_ViewId, PanelHistoryInfo>(8);
+
+        public PanelFactory()
+        {
+            _panel_cache.AddIgnoreKey(E_ViewId.main);
+            _panel_cache.OnRemoveValueEvent += OnRemoveValueEvent;
+        }
 
         #region public 
 
         public BaseView Open(PanelInfo view_info)
         {
             BaseView base_view = _internal_open(view_info);
+            _panel_cache.Set(view_info.ViewId, PanelHistoryInfo.Instance);
             return base_view;
         }
 
@@ -57,6 +68,16 @@ namespace Summer
         {
             if (view_info == null) return;
             _internal_destroy(view_info);
+        }
+
+        #endregion
+
+        #region 响应
+
+        public void OnRemoveValueEvent(E_ViewId view_id)
+        {
+            PanelInfo view_data = PanelInfoConfig.Get(view_id);
+            Destory(view_data);
         }
 
         #endregion
@@ -133,7 +154,7 @@ namespace Summer
 
             return base_view;
         }
-        
+
         #endregion
     }
 }

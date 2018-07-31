@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using System.Collections.Generic;
 namespace Summer
 {
     /// <summary>
@@ -9,29 +6,22 @@ namespace Summer
     /// </summary>
     public class AssetBundleDepInfo
     {
-        //private int ref_count = 0;
-        //public int RefCount { get { return ref_count; } set { ref_count = value; } }
-        public string AssetBundleName { get { return _assetbundle_name; } }
-        public int dep_count;
-        public Dictionary<string, int> parent_ref = new Dictionary<string, int>();                  // 爸爸有谁
-        public Dictionary<string, int> child_ref = new Dictionary<string, int>();                   // 儿子有谁
+        public string AssetBundleName { get { return _assetbundle_name; } }                         // 主ab的名字 full path res_bundle/../..
+        public int dep_count;                                                                       // 依赖个数
+        public Dictionary<string, int> child_ref = new Dictionary<string, int>();                   // 儿子有谁 依赖配置表已经确定了
         public string _assetbundle_name;
 
         public AssetBundleDepInfo(string[] infos)
         {
-
             _assetbundle_name = infos[0];
             dep_count = infos[1].ToInt();
             for (int i = 2; i < infos.Length; i++)
             {
                 bool result = child_ref.ContainsKey(infos[i]);
-                LogManager.Assert(!result, "初始化AssetBundlePackage的包信息失败，[{0}]", infos[i]);
+                ResLog.Assert(!result, "初始化AssetBundlePackage的包信息失败，[{0}]", infos[i]);
                 if (result) continue;
                 child_ref.Add(infos[i], 0);
             }
-            //ref_count = 0;
         }
-
     }
-
 }

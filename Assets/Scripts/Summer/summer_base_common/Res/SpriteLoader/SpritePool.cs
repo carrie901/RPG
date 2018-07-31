@@ -35,7 +35,7 @@ namespace Summer
         {
             _res_loader = ResLoader.instance;
 
-            _big_sprite_pool_cache.on_remove_value += OnBigSprite;
+            _big_sprite_pool_cache.OnRemoveValueEvent += OnBigSprite;
         }
 
         private void OnBigSprite(string key)
