@@ -35,9 +35,10 @@ public class TestUnLoad01 : MonoBehaviour
 
     public T LoadAsset<T>(string asset_path, string res_name) where T : Object
     {
-        AssetBundle ab = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/rpg/" + asset_path + ".ab");
-        T t = ab.LoadAsset<T>(res_name);
-        return t;
+        /* AssetBundle ab = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/rpg/" + asset_path + ".ab");
+         T t = ab.LoadAsset<T>(res_name);
+         return t;*/
+        return null;
     }
 
 }

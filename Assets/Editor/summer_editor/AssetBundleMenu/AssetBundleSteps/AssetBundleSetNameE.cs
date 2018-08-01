@@ -9,7 +9,7 @@ namespace SummerEditor
 
         public static void BuildAssetBundle()
         {
-            
+
         }
 
         #region 主资源设置名字，进行打包
@@ -20,6 +20,8 @@ namespace SummerEditor
         public static void OblyMainAbName()
         {
             List<string> assets_path = EPathHelper.GetAssetsPath(EAssetBundleConst.main_res_driectory, true);
+            List<string> assets_path1 = EPathHelper.GetAssetsPath(EAssetBundleConst.ui_main_directory, true);
+            assets_path.AddRange(assets_path1);
             int length = assets_path.Count;
             for (int i = 0; i < length; i++)
             {
@@ -82,6 +84,18 @@ namespace SummerEditor
             AssetDatabase.SaveAssets();
         }
 
+        public static void SetSelectionAssetBundleName1()
+        {
+            foreach (var id in Selection.instanceIDs)
+            {
+                string str = AssetDatabase.GetAssetPath(id);
+                SetAbNameByDirectory(str);
+            }
+            AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets();
+        }
+
+
         /// <summary>
         /// 根据文件的File Path设置Asset的BundleName BundleName=Asset/XX/
         /// </summary>
@@ -132,8 +146,8 @@ namespace SummerEditor
             AssetImporter importer = AssetImporter.GetAtPath(asset_path);
             if (importer != null)
             {
-                string assetbundle_name = EPathHelper.NormalizePath(ab_name)+ EAssetBundleConst.ASSETBUNDLE_EXTENSION;
-                importer.assetBundleName = assetbundle_name ;
+                string assetbundle_name = EPathHelper.NormalizePath(ab_name) + EAssetBundleConst.ASSETBUNDLE_EXTENSION;
+                importer.assetBundleName = assetbundle_name;
                 importer.SaveAndReimport();
             }
             else

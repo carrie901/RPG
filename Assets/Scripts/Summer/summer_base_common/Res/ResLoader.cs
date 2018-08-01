@@ -40,15 +40,15 @@ namespace Summer
             //_loader = ResoucesLoader.instance;
 
             // 2.ASSETBUNDLE 实际发布用
-            //_loader = AssetBundleLoader.Instance;
-            //ResPathManager._suffix = new AssetBundleSuffix();
+            _loader = AssetBundleLoader.Instance;
+            ResPathManager._suffix = new AssetBundleSuffix();
             // 3.WWW 实际发布用
             //_loader = W3Loader.instance;
 
             // 1.LOCAL 本地加载做研发用
 #if UNITY_EDITOR
-            _loader = AssetDatabaseLoader.instance;
-            ResPathManager._suffix = new AssetDatabaseSuffix();
+            //_loader = AssetDatabaseLoader.instance;
+            //ResPathManager._suffix = new AssetDatabaseSuffix();
 #endif
             _init();
         }
@@ -80,24 +80,6 @@ namespace Summer
 
             // 2.得到真实路径
             StartCoroutineManager.Start(_internal_load_asset_async(res_request, callback, default_callback));
-        }
-
-        /// <summary>
-        /// 特殊的一个方法 检测某一个主资源的依赖资源是否完毕，如果不完整就进行加载
-        /// </summary>
-        public void CheckChildAssetAndLoad(ResRequestInfo res_request)
-        {
-            _loader.LoadSyncChildRes(res_request.res_path);
-        }
-
-        public bool UnLoadChildRes(ResRequestInfo res_request)
-        {
-            if (!_map_res.ContainsKey(res_request.res_path)) return false;
-
-            AssetInfo asset_info = _map_res[res_request.res_path];
-            bool result = _loader.UnLoadChildRes(asset_info);
-            ResLog.Assert(result, "卸载子依赖失败:[{0}]", res_request.res_path);
-            return result;
         }
 
         public bool UnloadRes(ResRequestInfo res_request)

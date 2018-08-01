@@ -28,6 +28,7 @@ namespace Summer
             TextAsset textasset = obj as TextAsset;
             string result = textasset.text;
             ab.Unload(true);
+            ab = null;
             return result;
         }
     }

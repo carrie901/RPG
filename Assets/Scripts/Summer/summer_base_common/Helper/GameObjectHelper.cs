@@ -129,13 +129,12 @@ namespace Summer
 
         public static void DestroySelf(GameObject obj)
         {
-
             RefCounter[] refs = obj.GetComponentsInChildren<RefCounter>(true);
             for (int i = 0; i < refs.Length; i++)
             {
                 refs[i].RemoveRef();
             }
-            Object.Destroy(obj);
+            Object.DestroyImmediate(obj);
             obj = null;
         }
     }

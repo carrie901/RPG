@@ -122,7 +122,9 @@ namespace Summer
         public BaseView _real_open(PanelInfo view_data)
         {
             BaseView base_view = _panel_factory.Open(view_data);
+            base_view.gameObject.SetActive(false);
             GameObjectHelper.SetParent(base_view.gameObject, panel_canvas.gameObject, true);
+            base_view.gameObject.SetActive(true);
             return base_view;
         }
 

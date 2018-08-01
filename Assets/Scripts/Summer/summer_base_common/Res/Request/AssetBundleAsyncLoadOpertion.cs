@@ -18,6 +18,9 @@ namespace Summer
         public string _res_path;
         public string _parent_path;
 
+        // 0=开始，1=ab头文件异步完成，开始加载内容，2=头文件完成，异步也完成
+        //public int ab_state;
+
         public AssetBundleAsyncLoadOpertion(AssetBundlePackageInfo package_info, string res_path, string parent_path)
         {
             if (package_info != null)
@@ -32,7 +35,6 @@ namespace Summer
 
         #region public 
 
-
         public override void UnloadRequest()
         {
             base.UnloadRequest();
@@ -46,6 +48,8 @@ namespace Summer
 
         protected override void Init()
         {
+            //AssetBundleCreateRequest ab_create_request = AssetBundle.LoadFromFileAsync(_bundle_path);
+
             _assetbundle = AssetBundle.LoadFromFile(_bundle_path);
             _request = _assetbundle.LoadAllAssetsAsync();
         }

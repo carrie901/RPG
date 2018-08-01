@@ -68,6 +68,7 @@ namespace Summer
             _dictionary[key] = value;
             _linked_list.Remove(key);
             _linked_list.AddFirst(key);
+            RemoveNoRefCount();
             if (_linked_list.Count > _capacity)
             {
                 Capacity = Capacity + 4;
@@ -132,7 +133,7 @@ namespace Summer
                 last_privous = last_privous.Previous;
             } while (last_privous != null);
 
-            for (int i = 0; i < need_removes.Count; i++)
+            for (int i = need_removes.Count - 1; i >= 0; i--)
             {
                 RemoveAt(need_removes[i]);
             }

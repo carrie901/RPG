@@ -91,30 +91,8 @@ namespace Summer
             return asset_info;
         }
 
-        public void LoadSyncChildRes(string res_path)
-        {
-            // 1.资源对应的包信息
-            AssetBundleResInfo res_info = GetAssetBundleRes(res_path);
-            if (res_info == null) return;
-
-            // 3.加载依赖信息
-            AssetBundleDepInfo deps_info = GetDepInfo(res_info.package_path);
-            foreach (var dep_info in deps_info.child_ref)
-            {
-                AssetBundlePackageInfo dep_package_info = GetPackageInfo(dep_info.Key);
-                if (!_need_load(dep_package_info))
-                {
-                    dep_package_info.RefParent(res_info.package_path);
-                    continue;
-                }
-
-                _internal_syncload_package(dep_package_info, res_info.package_path);
-            }
-        }
-
         public LoadOpertion LoadAssetAsync(string res_path)
         {
-            UnityEditor.AssetDatabase.GetAllAssetPaths();
             // 1.根据资源的路径找到 AB包
             AssetBundleResInfo res_info = GetAssetBundleRes(res_path);
             if (res_info == null) return null;
@@ -147,21 +125,19 @@ namespace Summer
             return _un_load_assetbundle(asset_info);
         }
 
-        public bool UnLoadChildRes(AssetInfo asset_info)
-        {
-            return _un_load_assetbundle(asset_info, false);
-        }
-
         public void OnUpdate()
         {
             // 1.更新请求
             int length = _on_loading_request.Count - 1;
             for (int i = length; i >= 0; i--)
             {
-                _on_loading_request[i].OnUpdate();
-                if (_on_loading_request[i].IsExit())
+                LoadOpertion opertion = _on_loading_request[i];
+                opertion.OnUpdate();
+                if (opertion.IsExit())
                 {
+                    opertion.UnloadRequest();
                     _on_loading_request.RemoveAt(i);
+                    opertion = null;
                 }
             }
 
@@ -200,7 +176,7 @@ namespace Summer
             package_info.InitAssetBundle(assetbundle, objs);
         }
 
-
+        // TODO BUG:有一定的bug的情况出现，就是如果同步加载和异步加载同时出现
         public bool _need_load(AssetBundlePackageInfo package_info)
         {
             if (package_info == null) return false;
@@ -227,13 +203,17 @@ namespace Summer
             AssetBundleDepInfo deps_info = GetDepInfo(res_info.package_path);
             foreach (var dep_info in deps_info.child_ref)
             {
-                ResLog.Log("引用--,dep_info:[{0}]", dep_info.Key);
-                string dependencies = dep_info.Key;
-                AssetBundlePackageInfo package_info = GetPackageInfo(dependencies);
+                AssetBundlePackageInfo package_info = GetPackageInfo(dep_info.Key);
+                package_info.UnRef(res_info.package_path);
                 package_info.UnLoad();
             }
             if (include_main)
+            {
+                //TODO: Bug 
+                main_package_info.UnRef(res_info.package_path);
                 main_package_info.UnLoad();
+            }
+
             return true;
         }
 

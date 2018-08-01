@@ -28,7 +28,7 @@ using UnityEngine;
 public class TestAssetBundle : MonoBehaviour
 {
 
-    #region 属性
+    /*#region 属性
 
     public AssetBundle _mian_ab;
     public GameObject _panel;
@@ -107,7 +107,7 @@ public class TestAssetBundle : MonoBehaviour
 
     public void _excute_logic_check_time()
     {
-        AssetBundle ab_img = AssetBundle.LoadFromFile(GetRoot() + "uiresources/uitexture/other/activity_yeqian_2.ab");
+       /* AssetBundle ab_img = AssetBundle.LoadFromFile(GetRoot() + "uiresources/uitexture/other/activity_yeqian_2.ab");
         float start_time = Time.realtimeSinceStartup;
         Object o1 = ab_img.LoadAsset("activity_yeqian_2");
         Debug.Log(Time.realtimeSinceStartup - start_time);
@@ -120,7 +120,7 @@ public class TestAssetBundle : MonoBehaviour
         start_time = Time.realtimeSinceStartup;
         Object o4 = ab_img.LoadAsset("activity_yeqian_2");
         Debug.Log(Time.realtimeSinceStartup - start_time);
-        start_time = Time.realtimeSinceStartup;
+        start_time = Time.realtimeSinceStartup;#1#
     }
 
     public IEnumerator UnLoad()
@@ -138,5 +138,5 @@ public class TestAssetBundle : MonoBehaviour
         return Application.streamingAssetsPath + "/rpg/";
     }
 
-    #endregion
+    #endregion*/
 }

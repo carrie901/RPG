@@ -5,7 +5,7 @@ namespace SummerEditor
 {
     public class ModelAssetPostprocessor : AssetPostprocessor
     {
-        public static Material s_material;
+        /*public static Material s_material;
         public static string asset_material_path;
 
         public void OnPreprocessModel()
@@ -31,7 +31,7 @@ namespace SummerEditor
             if (s_material != null) return;
             s_material = AssetDatabase.LoadAssetAtPath<Material>(asset_material_path);
             Debug.Log("初始化材质球");
-        }
+        }*/
     }
 }
 

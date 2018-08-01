@@ -55,6 +55,7 @@ namespace Summer
         #endregion
 
         #region public 
+
         public void InitAssetBundle(AssetBundle ab, Object[] objs)
         {
             if (ab == null) return;
@@ -77,8 +78,6 @@ namespace Summer
                     //_fbx.Add(objs[i]);
                 }
             }
-
-            //ab.Unload(false);
         }
 
         public AssetInfo GetAsset(string asset_name)
@@ -106,6 +105,7 @@ namespace Summer
 
         public void UnLoad()
         {
+            ResLog.Log("[{0}]引用--,Ref:[{1}]", PackagePath, RefCount);
             if (RefCount > 0) return;
 
             ResLog.Assert(RefCount == 0, "ab package ref error:[{0}]", RefCount);
@@ -134,9 +134,10 @@ namespace Summer
         public void RefParent(string parent_path)
         {
             if (string.IsNullOrEmpty(parent_path)) return;
-            bool result = _ref_list.Contains(parent_path);
-            LogManager.Assert(!result, "已经包含了相关资源,[{0}],爸爸是:[{1}]", PackagePath, parent_path);
-            if (result) return;
+            if (_ref_list.Contains(parent_path)) return;
+            //bool result = _ref_list.Contains(parent_path);
+            //LogManager.Assert(!result, "已经包含了相关资源,[{0}],爸爸是:[{1}]", PackagePath, parent_path);
+            //if (result) return;
             _ref_list.Add(parent_path);
             RefCount++;
         }
@@ -151,6 +152,17 @@ namespace Summer
         }
 
         #endregion
+
+        #endregion
+
+        #region
+
+        public bool _loading_complete()
+        {
+            if (!IsComplete || _assetbundle == null || _asset_map.Count == 0) return false;
+            return true;
+
+        }
 
         #endregion
     }

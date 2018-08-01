@@ -7,7 +7,7 @@ namespace SummerEditor
     public class EAssetBundleConst
     {
         public static string main_res_driectory = "Assets/res_bundle/";                             // 主资源扫描的目录
-        
+        public static string ui_main_directory = "Assets/UIResources/UITexture/";                   // 主资源扫描的目录
         public const string SUFFIX_META = ".meta";                                                  // 忽略资源主目录的类型
 
         public const string ASSETBUNDLE_EXTENSION = ".ab";                      // 后缀名

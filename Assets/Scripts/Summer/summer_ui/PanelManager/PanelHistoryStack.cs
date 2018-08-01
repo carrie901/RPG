@@ -41,7 +41,7 @@ namespace Summer
         protected readonly List<PanelInfo> _panel_history = new List<PanelInfo>(64);
         protected PanelInfo _curr_view;
 
-        
+
 
         #endregion
 
@@ -50,7 +50,7 @@ namespace Summer
         public BaseView Open(PanelInfo view_data)
         {
             BaseView base_view = _internal_open(view_data);
-            
+
             //PanelLog.Log("-->当前界面:[{0}]",_curr_view.ViewId);
             return base_view;
         }
@@ -231,10 +231,31 @@ namespace Summer
 
     public class PanelHistoryInfo : I_PoolCacheRef
     {
-        public static PanelHistoryInfo Instance = new PanelHistoryInfo();
+        //public static PanelHistoryInfo Instance = new PanelHistoryInfo();
+
+        public E_ViewId _view_id;
+
+        public static Dictionary<E_ViewId, PanelHistoryInfo> _map = new Dictionary<E_ViewId, PanelHistoryInfo>();
+        public static PanelHistoryInfo Get(E_ViewId view_id)
+        {
+            if (_map.ContainsKey(view_id))
+                return _map[view_id];
+            else
+            {
+                PanelHistoryInfo info = new PanelHistoryInfo();
+                info._view_id = view_id;
+                _map.Add(view_id, info);
+                return info;
+            }
+        }
+
         public int GetRefCount()
         {
-            return 0;
+            bool result = PanelFactory.Instance.CheckPanelState(_view_id);
+            if (result)
+                return 1;
+            else
+                return 0;
         }
     }
 }

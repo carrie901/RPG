@@ -1,4 +1,5 @@
-﻿using Object = UnityEngine.Object;
+﻿#if UNITY_EDITOR
+using Object = UnityEngine.Object;
 
 namespace Summer
 {
@@ -33,7 +34,7 @@ namespace Summer
             frame--;
             if (frame > 0) return false;
 
-#if UNITY_EDITOR
+
 
 
             _obj = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(RequestResPath);
@@ -47,7 +48,7 @@ namespace Summer
                 ForceExit(string.Format("本地加载资源出错,Path:[{0}]", RequestResPath));
                 return false;
             }
-#endif
+
         }
 
         protected override void Complete()
@@ -63,4 +64,5 @@ namespace Summer
         #endregion
     }
 }
+#endif
 

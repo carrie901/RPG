@@ -41,20 +41,31 @@ namespace Summer
             = new Dictionary<E_ViewId, BaseView>(PanelComparer.Instance);
 
         public PoolPanelCache<E_ViewId, PanelHistoryInfo> _panel_cache
-            = new PoolPanelCache<E_ViewId, PanelHistoryInfo>(8);
+            = new PoolPanelCache<E_ViewId, PanelHistoryInfo>(2);
+
+        public static PanelFactory Instance = new PanelFactory();
 
         public PanelFactory()
         {
-            _panel_cache.AddIgnoreKey(E_ViewId.main);
+            //_panel_cache.AddIgnoreKey(E_ViewId.main);
             _panel_cache.OnRemoveValueEvent += OnRemoveValueEvent;
         }
 
         #region public 
 
+        public bool CheckPanelState(E_ViewId view_id)
+        {
+            BaseView base_view;
+            _panel_map.TryGetValue(view_id, out base_view);
+            if (base_view == null) return false;
+
+            return base_view.gameObject.activeSelf;
+        }
+
         public BaseView Open(PanelInfo view_info)
         {
             BaseView base_view = _internal_open(view_info);
-            _panel_cache.Set(view_info.ViewId, PanelHistoryInfo.Instance);
+            _panel_cache.Set(view_info.ViewId, PanelHistoryInfo.Get(view_info.ViewId));
             return base_view;
         }
 
@@ -64,10 +75,22 @@ namespace Summer
             _internal_close(view_info);
         }
 
-        public void Destory(PanelInfo view_info)
+        public void Destory(PanelInfo info)
         {
-            if (view_info == null) return;
-            _internal_destroy(view_info);
+            if (info == null) return;
+
+            BaseView base_view;
+            _panel_map.TryGetValue(info.ViewId, out base_view);
+            E_ViewId view_id = info.ViewId;
+            if (base_view == null) return;
+
+            _panel_map.Remove(view_id);
+
+            base_view.OnDestroySelf();
+            GameObjectHelper.DestroySelf(base_view.gameObject);
+
+            ResRequestInfo res_request_info = ResRequestFactory.CreateRequest<GameObject>(info.GetPfbName, E_GameResType.ui_prefab);
+            ResLoader.instance.UnloadRes(res_request_info);
         }
 
         #endregion
@@ -112,16 +135,6 @@ namespace Summer
             GameObjectHelper.SetActive(base_view.gameObject, false);
         }
 
-        public void _internal_destroy(PanelInfo data)
-        {
-            E_ViewId view_id = data.ViewId;
-            if (!_panel_map.ContainsKey(view_id)) return;
-            BaseView base_view = _panel_map[view_id];
-            base_view.OnDestroySelf();
-            ResRequestInfo res_request_info = ResRequestFactory.CreateRequest<GameObject>(data.GetPfbName, E_GameResType.quanming);
-            ResLoader.instance.UnLoadChildRes(res_request_info);
-        }
-
         // 第一次打开界面的相关步骤
         public BaseView _first_open_panel(PanelInfo data)
         {
@@ -146,12 +159,8 @@ namespace Summer
         // 再一次打开
         public BaseView _again_open_panel(PanelInfo data)
         {
-            ResRequestInfo res_request = ResRequestFactory.CreateRequest<GameObject>(data.GetPfbName, E_GameResType.ui_prefab);
-            ResLoader.instance.CheckChildAssetAndLoad(res_request);
-
             BaseView base_view = _panel_map[data.ViewId];
             base_view.SetPanelData(data);
-
             return base_view;
         }
 

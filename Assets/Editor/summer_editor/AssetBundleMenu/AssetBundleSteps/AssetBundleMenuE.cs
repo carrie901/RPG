@@ -62,7 +62,7 @@ namespace SummerEditor
 
         #region 测试
 
-        [MenuItem("Tools/AssetBundle/测试/根据目录名设置主AssetBundle Name")]
+        [MenuItem("Tools/AssetBundle/测试/1.根据目录名设置主AssetBundle Name")]
         public static void TestSetAllAssetBundleName()
         {
             string[] all_ab_names = AssetDatabase.GetAllAssetBundleNames();
@@ -70,12 +70,16 @@ namespace SummerEditor
             AssetBundleSetNameE.OblyMainAbName();
         }
 
-        [MenuItem("Tools/AssetBundle/测试/设置选中的文件的AssetBundle")]
+        [MenuItem("Tools/AssetBundle/测试/3.设置选中的文件的AssetBundle")]
         public static void TestSelectSetAllAssetBundleName()
         {
             AssetBundleSetNameE.SetSelectionAssetBundleName();
         }
-
+        [MenuItem("Tools/AssetBundle/测试/2.设置选中的文件的AssetBundle(上层)")]
+        public static void Test1()
+        {
+            AssetBundleSetNameE.SetSelectionAssetBundleName1();
+        }
         #endregion
 
         #region 选中物体
