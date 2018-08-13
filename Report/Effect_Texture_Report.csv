@@ -1,0 +1,17 @@
+特效名称,占用内存,纹理个数
+eff_change_character_01,0,0,Assets/res_bundle/prefab/vfx/Skill/eff_change_character_01.prefab,
+eff_H_ZhaoYun_01_attack_01,149.6563,2,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_01.prefab,path_0045:64|path_0028:85|
+eff_H_ZhaoYun_01_attack_02,149.6563,2,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_02.prefab,path_0045:64|path_0028:85|
+eff_H_ZhaoYun_01_attack_03,379.3374,5,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_03.prefab,path_0045:64|path_0028:85|daoguang_0030:170|ring_0015:42|object_0003:16|
+eff_H_ZhaoYun_01_attack_04,149.6563,2,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_04.prefab,path_0045:64|path_0028:85|
+eff_H_ZhaoYun_01_attack_05,192.9497,5,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_05.prefab,wenli_0016:64|path_0010:21|mask_0005:10|smoke_0001:64|glow_0002:32|
+eff_H_ZhaoYun_01_attack_06,352.7368,5,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_06.prefab,path_0045:64|path_0028:85|daoguang_0028:85|glow_0020:32|daoguang_0033:85|
+eff_H_ZhaoYun_01_peerless,374.5889,8,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_peerless.prefab,glow_0002:32|glow_0020:32|path_0024:21|wenli_0014:10|wenli_0012:85|wenli_0001:21|smoke_0031:85|ring_0011:85|
+eff_H_ZhaoYun_01_skill_01,1225.385,13,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_01.prefab,smoke_0001:64|glow_0002:32|path_0045:64|path_0028:85|glow_0020:32|daoguang_0033:85|ring_0011:85|Default-Particle:21|glow_0019:42|daoguang_0012:341|daoguang_0016:341|path_0013:8|smoke_0015:21|
+eff_H_ZhaoYun_01_skill_02,401.0791,7,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_02.prefab,path_0045:64|path_0028:85|object_0003:16|smoke_0031:85|Default-Particle:21|path_0050:85|path_0012:42|
+eff_H_ZhaoYun_01_skill_02_G,635.2217,6,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_02_G.prefab,object_0003:16|smoke_0031:85|glow_0019:42|dilie_0014:341|dilie_0004:85|glow_0001:64|
+eff_H_ZhaoYun_01_skill_03,502.3774,7,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_03.prefab,path_0045:64|path_0028:85|daoguang_0028:85|glow_0020:32|daoguang_0033:85|smoke_0031:85|path_0041:64|
+eff_H_ZhaoYun_01_skill_04,491.479,6,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_04.prefab,wenli_0016:64|path_0045:64|path_0028:85|smoke_0031:85|Default-Particle:21|path_0051:170|
+eff_H_ZhaoYun_01_skill_05,652.769,13,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_05.prefab,glow_0002:32|path_0045:64|path_0028:85|daoguang_0028:85|glow_0020:32|wenli_0001:21|smoke_0031:85|Default-Particle:21|glow_0019:42|smoke_0015:21|path_0050:85|glow_0022:32|ring_0018:42|
+eff_H_ZhaoYun_01_skill_05_G,725.9102,7,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_05_G.prefab,daoguang_0033:85|wenli_0001:21|Default-Particle:21|dilie_0014:341|dilie_0004:85|daoguang_0034:85|daoguang_0035:85|
+eff_H_ZhaoYun_01_skill_05_G_1,720.6616,7,Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_05_G_1.prefab,object_0003:16|smoke_0031:85|glow_0019:42|path_0050:85|dilie_0014:341|dilie_0004:85|glow_0001:64|

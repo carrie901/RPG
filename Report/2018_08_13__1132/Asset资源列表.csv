@@ -1,0 +1,17 @@
+资源名称,内存大小,内建资源,资源类型,被引用的个数,对应的AB包名称
+CH_Barbarian01_E_Tall4,410891,False,mesh,1,test_model_01.ab
+WP01_Barbarian01_E_Tall4,23988,False,mesh,1,test_model_01.ab
+WP02_Barbarian01_E_Tall4,7332,False,mesh,1,test_model_01.ab
+CH_Barbarian01_E_Tall4,1224,False,material,1,test_model_01.ab
+CH_Barbarian01_E_Tall4,4191294,False,texture,1,test_model_01.ab
+Legacy Shaders/Transparent/Cutout/Diffuse,374715,False,shader,1,test_model_01.ab
+Legacy Shaders/Transparent/Cutout/VertexLit,186089,False,shader,1,test_model_01.ab
+Tall4_Attack_1,61268,False,animation_clip,1,test_model_01.ab
+Tall4_Attack_2,61956,False,animation_clip,1,test_model_01.ab
+Tall4_Attack_Summon,65412,False,animation_clip,1,test_model_01.ab
+Tall4_Damage,36276,False,animation_clip,1,test_model_01.ab
+Tall4_Dash_1,25488,False,animation_clip,1,test_model_01.ab
+Tall4_Death_1,113416,False,animation_clip,1,test_model_01.ab
+Tall4_Idle_1,53448,False,animation_clip,1,test_model_01.ab
+Tall4_Move_1,46252,False,animation_clip,1,test_model_01.ab
+Tall4_Stun_1,60996,False,animation_clip,1,test_model_01.ab

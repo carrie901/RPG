@@ -12,7 +12,7 @@ namespace SummerEditor
 
         public static Dictionary<string, ESpriteCnf01> _sprite_infos = new Dictionary<string, ESpriteCnf01>();
 
-        [MenuItem("Tools/UI/添加脚本")]
+        [MenuItem("Tools/待定/添加脚本")]
         public static void CheckSprite()
         {
             List<GameObject> pfb_gos = new List<GameObject>();

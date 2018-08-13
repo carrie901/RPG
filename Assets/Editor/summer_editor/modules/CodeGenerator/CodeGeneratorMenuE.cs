@@ -7,7 +7,7 @@ namespace SummerEditor
 {
     public class CodeGeneratorMenuE
     {
-        [MenuItem("Tools/Csv工具/1.生成cs代码", false, 1)]
+        /*[MenuItem("Tools/Csv工具/1.生成cs代码", false, 1)]
         public static bool CreateCode()
         {
             try
@@ -39,6 +39,6 @@ namespace SummerEditor
         public static void WriteLocal()
         {
             CodeGenerator.WriteLocal();
-        }
+        }*/
     }
 }

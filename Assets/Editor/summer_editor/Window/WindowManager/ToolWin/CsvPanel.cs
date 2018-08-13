@@ -21,7 +21,10 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
+using System;
 using System.Collections.Generic;
+using Summer;
+
 namespace SummerEditor
 {
     public class CsvPanel : EComponent
@@ -73,7 +76,7 @@ namespace SummerEditor
             anchor = AddComponentRight(_csv_to_byte_btn, anchor);
             anchor = AddComponentRight(_check_byte_btn, anchor);
             anchor = AddComponentRight(_check_csv_vaild, anchor);
-            
+
         }
 
         private void ClickCheckCsvVaild(EButton button)
@@ -83,19 +86,28 @@ namespace SummerEditor
 
         private void ClickCsvToCs(EButton button)
         {
-            bool result = CodeGeneratorMenuE.CreateCode();
-            if (result)
-                UnityEditor.EditorUtility.DisplayDialog("", "Csv生成cs文件成功", "Ok");
+            try
+            {
+                CodeGenerator.CreateCode();
+                UnityEditor.EditorUtility.DisplayDialog("Csv生成cs文件成功", "", "Ok");
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.Log(e.Message);
+                UnityEditor.EditorUtility.DisplayDialog("Csv生成cs文件失败", e.Message, "Ok");
+            }
         }
 
         public void ClickToByte(EButton button)
         {
-            CodeGeneratorMenuE.WriteByte();
+            StaticCnf.Clear();
+            ConfigManager.ReadLocalConfig();
+            ConfigManager.WriteByteConfig();
         }
 
         public void ClickCheckByte(EButton button)
         {
-            CodeGeneratorMenuE.ReadByte();
+            CodeGenerator.ReadByte();
         }
 
 

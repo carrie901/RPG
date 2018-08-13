@@ -1,0 +1,15 @@
+AssetBundle 名称
+test_model_01.ab
+ , OK
+,,贴图,CH_Barbarian01_E_Tall4
+,,网格数,WP02_Barbarian01_E_Tall4,CH_Barbarian01_E_Tall4,WP01_Barbarian01_E_Tall4
+,,材质球,CH_Barbarian01_E_Tall4
+,,着色器,Legacy Shaders/Transparent/Cutout/Diffuse,Legacy Shaders/Transparent/Cutout/VertexLit
+,,动作文件,Tall4_Dash_1,Tall4_Death_1,Tall4_Damage,Tall4_Idle_1,Tall4_Attack_2,Tall4_Attack_1,Tall4_Move_1,Tall4_Stun_1,Tall4_Attack_Summon
+ , 冗余[0]
+,,贴图(0.00)
+,,网格数(0.00)
+,,材质球(0.00)
+,,着色器(0.00)
+,,动作文件(0.00)
+

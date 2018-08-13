@@ -1,0 +1,4 @@
+网格名字,顶点数,面数,子网格数,网格压缩,Read/Write
+CH_Barbarian01_E_Tall4,2860,3489,1,Off,True,test_model_01.ab
+WP01_Barbarian01_E_Tall4,209,198,1,Off,True,test_model_01.ab
+WP02_Barbarian01_E_Tall4,53,58,1,Off,True,test_model_01.ab

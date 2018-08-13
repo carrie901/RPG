@@ -42,7 +42,7 @@ namespace SummerEditor
         static float buff_width = 1400;
         static float buff_height = 800;
 
-        [MenuItem("Tools/面板/Buff编辑器")]
+        //[MenuItem("Tools/面板/Buff编辑器")]
         public static void Init()
         {
             window = EditorWindow.GetWindow<BuffWindow>();   // 创建自定义窗体

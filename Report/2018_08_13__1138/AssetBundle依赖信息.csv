@@ -1,0 +1,869 @@
+AssetBundle 名称
+raw/animation/zhaoyun/climb_down.ab
+ , OK
+,,动作文件,climb_down
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/climb_up.ab
+ , OK
+,,动作文件,climb_up
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/die.ab
+ , OK
+,,动作文件,die
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/down_flow.ab
+ , OK
+,,动作文件,Down_Flow
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/fall.ab
+ , OK
+,,动作文件,fall
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/fear.ab
+ , OK
+,,动作文件,fear
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/gather.ab
+ , OK
+,,动作文件,gather
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/jump_down.ab
+ , OK
+,,动作文件,jump_Down
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/jump_flow.ab
+ , OK
+,,动作文件,jump_Flow
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/knockhit.ab
+ , OK
+,,动作文件,KnockHit
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/knockhit_left.ab
+ , OK
+,,动作文件,KnockHit_left
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/knockhit_right.ab
+ , OK
+,,动作文件,KnockHit_right
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/knockhit_up.ab
+ , OK
+,,动作文件,KnockHit_up
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/knockhitdown.ab
+ , OK
+,,动作文件,KnockHitDown
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/knockhitdown_left.ab
+ , OK
+,,动作文件,KnockHitDown_left
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/knockhitdown_right.ab
+ , OK
+,,动作文件,KnockHitDown_right
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/knockhitdown_up.ab
+ , OK
+,,动作文件,KnockHitDown_up
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/knockhitflow.ab
+ , OK
+,,动作文件,KnockHitFlow
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/knockhitflow_left.ab
+ , OK
+,,动作文件,KnockHitFlow_left
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/knockhitflow_right.ab
+ , OK
+,,动作文件,KnockHitFlow_right
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/knockhitflow_up.ab
+ , OK
+,,动作文件,KnockHitFlow_up
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/peerless_01.ab
+ , OK
+,,动作文件,Peerless_01
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/skill_ex_01.ab
+ , OK
+,,动作文件,skill_ex_01
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/stand.ab
+ , OK
+,,动作文件,stand
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/stand_show.ab
+ , OK
+,,动作文件,stand_show
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/take 001.ab
+ , OK
+,,动作文件,Take 001
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/up.ab
+ , OK
+,,动作文件,up
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/up_left.ab
+ , OK
+,,动作文件,up_left
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/up_right.ab
+ , OK
+,,动作文件,up_right
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/up_up.ab
+ , OK
+,,动作文件,up_up
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/vertigo.ab
+ , OK
+,,动作文件,vertigo
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animation/zhaoyun/walk.ab
+ , OK
+,,动作文件,walk
+ , 冗余[0]
+,,动作文件(0.00)
+
+raw/animator/normal.ab
+ , OK
+,,动作文件
+ , 冗余[17]
+,,动作文件(1985.23),attack_05(120.02Kb),run(25.09Kb),skill_01(450.07Kb),idle(26.03Kb),skill_02(143.69Kb),skill_03(85.19Kb),skill_04(73.27Kb),attack_04(113.79Kb),attack_06(151.32Kb),skill_05(166.90Kb),skill_10(50.27Kb),skill_11(90.81Kb),jump(87.07Kb),hit(31.10Kb),attack_02(116.36Kb),attack_03(135.98Kb),attack_01(118.27Kb)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_dilie_0004.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_01_skill_02_G_dilie_0004
+ , 冗余[0]
+,,材质球(0.00)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_dilie_0014.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_01_skill_02_G_dilie_0014
+ , 冗余[0]
+,,材质球(0.00)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_glow_0001.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_01_skill_02_G_glow_0001
+ , 冗余[0]
+,,材质球(0.00)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_object_0004.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_01_skill_02_object_0004
+,,着色器
+ , 冗余[1]
+,,材质球(0.00)
+,,着色器(12.26),Particles/Additive(12.26Kb)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_path_0050.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_01_skill_02_path_0050
+ , 冗余[0]
+,,材质球(0.00)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_smoke_0031_alp.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_01_skill_02_smoke_0031_alp
+ , 冗余[0]
+,,材质球(0.00)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_daoguang_0028.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_daoguang_0028
+ , 冗余[0]
+,,材质球(0.00)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_daoguang_0028_niuqu.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_daoguang_0028_niuqu
+,,着色器,SSS/Distortion
+ , 冗余[0]
+,,材质球(0.00)
+,,着色器(0.00)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0002.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_glow_0002
+ , 冗余[0]
+,,材质球(0.00)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0019.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_glow_0019
+ , 冗余[0]
+,,材质球(0.00)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0020.ab
+ , OK
+,,贴图,glow_0020
+,,材质球,eff_H_ZhaoYun_glow_0020
+,,着色器
+ , 冗余[1]
+,,贴图(0.00)
+,,材质球(0.00)
+,,着色器(12.26),Particles/Additive(12.26Kb)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_path_0028
+,,着色器
+ , 冗余[1]
+,,材质球(0.00)
+,,着色器(12.26),Particles/Additive(12.26Kb)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028_rongjie.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_path_0028_rongjie
+ , 冗余[0]
+,,材质球(0.00)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_ring_0011.ab
+ , OK
+,,贴图,ring_0011
+,,材质球,eff_H_ZhaoYun_ring_0011
+,,着色器
+ , 冗余[1]
+,,贴图(0.00)
+,,材质球(0.00)
+,,着色器(12.26),Particles/Additive(12.26Kb)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_shuxian.ab
+ , OK
+,,贴图,path_0045
+,,材质球,eff_H_ZhaoYun_shuxian
+,,着色器
+ , 冗余[1]
+,,贴图(0.00)
+,,材质球(0.00)
+,,着色器(12.26),Particles/Additive(12.26Kb)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_smoke_0001.ab
+ , OK
+,,贴图,smoke_0001
+,,材质球,eff_H_ZhaoYun_smoke_0001
+,,着色器
+ , 冗余[1]
+,,贴图(0.00)
+,,材质球(0.00)
+,,着色器(12.26),Particles/Additive(12.26Kb)
+
+raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_smoke_0015_1.ab
+ , OK
+,,贴图,smoke_0015
+,,材质球,eff_H_ZhaoYun_smoke_0015_1
+,,着色器
+ , 冗余[1]
+,,贴图(0.00)
+,,材质球(0.00)
+,,着色器(12.26),Particles/Additive(12.26Kb)
+
+raw/effects/heroeffects/zhaoyun/mod/eff_h_zhaoyun_attack_06.ab
+ , OK
+,,网格数,eff_H_ZhaoYun_01_attack_06
+,,材质球
+,,着色器
+ , 冗余[3]
+,,网格数(0.00)
+,,材质球(2.28),Default-Material(2.28Kb)
+,,着色器(1562.29),Legacy Shaders/VertexLit(28.35Kb),Standard(1533.94Kb)
+
+raw/effects/shaders/displacement map add.ab
+ , OK
+,,着色器,SSS/Displacement Map Add
+ , 冗余[0]
+,,着色器(0.00)
+
+raw/effects/shaders/spacedistort.ab
+ , OK
+,,着色器,Custom/SpaceDistort
+ , 冗余[0]
+,,着色器(0.00)
+
+raw/effects/shaders/ssseffectone.ab
+ , OK
+,,着色器,SSS/AllInOne
+ , 冗余[0]
+,,着色器(0.00)
+
+raw/effects/textures/daoguang/daoguang_0033.ab
+ , OK
+,,贴图,daoguang_0033
+ , 冗余[0]
+,,贴图(0.00)
+
+raw/effects/textures/daoguang/daoguang_0034.ab
+ , OK
+,,贴图,daoguang_0034
+ , 冗余[0]
+,,贴图(0.00)
+
+raw/effects/textures/object/object_0003.ab
+ , OK
+,,贴图,object_0003
+ , 冗余[0]
+,,贴图(0.00)
+
+raw/effects/textures/path/path_0024.ab
+ , OK
+,,贴图,path_0024
+ , 冗余[0]
+,,贴图(0.00)
+
+raw/effects/textures/path/path_0028.ab
+ , OK
+,,贴图,path_0028
+ , 冗余[0]
+,,贴图(0.00)
+
+raw/effects/textures/path/path_0050.ab
+ , OK
+,,贴图,path_0050
+ , 冗余[0]
+,,贴图(0.00)
+
+raw/effects/textures/path/path_0051.ab
+ , OK
+,,贴图,path_0051
+ , 冗余[0]
+,,贴图(0.00)
+
+raw/effects/textures/smoke/smoke_0031.ab
+ , OK
+,,贴图,smoke_0031
+ , 冗余[0]
+,,贴图(0.00)
+
+raw/effects/textures/wenli/wenli_0001.ab
+ , OK
+,,贴图,wenli_0001
+ , 冗余[0]
+,,贴图(0.00)
+
+raw/effects/textures/wenli/wenli_0012.ab
+ , OK
+,,贴图,wenli_0012
+ , 冗余[0]
+,,贴图(0.00)
+
+raw/effects/textures/wenli/wenli_0014.ab
+ , OK
+,,贴图,wenli_0014
+ , 冗余[0]
+,,贴图(0.00)
+
+raw/effects/textures/wenli/wenli_0016.ab
+ , OK
+,,贴图,wenli_0016
+ , 冗余[0]
+,,贴图(0.00)
+
+raw/model/zhaoyun/h_zhaoyun_01_low.ab
+ , OK
+,,网格数,body,weapon01
+,,材质球
+,,着色器
+,,动作文件,Take 001
+ , 冗余[3]
+,,网格数(0.00)
+,,材质球(2.28),Default-Material(2.28Kb)
+,,着色器(1562.29),Legacy Shaders/VertexLit(28.35Kb),Standard(1533.94Kb)
+,,动作文件(0.00)
+
+raw/other/skillarea/materials/item_028_p_3_blue.ab
+ , OK
+,,贴图,item_0281
+,,材质球,item_028_p_3_blue
+,,着色器,Particles/Alpha Blended_game
+ , 冗余[0]
+,,贴图(0.00)
+,,材质球(0.00)
+,,着色器(0.00)
+
+res_bundle/depconfig.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/icon/skill/ico_h_zhaoyun_01_attack_01_01.ab
+ , OK
+,,贴图
+,, 图集数,ico_H_ZhaoYun_01_attack_01_01
+ , 冗余[1]
+,,贴图(192.50),SpriteAtlasTexture-skill-512x128-fmt47(192.50Kb)
+,, 图集数(0.00)
+
+res_bundle/icon/skill/ui_arrow_ico_01.ab
+ , OK
+,,贴图
+,, 图集数,UI_Arrow_Ico_01
+ , 冗余[1]
+,,贴图(192.50),SpriteAtlasTexture-skill-512x128-fmt47(192.50Kb)
+,, 图集数(0.00)
+
+res_bundle/icon/skill/ui_arrow_ico_02.ab
+ , OK
+,,贴图,UI_Arrow_Ico_02
+ , 冗余[0]
+,,贴图(0.00)
+
+res_bundle/packageconfig.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/prefab/model/character/ch_barbarian01_e_tall4.ab
+ , OK
+,,贴图,CH_Barbarian01_E_Tall4
+,,网格数,CH_Barbarian01_E_Tall4,WP01_Barbarian01_E_Tall4,WP02_Barbarian01_E_Tall4
+,,材质球,CH_Barbarian01_E_Tall4
+,,着色器,Legacy Shaders/Transparent/Cutout/Diffuse,Legacy Shaders/Transparent/Cutout/VertexLit
+,,动作文件,Tall4_Idle_1,Tall4_Attack_2,Tall4_Damage,Tall4_Dash_1,Tall4_Death_1,Tall4_Attack_1,Tall4_Move_1,Tall4_Stun_1,Tall4_Attack_Summon
+ , 冗余[0]
+,,贴图(0.00)
+,,网格数(0.00)
+,,材质球(0.00)
+,,着色器(0.00)
+,,动作文件(0.00)
+
+res_bundle/prefab/model/character/ch_niumo01_e_hstrong1.ab
+ , OK
+,,贴图,CH_NiuMo01_E_HStrong1
+,,网格数,WP_NiuMo01_E_HStrong1,CH_NiuMo01_E_HStrong1
+,,材质球,CH_NiuMo01_E_HStrong1
+,,着色器
+ , 冗余[2]
+,,贴图(0.00)
+,,网格数(0.00)
+,,材质球(0.00)
+,,着色器(169.63),Legacy Shaders/Diffuse(141.28Kb),Legacy Shaders/VertexLit(28.35Kb)
+
+res_bundle/prefab/model/character/ch_thunderreaper01_w_hfat1.ab
+ , OK
+,,贴图,CH_ThunderReaper01_W_HFat1
+,,网格数,WP_ThunderReaper01L_W_HFat002,CH_ThunderReaper01_W_HFat1,WP_ThunderReaper01R_W_HFat1
+,,材质球,CH_ThunderReaper01_W_HFat1
+,,着色器
+,,动作文件,HFat1_Idle_1
+ , 冗余[2]
+,,贴图(0.00)
+,,网格数(0.00)
+,,材质球(0.00)
+,,着色器(169.63),Legacy Shaders/Diffuse(141.28Kb),Legacy Shaders/VertexLit(28.35Kb)
+,,动作文件(0.00)
+
+res_bundle/prefab/model/character/ch_windelite01_w_elite1.ab
+ , OK
+,,贴图,CH_WindElite01_W_Elite1
+,,网格数,CH_WindElite01_W_Elite1
+,,材质球,CH_WindElite01_W_Elite1
+,,着色器
+ , 冗余[2]
+,,贴图(0.00)
+,,网格数(0.00)
+,,材质球(0.00)
+,,着色器(1562.29),Legacy Shaders/VertexLit(28.35Kb),Standard(1533.94Kb)
+
+res_bundle/prefab/model/character/npc_zhaoyun_001_01.ab
+ , OK
+,,网格数,body,weapon01
+,,材质球
+,,着色器
+,,动作文件
+ , 冗余[20]
+,,网格数(0.00)
+,,材质球(2.28),Default-Material(2.28Kb)
+,,着色器(1562.29),Legacy Shaders/VertexLit(28.35Kb),Standard(1533.94Kb)
+,,动作文件(1985.23),skill_01(450.07Kb),skill_02(143.69Kb),skill_03(85.19Kb),skill_04(73.27Kb),skill_05(166.90Kb),skill_10(50.27Kb),skill_11(90.81Kb),attack_01(118.27Kb),attack_02(116.36Kb),attack_03(135.98Kb),attack_04(113.79Kb),attack_05(120.02Kb),attack_06(151.32Kb),hit(31.10Kb),idle(26.03Kb),jump(87.07Kb),run(25.09Kb)
+
+res_bundle/prefab/model/character/npc_zhaoyun_001_02.ab
+ , OK
+,,材质球
+,,着色器
+,,动作文件,attack_01
+ , 冗余[19]
+,,材质球(2.28),Default-Material(2.28Kb)
+,,着色器(1562.29),Legacy Shaders/VertexLit(28.35Kb),Standard(1533.94Kb)
+,,动作文件(1866.95),attack_06(151.32Kb),hit(31.10Kb),idle(26.03Kb),attack_03(135.98Kb),jump(87.07Kb),run(25.09Kb),skill_01(450.07Kb),skill_02(143.69Kb),skill_03(85.19Kb),skill_04(73.27Kb),skill_05(166.90Kb),skill_10(50.27Kb),skill_11(90.81Kb),attack_04(113.79Kb),attack_05(120.02Kb),attack_02(116.36Kb)
+
+res_bundle/prefab/model/character/npc_zhaoyun_001_03.ab
+ , OK
+,,材质球
+,,着色器
+,,动作文件
+ , 冗余[20]
+,,材质球(2.28),Default-Material(2.28Kb)
+,,着色器(1562.29),Legacy Shaders/VertexLit(28.35Kb),Standard(1533.94Kb)
+,,动作文件(1985.23),attack_02(116.36Kb),attack_06(151.32Kb),hit(31.10Kb),idle(26.03Kb),attack_03(135.98Kb),skill_02(143.69Kb),skill_03(85.19Kb),skill_04(73.27Kb),skill_05(166.90Kb),jump(87.07Kb),run(25.09Kb),skill_01(450.07Kb),skill_10(50.27Kb),skill_11(90.81Kb),attack_04(113.79Kb),attack_05(120.02Kb),attack_01(118.27Kb)
+
+res_bundle/prefab/other/skillarea/chang_hero.ab
+ , OK
+,,贴图,item_027_2,item_027_1
+,,材质球,item_027_2,item_027_1
+,,着色器
+ , 冗余[1]
+,,贴图(0.00)
+,,材质球(0.00)
+,,着色器(38.75),Particles/Alpha Blended(38.75Kb)
+
+res_bundle/prefab/other/skillarea/cir_hero.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/prefab/other/skillarea/quan_hero.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/prefab/other/skillarea/shan_hero_120.ab
+ , OK
+,,贴图,yujing120du
+,,材质球,yujing120du
+,,着色器
+ , 冗余[1]
+,,贴图(0.00)
+,,材质球(0.00)
+,,着色器(38.75),Particles/Alpha Blended(38.75Kb)
+
+res_bundle/prefab/other/skillarea/shan_hero_60.ab
+ , OK
+,,贴图,yujing60du
+,,材质球,yujing60du
+,,着色器
+ , 冗余[1]
+,,贴图(0.00)
+,,材质球(0.00)
+,,着色器(38.75),Particles/Alpha Blended(38.75Kb)
+
+res_bundle/prefab/ui/dialogalert.ab
+ , OK
+,,贴图
+,,材质球
+,,着色器
+ , 冗余[4]
+,,贴图(128.34),Font Texture(128.34Kb)
+,,材质球(0.86),Font Material(0.86Kb)
+,,着色器(90.33),GUI/Text Shader(90.33Kb)
+
+res_bundle/prefab/ui/dialogalertmain.ab
+ , OK
+,,贴图
+,,材质球
+,,着色器
+ , 冗余[4]
+,,贴图(128.34),Font Texture(128.34Kb)
+,,材质球(0.86),Font Material(0.86Kb)
+,,着色器(90.33),GUI/Text Shader(90.33Kb)
+
+res_bundle/prefab/ui/panellogin.ab
+ , OK
+,,贴图
+,,材质球
+,,着色器
+ , 冗余[4]
+,,贴图(128.34),Font Texture(128.34Kb)
+,,材质球(0.86),Font Material(0.86Kb)
+,,着色器(90.33),GUI/Text Shader(90.33Kb)
+
+res_bundle/prefab/ui/panelmain.ab
+ , OK
+,,贴图
+,,材质球
+,,着色器
+ , 冗余[4]
+,,贴图(128.34),Font Texture(128.34Kb)
+,,材质球(0.86),Font Material(0.86Kb)
+,,着色器(90.33),GUI/Text Shader(90.33Kb)
+
+res_bundle/prefab/ui/rootpanel.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/prefab/vfx/skill/eff_change_character_01.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_attack_01.ab
+ , OK
+,,网格数,eff_H_ZhaoYun_attack_01
+,,动作文件,eff_H_ZhaoYun_01_attack_01
+ , 冗余[0]
+,,网格数(0.00)
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_attack_02.ab
+ , OK
+,,网格数,eff_H_ZhaoYun_attack_02
+,,动作文件,eff_H_ZhaoYun_01_attack_02
+ , 冗余[0]
+,,网格数(0.00)
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_attack_03.ab
+ , OK
+,,网格数,eff_H_ZhaoYun_01_attack_03
+,,材质球,eff_H_ZhaoYun_ring_0015,eff_H_ZhaoYun_daoguang_0030,eff_H_ZhaoYun_object_0003
+,,动作文件,eff_H_ZhaoYun_01_attack_03
+ , 冗余[0]
+,,网格数(0.00)
+,,材质球(0.00)
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_attack_04.ab
+ , OK
+,,网格数,eff_H_ZhaoYun_01_attack_04
+,,动作文件,eff_H_ZhaoYun_01_attack_04
+ , 冗余[0]
+,,网格数(0.00)
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_attack_05.ab
+ , OK
+,,材质球,eff_H_ZhaoYun_path_0005_alp,eff_H_ZhaoYun_path_0005,eff_H_ZhaoYun_wenli_0005
+,,动作文件,eff_H_ZhaoYun_01_attack_05
+ , 冗余[0]
+,,材质球(0.00)
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_attack_06.ab
+ , OK
+,,动作文件,eff_H_ZhaoYun_01_attack_06
+ , 冗余[0]
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_peerless.ab
+ , OK
+,,网格数,Mod_zhaoyun_peerless_banyuan
+,,材质球,eff_H_ZhaoYun_01_peerless_path_0024_1,eff_H_ZhaoYun_01_peerless_wenli_0012,eff_H_ZhaoYun_01_peerless_wenli_0001,eff_H_ZhaoYun_01_peerless_path_0024,eff_H_ZhaoYun_01_peerless_path_0024_2
+,,动作文件,eff_H_ZhaoYun_01_peerless
+ , 冗余[0]
+,,网格数(0.00)
+,,材质球(0.00)
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_skill_01.ab
+ , OK
+,,贴图,path_0013,daoguang_0016,daoguang_0012
+,,网格数,eff_H_ZhaoYun_01_skill_01_1,eff_H_ZhaoYun_01_skill_01_4,eff_H_ZhaoYun_01_skill_01_2,eff_H_ZhaoYun_01_skill_01_3
+,,材质球,eff_H_ZhaoYun_path_0013,eff_H_ZhaoYun_daoguang_0012,eff_H_ZhaoYun_daoguang_0016,eff_H_ZhaoYun_daoguang_0033
+,,着色器
+,,动作文件,eff_H_ZhaoYun_01_skill_01
+ , 冗余[5]
+,,贴图(64.37),Default-Particle(64.37Kb)
+,,网格数(0.00)
+,,材质球(1.05),Default-Particle(1.05Kb)
+,,着色器(88.99),Particles/Additive(12.26Kb),Particles/Alpha Blended(38.75Kb),Particles/Alpha Blended Premultiply(37.98Kb)
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_skill_02.ab
+ , OK
+,,贴图
+,,网格数,eff_H_ZhaoYun_01_skill_02_qiangtou
+,,材质球,eff_H_ZhaoYun_01_skill_02_path_0050_1,eff_H_ZhaoYun_01_skill_02_path_0050_alp,eff_H_ZhaoYun_01_skill_02_path_0012,eff_H_ZhaoYun_01_skill_02_smoke_0031,eff_H_ZhaoYun_01_skill_02W_LongQiang_02_D 1,eff_H_ZhaoYun_01_skill_02_path_0050_add
+,,着色器
+,,动作文件,eff_H_ZhaoYun_01_skill_02
+ , 冗余[4]
+,,贴图(64.37),Default-Particle(64.37Kb)
+,,网格数(0.00)
+,,材质球(1.05),Default-Particle(1.05Kb)
+,,着色器(50.24),Particles/Additive(12.26Kb),Particles/Alpha Blended Premultiply(37.98Kb)
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_skill_02_g.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_skill_03.ab
+ , OK
+,,贴图,path_0041
+,,网格数,eff_H_ZhaoYun_01_skill_03
+,,材质球,eff_H_ZhaoYun_01_skill_03_wenli_0041
+,,着色器
+,,动作文件,eff_H_ZhaoYun_01_skill_03
+ , 冗余[1]
+,,贴图(0.00)
+,,网格数(0.00)
+,,材质球(0.00)
+,,着色器(12.26),Particles/Additive(12.26Kb)
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_skill_04.ab
+ , OK
+,,贴图
+,,网格数,eff_H_ZhaoYun_01_skill_04_02,eff_H_ZhaoYun_01_skill_04_01
+,,材质球,eff_H_ZhaoYun_path_0051,eff_H_ZhaoYun_path_0051_rongjie
+,,着色器
+,,动作文件,eff_H_ZhaoYun_01_skill_04
+ , 冗余[3]
+,,贴图(64.37),Default-Particle(64.37Kb)
+,,网格数(0.00)
+,,材质球(1.05),Default-Particle(1.05Kb)
+,,着色器(37.98),Particles/Alpha Blended Premultiply(37.98Kb)
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_skill_05.ab
+ , OK
+,,贴图,glow_0022
+,,网格数,Sphere001
+,,材质球,eff_H_ZhaoYun_01_skill_05_glow_0022,eff_H_ZhaoYun_01_skill_05_ring_0018
+,,着色器
+,,动作文件,eff_H_ZhaoYun_01_skill_05
+ , 冗余[4]
+,,贴图(64.37),Default-Particle(64.37Kb)
+,,网格数(0.00)
+,,材质球(1.05),Default-Particle(1.05Kb)
+,,着色器(50.24),Particles/Additive(12.26Kb),Particles/Alpha Blended Premultiply(37.98Kb)
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_skill_05_g.ab
+ , OK
+,,贴图
+,,网格数,eff_H_ZhaoYun_01_skill_05_1
+,,材质球,eff_H_ZhaoYun_01_skill_05_daoguang_0033,eff_H_ZhaoYun_01_skill_05_daoguang_0034_Add,eff_H_ZhaoYun_01_skill_05_daoguang_0034_Alp,eff_H_ZhaoYun_01_skill_05_daoguang_0034_1,eff_H_ZhaoYun_01_skill_05_daoguang_0035
+,,着色器
+,,动作文件,eff_H_ZhaoYun_01_skill_05_G
+ , 冗余[4]
+,,贴图(64.37),Default-Particle(64.37Kb)
+,,网格数(0.00)
+,,材质球(1.05),Default-Particle(1.05Kb)
+,,着色器(50.24),Particles/Additive(12.26Kb),Particles/Alpha Blended Premultiply(37.98Kb)
+,,动作文件(0.00)
+
+res_bundle/prefab/vfx/skill/eff_h_zhaoyun_01_skill_05_g_1.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/resconfig.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/test/plane.ab
+ , OK
+,,材质球,Test01
+ , 冗余[0]
+,,材质球(0.00)
+
+res_bundle/testres/testpanel01.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/testres/testpanel02.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/testres/testpanel03.ab
+ , OK
+,,贴图
+,, 图集数,activity_yeqian_4
+ , 冗余[2]
+,,贴图(1024.93),SpriteAtlasTexture-uitexture_activity-512x1024-fmt34_alpha(512.50Kb),SpriteAtlasTexture-uitexture_activity-512x1024-fmt34(512.42Kb)
+,, 图集数(0.00)
+
+res_bundle/testres/testpanel04.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/testres/testpanel05.ab
+ , OK
+ , 冗余[0]
+
+res_bundle/textasset/csv.ab
+ , OK
+ , 冗余[0]
+
+uiresources/uitexture/common/ui_hero_info_06.ab
+ , OK
+,,贴图,SpriteAtlasTexture-common_btn-256x128-fmt47
+,, 图集数,UI_Hero_Info_06
+ , 冗余[0]
+,,贴图(0.00)
+,, 图集数(0.00)
+
+uiresources/uitexture/other/activity_yeqian_1.ab
+ , OK
+,,贴图
+,, 图集数,activity_yeqian_1
+ , 冗余[2]
+,,贴图(1024.93),SpriteAtlasTexture-uitexture_activity-512x1024-fmt34_alpha(512.50Kb),SpriteAtlasTexture-uitexture_activity-512x1024-fmt34(512.42Kb)
+,, 图集数(0.00)
+
+uiresources/uitexture/other/activity_yeqian_2.ab
+ , OK
+,,贴图
+,, 图集数,activity_yeqian_2
+ , 冗余[2]
+,,贴图(1024.93),SpriteAtlasTexture-uitexture_activity-512x1024-fmt34_alpha(512.50Kb),SpriteAtlasTexture-uitexture_activity-512x1024-fmt34(512.42Kb)
+,, 图集数(0.00)
+
+uiresources/uitexture/other/activity_yeqian_3.ab
+ , OK
+,,贴图
+,, 图集数,activity_yeqian_3
+ , 冗余[2]
+,,贴图(1024.93),SpriteAtlasTexture-uitexture_activity-512x1024-fmt34_alpha(512.50Kb),SpriteAtlasTexture-uitexture_activity-512x1024-fmt34(512.42Kb)
+,, 图集数(0.00)
+

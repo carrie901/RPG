@@ -12,11 +12,11 @@ namespace SummerEditor
     /// </summary>
     public class AnimationMenu
     {
-        [MenuItem("Tools/Animation/分离动画(针对Fbx)")]
+        /*[MenuItem("Tools/Animation/分离动画(针对Fbx)")]
         public static void AllSeparationAnimationByFbx()
         {
             AnimationSeparationE.AllSeparationAnimationByFbx();
-        }
+        }*/
 
         [MenuItem("Assets/Animation/分离动画(针对Fbx)")]
         public static void SeparationAnimationByFbx()
@@ -24,11 +24,11 @@ namespace SummerEditor
             AnimationSeparationE.SeparationAnimationByFbx();
         }
 
-        [MenuItem("Tools/Animation/动画内存优化(针对AnimationClip)")]
+        /*[MenuItem("Tools/Animation/动画内存优化(针对AnimationClip)")]
         public static void AllSeoAnimation()
         {
             AnimationSeoE.AllSeoAnimation();
-        }
+        }*/
 
         [MenuItem("Assets/Animation/动画内存优化(针对AnimationClip)")]
         public static void SeoAnimation()

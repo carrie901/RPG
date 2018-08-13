@@ -35,7 +35,7 @@ namespace SummerEditor
         protected static AssetBundleReportWindow _window;     // 自定义窗体
         protected static float t_width = 1600;
         protected static float t_height = 800;
-        [MenuItem("Tools/UI/AssetBundleReportWindow")]
+        //[MenuItem("Tools/UI/AssetBundleReportWindow")]
         public static void Init()
         {
             _window = EditorWindow.GetWindow<AssetBundleReportWindow>();   // 创建自定义窗体
