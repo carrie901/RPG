@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using UnityEditor;
 using Summer;
 namespace SummerEditor
@@ -7,9 +8,17 @@ namespace SummerEditor
     public class CodeGeneratorMenuE
     {
         [MenuItem("Tools/Csv工具/1.生成cs代码", false, 1)]
-        public static void CreateCode()
+        public static bool CreateCode()
         {
-            CodeGenerator.CreateCode();
+            try
+            {
+                CodeGenerator.CreateCode();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         [MenuItem("Tools/Csv工具/2.生成二进制资源", false, 2)]

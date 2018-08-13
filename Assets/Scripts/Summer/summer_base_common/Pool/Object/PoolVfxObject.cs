@@ -34,6 +34,7 @@ namespace Summer
 
         public void OnUpdate(float dt)
         {
+            if (!IsUse) return;
             _on_update_bind_go();
 
             bool result = _interval.OnUpdate();

@@ -89,7 +89,7 @@ namespace SummerEditor
             E_Anchor e = (anchor & E_Anchor.left);
             if ((anchor & E_Anchor.left) == E_Anchor.left)
             {
-                //pos_x =  pos_x;
+                pos_x = rect.Ew / 2;
             }
             else if ((anchor & E_Anchor.right) == E_Anchor.right)
             {
@@ -125,7 +125,7 @@ namespace SummerEditor
         }
 
         // rect 在rect_a的右边
-        public virtual void AddComponentRight(ERect rect, ERect rect_a, float r_width = 5)
+        public virtual ERect AddComponentRight(ERect rect, ERect rect_a, float r_width = 5)
         {
 
             float pos_x = rect_a.Ex + rect_a.Ew / 2 + r_width + rect.Ew / 2;
@@ -133,14 +133,16 @@ namespace SummerEditor
             float pos_y = rect_a.Ey - rect_a.Eh / 2 + rect.Eh / 2;
             rect.ResetPosition(pos_x, pos_y);
             _internal_add_chile(rect);
+            return rect;
         }
 
-        public void AddComponentDown(ERect rect, ERect rect_a, float r_heigth = 5)
+        public ERect AddComponentDown(ERect rect, ERect rect_a, float r_heigth = 5)
         {
             float pos_x = rect_a.Ex - rect_a.Ew / 2 + rect.Ew / 2;
             float pos_y = rect_a.Ey + rect_a.Eh / 2 + r_heigth + rect.Eh / 2;
             rect.ResetPosition(pos_x, pos_y);
             _internal_add_chile(rect);
+            return rect;
         }
 
         #endregion

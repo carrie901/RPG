@@ -31,7 +31,7 @@ namespace SummerEditor
 
             string config_text = CreateClassManager(csv_infos);
             File.WriteAllText(CodeGeneratorConstE.config_cs_path, config_text);
-            EditorUtility.DisplayDialog("Csv转成Cs", "运行结束，请查看结果", "Ok");
+            //EditorUtility.DisplayDialog("Csv转成Cs", "运行结束，请查看结果", "Ok");
         }
 
         /// <summary>

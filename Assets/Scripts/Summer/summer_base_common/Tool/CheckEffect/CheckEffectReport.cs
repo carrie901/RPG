@@ -62,7 +62,8 @@ namespace Summer
                 CheckEffectReportCnf report = new CheckEffectReportCnf();
 
                 report.eff_name = info[0];
-                report.tex_info = info[3];
+                report.asset_path = info[3];
+                report.tex_info = info[4];
                 report.tex_mem_bytes = float.Parse(info[1]);
                 report.tex_mem_count = int.Parse(info[2]);
                 report_map.Add(report.eff_name, report);
@@ -94,8 +95,8 @@ namespace Summer
 
             // 1.加载的时间
             float t1 = Time.realtimeSinceStartup;
-            string new_path = "GameObjectRes/PrefabObject/EffectPrefab/Prefabs/" + _curr_report.eff_name;
-            GameObject eff_go = Resources.Load<GameObject>(new_path);
+            string new_path = _curr_report.asset_path;
+            GameObject eff_go = AssetDatabase.LoadAssetAtPath<GameObject>(new_path);
             float t2 = Time.realtimeSinceStartup;
             _curr_report.load_time = (int)((t2 - t1) * 1000);
 

@@ -31,7 +31,7 @@ namespace SummerEditor
             effect_map.Clear();
             // 1.查找对应的特效prefab文件
             DirectoryInfo dir_info = new DirectoryInfo(CheckEffectConst.all_effect_path);
-            FileInfo[] files = dir_info.GetFiles("*.prefab", SearchOption.TopDirectoryOnly);
+            FileInfo[] files = dir_info.GetFiles("*.prefab", SearchOption.AllDirectories);
 
             int file_length = files.Length;
             for (int i = 0; i < file_length; i++)
@@ -49,11 +49,12 @@ namespace SummerEditor
         private static void AnalysisFile(FileInfo file_info)
         {
             // 1.绝对路径转换为Unity/Assets相对路径
-            string file_path = EPathHelper.AbsoluteToRelativePathRemoveAssets(file_info.FullName);
+            string file_path = EPathHelper.AbsoluteToRelativePathWithAssets(file_info.FullName);
 
             // 2.初始化特效的相关信息
             EditorCheckEffectTextureInfo eff_texture_info = new EditorCheckEffectTextureInfo();
             eff_texture_info.EffectName = file_info.Name.Split('.')[0];
+            eff_texture_info.AssetPath = EPathHelper.AbsoluteToRelativePathWithAssets(file_info.FullName);
             // 3.找到特效依赖的文件
             Object obj = AssetDatabase.LoadAssetAtPath<Object>(file_path);
             //TODO AssetDatabase.LoadAssetAtPath和EditorUtility.CollectDependencies的差别

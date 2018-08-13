@@ -12,7 +12,7 @@ namespace SummerEditor
 {
     public class EffectCheckMenuE
     {
-        [MenuItem("Tool/特效检测/纹理引用", false, 1)]
+        /*[MenuItem("Tool/特效检测/纹理引用", false, 1)]
         public static void CheckEffectTexture()
         {
             EditorEffectCheckHelper.CheckEffectTexture();
@@ -23,7 +23,6 @@ namespace SummerEditor
         public static void CheckEffectDrawCall()
         {
             EditorEffectCheckHelper.CheckEffectDrawCall();
-
-        }
+        }*/
     }
 }

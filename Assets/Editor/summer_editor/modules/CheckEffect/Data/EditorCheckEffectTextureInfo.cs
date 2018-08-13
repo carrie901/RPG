@@ -16,6 +16,7 @@ namespace SummerEditor
         public string EffectName { get; set; }
         public float TexMemSize { get; private set; }
         public int TexCount { get; private set; }
+        public string AssetPath { get; set; }
         public Dictionary<string, float> tex_mem_map = new Dictionary<string, float>();
 
         public void AddTexList(Object[] objs)
@@ -25,7 +26,8 @@ namespace SummerEditor
                 if (t is Texture2D)
                 {
                     TexCount++;
-                    float mem = (UnityEngine.Profiling.Profiler.GetRuntimeMemorySize(t) / 2f);
+
+                    float mem = EMemorySizeHelper.GetRuntimeMemorySize(t) / 2f;
                     TexMemSize += mem;
                     tex_mem_map.Add(t.name, mem);
                 }
@@ -39,7 +41,7 @@ namespace SummerEditor
             {
                 tex_mem += t.Key + ":" + (int)(t.Value / 1024) + "|";
             }
-            return string.Format("{0},{1},{2},{3}", EffectName, TexMemSize / 1024f, TexCount, tex_mem);
+            return string.Format("{0},{1},{2},{4},{3}", EffectName, TexMemSize / 1024f, TexCount, tex_mem, AssetPath);
         }
     }
 }

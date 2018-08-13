@@ -18,3 +18,8 @@
 
 
 # 消耗的微信信息 提取三篇文章 10.16完成
+
+
+# 针对Log的模块化
+	通过调用不同的Log来确定模块的形式，或者直接通过Logmnaager.Log(string message,E_LogModules log_modules)
+	E_LogModules--> 指不同的模块
