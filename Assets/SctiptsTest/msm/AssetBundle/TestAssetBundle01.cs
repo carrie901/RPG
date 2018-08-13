@@ -1,5 +1,4 @@
-﻿/*
-
+﻿
 //
 //                            _ooOoo_
 //                           o8888888o
@@ -88,7 +87,7 @@ public class TestAssetBundle01 : MonoBehaviour
     public AssetBundle main_ab;
     public AssetBundle dep_ab;
     //public AssetBundle dep_ab1;
-    //public Object[] deps;
+    public Object[] deps;
     public void _load()
     {
 
@@ -104,15 +103,23 @@ public class TestAssetBundle01 : MonoBehaviour
     public void _load_child()
     {
         dep_ab = AssetBundle.LoadFromFile(AssetBundleConst.GetAssetBundleRootDirectory() + "uiresources/uitexture/login.ab");
+
+        deps = dep_ab.LoadAllAssets();
     }
 
     public void _unload()
     {
-        //dep_ab.Unload(false);
-        dep_ab.Unload(true);
-        dep_ab = null;
+        for (int i = 0; i < deps.Length; i++)
+        {
+            Resources.UnloadAsset(deps[i]);
+            deps[i] = null;
 
-        Resources.UnloadUnusedAssets();
+        }
+        deps = null;
+        //dep_ab.Unload(true);
+        //dep_ab = null;
+
+        //Resources.UnloadUnusedAssets();
     }
 
     public void _reload()
@@ -124,4 +131,3 @@ public class TestAssetBundle01 : MonoBehaviour
 
     #endregion
 }
-*/

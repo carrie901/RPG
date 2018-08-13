@@ -12,18 +12,27 @@ namespace SummerEditor
         right = 0x02,
         up = 0x04,
         down = 0x08,
-        center = 0x16,
+        //center = 0x16,
+        down_center = 0x32
     }
 
     public class EComponent : ERect
     {
+        #region 属性
+
         protected bool show_bg = false;
         protected List<ERect> _childs = new List<ERect>();
         protected Color bg_color = new Color32(128, 128, 128, 255);
         public bool show_box = true;
+        public GUIStyle _box_style;
+        #endregion
+
+        #region Override
+
         public EComponent(float width, float height) : base(width, height)
         {
         }
+
         public override void _on_draw()
         {
 
@@ -33,7 +42,12 @@ namespace SummerEditor
 
             if (show_box)
             {
-                GUI.Box(_world_pos, "");
+                if (_box_style != null)
+                    GUI.Box(_world_pos, "", _box_style);
+                else
+                {
+                    GUI.Box(_world_pos, "");
+                }
             }
 
             // TODO GUILayout.BeginArea(_position); //导致奔溃掉
@@ -45,6 +59,10 @@ namespace SummerEditor
             }
 
         }
+
+        #endregion
+
+        #region AddComponent 
 
         //TODO 目前这块的添加是完全混轮的，后期需要重点设计
         //以左上角为锚点，添加到组件中
@@ -65,6 +83,7 @@ namespace SummerEditor
         //添加 带锚点
         public virtual void AddComponent(ERect rect, E_Anchor anchor)
         {
+            // TODO bug 没有fixed
             float pos_x = rect.Ex;
             float pos_y = rect.Ey;
             E_Anchor e = (anchor & E_Anchor.left);
@@ -76,21 +95,28 @@ namespace SummerEditor
             {
                 pos_x = _size.x - pos_x - rect.Ew / 2;
             }
-            else if ((anchor & E_Anchor.center) == E_Anchor.center)
+            /*else if ((anchor & E_Anchor.center) == E_Anchor.center)
             {
                 pos_x = _size.x / 2 + pos_x;
-            }
+            }*/
 
-            if ((anchor & E_Anchor.center) == E_Anchor.center)
-            {
-                pos_y = _size.y / 2 + pos_y;
-            }
-            else if ((anchor & E_Anchor.up) == E_Anchor.up)
+            /* if ((anchor & E_Anchor.center) == E_Anchor.center)
+             {
+                 pos_y = _size.y / 2 + pos_y;
+             }
+             else */
+            if ((anchor & E_Anchor.up) == E_Anchor.up)
             {
                 pos_y = pos_y + rect.Eh / 2;
             }
             else if ((anchor & E_Anchor.down) == E_Anchor.down)
             {
+                pos_y = _size.y + pos_y - rect.Eh / 2;
+            }
+
+            if ((anchor & E_Anchor.down_center) == E_Anchor.down_center)
+            {
+                pos_x = (_size.x / 2) - (rect.Ew / 2);
                 pos_y = _size.y + pos_y - rect.Eh / 2;
             }
 
@@ -117,6 +143,10 @@ namespace SummerEditor
             _internal_add_chile(rect);
         }
 
+        #endregion
+
+        #region SetColor
+
         //设置背景
         public void SetBg(byte color_r, byte color_g, byte color_b)
         {
@@ -131,6 +161,13 @@ namespace SummerEditor
         {
             bg_color = color;
         }
+
+        public void SetBgStyle(GUIStyle style)
+        {
+            _box_style = style;
+        }
+
+        #endregion
 
         public List<ERect> GetChilds()
         {

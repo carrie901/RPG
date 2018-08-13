@@ -26,7 +26,6 @@ using UnityEngine;
 using Summer;
 public class Main : MonoBehaviour
 {
-
     void Start()
     {
         //Debug.logger.logEnabled = false;

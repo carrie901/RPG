@@ -41,5 +41,11 @@ namespace Summer
             float dt = Time.realtimeSinceStartup - _last_time;
             return dt;
         }
+
+        public static void InputSimpleTime()
+        {
+            float e = EndSimpleTime();
+            Debug.Log(e);
+        }
     }
 }

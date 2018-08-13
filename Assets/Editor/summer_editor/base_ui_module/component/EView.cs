@@ -8,10 +8,17 @@ namespace SummerEditor
 {
     public class EView
     {
+
+        static EView()
+        {
+            _gui_style_text.alignment = TextAnchor.MiddleCenter;
+        }
+        public static GUIStyle _gui_style_text=new GUIStyle();
+        //GUI.skin.customStyles[0].alignment
         public static void Label(Rect position, string text)
         {
             //GUI.Label(position, text);
-            EditorGUI.LabelField(position, text);
+            EditorGUI.LabelField(position, text, _gui_style_text);
         }
 
         public static string TextArea(Rect position, string text)

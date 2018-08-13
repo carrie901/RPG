@@ -389,7 +389,6 @@ GameObject:
   m_Component:
   - component: {fileID: 400050}
   - component: {fileID: 11100000}
-  - component: {fileID: 114776768923387610}
   - component: {fileID: 114141678265876960}
   m_Layer: 0
   m_Name: CH_Barbarian01_E_Tall4
@@ -946,25 +945,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7d24e9d6c1420458032f0bb225caee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_anim: {fileID: 11100000}
---- !u!114 &114776768923387610
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83db2d5a2a49cb44185abbe2f4ece559, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clips:
-  - {fileID: 7400000, guid: b1fe7cd00ec56c04ba920d050014c08c, type: 2}
-  - {fileID: 7400000, guid: 12f540e7e18ca8845a1b24a7fd7d1a4c, type: 2}
-  - {fileID: 7400000, guid: 8ec911bbd9695d24e8bdefc1eacfe2c4, type: 2}
-  - {fileID: 7400000, guid: ecc3a3249be31a14db59e2fddf7d157d, type: 2}
-  - {fileID: 7400000, guid: cc3ddedc38406904fa57068f5e8afc85, type: 2}
-  - {fileID: 7400000, guid: e832c444b0b2a6b43976ebbc5074ef23, type: 2}
-  - {fileID: 7400000, guid: e44de85894cccfb49a6c0e6934e8a6c8, type: 2}
-  - {fileID: 7400000, guid: 6c64a2f2665159840992b4be4370ee5d, type: 2}
-  - {fileID: 7400000, guid: b540dd5c4cf64f749a4bc8f427266d2c, type: 2}

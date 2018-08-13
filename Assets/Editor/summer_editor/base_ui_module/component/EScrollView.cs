@@ -20,6 +20,11 @@ namespace SummerEditor
 
         }
 
+        public void SetHeightInterval(float height_i)
+        {
+            height_interval = height_i;
+        }
+
         public override void _on_draw()
         {
             // 1.背景
@@ -60,6 +65,23 @@ namespace SummerEditor
             rect.ResetPosition(x, _cur_height);
             _internal_add_chile(rect);
             _view_height = (_cur_height + rect.Eh / 2 + height_interval);
+        }
+
+        bool flag = false;
+        public virtual void AddItem1(EComponent rect)
+        {
+            rect.SetBg(false);
+            if (flag)
+            {
+                rect.SetBgStyle(EStyle.BoxStyle1);
+            }
+            else
+            {
+                rect.SetBgStyle(EStyle.BoxStyle2);
+            }
+               
+            flag = !flag;
+            AddItem(rect);
         }
 
         public void Clear()

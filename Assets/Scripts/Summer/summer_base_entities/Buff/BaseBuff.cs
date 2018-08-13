@@ -160,14 +160,14 @@ namespace Summer
            new EventConditionSet<E_Buff_Event>(BuffEvtComparer.Instance);
 
 
-        public bool RegisterHandler(E_Buff_Event key, EventSet<E_Buff_Event, EventSetData>.EventHandler handler)
+        public bool RegisterHandler(E_Buff_Event key, EventSet<E_Buff_Event, EventSetData>.EventHandler handler,I_Condition condition=null)
         {
-            return _buff_event_set.RegisterHandler(key, handler);
+            return _buff_event_set.RegisterHandler(key, handler, condition);
         }
 
-        public bool UnRegisterHandler(E_Buff_Event key, EventSet<E_Buff_Event, EventSetData>.EventHandler handler)
+        public bool UnRegisterHandler(E_Buff_Event key, EventSet<E_Buff_Event, EventSetData>.EventHandler handler, I_Condition condition = null)
         {
-            return _buff_event_set.UnRegisterHandler(key, handler);
+            return _buff_event_set.UnRegisterHandler(key, handler, condition);
         }
 
         public void RaiseEvent(E_Buff_Event key, EventSetData data)

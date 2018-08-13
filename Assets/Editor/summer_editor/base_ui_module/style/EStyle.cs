@@ -116,5 +116,37 @@ namespace SummerEditor
             }
             return tex;
         }
+
+        #region 边框的颜色
+        private static GUIStyle _box_style_1;
+        public static GUIStyle BoxStyle1
+        {
+            get
+            {
+                if (_box_style_1 == null)
+                {
+                    _box_style_1 = new GUIStyle();
+                    _box_style_1.name = "边框颜色1";
+                    _box_style_1.normal.background = GetColorTexture(new Color(145 / 256f, 207 / 256f, 77 / 256f, 1f));
+                }
+                return _box_style_1;
+            }
+        }
+
+        private static GUIStyle _box_style_2;
+        public static GUIStyle BoxStyle2
+        {
+            get
+            {
+                if (_box_style_2 == null)
+                {
+                    _box_style_2 = new GUIStyle();
+                    _box_style_2.normal.background = GetColorTexture(new Color(244 / 256f, 186 / 256f, 139 / 256f, 1f));
+                    _box_style_2.name = "边框颜色2";
+                }
+                return _box_style_2;
+            }
+        }
+        #endregion
     }
 }

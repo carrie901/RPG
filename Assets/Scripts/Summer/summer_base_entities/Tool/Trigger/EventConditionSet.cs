@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Summer
 {
     /// <summary>
-    /// 单一化
+    /// 事件触发器+前置条件
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     public class EventConditionSet<TKey>

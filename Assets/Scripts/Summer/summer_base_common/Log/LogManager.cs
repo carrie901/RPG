@@ -26,6 +26,8 @@ namespace Summer
 
         public static bool open_debug = true;
 
+        public static bool ignore_unity_debug = true;                       // 忽略Unity的Debug Log日志 
+
         public static bool open_net = true;
         public static bool open_debug_buff = false;
         public static bool open_debug_effect = true;
@@ -68,6 +70,8 @@ namespace Summer
             pipelines.Add(UnityLog.Instance);
             //pipelines.Add(RuntimeLog.Instance);
 #endif
+            if (!ignore_unity_debug)
+                Debug.logger.logEnabled = false;
 
         }
 

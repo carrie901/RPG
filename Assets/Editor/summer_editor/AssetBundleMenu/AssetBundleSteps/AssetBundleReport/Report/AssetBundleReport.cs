@@ -25,6 +25,24 @@ namespace SummerEditor
         public static string animation_clip = "动作文件";
         public static string audio_clip = "音效";
 
+        public static string[] titles = new string[]
+        {
+            assetbundle_name, ab_memory_size ,cal_memory_size,
+            repeat_memory_size,repeat_memory_size,ab_dep,
+            be_ref,mesh,material,
+            texture,sprite,sprite,
+            shader,animation_clip,audio_clip
+        };
+        public static float[] titles_width = new float[]
+        {
+            240, 80 ,160,
+            120,100,80,
+            80,80,80,
+            80,80,80,
+            80,80,80
+        };
+
+
         public static void CreateReport(string directory_path)
         {
             List<EAssetBundleFileInfo> assetbundle_files = AssetBundleAnalyzeManager.FindAssetBundleFiles();
@@ -49,7 +67,7 @@ namespace SummerEditor
 
                 string t_repeat_mem_size = (info.GetRepeatMemSize() / 1024).ToString("f2"); ;
                 string t_ab_size = (info.file_ab_memory_size / 1024).ToString("f2");
-                string t_ab_mem_size = (info.GetMemorySize()/1024).ToString("f2");
+                string t_ab_mem_size = (info.GetMemorySize() / 1024).ToString("f2");
                 sb.AppendLine(string.Format("{0},{1},{2},{12}," +
                                     "{3},{4},{5}," +
                                     "{6},{7},{8}," +
