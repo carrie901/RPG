@@ -95,7 +95,6 @@ namespace Summer
             _move_component = direction_move;
         }
 
-
         public void MoveToTargetPostion(Vector3 targtet_position, float speed)
         {
             /*if (_entity.GetState() != E_StateId.move)
@@ -170,7 +169,6 @@ namespace Summer
     {
         bool OnMove(EntityMovement entity_movement, float dt);
     }
-
 
     public class DirectionMove : I_Move
     {

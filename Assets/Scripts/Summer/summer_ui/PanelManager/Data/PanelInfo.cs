@@ -12,11 +12,11 @@ namespace Summer
     {
         public E_ViewId _view_id;                           //View ID
         public string _pfb_name;
-        public E_PanelType _view_type;                       //View Type 指向是否可以进入导航队列
+        public E_PanelType _view_type;                      //View Type 指向是否可以进入导航队列
         public E_PanelBgType show_mode = E_PanelBgType.nothing;
         public bool has_bg_click_close = true;             //点击不关闭本界面
 
-        public System.Object Info { get; set; }
+        //public System.Object Info { get; set; }
 
         public PanelInfo(E_ViewId view_id, E_PanelType view_type, string name)
         {

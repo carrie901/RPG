@@ -1,0 +1,10 @@
+<Sequence>
+	<Track>
+		<Frame>
+			start_frame=0
+			frame_length=15
+			<Leaf>
+			</Leaf>
+		</Frame>
+	</Track>
+</Sequence>

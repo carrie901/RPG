@@ -8,19 +8,6 @@ using UnityEngine;
 /// </summary>
 public class GameStart : MonoBehaviour
 {
-
-    private void Awake()
-    {
-
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-
-
-    }
-
     bool flag = true;
     // Update is called once per frame
     void Update()
@@ -36,6 +23,21 @@ public class GameStart : MonoBehaviour
             test_game.Main();
             flag = false;
         }
+    }
+
+    void OnEnable()
+    {
+        CameraEffectManager.instance.RegisterHandler();
+    }
+
+    void OnDisable()
+    {
+        CameraEffectManager.instance.UnRegisterHandler();
+    }
+
+    void OnApplicationQuit()
+    {
+        LogManager.Quit();
     }
 }
 

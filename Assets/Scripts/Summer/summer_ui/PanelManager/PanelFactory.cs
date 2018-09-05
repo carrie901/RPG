@@ -62,7 +62,7 @@ namespace Summer
             return base_view.gameObject.activeSelf;
         }
 
-        public BaseView Open(PanelInfo view_info)
+        public BaseView Open(PanelInfo view_info, System.Object info = null)
         {
             BaseView base_view = _internal_open(view_info);
             _panel_cache.Set(view_info.ViewId, PanelHistoryInfo.Get(view_info.ViewId));
@@ -99,7 +99,7 @@ namespace Summer
 
         public void OnRemoveValueEvent(E_ViewId view_id)
         {
-            PanelInfo view_data = PanelInfoConfig.Get(view_id);
+            PanelInfo view_data = PanelManagerConfig.Get(view_id);
             Destory(view_data);
         }
 
@@ -146,7 +146,7 @@ namespace Summer
             //view = _instantiate(obj, data);
             // 4.view的额外操作
             //base_view.OpenExtraOpertion(data);
-            base_view.SetPanelData(data);
+            base_view.SetPanelData(view_id);
             // 6.添加到层
             //_add_layer(view.gameObject);
             base_view.OnInit();
@@ -160,7 +160,7 @@ namespace Summer
         public BaseView _again_open_panel(PanelInfo data)
         {
             BaseView base_view = _panel_map[data.ViewId];
-            base_view.SetPanelData(data);
+            base_view.SetPanelData(data.ViewId);
             return base_view;
         }
 

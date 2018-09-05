@@ -21,6 +21,7 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
+using System;
 using System.Collections.Generic;
 
 namespace Summer
@@ -33,7 +34,7 @@ namespace Summer
     {
         #region 属性
 
-        public delegate BaseView OnStack(PanelInfo view_data);
+        public delegate void OnStack(PanelInfo view_data, Object info = null, Action<BaseView> action = null);
 
         public event OnStack OnOpen;
         public event OnStack OnClose;
@@ -41,18 +42,21 @@ namespace Summer
         protected readonly List<PanelInfo> _panel_history = new List<PanelInfo>(64);
         protected PanelInfo _curr_view;
 
-
-
         #endregion
 
         #region Public
 
-        public BaseView Open(PanelInfo view_data)
+        public void Open(PanelInfo view_data, System.Object info, Action<BaseView> action = null)
         {
-            BaseView base_view = _internal_open(view_data);
-
+            if (view_data.IsPanel() && _curr_view != null)
+            {
+                for (int i = _panel_history.Count - 1; i >= 0; i--)
+                {
+                    _internal_history_close(_panel_history[i]);
+                }
+            }
+            _internal_real_open(view_data, info, action);
             //PanelLog.Log("-->当前界面:[{0}]",_curr_view.ViewId);
-            return base_view;
         }
 
         // 返回上一个界面，返回的含义包含了关闭和返回
@@ -79,22 +83,6 @@ namespace Summer
         #endregion
 
         #region Private Methods Close Open
-
-        public BaseView _internal_open(PanelInfo view_data)
-        {
-            if (view_data.IsPanel() && _curr_view != null)
-            {
-                for (int i = _panel_history.Count - 1; i >= 0; i--)
-                {
-                    _internal_history_close(_panel_history[i]);
-                }
-            }
-            BaseView curr_view = _internal_real_open(view_data);
-
-            // 回退
-
-            return curr_view;
-        }
 
         public void _internal_back(E_ViewId view_id, bool flag = false)
         {
@@ -152,34 +140,33 @@ namespace Summer
         }
 
         // 添加到历史记录并且打开
-        public BaseView _internal_real_open(PanelInfo view_data)
+        public void _internal_real_open(PanelInfo view_data, System.Object info, Action<BaseView> action = null)
         {
             _curr_view = view_data;
             PushHistory(view_data);
             if (OnOpen != null)
-                return OnOpen(view_data);
-            return null;
+                OnOpen(view_data, info, action);
         }
 
         // 剔除历史记录，并且关闭
-        public void _internal_real_close(PanelInfo view_data)
+        public void _internal_real_close(PanelInfo view_data, Action<BaseView> action = null)
         {
             Remove(view_data);
             _curr_view = PeekHistory();
             if (OnClose != null)
-                OnClose(view_data);
+                OnClose(view_data, action);
         }
 
-        public void _internal_history_open(PanelInfo view_data)
+        public void _internal_history_open(PanelInfo view_data, Action<BaseView> action = null)
         {
             if (OnOpen != null)
-                OnOpen(view_data);
+                OnOpen(view_data, action);
         }
 
-        public void _internal_history_close(PanelInfo view_data)
+        public void _internal_history_close(PanelInfo view_data, Action<BaseView> action = null)
         {
             if (OnClose != null)
-                OnClose(view_data);
+                OnClose(view_data, action);
         }
 
         #endregion

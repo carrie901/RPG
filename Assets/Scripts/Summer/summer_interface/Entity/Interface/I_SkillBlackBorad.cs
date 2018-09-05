@@ -14,6 +14,6 @@ namespace Summer
         /// 黑箱数据 Key=string， Value= Object
         /// </summary>
         //T GetBlackBoradValue<T>(string Key, T default_value);
-        BlackBorad GetBlackBorad();
+        BlackBoard GetBlackBorad();
     }
 }

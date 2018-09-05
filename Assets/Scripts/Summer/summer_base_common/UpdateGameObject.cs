@@ -47,6 +47,9 @@ namespace Summer
             entites = EntitesManager.Instance;
             rse_loader = ResLoader.instance;
             sprite_pool = SpritePool.Instance;
+
+
+            Application.targetFrameRate = 30;
         }
 
         void Update()

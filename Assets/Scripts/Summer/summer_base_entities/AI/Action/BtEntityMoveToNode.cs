@@ -12,7 +12,7 @@ namespace Summer.AI
         public const float MIN_DISTANCE = 0.5f;
         protected override void OnEnter(BtWorkingData work_data)
         {
-            AIEntityWorkingData working = work_data.As<AIEntityWorkingData>();
+            //AIEntityWorkingData working = work_data.As<AIEntityWorkingData>();
             UnityEngine.Debug.Log("播放移动动作");
             // 播放移动动作
         }

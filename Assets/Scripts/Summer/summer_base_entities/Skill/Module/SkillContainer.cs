@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Summer.Sequence;
 
 namespace Summer
 {
@@ -9,10 +10,10 @@ namespace Summer
     {
         #region 属性
 
-        public Dictionary<int, SkillSequence> _sequence_map
-            = new Dictionary<int, SkillSequence>(8);                                        // Entity的技能容器
-        public SkillSequence _curr_sequece;                                                 // 当前技能序列
-        public BaseEntity _entity;                                                   // 内部触发器
+        public Dictionary<int, SequenceLine> _sequence_map
+            = new Dictionary<int, SequenceLine>(8);                                         // Entity的技能容器
+        public SequenceLine _curr_sequece;                                                  // 当前技能序列
+        public BaseEntity _entity;                                                          // 内部触发器
 
         public bool _can_cast_skill;                                                        // 可以释放下一个技能了
 
@@ -45,7 +46,7 @@ namespace Summer
                 SpellInfoCnf space_info = StaticCnf.FindData<SpellInfoCnf>(skill_list[i]);
                 if (space_info.skill_types == skill_type_normal_attack)
                     normal_attack.AddSkill(skill_list[i]);
-                SkillFactory skill = null;
+                /*SkillFactory skill = null;
                 //
                 if (space_info.process_template == "normal")
                 {
@@ -64,7 +65,10 @@ namespace Summer
                     skill = new SkillZhaoYunTiao();
                 }
                 if (skill == null) continue;
-                _sequence_map.Add(skill_list[i], skill.Create(this, space_info));
+                _sequence_map.Add(skill_list[i], skill.Create(this, space_info));*/
+
+                _sequence_map.Add(skill_list[i], SkillFactory.Create());
+
             }
 
             _can_cast_skill = true;
@@ -136,7 +140,7 @@ namespace Summer
             _can_cast_skill = false;
             // TODO QAQ:有bug的可能性很大，例如技能释放到一半的时候，释放了另外一个技能，这样就需要破坏掉原来的技能
             _curr_sequece = _sequence_map[id];
-            _curr_sequece.OnStart();
+            //_curr_sequece.OnStart();
             _last_time = TimeManager.RealtimeSinceStartup;
 
             return true;
@@ -150,8 +154,9 @@ namespace Summer
         // 接收到指定的事件
         public void ReceiveTransitionEvent(E_SkillTransition transition_event)
         {
-            if (_curr_sequece != null)
-                _curr_sequece.ReceiveWithOutEvent(transition_event);
+            LogManager.Error("接收到指定的事件 还没开始做");
+            /*if (_curr_sequece != null)
+                _curr_sequece.ReceiveWithOutEvent(transition_event);*/
         }
 
         public void OnFinish()

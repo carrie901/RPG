@@ -13,12 +13,12 @@ namespace Summer
         #region 属性
 
         protected static int base_view_id;
-        public int _iid;
-        public PanelInfo _data;
-        public System.Object _view_info;
 
+        public int _iid;                                                    // 每一个界面的唯一标识id
         public int Iid { get { return _iid; } }
-        public E_ViewId GetId() { return _data._view_id; }
+        public E_ViewId _view_id;
+        public E_ViewId GetId { get { return _view_id; } }
+
 
         #endregion
 
@@ -29,7 +29,7 @@ namespace Summer
         /// </summary>
         public virtual void OnInit()
         {
-            PanelLog.Log("初始化界面[{0}]", _data.ViewId);
+            PanelLog.Log("初始化界面:[{0}]", _view_id);
             _init_id();
         }
 
@@ -38,24 +38,28 @@ namespace Summer
         /// </summary>
         public virtual void OnEnter()
         {
-            PanelLog.Log("进入界面[{0}]", _data.ViewId);
+            PanelLog.Log("进入界面:[{0}]", _view_id);
         }
 
         public virtual void OnExit()
         {
-            PanelLog.Log("退出界面[{0}]", _data.ViewId);
+            PanelLog.Log("退出界面:[{0}]", _view_id);
         }
 
-        public virtual void OnDestroySelf() { }
+        public virtual void OnDestroySelf()
+        {
+            PanelLog.Log("销毁界面:[{0}]", _view_id);
+        }
+
+        public virtual void OnRefresh() { }
 
         #endregion
 
         #region public
 
-        public virtual void SetPanelData(PanelInfo data)
+        public virtual void SetPanelData(E_ViewId view_id)
         {
-            _data = data;
-            _view_info = _data.Info;
+            _view_id = view_id;
         }
 
         //public virtual void OnResetData<T>(T t) { }
@@ -70,15 +74,9 @@ namespace Summer
             _iid = base_view_id;
         }
 
-        protected void CloseView()
-        {
-            PanelManager.Back(_data._view_id);
-        }
+        protected void CloseView() { PanelManagerCtrl.Close(_view_id); }
 
-        protected void OpenView(E_ViewId id)
-        {
-            PanelManager.Open(id);
-        }
+        protected void OpenView(E_ViewId id) { PanelManagerCtrl.Open(id); }
 
         #endregion
     }

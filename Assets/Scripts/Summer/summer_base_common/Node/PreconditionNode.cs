@@ -10,6 +10,6 @@ namespace Summer
         public PreconditionNode(int max_child_count = -1)
             : base(max_child_count) { }
 
-        public abstract bool IsTrue(BlackBorad blackboard);
+        public abstract bool IsTrue(BlackBoard blackboard);
     }
 }

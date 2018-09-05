@@ -43,7 +43,7 @@ namespace Summer
     /// </summary>
     public class PreconditionTrue : PreconditionNode
     {
-        public override bool IsTrue(BlackBorad blackboard)
+        public override bool IsTrue(BlackBoard blackboard)
         {
             return true;
         }
@@ -62,7 +62,7 @@ namespace Summer
         public PreconditionNot(PreconditionNode lhs)
             : base(lhs)
         { }
-        public override bool IsTrue(BlackBorad blackboard)
+        public override bool IsTrue(BlackBoard blackboard)
         {
             return !GetFirst().IsTrue(blackboard);
         }
@@ -84,7 +84,7 @@ namespace Summer
     /// </summary>
     public class PreconditionFalse : PreConditionLeaf
     {
-        public override bool IsTrue(BlackBorad blackboard)
+        public override bool IsTrue(BlackBoard blackboard)
         {
             return false;
         }
@@ -99,7 +99,7 @@ namespace Summer
         public PreconditionAnd(PreconditionNode lhs, PreconditionNode rhs)
             : base(lhs, rhs) { }
 
-        public override bool IsTrue(BlackBorad blackboard)
+        public override bool IsTrue(BlackBoard blackboard)
         {
             return GetChild<PreconditionNode>(0).IsTrue(blackboard) &&
                    GetChild<PreconditionNode>(1).IsTrue(blackboard);
@@ -115,7 +115,7 @@ namespace Summer
         public PreconditionOr(PreconditionNode lhs, PreconditionNode rhs)
             : base(lhs, rhs) { }
 
-        public override bool IsTrue(BlackBorad blackboard)
+        public override bool IsTrue(BlackBoard blackboard)
         {
             return GetChild<PreconditionNode>(0).IsTrue(blackboard) ||
                    GetChild<PreconditionNode>(1).IsTrue(blackboard);
@@ -131,7 +131,7 @@ namespace Summer
         public PreconditionXor(PreconditionNode lhs, PreconditionNode rhs)
             : base(lhs, rhs) { }
 
-        public override bool IsTrue(BlackBorad blackboard)
+        public override bool IsTrue(BlackBoard blackboard)
         {
             return GetChild<PreconditionNode>(0).IsTrue(blackboard) ^
                    GetChild<PreconditionNode>(1).IsTrue(blackboard);

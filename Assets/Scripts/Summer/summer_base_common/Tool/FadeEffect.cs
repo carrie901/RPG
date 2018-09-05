@@ -9,6 +9,15 @@ using System.Collections;
 
 namespace Summer
 {
+
+    public enum E_FadeEffect
+    {
+        fade_in,
+        fade_stay,
+        fade_out,
+        fade_finish,
+    }
+
     /// <summary>
     /// 淡入淡出效果 淡入-停留，淡出
     /// </summary>

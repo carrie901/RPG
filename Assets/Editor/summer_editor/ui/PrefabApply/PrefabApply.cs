@@ -27,13 +27,14 @@ using UnityEngine;
 using System;
 using System.Reflection;
 using Summer;
+using Object = UnityEngine.Object;
 using UnityEditor;
 
 namespace SummerEditor
 {
     public class PrefabApply : UnityEditor.AssetModificationProcessor
     {
-
+        public static List<string> filter_path = new List<string>();
 
         /*static string[] OnWillSaveAssets(string[] paths)
         {
@@ -65,26 +66,28 @@ namespace SummerEditor
             PrefabUtility.prefabInstanceUpdated = delegate (GameObject instance)
             {
                 UnityEngine.Object prefab_parent = PrefabUtility.GetPrefabParent(instance);
-
-                GameObject go = prefab_parent as GameObject;
-
-                MonoBehaviour[] monos = go.GetComponentsInChildren<MonoBehaviour>();
-
-                for (int i = 0; i < monos.Length; i++)
+                string asset_path = AssetDatabase.GetAssetPath(prefab_parent);
+                bool check = false;
+                for (int i = 0; i < filter_path.Count; i++)
                 {
-                            //UIBindingPrefabSaveHelper.CheckGameObject(monos[i]);
-                            CheckGameObject(monos[i]);
+                    if (!asset_path.Contains(filter_path[i])) continue;
+                    check = true;
+                    break;
                 }
+                if (check)
+                {
+                    GameObject go = prefab_parent as GameObject;
 
+                    MonoBehaviour[] monos = go.GetComponentsInChildren<MonoBehaviour>();
+
+                    for (int i = 0; i < monos.Length; i++)
+                    {
+                        //UIBindingPrefabSaveHelper.CheckGameObject(monos[i]);
+                        CheckGameObject(monos[i]);
+                    }
+                }
                 EditorUtility.SetDirty(instance);
                 AssetDatabase.SaveAssets();
-
-                string prefab_path = AssetDatabase.GetAssetPath(prefab_parent);
-                        //prefab保存的路径
-                        Debug.Log(prefab_path);
-
-
-
             };
         }
 
@@ -137,15 +140,9 @@ namespace SummerEditor
             {
                 UIListAttribute ui_list_attr = (UIListAttribute)Attribute.GetCustomAttribute(field, typeof(UIListAttribute));
                 //是否有特性
-                if (ui_list_attr == null)
-                {
-                    continue;
-                }
+                if (ui_list_attr == null) continue;
                 //排除非List
-                if (!field.FieldType.IsGenericType)
-                {
-                    continue;
-                }
+                if (!field.FieldType.IsGenericType) continue;
                 Type field_type = field.FieldType.GetGenericArguments()[0];
                 Type list_type = typeof(List<>).MakeGenericType(field_type);
                 ConstructorInfo constructor_info = list_type.GetConstructor(Type.EmptyTypes);
@@ -171,7 +168,6 @@ namespace SummerEditor
                 field.SetValue(mono, instanced_list);
             }
         }
-
 
         #region
 

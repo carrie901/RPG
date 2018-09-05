@@ -16,10 +16,10 @@ namespace Summer.AI
         private const float DEFAULT_WAITING_TIME = 5f;
         protected override void OnEnter(BtWorkingData work_data)
         {
-            AIEntityWorkingData this_data = work_data.As<AIEntityWorkingData>();
+            //AIEntityWorkingData this_data = work_data.As<AIEntityWorkingData>();
             user_data = GetUserContextData<AiUserContextData>(work_data);
             user_data.attacking_time = DEFAULT_WAITING_TIME;
-            LogManager.Log("播放攻击动画OnEnter,[{0}]",TimeManager.RealtimeSinceStartup);
+            LogManager.Log("播放攻击动画OnEnter,[{0}]", TimeManager.RealtimeSinceStartup);
             //this_data.EntityAnimator.CrossFade("attack", 0.2f);
 
             // 播放攻击动作

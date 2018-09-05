@@ -24,14 +24,14 @@ public class TestLambda_02 : MonoBehaviour
 
     public void Test03()
     {
-        UnityEngine.Profiling.Profiler.BeginSample("NewClass");
+        /*UnityEngine.Profiling.Profiler.BeginSample("NewClass");
         NewClass new_class = new NewClass();
-        UnityEngine.Profiling.Profiler.EndSample();
+        UnityEngine.Profiling.Profiler.EndSample();*/
     }
 
     public void Test01()
     {
-        Action[] actions = new Action[10];
+        /*Action[] actions = new Action[10];
         int j = 0;
         for (var i = 0; i < actions.Length; i++)
         {
@@ -40,7 +40,7 @@ public class TestLambda_02 : MonoBehaviour
                 int tmp = i;
                 int tmpj = j;
             };
-        }
+        }*/
     }
 
 }

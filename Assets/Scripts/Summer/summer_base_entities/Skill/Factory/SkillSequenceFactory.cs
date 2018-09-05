@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿/*
+using Summer.Sequence;
+using UnityEngine;
 namespace Summer
 {
     /// <summary>
@@ -28,45 +30,45 @@ namespace Summer
             return anim_node;
         }
 
-        public SkillLeafNode CreateAnimation(SpellInfoCnf cnf)
+        public SequenceLeafNode CreateAnimation(SpellInfoCnf cnf)
         {
-            PlayAnimationLeafNode pa = SkillNodeActionFactory.Create<PlayAnimationLeafNode>();
+            PlayAnimationLeafNode pa = SequenceNodeActionFactory.Create<PlayAnimationLeafNode>();
             pa.animation_name = cnf.anim_name;
             return pa;
         }
 
-        public SkillLeafNode CreateChangeAnimationSpeed(float speed)
+        public SequenceLeafNode CreateChangeAnimationSpeed(float speed)
         {
-            ChangeAnimationSpeedLeafNode leaf_node = SkillNodeActionFactory.Create<ChangeAnimationSpeedLeafNode>();
+            ChangeAnimationSpeedLeafNode leaf_node = SequenceNodeActionFactory.Create<ChangeAnimationSpeedLeafNode>();
             leaf_node.speed = speed;
             return leaf_node;
         }
 
-        public SkillLeafNode CreateEffect(SpellInfoCnf cnf)
+        public SequenceLeafNode CreateEffect(SpellInfoCnf cnf)
         {
-            PlayEffectLeafNode pe = SkillNodeActionFactory.Create<PlayEffectLeafNode>();
+            PlayEffectLeafNode pe = SequenceNodeActionFactory.Create<PlayEffectLeafNode>();
             pe.effect_name = "res_bundle/prefab/vfx/Skill/" + cnf.skill_effect[0];
             return pe;
         }
 
-        public SkillLeafNode CreatePlayCameraOffset(UnityEngine.Vector3 off, UnityEngine.Vector3 rot, float time)
+        public SequenceLeafNode CreatePlayCameraOffset(UnityEngine.Vector3 off, UnityEngine.Vector3 rot, float time)
         {
-            PlayCameraOffset offset = SkillNodeActionFactory.Create<PlayCameraOffset>();
+            PlayCameraOffset offset = SequenceNodeActionFactory.Create<PlayCameraOffset>();
             offset._offset = off;
             offset._rotaion = rot;
             offset.time = time;
             return offset;
         }
 
-        public SkillLeafNode CreateFindTarget(SpellInfoCnf cnf)
+        public SequenceLeafNode CreateFindTarget(SpellInfoCnf cnf)
         {
-            FindTargetLeafNode find_target_leaf_node = SkillNodeActionFactory.Create<FindTargetLeafNode>();
+            FindTargetLeafNode find_target_leaf_node = SequenceNodeActionFactory.Create<FindTargetLeafNode>();
             find_target_leaf_node.radius = 5;
             find_target_leaf_node.degree = 120;
             return find_target_leaf_node;
         }
 
-        public SkillLeafNode CreateMoveToTargetLeafNode(SpellInfoCnf cnf)
+        public SequenceLeafNode CreateMoveToTargetLeafNode(SpellInfoCnf cnf)
         {
             MoveToTargetLeafNode node = SkillNodeActionFactory.Create<MoveToTargetLeafNode>();
             node.speed = 1;
@@ -74,29 +76,32 @@ namespace Summer
             return node;
         }
 
-        public SkillLeafNode CreateExportToTarget(SpellInfoCnf cnf)
+        public SequenceLeafNode CreateExportToTarget(SpellInfoCnf cnf)
         {
-            ExportToTargetLeafNode target_leaf_node = SkillNodeActionFactory.Create<ExportToTargetLeafNode>();
+            ExportToTargetLeafNode target_leaf_node = SequenceNodeActionFactory.Create<ExportToTargetLeafNode>();
             return target_leaf_node;
         }
 
         public SkillLeafNode CreateWait(float wait_time)
         {
-            WaitTimeLeafNodeNode wait_leaf_node_node = SkillNodeActionFactory.Create<WaitTimeLeafNodeNode>();
-            wait_leaf_node_node.duration = wait_time;
-            return wait_leaf_node_node;
+            /* WaitTimeLeafNodeNode wait_leaf_node_node = SequenceNodeActionFactory.Create<WaitTimeLeafNodeNode>();
+             wait_leaf_node_node.duration = wait_time;
+             return wait_leaf_node_node;#1#
+            return null;
         }
 
         public SkillLeafNode CreateReleaseSkill(SpellInfoCnf cnf)
         {
-            ReleaseSkillLeafNode release_skill_leaf = SkillNodeActionFactory.Create<ReleaseSkillLeafNode>();
-            return release_skill_leaf;
+            /*ReleaseSkillLeafNode release_skill_leaf = SkillNodeActionFactory.Create<ReleaseSkillLeafNode>();
+            return release_skill_leaf;#1#
+            return null;
         }
 
         public SkillLeafNode CreateSkillFinish(SpellInfoCnf cnf)
         {
-            SkillFinishLeafNode finish_leaf_node = SkillNodeActionFactory.Create<SkillFinishLeafNode>();
-            return finish_leaf_node;
+            /*SkillFinishLeafNode finish_leaf_node = SequenceNodeActionFactory.Create<SkillFinishLeafNode>();
+            return finish_leaf_node;#1#
+            return null;
         }
     }
 
@@ -232,12 +237,12 @@ namespace Summer
                 trigger_colllion.AddAction(CreateWait(0.2f));
             }
 
-            /*// 释放控制
+            /#1#/ 释放控制
             {
                 SkillNode node = AddSkillNode(skill_sequence, E_SkillTransition.anim_release);
                 node.AddAction(CreateReleaseSkill(spell_info));
 
-            }*/
+            }#1#
             {
                 SkillNode node = AddSkillNode(skill_sequence, E_SkillTransition.anim_finish);
                 node.AddAction(CreateSkillFinish(spell_info));
@@ -249,7 +254,6 @@ namespace Summer
     }
 
     #endregion
-
 
     #region 跳空
 
@@ -303,3 +307,4 @@ namespace Summer
         }
     }
 }
+*/

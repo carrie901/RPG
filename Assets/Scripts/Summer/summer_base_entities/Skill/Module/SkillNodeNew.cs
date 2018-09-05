@@ -5,7 +5,7 @@ namespace Summer
     {
 
         public PreconditionNode _precondition;
-        public bool Evaluate(BlackBorad blackborad)
+        public bool Evaluate(BlackBoard blackborad)
         {
             bool result = (_precondition == null || _precondition.IsTrue(blackborad)) && OnEvaluate(blackborad);
             return result;
@@ -13,7 +13,7 @@ namespace Summer
 
         #region
 
-        public virtual bool OnEvaluate(BlackBorad blackborad)
+        public virtual bool OnEvaluate(BlackBoard blackborad)
         {
             return true;
         }

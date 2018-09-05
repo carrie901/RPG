@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 namespace Summer
 {
-    public class EntityBlackBoard : BlackBorad
+    public class EntityBlackBoard : BlackBoard
     {
         public BaseEntity entity;
     }

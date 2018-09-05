@@ -44,7 +44,7 @@ namespace Summer
         #region 附带属性 AI/SkillSet/BuffSet/Attribute/Fsm
 
         public BtEntityAi _entity_ai;                                                                   // 相关AI组件
-        public SkillSet _skill_set;                                                                     // 相关技能组件
+        public SkillSet_1 _skill_set;                                                                     // 相关技能组件
         public BuffSet _buff_set;                                                                        // 相关Buff组件
         public EntityAttributeProperty _attr_prop;                                                    // 相关人物属性组件
         public FsmSystem _fsm_system;                                                                   // 相关状态机组件
@@ -135,7 +135,7 @@ namespace Summer
         // 第一次被初始化出来
         public virtual void OnInit()
         {
-            _skill_set = new SkillSet(this);
+            _skill_set = new SkillSet_1(this);
             _buff_set = new BuffSet(this);
             _fsm_system = EntityFsmFactory.CreateFsmSystem(this);
             _entity_ai = new BtEntityAi(this);

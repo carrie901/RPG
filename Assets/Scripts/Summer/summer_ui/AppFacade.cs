@@ -74,7 +74,7 @@ namespace Summer
             Object.DontDestroyOnLoad(go);*/
 
             // 打开Login界面
-            PanelManager.Open(E_ViewId.login);
+            PanelManagerCtrl.Open(E_ViewId.login);
         }
     }
 

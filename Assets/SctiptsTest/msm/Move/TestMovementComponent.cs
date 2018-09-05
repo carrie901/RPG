@@ -79,7 +79,7 @@ public class TestMovementComponent : MonoBehaviour
     public void OnClick()
     {
         //GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_source_add, source);
-        EntitesManager.Instance.Manual._skill_set.CastSkill();
+        EntitesManager.Instance.Manual._skill_set.CastSkill(1);
     }
 
     void OnDrawGizmos()

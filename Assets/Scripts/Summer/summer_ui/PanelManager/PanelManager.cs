@@ -40,7 +40,9 @@ namespace Summer
         #region 属性
 
         protected static PanelManager _instance;
-        protected static int _lock_count;
+        public static PanelManager Instance { get { return _instance; } }
+
+        protected int _lock_count;
         protected PanelHistoryStack panel_history_stack = new PanelHistoryStack();
         protected PanelFactory _panel_factory = new PanelFactory();
         public Transform panel_canvas;                                  // Panel层
@@ -55,59 +57,30 @@ namespace Summer
 
         #region MONO Override
 
+        private PanelManager() { }
+
         // Use this for initialization
         void Awake()
         {
+            LogManager.Assert(_instance == null, "多次重复实例化PanelManager");
             _instance = this;
             _mgr_root = transform;
-            PanelInfoConfig.Init();
+            PanelManagerConfig.Init();
             panel_history_stack.OnOpen += _real_open;
             panel_history_stack.OnClose += _real_close;
         }
 
         #endregion
 
-        #region static Open/Back/Lock/ResetLock
-
-        public static void Open(E_ViewId view_id, System.Object info = null, Action<BaseView> action = null)
-        {
-            BaseView base_view = _instance.OnOpen(view_id, info);
-            if (action != null)
-                action(base_view);
-        }
-
-        public static void Back(E_ViewId view_id)
-        {
-            _instance.OnBack(view_id);
-        }
-
-        // 锁屏操作
-        public static void Lock(bool value)
-        {
-            _lock_count += (value ? 1 : -1);
-            GameObjectHelper.SetActive(_instance.lock_canvas, value);
-        }
-
-        public static void ResetLock()
-        {
-            _lock_count = 0;
-            GameObjectHelper.SetActive(_instance.lock_canvas, false);
-        }
-
-
-        #endregion
-
         #region Public
 
-        public BaseView OnOpen(E_ViewId view_id, System.Object info = null)
+        public void OnOpen(E_ViewId view_id, System.Object info = null, Action<BaseView> action = null)
         {
-            PanelInfo view_data = PanelInfoConfig.Get(view_id);
-            view_data.Info = info;
-            BaseView base_view = panel_history_stack.Open(view_data);
-            return base_view;
+            PanelInfo view_data = PanelManagerConfig.Get(view_id);
+            panel_history_stack.Open(view_data, info);
         }
 
-        public void OnBack(E_ViewId view_id)
+        public void OnClose(E_ViewId view_id)
         {
             bool result = panel_history_stack.AssetView(view_id);
             PanelLog.Assert(result, "回退的界面，和当前的界面历史不一致");
@@ -115,26 +88,37 @@ namespace Summer
             panel_history_stack.Back(view_id);
         }
 
+        // 锁屏操作
+        public void Lock(bool value)
+        {
+            _lock_count += (value ? 1 : -1);
+            GameObjectHelper.SetActive(_instance.lock_canvas, value);
+        }
+
+        public void ResetLock()
+        {
+            _lock_count = 0;
+            GameObjectHelper.SetActive(_instance.lock_canvas, false);
+        }
+
         #endregion
 
         #region Private Methods
 
-        public BaseView _real_open(PanelInfo view_data)
+        public void _real_open(PanelInfo view_data, System.Object info = null, Action<BaseView> action = null)
         {
-            BaseView base_view = _panel_factory.Open(view_data);
+            BaseView base_view = _panel_factory.Open(view_data, info);
+            if (action != null)
+                action(base_view);
             base_view.gameObject.SetActive(false);
             GameObjectHelper.SetParent(base_view.gameObject, panel_canvas.gameObject, true);
             base_view.gameObject.SetActive(true);
-            return base_view;
         }
 
-        public BaseView _real_close(PanelInfo view_data)
+        public void _real_close(PanelInfo view_data, System.Object info = null, Action<BaseView> action = null)
         {
             _panel_factory.Close(view_data);
-            return null;
         }
-
-
 
         #endregion
     }

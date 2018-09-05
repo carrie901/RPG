@@ -25,6 +25,7 @@ public class TestUnLoad01 : MonoBehaviour
 
 
         LoadAsset<Sprite>("uiresources/uitexture/other/activity_yeqian_1", "activity_yeqian_1");
+        LoadAsset<Sprite>("uiresources/uitexture/other/activity_yeqian_3", "activity_yeqian_3");
     }
 
     // Update is called once per frame
@@ -35,10 +36,10 @@ public class TestUnLoad01 : MonoBehaviour
 
     public T LoadAsset<T>(string asset_path, string res_name) where T : Object
     {
-        /* AssetBundle ab = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/rpg/" + asset_path + ".ab");
-         T t = ab.LoadAsset<T>(res_name);
-         return t;*/
-        return null;
+        AssetBundle ab = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/rpg/" + asset_path + ".ab");
+        T t = ab.LoadAsset<T>(res_name);
+        return t;
+        //return null;
     }
 
 }

@@ -40,15 +40,15 @@ namespace Summer
             //_loader = ResoucesLoader.instance;
 
             // 2.ASSETBUNDLE 实际发布用
-            _loader = AssetBundleLoader.Instance;
-            ResPathManager._suffix = new AssetBundleSuffix();
+            //_loader = AssetBundleLoader.Instance;
+            //ResPathManager._suffix = new AssetBundleSuffix();
             // 3.WWW 实际发布用
             //_loader = W3Loader.instance;
 
             // 1.LOCAL 本地加载做研发用
 #if UNITY_EDITOR
-            //_loader = AssetDatabaseLoader.instance;
-            //ResPathManager._suffix = new AssetDatabaseSuffix();
+            _loader = AssetDatabaseLoader.instance;
+            ResPathManager._suffix = new AssetDatabaseSuffix();
 #endif
             _init();
         }

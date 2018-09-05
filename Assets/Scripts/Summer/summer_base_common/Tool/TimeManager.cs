@@ -24,10 +24,10 @@ namespace Summer
             get { return Time.realtimeSinceStartup; }
         }
 
-        public static int FrameCount
-        {
-            get { return Time.frameCount; }
-        }
+        /// <summary>
+        /// 当前帧数
+        /// </summary>
+        public static int FrameCount { get { return Time.frameCount; } }
 
 
         public static float _last_time;

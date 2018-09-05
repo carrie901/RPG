@@ -76,8 +76,8 @@ namespace Summer
 
             // 做一个递归的操作
             Vector3 dest_offset = _dest_source_data._offset;
-            Vector3 tmp = dest_offset;
-            Vector3 dir = (dest_offset - cur_source_data._pos);
+            //Vector3 tmp = dest_offset;
+            //Vector3 dir = (dest_offset - cur_source_data._pos);
             /*if (dir.sqrMagnitude > _offset_speed * _offset_speed) //太远用lerp
             {
                 dest_offset = Vector3.Lerp(cur_source_data._pos, dest_offset, /*dt * _offset_speed#1#_default_speed._offset_speed);
