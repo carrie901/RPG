@@ -25,42 +25,41 @@ namespace Summer
 {
     public class BuffLog
     {
+        [System.Diagnostics.Conditional("LOG")]
         public static void Log(string message)
         {
             if (!LogManager.open_load_res) return;
             LogManager.Log(message);
         }
-
+        [System.Diagnostics.Conditional("LOG")]
         public static void Log(string message, params object[] args)
         {
             if (!LogManager.open_load_res) return;
             LogManager.Log(message, args);
         }
-
+        [System.Diagnostics.Conditional("LOG")]
         public static void Error(string message)
         {
             if (!LogManager.open_load_res) return;
             LogManager.Error(message);
         }
-
+        [System.Diagnostics.Conditional("LOG")]
         public static void Error(string message, params object[] args)
         {
             if (!LogManager.open_load_res) return;
             LogManager.Error(message, args);
         }
-
-        public static bool Assert(bool condition, string message)
+        [System.Diagnostics.Conditional("LOG")]
+        public static void Assert(bool condition, string message)
         {
-            if (!LogManager.open_load_res) return condition;
+            if (!LogManager.open_load_res)
             LogManager.Assert(condition, message);
-            return condition;
         }
-
-        public static bool Assert(bool condition, string message, params object[] args)
+        [System.Diagnostics.Conditional("LOG")]
+        public static void Assert(bool condition, string message, params object[] args)
         {
-            if (!LogManager.open_load_res) return condition;
+            if (!LogManager.open_load_res) return;
             LogManager.Assert(condition, message, args);
-            return condition;
         }
     }
 }

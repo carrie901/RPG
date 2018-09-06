@@ -24,7 +24,7 @@ namespace Summer
     {
         #region 属性
 
-        public static bool open_debug = true;
+        public static bool open_debug = false;
 
         public static bool ignore_unity_debug = true;                       // 忽略Unity的Debug Log日志 
 
@@ -85,7 +85,7 @@ namespace Summer
             for (int i = 0; i < count; i++)
                 pipelines[i].Quit();
         }
-
+        [System.Diagnostics.Conditional("LOG")]
         public static void Log(string message)
         {
             if (!IsOpenDebug()) return;
@@ -94,7 +94,7 @@ namespace Summer
             for (int i = 0; i < count; i++)
                 pipelines[i].Log(message);
         }
-
+        [System.Diagnostics.Conditional("LOG")]
         public static void Log(string message, params object[] args)
         {
             if (!IsOpenDebug()) return;
@@ -103,7 +103,7 @@ namespace Summer
             for (int i = 0; i < count; i++)
                 pipelines[i].Log(message, args);
         }
-
+        [System.Diagnostics.Conditional("LOG")]
         public static void Waring(string message)
         {
             if (!IsOpenDebug()) return;
@@ -112,7 +112,7 @@ namespace Summer
             for (int i = 0; i < count; i++)
                 pipelines[i].Waring(message);
         }
-
+        [System.Diagnostics.Conditional("LOG")]
         public static void Warning(string message, params object[] args)
         {
             if (!IsOpenDebug()) return;
@@ -121,7 +121,7 @@ namespace Summer
             for (int i = 0; i < count; i++)
                 pipelines[i].Warning(message, args);
         }
-
+        [System.Diagnostics.Conditional("LOG")]
         public static void Error(string message)
         {
             if (!IsOpenDebug()) return;
@@ -130,7 +130,7 @@ namespace Summer
             for (int i = 0; i < count; i++)
                 pipelines[i].Error(message);
         }
-
+        [System.Diagnostics.Conditional("LOG")]
         public static void Error(string message, params object[] args)
         {
             if (!IsOpenDebug()) return;
@@ -139,25 +139,23 @@ namespace Summer
             for (int i = 0; i < count; i++)
                 pipelines[i].Error(message, args);
         }
-
-        public static bool Assert(bool condition, string message)
+        [System.Diagnostics.Conditional("LOG")]
+        public static void Assert(bool condition, string message)
         {
-            if (!IsOpenDebug()) return condition;
-            if (error_level < ERROR) return condition;
+            if (!IsOpenDebug()) return;
+            if (error_level < ERROR) return;
             int count = pipelines.Count;
             for (int i = 0; i < count; i++)
                 pipelines[i].Assert(condition, message);
-            return condition;
         }
-
-        public static bool Assert(bool condition, string message, params object[] args)
+        [System.Diagnostics.Conditional("LOG")]
+        public static void Assert(bool condition, string message, params object[] args)
         {
-            if (!IsOpenDebug()) return condition;
-            if (error_level < ERROR) return condition;
+            if (!IsOpenDebug()) return;
+            if (error_level < ERROR) return;
             int count = pipelines.Count;
             for (int i = 0; i < count; i++)
                 pipelines[i].Assert(condition, message, args);
-            return condition;
         }
 
         #endregion

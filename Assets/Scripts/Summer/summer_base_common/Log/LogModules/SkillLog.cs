@@ -6,18 +6,19 @@ namespace Summer
 {
     public class SkillLog
     {
+        [System.Diagnostics.Conditional("LOG")]
         public static void Log(string message, params object[] args)
         {
             if (!LogManager.open_skill) return;
             LogManager.Log(message, args);
         }
-
+        [System.Diagnostics.Conditional("LOG")]
         public static void Assert(bool condition, string message)
         {
             if (!LogManager.open_skill) return;
             LogManager.Assert(condition, message);
         }
-
+        [System.Diagnostics.Conditional("LOG")]
         public static void Assert(bool condition, string message, params object[] args)
         {
             if (!LogManager.open_skill) return;
