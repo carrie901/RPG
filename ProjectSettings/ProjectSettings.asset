@@ -498,7 +498,7 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
-    7: AssetBundle
+    7: AssetBundle;LOG
   platformArchitecture: {}
   scriptingBackend: {}
   incrementalIl2cppBuild: {}

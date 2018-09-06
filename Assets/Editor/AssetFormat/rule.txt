@@ -1,0 +1,12 @@
+<Rule>
+
+	<Texture>
+		Des=针对ARGB_NPOT图片，ARGB 
+		<ArgbNpotTextureFilter>
+				Path=Assets/UIResources/OtherTexture/
+		</ArgbNpotTextureFilter>
+		<ArgbNpotTextureRule>
+			// 针对ARGB_NPOT图片，ARGB 
+		</ArgbNpotTextureRule>
+	</Texture>
+</Rule>

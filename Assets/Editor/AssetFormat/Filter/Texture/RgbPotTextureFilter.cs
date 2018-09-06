@@ -21,22 +21,20 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using System.Collections.Generic;
-using Summer;
 using UnityEditor;
 using UnityEngine;
 
 namespace SummerEditor
 {
-    public class DataMenuE
+    public class RgbPotTextureFilter : PathTextureFilter
     {
-        [MenuItem("Tools/数据/Effect")]
-        public static void CreateEffectScriptableObject()
+        public override bool IsInternalMatch(AssetImporter assetImport, Texture2D tex)
         {
-            EffectScriptableObject eff = ScriptableObjectHelper.Create<EffectScriptableObject>();
+            if (!AssetImportHelper.IsPot(tex)) return false;
 
-            ScriptableObjectHelper.Save<EffectScriptableObject>(eff, "Assets/Resources", "EffectFactory");
+            if (AssetImportHelper.HasAlphaChannel(tex)) return false;
+
+            return true;
         }
-
     }
 }
