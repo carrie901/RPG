@@ -54,7 +54,7 @@ public class TestBuff : MonoBehaviour
         if (flag)
         {
             flag = false;
-            base_controller._base_entity.AddBuff();
+            base_controller._baseEntity.AddBuff();
         }
     }
 

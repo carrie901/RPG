@@ -27,7 +27,8 @@ public partial class TableView
                 }
 
                 SortData();
-                m_hostWindow.Repaint();
+                if (m_hostWindow != null)
+                    m_hostWindow.Repaint();
             }
         }
     }
@@ -77,7 +78,8 @@ public partial class TableView
                 OnSelected(obj, col);
 
             EditorGUIUtility.systemCopyBuffer = text;
-            m_hostWindow.Repaint();
+            if (m_hostWindow != null)
+                m_hostWindow.Repaint();
         }
 
         // internal sequential id

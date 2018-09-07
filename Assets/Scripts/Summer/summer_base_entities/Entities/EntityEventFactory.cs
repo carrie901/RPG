@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿
 
 namespace Summer
 {
@@ -18,10 +16,10 @@ namespace Summer
         }
 
 
-        public static void PlayAnimation(I_EntityInTrigger entity,string animation_name)
+        public static void PlayAnimation(I_EntityInTrigger entity,string animationName)
         {
             PlayAnimationEventData data = EventDataFactory.Pop<PlayAnimationEventData>();
-            data.animation_name = animation_name;
+            data.animation_name = animationName;
             entity.RaiseEvent(E_EntityInTrigger.play_animation, data);
         }
     }

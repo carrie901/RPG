@@ -102,8 +102,8 @@ namespace SummerEditor
             AddComponentRight(_page_lab, _left_btn);
             AddComponentRight(_rigth_btn, _page_lab);
 
-            _left_btn.on_click += OnLeftPage;
-            _rigth_btn.on_click += OnRightPage;
+            _left_btn.OnClick += OnLeftPage;
+            _rigth_btn.OnClick += OnRightPage;
         }
 
         public void _change_page_lab()

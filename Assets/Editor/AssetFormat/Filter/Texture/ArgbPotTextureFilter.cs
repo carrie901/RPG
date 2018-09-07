@@ -31,7 +31,7 @@ namespace SummerEditor
     /// </summary>
     public class ArgbPotTextureFilter : PathTextureFilter
     {
-        public override bool IsInternalMatch(AssetImporter assetImport, Texture2D tex)
+        public override bool IsInternalMatch(Texture2D tex)
         {
             if (!AssetImportHelper.IsPot(tex)) return false;
 

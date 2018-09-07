@@ -18,7 +18,7 @@ namespace Summer
 
         public float FindValue(E_CharValueType type)
         {
-            if (type == E_CharValueType.hp)
+            if (type == E_CharValueType.HP)
             {
                 return hp;
             }

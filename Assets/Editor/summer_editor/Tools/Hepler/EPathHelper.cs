@@ -28,9 +28,9 @@ namespace SummerEditor
     /// </summary>
 	public class EPathHelper
     {
-        public static string asset_directory = "Assets/";
+        public static string _assetDirectory = "Assets/";
 
-        public static string relative_asset = Path.GetFullPath(Application.dataPath);
+        public static string _relativeAsset = Path.GetFullPath(Application.dataPath);
 
         #region 转换型 对路径做处理
 
@@ -41,7 +41,7 @@ namespace SummerEditor
         public static string AbsoluteToRelativePathWithAssets(string path)
         {
             string tmp_path = NormalizePath(path);
-            int index = tmp_path.IndexOf(asset_directory, StringComparison.Ordinal);
+            int index = tmp_path.IndexOf(_assetDirectory, StringComparison.Ordinal);
             if (index >= 0)
             {
                 string result = tmp_path.Substring(index);
@@ -60,10 +60,10 @@ namespace SummerEditor
         public static string AbsoluteToRelativePathRemoveAssets(string path)
         {
             path = NormalizePath(path);
-            int last_idx = path.LastIndexOf(asset_directory, StringComparison.Ordinal);
+            int last_idx = path.LastIndexOf(_assetDirectory, StringComparison.Ordinal);
             if (last_idx >= 0)
             {
-                int start = last_idx + asset_directory.Length;
+                int start = last_idx + _assetDirectory.Length;
                 int length = path.Length - start;
                 string result = path.Substring(start, length);
                 return result;
@@ -94,10 +94,10 @@ namespace SummerEditor
         public static string RemoveAssetsAndSuffixforPath(string file_path)
         {
             string tmp_path = NormalizePath(file_path);
-            int last_idx = tmp_path.IndexOf(asset_directory, StringComparison.Ordinal);
+            int last_idx = tmp_path.IndexOf(_assetDirectory, StringComparison.Ordinal);
             if (last_idx >= 0)
             {
-                int start = last_idx + asset_directory.Length;
+                int start = last_idx + _assetDirectory.Length;
                 tmp_path = tmp_path.Substring(start);
             }
 
@@ -244,32 +244,32 @@ namespace SummerEditor
         //图片
         public static bool IsTexture(string path)
         {
-            return PathEndWithExt(path, EditorConst.texture_exts);
+            return PathEndWithExt(path, AssetFormatConst._textureExts);
         }
         //材质
         public static bool IsMaterial(string path)
         {
-            return PathEndWithExt(path, EditorConst.material_exts);
+            return PathEndWithExt(path, AssetFormatConst._materialExts);
         }
         //模型
         public static bool IsModel(string path)
         {
-            return PathEndWithExt(path, EditorConst.model_exts);
+            return PathEndWithExt(path, AssetFormatConst._modelExts);
         }
         //.meta文件
         public static bool IsMeta(string path)
         {
-            return PathEndWithExt(path, EditorConst.meta_exts);
+            return PathEndWithExt(path, AssetFormatConst._metaExts);
         }
         //shader
         public static bool IsShader(string path)
         {
-            return PathEndWithExt(path, EditorConst.shader_exts);
+            return PathEndWithExt(path, AssetFormatConst._shaderExts);
         }
         //脚本
         public static bool IsScript(string path)
         {
-            return PathEndWithExt(path, EditorConst.script_exts);
+            return PathEndWithExt(path, AssetFormatConst._scriptExts);
         }
         //动作
         public static bool IsAnimation(string path)
@@ -284,7 +284,7 @@ namespace SummerEditor
                 }
                 return false;
             }*/
-            return PathEndWithExt(path, EditorConst.animation_exts);
+            return PathEndWithExt(path, AssetFormatConst._animationExts);
         }
 
         #endregion

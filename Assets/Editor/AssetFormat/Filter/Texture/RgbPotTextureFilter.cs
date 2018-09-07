@@ -21,14 +21,13 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using UnityEditor;
 using UnityEngine;
 
 namespace SummerEditor
 {
     public class RgbPotTextureFilter : PathTextureFilter
     {
-        public override bool IsInternalMatch(AssetImporter assetImport, Texture2D tex)
+        public override bool IsInternalMatch(Texture2D tex)
         {
             if (!AssetImportHelper.IsPot(tex)) return false;
 

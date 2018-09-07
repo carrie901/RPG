@@ -32,12 +32,12 @@ namespace SummerEditor
     /// </summary>
     public class ArgbNpotTextureFilter : PathTextureFilter
     {
-        public override bool IsInternalMatch(AssetImporter assetImport, Texture2D tex)
+        public override bool IsInternalMatch(Texture2D tex)
         {
             if (AssetImportHelper.IsPot(tex)) return false;
 
             if (!AssetImportHelper.HasAlphaChannel(tex)) return false;
-            
+
             return true;
         }
     }

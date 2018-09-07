@@ -43,7 +43,7 @@ public class TestAnimation01 : MonoBehaviour
 
     void Update()
     {
-        Animator animator = EntitesManager.Instance.Manual._anim_group.animator;
+        Animator animator = EntitesManager.Instance.Manual._animGroup.animator;
         AnimatorStateInfo animatorInfo = animator.GetCurrentAnimatorStateInfo(0); 
         if ((animatorInfo.normalizedTime > 1.0f) && !animatorInfo.IsName(AnimationNameConst.IDLE))
         {
@@ -55,7 +55,7 @@ public class TestAnimation01 : MonoBehaviour
     {
         if (GUI.Button(new Rect(100, 100, 100, 100), "动作"))
         {
-            EntitesManager.Instance.Manual._anim_group.PlayAnimation(AnimationNameConst.ATTACK_01);
+            EntitesManager.Instance.Manual._animGroup.PlayAnimation(AnimationNameConst.ATTACK_01);
         }
     }
 

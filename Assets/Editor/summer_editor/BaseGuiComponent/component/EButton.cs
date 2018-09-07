@@ -1,28 +1,27 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace SummerEditor
 {
     public class EButton : ERectItem
     {
-        public string text;
-        public GUIStyle _gui_style;
-        public bool _result = false;
+        public string _text;
+        public GUIStyle _guiStyle;
+        public bool _result;
 
         public EButton(string lab, float width, float height = DEFAULT_HEIGHT) : base(width, height)
         {
-            text = lab;
+            _text = lab;
         }
 
         public delegate void OnButtonClick(EButton button);
 
-        public event OnButtonClick on_click;
+        public event OnButtonClick OnClick;
         public override void Draw()
         {
-            _result = EView.Button(_world_pos, text, _gui_style);
-            if (_result && on_click != null)
+            _result = EView.Button(_world_pos, _text, _guiStyle);
+            if (_result && OnClick != null)
             {
-                on_click(this);
+                OnClick(this);
             }
         }
 

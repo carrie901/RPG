@@ -58,7 +58,7 @@ namespace SummerEditor
             _des_text_area = new ETextArea(200, 18 * 4);
 
             _add_effect_btn = new EButton("添加效果", 70);
-            _add_effect_btn.on_click += AddEffect;
+            _add_effect_btn.OnClick += AddEffect;
 
             _effect_popup = new EEnumPopup(200);
             _effect_popup.SetData(E_EffectType.attribute);
@@ -69,7 +69,7 @@ namespace SummerEditor
             _scroll_view = new EScrollView(Ew - 20, Eh - 100);
 
             _save_btn = new EButton("保存", 50);
-            _save_btn.on_click += OnSaveInfo;
+            _save_btn.OnClick += OnSaveInfo;
             //_scroll_view.SetBg(true);
         }
 

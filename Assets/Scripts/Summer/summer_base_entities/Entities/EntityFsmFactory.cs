@@ -9,20 +9,20 @@ namespace Summer
         /// <returns></returns>
         public static FsmSystem CreateFsmSystem(BaseEntity entity)
         {
-            FsmSystem fsm_system = new FsmSystem(entity);
+            FsmSystem fsmSystem = new FsmSystem(entity);
 
-            AddState<EntityIdleState>(entity, fsm_system, E_StateId.idle);
-            AddState<EntityAttackState>(entity, fsm_system, E_StateId.attack);
-            AddState<EntitySleepState>(entity, fsm_system, E_StateId.sleep);
-            AddState<EntityMoveState>(entity, fsm_system, E_StateId.move);
-            AddState<EntityDieState>(entity, fsm_system, E_StateId.die);
-            AddState<EntitySkillState>(entity, fsm_system, E_StateId.skill);
-            AddState<EntityHurtState>(entity, fsm_system, E_StateId.hurt);
-            fsm_system.Start();
-            return fsm_system;
+            AddState<EntityIdleState>(entity, fsmSystem, E_StateId.idle);
+            AddState<EntityAttackState>(entity, fsmSystem, E_StateId.attack);
+            AddState<EntitySleepState>(entity, fsmSystem, E_StateId.sleep);
+            AddState<EntityMoveState>(entity, fsmSystem, E_StateId.move);
+            AddState<EntityDieState>(entity, fsmSystem, E_StateId.die);
+            AddState<EntitySkillState>(entity, fsmSystem, E_StateId.skill);
+            AddState<EntityHurtState>(entity, fsmSystem, E_StateId.hurt);
+            fsmSystem.Start();
+            return fsmSystem;
         }
 
-        public static void AddState<T>(BaseEntity entity, FsmSystem system, E_StateId state_id)
+        public static void AddState<T>(BaseEntity entity, FsmSystem system, E_StateId stateId)
             where T : FsmState, new()
         {
             T t = new T();

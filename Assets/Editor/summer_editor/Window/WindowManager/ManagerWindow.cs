@@ -71,7 +71,7 @@ namespace SummerEditor
             _container.SetBg(0, 0, 0);
 
             _bar = new EToolBar(new[] { "打包", "工具", "优化检测", "Buff编辑器", "技能编辑器" }, t_width / 2);
-            _bar.on_select += on_select;
+            _bar.OnSelect += on_select;
             _container.AddComponent(_bar, 0, 10);
 
             _tool_win = new ToolWin(t_width - 50, t_height - _bar.Size.y - 30);
@@ -143,7 +143,7 @@ namespace SummerEditor
             for (int i = 0; i < names.Count; i++)
             {
                 EButton button = new EButton(names[i], Ew - 5);
-                button.on_click += OnClick;
+                button.OnClick += OnClick;
                 AddComponent(button, 5, tmp_y);
                 tmp_y += button.Size.y + 5;
             }
@@ -152,7 +152,7 @@ namespace SummerEditor
         public void OnClick(EButton button)
         {
             if (on_action != null)
-                on_action(button.text);
+                on_action(button._text);
         }
     }
 }

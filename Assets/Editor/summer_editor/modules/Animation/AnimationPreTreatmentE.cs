@@ -12,13 +12,13 @@ namespace SummerEditor
     public class AnimationPreTreatmentE
     {
 
-        public static string[] raw_anim_directory = new string[]
+        public static string[] _rawAnimDirectory = new string[]
         {
             "Assets/Raw/Animation/"
         };
 
-        public static string character_prefab_directory = "Assets/res_bundle/prefab/model/";                // 角色Prefab
-        public static string search_suffix = "*.anim";                                                      // *.FBX        查询的目标是fbx还是anim
+        public static string _characterPrefabDirectory = "Assets/res_bundle/prefab/model/";                // 角色Prefab
+        public static string _searchSuffix = "*.anim";                                                      // *.FBX        查询的目标是fbx还是anim
 
         #region 预处理
 
@@ -28,12 +28,12 @@ namespace SummerEditor
             //List<string> all_animation = new List<string>(animation_all);
 
             // 1.找到需要处理的角色prefab
-            List<string> char_prefab_path = EPathHelper.GetAssetsPath(character_prefab_directory, false, "*.prefab");
-            int length = char_prefab_path.Count;
+            List<string> charPrefabPath = EPathHelper.GetAssetsPath(_characterPrefabDirectory, false, "*.prefab");
+            int length = charPrefabPath.Count;
             for (int i = 0; i < length; i++)
             {
-                _excute_animation(char_prefab_path[i]);
-                EditorUtility.DisplayProgressBar(char_prefab_path[i], string.Format("动画预处理({0}/{1})", i + 1, length), (float)(i + 1) / length);
+                _excute_animation(charPrefabPath[i]);
+                EditorUtility.DisplayProgressBar(charPrefabPath[i], string.Format("动画预处理({0}/{1})", i + 1, length), (float)(i + 1) / length);
             }
 
             SavePrefab();
@@ -44,13 +44,13 @@ namespace SummerEditor
         //[MenuItem("Assets/Asset Pre Process/动画预处理")]
         public static void AnimationPreTreatment()
         {
-            GameObject select_go = Selection.activeGameObject;
-            if (select_go == null) return;
+            GameObject selectGo = Selection.activeGameObject;
+            if (selectGo == null) return;
 
-            string path = AssetDatabase.GetAssetPath(select_go);
-            if (!path.Contains(character_prefab_directory))
+            string path = AssetDatabase.GetAssetPath(selectGo);
+            if (!path.Contains(_characterPrefabDirectory))
             {
-                Debug.LogErrorFormat("请选择{0}的路径下的Prefab", character_prefab_directory);
+                Debug.LogErrorFormat("请选择{0}的路径下的Prefab", _characterPrefabDirectory);
                 return;
             }
 
@@ -86,52 +86,52 @@ namespace SummerEditor
         public static void _excute_animation(string path)
         {
             // 2.根据指定角色的prefab路径得到动作文件夹
-            string anim_folder = _find_file_folder(path);
-            Debug.AssertFormat(!string.IsNullOrEmpty(anim_folder), "路径:{0},找不到对应的动作文件", path);
-            if (string.IsNullOrEmpty(anim_folder)) return;
+            string animFolder = _find_file_folder(path);
+            Debug.AssertFormat(!string.IsNullOrEmpty(animFolder), "路径:{0},找不到对应的动作文件", path);
+            if (string.IsNullOrEmpty(animFolder)) return;
             // 3.得到动作文件
-            List<AnimationClip> anim_clips = _find_animation_clip(anim_folder);
+            List<AnimationClip> animClips = _find_animation_clip(animFolder);
             // 4.设置资源
-            _add_animation(path, anim_clips);
+            _add_animation(path, animClips);
         }
 
         // 添加prefab的动画
-        public static void _add_animation(string prefab_path, List<AnimationClip> anim_clips)
+        public static void _add_animation(string prefabPath, List<AnimationClip> animClips)
         {
-            GameObject obj = AssetDatabase.LoadAssetAtPath<GameObject>(prefab_path);
+            GameObject obj = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
             if (obj == null) return;
 
             Animator ani = obj.GetComponent<Animator>();
             bool result = (ani != null);
-            Debug.AssertFormat(result, "路径:{0},Animator为空", prefab_path);
+            Debug.AssertFormat(result, "路径:{0},Animator为空", prefabPath);
             if (!result) return;
 
             result = (ani.runtimeAnimatorController != null);
-            Debug.AssertFormat(result, "路径:{0},Animator的runtimeAnimatorController为空", prefab_path);
+            Debug.AssertFormat(result, "路径:{0},Animator的runtimeAnimatorController为空", prefabPath);
             if (!result) return;
 
-            EntityAnimationGroup ani_config = Check<EntityAnimationGroup>(obj);
-            ani_config.Clear();
-            for (int i = 0; i < anim_clips.Count; i++)
+            EntityAnimationGroup aniConfig = Check<EntityAnimationGroup>(obj);
+            aniConfig.Clear();
+            for (int i = 0; i < animClips.Count; i++)
             {
-                ani_config.AddAnims(anim_clips[i].name, anim_clips[i]);
+                aniConfig.AddAnims(animClips[i].name, animClips[i]);
             }
 
             EditorUtility.SetDirty(obj);
         }
 
         // 查找指定目录下的所有动画文件
-        public static List<AnimationClip> _find_animation_clip(string folder_path)
+        public static List<AnimationClip> _find_animation_clip(string folderPath)
         {
 
             List<AnimationClip> clips = new List<AnimationClip>();
-            List<string> anims_path = EPathHelper.GetAssetsPath(folder_path, false, search_suffix);
+            List<string> animsPath = EPathHelper.GetAssetsPath(folderPath, false, _searchSuffix);
 
-            int length = anims_path.Count;
+            int length = animsPath.Count;
             for (int i = 0; i < length; i++)
             {
-                EditorUtility.DisplayProgressBar("加载动画文件,", anims_path[i], (1 + i) / length);
-                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(anims_path[i]);
+                EditorUtility.DisplayProgressBar("加载动画文件,", animsPath[i], (1 + i) / length);
+                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(animsPath[i]);
                 if (clip == null) continue;
                 clips.Add(clip);
             }
@@ -140,16 +140,16 @@ namespace SummerEditor
         }
 
         // 根据相对路径得到名字,根据一定的规则得到原始动作文件夹
-        public static string _find_file_folder(string file_path)
+        public static string _find_file_folder(string filePath)
         {
-            string asset_name = EPathHelper.GetName(file_path);
-            string npc_name = asset_name.Split('_')[1].Split('.')[0];
+            string assetName = EPathHelper.GetName(filePath);
+            string npcName = assetName.Split('_')[1].Split('.')[0];
 
 
-            for (int i = 0; i < raw_anim_directory.Length; i++)
+            for (int i = 0; i < _rawAnimDirectory.Length; i++)
             {
-                if (Directory.Exists(raw_anim_directory[i] + npc_name))
-                    return raw_anim_directory[i] + npc_name;
+                if (Directory.Exists(_rawAnimDirectory[i] + npcName))
+                    return _rawAnimDirectory[i] + npcName;
             }
 
             return string.Empty;

@@ -26,15 +26,17 @@ namespace SummerEditor
     public class ELabelInput : EComponent
     {
         public ELabel title_lab;
-        public EInput input;
+        public EInput _input;
         public ELabelInput(string title, float width_title, string input_lab, float width_input, float height = DEFAULT_HEIGHT) : base(width_title + width_input, height)
         {
             title_lab = new ELabel(title, width_title);
-            input = new EInput(input_lab, width_input);
+            _input = new EInput(input_lab, width_input);
             AddComponent(title_lab, 0, 0);
-            AddComponentRight(input, title_lab);
+            AddComponentRight(_input, title_lab);
             show_box = false;
         }
+
+        public string Text { get { return _input.text; } }
     }
 
     public class ELabelIntInput : EComponent

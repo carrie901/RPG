@@ -96,7 +96,7 @@ namespace SummerEditor
 
         public void _init_click()
         {
-            _target_filter_btn.on_click += AddTargetFilter;
+            _target_filter_btn.OnClick += AddTargetFilter;
         }
 
         private void AddTargetFilter(EButton button)
@@ -105,7 +105,7 @@ namespace SummerEditor
             item.SetData(GetInof());
             _scrollview.AddItem(item);
             item.Init();
-            item._remove_btn.on_click += OnRemoveItem;
+            item._remove_btn.OnClick += OnRemoveItem;
         }
 
         private void OnRemoveItem(EButton button)

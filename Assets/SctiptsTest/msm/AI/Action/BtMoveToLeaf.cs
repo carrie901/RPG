@@ -33,7 +33,7 @@ namespace Summer.AI
                     moving_step = dist_to_target;
                     ret = BtRunningStatus.FINISHED;
                 }
-                Transform tran = this_data.EntityAi.BaseEntity.EntityController.trans;
+                Transform tran = this_data.EntityAi.BaseEntity.EntityController._trans;
                 tran.localPosition = tran.localPosition + to_target * moving_step;
                 return ret;
             }

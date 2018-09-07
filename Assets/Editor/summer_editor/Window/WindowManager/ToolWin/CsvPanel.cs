@@ -48,16 +48,16 @@ namespace SummerEditor
                 + "2.配置表有效性检测: 检测Csv表格中的数据的有效性\n");
 
             _csv_to_cs_btn = new EButton("Csv生成Cs代码", 120);
-            _csv_to_cs_btn.on_click += ClickCsvToCs;
+            _csv_to_cs_btn.OnClick += ClickCsvToCs;
 
             _csv_to_byte_btn = new EButton("生成二进制数据", 120);
-            _csv_to_byte_btn.on_click += ClickToByte;
+            _csv_to_byte_btn.OnClick += ClickToByte;
 
             _check_byte_btn = new EButton("生成二进制数据", 120);
-            _check_byte_btn.on_click += ClickCheckByte;
+            _check_byte_btn.OnClick += ClickCheckByte;
 
             _check_csv_vaild = new EButton("配置表有效性检测", 120);
-            _check_csv_vaild.on_click += ClickCheckCsvVaild;
+            _check_csv_vaild.OnClick += ClickCheckCsvVaild;
 
             _init_position();
         }

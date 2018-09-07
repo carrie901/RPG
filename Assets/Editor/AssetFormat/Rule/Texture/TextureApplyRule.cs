@@ -27,7 +27,7 @@ namespace SummerEditor
 {
     public static class TextureApplyRule
     {
-        public static void ApplyFormat(TextureFormatInfo data)
+        /*public static void ApplyFormat(TextureFormatInfo data)
         {
             TextureImporter importer = data._importer;
             if (importer == null) return;
@@ -44,36 +44,21 @@ namespace SummerEditor
             if (data.MaxSize > 0)
                 importer.maxTextureSize = data.MaxSize;
 
-            TextureImporterPlatformSettings settingAndroid = importer.GetPlatformTextureSettings(AssetImportConst.PLATFORM_ANDROID);
+            TextureImporterPlatformSettings settingAndroid = importer.GetPlatformTextureSettings(AssetFormatConst.PLATFORM_ANDROID);
             settingAndroid.overridden = true;
             settingAndroid.format = data.AndroidFormat;
             settingAndroid.maxTextureSize = importer.maxTextureSize;
             importer.SetPlatformTextureSettings(settingAndroid);
 
-            TextureImporterPlatformSettings settingIos = importer.GetPlatformTextureSettings(AssetImportConst.PLATFORM_IOS);
+            TextureImporterPlatformSettings settingIos = importer.GetPlatformTextureSettings(AssetFormatConst.PLATFORM_IOS);
             settingIos.overridden = true;
             settingIos.format = data.IosFormat;
             settingIos.maxTextureSize = importer.maxTextureSize;
             importer.SetPlatformTextureSettings(settingIos);
             importer.SaveAndReimport();
-        }
+        }*/
     }
 
 
-    public class TextureFormatInfo
-    {
-        public TextureImporterType TexType { get; set; }                    // 图片类型
-        public TextureImporterShape ShapeType { get; set; }                 // 
-        public bool ReadWriteEnable { get; set; }                           // 可以读写
-        public bool MipmapEnable { get; set; }                              // true=开启mip
-        public int MaxSize { get; set; }
-        public TextureImporterFormat IosFormat;
-        public TextureImporterFormat AndroidFormat;
-
-        public string _path;
-        public TextureImporter _importer;
-
-
-
-    }
+    
 }

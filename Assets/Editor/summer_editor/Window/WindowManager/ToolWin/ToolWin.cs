@@ -59,7 +59,7 @@ namespace SummerEditor
         public void _init()
         {
             _bar = new EToolBar(new[] { "表格工具", "Animation优化", "AB资源报告", "特效检测" }, Ew / 2);
-            _bar.on_select += on_select;
+            _bar.OnSelect += on_select;
             AddComponent(_bar, 0, 10);
 
             float panel_width = Ew - 50;
@@ -76,9 +76,9 @@ namespace SummerEditor
             _bar.SelectIndex = 1;
         }
 
-        public void on_select(EToolBar tool_bar)
+        public void on_select(EToolBar toolBar)
         {
-            int select = tool_bar.SelectIndex;
+            int select = toolBar.SelectIndex;
             foreach (var info in _panel_map)
             {
                 info.Value.Enabel = (info.Key == select);

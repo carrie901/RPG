@@ -27,45 +27,55 @@ using UnityEngine;
 
 namespace SummerEditor
 {
-    public class AssetFormatRule : I_AssetRule
+    public class AssetFormatRule
     {
-        public string key;
-        public I_AssetFilter filte;
-        public I_AssetRule rule;
+        public I_AssetFilter _filter;
+        public I_AssetRule _rule;
 
-        public void ApplySettings<T>(AssetImporter assetImport, T obj) where T : UnityEngine.Object
+        public string FilterPath;
+        public string FilterRule;
+        public string FormatRule;
+
+        public void ApplySettings<T>(T t, string assetPath) where T : UnityEngine.Object
         {
-            if (rule != null)
-                rule.ApplySettings(assetImport, obj);
+            TextureImporter tImporter = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+            if (tImporter == null) return;
+            if (_rule != null) _rule.ApplySettings(tImporter, t);
         }
 
-        public void SetFilter(EdNode node)
+        public bool IsMatch<T>(T t, string assetPath) where T : UnityEngine.Object
         {
-            key = node.Name;
-
-            EdNode filterNode = node.Nodes[0];
-            Type type = Type.GetType("SummerEditor." + filterNode.Name);
-
-            Debug.AssertFormat(type != null, "资源格式化找不到对应过滤条件:[0]", filterNode.Name);
-            if (type == null) return;
-
-            filte = Activator.CreateInstance(type) as I_AssetFilter;
-            if (filte == null) return;
-
-            filte.SetFilter(filterNode);
-            EdNode ruleNode = node.Nodes[1];
-            Type ruleType = Type.GetType("SummerEditor." + ruleNode.Name);
-
-            Debug.AssertFormat(ruleType != null, "资源格式化找不到对应过格式化规则:[0]", ruleNode.Name);
-            if (ruleType == null) return;
-            rule = Activator.CreateInstance(ruleType) as I_AssetRule;
-            Debug.Log("rule_type:" + ruleType.ToString());
+            if (!AssetImportHelper.IsMath(assetPath, FilterPath)) return false;
+            if (_filter == null) return false;
+            return _filter.IsMatch<T>(t);
         }
 
-        public bool IsMatch<T>(AssetImporter assetImport, T t) where T : UnityEngine.Object
+        public static AssetFormatRule CreateFormatRule(EdNode node)
         {
-            if (filte == null) return false;
-            return filte.IsMatch<T>(assetImport, t);
+            try
+            {
+                AssetFormatRule rule = new AssetFormatRule();
+                rule.FilterPath = node.GetAttribute("FilterPath").ToStr();
+                rule.FilterRule = node.GetAttribute("FilterRule").ToStr();
+                if (!string.IsNullOrEmpty(rule.FilterRule))
+                {
+                    Type filterType = Type.GetType("SummerEditor." + rule.FilterRule);
+                    rule._filter = Activator.CreateInstance(filterType) as I_AssetFilter;
+                }
+               
+                rule.FormatRule = node.GetAttribute("FormatRule").ToStr();
+                Type ruleType = Type.GetType("SummerEditor." + rule.FormatRule);
+                rule._rule = Activator.CreateInstance(ruleType) as I_AssetRule;
+                Debug.AssertFormat(rule._rule != null, "格式规则不存在:[{0}]", rule.FormatRule);
+                return rule;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+                return null;
+            }
         }
+
+
     }
 }

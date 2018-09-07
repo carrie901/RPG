@@ -48,7 +48,7 @@ namespace Summer.Sequence
         public override void OnExit(BlackBoard blackboard)
         {
             LogExit();
-            _entity.EntityController.trans.position = _target_pos;
+            _entity.EntityController._trans.position = _target_pos;
         }
         public override void SetConfigInfo(EdNode cnf)
         {
@@ -61,7 +61,7 @@ namespace Summer.Sequence
             //SkillLog.Log("位置偏移-->OnUpdate:[{0}]", TimeManager.FrameCount);
 
             // 有问题的
-            _entity.EntityController.trans.position = Vector3.SmoothDamp(_entity.WroldPosition, _target_pos, ref _speed, 2);
+            _entity.EntityController._trans.position = Vector3.SmoothDamp(_entity.WroldPosition, _target_pos, ref _speed, 2);
         }
 
         public override string ToDes() { return DES; }

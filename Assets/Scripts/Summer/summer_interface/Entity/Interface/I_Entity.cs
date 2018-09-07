@@ -15,7 +15,7 @@
         bool UnRegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler);
 
         //触发回调点
-        void RaiseEvent(E_Entity_Event key, EventSetData param);
+        void RaiseEvent(E_Entity_Event key, EventSetData objInfo);
 
 
         // 这个有严重违反依赖导致原则，会整体的破坏了接口

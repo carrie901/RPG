@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Summer
 {
@@ -23,13 +21,11 @@ namespace Summer
     {
         #region 属性
 
-        public BaseEntity _base_entity;
-        protected I_Entity entity;
-        protected I_EntityInTrigger _in_entity;
-        [HideInInspector]
-        public Transform trans;                                                                         // 缓存Transform
-        [HideInInspector]
-        public Rigidbody rigid_body = null;
+        public BaseEntity _baseEntity;
+        protected I_Entity _entity;
+        protected I_EntityInTrigger _inEntity;
+        protected Transform _trans;                                                                         // 缓存Transform
+        protected Rigidbody _rigidBody;
         
         #endregion
 
@@ -37,10 +33,10 @@ namespace Summer
 
         void Awake()
         {
-            trans = transform;
-            rigid_body = GetComponent<Rigidbody>();
-            if (rigid_body != null)
-                rigid_body.useGravity = false;
+            _trans = transform;
+            _rigidBody = GetComponent<Rigidbody>();
+            if (_rigidBody != null)
+                _rigidBody.useGravity = false;
         }
 
         void OnDestroy()
@@ -73,7 +69,7 @@ namespace Summer
         public override void OnPush()
         {
             base.OnPush();
-            entity = null;
+            _entity = null;
         }
 
         #endregion
@@ -82,14 +78,14 @@ namespace Summer
 
         public void OnRegisterHandler()
         {
-            _base_entity.RegisterHandler(E_EntityInTrigger.play_effect, OnPlayEffect);
+            _baseEntity.RegisterHandler(E_EntityInTrigger.play_effect, OnPlayEffect);
         }
 
-        public void InitOutTrigger(I_Entity trigger, I_EntityInTrigger in_trigger,BaseEntity base_entity)
+        public void InitOutTrigger(I_Entity trigger, I_EntityInTrigger inTrigger,BaseEntity baseEntity)
         {
-            entity = trigger;
-            _in_entity = in_trigger;
-            _base_entity = base_entity;
+            _entity = trigger;
+            _inEntity = inTrigger;
+            _baseEntity = baseEntity;
         }
 
 
@@ -103,7 +99,7 @@ namespace Summer
         // 播放特效
         public void OnPlayEffect(EventSetData param)
         {
-            EntityActionFactory.OnAction<EntityPlayEffectAction>(_base_entity, param);
+            EntityActionFactory.OnAction<EntityPlayEffectAction>(_baseEntity, param);
         }
 
 

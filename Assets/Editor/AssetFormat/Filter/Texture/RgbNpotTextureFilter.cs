@@ -28,7 +28,7 @@ namespace SummerEditor
 {
     public class RgbNpotTextureFilter : PathTextureFilter
     {
-        public override bool IsInternalMatch(AssetImporter assetImport, Texture2D tex)
+        public override bool IsInternalMatch(Texture2D tex)
         {
             if (AssetImportHelper.IsPot(tex)) return false;
 

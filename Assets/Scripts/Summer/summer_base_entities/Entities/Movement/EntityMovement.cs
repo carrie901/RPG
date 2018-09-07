@@ -67,7 +67,7 @@ namespace Summer
         /// <summary>
         /// 旋转角度
         /// </summary>
-        public void OnRotating(Vector3 target_direction)
+        public void OnRotating(Vector3 targetDirection)
         {
             /*Quaternion target_rotation = Quaternion.LookRotation(target_direction, Vector3.up);
             // 根据玩家的旋转创建一个更接近目标旋转的增量旋转。
@@ -79,28 +79,28 @@ namespace Summer
                 trans.rotation = Quaternion.Lerp(trans.localRotation, Quaternion.LookRotation(move_direction), Time.deltaTime * turn_smoothing);
             }*/
 
-            Quaternion target_rotation = Quaternion.LookRotation(target_direction, Vector3.up);
+            Quaternion target_rotation = Quaternion.LookRotation(targetDirection, Vector3.up);
             trans.rotation = target_rotation;
         }
 
         #region 驱动移动 1.目标方向 2.目标点
 
-        public void AddDirection(Vector2 target_direction)
+        public void AddDirection(Vector2 targetDirection)
         {
             if (_base_entity.GetState() != E_StateId.move)
                 EntityEventFactory.ChangeInEntityState(_base_entity, E_StateId.move);
             //_reach_target_pos = true;
             DirectionMove move = direction_move as DirectionMove;
-            move.move_direction = new Vector3(target_direction.x, 0, target_direction.y);
+            move.move_direction = new Vector3(targetDirection.x, 0, targetDirection.y);
             _move_component = direction_move;
         }
 
-        public void MoveToTargetPostion(Vector3 targtet_position, float speed)
+        public void MoveToTargetPostion(Vector3 targtetPosition, float speed)
         {
             /*if (_entity.GetState() != E_StateId.move)
                 EntityEventFactory.ChangeInEntityState(_entity, E_StateId.move);*/
 
-            Vector3 target = NavMeshHelper.MakeReasonablePos(targtet_position);
+            Vector3 target = NavMeshHelper.MakeReasonablePos(targtetPosition);
             TargetPosMove pos_move = target_pos_move as TargetPosMove;
             pos_move.target = target;
             pos_move.speed = speed;

@@ -71,12 +71,12 @@ namespace SummerEditor
             return GetKb(size);
         }
 
-        public static string GetKb(float bytes,bool show=true )
+        public static string GetKb(float bytes, bool show = true)
         {
             string size = string.Empty;
             if (show)
             {
-                size= (bytes / 1024).ToString("f2") + " Kb";
+                size = (bytes / 1024).ToString("f2") + " Kb";
                 if ((bytes / 1024) > 1024)
                     size = ((float)bytes / (1024 * 1024)).ToString("f2") + " Mb";
             }
@@ -86,7 +86,7 @@ namespace SummerEditor
                 if ((bytes / 1024) > 1024)
                     size = ((float)bytes / (1024 * 1024)).ToString("f2");
             }
-           
+
             return size;
         }
 
@@ -95,9 +95,9 @@ namespace SummerEditor
 
         #region 计算 纹理/模型/动作文件内存占用大小
 
-        public static float CalculateRuntimeMemorySize(string asset_path)
+        public static float CalculateRuntimeMemorySize(string assetPath)
         {
-            Object o = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(asset_path);
+            Object o = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetPath);
             float mem = GetRuntimeMemorySize(o);
             //Resources.UnloadUnusedAssets();
             //Resources.UnloadAsset(o);
@@ -133,7 +133,7 @@ namespace SummerEditor
             Object[] assets = AssetDatabase.LoadAllAssetsAtPath(path);
             for (int i = 0; i < assets.Length; ++i)
             {
-                if ((assets[i] is AnimationClip) && assets[i].name != EditorConst.editor_aniclip_name)
+                if ((assets[i] is AnimationClip) && assets[i].name != EditorConst._editorAniclipName)
                 {
                     size += GetRuntimeMemorySize(assets[i]);
                 }
@@ -228,6 +228,8 @@ namespace SummerEditor
                     return 4;
                 case TextureImporterFormat.AutomaticTruecolor:
                     return 32;
+                case TextureImporterFormat.RGBA16:
+                    return 16;
                 default:
                     Debug.LogError("输出默认纹理格式" + format);
                     return 32;
@@ -237,31 +239,31 @@ namespace SummerEditor
         /// <summary>
         /// 计算纹理内存大小
         /// </summary>
-        public static float CalculateTextureSizeBytes(Texture t_texture, TextureImporterFormat format)
+        public static float CalculateTextureSizeBytes(Texture tTexture, TextureImporterFormat format)
         {
-            var t_width = t_texture.width;
-            var t_height = t_texture.height;
-            if (t_texture is Texture2D)
+            var tWidth = tTexture.width;
+            var tHeight = tTexture.height;
+            if (tTexture is Texture2D)
             {
-                var t_tex2_d = t_texture as Texture2D;
-                var bits_per_pixel = GetBitsPerPixel(format);
-                var mip_map_count = t_tex2_d.mipmapCount;
-                var mip_level = 1;
-                var t_size = 0;
-                while (mip_level <= mip_map_count)
+                var tTex2D = tTexture as Texture2D;
+                var bitsPerPixel = GetBitsPerPixel(format);
+                var mipMapCount = tTex2D.mipmapCount;
+                var mipLevel = 1;
+                var tSize = 0;
+                while (mipLevel <= mipMapCount)
                 {
-                    t_size += t_width * t_height * bits_per_pixel / 8;
-                    t_width = t_width / 2;
-                    t_height = t_height / 2;
-                    mip_level++;
+                    tSize += tWidth * tHeight * bitsPerPixel / 8;
+                    tWidth = tWidth / 2;
+                    tHeight = tHeight / 2;
+                    mipLevel++;
                 }
-                return t_size;
+                return tSize;
             }
 
-            if (t_texture is Cubemap)
+            if (tTexture is Cubemap)
             {
-                var bits_per_pixel = GetBitsPerPixel(format);
-                return t_width * t_height * 6 * bits_per_pixel / 8;
+                var bitsPerPixel = GetBitsPerPixel(format);
+                return tWidth * tHeight * 6 * bitsPerPixel / 8f;
             }
             return 0;
         }

@@ -46,7 +46,7 @@ namespace Summer.Sequence
         public override void OnExit(BlackBoard blackboard)
         {
             LogExit();
-            _entity.EntityController.trans.position = _target_pos;
+            _entity.EntityController._trans.position = _target_pos;
         }
         public override void SetConfigInfo(EdNode cnf)
         {
@@ -59,7 +59,7 @@ namespace Summer.Sequence
             SkillLog.Log("位置偏移-->OnUpdate:[{0}]", TimeManager.FrameCount);
             _curr_frame++;
             // 有问题的
-            _entity.EntityController.trans.position = Vector3.Lerp(_source_pos, _target_pos, _curr_frame * 1.0f / _frame_length);
+            _entity.EntityController._trans.position = Vector3.Lerp(_source_pos, _target_pos, _curr_frame * 1.0f / _frame_length);
         }
 
         public override string ToDes() { return DES; }

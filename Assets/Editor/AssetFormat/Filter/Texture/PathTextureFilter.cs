@@ -21,34 +21,20 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using UnityEditor;
 using UnityEngine;
 
 namespace SummerEditor
 {
     public abstract class PathTextureFilter : I_AssetFilter
     {
-        public string _filterPath;
-        public virtual void SetFilter(EdNode node)
+        public virtual bool IsMatch<T>(T obj) where T : Object
         {
-            _filterPath = node.GetAttribute(AssetImportConst.FILTER_PATH).ToStr();
-        }
-
-        public virtual bool IsMatch<T>(AssetImporter assetImport, T obj) where T : Object
-        {
-            string assetPath = assetImport.assetPath;
-            bool mathPathResult = AssetImportHelper.IsMath(assetPath, _filterPath);
-            if (!mathPathResult) return false;
-
-            TextureImporter texImport = assetImport as TextureImporter;
-            if (texImport == null) return false;
-
             Texture2D tex = obj as Texture2D;
-
-            return IsInternalMatch(assetImport, tex);
+            if (tex == null) return false;
+            return IsInternalMatch(tex);
         }
 
-        public abstract bool IsInternalMatch(AssetImporter assetImport, Texture2D tex);
+        public abstract bool IsInternalMatch(Texture2D tex);
 
 
     }

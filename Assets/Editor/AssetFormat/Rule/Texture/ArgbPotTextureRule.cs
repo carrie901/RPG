@@ -30,7 +30,7 @@ namespace SummerEditor
     /// <summary>
     ///  默认走ETC2路线(RBG+A分离)，Read/Write不开启/设置Sprite_Atlas名字 名字加前缀tex_
     /// </summary>
-    public class ArgbPotTexturteRule : I_AssetRule
+    public class ArgbPotTextureRule : I_AssetRule
     {
         public void ApplySettings<T>(AssetImporter assetImport, T obj) where T : UnityEngine.Object
         {
@@ -41,9 +41,8 @@ namespace SummerEditor
             importer.spriteImportMode = SpriteImportMode.Single;
 
             //自动设置打包tag;
-            string dirName = Path.GetDirectoryName(assetImport.assetPath);
-            string folderStr = Path.GetFileName(dirName);
-            importer.spritePackingTag = AssetImportConst.PREFIX_SPRITE_TAG_AGRB_POT + folderStr;
+            string fileName = Path.GetFileNameWithoutExtension(assetImport.assetPath);
+            importer.spritePackingTag = AssetFormatConst.PREFIX_SPRITE_TAG_AGRB_POT + fileName;
 
             // 关闭Read/Write和Mipmap
             importer.mipmapEnabled = false;

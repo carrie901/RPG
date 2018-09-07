@@ -46,10 +46,10 @@ namespace SummerEditor
                 + "2.特效Dc个数\n");
 
             _check_tex_ref_btn = new EButton("特效纹理引用", 120);
-            _check_tex_ref_btn.on_click += ClickCheckTexRef;
+            _check_tex_ref_btn.OnClick += ClickCheckTexRef;
 
             _check_dc_btn = new EButton("特效Dc个数", 120);
-            _check_dc_btn.on_click += CheckCheckDcBtn;
+            _check_dc_btn.OnClick += CheckCheckDcBtn;
             _init_position();
         }
 

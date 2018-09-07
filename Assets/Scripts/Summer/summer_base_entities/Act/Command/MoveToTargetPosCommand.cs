@@ -11,11 +11,11 @@ namespace Summer
         {
             if (Finish()) return;
             // TODO 外部改变他的坐标 是否可取
-            Vector3 move_to_pos = Vector3.MoveTowards(entity.EntityController.trans.position, target, speed * Time.deltaTime);
-            entity.EntityController.trans.position = move_to_pos;
+            Vector3 move_to_pos = Vector3.MoveTowards(entity.EntityController._trans.position, target, speed * Time.deltaTime);
+            entity.EntityController._trans.position = move_to_pos;
 
 
-            var distance = (entity.EntityController.trans.position - target).magnitude;
+            var distance = (entity.EntityController._trans.position - target).magnitude;
             if (distance <= 0.01f)
             {
                 _is_finish = false;

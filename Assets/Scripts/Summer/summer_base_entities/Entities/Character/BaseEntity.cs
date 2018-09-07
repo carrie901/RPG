@@ -21,33 +21,33 @@ namespace Summer
 
         public int Template { get; private set; }
         public BaseEntityController EntityController { get; private set; }                              // GameObject控制器
-        public Vector3 WroldPosition { get { return EntityController.trans.position; } }                // 世界坐标
-        public Vector3 Direction { get { return EntityController.trans.forward; } }                     // 当前方向
-        public EntityAttributeProperty AttributeProp { get { return _attr_prop; } }
+        public Vector3 WroldPosition { get { return EntityController._trans.position; } }                // 世界坐标
+        public Vector3 Direction { get { return EntityController._trans.forward; } }                     // 当前方向
+        public EntityAttributeProperty AttributeProp { get { return _attrProp; } }
         public bool CanMovement { get; set; }
-        public EntityId entity_id;                                                                      // Entity的唯一表示
+        public EntityId _entityId;                                                                      // Entity的唯一表示
         public HeroInfoCnf _cnf;
 
         // TODO 是否通过黑箱进行操作 来规避掉内部的响应
-        //public List<BaseEntity> _targets = new List<BaseEntity>();                                       // 目标 是否通过黑箱进行操作
-        public EventSet<E_Entity_Event, EventSetData> _out_event_set                                // 角色的外部事件
+        //public List<BaseEntity> _targets = new List<BaseEntity>();                                    // 目标 是否通过黑箱进行操作
+        public EventSet<E_Entity_Event, EventSetData> _outEventSet                                      // 角色的外部事件
            = new EventSet<E_Entity_Event, EventSetData>(EntityEvtComparer.Instance);
-        public EventSet<E_EntityInTrigger, EventSetData> _in_event_set                                  // 角色的内部事件
+        public EventSet<E_EntityInTrigger, EventSetData> _inEventSet                                    // 角色的内部事件
        = new EventSet<E_EntityInTrigger, EventSetData>();
 
-        public EntityBlackBoard _entity_blackboard = new EntityBlackBoard();
+        public EntityBlackBoard _entityBlackboard = new EntityBlackBoard();
 
 
-        public List<I_Update> update_list = new List<I_Update>();                                       // 对应需要注册到容器中的组件 进行Update
-        public List<I_RegisterHandler> register_list = new List<I_RegisterHandler>();                   // 注册项
+        public List<I_Update> _updateList = new List<I_Update>();                                       // 对应需要注册到容器中的组件 进行Update
+        public readonly List<I_RegisterHandler> _registerList = new List<I_RegisterHandler>();                   // 注册项
 
         #region 附带属性 AI/SkillSet/BuffSet/Attribute/Fsm
 
-        public BtEntityAi _entity_ai;                                                                   // 相关AI组件
-        public SkillSet_1 _skill_set;                                                                     // 相关技能组件
-        public BuffSet _buff_set;                                                                        // 相关Buff组件
-        public EntityAttributeProperty _attr_prop;                                                    // 相关人物属性组件
-        public FsmSystem _fsm_system;                                                                   // 相关状态机组件
+        public BtEntityAi _entityAi;                                                                    // 相关AI组件
+        public SkillSet_1 _skillSet;                                                                    // 相关技能组件
+        public BuffSet _buffSet;                                                                        // 相关Buff组件
+        public EntityAttributeProperty _attrProp;                                                       // 相关人物属性组件
+        public FsmSystem _fsmSystem;                                                                    // 相关状态机组件
 
         #endregion
 
@@ -60,9 +60,9 @@ namespace Summer
 
         #region Mono的附带属性
 
-        public EntityAnimationGroup _anim_group;                                                        // 动画组件 播放动画
+        public EntityAnimationGroup _animGroup;                                                         // 动画组件 播放动画
         public EntityMovement _movement;                                                                // 移动组件 人物移动
-        public BaseEntityController _entity_controller;                                                 // 角色控制器 
+        public BaseEntityController _entityController;                                                  // 角色控制器 
 
         #endregion
 
@@ -76,10 +76,10 @@ namespace Summer
         {
             EntityController.OnUpdate(dt);
             _movement.OnUpdate(dt);
-            int length = update_list.Count;
+            int length = _updateList.Count;
             for (int i = 0; i < length; i++)
             {
-                update_list[i].OnUpdate(dt);
+                _updateList[i].OnUpdate(dt);
             }
         }
 
@@ -89,18 +89,18 @@ namespace Summer
 
         public bool RegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler)
         {
-            return _out_event_set.RegisterHandler(key, handler);
+            return _outEventSet.RegisterHandler(key, handler);
         }
 
         public bool UnRegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler)
         {
-            return _out_event_set.UnRegisterHandler(key, handler);
+            return _outEventSet.UnRegisterHandler(key, handler);
         }
 
-        public void RaiseEvent(E_Entity_Event key, EventSetData obj_info)
+        public void RaiseEvent(E_Entity_Event key, EventSetData objInfo)
         {
-            if (_out_event_set == null) return;
-            _out_event_set.RaiseEvent(key, obj_info);
+            if (_outEventSet == null) return;
+            _outEventSet.RaiseEvent(key, objInfo);
         }
 
         #endregion
@@ -109,23 +109,23 @@ namespace Summer
 
         public bool RegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventSetData>.EventHandler handler)
         {
-            return _in_event_set.RegisterHandler(key, handler);
+            return _inEventSet.RegisterHandler(key, handler);
         }
 
         public bool UnRegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventSetData>.EventHandler handler)
         {
-            return _in_event_set.UnRegisterHandler(key, handler);
+            return _inEventSet.UnRegisterHandler(key, handler);
         }
 
         // 被内部调用，由内部触发
         public void RaiseEvent(E_EntityInTrigger key, EventSetData param)
         {
-            _in_event_set.RaiseEvent(key, param);
+            _inEventSet.RaiseEvent(key, param);
         }
 
         public E_StateId GetState()
         {
-            return _fsm_system.GetState();
+            return _fsmSystem.GetState();
         }
 
         #endregion
@@ -135,36 +135,36 @@ namespace Summer
         // 第一次被初始化出来
         public virtual void OnInit()
         {
-            _skill_set = new SkillSet_1(this);
-            _buff_set = new BuffSet(this);
-            _fsm_system = EntityFsmFactory.CreateFsmSystem(this);
-            _entity_ai = new BtEntityAi(this);
+            _skillSet = new SkillSet_1(this);
+            _buffSet = new BuffSet(this);
+            _fsmSystem = EntityFsmFactory.CreateFsmSystem(this);
+            _entityAi = new BtEntityAi(this);
         }
 
         // 从缓存池中提取
-        public virtual void OnPop(int hero_id)
+        public virtual void OnPop(int heroId)
         {
-            Template = hero_id;             // 模板ID
+            Template = heroId;             // 模板ID
             _init_data();
             _init_gameobject();
 
-            _entity_blackboard = new EntityBlackBoard();
-            _entity_blackboard.entity = this;
+            _entityBlackboard = new EntityBlackBoard();
+            _entityBlackboard.entity = this;
             // 更新通道
-            update_list.Add(_skill_set);
-            update_list.Add(_fsm_system);
-            update_list.Add(_buff_set);
+            _updateList.Add(_skillSet);
+            _updateList.Add(_fsmSystem);
+            _updateList.Add(_buffSet);
 
             // 注册
-            _fsm_system.OnRegisterHandler();
-            _skill_set.OnRegisterHandler();
-            _buff_set.OnRegisterHandler();
-            _attr_prop.OnRegisterHandler();
+            _fsmSystem.OnRegisterHandler();
+            _skillSet.OnRegisterHandler();
+            _buffSet.OnRegisterHandler();
+            _attrProp.OnRegisterHandler();
 
             OnRegisterHandler();
 
-            _anim_group.PlayAnimation(AnimationNameConst.IDLE);
-            _fsm_system.Start();
+            _animGroup.PlayAnimation(AnimationNameConst.IDLE);
+            _fsmSystem.Start();
         }
 
         // 放入缓存池
@@ -173,8 +173,8 @@ namespace Summer
             Clear();
             TransformPool.Instance.Push(EntityController);
             EntityController = null;
-            _entity_blackboard.entity = null;
-            _entity_blackboard.Clear();
+            _entityBlackboard.entity = null;
+            _entityBlackboard.Clear();
         }
 
 
@@ -184,7 +184,7 @@ namespace Summer
 
         public EntityBlackBoard GetBlackBorad()
         {
-            return _entity_blackboard;
+            return _entityBlackboard;
         }
 
         /*public T GetBlackBoradValue<T>(string Key, T default_value)
@@ -234,18 +234,18 @@ namespace Summer
 
         public void InitPosRot()
         {
-            EntityController.trans.position = new Vector3(Random.value * 40 - 20f, 0, Random.value * 40 - 20f);
+            EntityController._trans.position = new Vector3(Random.value * 40 - 20f, 0, Random.value * 40 - 20f);
         }
 
         public void Clear()
         {
-            _out_event_set.Clear();
-            _in_event_set.Clear();
+            _outEventSet.Clear();
+            _inEventSet.Clear();
             //_targets.Clear();
-            update_list.Clear();
-            for (int i = 0; i < register_list.Count; i++)
-                register_list[i].UnRegisterHandler();
-            register_list.Clear();
+            _updateList.Clear();
+            for (int i = 0; i < _registerList.Count; i++)
+                _registerList[i].UnRegisterHandler();
+            _registerList.Clear();
         }
 
         public string ToDes()
@@ -270,9 +270,9 @@ namespace Summer
             EntityController = go;
             EntityController.InitOutTrigger(this, this,this);
 
-            _anim_group = go.GetComponent<EntityAnimationGroup>();
-            _anim_group.OnInit(this);
-            _anim_group.OnRegisterHandler();
+            _animGroup = go.GetComponent<EntityAnimationGroup>();
+            _animGroup.OnInit(this);
+            _animGroup.OnRegisterHandler();
 
             _movement = go.GetComponent<EntityMovement>();
             _movement._base_entity = this;
@@ -281,11 +281,11 @@ namespace Summer
         public void _init_data()
         {
             CanMovement = true;
-            entity_id = new EntityId();
+            _entityId = new EntityId();
 
             _cnf = StaticCnf.FindData<HeroInfoCnf>(Template);
-            _skill_set.OnReset(Template);
-            _attr_prop = new EntityAttributeProperty(entity_id);
+            _skillSet.OnReset(Template);
+            _attrProp = new EntityAttributeProperty(_entityId);
         }
 
         #endregion
@@ -294,7 +294,7 @@ namespace Summer
 
         public void AddBuff()
         {
-            _buff_set.AttachBuff(this, 1300011);
+            _buffSet.AttachBuff(this, 1300011);
         }
 
         #endregion

@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 
 namespace Summer
@@ -18,7 +18,7 @@ namespace Summer
         /// 从池子中拿一个资源出来
         /// </summary>
         /// <returns></returns>
-        public virtual BaseEntity Pop(int hero_id)
+        public virtual BaseEntity Pop(int heroId)
         {
             I_EntityLife pa;
             if (_in.Count == 0)
@@ -33,7 +33,7 @@ namespace Summer
             }
             pa.IsUse = true;
             _out.Add(pa);
-            pa.OnPop(hero_id);
+            pa.OnPop(heroId);
             return pa as BaseEntity;
         }
 
@@ -79,7 +79,7 @@ namespace Summer
         /// </summary>
         void OnInit();
 
-        void OnPop(int hero_id);
+        void OnPop(int heroId);
 
         void OnPush();
 

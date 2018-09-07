@@ -73,7 +73,7 @@ namespace Summer
         //有些buff是过程无效果，上buff和下buff的时候带功能的。例如设置角色朝向/攻击力
         public void OnAttach(BaseEntity target, BaseEntity caster)
         {
-            _bid = new BuffId(target.entity_id.Eid, info.Id);
+            _bid = new BuffId(target._entityId.Eid, info.Id);
             _target = target;
             _caster = caster;
             // 1.默认为1层

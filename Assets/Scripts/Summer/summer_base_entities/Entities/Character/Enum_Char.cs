@@ -6,9 +6,9 @@ namespace Summer
     /// </summary>
     public enum E_CharValueType
     {
-        none,
-        hp,         //血量
-        max,
+        NONE,
+        HP,         //血量
+        MAX,
     }
 
     /// <summary>

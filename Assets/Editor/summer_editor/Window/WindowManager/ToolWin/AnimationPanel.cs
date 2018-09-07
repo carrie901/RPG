@@ -43,10 +43,10 @@ namespace SummerEditor
                 + "2.动画内存优化\n");
 
             _swparation_animation_btn = new EButton("分离动画(针对Fbx)", 120);
-            _swparation_animation_btn.on_click += ClickSwparationAnimation;
+            _swparation_animation_btn.OnClick += ClickSwparationAnimation;
 
             _seo_animation = new EButton("动画内存优化(针对AnimationClip)", 240);
-            _seo_animation.on_click += CheckSeoAnimation;
+            _seo_animation.OnClick += CheckSeoAnimation;
             _init_position();
         }
 
