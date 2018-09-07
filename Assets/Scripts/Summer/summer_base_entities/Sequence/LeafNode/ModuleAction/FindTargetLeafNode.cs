@@ -57,10 +57,10 @@ namespace Summer.Sequence
             Vector3 direction = entity.Direction;
             Vector3 world_position = entity.WroldPosition;
             target_list = blackboard.GetValue<List<BaseEntity>>(EntityBlackBoardConst.TARGET_LIST);
-            int length = EntitesManager.Instance.entites.Count;
+            int length = EntitesManager.Instance._entites.Count;
             for (int i = 0; i < length; i++)
             {
-                BaseEntity tmp_entity = EntitesManager.Instance.entites[i];
+                BaseEntity tmp_entity = EntitesManager.Instance._entites[i];
                 if (tmp_entity == entity) continue;
                 // 2.双方之间的距离
                 float distance = MathHelper.Distance2D(tmp_entity.WroldPosition, world_position);

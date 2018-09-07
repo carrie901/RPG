@@ -24,8 +24,8 @@ namespace Summer
         public BaseEntity _baseEntity;
         protected I_Entity _entity;
         protected I_EntityInTrigger _inEntity;
-        protected Transform _trans;                                                                         // 缓存Transform
-        protected Rigidbody _rigidBody;
+        public Transform _trans;                                                                         // 缓存Transform
+        public Rigidbody _rigidBody;
         
         #endregion
 

@@ -1,0 +1,7 @@
+<Rule>
+	<Texture>
+		FilterPath=Assets/Raw/Effects/Textures/xulie
+		FilterRule=ArgbPotTextureFilter
+		FormatRule=ArgbPotTextureRule
+	</Texture>
+</Rule>
