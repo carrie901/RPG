@@ -49,5 +49,9 @@ namespace SummerEditor
 
         public const string RULE_ASSET_PATH = "Assets/Editor/AssetFormat/AssetFormatRule.txt";                  // 导入的规则文件
         public const string PREFIX_SPRITE_TAG_AGRB_POT = "tex_";                                                // 针对Argb_pot的非UI图集图片的前缀
+
+        public static string[] MeshDataStr = { "tangent", "normal", "color", "uv4", "uv3", "uv2", "uv" };
+        public const int VertexCountMod = 1000;
+        public const int TriangleCountMod = 1000;
     }
 }
