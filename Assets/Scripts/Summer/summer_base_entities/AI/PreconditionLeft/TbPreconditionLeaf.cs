@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 namespace Summer.AI
 {
     public abstract class TbPreconditionLeaf : BtPreconditionNode
@@ -49,7 +46,7 @@ namespace Summer.AI
     /// </summary>
     public class TbPreconditionTrue : TbPreconditionLeaf
     {
-        public override bool IsTrue(BtWorkingData work_data)
+        public override bool IsTrue(BtWorkingData workData)
         {
             return true;
         }
@@ -64,13 +61,13 @@ namespace Summer.AI
     /// </summary>
     public class TbPreconditionNot : TbPreconditionUnary
     {
-        public BtPreconditionNode _first = null;
+        public BtPreconditionNode _first;
         public TbPreconditionNot(BtPreconditionNode lhs)
             : base(lhs)
         { }
-        public override bool IsTrue(BtWorkingData word_data)
+        public override bool IsTrue(BtWorkingData workData)
         {
-            return !GetFirst().IsTrue(word_data);
+            return !GetFirst().IsTrue(workData);
         }
 
         public BtPreconditionNode GetFirst()
@@ -90,7 +87,7 @@ namespace Summer.AI
     /// </summary>
     public class TbPreconditionFalse : TbPreconditionLeaf
     {
-        public override bool IsTrue(BtWorkingData work_data)
+        public override bool IsTrue(BtWorkingData workData)
         {
             return false;
         }
@@ -105,10 +102,10 @@ namespace Summer.AI
         public TbPreconditionAnd(BtPreconditionNode lhs, BtPreconditionNode rhs)
             : base(lhs, rhs) { }
 
-        public override bool IsTrue(BtWorkingData work_data)
+        public override bool IsTrue(BtWorkingData workData)
         {
-            return GetChild<BtPreconditionNode>(0).IsTrue(work_data) &&
-                   GetChild<BtPreconditionNode>(1).IsTrue(work_data);
+            return GetChild<BtPreconditionNode>(0).IsTrue(workData) &&
+                   GetChild<BtPreconditionNode>(1).IsTrue(workData);
         }
     }
 
@@ -121,10 +118,10 @@ namespace Summer.AI
         public TbPreconditionOr(BtPreconditionNode lhs, BtPreconditionNode rhs)
             : base(lhs, rhs) { }
 
-        public override bool IsTrue(BtWorkingData work_data)
+        public override bool IsTrue(BtWorkingData workData)
         {
-            return GetChild<BtPreconditionNode>(0).IsTrue(work_data) ||
-                   GetChild<BtPreconditionNode>(1).IsTrue(work_data);
+            return GetChild<BtPreconditionNode>(0).IsTrue(workData) ||
+                   GetChild<BtPreconditionNode>(1).IsTrue(workData);
         }
     }
 
@@ -137,10 +134,10 @@ namespace Summer.AI
         public TbPreconditionXor(BtPreconditionNode lhs, BtPreconditionNode rhs)
             : base(lhs, rhs) { }
 
-        public override bool IsTrue(BtWorkingData work_data)
+        public override bool IsTrue(BtWorkingData workData)
         {
-            return GetChild<BtPreconditionNode>(0).IsTrue(work_data) ^
-                   GetChild<BtPreconditionNode>(1).IsTrue(work_data);
+            return GetChild<BtPreconditionNode>(0).IsTrue(workData) ^
+                   GetChild<BtPreconditionNode>(1).IsTrue(workData);
         }
     }
 

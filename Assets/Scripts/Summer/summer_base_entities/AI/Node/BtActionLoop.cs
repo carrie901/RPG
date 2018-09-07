@@ -4,11 +4,11 @@ namespace Summer.AI
 {
     public class BtActionLoopContext : BtActionContext
     {
-        internal int current_count;
+        internal int _currentCount;
 
         public BtActionLoopContext()
         {
-            current_count = 0;
+            _currentCount = 0;
         }
     }
 
@@ -18,62 +18,62 @@ namespace Summer.AI
        
        
         //--------------------------------------------------------
-        public int loop_count;
+        public int _loopCount;
         //--------------------------------------------------------
         public BtActionLoop()
             : base(1)
         {
-            loop_count = INFINITY;
+            _loopCount = INFINITY;
         }
         public BtActionLoop SetLoopCount(int count)
         {
-            loop_count = count;
+            _loopCount = count;
             return this;
         }
         //-------------------------------------------------------
-        protected override bool OnEvaluate(BtWorkingData work_data)
+        protected override bool OnEvaluate(BtWorkingData workData)
         {
-            BtActionLoopContext this_context = GetContext<BtActionLoopContext>(work_data);
-            bool check_loop_count = (loop_count == INFINITY || this_context.current_count < loop_count);
-            if (check_loop_count == false)
+            BtActionLoopContext thisContext = GetContext<BtActionLoopContext>(workData);
+            bool checkLoopCount = (_loopCount == INFINITY || thisContext._currentCount < _loopCount);
+            if (checkLoopCount == false)
             {
                 return false;
             }
             if (IsIndexValid(0))
             {
                 BtAction node = GetChild<BtAction>(0);
-                return node.Evaluate(work_data);
+                return node.Evaluate(workData);
             }
             return false;
         }
-        protected override int OnUpdate(BtWorkingData work_data)
+        protected override int OnUpdate(BtWorkingData workData)
         {
-            BtActionLoopContext this_context = GetContext<BtActionLoopContext>(work_data);
-            int running_status = BtRunningStatus.FINISHED;
+            BtActionLoopContext thisContext = GetContext<BtActionLoopContext>(workData);
+            int runningStatus = BtRunningStatus.FINISHED;
             if (IsIndexValid(0))
             {
                 BtAction node = GetChild<BtAction>(0);
-                running_status = node.Update(work_data);
-                if (BtRunningStatus.IsFinished(running_status))
+                runningStatus = node.Update(workData);
+                if (BtRunningStatus.IsFinished(runningStatus))
                 {
-                    this_context.current_count++;
-                    if (this_context.current_count < loop_count || loop_count == INFINITY)
+                    thisContext._currentCount++;
+                    if (thisContext._currentCount < _loopCount || _loopCount == INFINITY)
                     {
-                        running_status = BtRunningStatus.EXECUTING;
+                        runningStatus = BtRunningStatus.EXECUTING;
                     }
                 }
             }
-            return running_status;
+            return runningStatus;
         }
-        protected override void OnTransition(BtWorkingData work_data)
+        protected override void OnTransition(BtWorkingData workData)
         {
-            BtActionLoopContext this_context = GetContext<BtActionLoopContext>(work_data);
+            BtActionLoopContext thisContext = GetContext<BtActionLoopContext>(workData);
             if (IsIndexValid(0))
             {
                 BtAction node = GetChild<BtAction>(0);
-                node.Transition(work_data);
+                node.Transition(workData);
             }
-            this_context.current_count = 0;
+            thisContext._currentCount = 0;
         }
     }
 }

@@ -12,6 +12,6 @@ namespace Summer.AI
         {
         }
 
-        public abstract bool IsTrue(BtWorkingData work_data);
+        public abstract bool IsTrue(BtWorkingData workData);
     }
 }

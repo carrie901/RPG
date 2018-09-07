@@ -39,11 +39,11 @@ namespace Summer.AI
             }
             item.SetValue(v);
         }
-        public T GetValue<T>(string key, T default_value)
+        public T GetValue<T>(string key, T defaultValue)
         {
             if (_items.ContainsKey(key) == false)
             {
-                return default_value;
+                return defaultValue;
             }
             return _items[key].GetValue<T>();
         }

@@ -89,7 +89,7 @@ namespace Summer
         {
             _actions.Add(action);
             action.BindingContext(this);
-            if (LogManager.open_skill)
+            if (LogManager._openSkill)
             {
                 if (_des == null)
                     _des = new StringBuilder();

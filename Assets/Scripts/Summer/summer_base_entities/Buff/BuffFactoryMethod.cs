@@ -1,5 +1,4 @@
 ﻿
-using Summer;
 using UnityEngine;
 
 namespace Summer
@@ -11,10 +10,10 @@ namespace Summer
 
         }
 
-        public static BaseBuff Create(int buff_id)
+        public static BaseBuff Create(int buffId)
         {
             TestBuffFactoryMethod.CreateData();
-            BuffCnf buff_obj = StaticCnf.FindData<BuffCnf>(buff_id);
+            BuffCnf buffObj = StaticCnf.FindData<BuffCnf>(buffId);
             BaseBuff buff = new BaseBuff(TestBuffFactoryMethod.info);
             return buff;
         }

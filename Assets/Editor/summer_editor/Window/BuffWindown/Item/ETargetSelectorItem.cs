@@ -142,7 +142,7 @@ namespace SummerEditor
         public void Init()
         {
             AddComponent(_target_popup, 10, 10);
-            AddComponent(_remove_btn, E_Anchor.right | E_Anchor.up);
+            AddComponent(_remove_btn, E_Anchor.Right | E_Anchor.UP);
             //AddComponentRight(_target_filter_btn, _title_lab, 80);
 
             //Vector2 size = ERectHelper.GetSize(GetChilds());

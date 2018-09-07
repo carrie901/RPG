@@ -95,13 +95,13 @@ namespace Summer.Sequence
 
         public void LogEnter()
         {
-            if (!LogManager.open_skill) return;
+            if (!LogManager._openSkill) return;
             LogManager.Log("Time: {1}   Enter [{0}] 节点", ToDes(), TimeManager.FrameCount);
         }
 
         public void LogExit()
         {
-            if (!LogManager.open_skill) return;
+            if (!LogManager._openSkill) return;
             LogManager.Log("Time: {1}   Exit [{0}] 节点,开始跳转到下一个节点 ", ToDes(), TimeManager.FrameCount);
         }
 

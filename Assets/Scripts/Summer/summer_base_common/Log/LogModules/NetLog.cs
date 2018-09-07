@@ -29,13 +29,13 @@ namespace Summer
         [System.Diagnostics.Conditional("LOG")]
         public static void Log(string message)
         {
-            if (!LogManager.open_net) return;
+            if (!LogManager._openNet) return;
             LogManager.Log(message);
         }
         [System.Diagnostics.Conditional("LOG")]
         public static void Log(string message, params object[] args)
         {
-            if (!LogManager.open_net) return;
+            if (!LogManager._openNet) return;
             LogManager.Log(message, args);
         }
         [System.Diagnostics.Conditional("LOG")]
@@ -60,7 +60,7 @@ namespace Summer
         [System.Diagnostics.Conditional("LOG")]
         public static void Assert(bool condition, string message, params object[] args)
         {
-            if (!LogManager.open_net) return;
+            if (!LogManager._openNet) return;
             LogManager.Assert(condition, message, args);
         }
     }

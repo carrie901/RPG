@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿
 
 namespace Summer.AI
 {
@@ -12,13 +10,13 @@ namespace Summer.AI
     /// </summary>
     public class BtActionPrioritizedSelectorContext : BtActionContext
     {
-        internal int current_selected_index;
-        internal int last_selected_index;
+        internal int _currentSelectedIndex;
+        internal int _lastSelectedIndex;
 
         public BtActionPrioritizedSelectorContext()
         {
-            current_selected_index = -1;
-            last_selected_index = -1;
+            _currentSelectedIndex = -1;
+            _lastSelectedIndex = -1;
         }
     }
 
@@ -36,59 +34,59 @@ namespace Summer.AI
 
         #region protected OnEvaluate.OnUpdate.OnTransition
 
-        protected override bool OnEvaluate(BtWorkingData work_data)
+        protected override bool OnEvaluate(BtWorkingData workData)
         {
-            BtActionPrioritizedSelectorContext this_context = GetContext<BtActionPrioritizedSelectorContext>(work_data);
-            this_context.current_selected_index = -1;
-            int child_count = GetChildCount();
-            for (int i = 0; i < child_count; i++)
+            BtActionPrioritizedSelectorContext thisContext = GetContext<BtActionPrioritizedSelectorContext>(workData);
+            thisContext._currentSelectedIndex = -1;
+            int childCount = GetChildCount();
+            for (int i = 0; i < childCount; i++)
             {
                 BtAction node = GetChild<BtAction>(i);
-                if (node.Evaluate(work_data))
+                if (node.Evaluate(workData))
                 {
-                    this_context.current_selected_index = i;
+                    thisContext._currentSelectedIndex = i;
                     return true;
                 }
             }
             return false;
         }
 
-        protected override int OnUpdate(BtWorkingData work_data)
+        protected override int OnUpdate(BtWorkingData workData)
         {
-            BtActionPrioritizedSelectorContext this_context = GetContext<BtActionPrioritizedSelectorContext>(work_data);
-            int running_state = BtRunningStatus.FINISHED;
-            if (this_context.current_selected_index != this_context.last_selected_index)
+            BtActionPrioritizedSelectorContext thisContext = GetContext<BtActionPrioritizedSelectorContext>(workData);
+            int runningState = BtRunningStatus.FINISHED;
+            if (thisContext._currentSelectedIndex != thisContext._lastSelectedIndex)
             {
-                if (IsIndexValid(this_context.last_selected_index))
+                if (IsIndexValid(thisContext._lastSelectedIndex))
                 {
-                    BtAction node = GetChild<BtAction>(this_context.last_selected_index);
-                    node.Transition(work_data);
+                    BtAction node = GetChild<BtAction>(thisContext._lastSelectedIndex);
+                    node.Transition(workData);
                 }
-                this_context.last_selected_index = this_context.current_selected_index;
+                thisContext._lastSelectedIndex = thisContext._currentSelectedIndex;
             }
 
-            if (IsIndexValid(this_context.last_selected_index))
+            if (IsIndexValid(thisContext._lastSelectedIndex))
             {
-                BtAction node = GetChild<BtAction>(this_context.last_selected_index);
-                running_state = node.Update(work_data);
-                if (BtRunningStatus.IsFinished(running_state))
+                BtAction node = GetChild<BtAction>(thisContext._lastSelectedIndex);
+                runningState = node.Update(workData);
+                if (BtRunningStatus.IsFinished(runningState))
                 {
-                    this_context.last_selected_index = -1;
+                    thisContext._lastSelectedIndex = -1;
                 }
             }
 
-            return running_state;
+            return runningState;
         }
 
-        protected override void OnTransition(BtWorkingData work_data)
+        protected override void OnTransition(BtWorkingData workData)
         {
-            BtActionPrioritizedSelectorContext this_context = GetContext<BtActionPrioritizedSelectorContext>(work_data);
-            BtAction node = GetChild<BtAction>(this_context.last_selected_index);
+            BtActionPrioritizedSelectorContext thisContext = GetContext<BtActionPrioritizedSelectorContext>(workData);
+            BtAction node = GetChild<BtAction>(thisContext._lastSelectedIndex);
             if (node != null)
             {
-                node.Transition(work_data);
+                node.Transition(workData);
             }
-            this_context.last_selected_index = -1;
+            thisContext._lastSelectedIndex = -1;
         }
 
         #endregion

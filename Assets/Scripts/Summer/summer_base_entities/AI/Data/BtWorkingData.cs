@@ -25,11 +25,11 @@ namespace Summer.AI
 
         }
 
-        public T GetContext<T>(int tmp_unique_key) where T : BtActionContext
+        public T GetContext<T>(int tmpUniqueKey) where T : BtActionContext
         {
-            if (_context.ContainsKey(tmp_unique_key))
+            if (_context.ContainsKey(tmpUniqueKey))
             {
-                T t = _context[tmp_unique_key] as T;
+                T t = _context[tmpUniqueKey] as T;
                 return t;
             }
             return null;

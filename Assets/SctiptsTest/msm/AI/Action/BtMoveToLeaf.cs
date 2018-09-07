@@ -5,16 +5,16 @@ namespace Summer.AI
 {
     public class BtMoveToLeaf : BtActionLeaf
     {
-        protected override void OnEnter(BtWorkingData work_data)
+        protected override void OnEnter(BtWorkingData workData)
         {
-            AIEntityWorkingData this_data = work_data.As<AIEntityWorkingData>();
+            AIEntityWorkingData this_data = workData.As<AIEntityWorkingData>();
             Vector3 target_pos = this_data.EntityAi.GetBbValue<Vector3>(BtEntityAi.BBKEY_NEXTMOVINGPOSITION, Vector3.zero);
             //this_data.EntityAi.BaseEntity.MoveToTargetPostion(target_pos,1);
             Debug.LogFormat("进入移动状态，设定目标:[{0}]", target_pos);
         }
-        protected override int OnExecute(BtWorkingData work_data)
+        protected override int OnExecute(BtWorkingData workData)
         {
-            AIEntityWorkingData this_data = work_data.As<AIEntityWorkingData>();
+            AIEntityWorkingData this_data = workData.As<AIEntityWorkingData>();
             Vector3 target_pos = TMathUtils.Vector3ZeroY(this_data.EntityAi.GetBbValue<Vector3>(BtEntityAi.BBKEY_NEXTMOVINGPOSITION, Vector3.zero));
             Vector3 current_pos = TMathUtils.Vector3ZeroY(this_data.EntityAi.BaseEntity.WroldPosition);
             float dist_to_target = TMathUtils.GetDistance2D(target_pos, current_pos);

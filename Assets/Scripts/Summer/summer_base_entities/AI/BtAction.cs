@@ -9,38 +9,38 @@ namespace Summer.AI
     {
         #region 属性
 
-        protected int _unique_key = 0;
+        protected readonly int _uniqueKey = 0;
         protected BtPreconditionNode _precondition;
 
-        protected string _tb_name;
-        public string TbName { get { return _tb_name; } set { _tb_name = value; } }
+        protected string _tbName;
+        public string TbName { get { return _tbName; } set { _tbName = value; } }
 
         #endregion
 
         #region 构造
 
-        public BtAction(int max_child_count) : base(max_child_count)
+        public BtAction(int maxChildCount) : base(maxChildCount)
         {
-            _unique_key = BtAction.GenUniqueKey();
+            _uniqueKey = BtAction.GenUniqueKey();
         }
 
         #endregion
 
         #region public 
 
-        public bool Evaluate(BtWorkingData work_data)
+        public bool Evaluate(BtWorkingData workData)
         {
-            return (_precondition == null || _precondition.IsTrue(work_data)) && OnEvaluate(work_data);
+            return (_precondition == null || _precondition.IsTrue(workData)) && OnEvaluate(workData);
         }
 
-        public int Update(BtWorkingData work_data)
+        public int Update(BtWorkingData workData)
         {
-            return OnUpdate(work_data);
+            return OnUpdate(workData);
         }
 
-        public void Transition(BtWorkingData work_data)
+        public void Transition(BtWorkingData workData)
         {
-            OnTransition(work_data);
+            OnTransition(workData);
         }
 
         public BtAction SetPrecondition(BtPreconditionNode precondition)
@@ -51,7 +51,7 @@ namespace Summer.AI
 
         public override int GetHashCode()
         {
-            return _unique_key;
+            return _uniqueKey;
         }
 
         #endregion
@@ -61,14 +61,14 @@ namespace Summer.AI
         /// <summary>
         /// 根据节点的Hashcode值得到节点的ACtionContext
         /// </summary>
-        protected T GetContext<T>(BtWorkingData work_data) where T : BtActionContext, new()
+        protected T GetContext<T>(BtWorkingData workData) where T : BtActionContext, new()
         {
-            int tmp_unique_key = GetHashCode();
-            T t = work_data.GetContext<T>(tmp_unique_key);
+            int tmpUniqueKey = GetHashCode();
+            T t = workData.GetContext<T>(tmpUniqueKey);
             if (t == null)
             {
                 t = new T();
-                work_data.AddContext(tmp_unique_key, t);
+                workData.AddContext(tmpUniqueKey, t);
             }
 
             return t;
@@ -76,17 +76,17 @@ namespace Summer.AI
 
         #region virtual
 
-        protected virtual bool OnEvaluate(BtWorkingData work_data)
+        protected virtual bool OnEvaluate(BtWorkingData workData)
         {
             return true;
         }
 
-        protected virtual int OnUpdate(BtWorkingData work_data)
+        protected virtual int OnUpdate(BtWorkingData workData)
         {
             return 0;
         }
 
-        protected virtual void OnTransition(BtWorkingData work_data)
+        protected virtual void OnTransition(BtWorkingData workData)
         {
 
         }
@@ -96,11 +96,11 @@ namespace Summer.AI
         #endregion
 
         #region 唯一标志
-        protected static int s_unique_key = 0;
+        protected static int _sUniqueKey;
         protected static int GenUniqueKey()
         {
-            s_unique_key = s_unique_key >= int.MaxValue ? 0 : (s_unique_key + 1);
-            return s_unique_key;
+            _sUniqueKey = _sUniqueKey >= int.MaxValue ? 0 : (_sUniqueKey + 1);
+            return _sUniqueKey;
         }
 
         #endregion

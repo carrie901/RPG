@@ -10,70 +10,70 @@ namespace Summer.AI
     /// </summary>
     public class BtActionSequence : BtAction
     {
-        public bool _continue_if_error_occors;
+        public bool _continueIfErrorOccors;
         public BtActionSequence()
             : base(-1)
         {
-            _continue_if_error_occors = false;
+            _continueIfErrorOccors = false;
         }
         public BtActionSequence SetContinueIfErrorOccors(bool v)
         {
-            _continue_if_error_occors = v;
+            _continueIfErrorOccors = v;
             return this;
         }
 
         #region protected OnEvaluate.OnUpdate.OnTransition
 
-        protected override bool OnEvaluate(BtWorkingData work_data)
+        protected override bool OnEvaluate(BtWorkingData workData)
         {
-            BtActionSequenceContext this_context = GetContext<BtActionSequenceContext>(work_data);
-            int checked_node_index = IsIndexValid(this_context.current_selected_index) ?
-                this_context.current_selected_index : 0;
+            BtActionSequenceContext thisContext = GetContext<BtActionSequenceContext>(workData);
+            int checkedNodeIndex = IsIndexValid(thisContext.current_selected_index) ?
+                thisContext.current_selected_index : 0;
 
-            if (IsIndexValid(checked_node_index))
+            if (IsIndexValid(checkedNodeIndex))
             {
-                BtAction node = GetChild<BtAction>(checked_node_index);
-                if (node.Evaluate(work_data))
+                BtAction node = GetChild<BtAction>(checkedNodeIndex);
+                if (node.Evaluate(workData))
                 {
-                    this_context.current_selected_index = checked_node_index;
+                    thisContext.current_selected_index = checkedNodeIndex;
                     return true;
                 }
             }
             return false;
         }
-        protected override int OnUpdate(BtWorkingData work_data)
+        protected override int OnUpdate(BtWorkingData workData)
         {
-            BtActionSequenceContext this_context = GetContext<BtActionSequenceContext>(work_data);
-            int running_status = BtRunningStatus.FINISHED;
+            BtActionSequenceContext thisContext = GetContext<BtActionSequenceContext>(workData);
+            int runningStatus = BtRunningStatus.FINISHED;
 
-            BtAction node = GetChild<BtAction>(this_context.current_selected_index);
-            running_status = node.Update(work_data);
-            if (_continue_if_error_occors == false && BtRunningStatus.IsError(running_status))
+            BtAction node = GetChild<BtAction>(thisContext.current_selected_index);
+            runningStatus = node.Update(workData);
+            if (_continueIfErrorOccors == false && BtRunningStatus.IsError(runningStatus))
             {
-                this_context.current_selected_index = -1;
-                return running_status;
+                thisContext.current_selected_index = -1;
+                return runningStatus;
             }
-            if (BtRunningStatus.IsFinished(running_status))
+            if (BtRunningStatus.IsFinished(runningStatus))
             {
-                this_context.current_selected_index++;
-                if (IsIndexValid(this_context.current_selected_index))
+                thisContext.current_selected_index++;
+                if (IsIndexValid(thisContext.current_selected_index))
                 {
-                    running_status = BtRunningStatus.EXECUTING;
+                    runningStatus = BtRunningStatus.EXECUTING;
                 }
                 else
                 {
-                    this_context.current_selected_index = -1;
+                    thisContext.current_selected_index = -1;
                 }
             }
-            return running_status;
+            return runningStatus;
         }
-        protected override void OnTransition(BtWorkingData work_data)
+        protected override void OnTransition(BtWorkingData workData)
         {
-            BtActionSequenceContext this_context = GetContext<BtActionSequenceContext>(work_data);
+            BtActionSequenceContext this_context = GetContext<BtActionSequenceContext>(workData);
             BtAction node = GetChild<BtAction>(this_context.current_selected_index);
             if (node != null)
             {
-                node.Transition(work_data);
+                node.Transition(workData);
             }
             this_context.current_selected_index = -1;
         }

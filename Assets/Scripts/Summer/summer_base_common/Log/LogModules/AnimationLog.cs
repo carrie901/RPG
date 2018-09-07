@@ -28,13 +28,13 @@ namespace Summer
         [System.Diagnostics.Conditional("LOG")]
         public static void Log(string message)
         {
-            if (!LogManager.animation) return;
+            if (!LogManager._animation) return;
             LogManager.Log(message);
         }
         [System.Diagnostics.Conditional("LOG")]
         public static void Log(string message, params object[] args)
         {
-            if (!LogManager.animation) return;
+            if (!LogManager._animation) return;
             LogManager.Log(message);
         }
 

@@ -3,37 +3,38 @@ using Summer;
 
 public class PropertyIntParam
 {
-    public int _base_num;                //
-    public int _real_num;                //实际
-    public int _multiply_plus;           //+1%
+    public int _baseNum;                //
+    public int _realNum;                //实际
+    public int _multiplyPlus;           //+1%
     public int _plus;                    //+1
+
     public int Value
     {
-        get { return _real_num; }
-        set { _real_num = value; }
+        get { return _realNum; }
+        set { _realNum = value; }
     }
 
-    public void SetBase(int base_num)
+    public void SetBase(int baseNum)
     {
-        _base_num = base_num;
+        _baseNum = baseNum;
         _refresh_data();
     }
 
-    public void SetPlus(int plus_num)
+    public void SetPlus(int plusNum)
     {
-        _plus += plus_num;
+        _plus += plusNum;
         _refresh_data();
     }
 
-    public void SetMultiplyPlus(int multiply_plus)
+    public void SetMultiplyPlus(int multiplyPlus)
     {
-        _multiply_plus += multiply_plus;
+        _multiplyPlus += multiplyPlus;
         _refresh_data();
     }
 
     public void _refresh_data()
     {
-        _real_num = _base_num + _plus + (_base_num * _multiply_plus) / 100;
+        _realNum = _baseNum + _plus + (_baseNum * _multiplyPlus) / 100;
     }
 }
 
@@ -142,12 +143,12 @@ public class BuffHelper
 
     public static Dictionary<int, BuffCnf> _buff;
 
-    public static BuffCnf FindBuffById(int buff_id)
+    public static BuffCnf FindBuffById(int buffId)
     {
         if (_buff == null)
             _buff = StaticCnf.FindMap<BuffCnf>();
-        if (_buff.ContainsKey(buff_id))
-            return _buff[buff_id];
+        if (_buff.ContainsKey(buffId))
+            return _buff[buffId];
         return null;
     }
 

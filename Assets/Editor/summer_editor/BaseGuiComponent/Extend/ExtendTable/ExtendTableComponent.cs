@@ -75,7 +75,7 @@ namespace SummerEditor
 
             _page_item = new ExtendPageItem();
             _page_item.SetPageInfo(100, 10);
-            AddComponent(_page_item, E_Anchor.down_center);
+            AddComponent(_page_item, E_Anchor.DOWN_CENTER);
             _page_item.ResetPosition(_page_item.Ex, _page_item.Ey - 5);
             _page_item.OnUpdatePage += _on_update_page;
         }

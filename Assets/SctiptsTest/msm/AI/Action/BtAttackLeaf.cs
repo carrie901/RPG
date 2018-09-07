@@ -14,19 +14,19 @@ namespace Summer.AI
         {
             internal float attacking_time;
         }
-        protected override void OnEnter(BtWorkingData work_data)
+        protected override void OnEnter(BtWorkingData workData)
         {
-            AIEntityWorkingData this_data = work_data.As<AIEntityWorkingData>();
-            UserContextData user_data = GetUserContextData<UserContextData>(work_data);
+            AIEntityWorkingData this_data = workData.As<AIEntityWorkingData>();
+            UserContextData user_data = GetUserContextData<UserContextData>(workData);
             user_data.attacking_time = DEFAULT_WAITING_TIME;
 
             Debug.Log("进入攻击状态，设定Target");
             //this_data.EntityAnimator.CrossFade("attack", 0.2f);
         }
-        protected override int OnExecute(BtWorkingData work_data)
+        protected override int OnExecute(BtWorkingData workData)
         {
-            AIEntityWorkingData this_data = work_data.As<AIEntityWorkingData>();
-            UserContextData user_data = GetUserContextData<UserContextData>(work_data);
+            AIEntityWorkingData this_data = workData.As<AIEntityWorkingData>();
+            UserContextData user_data = GetUserContextData<UserContextData>(workData);
             if (user_data.attacking_time > 0)
             {
                 user_data.attacking_time -= this_data.DeltaTime;

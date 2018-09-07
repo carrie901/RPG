@@ -1,28 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-
-namespace Summer.AI
+﻿namespace Summer.AI
 {
     public class BtActionNonPrioritizedSelector : BtActionPrioritizedSelector
     {
-        public BtActionNonPrioritizedSelector() : base() { }
-        protected override bool OnEvaluate(BtWorkingData work_data)
+        protected override bool OnEvaluate(BtWorkingData workData)
         {
-            BtActionPrioritizedSelectorContext this_context =
-                GetContext<BtActionPrioritizedSelectorContext>(work_data);
+            BtActionPrioritizedSelectorContext thisContext =
+                GetContext<BtActionPrioritizedSelectorContext>(workData);
 
             //check last node first
-            if (IsIndexValid(this_context.current_selected_index))
+            if (IsIndexValid(thisContext._currentSelectedIndex))
             {
-                BtAction node = GetChild<BtAction>(this_context.current_selected_index);
-                if (node.Evaluate(work_data))
+                BtAction node = GetChild<BtAction>(thisContext._currentSelectedIndex);
+                if (node.Evaluate(workData))
                 {
                     return true;
                 }
             }
-            return base.OnEvaluate(work_data);
+            return base.OnEvaluate(workData);
         }
     }
 

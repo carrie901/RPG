@@ -102,7 +102,7 @@ namespace SummerEditor
             AddComponentRight(_overlay_lab, _des_text_area);
             AddComponentRight(_overlay_popup, _overlay_lab);
 
-            AddComponent(_remove_btn, E_Anchor.right | E_Anchor.up);
+            AddComponent(_remove_btn, E_Anchor.Right | E_Anchor.UP);
             AddComponent(_trigger_item, 10, 10 + _des_text_area.Eh + 5);
             AddComponentDown(_target_select_item, _trigger_item);
 

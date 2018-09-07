@@ -24,23 +24,23 @@ namespace Summer
     {
         #region 属性
 
-        public static bool open_debug = false;
+        public static bool OpenDebug = false;
 
-        public static bool ignore_unity_debug = true;                       // 忽略Unity的Debug Log日志 
+        public static bool IgnoreUnityDebug = true;                       // 忽略Unity的Debug Log日志 
 
-        public static bool open_net = true;
-        public static bool open_debug_buff = false;
-        public static bool open_debug_effect = true;
-        public static bool open_load_res = true;
-        public static bool open_panel = true;
-        public static bool open_skill = true;
-        public static bool opne_entity_action = true;
-        public static bool animation = true;
+        public static bool _openNet = true;
+        public static bool _openDebugBuff = false;
+        public static bool _openDebugEffect = true;
+        public static bool _openLoadRes = true;
+        public static bool _openPanel = true;
+        public static bool _openSkill = true;
+        public static bool _opneEntityAction = true;
+        public static bool _animation = true;
 
         /// <summary>
         /// 能显示的级别
         /// </summary>
-        public static int error_level = ASSET;   // none=0,log=1,waring=2,error=3,asset=4
+        public static int _errorLevel = ASSET;   // none=0,log=1,waring=2,error=3,asset=4
 
         #region 日志级别
 
@@ -54,7 +54,7 @@ namespace Summer
 
         #region Log通道
 
-        public static List<I_Log> pipelines = new List<I_Log>();
+        public static List<I_Log> _pipelines = new List<I_Log>();
 
         #endregion
 
@@ -67,10 +67,10 @@ namespace Summer
 #if UNITY_EDITOR
             //pipelines.Add(FileLog.Instance);
             //pipelines.Add(StringBuilderLog.Instance);
-            pipelines.Add(UnityLog.Instance);
+            _pipelines.Add(UnityLog.Instance);
             //pipelines.Add(RuntimeLog.Instance);
 #endif
-            if (!ignore_unity_debug)
+            if (!IgnoreUnityDebug)
                 Debug.logger.logEnabled = false;
 
         }
@@ -81,81 +81,81 @@ namespace Summer
 
         public static void Quit()
         {
-            int count = pipelines.Count;
+            int count = _pipelines.Count;
             for (int i = 0; i < count; i++)
-                pipelines[i].Quit();
+                _pipelines[i].Quit();
         }
         [System.Diagnostics.Conditional("LOG")]
         public static void Log(string message)
         {
             if (!IsOpenDebug()) return;
-            if (error_level < NONE) return;
-            int count = pipelines.Count;
+            if (_errorLevel < NONE) return;
+            int count = _pipelines.Count;
             for (int i = 0; i < count; i++)
-                pipelines[i].Log(message);
+                _pipelines[i].Log(message);
         }
         [System.Diagnostics.Conditional("LOG")]
         public static void Log(string message, params object[] args)
         {
             if (!IsOpenDebug()) return;
-            if (error_level < NONE) return;
-            int count = pipelines.Count;
+            if (_errorLevel < NONE) return;
+            int count = _pipelines.Count;
             for (int i = 0; i < count; i++)
-                pipelines[i].Log(message, args);
+                _pipelines[i].Log(message, args);
         }
         [System.Diagnostics.Conditional("LOG")]
         public static void Waring(string message)
         {
             if (!IsOpenDebug()) return;
-            if (error_level < WARING) return;
-            int count = pipelines.Count;
+            if (_errorLevel < WARING) return;
+            int count = _pipelines.Count;
             for (int i = 0; i < count; i++)
-                pipelines[i].Waring(message);
+                _pipelines[i].Waring(message);
         }
         [System.Diagnostics.Conditional("LOG")]
         public static void Warning(string message, params object[] args)
         {
             if (!IsOpenDebug()) return;
-            if (error_level < WARING) return;
-            int count = pipelines.Count;
+            if (_errorLevel < WARING) return;
+            int count = _pipelines.Count;
             for (int i = 0; i < count; i++)
-                pipelines[i].Warning(message, args);
+                _pipelines[i].Warning(message, args);
         }
         [System.Diagnostics.Conditional("LOG")]
         public static void Error(string message)
         {
             if (!IsOpenDebug()) return;
-            if (error_level < ERROR) return;
-            int count = pipelines.Count;
+            if (_errorLevel < ERROR) return;
+            int count = _pipelines.Count;
             for (int i = 0; i < count; i++)
-                pipelines[i].Error(message);
+                _pipelines[i].Error(message);
         }
         [System.Diagnostics.Conditional("LOG")]
         public static void Error(string message, params object[] args)
         {
             if (!IsOpenDebug()) return;
-            if (error_level < ERROR) return;
-            int count = pipelines.Count;
+            if (_errorLevel < ERROR) return;
+            int count = _pipelines.Count;
             for (int i = 0; i < count; i++)
-                pipelines[i].Error(message, args);
+                _pipelines[i].Error(message, args);
         }
         [System.Diagnostics.Conditional("LOG")]
         public static void Assert(bool condition, string message)
         {
             if (!IsOpenDebug()) return;
-            if (error_level < ERROR) return;
-            int count = pipelines.Count;
+            if (_errorLevel < ERROR) return;
+            int count = _pipelines.Count;
             for (int i = 0; i < count; i++)
-                pipelines[i].Assert(condition, message);
+                _pipelines[i].Assert(condition, message);
         }
         [System.Diagnostics.Conditional("LOG")]
         public static void Assert(bool condition, string message, params object[] args)
         {
             if (!IsOpenDebug()) return;
-            if (error_level < ERROR) return;
-            int count = pipelines.Count;
+            if (_errorLevel < ERROR) return;
+            int count = _pipelines.Count;
             for (int i = 0; i < count; i++)
-                pipelines[i].Assert(condition, message, args);
+                _pipelines[i].Assert(condition, message, args);
         }
 
         #endregion
@@ -164,7 +164,7 @@ namespace Summer
 
         private static bool IsOpenDebug()
         {
-            return open_debug;
+            return OpenDebug;
         }
 
         #endregion

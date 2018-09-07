@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿
 namespace Summer.AI
 {
 
@@ -96,20 +96,20 @@ namespace Summer.AI
 
         #region  protected override 
 
-        protected override int OnUpdate(BtWorkingData work_data)
+        protected override int OnUpdate(BtWorkingData workData)
         {
             int running_state = BtRunningStatus.FINISHED;
-            BtActionLeafContext leaf_context = GetContext<BtActionLeafContext>(work_data);
+            BtActionLeafContext leaf_context = GetContext<BtActionLeafContext>(workData);
             int curr_status = leaf_context.status;
             if (curr_status == ACTION_READY)
             {
-                OnEnter(work_data);
+                OnEnter(workData);
                 leaf_context.OnEnter();
             }
 
             if (curr_status == ACTION_RUNNING)
             {
-                running_state = OnExecute(work_data);
+                running_state = OnExecute(workData);
                 if (BtRunningStatus.IsFinished(running_state))
                 {
                     leaf_context.OnFinish();
@@ -120,7 +120,7 @@ namespace Summer.AI
             {
                 if (leaf_context.need_exit)
                 {
-                    OnExit(work_data, running_state);
+                    OnExit(workData, running_state);
                 }
                 else
                 {
@@ -132,12 +132,12 @@ namespace Summer.AI
             return running_state;
         }
 
-        protected override void OnTransition(BtWorkingData work_data)
+        protected override void OnTransition(BtWorkingData workData)
         {
-            BtActionLeafContext leaf_context = GetContext<BtActionLeafContext>(work_data);
+            BtActionLeafContext leaf_context = GetContext<BtActionLeafContext>(workData);
             if (leaf_context.need_exit)
             {
-                OnExit(work_data, BtRunningStatus.TRANSITION);
+                OnExit(workData, BtRunningStatus.TRANSITION);
             }
 
             leaf_context.ResetData();
@@ -154,10 +154,10 @@ namespace Summer.AI
 
         #region virtual 叶子节点的生命过度 OnEnter.OnExecute.OnExit
 
-        protected virtual void OnEnter(BtWorkingData work_data)
+        protected virtual void OnEnter(BtWorkingData workData)
         {
         }
-        protected virtual int OnExecute(BtWorkingData work_data)
+        protected virtual int OnExecute(BtWorkingData workData)
         {
             return BtRunningStatus.FINISHED;
         }

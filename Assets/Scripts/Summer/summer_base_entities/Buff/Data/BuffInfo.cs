@@ -18,14 +18,14 @@ namespace Summer
 
         #endregion
 
-        private BuffTemplateInfo _info;
-        protected float _duration;                          // buff间隔时间 单位毫秒
-        protected float _left_time;                         // 流逝的时间
-        protected bool _force_expire;                       // 过期
-        protected bool _need_tick;                          // true=需要tick
-        protected float _next_tick_time;                    // 下一次执行的效果
-        protected float _interval_time;                     // 间隔时间
-        protected int _cur_layer;                           // 当前层
+        protected BuffTemplateInfo _info;
+        protected float _duration;                              // buff间隔时间 单位毫秒
+        protected float _leftTime;                              // 流逝的时间
+        protected bool _forceExpire;                            // 过期
+        protected bool _needTick;                               // true=需要tick
+        protected float _nextTickTime;                          // 下一次执行的效果
+        protected float _intervalTime;                          // 间隔时间
+        protected int _curLayer;                                // 当前层
 
 
         #endregion
@@ -33,11 +33,11 @@ namespace Summer
         public BuffInfo(BuffTemplateInfo obj)
         {
             _info = obj;
-            _cur_layer = 0;
+            _curLayer = 0;
 
-            _need_tick = !MathHelper.IsZero(_interval_time);
+            _needTick = !MathHelper.IsZero(_intervalTime);
             _duration = _info.duration / 1000f;
-            _interval_time = _info.interval_time / 1000f;
+            _intervalTime = _info.interval_time / 1000f;
             ResetTimeOut();
         }
 
@@ -45,32 +45,32 @@ namespace Summer
 
         public bool CanAddLayer()
         {
-            if (_cur_layer >= _info.max_layer) return false;
+            if (_curLayer >= _info.max_layer) return false;
             return true;
         }
         public bool AddLayer()
         {
-            if (_cur_layer >= _info.max_layer)
+            if (_curLayer >= _info.max_layer)
             {
-                _cur_layer = _info.max_layer;
+                _curLayer = _info.max_layer;
                 //BuffLog.Log("add layer. buff [{0}] layer reach max[{1}]", _info.id, _info.over_lay);
                 return false;
             }
-            _cur_layer++;
+            _curLayer++;
             return true;
         }
         public bool CanRemoveLayer()
         {
-            if (_cur_layer <= 0) return false;
+            if (_curLayer <= 0) return false;
             return true;
         }
         public bool RemoveLayer()
         {
-            _cur_layer--;
-            if (_cur_layer < 0)
+            _curLayer--;
+            if (_curLayer < 0)
             {
                 //BuffLog.Error("Remove Layer. Buff [{0}] Layer Reach 0", _info.id);
-                _cur_layer = 0;
+                _curLayer = 0;
                 return false;
             }
             return true;
@@ -83,20 +83,20 @@ namespace Summer
         public void OnUpdate(float dt)
         {
             // 1.流逝时间的增加
-            _left_time += dt;
+            _leftTime += dt;
         }
 
         public bool CanTick()
         {
             // 如果结束，不可tick
-            if (!_need_tick || _force_expire) return false;
+            if (!_needTick || _forceExpire) return false;
 
-            return _left_time >= _next_tick_time;
+            return _leftTime >= _nextTickTime;
         }
 
         public void OnTick()
         {
-            _next_tick_time += _interval_time;
+            _nextTickTime += _intervalTime;
         }
 
         // 层刷新的时候
@@ -105,14 +105,14 @@ namespace Summer
         // 重置超时时间
         public void ResetTimeOut()
         {
-            _left_time = 0;
-            _next_tick_time = _interval_time;
-            _force_expire = false;
+            _leftTime = 0;
+            _nextTickTime = _intervalTime;
+            _forceExpire = false;
         }
 
-        public bool CheckBuffId(int buff_id) { return buff_id == _info.id; }
+        public bool CheckBuffId(int buffId) { return buffId == _info.id; }
 
-        public bool CheckGroupById(string group_id) {/* return _info.groupID == group_id;*/ return false; }
+        public bool CheckGroupById(string groupId) {/* return _info.groupID == group_id;*/ return false; }
 
         // 检测等级
         public int CheckLevel(int level)
@@ -139,15 +139,15 @@ namespace Summer
         // 多层
         public bool Multilayer { get { return _info.max_layer >= 1; } }
         // 是否到达最大层
-        public bool IsMaxLayer { get { return _cur_layer == _info.max_layer; } }
+        public bool IsMaxLayer { get { return _curLayer == _info.max_layer; } }
         // 是否过期
-        public bool ForceExpire { get { return _force_expire; } }
+        public bool ForceExpire { get { return _forceExpire; } }
         // true=刷新Buff时间
         public bool RefreshOnAttach { get { return true; } }
         // 持续时间
         public float ExpireDuration { get { return _duration; } }
-        public bool NeedTick { get { return _need_tick; } }
-        public int CurrLayer { get { return _cur_layer; } }
+        public bool NeedTick { get { return _needTick; } }
+        public int CurrLayer { get { return _curLayer; } }
         public bool DeathDelete { get { /*return _info.death_delete;*/return true; } }
 
         #endregion

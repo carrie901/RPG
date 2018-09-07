@@ -57,15 +57,15 @@ namespace Summer
     public class BaseBuff : I_Buff
     {
         public BuffId _bid;
-        public BuffInfo info;
+        public BuffInfo Info;
         public BaseEntity _caster;        //buff释放者
         public BaseEntity _target;        //buff释放目标 抽象成接口，依赖倒置
         public List<BaseEffect> _effects
             = new List<BaseEffect>();
 
-        public BaseBuff(BuffTemplateInfo buff_obj)
+        public BaseBuff(BuffTemplateInfo buffObj)
         {
-            info = new BuffInfo(buff_obj);
+            Info = new BuffInfo(buffObj);
         }
 
         #region public 
@@ -73,7 +73,7 @@ namespace Summer
         //有些buff是过程无效果，上buff和下buff的时候带功能的。例如设置角色朝向/攻击力
         public void OnAttach(BaseEntity target, BaseEntity caster)
         {
-            _bid = new BuffId(target._entityId.Eid, info.Id);
+            _bid = new BuffId(target._entityId.Eid, Info.Id);
             _target = target;
             _caster = caster;
             // 1.默认为1层
@@ -103,17 +103,17 @@ namespace Summer
             _effects.Clear();
             _caster = null;
             _target = null;
-            info = null;
+            Info = null;
             _bid = null;
         }
 
         public void OnUpdate(float dt)
         {
-            if (info == null || info.ForceExpire) return;
-            info.OnUpdate(dt);
-            if (info.CanTick())
+            if (Info == null || Info.ForceExpire) return;
+            Info.OnUpdate(dt);
+            if (Info.CanTick())
             {
-                info.OnTick();
+                Info.OnTick();
                 OnTick();
             }
         }
@@ -133,9 +133,9 @@ namespace Summer
         public bool AddLayer()
         {
             // 1.层数已到最高，return
-            if (!info.CanAddLayer()) return false;
+            if (!Info.CanAddLayer()) return false;
             // 2.层级+1
-            bool result = info.AddLayer();
+            bool result = Info.AddLayer();
             //  3.触发到达最大层数
             return result;
         }
@@ -143,9 +143,9 @@ namespace Summer
         public bool RemoveLayer()
         {
             // 1.层数已经到0
-            if (!info.CanRemoveLayer()) return false;
+            if (!Info.CanRemoveLayer()) return false;
             // 2.层级-1
-            bool result = info.RemoveLayer();
+            bool result = Info.RemoveLayer();
             //_internal_buff_trigger(E_AbilityTrigger.buff_remove_layer);
             return result;
         }
@@ -156,30 +156,30 @@ namespace Summer
 
         #region Buff 自身
 
-        public EventConditionSet<E_Buff_Event> _buff_event_set =
+        public EventConditionSet<E_Buff_Event> _buffEventSet =
            new EventConditionSet<E_Buff_Event>(BuffEvtComparer.Instance);
 
 
         public bool RegisterHandler(E_Buff_Event key, EventSet<E_Buff_Event, EventSetData>.EventHandler handler,I_Condition condition=null)
         {
-            return _buff_event_set.RegisterHandler(key, handler, condition);
+            return _buffEventSet.RegisterHandler(key, handler, condition);
         }
 
         public bool UnRegisterHandler(E_Buff_Event key, EventSet<E_Buff_Event, EventSetData>.EventHandler handler, I_Condition condition = null)
         {
-            return _buff_event_set.UnRegisterHandler(key, handler, condition);
+            return _buffEventSet.UnRegisterHandler(key, handler, condition);
         }
 
         public void RaiseEvent(E_Buff_Event key, EventSetData data)
         {
-            _buff_event_set.RaiseEvent(key, data);
+            _buffEventSet.RaiseEvent(key, data);
         }
 
         public void RaiseEvent(E_Buff_Event key)
         {
             EventSetEffectData data = EventDataFactory.Pop<EventSetEffectData>();
             data.entity = _target;
-            _buff_event_set.RaiseEvent(key, data);
+            _buffEventSet.RaiseEvent(key, data);
         }
 
         #endregion
@@ -187,12 +187,12 @@ namespace Summer
         #region Entity 自身
 
 
-        public Dictionary<E_Entity_Event, I_Condition> _condition_set
+        public Dictionary<E_Entity_Event, I_Condition> _conditionSet
             = new Dictionary<E_Entity_Event, I_Condition>(EntityEvtComparer.Instance);
         public bool RegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler, I_Condition condition = null)
         {
             if (condition != null)
-                _condition_set.Add(key, condition);
+                _conditionSet.Add(key, condition);
 
             return _target.RegisterHandler(key, handler);
         }
@@ -200,7 +200,7 @@ namespace Summer
         public bool UnRegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler, I_Condition condition = null)
         {
             if (condition != null)
-                _condition_set.Remove(key);
+                _conditionSet.Remove(key);
 
             return _target.UnRegisterHandler(key, handler);
         }
@@ -213,24 +213,24 @@ namespace Summer
 
         public void _init_effs()
         {
-            List<EffectTemplateInfo> effs = info.GetEffs();
+            List<EffectTemplateInfo> effs = Info.GetEffs();
 
             int length = effs.Count;
             for (int i = 0; i < length; i++)
             {
-                BaseEffect base_effect = EffectFactory.instance.Create(this, effs[i]);
-                if (base_effect == null) continue;
+                BaseEffect baseEffect = EffectFactory.instance.Create(this, effs[i]);
+                if (baseEffect == null) continue;
 
-                _effects.Add(base_effect);
-                _init_single_effect(base_effect);
+                _effects.Add(baseEffect);
+                _init_single_effect(baseEffect);
             }
         }
 
-        public void _init_single_effect(BaseEffect base_effect)
+        public void _init_single_effect(BaseEffect baseEffect)
         {
-            base_effect.OnAttach();
-            E_Buff_Event buff_event = base_effect._info.GetBuffEvt();
-            RegisterHandler(buff_event, base_effect.ExcuteEffect);
+            baseEffect.OnAttach();
+            E_Buff_Event buffEvent = baseEffect._info.GetBuffEvt();
+            RegisterHandler(buffEvent, baseEffect.ExcuteEffect);
         }
 
         #endregion

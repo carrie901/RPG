@@ -8,12 +8,12 @@ namespace Summer.AI
     /// </summary>
     public class BtTurnToLeaf : BtActionLeaf
     {
-        protected override void OnEnter(BtWorkingData work_data)
+        protected override void OnEnter(BtWorkingData workData)
         {
-            AIEntityWorkingData this_data = work_data.As<AIEntityWorkingData>();
+            AIEntityWorkingData this_data = workData.As<AIEntityWorkingData>();
 
         }
-        protected override int OnExecute(BtWorkingData work_data)
+        protected override int OnExecute(BtWorkingData workData)
         {
             /*AIEntityWorkingData this_data = work_data.As<AIEntityWorkingData>();
             Vector3 target_pos = TMathUtils.Vector3ZeroY(this_data.EntityAi.GetBbValue<Vector3>(BtEntityAi.BBKEY_NEXTMOVINGPOSITION, Vector3.zero));

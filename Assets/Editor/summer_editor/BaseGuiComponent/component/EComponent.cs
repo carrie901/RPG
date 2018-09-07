@@ -7,13 +7,13 @@ namespace SummerEditor
     [Flags]
     public enum E_Anchor
     {
-        none = 0,
-        left = 0x01,
-        right = 0x02,
-        up = 0x04,
-        down = 0x08,
+        None = 0,
+        Left = 0x01,
+        Right = 0x02,
+        UP = 0x04,
+        DOWN = 0x08,
         //center = 0x16,
-        down_center = 0x32
+        DOWN_CENTER = 0x32
     }
 
     public class EComponent : ERect
@@ -77,7 +77,7 @@ namespace SummerEditor
         //添加
         public virtual void AddComponent(ERect rect)
         {
-            E_Anchor a = E_Anchor.left | E_Anchor.up;
+            E_Anchor a = E_Anchor.Left | E_Anchor.UP;
             AddComponent(rect, a);
         }
         //添加 带锚点
@@ -86,12 +86,12 @@ namespace SummerEditor
             // TODO bug 没有fixed
             float pos_x = rect.Ex;
             float pos_y = rect.Ey;
-            E_Anchor e = (anchor & E_Anchor.left);
-            if ((anchor & E_Anchor.left) == E_Anchor.left)
+            E_Anchor e = (anchor & E_Anchor.Left);
+            if ((anchor & E_Anchor.Left) == E_Anchor.Left)
             {
                 pos_x = rect.Ew / 2;
             }
-            else if ((anchor & E_Anchor.right) == E_Anchor.right)
+            else if ((anchor & E_Anchor.Right) == E_Anchor.Right)
             {
                 pos_x = _size.x - pos_x - rect.Ew / 2;
             }
@@ -105,16 +105,16 @@ namespace SummerEditor
                  pos_y = _size.y / 2 + pos_y;
              }
              else */
-            if ((anchor & E_Anchor.up) == E_Anchor.up)
+            if ((anchor & E_Anchor.UP) == E_Anchor.UP)
             {
                 pos_y = pos_y + rect.Eh / 2;
             }
-            else if ((anchor & E_Anchor.down) == E_Anchor.down)
+            else if ((anchor & E_Anchor.DOWN) == E_Anchor.DOWN)
             {
                 pos_y = _size.y + pos_y - rect.Eh / 2;
             }
 
-            if ((anchor & E_Anchor.down_center) == E_Anchor.down_center)
+            if ((anchor & E_Anchor.DOWN_CENTER) == E_Anchor.DOWN_CENTER)
             {
                 pos_x = (_size.x / 2) - (rect.Ew / 2);
                 pos_y = _size.y + pos_y - rect.Eh / 2;

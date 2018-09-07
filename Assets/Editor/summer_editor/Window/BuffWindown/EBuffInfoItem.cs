@@ -121,7 +121,7 @@ namespace SummerEditor
             AddComponentDown(max_layer_input, interval_time_input);
             AddComponent(_scroll_view, 10, _des_text_area.Ey + _des_text_area.Eh / 2 + 5);
 
-            AddComponent(_save_btn, E_Anchor.right | E_Anchor.up);
+            AddComponent(_save_btn, E_Anchor.Right | E_Anchor.UP);
         }
 
 

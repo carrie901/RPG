@@ -4,13 +4,13 @@ namespace Summer.AI
 {
     public class BtActionParallelContext : BtActionContext
     {
-        internal List<bool> evaluation_status;
-        internal List<int> running_status;
+        internal List<bool> _evaluationStatus;
+        internal List<int> _runningStatus;
 
         public BtActionParallelContext()
         {
-            evaluation_status = new List<bool>();
-            running_status = new List<int>();
+            _evaluationStatus = new List<bool>();
+            _runningStatus = new List<int>();
         }
     }
 
@@ -20,105 +20,105 @@ namespace Summer.AI
     /// </summary>
     public class BtActionParallel : BtAction
     {
-        public enum E_Children_RelationShip
+        public enum E_ChildrenRelationShip
         {
             and, or
         }
 
-        protected E_Children_RelationShip _evaluation_relationship;
-        protected E_Children_RelationShip _runningstatus_relationship;
+        protected E_ChildrenRelationShip _evaluationRelationship;
+        protected E_ChildrenRelationShip _runningstatusRelationship;
 
         public BtActionParallel() : base(-1)
         {
-            _evaluation_relationship = E_Children_RelationShip.and;
-            _runningstatus_relationship = E_Children_RelationShip.or;
+            _evaluationRelationship = E_ChildrenRelationShip.and;
+            _runningstatusRelationship = E_ChildrenRelationShip.or;
         }
-        public BtActionParallel SetEvaluationRelationship(E_Children_RelationShip v)
+        public BtActionParallel SetEvaluationRelationship(E_ChildrenRelationShip v)
         {
-            _evaluation_relationship = v;
+            _evaluationRelationship = v;
             return this;
         }
-        public BtActionParallel SetRunningStatusRelationship(E_Children_RelationShip v)
+        public BtActionParallel SetRunningStatusRelationship(E_ChildrenRelationShip v)
         {
-            _runningstatus_relationship = v;
+            _runningstatusRelationship = v;
             return this;
         }
 
         #region protected OnEvaluate.OnUpdate.OnTransition
 
-        protected override bool OnEvaluate(BtWorkingData work_data)
+        protected override bool OnEvaluate(BtWorkingData workData)
         {
-            BtActionParallelContext this_context = GetContext<BtActionParallelContext>(work_data);
-            _init_list_to(this_context.evaluation_status, false);
-            bool final_result = false;
+            BtActionParallelContext thisContext = GetContext<BtActionParallelContext>(workData);
+            _init_list_to(thisContext._evaluationStatus, false);
+            bool finalResult = false;
             for (int i = 0; i < GetChildCount(); ++i)
             {
                 BtAction node = GetChild<BtAction>(i);
-                bool ret = node.Evaluate(work_data);
+                bool ret = node.Evaluate(workData);
                 //early break
-                if (_evaluation_relationship == E_Children_RelationShip.and && ret == false)
+                if (_evaluationRelationship == E_ChildrenRelationShip.and && ret == false)
                 {
-                    final_result = false;
+                    finalResult = false;
                     break;
                 }
                 if (ret)
                 {
-                    final_result = true;
+                    finalResult = true;
                 }
-                this_context.evaluation_status[i] = ret;
+                thisContext._evaluationStatus[i] = ret;
             }
-            return final_result;
+            return finalResult;
         }
-        protected override int OnUpdate(BtWorkingData work_data)
+        protected override int OnUpdate(BtWorkingData workData)
         {
-            BtActionParallelContext this_context = GetContext<BtActionParallelContext>(work_data);
+            BtActionParallelContext thisContext = GetContext<BtActionParallelContext>(workData);
             //first time initialization
-            if (this_context.running_status.Count != GetChildCount())
+            if (thisContext._runningStatus.Count != GetChildCount())
             {
-                _init_list_to(this_context.running_status, BtRunningStatus.EXECUTING);
+                _init_list_to(thisContext._runningStatus, BtRunningStatus.EXECUTING);
             }
-            bool has_finished = false;
-            bool has_executing = false;
+            bool hasFinished = false;
+            bool hasExecuting = false;
             for (int i = 0; i < GetChildCount(); ++i)
             {
-                if (this_context.evaluation_status[i] == false)
+                if (thisContext._evaluationStatus[i] == false)
                 {
                     continue;
                 }
-                if (BtRunningStatus.IsFinished(this_context.running_status[i]))
+                if (BtRunningStatus.IsFinished(thisContext._runningStatus[i]))
                 {
-                    has_finished = true;
+                    hasFinished = true;
                     continue;
                 }
                 BtAction node = GetChild<BtAction>(i);
-                int running_status = node.Update(work_data);
-                if (BtRunningStatus.IsFinished(running_status))
+                int runningStatus = node.Update(workData);
+                if (BtRunningStatus.IsFinished(runningStatus))
                 {
-                    has_finished = true;
+                    hasFinished = true;
                 }
                 else
                 {
-                    has_executing = true;
+                    hasExecuting = true;
                 }
-                this_context.running_status[i] = running_status;
+                thisContext._runningStatus[i] = runningStatus;
             }
-            if (_runningstatus_relationship == E_Children_RelationShip.or && has_finished || _runningstatus_relationship == E_Children_RelationShip.and && has_executing == false)
+            if (_runningstatusRelationship == E_ChildrenRelationShip.or && hasFinished || _runningstatusRelationship == E_ChildrenRelationShip.and && hasExecuting == false)
             {
-                _init_list_to(this_context.running_status, BtRunningStatus.EXECUTING);
+                _init_list_to(thisContext._runningStatus, BtRunningStatus.EXECUTING);
                 return BtRunningStatus.FINISHED;
             }
             return BtRunningStatus.EXECUTING;
         }
-        protected override void OnTransition(BtWorkingData work_data)
+        protected override void OnTransition(BtWorkingData workData)
         {
-            BtActionParallelContext this_context = GetContext<BtActionParallelContext>(work_data);
+            BtActionParallelContext thisContext = GetContext<BtActionParallelContext>(workData);
             for (int i = 0; i < GetChildCount(); ++i)
             {
                 BtAction node = GetChild<BtAction>(i);
-                node.Transition(work_data);
+                node.Transition(workData);
             }
             //clear running status
-            _init_list_to(this_context.running_status, BtRunningStatus.EXECUTING);
+            _init_list_to(thisContext._runningStatus, BtRunningStatus.EXECUTING);
         }
 
         #endregion
@@ -127,18 +127,18 @@ namespace Summer.AI
 
         public void _init_list_to<T>(List<T> list, T value)
         {
-            int child_count = GetChildCount();
-            if (list.Count != child_count)
+            int childCount = GetChildCount();
+            if (list.Count != childCount)
             {
                 list.Clear();
-                for (int i = 0; i < child_count; ++i)
+                for (int i = 0; i < childCount; ++i)
                 {
                     list.Add(value);
                 }
             }
             else
             {
-                for (int i = 0; i < child_count; ++i)
+                for (int i = 0; i < childCount; ++i)
                 {
                     list[i] = value;
                 }
