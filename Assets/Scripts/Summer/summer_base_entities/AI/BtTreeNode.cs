@@ -10,27 +10,27 @@ namespace Summer.AI
 
         public const int DEFAULT_CHILD_COUNT = -1;
         public List<BtTreeNode> _childs = new List<BtTreeNode>();
-        public int _max_child_count;
+        public int _maxChildCount;
 
         #endregion
 
         #region 构造
 
-        public BtTreeNode(int max_child_count = -1)
+        public BtTreeNode(int maxChildCount = -1)
         {
-            _max_child_count = max_child_count;
-            if (max_child_count >= 0)
+            _maxChildCount = maxChildCount;
+            if (maxChildCount >= 0)
             {
-                _childs.Capacity = max_child_count;
+                _childs.Capacity = maxChildCount;
             }
         }
 
         public BtTreeNode()
         {
-            _max_child_count = DEFAULT_CHILD_COUNT;
-            if (_max_child_count >= 0)
+            _maxChildCount = DEFAULT_CHILD_COUNT;
+            if (_maxChildCount >= 0)
             {
-                _childs.Capacity = _max_child_count;
+                _childs.Capacity = _maxChildCount;
             }
         }
 
@@ -40,7 +40,7 @@ namespace Summer.AI
 
         public BtTreeNode AddChild(BtTreeNode node)
         {
-            if (_max_child_count > 0 && _childs.Count >= _max_child_count)
+            if (_maxChildCount > 0 && _childs.Count >= _maxChildCount)
             {
                 LogManager.Error("行为树节点个数已经到达最大数");
                 return this;

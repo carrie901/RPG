@@ -4,6 +4,26 @@ using System.Text;
 using Summer;
 namespace SummerEditor
 {
+    public class AssetBundleReportInfo
+    {
+        public string AssetBundleName;
+        public int FileSize;
+        public int CalMemSize;
+        public int RepeatMemSize;
+        public int DepAb;
+        public int RepeatAb;
+
+        public void SetInfo(List<string> contents)
+        {
+            AssetBundleName = contents[0];
+            FileSize = (int)(float.Parse(contents[1]));
+            CalMemSize = (int)float.Parse(contents[2]);
+            RepeatMemSize = (int)float.Parse(contents[3]);
+            DepAb = int.Parse(contents[4]);
+            RepeatAb = int.Parse(contents[5]);
+        }
+    }
+
     /// <summary>
     /// AssetBundle资源列表
     /// </summary>
@@ -11,25 +31,25 @@ namespace SummerEditor
     {
         public const string ASSETBUNDLE_REPORT_NAME = "AssetBundle资源列表.csv";
 
-        public static string assetbundle_name = "AB 名称";
-        public static string ab_memory_size = "AB文件大小";
-        public static string cal_memory_size = "统计的AB内存Kb(估算)";
-        public static string repeat_memory_size = "冗余内存 Kb(估算)";
-        public static string ab_dep = "依赖AB数";
-        public static string be_ref = "冗余资源数";
-        public static string mesh = "   网格数";
-        public static string material = "   材质球";
-        public static string texture = "    贴图数";
-        public static string sprite = " 图集数";
-        public static string shader = "着色器";
-        public static string animation_clip = "动作文件";
-        public static string audio_clip = "音效";
+        public const string ASSETBUNDLE_NAME = "AB 名称";
+        public const string AB_MEMORY_SIZE = "AB文件大小";
+        public const string CAL_MEMORY_SIZE = "统计的AB内存Kb(估算)";
+        public const string REPEAT_MEMORY_SIZE = "冗余内存 Kb(估算)";
+        public const string AB_DEP = "依赖AB数";
+        public const string BE_REF = "冗余资源数";
+        public const string mesh = "   网格数";
+        public const string material = "   材质球";
+        public const string texture = "    贴图数";
+        public const string sprite = " 图集数";
+        public const string shader = "着色器";
+        public const string animation_clip = "动作文件";
+        public const string audio_clip = "音效";
 
         public static string[] titles = new string[]
         {
-            assetbundle_name, ab_memory_size ,cal_memory_size,
-            repeat_memory_size,repeat_memory_size,ab_dep,
-            be_ref,mesh,material,
+            ASSETBUNDLE_NAME, AB_MEMORY_SIZE ,CAL_MEMORY_SIZE,
+            REPEAT_MEMORY_SIZE,REPEAT_MEMORY_SIZE,AB_DEP,
+            BE_REF,mesh,material,
             texture,sprite,sprite,
             shader,animation_clip,audio_clip
         };
@@ -54,10 +74,10 @@ namespace SummerEditor
                                         "{3},{4},{5}," +
                                         "{6},{7},{8}," +
                                         "{9},{10},{11}",
-                assetbundle_name, ab_memory_size, cal_memory_size,
-                ab_dep, be_ref, mesh,
+                ASSETBUNDLE_NAME, AB_MEMORY_SIZE, CAL_MEMORY_SIZE,
+                AB_DEP, BE_REF, mesh,
                 material, texture, shader,
-                sprite, animation_clip, audio_clip, repeat_memory_size));
+                sprite, animation_clip, audio_clip, REPEAT_MEMORY_SIZE));
 
             int length = assetbundle_files.Count;
             for (int i = 0; i < length; i++)
@@ -65,17 +85,17 @@ namespace SummerEditor
 
                 EAssetBundleFileInfo info = assetbundle_files[i];
 
-                string t_repeat_mem_size = (info.GetRepeatMemSize() / 1024).ToString("f2"); ;
-                string t_ab_size = (info.file_ab_memory_size / 1024).ToString("f2");
-                string t_ab_mem_size = (info.GetMemorySize() / 1024).ToString("f2");
+                int tRepeatMemSize = (int) info.GetRepeatMemSize();
+                int tAbSize = (int) info.file_ab_memory_size;
+                int tAbMemSize = (int) (info.GetMemorySize());
                 sb.AppendLine(string.Format("{0},{1},{2},{12}," +
                                     "{3},{4},{5}," +
                                     "{6},{7},{8}," +
                                     "{9},{10},{11}",
-            info.ab_name, t_ab_size, t_ab_mem_size,
+            info.ab_name, tAbSize, tAbMemSize,
             info.all_depends.Count, info.FindRedundance(), info.GetAssetCount(E_AssetType.mesh),
             info.GetAssetCount(E_AssetType.material), info.GetAssetCount(E_AssetType.texture), info.GetAssetCount(E_AssetType.shader),
-            info.GetAssetCount(E_AssetType.sprite), info.GetAssetCount(E_AssetType.animation_clip), info.GetAssetCount(E_AssetType.audio_clip), t_repeat_mem_size));
+            info.GetAssetCount(E_AssetType.sprite), info.GetAssetCount(E_AssetType.animation_clip), info.GetAssetCount(E_AssetType.audio_clip), tRepeatMemSize));
 
 
             }

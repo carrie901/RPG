@@ -50,7 +50,7 @@ namespace SummerEditor
             float all_memory = 0;
             for (int i = 0; i < dep_asset_files.Count; i++)
             {
-                if (dep_asset_files[i].included_bundles.Count > 1)
+                if (dep_asset_files[i]._includedBundles.Count > 1)
                 {
                     all_memory += dep_asset_files[i].GetMemorySize();
                 }
@@ -66,7 +66,7 @@ namespace SummerEditor
             int count = 0;
             foreach (var info in dep_asset_files)
             {
-                if (info.asset_type == asset_type)
+                if (info._assetType == asset_type)
                 {
                     count++;
                 }
@@ -83,7 +83,7 @@ namespace SummerEditor
         {
             foreach (var asset in dep_asset_files)
             {
-                if (asset.guid == guid)
+                if (asset._guid == guid)
                 {
                     return true;
                 }
@@ -99,7 +99,7 @@ namespace SummerEditor
             int count = 0;
             for (int i = 0; i < dep_asset_files.Count; i++)
             {
-                if (dep_asset_files[i].included_bundles.Count > 1)
+                if (dep_asset_files[i]._includedBundles.Count > 1)
                     count++;
             }
             return count;
@@ -114,7 +114,7 @@ namespace SummerEditor
 
             foreach (var info in dep_asset_files)
             {
-                if (info.asset_type == asset_type)
+                if (info._assetType == asset_type)
                 {
                     assets.Add(info);
                 }

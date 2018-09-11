@@ -34,6 +34,7 @@ namespace SummerEditor
             = new Dictionary<int, EComponent>();
 
         public float[] _childWh;
+        public event OnToolBarSelect OnSelect;
         #endregion
 
         #region Public
@@ -72,7 +73,7 @@ namespace SummerEditor
             _bar.OnSelect += _onSelect;
             AddComponent(_bar, 0, 5);
             _bar.SelectIndex = 0;
-            _childWh = new float[] { Ew, Eh - _bar.Size.y - 21 };
+            _childWh = new[] { Ew, Eh - _bar.Size.y - 21 };
         }
 
         public void _onSelect(EToolBar toolBar)
@@ -82,6 +83,8 @@ namespace SummerEditor
             {
                 info.Value.Enabel = (info.Key == select);
             }
+            if (OnSelect != null)
+                OnSelect(toolBar);
         }
 
         #endregion

@@ -10,6 +10,14 @@ namespace SummerEditor
     {
         #region Build AssetBundle
 
+        public static void BuildStep()
+        {
+            AllAnalysisAsset();
+            SetAllAssetBundleName();
+            CreateAbConfigFile();
+            BuildAssetBuild();
+        }
+
         [MenuItem("Tools/AssetBundle/Build/生成资源配置列表")]
         public static void CreateAbConfigFile()
         {

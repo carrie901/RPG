@@ -24,6 +24,9 @@
 
 namespace SummerEditor
 {
+    /// <summary>
+    /// 老的我想弃用了
+    /// </summary>
     public class AssetBundleReportItem : ExtendTableItem
     {
 

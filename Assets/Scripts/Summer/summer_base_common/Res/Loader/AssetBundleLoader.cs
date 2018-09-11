@@ -252,7 +252,7 @@ namespace Summer
             package_map.Clear();
             res_map.Clear();
 
-            List<string[]> dep_result = AssetBundleConfig.GetAbInfo(AssetBundleConst.assetbundle_dep_path);
+            List<string[]> dep_result = AssetBundleConfig.GetAbInfo(AssetBundleConst.AssetbundleDepPath);
             int length = dep_result.Count;
             for (int i = 0; i < length; i++)
             {
@@ -260,7 +260,7 @@ namespace Summer
                 dep_map.Add(dep.AssetBundleName, dep);
             }
 
-            List<string[]> package_result = AssetBundleConfig.GetAbInfo(AssetBundleConst.assetbundle_package_path);
+            List<string[]> package_result = AssetBundleConfig.GetAbInfo(AssetBundleConst.AssetbundlePackagePath);
             length = package_result.Count;
             for (int i = 0; i < length; i++)
             {
@@ -268,7 +268,7 @@ namespace Summer
                 package_map.Add(package_info.PackagePath, package_info);
             }
 
-            List<string[]> res_result = AssetBundleConfig.GetAbInfo(AssetBundleConst.assetbundle_res_path);
+            List<string[]> res_result = AssetBundleConfig.GetAbInfo(AssetBundleConst.AssetbundleResPath);
             length = res_result.Count;
             for (int i = 0; i < length; i++)
             {

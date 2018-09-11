@@ -16,100 +16,105 @@ namespace SummerEditor
 
         public static void CreateAbConfigFile()
         {
+            
             // 1.得到所有的AssetBundle Name
-            string[] asset_bundles = AssetDatabase.GetAllAssetBundleNames();
-            string[] asset_paths = AssetDatabase.GetAllAssetPaths();
-            CreateResFile(asset_bundles);
-            CreatePackageFile(asset_bundles);
-            CreateDepFile(asset_bundles);
+            string[] assetBundles = AssetDatabase.GetAllAssetBundleNames();
+           
+            //string[] assetPaths = AssetDatabase.GetAllAssetPaths();
+            CreateResFile(assetBundles);
+            CreatePackageFile(assetBundles);
+            CreateDepFile(assetBundles);
+
+            SetAbName();
+
         }
 
-        public static void CreateResFile(string[] asset_bundles)
+        public static void CreateResFile(string[] assetBundles)
         {
             // 2.通过过滤器剔除掉不是主目录的AssetBundle
-            List<string> filter_files = SuffixHelper.Filter(asset_bundles, new StartsWithFilter(EAssetBundleConst.main_res_driectory));
-            filter_files.Clear();
-            filter_files.AddRange(asset_bundles);
+            List<string> filterFiles = SuffixHelper.Filter(assetBundles, new StartsWithFilter(EAssetBundleConst.main_res_driectory));
+            filterFiles.Clear();
+            filterFiles.AddRange(assetBundles);
 
-            List<List<string>> result_map = new List<List<string>>();
-            int length = filter_files.Count;
-            for (int ab_index = 0; ab_index < length; ab_index++)
+            List<List<string>> resultMap = new List<List<string>>();
+            int length = filterFiles.Count;
+            for (int abIndex = 0; abIndex < length; abIndex++)
             {
                 // 这个资源的AssetBundle名字
-                string ab_name = filter_files[ab_index];
-                string[] asset_bundle_names = AssetDatabase.GetAssetPathsFromAssetBundle(ab_name);
-                for (int main_index = 0; main_index < asset_bundle_names.Length; main_index++)
+                string abName = filterFiles[abIndex];
+                string[] assetBundleNames = AssetDatabase.GetAssetPathsFromAssetBundle(abName);
+                for (int mainIndex = 0; mainIndex < assetBundleNames.Length; mainIndex++)
                 {
                     // 主目录下的资源路径
-                    string main_ab_path = asset_bundle_names[main_index];
-                    if (!main_ab_path.StartsWith(EAssetBundleConst.main_res_driectory)) continue;
+                    string mainAbPath = assetBundleNames[mainIndex];
+                    if (!mainAbPath.StartsWith(EAssetBundleConst.main_res_driectory)) continue;
 
                     List<string> result = new List<string>();
 
-                    main_ab_path = EPathHelper.RemoveSuffix(main_ab_path);
-                    result.Add(main_ab_path.Replace("Assets/", string.Empty));
-                    result.Add(ab_name);
-                    result_map.Add(result);
+                    mainAbPath = EPathHelper.RemoveSuffix(mainAbPath);
+                    result.Add(mainAbPath.Replace("Assets/", string.Empty));
+                    result.Add(abName);
+                    resultMap.Add(result);
                 }
             }
-            CreateConfig(result_map, AssetBundleConst.res_config_name);
+            CreateConfig(resultMap, AssetBundleConst.ResConfigName);
         }
 
-        public static void CreatePackageFile(string[] asset_bundles)
+        public static void CreatePackageFile(string[] assetBundles)
         {
-            List<List<string>> result_map = new List<List<string>>();
-            int length = asset_bundles.Length;
+            List<List<string>> resultMap = new List<List<string>>();
+            int length = assetBundles.Length;
             for (int i = 0; i < length; i++)
             {
-                string ab_name = asset_bundles[i];
-                string[] asset_bundle_names = AssetDatabase.GetAssetPathsFromAssetBundle(ab_name);
+                string abName = assetBundles[i];
+                string[] assetBundleNames = AssetDatabase.GetAssetPathsFromAssetBundle(abName);
 
                 List<string> result = new List<string>();
-                result.Add(ab_name);
-                for (int k = 0; k < asset_bundle_names.Length; k++)
+                result.Add(abName);
+                for (int k = 0; k < assetBundleNames.Length; k++)
                 {
-                    string no_suffix = EPathHelper.RemoveSuffix(asset_bundle_names[k]);
-                    string tmp_name = EPathHelper.GetName1(no_suffix);
-                    Debug.Assert(!string.IsNullOrEmpty(tmp_name), asset_bundle_names[k]);
+                    string noSuffix = EPathHelper.RemoveSuffix(assetBundleNames[k]);
+                    string tmpName = EPathHelper.GetName1(noSuffix);
+                    Debug.Assert(!string.IsNullOrEmpty(tmpName), assetBundleNames[k]);
 
-                    result.Add(no_suffix.Replace("Assets/", string.Empty));
-                    result.Add(tmp_name);
+                    result.Add(noSuffix.Replace("Assets/", string.Empty));
+                    result.Add(tmpName);
                 }
-                result_map.Add(result);
+                resultMap.Add(result);
             }
 
-            CreateConfig(result_map, AssetBundleConst.package_config_name);
+            CreateConfig(resultMap, AssetBundleConst.PackageConfigName);
         }
 
-        public static void CreateDepFile(string[] asset_bundles)
+        public static void CreateDepFile(string[] assetBundles)
         {
-            List<List<string>> result_map = new List<List<string>>();
-            int length = asset_bundles.Length;
+            List<List<string>> resultMap = new List<List<string>>();
+            int length = assetBundles.Length;
             for (int i = 0; i < length; i++)
             {
                 List<string> result = new List<string>();
-                string[] deps = AssetDatabase.GetAssetBundleDependencies(asset_bundles[i], true);
-                result.Add(asset_bundles[i]);
+                string[] deps = AssetDatabase.GetAssetBundleDependencies(assetBundles[i], true);
+                result.Add(assetBundles[i]);
                 result.Add(deps.Length.ToString());
                 for (int k = 0; k < deps.Length; k++)
                 {
                     result.Add(deps[k]);
                 }
-                result_map.Add(result);
+                resultMap.Add(result);
             }
-            CreateConfig(result_map, AssetBundleConst.dep_config_name);
+            CreateConfig(resultMap, AssetBundleConst.DepConfigName);
         }
 
         // 创建配置文件
-        public static void CreateConfig(List<List<string>> result_map, string path)
+        public static void CreateConfig(List<List<string>> resultMap, string path)
         {
             StringBuilder sb = new StringBuilder();
-            result_map.Sort(SortByName);
+            resultMap.Sort(SortByName);
 
-            int length = result_map.Count;
+            int length = resultMap.Count;
             for (int i = 0; i < length; i++)
             {
-                List<string> values = result_map[i];
+                List<string> values = resultMap[i];
                 for (int k = 0; k < values.Count; k++)
                 {
                     if (k == values.Count - 1)
@@ -120,6 +125,13 @@ namespace SummerEditor
                 sb.AppendLine();
             }
             Summer.FileHelper.WriteTxtByFile(path, sb.ToString());
+        }
+
+        public static void SetAbName()
+        {
+            AssetBundleSetNameE.SetAbNameByPath(AssetBundleConst.ResConfigName);
+            AssetBundleSetNameE.SetAbNameByPath(AssetBundleConst.PackageConfigName);
+            AssetBundleSetNameE.SetAbNameByPath(AssetBundleConst.DepConfigName);
         }
 
         public static int SortByName(List<string> a, List<string> b)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using UnityEditor;
 using System.Reflection;
@@ -36,7 +37,20 @@ public class PAEditorUtil
             return "";
 
         if (fmt == PAEditorConst.BytesFormatter)
-            return EditorUtility.FormatBytes((int)val);
+        {
+            try
+            {
+                int value = (int) val;
+                return EditorUtility.FormatBytes(value);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("-->" + e.Message);
+                return "Error";
+            }
+
+        }
+
         if (val is float)
             return ((float)val).ToString(fmt);
         if (val is double)

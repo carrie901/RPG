@@ -7,8 +7,8 @@ namespace Summer.AI
     public abstract class BtPreconditionNode : BtTreeNode
     {
 
-        public BtPreconditionNode(int max_child_count)
-            : base(max_child_count)
+        public BtPreconditionNode(int maxChildCount)
+            : base(maxChildCount)
         {
         }
 

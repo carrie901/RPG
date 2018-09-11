@@ -19,14 +19,14 @@ namespace SummerEditor
         /// </summary>
         public static void OblyMainAbName()
         {
-            List<string> assets_path = EPathHelper.GetAssetsPath(EAssetBundleConst.main_res_driectory, true);
-            List<string> assets_path1 = EPathHelper.GetAssetsPath(EAssetBundleConst.ui_main_directory, true);
-            assets_path.AddRange(assets_path1);
-            int length = assets_path.Count;
+            List<string> assetsPath = EPathHelper.GetAssetsPath(EAssetBundleConst.main_res_driectory, true);
+            List<string> assetsPath1 = EPathHelper.GetAssetsPath(EAssetBundleConst.ui_main_directory, true);
+            assetsPath.AddRange(assetsPath1);
+            int length = assetsPath.Count;
             for (int i = 0; i < length; i++)
             {
-                EditorUtility.DisplayProgressBar("设置AssetBundle名字", assets_path[i], (float)(i + 1) / length);
-                SetAbNameByPath(assets_path[i]);
+                EditorUtility.DisplayProgressBar("设置AssetBundle名字", assetsPath[i], (float)(i + 1) / length);
+                SetAbNameByPath(assetsPath[i]);
             }
             EditorUtility.ClearProgressBar();
             Resources.UnloadUnusedAssets();
@@ -40,21 +40,21 @@ namespace SummerEditor
 
         public static void SetAllAssetName()
         {
-            Dictionary<string, EAssetObjectInfo> all_assets = EAssetBundleAnalysis._all_assets;
+            Dictionary<string, EAssetObjectInfo> allAssets = EAssetBundleAnalysis._all_assets;
 
             int index = 1;
-            foreach (var info in all_assets)
+            foreach (var info in allAssets)
             {
-                EAssetObjectInfo asset_info = info.Value;
+                EAssetObjectInfo assetInfo = info.Value;
                 index++;
-                EditorUtility.DisplayProgressBar("设置主AssetBundle名字", asset_info.AssetPath, (float)(index) / all_assets.Count);
-                if (asset_info.IsMainAsset)
+                EditorUtility.DisplayProgressBar("设置主AssetBundle名字", assetInfo.AssetPath, (float)(index) / allAssets.Count);
+                if (assetInfo.IsMainAsset)
                 {
-                    SetAbNameByPath(asset_info.AssetPath);
+                    SetAbNameByPath(assetInfo.AssetPath);
                 }
-                else if (asset_info.RefCount > 1)
+                else if (assetInfo.RefCount > 1)
                 {
-                    SetAbNameByPath(asset_info.AssetPath);
+                    SetAbNameByPath(assetInfo.AssetPath);
                 }
             }
 
@@ -99,60 +99,60 @@ namespace SummerEditor
         /// <summary>
         /// 根据文件的File Path设置Asset的BundleName BundleName=Asset/XX/
         /// </summary>
-        public static void SetAbNameByPath(string file_path)
+        public static void SetAbNameByPath(string filePath)
         {
-            string asset_path = EPathHelper.AbsoluteToRelativePathWithAssets(file_path);
-            AssetImporter importer = AssetImporter.GetAtPath(asset_path);
+            string assetPath = EPathHelper.AbsoluteToRelativePathWithAssets(filePath);
+            AssetImporter importer = AssetImporter.GetAtPath(assetPath);
             if (importer != null)
             {
                 // 去掉Assets/ 和文件的后缀
-                string str = EPathHelper.RemoveAssetsAndSuffixforPath(file_path);
+                string str = EPathHelper.RemoveAssetsAndSuffixforPath(filePath);
                 importer.assetBundleName = str + EAssetBundleConst.ASSETBUNDLE_EXTENSION;
                 importer.SaveAndReimport();
             }
             else
             {
-                UnityEngine.Debug.LogError("找不到对应的路径的资源:" + file_path);
+                UnityEngine.Debug.LogError("找不到对应的路径的资源:" + filePath);
             }
         }
 
         /// <summary>
         /// 根据Asset的上层目录设置Asset的名字
         /// </summary>
-        public static void SetAbNameByDirectory(string asset_path)
+        public static void SetAbNameByDirectory(string assetPath)
         {
-            AssetImporter importer = AssetImporter.GetAtPath(asset_path);
+            AssetImporter importer = AssetImporter.GetAtPath(assetPath);
             if (importer != null)
             {
                 // 剔除Assets/ 
-                string remove_asset_path = EPathHelper.AbsoluteToRelativePathRemoveAssets(asset_path);
+                string removeAssetPath = EPathHelper.AbsoluteToRelativePathRemoveAssets(assetPath);
                 // 得到文件的目录
-                string str = EPathHelper.GetDirectory(remove_asset_path);
+                string str = EPathHelper.GetDirectory(removeAssetPath);
                 importer.assetBundleName = str + EAssetBundleConst.ASSETBUNDLE_EXTENSION;
                 importer.SaveAndReimport();
             }
             else
             {
-                UnityEngine.Debug.LogError("找不到对应的路径的资源:" + asset_path);
+                Debug.LogError("找不到对应的路径的资源:" + assetPath);
             }
         }
 
         /// <summary>
         /// 根据外部名字设置Asset的名字
         /// </summary>
-        public static void SetAbNameByParam(string file_path, string ab_name)
+        public static void SetAbNameByParam(string filePath, string abName)
         {
-            string asset_path = EPathHelper.AbsoluteToRelativePathWithAssets(file_path);
-            AssetImporter importer = AssetImporter.GetAtPath(asset_path);
+            string assetPath = EPathHelper.AbsoluteToRelativePathWithAssets(filePath);
+            AssetImporter importer = AssetImporter.GetAtPath(assetPath);
             if (importer != null)
             {
-                string assetbundle_name = EPathHelper.NormalizePath(ab_name) + EAssetBundleConst.ASSETBUNDLE_EXTENSION;
-                importer.assetBundleName = assetbundle_name;
+                string assetbundleName = EPathHelper.NormalizePath(abName) + EAssetBundleConst.ASSETBUNDLE_EXTENSION;
+                importer.assetBundleName = assetbundleName;
                 importer.SaveAndReimport();
             }
             else
             {
-                UnityEngine.Debug.LogError("找不到对应的路径的资源:" + file_path);
+                Debug.LogError("找不到对应的路径的资源:" + filePath);
             }
         }
 
@@ -165,8 +165,8 @@ namespace SummerEditor
         {
             foreach (var id in Selection.instanceIDs)
             {
-                string asset_path = AssetDatabase.GetAssetPath(id);
-                _clear_assetbundle_name(asset_path);
+                string assetPath = AssetDatabase.GetAssetPath(id);
+                _clear_assetbundle_name(assetPath);
             }
             AssetDatabase.Refresh();
         }
@@ -174,6 +174,7 @@ namespace SummerEditor
         // 清除当前所有的AssetBundleName
         public static void ClearAllAssetBundleName()
         {
+            AssetDatabase.RemoveUnusedAssetBundleNames();
             string[] names = AssetDatabase.GetAllAssetBundleNames();
 
             int length = names.Length;
@@ -183,7 +184,7 @@ namespace SummerEditor
                 AssetDatabase.RemoveAssetBundleName(names[i], true);
             }
             EditorUtility.ClearProgressBar();
-            AssetDatabase.RemoveUnusedAssetBundleNames();
+            
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
         }
@@ -195,10 +196,10 @@ namespace SummerEditor
         /// <summary>
         /// 清除指定Asset路径下的AssetBundleName
         /// </summary>
-        public static void _clear_assetbundle_name(string file_path)
+        public static void _clear_assetbundle_name(string filePath)
         {
-            string asset_path = EPathHelper.AbsoluteToRelativePathWithAssets(file_path);
-            AssetImporter importer = AssetImporter.GetAtPath(asset_path);
+            string assetPath = EPathHelper.AbsoluteToRelativePathWithAssets(filePath);
+            AssetImporter importer = AssetImporter.GetAtPath(assetPath);
             if (importer != null)
             {
                 importer.assetBundleName = "";

@@ -31,11 +31,11 @@ namespace SummerEditor
             for (int i = 0; i < length; i++)
             {
                 EAssetFileInfo info = asset_files[i];
-                sb.Append(info.asset_name + "," + info.GetMemorySize() + "," + info.in_built + "," + info.asset_type + "," + info.included_bundles.Count);
-                int ref_count = info.included_bundles.Count;
+                sb.Append(info._assetName + "," + info.GetMemorySize() + "," + info._inBuilt + "," + info._assetType + "," + info._includedBundles.Count);
+                int ref_count = info._includedBundles.Count;
                 for (int j = 0; j < ref_count; j++)
                 {
-                    EAssetBundleFileInfo assetbundle_file = info.included_bundles[j];
+                    EAssetBundleFileInfo assetbundle_file = info._includedBundles[j];
                     sb.Append("," + assetbundle_file.ab_name);
                 }
 
@@ -48,17 +48,17 @@ namespace SummerEditor
         public static int SortAsset(EAssetFileInfo a, EAssetFileInfo b)
         {
             if (a == null || b == null) return 0;
-            if (a.asset_type < b.asset_type)
+            if (a._assetType < b._assetType)
             {
                 return -1;
             }
-            else if (a.asset_type > b.asset_type)
+            else if (a._assetType > b._assetType)
             {
                 return 1;
             }
             else
             {
-                return String.Compare(a.asset_name, b.asset_name, StringComparison.Ordinal);
+                return String.Compare(a._assetName, b._assetName, StringComparison.Ordinal);
             }
         }
     }

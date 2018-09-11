@@ -10,10 +10,10 @@ namespace SummerEditor
     {
         public const string MESH_NAME = "网格.csv";
 
-        public static void CreateReport(string directory_path)
+        public static void CreateReport(string directoryPath)
         {
-            List<EAssetFileInfo> asset_files = new List<EAssetFileInfo>(AssetBundleAnalyzeManager.FindAssetFiles().Values);
-            asset_files.Sort(SortAsset);
+            List<EAssetFileInfo> assetFiles = new List<EAssetFileInfo>(AssetBundleAnalyzeManager.FindAssetFiles().Values);
+            assetFiles.Sort(SortAsset);
 
             StringBuilder sb = new StringBuilder();
 
@@ -22,30 +22,61 @@ namespace SummerEditor
                "网格名字", "顶点数", "面数",
                "子网格数", "网格压缩", "Read/Write"));
 
-            int length = asset_files.Count;
+            int length = assetFiles.Count;
             for (int i = 0; i < length; i++)
             {
-                EAssetFileInfo asset_file_info = asset_files[i];
-                if (asset_file_info.asset_type != E_AssetType.mesh) continue;
-                List<KeyValuePair<string, System.Object>> values = asset_file_info.propertys;
+                EAssetFileInfo assetFileInfo = assetFiles[i];
+                if (assetFileInfo._assetType != E_AssetType.mesh) continue;
+                List<KeyValuePair<string, Object>> values = assetFileInfo._propertys;
 
                 sb.Append(string.Format("{0},{1},{2}," +
                                         "{3},{4},{5}",
-                asset_file_info.asset_name, values[0].Value, values[1].Value,
+                assetFileInfo._assetName, values[0].Value, values[1].Value,
                 values[2].Value, values[3].Value, values[4].Value));
 
-                int ref_count = asset_file_info.included_bundles.Count;
-                for (int j = 0; j < ref_count; j++)
-                    sb.Append("," + asset_file_info.included_bundles[j].ab_name);
+                int refCount = assetFileInfo._includedBundles.Count;
+                for (int j = 0; j < refCount; j++)
+                    sb.Append("," + assetFileInfo._includedBundles[j].ab_name);
                 sb.AppendLine();
             }
 
-            FileHelper.WriteTxtByFile(directory_path + "/" + MESH_NAME, sb.ToString());
+            FileHelper.WriteTxtByFile(directoryPath + "/" + MESH_NAME, sb.ToString());
         }
 
         public static int SortAsset(EAssetFileInfo a, EAssetFileInfo b)
         {
-            return String.CompareOrdinal(a.asset_name, b.asset_name);
+            return String.CompareOrdinal(a._assetName, b._assetName);
         }
     }
+
+    public class MeshReportInfo
+    {
+        public string MeshName;
+        public int Vertices;
+        public int Triangles;
+        public string SubMeshCount;
+        public string MeshCompression;
+        public bool Rw;
+        public int BeRefCount;
+        public List<string> BeRefs = new List<string>();
+
+        public void SetInfo(List<string> content)
+        {
+            MeshName = content[0];
+            Vertices = int.Parse(content[1]);
+            Triangles = int.Parse(content[2]);
+            SubMeshCount = /*int.Parse*/(content[3]);
+            MeshCompression = (content[4]);
+            Rw = bool.Parse(content[5]);
+            BeRefCount = content.Count - 6;
+
+            BeRefs.Clear();
+            for (int i = 6; i < content.Count; i++)
+            {
+                BeRefs.Add(content[i]);
+            }
+        }
+    }
+
+
 }

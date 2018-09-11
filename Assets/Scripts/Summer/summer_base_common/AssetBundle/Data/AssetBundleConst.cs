@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 namespace Summer
@@ -13,33 +12,33 @@ namespace Summer
 
         #region AB的依赖表格
 
-        public static string assetbundle_dep_name = "depconfig";
-        public static string assetbundle_dep_path = assetbundle_dep_name + ".ab";
-        public static string dep_config_name = "Assets/res_bundle/depconfig.bytes";                     // 配置文件名称
+        public static string AssetbundleDepName = "depconfig";
+        public static string AssetbundleDepPath = AssetbundleDepName + ".ab";
+        public static string DepConfigName = "Assets/res_bundle/depconfig.bytes";                     // 配置文件名称
 
         #endregion
 
         #region AB 包表格
 
-        public static string assetbundle_package_name = "packageconfig";
-        public static string assetbundle_package_path = assetbundle_package_name + ".ab";
-        public static string package_config_name = "Assets/res_bundle/packageconfig.bytes";                     // 配置文件名称
+        public static string AssetbundlePackageName = "packageconfig";
+        public static string AssetbundlePackagePath = AssetbundlePackageName + ".ab";
+        public static string PackageConfigName = "Assets/res_bundle/packageconfig.bytes";                     // 配置文件名称
 
         #endregion
 
         #region 主资源对应到AB包的表格 主资源是有可能被打包到一个资源包中的
 
-        public static string assetbundle_res_name = "resconfig";
-        public static string assetbundle_res_path = assetbundle_res_name + ".ab";
-        public static string res_config_name = "Assets/res_bundle/resconfig.bytes";                     // 配置文件名称
+        public static string AssetbundleResName = "resconfig";
+        public static string AssetbundleResPath = AssetbundleResName + ".ab";
+        public static string ResConfigName = "Assets/res_bundle/resconfig.bytes";                     // 配置文件名称
 
         #endregion
 
         #endregion
 
-        public static string assetbundle_main_directory = Application.streamingAssetsPath + "/rpg/";    // 打AssetBundle资源到指定的目录
-        public static string res_directory = "res_bundle";                                              // 存放主资源的目录
-        public static string _ab_res_directory = assetbundle_main_directory + res_directory + "/";
+        public static string AssetbundleMainDirectory = Application.streamingAssetsPath + "/rpg/";    // 打AssetBundle资源到指定的目录
+        public static string ResDirectory = "res_bundle";                                              // 存放主资源的目录
+        public static string AbResDirectory = AssetbundleMainDirectory + ResDirectory + "/";
 
 
 
@@ -50,7 +49,7 @@ namespace Summer
         /// <returns></returns>
         public static string GetAbResDirectory()
         {
-            return _ab_res_directory;
+            return AbResDirectory;
         }
 
         /// <summary>

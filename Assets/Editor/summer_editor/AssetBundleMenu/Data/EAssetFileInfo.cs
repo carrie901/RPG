@@ -12,16 +12,16 @@ namespace SummerEditor
     {
         #region 属性
 
-        public string asset_name;                                                           // 资产名称（有可能重名）
-        public long guid;                                                                   // 唯一ID 需要取得 PathID 才能确保唯一性
-        public E_AssetType asset_type;                                                      // 资源类型
-        public float memorysize;
-        public List<KeyValuePair<string, System.Object>> propertys                          // 属性
+        public string _assetName;                                                           // 资产名称（有可能重名）
+        public long _guid;                                                                  // 唯一ID 需要取得 PathID 才能确保唯一性
+        public E_AssetType _assetType;                                                      // 资源类型
+        public float _memorysize;
+        public List<KeyValuePair<string, System.Object>> _propertys                         // 属性
             = new List<KeyValuePair<string, System.Object>>();
-        public List<EAssetBundleFileInfo> included_bundles                                  // 属于哪一个AssetBundle资源，就是爸爸是谁
+        public List<EAssetBundleFileInfo> _includedBundles                                  // 属于哪一个AssetBundle资源，就是爸爸是谁
             = new List<EAssetBundleFileInfo>();
 
-        public bool in_built;
+        public bool _inBuilt;
 
         public bool InitAsset { get; set; }
 
@@ -31,7 +31,7 @@ namespace SummerEditor
 
         public EAssetFileInfo(long uid)
         {
-            guid = uid;
+            _guid = uid;
             InitAsset = false;
         }
 
@@ -41,10 +41,10 @@ namespace SummerEditor
 
         public float GetMemorySize()
         {
-            if (asset_type == E_AssetType.texture)
+            if (_assetType == E_AssetType.texture)
             {
                 //float memorysize_texture = 0;
-                List<KeyValuePair<string, System.Object>> values = propertys;
+                List<KeyValuePair<string, System.Object>> values = _propertys;
                 //float memorysize_texture = (float)values[5].Value;
                 /*try
                 {
@@ -57,17 +57,17 @@ namespace SummerEditor
                 }*/
                 //return 0;
                 //return memorysize_texture;
-                return memorysize;
+                return _memorysize;
             }
             else
             {
-                return memorysize;
+                return _memorysize;
             }
         }
 
         public override string ToString()
         {
-            return asset_name;
+            return _assetName;
         }
 
         #endregion

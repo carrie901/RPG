@@ -79,10 +79,10 @@ namespace SummerEditor
             int length = asset_files.Count;
             for (int i = 0; i < length; i++)
             {
-                bool result = asset_files[i].included_bundles.Count > 1;
+                bool result = asset_files[i]._includedBundles.Count > 1;
                 if (result == is_edundance)
                 {
-                    sb.Append("," + asset_files[i].asset_name);
+                    sb.Append("," + asset_files[i]._assetName);
                 }
             }
             sb.AppendLine();
@@ -98,21 +98,21 @@ namespace SummerEditor
             int length = asset_files.Count;
             for (int i = 0; i < length; i++)
             {
-                bool result = asset_files[i].included_bundles.Count > 1;
+                bool result = asset_files[i]._includedBundles.Count > 1;
                 if (result == is_edundance)
                 {
                     all_size += asset_files[i].GetMemorySize();
                 }
             }
 
-            sb.Append(",," + des + "(" + (all_size / 1024).ToString("f2") + ")");
+            sb.Append(",," + des + "(" + all_size + ")");
             for (int i = 0; i < length; i++)
             {
-                bool result = asset_files[i].included_bundles.Count > 1;
+                bool result = asset_files[i]._includedBundles.Count > 1;
                 if (result == is_edundance)
                 {
-                    string tmp_size = (asset_files[i].GetMemorySize() / 1024).ToString("f2");
-                    sb.Append("," + asset_files[i].asset_name + "(" + tmp_size + "Kb)");
+                    string tmp_size = (asset_files[i].GetMemorySize()).ToString("f2");
+                    sb.Append("," + asset_files[i]._assetName + "(" + tmp_size + "Kb)");
                 }
             }
             sb.AppendLine();

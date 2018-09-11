@@ -7,57 +7,90 @@ namespace SummerEditor
 {
     public class TextureReport
     {
-        public const string TEXTURE_NAME = "纹理.csv";
-        public static string texture_name = "资源名称";
-        public static string width = "宽度 Width";
-        public static string height = "高度 Height";
-        public static string format = "格式 Format";
-        public static string mip_map = "MipMap功能";
-        public static string read_write = "Read/Write";
-        public static string size = "内存占用";
-        public static string ab_count = "AB文件数量";
-        public static string ab_files = "相应的AB文件";
-        public static void CreateReport(string directory_path)
+        public const string REPORT_NAME = "纹理.csv";
+        public const string TEXTURE_NAME = "资源名称";
+        public const string WIDTH = "宽度 Width";
+        public const string HEIGHT = "高度 Height";
+        public const string FORMAT = "格式 Format";
+        public const string MIP_MAP = "MipMap功能";
+        public const string READ_WRITE = "Read/Write";
+        public const string SIZE = "内存占用";
+        public const string AB_COUNT = "冗余数量";
+        public const string AB_FILES = "相应的AB文件";
+        public static void CreateReport(string directoryPath)
         {
-            List<EAssetFileInfo> asset_files = new List<EAssetFileInfo>(AssetBundleAnalyzeManager.FindAssetFiles().Values);
-            asset_files.Sort(SortAsset);
+            List<EAssetFileInfo> assetFiles = new List<EAssetFileInfo>(AssetBundleAnalyzeManager.FindAssetFiles().Values);
+            assetFiles.Sort(SortAsset);
 
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine(string.Format("{0},{1},{2}," +
                                        "{3},{4},{5}," +
                                        "{6},{7},{8}",
-               texture_name, width, height,
-               format, mip_map, read_write,
-               size, ab_count, ab_files));
+               TEXTURE_NAME, WIDTH, HEIGHT,
+               FORMAT, MIP_MAP, READ_WRITE,
+               SIZE, AB_COUNT, AB_FILES));
 
-            int length = asset_files.Count;
+            int length = assetFiles.Count;
             for (int i = 0; i < length; i++)
             {
-                EAssetFileInfo asset_file_info = asset_files[i];
-                if (asset_file_info.asset_type != E_AssetType.texture) continue;
-                List<KeyValuePair<string, System.Object>> values = asset_file_info.propertys;
+                EAssetFileInfo assetFileInfo = assetFiles[i];
+                if (assetFileInfo._assetType != E_AssetType.texture) continue;
+                List<KeyValuePair<string, Object>> values = assetFileInfo._propertys;
 
-                int mem_size = (int)values[5].Value;
+                int memSize = (int)values[5].Value;
                 sb.Append(string.Format("{0},{1},{2}," +
                                         "{3},{4},{5}," +
                                         "{6},{7}",
-                asset_file_info.asset_name, values[0].Value, values[1].Value,
+                assetFileInfo._assetName, values[0].Value, values[1].Value,
                 values[2].Value, values[3].Value, values[4].Value,
-                EMemorySizeHelper.GetKb((float)mem_size), asset_file_info.included_bundles.Count));
+                EMemorySizeHelper.GetKb((float)memSize), assetFileInfo._includedBundles.Count));
 
-                int ref_count = asset_file_info.included_bundles.Count;
-                for (int j = 0; j < ref_count; j++)
-                    sb.Append("," + asset_file_info.included_bundles[j].ab_name);
+                int refCount = assetFileInfo._includedBundles.Count;
+                for (int j = 0; j < refCount; j++)
+                    sb.Append("," + assetFileInfo._includedBundles[j].ab_name);
                 sb.AppendLine();
             }
 
-            FileHelper.WriteTxtByFile(directory_path + "/" + TEXTURE_NAME, sb.ToString());
+            FileHelper.WriteTxtByFile(directoryPath + "/" + REPORT_NAME, sb.ToString());
         }
 
         public static int SortAsset(EAssetFileInfo a, EAssetFileInfo b)
         {
-            return String.CompareOrdinal(a.asset_name, b.asset_name);
+            return String.CompareOrdinal(a._assetName, b._assetName);
+        }
+    }
+
+    public class TextureReportInfo
+    {
+        public string TextureName;
+        public int Width;
+        public int Height;
+        public string Format;
+        public bool MipMap;
+        public bool ReadWrite;
+        public int MemSize;
+        public string MemSizeT;
+        public int BeRefCount;
+        public List<string> BeRefs = new List<string>();
+        public void SetInfo(List<string> content)
+        {
+            TextureName = content[0];
+            Width = int.Parse(content[1]);
+            Height = int.Parse(content[2]);
+            Format = content[3];
+
+            MipMap = bool.Parse(content[4]);
+            ReadWrite = bool.Parse(content[5]);
+
+            //MemSize = int.Parse(content[6]);
+            MemSizeT = content[6];
+            BeRefCount = int.Parse(content[7]);
+            BeRefs.Clear();
+            for (int i = 7; i < content.Count; i++)
+            {
+                BeRefs.Add(content[i]);
+            }
         }
     }
 }
