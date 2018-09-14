@@ -53,7 +53,7 @@ namespace Summer
         public void ReadCsv()
         {
             string text = File.ReadAllText(CheckEffectConst.effect_texture_report_path);
-            string[] contents = text.ToStrs(StringHelper.split_huanhang);
+            string[] contents = text.ToStrs(StringHelper._splitHuanhang);
             int length = contents.Length;
             for (int i = 1; i < length; i++)
             {

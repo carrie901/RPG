@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Summer
@@ -10,36 +6,36 @@ namespace Summer
     public class SpriteSelectableAutoLoader : MonoBehaviour
     {
         public Selectable _selectable;
-        private SpriteState new_sprite = new SpriteState();
-        public string disabled_sprite_path;
-        public string disabled_sprite_tag;
+        private SpriteState _newSprite = new SpriteState();
+        public string _disabledSpritePath;
+        public string _disabledSpriteTag;
 
-        public string highlighted_sprite_path;
-        public string highlighted_sprite_tag;
+        public string _highlightedSpritePath;
+        public string _highlightedSpriteTag;
 
-        public string pressed_sprite_path;
-        public string pressed_sprite_tag;
+        public string _pressedSpritePath;
+        public string _pressedSpriteTag;
 
         void OnEnable()
         {
-            if (!string.IsNullOrEmpty(disabled_sprite_path))
+            if (!string.IsNullOrEmpty(_disabledSpritePath))
             {
-                Sprite sprite = SpritePool.Instance.LoadSprite(disabled_sprite_path);
-                new_sprite.disabledSprite = sprite;
+                Sprite sprite = SpritePool.Instance.LoadSprite(_disabledSpritePath);
+                _newSprite.disabledSprite = sprite;
             }
 
-            if (!string.IsNullOrEmpty(highlighted_sprite_path))
+            if (!string.IsNullOrEmpty(_highlightedSpritePath))
             {
-                Sprite sprite = SpritePool.Instance.LoadSprite(highlighted_sprite_path);
-                new_sprite.highlightedSprite = sprite;
+                Sprite sprite = SpritePool.Instance.LoadSprite(_highlightedSpritePath);
+                _newSprite.highlightedSprite = sprite;
             }
 
-            if (!string.IsNullOrEmpty(pressed_sprite_path))
+            if (!string.IsNullOrEmpty(_pressedSpritePath))
             {
-                Sprite sprite = SpritePool.Instance.LoadSprite(pressed_sprite_path);
-                new_sprite.highlightedSprite = sprite;
+                Sprite sprite = SpritePool.Instance.LoadSprite(_pressedSpritePath);
+                _newSprite.highlightedSprite = sprite;
             }
-            _selectable.spriteState = new_sprite;
+            _selectable.spriteState = _newSprite;
             
         }
 

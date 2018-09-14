@@ -22,8 +22,6 @@
 //                 			 佛祖 保佑             
 
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Summer
 {
@@ -36,18 +34,18 @@ namespace Summer
         /// <summary>
         /// GameObject名字
         /// </summary>
-        private string m_strObjectName;
+        protected string _mStrObjectName;
         public string ObjectName
         {
             get
             {
-                return m_strObjectName;
+                return _mStrObjectName;
             }
         }
 
         public UIChildAttribute(string gameObjectName)
         {
-            m_strObjectName = gameObjectName;
+            _mStrObjectName = gameObjectName;
         }
     }
 }

@@ -18,24 +18,24 @@ namespace Summer
         #region 属性
 
         public static SpritePool Instance = new SpritePool();
-        public TimeInterval time_interval = new TimeInterval(60f);
-        public static string resident_tag = "resident";                                                 // 常驻Tag            
-        public PoolCache<string, SpriteInfo> _ui_pool_cache
+        public TimeInterval _timeInterval = new TimeInterval(60f);
+        public static string _residentTag = "resident";                                                 // 常驻Tag            
+        public PoolCache<string, SpriteInfo> _uiPoolCache
             = new PoolCache<string, SpriteInfo>();                                                      // ui
-        public Dictionary<string, SpriteInfo> _resident_sprite
+        public Dictionary<string, SpriteInfo> _residentSprite
             = new Dictionary<string, SpriteInfo>();                                                     // 常驻内存
-        public PoolCache<string, SpriteBigAutoLoader> _big_sprite_pool_cache
+        public PoolCache<string, SpriteBigAutoLoader> _bigSpritePoolCache
             = new PoolCache<string, SpriteBigAutoLoader>();                                             // 大图
 
-        public ResLoader _res_loader;
+        public ResLoader _resLoader;
 
         #endregion
 
         public SpritePool()
         {
-            _res_loader = ResLoader.instance;
+            _resLoader = ResLoader.instance;
 
-            _big_sprite_pool_cache.OnRemoveValueEvent += OnBigSprite;
+            _bigSpritePoolCache.OnRemoveValueEvent += OnBigSprite;
         }
 
         private void OnBigSprite(string key)
@@ -46,9 +46,9 @@ namespace Summer
 
         #region 提供对外的加载方式 是否可以合并相关的接口
 
-        public void LoadSprite(Image img, string res_path)
+        public void LoadSprite(Image img, string resPath)
         {
-            ResRequestInfo request = ResRequestFactory.CreateRequest<Sprite>(res_path);
+            ResRequestInfo request = ResRequestFactory.CreateRequest<Sprite>(resPath);
             Sprite sprite = LoadSprite(request);
             if (sprite)
             {
@@ -60,20 +60,20 @@ namespace Summer
 
         #region ui
 
-        public void LoadSprite(SpriteAutoLoader auto_sprite)
+        public void LoadSprite(SpriteAutoLoader autoSprite)
         {
-            ResRequestInfo request = ResRequestFactory.CreateRequest<Sprite>(auto_sprite.res_path);
+            ResRequestInfo request = ResRequestFactory.CreateRequest<Sprite>(autoSprite._resPath);
 
             Sprite sprite = LoadSprite(request);
             if (sprite != null)
             {
-                ResManager.instance._internal_ref_decrease(auto_sprite.gameObject);
-                auto_sprite.img.sprite = sprite;
-                ResManager.instance._internal_ref_increase(request, auto_sprite.gameObject);
+                ResManager.instance._internal_ref_decrease(autoSprite.gameObject);
+                autoSprite.img.sprite = sprite;
+                ResManager.instance._internal_ref_increase(request, autoSprite.gameObject);
             }
             else
             {
-                auto_sprite.img.sprite = ResManager.instance._default_sprite;
+                autoSprite.img.sprite = ResManager.instance._defaultSprite;
             }
         }
 
@@ -86,7 +86,7 @@ namespace Summer
 
         #region Selectable
 
-        public void LoadSprite(SpriteSelectableAutoLoader auto_sprite)
+        public void LoadSprite(SpriteSelectableAutoLoader autoSprite)
         {
 
         }
@@ -100,50 +100,50 @@ namespace Summer
 
         #region 大图
 
-        public void LoadSprite(SpriteBigAutoLoader auto_sprite)
+        public void LoadSprite(SpriteBigAutoLoader autoSprite)
         {
-            if (!auto_sprite.gameObject.activeSelf) return;
+            if (!autoSprite.gameObject.activeSelf) return;
 
-            ResRequestInfo request = ResRequestFactory.CreateRequest<Sprite>(auto_sprite.res_path);
+            ResRequestInfo request = ResRequestFactory.CreateRequest<Sprite>(autoSprite._resPath);
             Sprite sprite = LoadSprite(request);
             if (sprite != null)
             {
-                ResManager.instance._internal_ref_decrease(auto_sprite.gameObject);
-                auto_sprite.SetSprite(sprite);
-                ResManager.instance._internal_ref_increase(request, auto_sprite.gameObject);
-                _big_sprite_pool_cache.Set(auto_sprite.res_path, auto_sprite);
+                ResManager.instance._internal_ref_decrease(autoSprite.gameObject);
+                autoSprite.SetSprite(sprite);
+                ResManager.instance._internal_ref_increase(request, autoSprite.gameObject);
+                _bigSpritePoolCache.Set(autoSprite._resPath, autoSprite);
             }
             else
             {
-                auto_sprite.SetSprite(ResManager.instance._default_sprite);
+                autoSprite.SetSprite(ResManager.instance._defaultSprite);
             }
         }
 
-        public void ReaycelSprite(SpriteBigAutoLoader big_sprite)
+        public void ReaycelSprite(SpriteBigAutoLoader bigSprite)
         {
-            big_sprite.ReaycelSprite();
+            bigSprite.ReaycelSprite();
         }
 
         #endregion 
 
         #endregion
 
-        public Sprite LoadSprite(string sprite_path)
+        public Sprite LoadSprite(string spritePath)
         {
-            ResRequestInfo request = ResRequestFactory.CreateRequest<Sprite>(sprite_path);
+            ResRequestInfo request = ResRequestFactory.CreateRequest<Sprite>(spritePath);
             Sprite sprite = LoadSprite(request);
             return sprite;
         }
 
         #region override Load Sprite
 
-        public Sprite LoadSprite(ResRequestInfo res_request)
+        public Sprite LoadSprite(ResRequestInfo resRequest)
         {
-            Sprite sprite = _res_loader.LoadAsset<Sprite>(res_request);
+            Sprite sprite = _resLoader.LoadAsset<Sprite>(resRequest);
             return sprite;
         }
 
-        public void LoadSpriteAsync(Image img, ResRequestInfo res_request, Action<Sprite> complete = null)
+        public void LoadSpriteAsync(Image img, ResRequestInfo resRequest, Action<Sprite> complete = null)
         {
             throw new NotImplementedException();
         }
@@ -152,17 +152,17 @@ namespace Summer
 
         public void OnUpdate(float dt)
         {
-            if (time_interval.OnUpdate())
+            if (_timeInterval.OnUpdate())
             {
-                _big_sprite_pool_cache.SetDefaultCapacity();
+                _bigSpritePoolCache.SetDefaultCapacity();
             }
         }
     }
 
     public class SpriteInfo : I_PoolCacheRef
     {
-        public string tag;
-        public Dictionary<string, GameObject> _sprite_map = new Dictionary<string, GameObject>();
+        public string _tag;
+        public Dictionary<string, GameObject> _spriteMap = new Dictionary<string, GameObject>();
 
 
         public int GetRefCount()

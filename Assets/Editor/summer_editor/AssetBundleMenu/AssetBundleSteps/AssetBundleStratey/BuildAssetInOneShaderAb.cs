@@ -7,7 +7,7 @@ namespace SummerEditor
     /// </summary>
     public class BuildAssetInOneShaderAb : I_AssetBundleStratey
     {
-        public Dictionary<string, int> _assets_map = new Dictionary<string, int>();
+        public Dictionary<string, int> _assetsMap = new Dictionary<string, int>();
         public BuildAssetInOneShaderAb()
         {
         }
@@ -25,14 +25,14 @@ namespace SummerEditor
 
         public void AddAssetBundleFileInfo(EAssetObjectInfo info)
         {
-            _assets_map.Add(info.AssetPath, 1);
+            _assetsMap.Add(info.AssetPath, 1);
         }
 
         public void SetAssetBundleName()
         {
-            foreach (var info in _assets_map)
+            foreach (var info in _assetsMap)
             {
-                AssetBundleSetNameE.SetAbNameByParam(info.Key, EAssetBundleConst.shader_bundle_name);
+                AssetBundleSetNameE.SetAbNameByParam(info.Key, EAssetBundleConst.SHADER_BUNDLE_NAME);
             }
         }
     }

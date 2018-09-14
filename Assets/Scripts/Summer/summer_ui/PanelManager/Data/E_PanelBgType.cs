@@ -31,8 +31,8 @@ namespace Summer
     /// </summary>
     public enum E_PanelBgType
     {
-        nothing,
-        col,            //拥有碰撞框
-        col_and_img,    //拥有碰撞框+背景框
+        NOTHING,
+        COL,            //拥有碰撞框
+        COL_AND_IMG,    //拥有碰撞框+背景框
     }
 }

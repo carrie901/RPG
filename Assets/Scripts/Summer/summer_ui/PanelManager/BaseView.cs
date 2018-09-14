@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
 namespace Summer
 {
     /// <summary>
@@ -12,12 +10,12 @@ namespace Summer
     {
         #region 属性
 
-        protected static int base_view_id;
+        protected static int _baseViewId;
 
         public int _iid;                                                    // 每一个界面的唯一标识id
         public int Iid { get { return _iid; } }
-        public E_ViewId _view_id;
-        public E_ViewId GetId { get { return _view_id; } }
+        public E_ViewId _viewId;
+        public E_ViewId GetId { get { return _viewId; } }
 
 
         #endregion
@@ -29,7 +27,7 @@ namespace Summer
         /// </summary>
         public virtual void OnInit()
         {
-            PanelLog.Log("初始化界面:[{0}]", _view_id);
+            PanelLog.Log("初始化界面:[{0}]", _viewId);
             _init_id();
         }
 
@@ -38,17 +36,17 @@ namespace Summer
         /// </summary>
         public virtual void OnEnter()
         {
-            PanelLog.Log("进入界面:[{0}]", _view_id);
+            PanelLog.Log("进入界面:[{0}]", _viewId);
         }
 
         public virtual void OnExit()
         {
-            PanelLog.Log("退出界面:[{0}]", _view_id);
+            PanelLog.Log("退出界面:[{0}]", _viewId);
         }
 
         public virtual void OnDestroySelf()
         {
-            PanelLog.Log("销毁界面:[{0}]", _view_id);
+            PanelLog.Log("销毁界面:[{0}]", _viewId);
         }
 
         public virtual void OnRefresh() { }
@@ -57,9 +55,9 @@ namespace Summer
 
         #region public
 
-        public virtual void SetPanelData(E_ViewId view_id)
+        public virtual void SetPanelData(E_ViewId viewId)
         {
-            _view_id = view_id;
+            _viewId = viewId;
         }
 
         //public virtual void OnResetData<T>(T t) { }
@@ -70,11 +68,11 @@ namespace Summer
 
         public void _init_id()
         {
-            base_view_id++;
-            _iid = base_view_id;
+            _baseViewId++;
+            _iid = _baseViewId;
         }
 
-        protected void CloseView() { PanelManagerCtrl.Close(_view_id); }
+        protected void CloseView() { PanelManagerCtrl.Close(_viewId); }
 
         protected void OpenView(E_ViewId id) { PanelManagerCtrl.Open(id); }
 

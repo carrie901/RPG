@@ -41,7 +41,7 @@ namespace SummerEditor
 
         public float GetMemorySize()
         {
-            if (_assetType == E_AssetType.texture)
+            if (_assetType == E_AssetType.TEXTURE)
             {
                 //float memorysize_texture = 0;
                 List<KeyValuePair<string, System.Object>> values = _propertys;

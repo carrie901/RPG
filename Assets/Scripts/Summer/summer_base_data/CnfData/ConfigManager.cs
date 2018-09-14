@@ -14,44 +14,44 @@ public class ConfigManager
 
 		info = csv_infos["BuffCnf"];
 		Dictionary<int, BuffCnf> buffcnf = new Dictionary<int, BuffCnf>();
-		length = info.datas.Count;
+		length = info._datas.Count;
 		for (int i = 0; i < length; i++)
 		{
 			BuffCnf tmp = new BuffCnf();
-			tmp.ToLocalRead(info.datas[i]);
+			tmp.ToLocalRead(info._datas[i]);
 			buffcnf.Add(tmp.id, tmp); 
 		}
 		StaticCnf.Add(buffcnf);
 
 		info = csv_infos["BuffEffectCnf"];
 		Dictionary<int, BuffEffectCnf> buffeffectcnf = new Dictionary<int, BuffEffectCnf>();
-		length = info.datas.Count;
+		length = info._datas.Count;
 		for (int i = 0; i < length; i++)
 		{
 			BuffEffectCnf tmp = new BuffEffectCnf();
-			tmp.ToLocalRead(info.datas[i]);
+			tmp.ToLocalRead(info._datas[i]);
 			buffeffectcnf.Add(tmp.id, tmp); 
 		}
 		StaticCnf.Add(buffeffectcnf);
 
 		info = csv_infos["HeroInfoCnf"];
 		Dictionary<int, HeroInfoCnf> heroinfocnf = new Dictionary<int, HeroInfoCnf>();
-		length = info.datas.Count;
+		length = info._datas.Count;
 		for (int i = 0; i < length; i++)
 		{
 			HeroInfoCnf tmp = new HeroInfoCnf();
-			tmp.ToLocalRead(info.datas[i]);
+			tmp.ToLocalRead(info._datas[i]);
 			heroinfocnf.Add(tmp.id, tmp); 
 		}
 		StaticCnf.Add(heroinfocnf);
 
 		info = csv_infos["SpellInfoCnf"];
 		Dictionary<int, SpellInfoCnf> spellinfocnf = new Dictionary<int, SpellInfoCnf>();
-		length = info.datas.Count;
+		length = info._datas.Count;
 		for (int i = 0; i < length; i++)
 		{
 			SpellInfoCnf tmp = new SpellInfoCnf();
-			tmp.ToLocalRead(info.datas[i]);
+			tmp.ToLocalRead(info._datas[i]);
 			spellinfocnf.Add(tmp.id, tmp); 
 		}
 		StaticCnf.Add(spellinfocnf);
@@ -59,7 +59,7 @@ public class ConfigManager
 	public static void ReadByteConfig()
 	{
 	StaticCnf.Clear();
-		byte[] bytes = ResManager.instance.LoadByte(CnfConst.DATA_BYTE_NAME, E_GameResType.text_asset);
+		byte[] bytes = ResManager.instance.LoadByte(CnfConst.DATA_BYTE_NAME, E_GameResType.TEXT_ASSET);
 		MemoryStream ms = new MemoryStream(bytes);
 		BinaryReader br = new BinaryReader(ms);
 		int length = 0;

@@ -5,14 +5,14 @@ namespace Summer
     public class MathHelper
     {
         public const float ONE_DIV_PI = 1.0f / Mathf.PI;
-        public static float cos_15 = Mathf.Cos(Mathf.Deg2Rad * 15.0f);
-        public static float cos_35 = Mathf.Cos(Mathf.Deg2Rad * 35.0f);
-        public static float cos_45 = Mathf.Cos(Mathf.Deg2Rad * 45.0f);
-        public static float cos_75 = Mathf.Cos(Mathf.Deg2Rad * 75.0f);
-        public static float cos_60 = Mathf.Cos(Mathf.Deg2Rad * 60.0f);
-        public static float cos_30 = Mathf.Cos(Mathf.Deg2Rad * 30.0f);
-        public static float cos_20 = Mathf.Cos(Mathf.Deg2Rad * 20.0f);
-        public static float epsilon = float.Epsilon;
+        private static float Cos15 = Mathf.Cos(Mathf.Deg2Rad * 15.0f);
+        private static float Cos35 = Mathf.Cos(Mathf.Deg2Rad * 35.0f);
+        private static float Cos45 = Mathf.Cos(Mathf.Deg2Rad * 45.0f);
+        private static float Cos75 = Mathf.Cos(Mathf.Deg2Rad * 75.0f);
+        private static float Cos60 = Mathf.Cos(Mathf.Deg2Rad * 60.0f);
+        private static float Cos30 = Mathf.Cos(Mathf.Deg2Rad * 30.0f);
+        private static float Cos20 = Mathf.Cos(Mathf.Deg2Rad * 20.0f);
+        public static float _epsilon = float.Epsilon;
 
         /// <summary>
         /// float 近似相等
@@ -41,8 +41,8 @@ namespace Summer
         ///3D空间投影到屏幕坐标
         public static Vector2 ProjectToScreen(Camera cam, Vector3 point)
         {
-            Vector3 screen_point = cam.WorldToScreenPoint(point);
-            return new Vector2(screen_point.x, screen_point.y);
+            Vector3 screenPoint = cam.WorldToScreenPoint(point);
+            return new Vector2(screenPoint.x, screenPoint.y);
         }
 
 
@@ -120,11 +120,11 @@ namespace Summer
         /// </summary>
         public static float GetAngle01(Vector3 form, Vector3 to)
         {
-            Vector3 n_vector = Vector3.zero;
-            n_vector.x = to.x;
-            n_vector.y = form.y;
-            float a = to.y - n_vector.y;
-            float b = n_vector.x - form.x;
+            Vector3 nVector = Vector3.zero;
+            nVector.x = to.x;
+            nVector.y = form.y;
+            float a = to.y - nVector.y;
+            float b = nVector.x - form.x;
             float tan = a / b;
             return Mathf.Atan(tan) * 180.0f * ONE_DIV_PI;
         }
@@ -147,8 +147,8 @@ namespace Summer
 
         public static float GetAngle04(Vector3 form, Vector3 to)
         {
-            float tmp_angle = Vector2.Angle(new Vector2(form.x, form.z), new Vector2(to.x, to.z));
-            return tmp_angle;
+            float tmpAngle = Vector2.Angle(new Vector2(form.x, form.z), new Vector2(to.x, to.z));
+            return tmpAngle;
         }
 
         public static float WrapAngle(float angle)
@@ -210,10 +210,10 @@ namespace Summer
 
         #endregion
 
-        public static float RotateTowards(float from, float to, float max_angle)
+        public static float RotateTowards(float from, float to, float maxAngle)
         {
             float diff = WrapAngle(to - from);
-            if (Mathf.Abs(diff) > max_angle) diff = max_angle * Mathf.Sign(diff);
+            if (Mathf.Abs(diff) > maxAngle) diff = maxAngle * Mathf.Sign(diff);
             return from + diff;
         }
 

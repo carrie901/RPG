@@ -18,25 +18,25 @@ namespace Summer
         //public string ResName { get; private set; }                                   // 名字
         public int RefCount { get; set; }                                               // 读取次数  
 
-        public AssetInfo(Object obj, ResRequestInfo res_info)
+        public AssetInfo(Object obj, ResRequestInfo resInfo)
         {
             _object = obj;
-            ResPath = res_info.res_path;
+            ResPath = resInfo.ResPath;
             RefCount = 0;
         }
 
-        public AssetInfo(Object obj, string res_name, string res_path)
+        public AssetInfo(Object obj, string resName, string resPath)
         {
             _object = obj;
-            ResPath = res_path;
+            ResPath = resPath;
             RefCount = 0;
             ResLog.Assert(!string.IsNullOrEmpty(ResPath), "名字有异常:[{0}]", _object);
         }
 
-        public AssetInfo(Object obj, string res_path)
+        public AssetInfo(Object obj, string resPath)
         {
             _object = obj;
-            ResPath = res_path;
+            ResPath = resPath;
             RefCount = 0;
             ResLog.Assert(!string.IsNullOrEmpty(ResPath), "名字有异常:[{0}]", _object);
         }

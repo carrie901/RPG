@@ -11,7 +11,7 @@ namespace Summer
     /// </summary>
     public class DefaultGameObjectFactory : PoolObjectFactory
     {
-        protected Transform factory_go_root_trans;
+        protected Transform _factoryGoRootTrans;
 
         public DefaultGameObjectFactory(string name) : base(name)
         {
@@ -23,18 +23,18 @@ namespace Summer
             GameObject go = ResManager.instance.LoadPrefab(FactoryName);
             if (go == null)
             {
-                LogManager.Error("缓存池_加载[{0}]失败", _factory_name);
+                LogManager.Error("缓存池_加载[{0}]失败", _factoryName);
                 return null;
             }
             PoolDefaultGameObject po = go.GetComponent<PoolDefaultGameObject>();
             if (po == null)
             {
                 po = go.AddComponent<PoolDefaultGameObject>();
-                LogManager.Error("这种形式的创建，会导致最后Pop的时候会有困难[{0}]", _factory_name);
+                LogManager.Error("这种形式的创建，会导致最后Pop的时候会有困难[{0}]", _factoryName);
             }
 
             po.SetName(FactoryName);
-            po.SetParent(factory_go_root_trans);
+            po.SetParent(_factoryGoRootTrans);
             return po;
         }
 
@@ -46,7 +46,7 @@ namespace Summer
                 LogManager.Error("对象池工场Push的内容为空");
                 return;
             }
-            GameObjectHelper.SetParent(po.gameObject, factory_go_root_trans);
+            GameObjectHelper.SetParent(po.gameObject, _factoryGoRootTrans);
         }
 
         #region private
@@ -54,8 +54,8 @@ namespace Summer
         public void _init()
         {
             // 创建工场GameObject
-            GameObject go = GameObjectHelper.CreateGameObject(_factory_name, false);
-            factory_go_root_trans = go.transform;
+            GameObject go = GameObjectHelper.CreateGameObject(_factoryName, false);
+            _factoryGoRootTrans = go.transform;
             // 
             GameObjectHelper.SetParent(go, TransformPool.Instance.FindTrans());
         }

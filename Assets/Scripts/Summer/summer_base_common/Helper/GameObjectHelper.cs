@@ -18,8 +18,6 @@ namespace Summer
         /// <summary>
         /// 用于播放特效用
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="value"></param>
         public static void ForceSetActive(GameObject obj)
         {
             if (obj.activeSelf) obj.SetActive(false);
@@ -45,10 +43,10 @@ namespace Summer
             }
         }
 
-        public static void SetParent(GameObject go, Transform parent_trans)
+        public static void SetParent(GameObject go, Transform parentTrans)
         {
             Transform t = go.transform;
-            t.parent = parent_trans;
+            t.parent = parentTrans;
         }
 
         /* public static void SetLayer(GameObject go, int layer)
@@ -74,11 +72,11 @@ namespace Summer
             }
         }
 
-        public static GameObject CreateGameObject(string name, bool dont_destroy)
+        public static GameObject CreateGameObject(string name, bool dontDestroy)
         {
             GameObject go = new GameObject();
             go.name = name;
-            if (dont_destroy)
+            if (dontDestroy)
                 GameObject.DontDestroyOnLoad(go);
             return go;
         }
@@ -95,11 +93,11 @@ namespace Summer
             return GameObject.Instantiate(prefab);
         }
 
-        public static void AddChild(Transform parent, Transform child, bool is_first = false)
+        public static void AddChild(Transform parent, Transform child, bool isFirst = false)
         {
             if (parent == null || child == null) return;
             child.SetParent(parent, false);
-            if (is_first)
+            if (isFirst)
                 child.SetAsFirstSibling();
             else
                 child.SetAsLastSibling();

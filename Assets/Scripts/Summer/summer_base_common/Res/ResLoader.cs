@@ -69,7 +69,7 @@ namespace Summer
 
             // 3.从缓存中得到资源
             t = _pop_asset_for_cache<T>(resRequest);
-            ResLog.Assert(t != null, "ResLoader结论,加载资源失败路径:[{0}]", resRequest.res_path);
+            ResLog.Assert(t != null, "ResLoader结论,加载资源失败路径:[{0}]", resRequest.ResPath);
             return t;
         }
 
@@ -85,13 +85,13 @@ namespace Summer
 
         public bool UnloadRes(ResRequestInfo resRequest)
         {
-            if (!_mapRes.ContainsKey(resRequest.res_path)) return false;
+            if (!_mapRes.ContainsKey(resRequest.ResPath)) return false;
 
-            AssetInfo assetInfo = _mapRes[resRequest.res_path];
-            _mapRes.Remove(resRequest.res_path);
+            AssetInfo assetInfo = _mapRes[resRequest.ResPath];
+            _mapRes.Remove(resRequest.ResPath);
 
             bool result = _loader.UnloadAssetBundle(assetInfo);
-            ResLog.Assert(result, "卸载失败:[{0}]", resRequest.res_path);
+            ResLog.Assert(result, "卸载失败:[{0}]", resRequest.ResPath);
             return result;
         }
 
@@ -162,24 +162,24 @@ namespace Summer
 
         public void _internal_load_asset(ResRequestInfo requestInfo)
         {
-            AssetInfo assetInfo = _loader.LoadAsset(requestInfo.res_path);
-            ResLog.Assert(assetInfo != null, "ResLoader结论:内部加载失败,找不到对应的资源，路径:[{0}]", requestInfo.res_path);
+            AssetInfo assetInfo = _loader.LoadAsset(requestInfo.ResPath);
+            ResLog.Assert(assetInfo != null, "ResLoader结论:内部加载失败,找不到对应的资源，路径:[{0}]", requestInfo.ResPath);
             _push_asset_to_cache(assetInfo);
         }
 
         public IEnumerator _internal_load_asset_async<T>(ResRequestInfo resRequest, Action<T> callback, Action<T> defaultCallback = null) where T : Object
         {
             // 1.得到路径 检测是否处于加载中
-            if (_onLoadingRes.Contains(resRequest.res_path))
+            if (_onLoadingRes.Contains(resRequest.ResPath))
             {
                 // 3.等待加载 或者之类来一个ResWaitOpetion来确认
                 float loadTime = 0f;
-                while (_onLoadingRes.Contains(resRequest.res_path))
+                while (_onLoadingRes.Contains(resRequest.ResPath))
                 {
                     loadTime += Time.deltaTime;
                     if (loadTime > TIME_OUT)
                     {
-                        ResLog.Error("超时加载：{0}", resRequest.res_path);
+                        ResLog.Error("超时加载：{0}", resRequest.ResPath);
                         yield break;
                     }
                     yield return null;
@@ -188,9 +188,9 @@ namespace Summer
             else
             {
                 _currAsyncIndex++;
-                _onLoadingRes.Add(resRequest.res_path);
+                _onLoadingRes.Add(resRequest.ResPath);
                 // 4.请求异步加载
-                LoadOpertion loadOpertion = _loader.LoadAssetAsync(resRequest.res_path);
+                LoadOpertion loadOpertion = _loader.LoadAssetAsync(resRequest.ResPath);
                 _loadOpertions.Add(loadOpertion);
                 // 等待加载完成
                 yield return loadOpertion;
@@ -205,7 +205,7 @@ namespace Summer
             }
             bool result = _callback_asset_by_cache(resRequest, callback, defaultCallback);
             if (!result)
-                ResLog.Error("加载完成...但出现资源错误,path:[{0}]", resRequest.res_path);
+                ResLog.Error("加载完成...但出现资源错误,path:[{0}]", resRequest.ResPath);
         }
 
         #endregion
@@ -214,7 +214,7 @@ namespace Summer
         public T _pop_asset_for_cache<T>(ResRequestInfo resRequest) where T : UnityEngine.Object
         {
             AssetInfo assetInfo;
-            _mapRes.TryGetValue(resRequest.res_path, out assetInfo);
+            _mapRes.TryGetValue(resRequest.ResPath, out assetInfo);
             if (assetInfo != null)
                 return assetInfo.GetAsset<T>();
             return null;

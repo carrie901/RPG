@@ -69,7 +69,7 @@ namespace SummerEditor
             TmpStringInfo texInfo = selected as TmpStringInfo;
             if (texInfo == null)
                 return;
-            UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath("Assets/StreamingAssets/rpg" + texInfo._param1,
+            UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath("Assets/StreamingAssets/rpg/" + texInfo._param1,
                 typeof(UnityEngine.Object));
             if (obj == null) return;
             EditorGUIUtility.PingObject(obj);
@@ -97,7 +97,7 @@ namespace SummerEditor
             _tableView = new TableView(Win, typeof(TextureReportInfo));
             _tableView.OnSelected += OnSelectAnimation;
             _tableView.AddColumn("TextureName", "纹理名称", 0.3f);
-            _tableView.AddColumn("MemSizeT", TextureReport.SIZE, 0.1f);
+            _tableView.AddColumn("MemSize", TextureReport.SIZE, 0.1f,TextAnchor.MiddleCenter, "<fmt_bytes>");
             _tableView.AddColumn("Width", TextureReport.WIDTH, 0.1f);
             _tableView.AddColumn("Height", TextureReport.HEIGHT, 0.1f);
             _tableView.AddColumn("Format", TextureReport.FORMAT, 0.1f);

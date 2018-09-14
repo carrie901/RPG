@@ -8,16 +8,16 @@ namespace Summer
     /// </summary>
     public class ResWaitLoadOpertion : LoadOpertion
     {
-        public float _time_out;                     // 超时时间
-        public float _load_time;                    // 已经加载的时间
-        public string _res_path;                    // 资源的名字
-        public bool _is_complete;                   // 加载完成
-        public ResWaitLoadOpertion(string res_path, float time_out)
+        public float _timeOut;                     // 超时时间
+        public float _loadTime;                    // 已经加载的时间
+        public string _resPath;                    // 资源的名字
+        public bool _isComplete;                   // 加载完成
+        public ResWaitLoadOpertion(string resPath, float timeOut)
         {
-            _res_path = res_path;
-            _time_out = time_out;
-            _load_time = 0;
-            _is_complete = false;
+            _resPath = resPath;
+            _timeOut = timeOut;
+            _loadTime = 0;
+            _isComplete = false;
         }
 
         #region public 
@@ -37,19 +37,19 @@ namespace Summer
 
         protected override bool Update()
         {
-            _load_time += Time.timeScale * Time.deltaTime;
+            _loadTime += Time.timeScale * Time.deltaTime;
             // 1.超时就强制性质完成
-            if (_load_time > _time_out)
+            if (_loadTime > _timeOut)
             {
-                ResLog.Error("OabDepLoadOpertion,超时加载[{0}]", _res_path);
+                ResLog.Error("OabDepLoadOpertion,超时加载[{0}]", _resPath);
                 return false;
             }
 
             
             // 2.处于加载状态
-            _is_complete = ResLoader.instance.ContainsRes(_res_path);
+            _isComplete = ResLoader.instance.ContainsRes(_resPath);
             // 3.如果还出加载状态，返回未完成
-            if (!_is_complete)
+            if (!_isComplete)
                 return false;
             return true;
         }

@@ -21,7 +21,6 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
                                              
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Summer
@@ -32,10 +31,10 @@ namespace Summer
     public class UnityLog : I_Log
     {
 
-        private static UnityLog instance;
+        protected static UnityLog _instance;
         public static UnityLog Instance
         {
-            get { return instance ?? (instance = new UnityLog()); }
+            get { return _instance ?? (_instance = new UnityLog()); }
         }
 
 

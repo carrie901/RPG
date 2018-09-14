@@ -25,9 +25,9 @@ namespace Summer
 {
     public enum E_PanelType
     {
-        panel,      // 同类只允许出现一个界面，覆盖的形式
-        fxd,        // 固定窗口 
-        dialog,     // 模式窗口 dialog 可以出现多个，叠加
-        no_nav,
+        PANEL,      // 同类只允许出现一个界面，覆盖的形式
+        FXD,        // 固定窗口 
+        DIALOG,     // 模式窗口 dialog 可以出现多个，叠加
+        NO_NAV,
     }
 }

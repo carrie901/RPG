@@ -12,107 +12,107 @@ namespace SummerEditor
     {
         public const string ASSETBUNDLEDEP_REPORT_NAME = "AssetBundle依赖信息.csv";
 
-        public static string assetbundle_name = "AssetBundle 名称";
-        public static string texture = "贴图";
-        public static string mesh = "网格数";
-        public static string material = "材质球";
-        public static string sprite = " 图集数";
-        public static string shader = "着色器";
-        public static string animation_clip = "动作文件";
-        public static string audio_clip = "音效";
+        public static string _assetbundleName = "AssetBundle 名称";
+        public static string _texture = "贴图";
+        public const string MESH = "网格数";
+        public const string MATERIAL = "材质球";
+        public const string SPRITE = " 图集数";
+        public const string SHADER = "着色器";
+        public const string ANIMATION_CLIP = "动作文件";
+        public const string AUDIO_CLIP = "音效";
 
 
-        public static string redundance = "冗余";
+        public static string _redundance = "冗余";
 
-        public static void CreateReport(string directory_path)
+        public static void CreateReport(string directoryPath)
         {
             List<EAssetBundleFileInfo> assetbundle_files = AssetBundleAnalyzeManager.FindAssetBundleFiles();
             assetbundle_files.Sort(SortAsset);
 
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(assetbundle_name);
+            sb.AppendLine(_assetbundleName);
 
             int length = assetbundle_files.Count;
             for (int i = 0; i < length; i++)
             {
-                sb.AppendLine(assetbundle_files[i].ab_name);
+                sb.AppendLine(assetbundle_files[i].AbName);
                 AppendLine(sb, assetbundle_files[i]);
                 AppendLineRedundance(sb, assetbundle_files[i]);
                 sb.AppendLine();
             }
 
-            FileHelper.WriteTxtByFile(directory_path + "/" + ASSETBUNDLEDEP_REPORT_NAME, sb.ToString());
+            FileHelper.WriteTxtByFile(directoryPath + "/" + ASSETBUNDLEDEP_REPORT_NAME, sb.ToString());
         }
 
-        public static void AppendLine(StringBuilder sb, EAssetBundleFileInfo ab_file_info)
+        public static void AppendLine(StringBuilder sb, EAssetBundleFileInfo abFileInfo)
         {
             sb.AppendLine(" , OK");
-            AppendType0(sb, ab_file_info, E_AssetType.texture, false, texture);
-            AppendType0(sb, ab_file_info, E_AssetType.mesh, false, mesh);
-            AppendType0(sb, ab_file_info, E_AssetType.material, false, material);
-            AppendType0(sb, ab_file_info, E_AssetType.sprite, false, sprite);
-            AppendType0(sb, ab_file_info, E_AssetType.shader, false, shader);
-            AppendType0(sb, ab_file_info, E_AssetType.animation_clip, false, animation_clip);
-            AppendType0(sb, ab_file_info, E_AssetType.audio_clip, false, audio_clip);
+            AppendType0(sb, abFileInfo, E_AssetType.TEXTURE, false, _texture);
+            AppendType0(sb, abFileInfo, E_AssetType.MESH, false, MESH);
+            AppendType0(sb, abFileInfo, E_AssetType.MATERIAL, false, MATERIAL);
+            AppendType0(sb, abFileInfo, E_AssetType.SPRITE, false, SPRITE);
+            AppendType0(sb, abFileInfo, E_AssetType.SHADER, false, SHADER);
+            AppendType0(sb, abFileInfo, E_AssetType.ANIMATION_CLIP, false, ANIMATION_CLIP);
+            AppendType0(sb, abFileInfo, E_AssetType.AUDIO_CLIP, false, AUDIO_CLIP);
         }
 
-        public static void AppendLineRedundance(StringBuilder sb, EAssetBundleFileInfo ab_file_info)
+        public static void AppendLineRedundance(StringBuilder sb, EAssetBundleFileInfo abFileInfo)
         {
-            sb.AppendLine(" , " + redundance + "[" + ab_file_info.FindRedundance() + "]");
-            AppendType(sb, ab_file_info, E_AssetType.texture, true, texture);
-            AppendType(sb, ab_file_info, E_AssetType.mesh, true, mesh);
-            AppendType(sb, ab_file_info, E_AssetType.material, true, material);
-            AppendType(sb, ab_file_info, E_AssetType.sprite, true, sprite);
-            AppendType(sb, ab_file_info, E_AssetType.shader, true, shader);
-            AppendType(sb, ab_file_info, E_AssetType.animation_clip, true, animation_clip);
-            AppendType(sb, ab_file_info, E_AssetType.audio_clip, true, audio_clip);
+            sb.AppendLine(" , " + _redundance + "[" + abFileInfo.FindRedundance() + "]");
+            AppendType(sb, abFileInfo, E_AssetType.TEXTURE, true, _texture);
+            AppendType(sb, abFileInfo, E_AssetType.MESH, true, MESH);
+            AppendType(sb, abFileInfo, E_AssetType.MATERIAL, true, MATERIAL);
+            AppendType(sb, abFileInfo, E_AssetType.SPRITE, true, SPRITE);
+            AppendType(sb, abFileInfo, E_AssetType.SHADER, true, SHADER);
+            AppendType(sb, abFileInfo, E_AssetType.ANIMATION_CLIP, true, ANIMATION_CLIP);
+            AppendType(sb, abFileInfo, E_AssetType.AUDIO_CLIP, true, AUDIO_CLIP);
         }
 
-        public static void AppendType0(StringBuilder sb, EAssetBundleFileInfo ab_file_info, E_AssetType asset_type, bool is_edundance, string des)
+        public static void AppendType0(StringBuilder sb, EAssetBundleFileInfo abFileInfo, E_AssetType assetType, bool isEdundance, string des)
         {
-            List<EAssetFileInfo> asset_files = new List<EAssetFileInfo>();
-            ab_file_info.FindAssetFiles(asset_files, asset_type);
-            if (asset_files.Count == 0) return;
+            List<EAssetFileInfo> assetFiles = new List<EAssetFileInfo>();
+            abFileInfo.FindAssetFiles(assetFiles, assetType);
+            if (assetFiles.Count == 0) return;
 
             sb.Append(",," + des);
-            int length = asset_files.Count;
+            int length = assetFiles.Count;
             for (int i = 0; i < length; i++)
             {
-                bool result = asset_files[i]._includedBundles.Count > 1;
-                if (result == is_edundance)
+                bool result = assetFiles[i]._includedBundles.Count > 1;
+                if (result == isEdundance)
                 {
-                    sb.Append("," + asset_files[i]._assetName);
+                    sb.Append("," + assetFiles[i]._assetName);
                 }
             }
             sb.AppendLine();
         }
 
-        public static void AppendType(StringBuilder sb, EAssetBundleFileInfo ab_file_info, E_AssetType asset_type, bool is_edundance, string des)
+        public static void AppendType(StringBuilder sb, EAssetBundleFileInfo abFileInfo, E_AssetType assetType, bool isEdundance, string des)
         {
-            List<EAssetFileInfo> asset_files = new List<EAssetFileInfo>();
-            ab_file_info.FindAssetFiles(asset_files, asset_type);
-            if (asset_files.Count == 0) return;
+            List<EAssetFileInfo> assetFiles = new List<EAssetFileInfo>();
+            abFileInfo.FindAssetFiles(assetFiles, assetType);
+            if (assetFiles.Count == 0) return;
 
-            float all_size = 0;
-            int length = asset_files.Count;
+            float allSize = 0;
+            int length = assetFiles.Count;
             for (int i = 0; i < length; i++)
             {
-                bool result = asset_files[i]._includedBundles.Count > 1;
-                if (result == is_edundance)
+                bool result = assetFiles[i]._includedBundles.Count > 1;
+                if (result == isEdundance)
                 {
-                    all_size += asset_files[i].GetMemorySize();
+                    allSize += assetFiles[i].GetMemorySize();
                 }
             }
 
-            sb.Append(",," + des + "(" + all_size + ")");
+            sb.Append(",," + des + "(" + allSize + ")");
             for (int i = 0; i < length; i++)
             {
-                bool result = asset_files[i]._includedBundles.Count > 1;
-                if (result == is_edundance)
+                bool result = assetFiles[i]._includedBundles.Count > 1;
+                if (result == isEdundance)
                 {
-                    string tmp_size = (asset_files[i].GetMemorySize()).ToString("f2");
-                    sb.Append("," + asset_files[i]._assetName + "(" + tmp_size + "Kb)");
+                    string tmpSize = (assetFiles[i].GetMemorySize()).ToString("f2");
+                    sb.Append("," + assetFiles[i]._assetName + "(" + tmpSize + "Kb)");
                 }
             }
             sb.AppendLine();
@@ -121,7 +121,7 @@ namespace SummerEditor
         public static int SortAsset(EAssetBundleFileInfo a, EAssetBundleFileInfo b)
         {
             if (a == null || b == null) return 0;
-            return String.Compare(a.ab_name, b.ab_name, StringComparison.Ordinal);
+            return String.Compare(a.AbName, b.AbName, StringComparison.Ordinal);
         }
 
     }

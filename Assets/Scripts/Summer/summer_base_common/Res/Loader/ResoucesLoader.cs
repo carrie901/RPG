@@ -13,30 +13,30 @@ namespace Summer
 
         #region I_ResourceLoad
 
-        public AssetInfo LoadAsset(string path)
+        public AssetInfo LoadAsset(string resPath)
         {
-            Object obj = Resources.Load(path);
-            ResLog.Assert(obj != null, "ResoucesLoader 加载失败:[{0}]", path);
-            AssetInfo info = new AssetInfo(obj, path);
+            Object obj = Resources.Load(resPath);
+            ResLog.Assert(obj != null, "ResoucesLoader 加载失败:[{0}]", resPath);
+            AssetInfo info = new AssetInfo(obj, resPath);
             return info;
         }
 
-        public void LoadSyncChildRes(string res_path) { }
+        public void LoadSyncChildRes(string resPath) { }
 
-        public LoadOpertion LoadAssetAsync(string res_path)
+        public LoadOpertion LoadAssetAsync(string resPath)
         {
-            ResAsynLoadOpertion res_opertion = new ResAsynLoadOpertion(res_path);
-            return res_opertion;
+            ResAsynLoadOpertion resOpertion = new ResAsynLoadOpertion(resPath);
+            return resOpertion;
         }
 
-        public bool UnloadAssetBundle(AssetInfo asset_info)
+        public bool UnloadAssetBundle(AssetInfo assetInfo)
         {
-            Object obj = asset_info.GetAsset<Object>();
+            Object obj = assetInfo.GetAsset<Object>();
             if (obj == null) return false;
             Resources.UnloadAsset(obj);
             return true;
         }
-        public bool UnLoadChildRes(AssetInfo asset_info)
+        public bool UnLoadChildRes(AssetInfo assetInfo)
         {
             return true;
         }

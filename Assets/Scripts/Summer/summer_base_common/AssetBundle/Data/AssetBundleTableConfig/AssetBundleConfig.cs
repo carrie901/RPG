@@ -13,17 +13,17 @@ namespace Summer
         /// key要在StreamingAssets目录下
         /// Key = ab
         /// </summary>
-        public static List<string[]> GetAbInfo(string asset_name)
+        public static List<string[]> GetAbInfo(string assetName)
         {
-            string text = LoadAsset(asset_name);
+            string text = LoadAsset(assetName);
             List<string[]> result = StringHelper.ParseData(text);
             return result;
         }
 
-        public static string LoadAsset(string asset_name)
+        public static string LoadAsset(string assetName)
         {
-            string config_path = AssetBundleConst.GetAbResDirectory() + asset_name;
-            AssetBundle ab = AssetBundle.LoadFromFile(config_path);
+            string configPath = AssetBundleConst.GetAbResDirectory() + assetName;
+            AssetBundle ab = AssetBundle.LoadFromFile(configPath);
             Object obj = ab.LoadAllAssets()[0];
             TextAsset textasset = obj as TextAsset;
             string result = textasset.text;

@@ -9,15 +9,15 @@ namespace Summer
 
         protected I_ObjectFactory _factory;
 
-        protected int _max_count;
+        protected int _maxCount;
 
-        public string pool_name;
+        public string _poolName;
 
-        protected PoolBase(I_ObjectFactory factory, int max_count = 0)
+        protected PoolBase(I_ObjectFactory factory, int maxCount = 0)
         {
-            pool_name = factory.FactoryName;
+            _poolName = factory.FactoryName;
             _factory = factory;
-            _max_count = max_count;
+            _maxCount = maxCount;
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Summer
                 return false;
             }
 
-            if (_max_count > 0 && _in.Count > _max_count)
+            if (_maxCount > 0 && _in.Count > _maxCount)
             {
                 LogManager.Log("超过对象池大小,立马释放对象");
                 obj.OnRecycled();

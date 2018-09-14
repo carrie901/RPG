@@ -5,8 +5,8 @@ namespace Summer
     public class DefaultCanvasGameObjectFactory : PoolObjectFactory
     {
 
-        protected GameObject factory_go_root;                              // 工场的GameObject
-        protected RectTransform factory_go_root_rect;                         // 工场的GameObject.Transform
+        protected GameObject _factoryGoRoot;                                // 工场的GameObject
+        protected RectTransform _factoryGoRootRect;                         // 工场的GameObject.Transform
 
         public DefaultCanvasGameObjectFactory(string name) : base(name)
         {
@@ -24,11 +24,11 @@ namespace Summer
             if (po == null)
             {
                 po = go.AddComponent<PoolDefaultRectTransform>();
-                LogManager.Error("这种形式的创建，会导致最后Pop的时候会有困难[{0}]", _factory_name);
+                LogManager.Error("这种形式的创建，会导致最后Pop的时候会有困难[{0}]", _factoryName);
             }
 
-            po.SetName(_factory_name);
-            po.SetParent(factory_go_root.transform);
+            po.SetName(_factoryName);
+            po.SetParent(_factoryGoRoot.transform);
             return po;
         }
 
@@ -41,7 +41,7 @@ namespace Summer
                 return;
             }
 
-            po.SetParent(factory_go_root.transform);
+            po.SetParent(_factoryGoRoot.transform);
         }
 
         #endregion
@@ -51,11 +51,11 @@ namespace Summer
         private void Init()
         {
             // 1.创建RectTransform
-            factory_go_root_rect = GameObjectHelper.CreateRectTransform(_factory_name);
-            factory_go_root = factory_go_root_rect.gameObject;
+            _factoryGoRootRect = GameObjectHelper.CreateRectTransform(_factoryName);
+            _factoryGoRoot = _factoryGoRootRect.gameObject;
 
             // 2.挂载在 UGUI对象池下面的Root GameObject下面的东西
-            RectTransformHelper.SetParent(factory_go_root_rect, RectTransformPool.Instance.FindTrans());
+            RectTransformHelper.SetParent(_factoryGoRootRect, RectTransformPool.Instance.FindTrans());
         }
 
         #endregion

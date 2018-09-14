@@ -10,7 +10,7 @@ namespace Summer
         #region Porp
 
         //所有内存池对象id，每使用一个则计数加一
-        public static uint id = 0;
+        public static uint _id = 0;
 
         protected Dictionary<string, PoolBase> _map
             = new Dictionary<string, PoolBase>();
@@ -29,41 +29,41 @@ namespace Summer
 
         }
 
-        public virtual T Pop<T>(string prefab_name) where T : class, I_PoolObjectAbility
+        public virtual T Pop<T>(string prefabName) where T : class, I_PoolObjectAbility
         {
-            PoolBase pool_base;
-            _map.TryGetValue(prefab_name, out pool_base);
-            if (pool_base == null)
+            PoolBase poolBase;
+            _map.TryGetValue(prefabName, out poolBase);
+            if (poolBase == null)
             {
-                pool_base = GetDefaultFactory(prefab_name);
+                poolBase = GetDefaultFactory(prefabName);
             }
-            I_PoolObjectAbility po = pool_base.Pop();
+            I_PoolObjectAbility po = poolBase.Pop();
             T t = po as T;
             if (t == null)
-                LogManager.Error("po:[{0}],[{1}]", po, prefab_name);
+                LogManager.Error("po:[{0}],[{1}]", po, prefabName);
             return t;
         }
 
         public virtual bool Push(I_PoolObjectAbility po)
         {
-            PoolBase pool_base;
+            PoolBase poolBase;
             if (string.IsNullOrEmpty(po.ObjectName))
             {
                 LogManager.Error("名字为空");
                 return false;
             }
 
-            _map.TryGetValue(po.ObjectName, out pool_base);
-            if (pool_base == null)
+            _map.TryGetValue(po.ObjectName, out poolBase);
+            if (poolBase == null)
             {
                 LogManager.Error("子类缓存管理不存在");
                 return false;
             }
 
-            return pool_base.Push(po);
+            return poolBase.Push(po);
         }
 
-        public abstract PoolBase GetDefaultFactory(string prefab_name);
+        public abstract PoolBase GetDefaultFactory(string prefabName);
 
         #endregion
 

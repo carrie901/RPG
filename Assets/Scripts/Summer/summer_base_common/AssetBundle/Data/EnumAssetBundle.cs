@@ -21,10 +21,10 @@ namespace Summer
 
     public enum E_ResErrorCode
     {
-        none = 0,                                       // 无
-        parameter_error = 1,                            // 参数错误
-        time_out = 2,                                   // 超时
-        preprocess_error = 3,                           // 预处理错误
+        NONE = 0,                                       // 无
+        PARAMETER_ERROR = 1,                            // 参数错误
+        TIME_OUT = 2,                                   // 超时
+        PREPROCESS_ERROR = 3,                           // 预处理错误
 
         //Load
         load_main_manifest_failed = 101,                // 载入AssetBundleManifest错误

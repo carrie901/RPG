@@ -7,7 +7,7 @@ namespace Summer
         protected GameObject _prefab;
         public SoundGameObjectFactory(string name, GameObject prefab) : base(name)
         {
-            _factory_name = name;
+            _factoryName = name;
             _prefab = prefab;
         }
         public override I_PoolObjectAbility Create()

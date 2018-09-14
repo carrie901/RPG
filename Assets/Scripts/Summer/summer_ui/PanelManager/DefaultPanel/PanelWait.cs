@@ -20,43 +20,47 @@
 //                            `=---='
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
-                                             
+
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PanelWait : MonoBehaviour {
-
-    #region 属性
-	
-	
-	
-    #endregion
-
-	#region MONO Override
-	
-    // Use this for initialization
-    void Start()
+namespace Summer
+{
+    public class PanelWait : MonoBehaviour
     {
-        
+
+        #region 属性
+
+
+
+        #endregion
+
+        #region MONO Override
+
+        // Use this for initialization
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        #endregion
+
+        #region Public
+
+
+
+        #endregion
+
+        #region Private Methods
+
+
+
+        #endregion
     }
-     
-    // Update is called once per frame
-    void Update()
-    {
-     
-    }
-	
-	#endregion
- 
-    #region Public
-	
-	
-	
-    #endregion
- 
-    #region Private Methods
-	
-	
-	
-    #endregion
 }

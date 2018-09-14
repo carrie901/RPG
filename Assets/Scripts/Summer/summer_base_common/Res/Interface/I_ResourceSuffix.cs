@@ -15,7 +15,7 @@ namespace Summer
         public const string IMAGE = ".png";
         public const string PREFAB = ".prefab";
         public const string ANIMATION = ".anim";
-        public Dictionary<Type, string> _suffix_map = new Dictionary<Type, string>()
+        public Dictionary<Type, string> _suffixMap = new Dictionary<Type, string>()
         {
             {typeof(Image),IMAGE },
             {typeof(GameObject),PREFAB },
@@ -38,7 +38,7 @@ namespace Summer
         public override string GetSuffix<T>()
         {
             string suffix;
-            _suffix_map.TryGetValue(typeof(T), out suffix);
+            _suffixMap.TryGetValue(typeof(T), out suffix);
             return suffix;
         }
     }

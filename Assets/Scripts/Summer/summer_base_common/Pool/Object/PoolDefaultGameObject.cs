@@ -23,10 +23,10 @@ namespace Summer
         #region self vitrual 
 
         // 对象池中的对象的ObjectName名字
-        public virtual void SetName(string go_name)
+        public virtual void SetName(string goName)
         {
-            _name = go_name;
-            gameObject.name = go_name;
+            _name = goName;
+            gameObject.name = goName;
             //TODO QAQ
             //SetParent(TransformPool.Instance.FindTrans());
         }

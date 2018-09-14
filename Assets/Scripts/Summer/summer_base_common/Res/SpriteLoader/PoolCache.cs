@@ -10,10 +10,10 @@ namespace Summer
         #region 属性
         public const int DEFAULT_CAPACITY = 6;
 
-        public int orgin_capacity;
+        public int _orginCapacity;
         public int _capacity;
         public IDictionary<TKey, TValue> _dictionary;
-        public LinkedList<TKey> _linked_list;
+        public LinkedList<TKey> _linkedList;
 
         public delegate void OnRemoveValue<Tkey>(Tkey key);
 
@@ -37,7 +37,7 @@ namespace Summer
                 if (value > 0 && _capacity != value)
                 {
                     _capacity = value;
-                    while (_linked_list.Count > _capacity)
+                    while (_linkedList.Count > _capacity)
                     {
                         RemoveLast();
                     }
@@ -55,8 +55,8 @@ namespace Summer
         {
             _capacity = capacity > 0 ? capacity : DEFAULT_CAPACITY;
             _dictionary = new Dictionary<TKey, TValue>();
-            _linked_list = new LinkedList<TKey>();
-            orgin_capacity = _capacity;
+            _linkedList = new LinkedList<TKey>();
+            _orginCapacity = _capacity;
         }
 
         #endregion
@@ -66,10 +66,10 @@ namespace Summer
         public virtual void Set(TKey key, TValue value)
         {
             _dictionary[key] = value;
-            _linked_list.Remove(key);
-            _linked_list.AddFirst(key);
+            _linkedList.Remove(key);
+            _linkedList.AddFirst(key);
             RemoveNoRefCount();
-            if (_linked_list.Count > _capacity)
+            if (_linkedList.Count > _capacity)
             {
                 Capacity = Capacity + 4;
             }
@@ -97,48 +97,49 @@ namespace Summer
         // 移除最后一个
         public void RemoveLast()
         {
-            RemoveAt(_linked_list.Last.Value);
+            RemoveAt(_linkedList.Last.Value);
         }
 
         // 移除指定的一个
         public void RemoveAt(TKey key)
         {
             _dictionary.Remove(key);
-            _linked_list.Remove(key);
+            _linkedList.Remove(key);
             if (OnRemoveValueEvent != null)
                 OnRemoveValueEvent(key);
         }
 
+        protected  List<TKey> _needRemoves = new List<TKey>();
         // 从末尾开始移除，1.引用为0并且内部数量没有超标的情况下
         public void RemoveNoRefCount()
         {
-            int need_remove_count = _dictionary.Count - orgin_capacity;
-            if (need_remove_count <= 0) return;
+            int needRemoveCount = _dictionary.Count - _orginCapacity;
+            if (needRemoveCount <= 0) return;
 
-            List<TKey> need_removes = new List<TKey>();
+            _needRemoves.Clear();
 
-            LinkedListNode<TKey> last_privous = _linked_list.Last;
+            LinkedListNode<TKey> lastPrivous = _linkedList.Last;
             do
             {
-                if (last_privous == null) break;
+                if (lastPrivous == null) break;
 
-                TKey t_key = last_privous.Value;
-                if (_dictionary.ContainsKey(t_key) && _dictionary[t_key].GetRefCount() <= 0)
+                TKey tKey = lastPrivous.Value;
+                if (_dictionary.ContainsKey(tKey) && _dictionary[tKey].GetRefCount() <= 0)
                 {
-                    need_removes.Add(t_key);
-                    need_remove_count--;
-                    if (need_remove_count <= 0)
+                    _needRemoves.Add(tKey);
+                    needRemoveCount--;
+                    if (needRemoveCount <= 0)
                         break;
                 }
-                last_privous = last_privous.Previous;
-            } while (last_privous != null);
+                lastPrivous = lastPrivous.Previous;
+            } while (lastPrivous != null);
 
-            for (int i = need_removes.Count - 1; i >= 0; i--)
+            for (int i = _needRemoves.Count - 1; i >= 0; i--)
             {
-                RemoveAt(need_removes[i]);
+                RemoveAt(_needRemoves[i]);
             }
 
-            Capacity = orgin_capacity;
+            Capacity = _orginCapacity;
         }
 
         #endregion
@@ -146,20 +147,20 @@ namespace Summer
 
     public class PoolPanelCache<TKey, TValue> : PoolCache<TKey, TValue> where TValue : I_PoolCacheRef
     {
-        public Dictionary<TKey, int> _ignore_key = new Dictionary<TKey, int>();
+        public Dictionary<TKey, int> _ignoreKey = new Dictionary<TKey, int>();
 
         public PoolPanelCache(int size) : base(size) { }
 
 
         public override void Set(TKey key, TValue value)
         {
-            if (_ignore_key.ContainsKey(key)) return;
+            if (_ignoreKey.ContainsKey(key)) return;
             base.Set(key, value);
         }
 
         public void AddIgnoreKey(TKey key)
         {
-            _ignore_key.Add(key, 1);
+            _ignoreKey.Add(key, 1);
         }
     }
 

@@ -4,7 +4,7 @@ namespace Summer
     public class ResAsynLoadOpertion : LoadOpertion
     {
 
-        protected ResourceRequest _request = null;
+        protected ResourceRequest _request;
         public string _path;
         public ResAsynLoadOpertion(string path)
         {
@@ -36,9 +36,9 @@ namespace Summer
 
         protected override void Complete()
         {
-            if (_asset_info == null)
+            if (_assetInfo == null)
             {
-                _asset_info = new AssetInfo(_request.asset, RequestResPath);
+                _assetInfo = new AssetInfo(_request.asset, RequestResPath);
             }
         }
 

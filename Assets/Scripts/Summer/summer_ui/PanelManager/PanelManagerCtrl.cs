@@ -22,7 +22,7 @@
 //                 			 佛祖 保佑             
 
 using System;
-
+using Summer;
 namespace Summer
 {
     public enum E_PopupEndResult
@@ -40,27 +40,27 @@ namespace Summer
         public const string OK_LOC = "Ok";
         public const string CANCEL_LOC = "Cancel";
 
-        public static PanelManager panel_manager = PanelManager.Instance;
+        public static PanelManager _panelManager = PanelManager.Instance;
 
         public static void Lock(bool value)
         {
-            panel_manager.Lock(value);
+            _panelManager.Lock(value);
         }
 
         public static void ResetLock()
         {
-            panel_manager.ResetLock();
+            _panelManager.ResetLock();
         }
 
 
-        public static void Open(E_ViewId view_id, System.Object info = null, Action<BaseView> action = null)
+        public static void Open(E_ViewId viewId, System.Object info = null, Action<BaseView> action = null)
         {
-            panel_manager.OnOpen(view_id, info, action);
+            _panelManager.OnOpen(viewId, info, action);
         }
 
-        public static void Close(E_ViewId view_id)
+        public static void Close(E_ViewId viewId)
         {
-            panel_manager.OnClose(view_id);
+            _panelManager.OnClose(viewId);
         }
 
         public static void ShowWait()
@@ -73,12 +73,12 @@ namespace Summer
             ShowConfirm(text, OK_LOC.Loc(), CANCEL_LOC.Loc(), fun);
         }
 
-        public static void ShowConfirm(string text, string ok_text, PopUpEndEvent fun)
+        public static void ShowConfirm(string text, string okText, PopUpEndEvent fun)
         {
-            ShowConfirm(text, ok_text, CANCEL_LOC.Loc(), fun);
+            ShowConfirm(text, okText, CANCEL_LOC.Loc(), fun);
         }
 
-        public static void ShowConfirm(string text, string ok_text, string cancel_text, PopUpEndEvent fun)
+        public static void ShowConfirm(string text, string okText, string cancelText, PopUpEndEvent fun)
         {
             /*ShowDialog("Popup_Dlg");
 

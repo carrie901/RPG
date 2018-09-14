@@ -10,47 +10,45 @@ namespace Summer
         /// <summary>
         /// 资源的名字
         /// </summary>
-        public string res_name;                          
+        public string ResName { get; set; }
         /// <summary>
         /// 资源实际的路径 存放在res_bundle下的路径（非AB路径）
         /// </summary>
-        public string res_path;                          
+        public string ResPath { get; set; }
         /// <summary>
         /// 资源的游戏类型，比如是技能icon，技能的Prefab,为了确定路径的类型
         /// </summary>
-        public E_GameResType res_type;                   
+        public E_GameResType ResType { get; set; }
     }
 
 
+    /// <summary>
+    /// 请求信息的工场
+    /// </summary>
     public class ResRequestFactory
     {
-        // TODO 小小的gc问题， 可优化
-        public static Dictionary<E_GameResType, Dictionary<string, ResRequestInfo>> res_request_map
-            = new Dictionary<E_GameResType, Dictionary<string, ResRequestInfo>>(32);
-        public static ResRequestInfo CreateRequest<T>(string res_name, E_GameResType res_type = E_GameResType.quanming) where T : UnityEngine.Object
+        protected static Dictionary<E_GameResType, Dictionary<string, ResRequestInfo>> _resRequestMap
+            = new Dictionary<E_GameResType, Dictionary<string, ResRequestInfo>>(32, GameResTypeComparer.Instance);
+        public static ResRequestInfo CreateRequest<T>(string resName, E_GameResType resType = E_GameResType.QUANMING) where T : UnityEngine.Object
         {
-            Dictionary<string, ResRequestInfo> res_name_map;
-            if (!res_request_map.TryGetValue(res_type, out res_name_map))
+            Dictionary<string, ResRequestInfo> resNameMap;
+            if (!_resRequestMap.TryGetValue(resType, out resNameMap))
             {
-                res_name_map = new Dictionary<string, ResRequestInfo>(32);
-                res_request_map.Add(res_type, res_name_map);
+                resNameMap = new Dictionary<string, ResRequestInfo>(32);
+                _resRequestMap.Add(resType, resNameMap);
             }
 
-            ResRequestInfo res_request_info;
-            if (!res_name_map.TryGetValue(res_name, out res_request_info))
+            ResRequestInfo resRequestInfo;
+            if (!resNameMap.TryGetValue(resName, out resRequestInfo))
             {
-                res_request_info = new ResRequestInfo();
-                res_request_info.res_name = res_name;
-                res_request_info.res_type = res_type;
-                res_request_info.res_path = ResPathManager.FindPath<T>(res_type, res_name);
-                res_name_map.Add(res_request_info.res_name, res_request_info);
+                resRequestInfo = new ResRequestInfo();
+                resRequestInfo.ResName = resName;
+                resRequestInfo.ResType = resType;
+                resRequestInfo.ResPath = ResPathManager.FindPath<T>(resType, resName);
+                resNameMap.Add(resRequestInfo.ResName, resRequestInfo);
             }
-
-
-            return res_request_info;
+            return resRequestInfo;
         }
-
-
     }
 }
 

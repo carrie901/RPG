@@ -45,13 +45,13 @@ namespace Summer
 
         #region param
 
-        private List<DelayEvent> _event_quene;
-        public EventSet<E_GLOBAL_EVT, Object> _event_set; //= new EventSet<E_GLOBAL_EVT, Object>();
+        private List<DelayEvent> _eventQuene;
+        public EventSet<E_GLOBAL_EVT, Object> _eventSet; //= new EventSet<E_GLOBAL_EVT, Object>();
 
         public GameEventSystem()
         {
             GlobalEvtComparer comparer = new GlobalEvtComparer();
-            _event_set = new EventSet<E_GLOBAL_EVT, Object>(comparer);
+            _eventSet = new EventSet<E_GLOBAL_EVT, Object>(comparer);
         }
 
         #endregion
@@ -60,17 +60,17 @@ namespace Summer
 
         public bool RegisterHandler(E_GLOBAL_EVT key, EventSet<E_GLOBAL_EVT, Object>.EventHandler handler)
         {
-            return _event_set.RegisterHandler(key, handler);
+            return _eventSet.RegisterHandler(key, handler);
         }
 
         public bool UnRegisterHandler(E_GLOBAL_EVT key, EventSet<E_GLOBAL_EVT, Object>.EventHandler handler)
         {
-            return _event_set.UnRegisterHandler(key, handler);
+            return _eventSet.UnRegisterHandler(key, handler);
         }
 
-        public bool RaiseEvent(E_GLOBAL_EVT key, Object param = null, bool b_delay = false)
+        public bool RaiseEvent(E_GLOBAL_EVT key, Object param = null, bool bDelay = false)
         {
-            return _event_set.RaiseEvent(key, param, b_delay);
+            return _eventSet.RaiseEvent(key, param, bDelay);
         }
 
         #endregion

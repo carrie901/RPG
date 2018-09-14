@@ -4,18 +4,18 @@ namespace Summer
 {
     public class NormalObjectFactory : PoolObjectFactory
     {
-        protected Func<I_PoolObjectAbility> m_factory_method;
-        public NormalObjectFactory(Func<I_PoolObjectAbility> factory_method, string name) : base(name)
+        protected Func<I_PoolObjectAbility> _mFactoryMethod;
+        public NormalObjectFactory(Func<I_PoolObjectAbility> factoryMethod, string name) : base(name)
         {
-            _factory_name = name;
-            m_factory_method = factory_method;
+            _factoryName = name;
+            _mFactoryMethod = factoryMethod;
         }
 
 
 
         public override I_PoolObjectAbility Create()
         {
-            return m_factory_method.InvokeGracefully();
+            return _mFactoryMethod.InvokeGracefully();
         }
 
         public override void ExtraOpertion(I_PoolObjectAbility ability)

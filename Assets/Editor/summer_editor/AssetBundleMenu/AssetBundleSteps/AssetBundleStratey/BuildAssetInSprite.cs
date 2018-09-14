@@ -21,7 +21,7 @@ namespace SummerEditor
 
         public void AddAssetBundleFileInfo(EAssetObjectInfo info)
         {
-            Debug.AssertFormat(info.AssetPath.StartsWith(EAssetBundleConst.res_sprite_driectory), "这个Sprite");
+            Debug.AssertFormat(info.AssetPath.StartsWith(EAssetBundleConst.RES_SPRITE_DRIECTORY), "这个Sprite");
             Debug.AssertFormat(info.BeDepCount() == 0, "Sprite的爸爸依赖必须为0");
         }
 
@@ -37,7 +37,7 @@ namespace SummerEditor
 
         public void _init_build()
         {
-            DirectoryInfo sprite_directory_info = Directory.CreateDirectory(EAssetBundleConst.res_sprite_driectory);
+            DirectoryInfo sprite_directory_info = Directory.CreateDirectory(EAssetBundleConst.RES_SPRITE_DRIECTORY);
 
             DirectoryInfo[] sprites_info = sprite_directory_info.GetDirectories();
 

@@ -55,14 +55,14 @@ namespace Summer
 
         #endregion
 
-        public EventSet(int dic_size = 8)
+        public EventSet(int dicSize = 8)
         {
-            _events = new Dictionary<TKey, EventHandler>(dic_size);
+            _events = new Dictionary<TKey, EventHandler>(dicSize);
         }
 
-        public EventSet(IEqualityComparer<TKey> comparer, int dic_size = 8)
+        public EventSet(IEqualityComparer<TKey> comparer, int dicSize = 8)
         {
-            _events = new Dictionary<TKey, EventHandler>(dic_size, comparer);
+            _events = new Dictionary<TKey, EventHandler>(dicSize, comparer);
         }
 
 
@@ -168,9 +168,9 @@ namespace Summer
         #endregion
         private bool _internal_real_raiser_event(TKey key, TValue param)
         {
-            EventHandler event_hander;
-            _events.TryGetValue(key, out event_hander);
-            if (event_hander != null)
+            EventHandler eventHander;
+            _events.TryGetValue(key, out eventHander);
+            if (eventHander != null)
             {
                 _events[key].Invoke(param);
                 return true;

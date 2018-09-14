@@ -7,16 +7,16 @@ namespace Summer
     /// </summary>
     public class PoolDefaultRectTransform : PoolDefaultGameObject
     {
-        protected RectTransform _pool_default_rect;
+        protected RectTransform _poolDefaultRect;
 
         #region public 
 
         // 设置父类，属于UGUI特有的
         public override void SetParent(Transform trans)
         {
-            if (_pool_default_rect == null)
-                _pool_default_rect = gameObject.GetComponent<RectTransform>();
-            RectTransformHelper.SetParent(_pool_default_rect, trans);
+            if (_poolDefaultRect == null)
+                _poolDefaultRect = gameObject.GetComponent<RectTransform>();
+            RectTransformHelper.SetParent(_poolDefaultRect, trans);
         }
 
         #endregion

@@ -19,28 +19,28 @@ namespace Summer
     public class StringHelper
     {
         public const string SPLIT1 = "|";
-        public static string[] split_huanhang = new string[] { "\r\n" };
-        public static string[] split_douhao = new string[] { "," };
+        public static string[] _splitHuanhang = new string[] { "\r\n" };
+        public static string[] _splitDouhao = new string[] { "," };
 
         #region Split
 
-        public static string[] SplitString(string str_content)
+        public static string[] SplitString(string strContent)
         {
-            return SplitString(str_content, SPLIT1);
+            return SplitString(strContent, SPLIT1);
         }
 
         /// <summary>
         /// 分割字符串
         /// </summary>
-        public static string[] SplitString(string str_content, string str_split)
+        public static string[] SplitString(string strContent, string strSplit)
         {
-            if (!str_content.Contains(str_split))
+            if (!strContent.Contains(strSplit))
             {
-                string[] tmp = { str_content };
+                string[] tmp = { strContent };
                 return tmp;
             }
 
-            return str_content.Split(new string[] { str_split }, StringSplitOptions.None);
+            return strContent.Split(new string[] { strSplit }, StringSplitOptions.None);
             //return Regex.Split(str_content, Regex.Escape(str_split), RegexOptions.IgnoreCase);
         }
 
@@ -49,20 +49,20 @@ namespace Summer
         /// <summary>
         ///  解析(1,1,1 或11.1,10,2)为vector3
         /// </summary>
-        /// <param name="str_vector3"></param>
-        /// <param name="split_str"></param>
+        /// <param name="strVector3"></param>
+        /// <param name="splitStr"></param>
         /// <returns></returns>
-        public static Vector3 StringToVector3(string str_vector3, params char[] split_str)
+        public static Vector3 StringToVector3(string strVector3, params char[] splitStr)
         {
             Vector3 ret = Vector3.zero;
-            if (!string.IsNullOrEmpty(str_vector3))
+            if (!string.IsNullOrEmpty(strVector3))
             {
-                var str_arr = str_vector3.Split(split_str);
-                if (str_arr.Length == 3)
+                var strArr = strVector3.Split(splitStr);
+                if (strArr.Length == 3)
                 {
-                    float.TryParse(str_arr[0].Trim(), out ret.x);
-                    float.TryParse(str_arr[1].Trim(), out ret.y);
-                    float.TryParse(str_arr[2].Trim(), out ret.z);
+                    float.TryParse(strArr[0].Trim(), out ret.x);
+                    float.TryParse(strArr[1].Trim(), out ret.y);
+                    float.TryParse(strArr[2].Trim(), out ret.z);
                 }
                 else
                 {
@@ -104,17 +104,17 @@ namespace Summer
         /// <returns></returns>
         public static bool CustomStartsWith(string a, string b)
         {
-            int a_len = a.Length;
-            int b_len = b.Length;
+            int aLen = a.Length;
+            int bLen = b.Length;
             int ap = 0; int bp = 0;
 
-            while (ap < a_len && bp < b_len && a[ap] == b[bp])
+            while (ap < aLen && bp < bLen && a[ap] == b[bp])
             {
                 ap++;
                 bp++;
             }
 
-            return (bp == b_len && a_len >= b_len) || (ap == a_len && b_len >= a_len);
+            return (bp == bLen && aLen >= bLen) || (ap == aLen && bLen >= aLen);
         }
 
         // 粗暴的移除<color=#FF00ff></color>
@@ -123,10 +123,10 @@ namespace Summer
             text = text.Replace("</color>", "");
             string[] content = SplitString(text, "<color=#");
             int length = (content.Length - 1) * 15;
-            int text_length = text.Length - length;
-            if (text_length <= 0)
-                text_length = 0;
-            return text_length;
+            int textLength = text.Length - length;
+            if (textLength <= 0)
+                textLength = 0;
+            return textLength;
         }
 
         /// <summary>
@@ -141,12 +141,12 @@ namespace Summer
         public static List<string[]> ParseData(string text)
         {
             List<string[]> result = new List<string[]>();
-            string[] lines = text.ToStrs(StringHelper.split_huanhang);
+            string[] lines = text.ToStrs(StringHelper._splitHuanhang);
             int length = lines.Length;
 
             for (int i = 0; i < length; i++)
             {
-                string[] results = lines[i].ToStrs(StringHelper.split_douhao);
+                string[] results = lines[i].ToStrs(StringHelper._splitDouhao);
                 if (results.Length <= 1)
                 {
                     continue;
@@ -167,38 +167,37 @@ namespace Summer
             //return TextCsv.Loc(str);
         }
 
-        public static bool IsNullOrEmpty(this string self_str)
+        public static bool IsNullOrEmpty(this string selfStr)
         {
-            return string.IsNullOrEmpty(self_str);
+            return string.IsNullOrEmpty(selfStr);
         }
 
         #region Parse int/float/bool/string/int[]/float[]/bool[]/string[]/Vector3/Dictionary
 
-        public static int ToInt(this string self_str)
+        public static int ToInt(this string selfStr)
         {
-            int result = 0;
-            int.TryParse(self_str, out result);
+            int result;
+            int.TryParse(selfStr, out result);
             return result;
         }
 
-        public static float ToFloat(this string self_str)
+        public static float ToFloat(this string selfStr)
         {
-            float result = 0f;
-            float.TryParse(self_str, out result);
+            float result;
+            float.TryParse(selfStr, out result);
             return result;
         }
 
-        public static bool ToBool(this string self_str)
+        public static bool ToBool(this string selfStr)
         {
-            if (self_str == "1")
+            if (selfStr == "1")
                 return true;
             return false;
         }
 
-
-        public static int[] ToInts(this string self_str, string str_plit = ",")
+        public static int[] ToInts(this string selfStr, string strPlit = ",")
         {
-            string[] result = self_str.Split(new string[] { str_plit }, StringSplitOptions.None);
+            string[] result = selfStr.Split(new string[] { strPlit }, StringSplitOptions.None);
             int length = result.Length;
             int[] value = new int[length];
             for (int i = 0; i < length; i++)
@@ -209,9 +208,9 @@ namespace Summer
             return value;
         }
 
-        public static float[] ToFloats(this string self_str, string str_plit = ",")
+        public static float[] ToFloats(this string selfStr, string strPlit = ",")
         {
-            string[] result = self_str.Split(new[] { str_plit }, StringSplitOptions.None);
+            string[] result = selfStr.Split(new[] { strPlit }, StringSplitOptions.None);
             int length = result.Length;
             float[] value = new float[length];
             for (int i = 0; i < length; i++)
@@ -222,9 +221,9 @@ namespace Summer
             return value;
         }
 
-        public static bool[] ToBools(this string self_str, string str_plit = ",")
+        public static bool[] ToBools(this string selfStr, string strPlit = ",")
         {
-            string[] result = self_str.Split(new[] { str_plit }, StringSplitOptions.None);
+            string[] result = selfStr.Split(new[] { strPlit }, StringSplitOptions.None);
             int length = result.Length;
             bool[] value = new bool[length];
             for (int i = 0; i < length; i++)
@@ -235,22 +234,22 @@ namespace Summer
             return value;
         }
 
-        public static string[] ToStrs(this string self_str, string str_plit = ",")
+        public static string[] ToStrs(this string selfStr, string strPlit = ",")
         {
-            string[] result = self_str.Split(new string[] { str_plit }, StringSplitOptions.None);
+            string[] result = selfStr.Split(new string[] { strPlit }, StringSplitOptions.None);
             return result;
         }
 
-        public static string[] ToStrs(this string self_str, string[] str_plit)
+        public static string[] ToStrs(this string selfStr, string[] strPlit)
         {
-            string[] result = self_str.Split(str_plit, StringSplitOptions.None);
+            string[] result = selfStr.Split(strPlit, StringSplitOptions.None);
             return result;
         }
 
 
-        public static Vector3 ToV3(this string self_str)
+        public static Vector3 ToV3(this string selfStr)
         {
-            string[] result = self_str.Split(new[] { "," }, StringSplitOptions.None);
+            string[] result = selfStr.Split(new[] { "," }, StringSplitOptions.None);
             if (result.Length != 3)
             {
                 return Vector3.zero;
@@ -261,14 +260,14 @@ namespace Summer
             return new Vector3(x, y, z);
         }
 
-        public static Dictionary<int, int> ToDic(this string self_str, string str_plit_key = "$", string str_split_value = "|")
+        public static Dictionary<int, int> ToDic(this string selfStr, string strPlitKey = "$", string strSplitValue = "|")
         {
-            string[] values = self_str.Split(str_split_value.ToCharArray(), StringSplitOptions.None);
+            string[] values = selfStr.Split(strSplitValue.ToCharArray(), StringSplitOptions.None);
             Dictionary<int, int> result = new Dictionary<int, int>();
             int length = values.Length;
             for (int i = 0; i < length; i++)
             {
-                string[] keys = values[i].ToStrs(str_plit_key);
+                string[] keys = values[i].ToStrs(strPlitKey);
                 if (keys.Length != 2) continue;
                 int key = keys[0].ToInt();
                 int value = keys[1].ToInt();

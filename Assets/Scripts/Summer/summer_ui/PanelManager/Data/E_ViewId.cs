@@ -30,18 +30,18 @@ namespace Summer
     /// </summary>
     public enum E_ViewId
     {
-        invaild = 0,
-        login = 1,                      // 登陆界面
-        main = 2,                       // 主界面
-        alert = 3,
-        alert_main = 4,
-        max,
+        INVAILD = 0,
+        LOGIN = 1,                      // 登陆界面
+        MAIN = 2,                       // 主界面
+        ALERT = 3,
+        ALERT_MAIN = 4,
+        MAX,
     }
 
     public class PanelComparer : IEqualityComparer<E_ViewId>
     {
         public static PanelComparer Instance = new PanelComparer();
-
+        private PanelComparer() { }
         public bool Equals(E_ViewId x, E_ViewId y)
         {
             return x == y;

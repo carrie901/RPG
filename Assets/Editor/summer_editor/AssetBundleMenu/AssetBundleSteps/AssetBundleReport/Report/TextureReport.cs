@@ -35,7 +35,7 @@ namespace SummerEditor
             for (int i = 0; i < length; i++)
             {
                 EAssetFileInfo assetFileInfo = assetFiles[i];
-                if (assetFileInfo._assetType != E_AssetType.texture) continue;
+                if (assetFileInfo._assetType != E_AssetType.TEXTURE) continue;
                 List<KeyValuePair<string, Object>> values = assetFileInfo._propertys;
 
                 int memSize = (int)values[5].Value;
@@ -44,11 +44,11 @@ namespace SummerEditor
                                         "{6},{7}",
                 assetFileInfo._assetName, values[0].Value, values[1].Value,
                 values[2].Value, values[3].Value, values[4].Value,
-                EMemorySizeHelper.GetKb((float)memSize), assetFileInfo._includedBundles.Count));
+                memSize, assetFileInfo._includedBundles.Count));
 
                 int refCount = assetFileInfo._includedBundles.Count;
                 for (int j = 0; j < refCount; j++)
-                    sb.Append("," + assetFileInfo._includedBundles[j].ab_name);
+                    sb.Append("," + assetFileInfo._includedBundles[j].AbName);
                 sb.AppendLine();
             }
 
@@ -70,7 +70,6 @@ namespace SummerEditor
         public bool MipMap;
         public bool ReadWrite;
         public int MemSize;
-        public string MemSizeT;
         public int BeRefCount;
         public List<string> BeRefs = new List<string>();
         public void SetInfo(List<string> content)
@@ -83,8 +82,7 @@ namespace SummerEditor
             MipMap = bool.Parse(content[4]);
             ReadWrite = bool.Parse(content[5]);
 
-            //MemSize = int.Parse(content[6]);
-            MemSizeT = content[6];
+            MemSize = int.Parse(content[6]);
             BeRefCount = int.Parse(content[7]);
             BeRefs.Clear();
             for (int i = 7; i < content.Count; i++)

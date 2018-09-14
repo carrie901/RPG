@@ -27,7 +27,6 @@ namespace Summer
 {
     public class BuffEvtComparer : IEqualityComparer<E_Buff_Event>
     {
-
         public static BuffEvtComparer Instance = new BuffEvtComparer();
         private BuffEvtComparer() { }
         public bool Equals(E_Buff_Event x, E_Buff_Event y)

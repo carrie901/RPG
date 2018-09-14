@@ -58,7 +58,7 @@ public class PanelMain : BaseView
 
     public void OnAlert()
     {
-        OpenView(E_ViewId.alert);
+        OpenView(E_ViewId.ALERT);
     }
 
     public void OnBack()

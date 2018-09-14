@@ -4,16 +4,16 @@ namespace Summer
 {
     public class RefTexutreCounter : RefCounter
     {
-        public RawImage target;
+        public RawImage _target;
         public override void AddExcute()
         {
-            target = gameObject.GetComponent<RawImage>();
+            _target = gameObject.GetComponent<RawImage>();
         }
 
         public override void RemoveExcute()
         {
-            if (target == null || target.texture == null) return;
-            target.texture = null;
+            if (_target == null || _target.texture == null) return;
+            _target.texture = null;
         }
     }
 }

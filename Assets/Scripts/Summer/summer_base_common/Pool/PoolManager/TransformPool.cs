@@ -9,8 +9,8 @@ namespace Summer
 
         private static TransformPool _instance;
 
-        protected Transform _go_root_trans;
-        protected GameObject _go_root;
+        protected Transform _goRootTrans;
+        protected GameObject _goRoot;
         public static TransformPool Instance
         {
             get
@@ -18,10 +18,10 @@ namespace Summer
                 if (_instance == null)
                 {
                     _instance = new TransformPool();
-                    if (_instance._go_root == null)
+                    if (_instance._goRoot == null)
                     {
-                        _instance._go_root = GameObjectHelper.CreateGameObject(NAME, false);
-                        _instance._go_root_trans = _instance._go_root.transform;
+                        _instance._goRoot = GameObjectHelper.CreateGameObject(NAME, false);
+                        _instance._goRootTrans = _instance._goRoot.transform;
                     }
                     _instance.Init();
                 }
@@ -29,14 +29,14 @@ namespace Summer
             }
         }
 
-        public Transform FindTrans() { return _go_root_trans; }
+        public Transform FindTrans() { return _goRootTrans; }
 
-        public override PoolBase GetDefaultFactory(string prefab_name)
+        public override PoolBase GetDefaultFactory(string prefabName)
         {
-            DefaultGameObjectFactory factory = new DefaultGameObjectFactory(prefab_name);
-            PoolBaseDefault pool_base = new PoolBaseDefault(factory);
-            _map.Add(prefab_name, pool_base);
-            return pool_base;
+            DefaultGameObjectFactory factory = new DefaultGameObjectFactory(prefabName);
+            PoolBaseDefault poolBase = new PoolBaseDefault(factory);
+            _map.Add(prefabName, poolBase);
+            return poolBase;
         }
     }
 

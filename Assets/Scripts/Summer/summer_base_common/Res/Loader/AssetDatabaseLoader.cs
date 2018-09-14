@@ -13,21 +13,21 @@ namespace Summer
 
         #region I_ResourceLoad
 
-        public AssetInfo LoadAsset(string path)
+        public AssetInfo LoadAsset(string resPath)
         {
-            Object obj = AssetDatabase.LoadAssetAtPath<Object>(EVN + path);
+            Object obj = AssetDatabase.LoadAssetAtPath<Object>(EVN + resPath);
 
-            ResLog.Assert(obj != null, "AssetDatabaseLoader 加载失败:[{0}]", path);
-            AssetInfo info = new AssetInfo(obj, path);
+            ResLog.Assert(obj != null, "AssetDatabaseLoader 加载失败:[{0}]", resPath);
+            AssetInfo info = new AssetInfo(obj, resPath);
             return info;
         }
 
-        public void LoadSyncChildRes(string res_path) { }
+        public void LoadSyncChildRes(string resPath) { }
 
-        public LoadOpertion LoadAssetAsync(string path)
+        public LoadOpertion LoadAssetAsync(string resPath)
         {
-            AssetDatabaseAsynLoadOpertion asyn_local = new AssetDatabaseAsynLoadOpertion(EVN + path);
-            return asyn_local;
+            AssetDatabaseAsynLoadOpertion asynLocal = new AssetDatabaseAsynLoadOpertion(EVN + resPath);
+            return asynLocal;
         }
 
         public bool UnloadAll()
@@ -35,15 +35,15 @@ namespace Summer
             return true;
         }
 
-        public bool UnloadAssetBundle(AssetInfo asset_info)
+        public bool UnloadAssetBundle(AssetInfo assetInfo)
         {
-            Object obj = asset_info.GetAsset<Object>();
+            Object obj = assetInfo.GetAsset<Object>();
             if (obj == null) return false;
             Resources.UnloadAsset(obj);
             return true;
         }
 
-        public bool UnLoadChildRes(AssetInfo asset_info)
+        public bool UnLoadChildRes(AssetInfo assetInfo)
         {
             return true;
         }

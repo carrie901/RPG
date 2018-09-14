@@ -14,8 +14,8 @@ namespace Summer
 
         public string RequestResPath { get; protected set; }                    // 请求命令的名字
         public string Error { get; private set; }                               // 错误信息
-        protected E_LoadOpertion _loading = E_LoadOpertion.init;
-        protected AssetInfo _asset_info;
+        protected E_LoadOpertion _loading = E_LoadOpertion.INIT;
+        protected AssetInfo _assetInfo;
 
         #endregion
 
@@ -42,29 +42,29 @@ namespace Summer
         /// </summary>
         public void OnUpdate()
         {
-            if (_loading == E_LoadOpertion.init)
+            if (_loading == E_LoadOpertion.INIT)
             {
                 Init();
-                _loading = E_LoadOpertion.loading;
+                _loading = E_LoadOpertion.LOADING;
             }
 
-            if (_loading == E_LoadOpertion.loading)
+            if (_loading == E_LoadOpertion.LOADING)
             {
                 bool result = Update();
                 if (result)
                     FinishLoading();
             }
 
-            if (_loading == E_LoadOpertion.complete)
+            if (_loading == E_LoadOpertion.COMPLETE)
             {
                 Complete();
-                _loading = E_LoadOpertion.exit;
+                _loading = E_LoadOpertion.EXIT;
             }
         }
 
         public bool IsExit()
         {
-            return _loading == E_LoadOpertion.exit;
+            return _loading == E_LoadOpertion.EXIT;
         }
 
         /// <summary>
@@ -72,18 +72,18 @@ namespace Summer
         /// </summary>
         public bool IsDone() { return IsExit(); }
 
-        public void FinishLoading() { _loading = E_LoadOpertion.complete; }
+        public void FinishLoading() { _loading = E_LoadOpertion.COMPLETE; }
 
-        public void ForceExit(string error_msg)
+        public void ForceExit(string errorMsg)
         {
-            _loading = E_LoadOpertion.exit;
-            Error = error_msg;
+            _loading = E_LoadOpertion.EXIT;
+            Error = errorMsg;
         }
 
         /// <summary>
         /// 得到资源
         /// </summary>
-        public AssetInfo GetAsset() { return _asset_info; }
+        public AssetInfo GetAsset() { return _assetInfo; }
 
         #endregion
 
@@ -113,7 +113,7 @@ namespace Summer
         /// </summary>
         public virtual void UnloadRequest()
         {
-            _asset_info = null;
+            _assetInfo = null;
         }
 
         #endregion
@@ -122,10 +122,10 @@ namespace Summer
 
     public enum E_LoadOpertion
     {
-        init,
-        loading,
-        complete,
-        exit,
+        INIT,
+        LOADING,
+        COMPLETE,
+        EXIT,
     }
 }
 

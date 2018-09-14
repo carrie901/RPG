@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 //=============================================================================
@@ -19,7 +17,7 @@ namespace Summer
 
         public void LoadTextureAsync(RawImage img, string name)
         {
-            ResManager.instance.LoadTextureAsync(img, ResRequestFactory.CreateRequest<Texture>(name, E_GameResType.quanming), OnComplete);
+            ResManager.instance.LoadTextureAsync(img, ResRequestFactory.CreateRequest<Texture>(name, E_GameResType.QUANMING), OnComplete);
         }
 
         public void ReaycelTexture(RawImage img, string name)

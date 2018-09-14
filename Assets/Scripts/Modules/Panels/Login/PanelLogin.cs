@@ -60,12 +60,12 @@ public class PanelLogin : BaseView
 
     public void OnBack()
     {
-        OpenView(E_ViewId.main);
+        OpenView(E_ViewId.MAIN);
     }
 
     public void OnAlert()
     {
-        OpenView(E_ViewId.alert_main);
+        OpenView(E_ViewId.ALERT_MAIN);
     }
 
     #endregion

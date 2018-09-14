@@ -11,7 +11,7 @@ namespace SummerEditor
     {
         public static void AllCheckShader()
         {
-            List<string> assets_path = EPathHelper.GetAssetsPath(EAssetBundleConst.main_res_driectory, true);
+            List<string> assets_path = EPathHelper.GetAssetsPath(EAssetBundleConst.MAIN_RES_DRIECTORY, true);
 
             int length = assets_path.Count;
             for (int i = 0; i < length; i++)

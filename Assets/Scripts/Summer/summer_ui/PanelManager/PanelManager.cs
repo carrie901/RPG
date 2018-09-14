@@ -42,15 +42,15 @@ namespace Summer
         protected static PanelManager _instance;
         public static PanelManager Instance { get { return _instance; } }
 
-        protected int _lock_count;
-        protected PanelHistoryStack panel_history_stack = new PanelHistoryStack();
-        protected PanelFactory _panel_factory = new PanelFactory();
-        public Transform panel_canvas;                                  // Panel层
-        public Transform dialog_canvas;                                 // Dialog层
-        public Transform spec_canvas;                                   // 特殊层
-        public Transform message_canvas;                                // 消息层
-        public GameObject lock_canvas;                                  // 锁屏层
-        protected Transform _mgr_root;
+        protected int _lockCount;
+        protected PanelHistoryStack _panelHistoryStack = new PanelHistoryStack();
+        protected PanelFactory _panelFactory = new PanelFactory();
+        public Transform _panelCanvas;                                  // Panel层
+        public Transform _dialogCanvas;                                 // Dialog层
+        public Transform _specCanvas;                                   // 特殊层
+        public Transform _messageCanvas;                                // 消息层
+        public GameObject _lockCanvas;                                  // 锁屏层
+        protected Transform _mgrRoot;
 
 
         #endregion
@@ -64,60 +64,60 @@ namespace Summer
         {
             LogManager.Assert(_instance == null, "多次重复实例化PanelManager");
             _instance = this;
-            _mgr_root = transform;
+            _mgrRoot = transform;
             PanelManagerConfig.Init();
-            panel_history_stack.OnOpen += _real_open;
-            panel_history_stack.OnClose += _real_close;
+            _panelHistoryStack.OnOpen += _real_open;
+            _panelHistoryStack.OnClose += _real_close;
         }
 
         #endregion
 
         #region Public
 
-        public void OnOpen(E_ViewId view_id, System.Object info = null, Action<BaseView> action = null)
+        public void OnOpen(E_ViewId viewId, System.Object info = null, Action<BaseView> action = null)
         {
-            PanelInfo view_data = PanelManagerConfig.Get(view_id);
-            panel_history_stack.Open(view_data, info);
+            PanelInfo viewData = PanelManagerConfig.Get(viewId);
+            _panelHistoryStack.Open(viewData, info);
         }
 
-        public void OnClose(E_ViewId view_id)
+        public void OnClose(E_ViewId viewId)
         {
-            bool result = panel_history_stack.AssetView(view_id);
+            bool result = _panelHistoryStack.AssetView(viewId);
             PanelLog.Assert(result, "回退的界面，和当前的界面历史不一致");
             if (!result) return;
-            panel_history_stack.Back(view_id);
+            _panelHistoryStack.Back(viewId);
         }
 
         // 锁屏操作
         public void Lock(bool value)
         {
-            _lock_count += (value ? 1 : -1);
-            GameObjectHelper.SetActive(_instance.lock_canvas, value);
+            _lockCount += (value ? 1 : -1);
+            GameObjectHelper.SetActive(_instance._lockCanvas, value);
         }
 
         public void ResetLock()
         {
-            _lock_count = 0;
-            GameObjectHelper.SetActive(_instance.lock_canvas, false);
+            _lockCount = 0;
+            GameObjectHelper.SetActive(_instance._lockCanvas, false);
         }
 
         #endregion
 
         #region Private Methods
 
-        public void _real_open(PanelInfo view_data, System.Object info = null, Action<BaseView> action = null)
+        public void _real_open(PanelInfo viewData, System.Object info = null, Action<BaseView> action = null)
         {
-            BaseView base_view = _panel_factory.Open(view_data, info);
+            BaseView baseView = _panelFactory.Open(viewData, info);
             if (action != null)
-                action(base_view);
-            base_view.gameObject.SetActive(false);
-            GameObjectHelper.SetParent(base_view.gameObject, panel_canvas.gameObject, true);
-            base_view.gameObject.SetActive(true);
+                action(baseView);
+            baseView.gameObject.SetActive(false);
+            GameObjectHelper.SetParent(baseView.gameObject, _panelCanvas.gameObject, true);
+            baseView.gameObject.SetActive(true);
         }
 
-        public void _real_close(PanelInfo view_data, System.Object info = null, Action<BaseView> action = null)
+        public void _real_close(PanelInfo viewData, System.Object info = null, Action<BaseView> action = null)
         {
-            _panel_factory.Close(view_data);
+            _panelFactory.Close(viewData);
         }
 
         #endregion

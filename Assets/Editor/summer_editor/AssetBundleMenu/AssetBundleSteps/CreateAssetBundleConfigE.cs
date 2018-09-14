@@ -32,7 +32,7 @@ namespace SummerEditor
         public static void CreateResFile(string[] assetBundles)
         {
             // 2.通过过滤器剔除掉不是主目录的AssetBundle
-            List<string> filterFiles = SuffixHelper.Filter(assetBundles, new StartsWithFilter(EAssetBundleConst.main_res_driectory));
+            List<string> filterFiles = SuffixHelper.Filter(assetBundles, new StartsWithFilter(EAssetBundleConst.MAIN_RES_DRIECTORY));
             filterFiles.Clear();
             filterFiles.AddRange(assetBundles);
 
@@ -47,7 +47,7 @@ namespace SummerEditor
                 {
                     // 主目录下的资源路径
                     string mainAbPath = assetBundleNames[mainIndex];
-                    if (!mainAbPath.StartsWith(EAssetBundleConst.main_res_driectory)) continue;
+                    if (!mainAbPath.StartsWith(EAssetBundleConst.MAIN_RES_DRIECTORY)) continue;
 
                     List<string> result = new List<string>();
 

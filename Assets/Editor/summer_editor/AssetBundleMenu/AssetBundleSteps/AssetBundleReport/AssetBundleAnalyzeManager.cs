@@ -10,27 +10,18 @@ namespace SummerEditor
 {
     public class AssetBundleAnalyzeManager
     {
-        protected static List<EAssetBundleFileInfo> _assetBundleFileInfos                        // 获取所有的AB文件信息                    
+        protected static List<EAssetBundleFileInfo> _assetBundleFileInfos                       // 获取所有的AB文件信息                    
             = new List<EAssetBundleFileInfo>();
-        protected static Dictionary<long, EAssetFileInfo> _assetFileInfos                         // 所有的Asset的资源信息
+        protected static Dictionary<long, EAssetFileInfo> _assetFileInfos                       // 所有的Asset的资源信息
             = new Dictionary<long, EAssetFileInfo>();
-
 
         public static void Analyze()
         {
-            Resources.UnloadUnusedAssets();
-            if (!Directory.Exists(EAssetBundleConst.assetbundle_directory))
-            {
-                Debug.LogError("不存在:" + EAssetBundleConst.assetbundle_directory + "目录");
-                return;
-            }
-
+            if (!EPathHelper.IsExitDirectory(EAssetBundleConst.assetbundle_directory)) return;
             // 收集AB的信息
-            _analyze_collect_bundles();
-            _analyze_bundle_files();
-            _create_report();
-
-
+            AnalyzeCollectBundles();
+            AnalyzeBundleFiles();
+            CreateReport();
         }
 
         #region public 
@@ -78,7 +69,7 @@ namespace SummerEditor
         /// <summary>
         /// 收集bundle资源
         /// </summary>
-        public static void _analyze_collect_bundles()
+        private static void AnalyzeCollectBundles()
         {
             _assetBundleFileInfos.Clear();
             string manifestPath = EAssetBundleConst.ManifestPath;
@@ -94,7 +85,7 @@ namespace SummerEditor
             for (int i = 0; i < length; i++)
             {
                 EAssetBundleFileInfo info = new EAssetBundleFileInfo(bundles[i]);
-                info.all_depends.AddRange(assetBundleManifest.GetAllDependencies(info.ab_name));
+                info._allDepends.AddRange(assetBundleManifest.GetAllDependencies(info.AbName));
                 _assetBundleFileInfos.Add(info);
             }
             manifestAb.Unload(true);
@@ -103,7 +94,7 @@ namespace SummerEditor
         /// <summary>
         /// 分析AssetBundle中有多少Asset资源
         /// </summary>
-        public static void _analyze_bundle_files()
+        private static void AnalyzeBundleFiles()
         {
             // 1.A 文件 被哪些文件引用
             foreach (var info in _assetBundleFileInfos)
@@ -111,15 +102,14 @@ namespace SummerEditor
                 List<string> beDepends = new List<string>();
                 foreach (var info2 in _assetBundleFileInfos)
                 {
-                    if (info2.ab_name == info.ab_name) continue;
+                    if (info2.AbName == info.AbName) continue;
 
-                    if (info2.all_depends.Contains(info.ab_name))
+                    if (info2._allDepends.Contains(info.AbName))
                     {
-                        beDepends.Add(info2.ab_name);
+                        beDepends.Add(info2.AbName);
                     }
                 }
-                info.be_depends.Clear();
-                info.be_depends.AddRange(beDepends.ToArray());
+                info._beDepends.AddRange(beDepends.ToArray());
             }
 
             int index = 0;
@@ -127,14 +117,14 @@ namespace SummerEditor
             foreach (var info in _assetBundleFileInfos)
             {
                 index++;
-                EditorUtility.DisplayProgressBar("分析Bundle的Asset资源", info.ab_name, 1.0f * index / _assetBundleFileInfos.Count);
-                _analyze_assetbundle_file(info);
+                EditorUtility.DisplayProgressBar("分析Bundle的Asset资源", info.AbName, 1.0f * index / _assetBundleFileInfos.Count);
+                AnalyzeAssetbundleFile(info);
             }
             EditorUtility.ClearProgressBar();
             Resources.UnloadUnusedAssets();
         }
 
-        public static void _create_report()
+        private static void CreateReport()
         {
             string dir = DateTime.Now.ToString("yyyy_MM_dd__HHmm");
             string reportDir = Application.dataPath + "/../Report/" + dir;
@@ -153,15 +143,15 @@ namespace SummerEditor
         /// <summary>
         /// 分析AssetBundle中有多少Asset资源
         /// </summary>
-        public static void _analyze_assetbundle_file(EAssetBundleFileInfo assetbundleFileInfo)
+        private static void AnalyzeAssetbundleFile(EAssetBundleFileInfo assetbundleFileInfo)
         {
-            AssetBundle ab = AssetBundle.LoadFromFile(assetbundleFileInfo.file_path);
+            AssetBundle ab = AssetBundle.LoadFromFile(assetbundleFileInfo.FilePath);
             string resualName = string.Empty;
             try
             {
                 if (ab == null)
                 {
-                    Debug.LogErrorFormat("[{0}]加载失败:", assetbundleFileInfo.file_path);
+                    Debug.LogErrorFormat("[{0}]加载失败:", assetbundleFileInfo.FilePath);
                     return;
                 }
                 Object[] objs = ab.LoadAllAssets<Object>();
@@ -171,12 +161,12 @@ namespace SummerEditor
                 {
                     if (!collectDepends[i]) continue;
                     resualName = collectDepends[i].name;
-                    _analyze_asset_object(collectDepends[i], assetbundleFileInfo);
+                    AnalyzeAssetObject(collectDepends[i], assetbundleFileInfo);
                 }
             }
             catch (Exception e)
             {
-                Debug.LogError("[" + assetbundleFileInfo.ab_name + "]_[" + resualName + "]_" + e.Message);
+                Debug.LogError("[" + assetbundleFileInfo.AbName + "]_[" + resualName + "]_" + e.Message);
             }
             finally
             {
@@ -186,12 +176,12 @@ namespace SummerEditor
 
         private static PropertyInfo _inspectorMode;
         // 分析Asset Object信息
-        public static void _analyze_asset_object(Object assetObject, EAssetBundleFileInfo assetbundleFileInfo)
+        private static void AnalyzeAssetObject(Object assetObject, EAssetBundleFileInfo assetbundleFileInfo)
         {
             bool inBuilt = false;
             // 1.检测类型需要符合要求
             E_AssetType assetType = AssetBundleAnallyzeObject.CheckObject(assetObject, assetbundleFileInfo, ref inBuilt);
-            if (assetType == E_AssetType.none) return;
+            if (assetType == E_AssetType.NONE) return;
 
             if (_inspectorMode == null)
             {
@@ -205,14 +195,14 @@ namespace SummerEditor
             SerializedProperty pathIdProp = serializedObject.FindProperty(EAssetBundleConst.LOCAL_ID_DENTFIER_IN_FILE);
             if (pathIdProp == null)
             {
-                Debug.LogError("得到Id失败:" + assetbundleFileInfo.ab_name + "_" + assetObject);
+                Debug.LogError("得到Id失败:" + assetbundleFileInfo.AbName + "_" + assetObject);
                 return;
             }
             long guid = pathIdProp.longValue;
 
             if (assetbundleFileInfo.IsAssetContain(guid))
             {
-                Debug.LogAssertionFormat("[{0}]已经存在了[{1}]资源", assetbundleFileInfo.ab_name, assetObject.name);
+                Debug.LogAssertionFormat("[{0}]已经存在了[{1}]资源", assetbundleFileInfo.AbName, assetObject.name);
                 serializedObject.Dispose();
                 return;
             }

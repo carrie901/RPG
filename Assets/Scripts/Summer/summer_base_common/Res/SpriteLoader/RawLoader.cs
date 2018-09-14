@@ -12,17 +12,17 @@ namespace Summer
 {
     public class RawLoader : MonoBehaviour
     {
-        public RawImage icon;
-        public string res_path;
+        public RawImage _icon;
+        public string _resPath;
 
         void OnDisable()
         {
-            RawPool.Instance.ReaycelTexture(icon, res_path);
+            RawPool.Instance.ReaycelTexture(_icon, _resPath);
         }
 
         void OnEnable()
         {
-            RawPool.Instance.LoadTextureAsync(icon, res_path);
+            RawPool.Instance.LoadTextureAsync(_icon, _resPath);
         }
     }
 }

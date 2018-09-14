@@ -37,23 +37,23 @@ namespace SummerEditor
         public const string REPEAT_MEMORY_SIZE = "冗余内存 Kb(估算)";
         public const string AB_DEP = "依赖AB数";
         public const string BE_REF = "冗余资源数";
-        public const string mesh = "   网格数";
-        public const string material = "   材质球";
-        public const string texture = "    贴图数";
-        public const string sprite = " 图集数";
-        public const string shader = "着色器";
-        public const string animation_clip = "动作文件";
-        public const string audio_clip = "音效";
+        public const string MESH = "   网格数";
+        public const string MATERIAL = "   材质球";
+        public const string TEXTURE = "    贴图数";
+        public const string SPRITE = " 图集数";
+        public const string SHADER = "着色器";
+        public const string ANIMATION_CLIP = "动作文件";
+        public const string AUDIO_CLIP = "音效";
 
-        public static string[] titles = new string[]
+        public static string[] _titles = new string[]
         {
             ASSETBUNDLE_NAME, AB_MEMORY_SIZE ,CAL_MEMORY_SIZE,
             REPEAT_MEMORY_SIZE,REPEAT_MEMORY_SIZE,AB_DEP,
-            BE_REF,mesh,material,
-            texture,sprite,sprite,
-            shader,animation_clip,audio_clip
+            BE_REF,MESH,MATERIAL,
+            TEXTURE,SPRITE,SPRITE,
+            SHADER,ANIMATION_CLIP,AUDIO_CLIP
         };
-        public static float[] titles_width = new float[]
+        public static float[] _titlesWidth = new float[]
         {
             240, 80 ,160,
             120,100,80,
@@ -63,10 +63,10 @@ namespace SummerEditor
         };
 
 
-        public static void CreateReport(string directory_path)
+        public static void CreateReport(string directoryPath)
         {
-            List<EAssetBundleFileInfo> assetbundle_files = AssetBundleAnalyzeManager.FindAssetBundleFiles();
-            assetbundle_files.Sort(SortAsset);
+            List<EAssetBundleFileInfo> assetbundleFiles = AssetBundleAnalyzeManager.FindAssetBundleFiles();
+            assetbundleFiles.Sort(SortAsset);
 
 
             StringBuilder sb = new StringBuilder();
@@ -75,38 +75,38 @@ namespace SummerEditor
                                         "{6},{7},{8}," +
                                         "{9},{10},{11}",
                 ASSETBUNDLE_NAME, AB_MEMORY_SIZE, CAL_MEMORY_SIZE,
-                AB_DEP, BE_REF, mesh,
-                material, texture, shader,
-                sprite, animation_clip, audio_clip, REPEAT_MEMORY_SIZE));
+                AB_DEP, BE_REF, MESH,
+                MATERIAL, TEXTURE, SHADER,
+                SPRITE, ANIMATION_CLIP, AUDIO_CLIP, REPEAT_MEMORY_SIZE));
 
-            int length = assetbundle_files.Count;
+            int length = assetbundleFiles.Count;
             for (int i = 0; i < length; i++)
             {
 
-                EAssetBundleFileInfo info = assetbundle_files[i];
+                EAssetBundleFileInfo info = assetbundleFiles[i];
 
                 int tRepeatMemSize = (int) info.GetRepeatMemSize();
-                int tAbSize = (int) info.file_ab_memory_size;
+                int tAbSize = (int) info.FileAbMemorySize;
                 int tAbMemSize = (int) (info.GetMemorySize());
                 sb.AppendLine(string.Format("{0},{1},{2},{12}," +
                                     "{3},{4},{5}," +
                                     "{6},{7},{8}," +
                                     "{9},{10},{11}",
-            info.ab_name, tAbSize, tAbMemSize,
-            info.all_depends.Count, info.FindRedundance(), info.GetAssetCount(E_AssetType.mesh),
-            info.GetAssetCount(E_AssetType.material), info.GetAssetCount(E_AssetType.texture), info.GetAssetCount(E_AssetType.shader),
-            info.GetAssetCount(E_AssetType.sprite), info.GetAssetCount(E_AssetType.animation_clip), info.GetAssetCount(E_AssetType.audio_clip), tRepeatMemSize));
+            info.AbName, tAbSize, tAbMemSize,
+            info._allDepends.Count, info.FindRedundance(), info.GetAssetCount(E_AssetType.MESH),
+            info.GetAssetCount(E_AssetType.MATERIAL), info.GetAssetCount(E_AssetType.TEXTURE), info.GetAssetCount(E_AssetType.SHADER),
+            info.GetAssetCount(E_AssetType.SPRITE), info.GetAssetCount(E_AssetType.ANIMATION_CLIP), info.GetAssetCount(E_AssetType.AUDIO_CLIP), tRepeatMemSize));
 
 
             }
 
-            FileHelper.WriteTxtByFile(directory_path + "/" + ASSETBUNDLE_REPORT_NAME, sb.ToString());
+            FileHelper.WriteTxtByFile(directoryPath + "/" + ASSETBUNDLE_REPORT_NAME, sb.ToString());
         }
 
         public static int SortAsset(EAssetBundleFileInfo a, EAssetBundleFileInfo b)
         {
             if (a == null || b == null) return 0;
-            return String.Compare(a.ab_name, b.ab_name, StringComparison.Ordinal);
+            return String.Compare(a.AbName, b.AbName, StringComparison.Ordinal);
         }
     }
 }

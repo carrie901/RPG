@@ -122,7 +122,7 @@ public class SoundManager : MonoBehaviour
 
     public static E_GameResType GetResType(int type)
     {
-        E_GameResType res_type = E_GameResType.music_sound;
+        E_GameResType res_type = E_GameResType.MUSIC_SOUND;
         if (instance == null) return res_type;
         instance._sound_type.TryGetValue(type, out res_type);
         return res_type;
@@ -220,9 +220,9 @@ public class SoundManager : MonoBehaviour
             _sound_map_name.Add(info.Value.name, info.Value);
         }
 
-        _sound_type.Add(1, E_GameResType.music_bgm);
-        _sound_type.Add(3, E_GameResType.music_sound);
-        _sound_type.Add(2, E_GameResType.music_voice);
+        _sound_type.Add(1, E_GameResType.MUSIC_BGM);
+        _sound_type.Add(3, E_GameResType.MUSIC_SOUND);
+        _sound_type.Add(2, E_GameResType.MUSIC_VOICE);
     }
 
 

@@ -20,7 +20,7 @@ namespace Summer
                 if (CnfConst.ingore_file.Contains(withOutExtensionName) || string.IsNullOrEmpty(withOutExtensionName)) continue;
 
                 BaseCsvInfo csvInfo = new BaseCsvInfo(csvsPath[i]);
-                csvInfos.Add(csvInfo.class_name, csvInfo);
+                csvInfos.Add(csvInfo._className, csvInfo);
             }
             return csvInfos;
         }
@@ -45,7 +45,7 @@ namespace Summer
             
             string text = FileHelper.ReadAllText(originalFilePath);
 
-            string[] lines = text.ToStrs(StringHelper.split_huanhang);
+            string[] lines = text.ToStrs(StringHelper._splitHuanhang);
             if (lines.Length < first)
             {
                 LogManager.Error("配置文件出错,长度不够", originalFilePath);
@@ -56,7 +56,7 @@ namespace Summer
                 for (int i = first; i < length; i++)
                 {
                     if (string.IsNullOrEmpty(lines[i])) continue;
-                    string[] contents = lines[i].ToStrs(StringHelper.split_douhao);
+                    string[] contents = lines[i].ToStrs(StringHelper._splitDouhao);
 
                     datas.Add(new List<string>(contents));
                 }

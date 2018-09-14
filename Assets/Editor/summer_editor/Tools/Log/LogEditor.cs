@@ -35,9 +35,9 @@ namespace SummerEditor
         [UnityEditor.Callbacks.OnOpenAssetAttribute(-1)]
         private static bool OnOpenAsset(int instance_id, int line)
         {
-            for (int i = LogEditorConst.log_editor_configs.Length - 1; i >= 0; --i)
+            for (int i = LogEditorConst.LogEditorConfigs.Length - 1; i >= 0; --i)
             {
-                LogEditorConfig config_tmp = LogEditorConst.log_editor_configs[i];
+                LogEditorConfig config_tmp = LogEditorConst.LogEditorConfigs[i];
                 UpdateLogInstanceId(config_tmp);
                 
                 if (instance_id == config_tmp.instance_id)
@@ -115,9 +115,9 @@ namespace SummerEditor
             for (int i = file_names.Length - 1; i >= 0; --i)
             {
                 bool is_custom_log = false;
-                for (int j = LogEditorConst.log_editor_configs.Length - 1; j >= 0; --j)
+                for (int j = LogEditorConst.LogEditorConfigs.Length - 1; j >= 0; --j)
                 {
-                    if (file_names[i].Contains(LogEditorConst.log_editor_configs[j].log_type_name))
+                    if (file_names[i].Contains(LogEditorConst.LogEditorConfigs[j].log_type_name))
                     {
                         is_custom_log = true;
                         break;

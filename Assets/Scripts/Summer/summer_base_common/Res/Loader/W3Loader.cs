@@ -4,14 +4,14 @@
     {
         public static W3Loader instance = new W3Loader();
 
-        public AssetInfo LoadAsset(string path)
+        public AssetInfo LoadAsset(string resPath)
         {
             return null;
         }
 
-        public void LoadSyncChildRes(string res_path) { }
+        public void LoadSyncChildRes(string resPath) { }
 
-        public LoadOpertion LoadAssetAsync(string path)
+        public LoadOpertion LoadAssetAsync(string resPath)
         {
             return null;
         }
@@ -21,11 +21,11 @@
             return false;
         }
 
-        public bool UnloadAssetBundle(AssetInfo asset_info)
+        public bool UnloadAssetBundle(AssetInfo assetInfo)
         {
             return false;
         }
-        public bool UnLoadChildRes(AssetInfo asset_info)
+        public bool UnLoadChildRes(AssetInfo assetInfo)
         {
             return true;
         }

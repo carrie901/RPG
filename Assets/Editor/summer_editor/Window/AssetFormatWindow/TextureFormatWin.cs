@@ -86,7 +86,7 @@ namespace SummerEditor
             _texShowTable = new TableView(win, typeof(TextureFormatInfo));
             _texShowTable.OnSelected += OnInfoSelected;
             _texShowTable.AddColumn("Path", "路径", 0.45f, TextAnchor.MiddleLeft);
-            _texShowTable.AddColumn("MemSizeT", "内存占用", 0.05f, TextAnchor.MiddleCenter);
+            _texShowTable.AddColumn("MemSize", "内存占用", 0.05f, TextAnchor.MiddleCenter, "<fmt_bytes>");
             _texShowTable.AddColumn("ReadWriteEnable", "R/W", 0.05f);
             _texShowTable.AddColumn("MipmapEnable", "Mipmap", 0.05f);
             _texShowTable.AddColumn("AndroidFormat", "AndroidFormat", 0.1f);

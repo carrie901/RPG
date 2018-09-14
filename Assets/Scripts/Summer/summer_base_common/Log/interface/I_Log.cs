@@ -5,10 +5,6 @@
 // FileName : Ilog.cs
 //=============================================================================
 
-using System;
-using System.IO;
-using System.Text;
-
 namespace Summer
 {
     public interface I_Log

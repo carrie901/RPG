@@ -51,12 +51,12 @@ namespace Summer
             Application.logMessageReceived += OnDebugCallBackHandler;
         }
 
-        public void OnDebugCallBackHandler(string condition, string stack_trace, LogType type)
+        public void OnDebugCallBackHandler(string condition, string stackTrace, LogType type)
         {
             // Error Assert Warning Log Exception
             if (type == LogType.Log || type == LogType.Warning) return;
             Error(condition);
-            Error(stack_trace);
+            Error(stackTrace);
         }
 
         public void Log(string message)

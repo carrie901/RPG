@@ -8,13 +8,13 @@ namespace Summer
         /// <summary>
         /// 同步加载
         /// </summary>
-        AssetInfo LoadAsset(string res_path);
+        AssetInfo LoadAsset(string resPath);
         /// <summary>
         /// 异步加载
         /// </summary>
-        LoadOpertion LoadAssetAsync(string res_path);
+        LoadOpertion LoadAssetAsync(string resPath);
 
-        bool UnloadAssetBundle(AssetInfo asset_info);
+        bool UnloadAssetBundle(AssetInfo assetInfo);
 
         void OnUpdate();
     }

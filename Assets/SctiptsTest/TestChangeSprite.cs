@@ -21,7 +21,7 @@ public class TestChangeSprite : MonoBehaviour
         if (flag)
         {
             flag = false;
-            loader.is_complete = true;
+            loader._isComplete = true;
             SpritePool.Instance.LoadSprite(loader);
         }
     }

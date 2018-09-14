@@ -5,9 +5,9 @@ namespace Summer
 {
     public class AssetDatabaseAsynLoadOpertion : LoadOpertion
     {
-        public int frame = 3;
-        public Object _obj;
-        public AssetInfo _aset_info;
+        private int _frame = 3;
+        private Object _obj;
+        private AssetInfo _asetInfo;
         public AssetDatabaseAsynLoadOpertion(string path)
         {
             RequestResPath = path;
@@ -19,7 +19,7 @@ namespace Summer
         {
             base.UnloadRequest();
             _obj = null;
-            _aset_info = null;
+            _asetInfo = null;
         }
 
         #region 生命周期
@@ -31,8 +31,8 @@ namespace Summer
 
         protected override bool Update()
         {
-            frame--;
-            if (frame > 0) return false;
+            _frame--;
+            if (_frame > 0) return false;
 
 
 
@@ -44,7 +44,7 @@ namespace Summer
             }
             else
             {
-                LogManager.Error("本地加载资源出错,Path:[{0}]", RequestResPath);
+                ResLog.Error("本地加载资源出错,Path:[{0}]", RequestResPath);
                 ForceExit(string.Format("本地加载资源出错,Path:[{0}]", RequestResPath));
                 return false;
             }
@@ -53,9 +53,9 @@ namespace Summer
 
         protected override void Complete()
         {
-            if (_aset_info == null)
+            if (_asetInfo == null)
             {
-                _aset_info = new AssetInfo(_obj, RequestResPath);
+                _asetInfo = new AssetInfo(_obj, RequestResPath);
             }
         }
 

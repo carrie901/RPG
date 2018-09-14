@@ -7,31 +7,31 @@ namespace Summer
         /// <summary>
         /// 资源的路径 .prefab /.Animation /.bytes
         /// </summary>
-        public string res_path;
+        public string _resPath;
         /// <summary>
         /// 对应的包的路径.ab 路径-->StreamingAssets/rpg
         /// </summary>
-        public string package_path;
+        public string _packagePath;
         /// <summary>
         /// 资源的名称
         /// </summary>
-        public string res_name;
+        public string _resName;
 
         public AssetBundleResInfo(string[] infos)
         {
-            res_path = infos[0];
-            package_path = infos[1];
+            _resPath = infos[0];
+            _packagePath = infos[1];
             Init();
         }
 
         // TODO 是否可以优化
         public void Init()
         {
-            int index = res_path.LastIndexOf('/');
+            int index = _resPath.LastIndexOf('/');
             if (index < 0)
-                res_name = res_path;
+                _resName = _resPath;
             else
-                res_name = res_path.Substring(index + 1);
+                _resName = _resPath.Substring(index + 1);
         }
     }
 }

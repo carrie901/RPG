@@ -32,16 +32,16 @@ namespace Summer
         /// 提供一个方法遍历所有key值
         /// </summary>
         public static void ForeachKey<TKey, TValue>(this Dictionary<TKey, TValue> dic, Action<TKey> action,
-            int max_count = 10000)
+            int maxCount = 10000)
         {
             if (action == null) return;
             var enumerator = dic.GetEnumerator();
             int i = 0;
-            while (enumerator.MoveNext() && i++ < max_count)
+            while (enumerator.MoveNext() && i++ < maxCount)
             {
                 action(enumerator.Current.Key);
             }
-            if (i >= max_count)
+            if (i >= maxCount)
                 LogManager.Error("Dictionary Foreach Error");
         }
 
@@ -49,49 +49,18 @@ namespace Summer
         /// 提供一个方法遍历所有value值
         /// </summary>
         public static void ForeachValue<TKey, TValue>(this Dictionary<TKey, TValue> dic, Action<TValue> action,
-            int max_count = 1000)
+            int maxCount = 1000)
         {
             if (action == null) return;
             var enumerator = dic.GetEnumerator();
             int i = 0;
-            while (enumerator.MoveNext() && i++ < max_count)
+            while (enumerator.MoveNext() && i++ < maxCount)
             {
                 action(enumerator.Current.Value);
             }
-            if (i >= max_count)
+            if (i >= maxCount)
                 LogManager.Error("Dictionary Foreach Error");
         }
 
     }
-
-
-    /*public class MyEnumComparer : IEqualityComparer<MyEnum1>
-    {
-        public bool Equals(MyEnum1 x, MyEnum1 y)
-        {
-            return x == y;
-        }
-
-
-
-        public int GetHashCode(MyEnum1 x)
-        {
-            return (int)x;
-        }
-    }*/
-
-    public class GameResTypeComparer : IEqualityComparer<E_GameResType>
-    {
-        public bool Equals(E_GameResType x, E_GameResType y)
-        {
-            return x == y;
-        }
-
-        public int GetHashCode(E_GameResType obj)
-        {
-            return (int)obj;
-        }
-    }    
-
-
 }

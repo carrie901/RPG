@@ -26,7 +26,7 @@ namespace SummerEditor
             for (int i = 0; i < length; i++)
             {
                 EAssetFileInfo assetFileInfo = assetFiles[i];
-                if (assetFileInfo._assetType != E_AssetType.mesh) continue;
+                if (assetFileInfo._assetType != E_AssetType.MESH) continue;
                 List<KeyValuePair<string, Object>> values = assetFileInfo._propertys;
 
                 sb.Append(string.Format("{0},{1},{2}," +
@@ -36,7 +36,7 @@ namespace SummerEditor
 
                 int refCount = assetFileInfo._includedBundles.Count;
                 for (int j = 0; j < refCount; j++)
-                    sb.Append("," + assetFileInfo._includedBundles[j].ab_name);
+                    sb.Append("," + assetFileInfo._includedBundles[j].AbName);
                 sb.AppendLine();
             }
 

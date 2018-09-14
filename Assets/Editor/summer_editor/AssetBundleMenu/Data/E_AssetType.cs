@@ -2,19 +2,18 @@
 {
     public enum E_AssetType
     {
-        none = 0,
-        mesh = 1,
-        material,
-        texture,
-        shader,
-        sprite,
-        animations_animator_controller,
-        animator_override_controller,
-        animation_clip,
-        audio_clip,
-        font,
-        text_asset,
-        max,
-
+        NONE = 0,
+        MESH = 1,
+        MATERIAL,
+        TEXTURE,
+        SHADER,
+        SPRITE,
+        ANIMATIONS_ANIMATOR_CONTROLLER,
+        ANIMATOR_OVERRIDE_CONTROLLER,
+        ANIMATION_CLIP,
+        AUDIO_CLIP,
+        FONT,
+        TEXT_ASSET,
+        MAX,
     }
 }

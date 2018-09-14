@@ -73,9 +73,9 @@ namespace SummerEditor
                 BaseCsvInfo csv_info = csv_list[i];
                 EClassDefine class_info = new EClassDefine();
                 // 4.根据内容生成data
-                class_info.AddProp(csv_info.prop_des, csv_info.prop_type, csv_info.prop_name);
-                class_info.file_path = csv_info.class_path;
-                class_info.class_name = csv_info.class_name;
+                class_info.AddProp(csv_info._propDes, csv_info._propType, csv_info._propName);
+                class_info.file_path = csv_info._classPath;
+                class_info.class_name = csv_info._className;
                 class_info.comment = string.Empty;
                 class_map.Add(class_info);
             }
@@ -122,7 +122,7 @@ namespace SummerEditor
                     for (int i = 0; i < length; i++)
                     {
                         CodeGeneratorHelperE.AppendLine(sb, 0, string.Empty);
-                        string key = csv_infos[i].class_name;
+                        string key = csv_infos[i]._className;
                         CodeGeneratorHelperE.AppendLine(sb, 2, "info = csv_infos[\"{0}\"];", key);
                         CodeGeneratorHelperE.AppendLine(sb, 2, "Dictionary<int, {0}> {1} = new Dictionary<int, {0}>();", key, key.ToLower());
                         //CodeGeneratorHelperE.AppendLine(sb, 2, "{0}.Clear();", key.ToLower());
@@ -154,7 +154,7 @@ namespace SummerEditor
                     for (int i = 0; i < length; i++)
                     {
                         CodeGeneratorHelperE.AppendLine(sb, 0, string.Empty);
-                        string key = csv_infos[i].class_name;
+                        string key = csv_infos[i]._className;
                         CodeGeneratorHelperE.AppendLine(sb, 2, "length = br.ReadInt32();");
                         CodeGeneratorHelperE.AppendLine(sb, 2, "Dictionary<int, {0}> {1} = new Dictionary<int, {0}>();", key, key.ToLower());
                         //CodeGeneratorHelperE.AppendLine(sb, 2, "{0}.Clear();", key.ToLower());
@@ -191,7 +191,7 @@ namespace SummerEditor
                     {
                         CodeGeneratorHelperE.AppendLine(sb, 0, string.Empty);
 
-                        string key = csv_infos[i].class_name;
+                        string key = csv_infos[i]._className;
                         CodeGeneratorHelperE.AppendLine(sb, 2, "List<{0}> tmp_{1} = new List<{0}>(StaticCnf.FindMap<{0}>().Values);", key, key.ToLower());
                         CodeGeneratorHelperE.AppendLine(sb, 2, "length = tmp_{0}.Count;", key.ToLower());
                         CodeGeneratorHelperE.AppendLine(sb, 2, "bw.Write(length);");

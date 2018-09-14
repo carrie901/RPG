@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Summer
@@ -14,13 +10,13 @@ namespace Summer
     {
         #region 属性
 
-        public Image img;
-        public string sprite_tag;
-        public string res_path;
+        public Image _img;
+        public string _spriteTag;
+        public string _resPath;
 
-        public bool is_complete = false;
+        public bool _isComplete = false;
 
-        public RefCounter _ref_count;
+        public RefCounter _refCount;
 
         #endregion
 
@@ -28,26 +24,26 @@ namespace Summer
 
         void OnEnable()
         {
-            is_complete = true;
+            _isComplete = true;
             SpritePool.Instance.LoadSprite(this);
         }
 
         void OnDisable()
         {
-            if (!is_complete) return;
+            if (!_isComplete) return;
             SpritePool.Instance.ReaycelSprite(this);
-            is_complete = false;
+            _isComplete = false;
         }
 
 
 
-        public bool flag = false;
+        public bool _flag = false;
         private void Update()
         {
-            if (!flag) return;
-            flag = false;
+            if (!_flag) return;
+            _flag = false;
 
-            is_complete = true;
+            _isComplete = true;
             SpritePool.Instance.LoadSprite(this);
         }
 
@@ -60,18 +56,18 @@ namespace Summer
             RefCounter rc = FindRefCount();
             if (rc != null)
                 rc.RemoveRef();
-            img.sprite = null;
+            _img.sprite = null;
         }
 
         public void SetSprite(Sprite sprite)
         {
-            img.sprite = sprite;
+            _img.sprite = sprite;
         }
 
         public int GetRefCount()
         {
-            int ref_count = ResLoader.instance.GetRefCount(res_path);
-            return ref_count;
+            int refCount = ResLoader.instance.GetRefCount(_resPath);
+            return refCount;
         }
 
         #endregion
@@ -80,11 +76,11 @@ namespace Summer
 
         public RefCounter FindRefCount()
         {
-            if (_ref_count == null)
+            if (_refCount == null)
             {
-                _ref_count = gameObject.GetComponent<RefCounter>();
+                _refCount = gameObject.GetComponent<RefCounter>();
             }
-            return _ref_count;
+            return _refCount;
         }
 
         #endregion

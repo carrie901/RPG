@@ -27,7 +27,7 @@ namespace SummerEditor
     {
 
         //Add your custom Log class here
-        public static readonly LogEditorConfig[] log_editor_configs = new LogEditorConfig[]
+        public static readonly LogEditorConfig[] LogEditorConfigs = new LogEditorConfig[]
         {
             new LogEditorConfig("Assets/Scripts/Summer/summer_base_common/Log/LogManager.cs", typeof(Summer.LogManager)),
             new LogEditorConfig("Assets/Scripts/Summer/summer_base_common/Log/Log/UnityLog.cs", typeof(Summer.UnityLog)),

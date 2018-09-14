@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Text;
+using SummerEditor.ProjectBuild;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,6 +17,12 @@ namespace SummerEditor
             SetAllAssetBundleName();
             CreateAbConfigFile();
             BuildAssetBuild();
+        }
+
+        [MenuItem("Tools/BuildProject")]
+        public static void BuildProject()
+        {
+            BaseProjectBuild.Build();
         }
 
         [MenuItem("Tools/AssetBundle/Build/生成资源配置列表")]

@@ -13,7 +13,7 @@ namespace Summer
         public E_ViewId _view_id;                           //View ID
         public string _pfb_name;
         public E_PanelType _view_type;                      //View Type 指向是否可以进入导航队列
-        public E_PanelBgType show_mode = E_PanelBgType.nothing;
+        public E_PanelBgType show_mode = E_PanelBgType.NOTHING;
         public bool has_bg_click_close = true;             //点击不关闭本界面
 
         //public System.Object Info { get; set; }
@@ -32,7 +32,7 @@ namespace Summer
 
         public bool IsPanel()
         {
-            return _view_type == E_PanelType.panel;
+            return _view_type == E_PanelType.PANEL;
         }
 
         public bool Equal(PanelInfo data)

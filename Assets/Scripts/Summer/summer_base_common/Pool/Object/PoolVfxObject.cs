@@ -8,10 +8,10 @@ namespace Summer
 
         protected TimeInterval _interval = new TimeInterval(1f);
 
-        protected bool _is_bind;
-        protected Transform _bind_trans;
+        protected bool _isBind;
+        protected Transform _bindTrans;
 
-        protected Transform trans;
+        protected Transform _trans;
 
         #endregion
 
@@ -19,7 +19,7 @@ namespace Summer
 
         void Awake()
         {
-            trans = transform;
+            _trans = transform;
         }
 
 
@@ -54,8 +54,8 @@ namespace Summer
 
         public void BindGameobject(GameObject go)
         {
-            _is_bind = true;
-            _bind_trans = go.transform;
+            _isBind = true;
+            _bindTrans = go.transform;
             _on_update_bind_go();
         }
 
@@ -90,15 +90,15 @@ namespace Summer
         public void _on_reset()
         {
             _interval.Pause();
-            _is_bind = false;
-            _bind_trans = null;
+            _isBind = false;
+            _bindTrans = null;
         }
 
         public void _on_update_bind_go()
         {
-            if (!_is_bind) return;
-            trans.position = _bind_trans.position;
-            transform.eulerAngles = _bind_trans.eulerAngles;
+            if (!_isBind) return;
+            _trans.position = _bindTrans.position;
+            transform.eulerAngles = _bindTrans.eulerAngles;
         }
         #endregion
     }

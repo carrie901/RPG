@@ -80,7 +80,7 @@ namespace Summer
             }
         }
 
-        public AssetInfo GetAsset(string asset_name)
+        public AssetInfo GetAsset(string assetName)
         {
             if (_assetbundle == null) return null;
             AssetInfo re_asset_info = null;
@@ -89,16 +89,16 @@ namespace Summer
             for (int i = 0; i < length; i++)
             {
                 AssetInfo asset_info = _asset_map[i];
-                if (asset_info.ResPath != asset_name) continue;
+                if (asset_info.ResPath != assetName) continue;
                 re_asset_info = _asset_map[i];
             }
-            ResLog.Assert((re_asset_info != null), "从资源主包[{0}]中找不到对应的AssetInfo:[{1}]的资源", _package_path, asset_name);
+            ResLog.Assert((re_asset_info != null), "从资源主包[{0}]中找不到对应的AssetInfo:[{1}]的资源", _package_path, assetName);
             return re_asset_info;
         }
 
-        public bool HasAssetBundle(string res_path)
+        public bool HasAssetBundle(string resPath)
         {
-            if (_res_path_map.ContainsKey(res_path))
+            if (_res_path_map.ContainsKey(resPath))
                 return true;
             return false;
         }

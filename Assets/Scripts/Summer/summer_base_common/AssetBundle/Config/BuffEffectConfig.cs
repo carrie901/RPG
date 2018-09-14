@@ -16,8 +16,8 @@ namespace Summer
         // Buff相关参数
         public const string BUFF_TEMPLATE = "BuffTemplate";
 
-        public EdNode root_node;
-        public ChangeModelConfig change_model_config;
+        public EdNode _rootNode;
+        public ChangeModelConfig _changeModelConfig;
 
         private BuffEffectConfig()
         {
@@ -25,10 +25,10 @@ namespace Summer
 
             ResMd md = new ResMd();
             md.ParseText(text);
-            root_node = md._root_node.GetNode(ROOT);
+            _rootNode = md._root_node.GetNode(ROOT);
 
-            change_model_config = new ChangeModelConfig();
-            change_model_config.Parse(root_node.GetNode(BUFF_TEMPLATE));
+            _changeModelConfig = new ChangeModelConfig();
+            _changeModelConfig.Parse(_rootNode.GetNode(BUFF_TEMPLATE));
         }
     }
 
@@ -49,7 +49,7 @@ namespace Summer
             {
                 ChangeModelValue value = new ChangeModelValue();
                 value.Parse(list[i]);
-                map.Add(value.key, value);
+                map.Add(value._key, value);
             }
         }
 
@@ -67,15 +67,15 @@ namespace Summer
         public const string FRESNEL = "_fresnel";
         public const string COLOR = "_Color";
 
-        public int key;
-        public float fresnel;
-        public Vector3 color;
+        public int _key;
+        public float _fresnel;
+        public Vector3 _color;
 
         public void Parse(EdNode node)
         {
-            key = node.GetAttribute(KEY).Text.ToInt();
-            fresnel = node.GetAttribute(FRESNEL).Text.ToFloat();
-            color = node.GetAttribute(COLOR).Text.ToV3();
+            _key = node.GetAttribute(KEY).Text.ToInt();
+            _fresnel = node.GetAttribute(FRESNEL).Text.ToFloat();
+            _color = node.GetAttribute(COLOR).Text.ToV3();
         }
     }
 }

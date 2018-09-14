@@ -13,31 +13,31 @@ namespace SummerEditor
         // Object的资源类型
         public static Dictionary<Type, E_AssetType> analyze_map = new Dictionary<Type, E_AssetType>()
         {
-            {typeof (Mesh), E_AssetType.mesh},
-            {typeof (Material), E_AssetType.material},
-            {typeof (Texture2D), E_AssetType.texture},
-            {typeof (Shader), E_AssetType.shader},
-            {typeof (Sprite), E_AssetType.sprite},
-            {typeof (AnimatorOverrideController), E_AssetType.animator_override_controller},
-            {typeof (AnimationClip), E_AssetType.animation_clip},
-            {typeof (AudioClip), E_AssetType.audio_clip},
-            {typeof (Font), E_AssetType.font},
-            {typeof (TextAsset), E_AssetType.text_asset},
-            {typeof (UnityEditor.Animations.AnimatorController), E_AssetType.animations_animator_controller},
+            {typeof (Mesh), E_AssetType.MESH},
+            {typeof (Material), E_AssetType.MATERIAL},
+            {typeof (Texture2D), E_AssetType.TEXTURE},
+            {typeof (Shader), E_AssetType.SHADER},
+            {typeof (Sprite), E_AssetType.SPRITE},
+            {typeof (AnimatorOverrideController), E_AssetType.ANIMATOR_OVERRIDE_CONTROLLER},
+            {typeof (AnimationClip), E_AssetType.ANIMATION_CLIP},
+            {typeof (AudioClip), E_AssetType.AUDIO_CLIP},
+            {typeof (Font), E_AssetType.FONT},
+            {typeof (TextAsset), E_AssetType.TEXT_ASSET},
+            {typeof (UnityEditor.Animations.AnimatorController), E_AssetType.ANIMATIONS_ANIMATOR_CONTROLLER},
         };
 
         // 针对Object的资源分析
         public static Dictionary<E_AssetType, Func<Object, SerializedObject, List<KeyValuePair<string, System.Object>>>>
             fun_map = new Dictionary<E_AssetType, Func<Object, SerializedObject, List<KeyValuePair<string, object>>>>()
             {
-                {E_AssetType.mesh, AnalyzeMesh},
-                {E_AssetType.material, AnalyzeMaterial},
-                {E_AssetType.texture, AnalyzeTexture2D},
+                {E_AssetType.MESH, AnalyzeMesh},
+                {E_AssetType.MATERIAL, AnalyzeMaterial},
+                {E_AssetType.TEXTURE, AnalyzeTexture2D},
                 //{E_AssetType.shader, AnalyzeShader},
-                {E_AssetType.sprite, AnalyzeSprite},
+                {E_AssetType.SPRITE, AnalyzeSprite},
                 //{E_AssetType.animator_override_controller, AnalyzeAnimatorOverrideController},
-                {E_AssetType.animation_clip, AnalyzeAnimationClip},
-                {E_AssetType.audio_clip, AnalyzeAudioClip},
+                {E_AssetType.ANIMATION_CLIP, AnalyzeAnimationClip},
+                {E_AssetType.AUDIO_CLIP, AnalyzeAudioClip},
                 //{E_AssetType.font, AnalyzeFont},
                 //{E_AssetType.text_asset,AnalyzeTextAsset },
                 //{E_AssetType.animations_animator_controller, AnalyzeAnimationsAnimatorController},
@@ -58,18 +58,18 @@ namespace SummerEditor
         public static E_AssetType CheckObject(Object ob, EAssetBundleFileInfo assetbundle_file_info,ref bool in_built)
         {
             in_built = false;
-            if (ob == null) return E_AssetType.none;
+            if (ob == null) return E_AssetType.NONE;
             Type object_type = ob.GetType();
             // 1.剔除掉部分 比如Transform 脚本.cs等
             if (!analyze_map.ContainsKey(object_type))
             {
-                if (ob as Component) return E_AssetType.none;
-                if (ob as ScriptableObject) return E_AssetType.none;
-                if (ob as MonoScript) return E_AssetType.none;
-                if (ob as GameObject) return E_AssetType.none;
-                if (ob as Avatar) return E_AssetType.none;
+                if (ob as Component) return E_AssetType.NONE;
+                if (ob as ScriptableObject) return E_AssetType.NONE;
+                if (ob as MonoScript) return E_AssetType.NONE;
+                if (ob as GameObject) return E_AssetType.NONE;
+                if (ob as Avatar) return E_AssetType.NONE;
                 Debug.LogError("CheckObject:" + ob.name + "_" + object_type);
-                return E_AssetType.none;
+                return E_AssetType.NONE;
             }
 
             // 内建资源
@@ -82,7 +82,7 @@ namespace SummerEditor
             in_built = true;
             //assetbundle_file_info.in_built = true;
             if (ob as Mesh) // 先排除掉网格的内建资源
-                return E_AssetType.none;
+                return E_AssetType.NONE;
             else
             {
                 //Debug.LogError("使用了内建的资源" + asset_path + "_____" + object_type + "______" + assetbundle_file_info.ab_name);

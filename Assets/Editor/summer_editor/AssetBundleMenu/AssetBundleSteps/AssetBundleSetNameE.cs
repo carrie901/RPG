@@ -19,8 +19,8 @@ namespace SummerEditor
         /// </summary>
         public static void OblyMainAbName()
         {
-            List<string> assetsPath = EPathHelper.GetAssetsPath(EAssetBundleConst.main_res_driectory, true);
-            List<string> assetsPath1 = EPathHelper.GetAssetsPath(EAssetBundleConst.ui_main_directory, true);
+            List<string> assetsPath = EPathHelper.GetAssetsPath(EAssetBundleConst.MAIN_RES_DRIECTORY, true);
+            List<string> assetsPath1 = EPathHelper.GetAssetsPath(EAssetBundleConst.UI_MAIN_DIRECTORY, true);
             assetsPath.AddRange(assetsPath1);
             int length = assetsPath.Count;
             for (int i = 0; i < length; i++)
@@ -40,7 +40,7 @@ namespace SummerEditor
 
         public static void SetAllAssetName()
         {
-            Dictionary<string, EAssetObjectInfo> allAssets = EAssetBundleAnalysis._all_assets;
+            Dictionary<string, EAssetObjectInfo> allAssets = EAssetBundleAnalysis._allAssets;
 
             int index = 1;
             foreach (var info in allAssets)

@@ -96,9 +96,9 @@ namespace SummerEditor
                 if (loader == null)
                     loader = img.gameObject.AddComponent<SpriteBigAutoLoader>();
 
-                loader.img = img;
-                loader.sprite_tag = sprite_info.packingtag;
-                loader.res_path = EPathHelper.RemoveAssetsAndSuffixforPath(sprite_info.asset_path_without_asset);
+                loader._img = img;
+                loader._spriteTag = sprite_info.packingtag;
+                loader._resPath = EPathHelper.RemoveAssetsAndSuffixforPath(sprite_info.asset_path_without_asset);
                 img.sprite = null;
             }
             else
@@ -109,8 +109,8 @@ namespace SummerEditor
                     loader = img.gameObject.AddComponent<SpriteAutoLoader>();
 
                 loader.img = img;
-                loader.sprite_tag = sprite_info.packingtag;
-                loader.res_path = sprite_info.asset_path_without_asset;
+                loader._spriteTag = sprite_info.packingtag;
+                loader._resPath = sprite_info.asset_path_without_asset;
                 img.sprite = null;
             }
         }
@@ -133,8 +133,8 @@ namespace SummerEditor
                 string asset_path = AssetDatabase.GetAssetPath(sprite_state.disabledSprite);
                 ESpriteCnf01 sprite_info = _sprite_infos[asset_path];
 
-                loader.disabled_sprite_path = sprite_info.asset_path_without_asset;
-                loader.disabled_sprite_tag = sprite_info.packingtag;
+                loader._disabledSpritePath = sprite_info.asset_path_without_asset;
+                loader._disabledSpriteTag = sprite_info.packingtag;
             }
 
 
@@ -143,8 +143,8 @@ namespace SummerEditor
                 string asset_path = AssetDatabase.GetAssetPath(sprite_state.highlightedSprite);
                 ESpriteCnf01 sprite_info = _sprite_infos[asset_path];
 
-                loader.highlighted_sprite_path = sprite_info.asset_path_without_asset;
-                loader.highlighted_sprite_tag = sprite_info.packingtag;
+                loader._highlightedSpritePath = sprite_info.asset_path_without_asset;
+                loader._highlightedSpriteTag = sprite_info.packingtag;
             }
 
             if (sprite_state.pressedSprite != null)
@@ -152,8 +152,8 @@ namespace SummerEditor
                 string asset_path = AssetDatabase.GetAssetPath(sprite_state.pressedSprite);
                 ESpriteCnf01 sprite_info = _sprite_infos[asset_path];
 
-                loader.pressed_sprite_path = sprite_info.asset_path_without_asset;
-                loader.pressed_sprite_tag = sprite_info.packingtag;
+                loader._pressedSpritePath = sprite_info.asset_path_without_asset;
+                loader._pressedSpriteTag = sprite_info.packingtag;
             }
 
         }

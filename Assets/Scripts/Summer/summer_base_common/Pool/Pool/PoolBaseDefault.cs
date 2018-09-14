@@ -6,7 +6,7 @@
     public class PoolBaseDefault : PoolBase
     {
 
-        public PoolBaseDefault(I_ObjectFactory factory, int max_count = 0) : base(factory, max_count)
+        public PoolBaseDefault(I_ObjectFactory factory, int maxCount = 0) : base(factory, maxCount)
         {
         }
     }

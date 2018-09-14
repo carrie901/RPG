@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 namespace Summer
 {
-
     public interface I_RefCounter
     {
         int RefCount { get; }
@@ -17,22 +16,22 @@ namespace Summer
     /// </summary>
     public class RefCounter : MonoBehaviour
     {
-        public string ref_res_path = string.Empty;
-        public void AddRef(string res_path)
+        public string _refResPath = string.Empty;
+        public void AddRef(string resPath)
         {
-            ResLog.Assert(string.IsNullOrEmpty(ref_res_path), "已经存在了引用:[{0}]", ref_res_path);
-            ref_res_path = res_path;
-            ResLoader.instance.RefIncrease(res_path);
+            ResLog.Assert(string.IsNullOrEmpty(_refResPath), "已经存在了引用:[{0}]", _refResPath);
+            _refResPath = resPath;
+            ResLoader.instance.RefIncrease(resPath);
             AddExcute();
         }
 
         public void RemoveRef()
         {
-            if (string.IsNullOrEmpty(ref_res_path))
+            if (string.IsNullOrEmpty(_refResPath))
                 return;
             RemoveExcute();
-            ResLoader.instance.RefDecrease(ref_res_path);
-            ref_res_path = string.Empty;
+            ResLoader.instance.RefDecrease(_refResPath);
+            _refResPath = string.Empty;
         }
 
         public virtual void AddExcute()

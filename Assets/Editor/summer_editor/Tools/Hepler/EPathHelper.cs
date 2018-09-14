@@ -289,6 +289,21 @@ namespace SummerEditor
 
         #endregion
 
+        public static long GetFileSize(string path)
+        {
+            FileInfo info = new FileInfo(path);
+            if (info.Exists)
+                return info.Length;
+            return 0;
+        }
+
+        public static bool IsExitDirectory(string path)
+        {
+            if (Directory.Exists(path)) return true;
+            Debug.LogErrorFormat("目录不存在:[0]", path);
+            return false;
+        }
+
         #region private 
 
         /// <summary>

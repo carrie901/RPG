@@ -68,7 +68,7 @@ namespace SummerEditor
             TmpStringInfo texInfo = selected as TmpStringInfo;
             if (texInfo == null)
                 return;
-            UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath("Assets/StreamingAssets/rpg" + texInfo._param1,
+            UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath("Assets/StreamingAssets/rpg/" + texInfo._param1,
                 typeof (UnityEngine.Object));
             if (obj == null) return;
             EditorGUIUtility.PingObject(obj);

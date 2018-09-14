@@ -7,20 +7,20 @@ namespace Summer
         #region 属性
         public const int DEFAULT_CHILD_COUNT = -1;                          // 模型大小
         public List<TreeNode> _childs = new List<TreeNode>();               // 子节点列表
-        public int _max_child_count;                                        // 最大
-        public string node_des;                                             // 节点描述
-        public TreeNode _parent_node;                                       // 节点的父类
-        protected int _unique_key = 0;                                      // 节点的唯一标志
+        public int _maxChildCount;                                          // 最大
+        public string _nodeDes;                                             // 节点描述
+        public TreeNode _parentNode;                                        // 节点的父类
+        protected int _uniqueKey = 0;                                       // 节点的唯一标志
         #endregion
 
         #region 构造
 
-        public TreeNode(int max_child_count = -1)
+        public TreeNode(int maxChildCount = -1)
         {
-            _max_child_count = max_child_count;
-            if (max_child_count > 0)
+            _maxChildCount = maxChildCount;
+            if (maxChildCount > 0)
             {
-                _childs.Capacity = max_child_count;
+                _childs.Capacity = maxChildCount;
             }
             else
             {
@@ -35,14 +35,14 @@ namespace Summer
 
         public TreeNode AddChild(TreeNode node)
         {
-            if (_max_child_count > 0 && _childs.Count >= _max_child_count)
+            if (_maxChildCount > 0 && _childs.Count >= _maxChildCount)
             {
                 LogManager.Error("行为树节点个数已经到达最大数");
                 return this;
             }
 
-            LogManager.Assert(node._parent_node == null, "这个节点的爸爸不为空:[{0}]", node.node_des);
-            node._parent_node = this;
+            LogManager.Assert(node._parentNode == null, "这个节点的爸爸不为空:[{0}]", node._nodeDes);
+            node._parentNode = this;
             _childs.Add(node);
             return this;
         }
@@ -59,7 +59,7 @@ namespace Summer
             return null;
         }
 
-        public virtual string ToDes() { return node_des; }
+        public virtual string ToDes() { return _nodeDes; }
 
         #endregion
 

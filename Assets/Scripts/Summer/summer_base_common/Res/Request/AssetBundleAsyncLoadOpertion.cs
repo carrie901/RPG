@@ -11,26 +11,26 @@ namespace Summer
     /// </summary>
     public class AssetBundleAsyncLoadOpertion : LoadOpertion
     {
-        public string _bundle_path;             // 打包成ab的名称
+        public string _bundlePath;             // 打包成ab的名称
         public AssetBundleRequest _request;     // AssetBundle的资源加载请求
         public AssetBundle _assetbundle;
-        public AssetBundlePackageInfo _package_info;
-        public string _res_path;
-        public string _parent_path;
+        public AssetBundlePackageInfo _packageInfo;
+        public string _resPath;
+        public string _parentPath;
 
         // 0=开始，1=ab头文件异步完成，开始加载内容，2=头文件完成，异步也完成
         //public int ab_state;
 
-        public AssetBundleAsyncLoadOpertion(AssetBundlePackageInfo package_info, string res_path, string parent_path)
+        public AssetBundleAsyncLoadOpertion(AssetBundlePackageInfo packageInfo, string resPath, string parentPath)
         {
-            if (package_info != null)
+            if (packageInfo != null)
             {
-                _res_path = res_path;
-                RequestResPath = package_info.PackagePath;
-                _package_info = package_info;
-                _bundle_path = package_info.FullPath;
+                _resPath = resPath;
+                RequestResPath = packageInfo.PackagePath;
+                _packageInfo = packageInfo;
+                _bundlePath = packageInfo.FullPath;
             }
-            _parent_path = parent_path;
+            _parentPath = parentPath;
         }
 
         #region public 
@@ -40,7 +40,7 @@ namespace Summer
             base.UnloadRequest();
             _request = null;
             _assetbundle = null;
-            _package_info = null;
+            _packageInfo = null;
         }
 
 
@@ -50,25 +50,25 @@ namespace Summer
         {
             //AssetBundleCreateRequest ab_create_request = AssetBundle.LoadFromFileAsync(_bundle_path);
 
-            _assetbundle = AssetBundle.LoadFromFile(_bundle_path);
+            _assetbundle = AssetBundle.LoadFromFile(_bundlePath);
             _request = _assetbundle.LoadAllAssetsAsync();
         }
 
         protected override bool Update()
         {
-            if (_package_info == null) return false;
-            if (!_package_info.IsDone()) return false;
+            if (_packageInfo == null) return false;
+            if (!_packageInfo.IsDone()) return false;
             return _request.isDone;
         }
 
         protected override void Complete()
         {
-            if (_asset_info == null)
+            if (_assetInfo == null)
             {
                 Object[] objs = _request.allAssets;
-                _package_info.RefParent(_parent_path);
-                _package_info.InitAssetBundle(_assetbundle, objs);
-                _asset_info = _package_info.GetAsset(_res_path);
+                _packageInfo.RefParent(_parentPath);
+                _packageInfo.InitAssetBundle(_assetbundle, objs);
+                _assetInfo = _packageInfo.GetAsset(_resPath);
             }
         }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -37,7 +36,7 @@ namespace Summer
                 for (int i = 0; i < refs.Length; i++)
                 {
                     RefCounter ref_count = refs[i];
-                    string tmp_res_path = ref_count.ref_res_path;
+                    string tmp_res_path = ref_count._refResPath;
                     string tmp_res_name = ref_count.gameObject.name;
                     if (!ref_map.ContainsKey(tmp_res_path))
                     {

@@ -36,7 +36,7 @@ namespace SummerEditor
                 for (int j = 0; j < ref_count; j++)
                 {
                     EAssetBundleFileInfo assetbundle_file = info._includedBundles[j];
-                    sb.Append("," + assetbundle_file.ab_name);
+                    sb.Append("," + assetbundle_file.AbName);
                 }
 
                 sb.AppendLine();

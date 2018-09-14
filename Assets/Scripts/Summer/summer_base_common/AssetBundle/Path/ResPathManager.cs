@@ -3,18 +3,27 @@ using Summer;
 using Object = UnityEngine.Object;
 
 
-public enum E_GameResType 
+public enum E_GameResType
 {
-    none = 0,
-    quanming,
-    character_prefab,
-    skill_prefab,
-    text_asset,
+    NONE = 0,
+    QUANMING,
+    CHARACTER_PREFAB,
+    SKILL_PREFAB,
+    TEXT_ASSET,
     // music
-    music_sound,
-    music_bgm,
-    music_voice,
-    ui_prefab,
+    MUSIC_SOUND,
+    MUSIC_BGM,
+    MUSIC_VOICE,
+    UI_PREFAB,
+}
+
+public class GameResTypeComparer : IEqualityComparer<E_GameResType>
+{
+    public static GameResTypeComparer Instance = new GameResTypeComparer();
+    private GameResTypeComparer() { }
+    public bool Equals(E_GameResType x, E_GameResType y) { return x == y; }
+
+    public int GetHashCode(E_GameResType obj) { return (int)obj; }
 }
 
 /// <summary>
@@ -25,30 +34,30 @@ public enum E_GameResType
 /// </summary>
 public class ResPathManager
 {
-    public static Dictionary<E_GameResType, string> _path_map = new Dictionary<E_GameResType, string>();
+    public static Dictionary<E_GameResType, string> _pathMap = new Dictionary<E_GameResType, string>();
     public static AResourceSuffix _suffix;
     static ResPathManager()
     {
         // 不同的加载方式，后缀名会不一样
-        _excute(E_GameResType.quanming, "", "");
-        _excute(E_GameResType.ui_prefab, "res_bundle/prefab/ui/", "");
+        _excute(E_GameResType.QUANMING, "", "");
+        _excute(E_GameResType.UI_PREFAB, "res_bundle/prefab/ui/", "");
     }
 
-    public static string FindPath<T>(E_GameResType res_type, string name) where T : Object
+    public static string FindPath<T>(E_GameResType resType, string name) where T : Object
     {
         string path = string.Empty;
 
-        if (_path_map.ContainsKey(res_type))
+        if (_pathMap.ContainsKey(resType))
         {
-            path = _path_map[res_type] + name + _suffix.GetSuffix<T>();
+            path = _pathMap[resType] + name + _suffix.GetSuffix<T>();
             return path;
         }
-        ResLog.Error("找不到信息,类型:[{0}].名字:[{1}]", res_type, name);
+        ResLog.Error("找不到信息,类型:[{0}].名字:[{1}]", resType, name);
         return path;
     }
 
     public static void _excute(E_GameResType type, string path, string suffix)
     {
-        _path_map.Add(type, path);
+        _pathMap.Add(type, path);
     }
 }

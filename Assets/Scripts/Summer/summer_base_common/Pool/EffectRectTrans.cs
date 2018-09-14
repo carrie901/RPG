@@ -10,25 +10,25 @@ namespace Summer
 {
     public class EffectRectTrans : PoolDefaultRectTransform
     {
-        public float _left_time;
-        public bool _is_avlie;
+        public float _leftTime;
+        public bool _isAvlie;
 
         void Update()
         {
-            if (!_is_avlie) return;
+            if (!_isAvlie) return;
 
-            _left_time = _left_time - Time.deltaTime;
-            if (_left_time <= 0)
+            _leftTime = _leftTime - Time.deltaTime;
+            if (_leftTime <= 0)
             {
-                _is_avlie = false;
+                _isAvlie = false;
                 OnComplete();
             }
         }
 
-        public void SetLeftTime(float left_time)
+        public void SetLeftTime(float leftTime)
         {
-            _is_avlie = true;
-            _left_time = left_time;
+            _isAvlie = true;
+            _leftTime = leftTime;
         }
 
         #region PoolAbility

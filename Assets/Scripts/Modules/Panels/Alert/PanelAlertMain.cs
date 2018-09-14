@@ -62,7 +62,7 @@ public class PanelAlertMain : BaseView
 
     public void OnBack()
     {
-        OpenView(E_ViewId.main);
+        OpenView(E_ViewId.MAIN);
     }
 
     #endregion

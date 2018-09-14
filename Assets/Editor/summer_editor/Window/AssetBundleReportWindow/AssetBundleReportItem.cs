@@ -38,8 +38,8 @@ namespace SummerEditor
 
         #region Override
 
-        public AssetBundleReportItem(int max_size, float[] titles_width, float width, float height)
-            : base(max_size, titles_width, width, height)
+        public AssetBundleReportItem(int maxSize, float[] titlesWidth, float width, float height)
+            : base(maxSize, titlesWidth, width, height)
         {
             SetData(null);
         }
@@ -51,20 +51,20 @@ namespace SummerEditor
             if (_info != null)
             {
 
-                string t_repeat_mem_size = (_info.GetRepeatMemSize() / 1024).ToString("f2"); ;
-                string t_ab_size = (_info.file_ab_memory_size / 1024).ToString("f2");
-                string t_ab_mem_size = (_info.GetMemorySize() / 1024).ToString("f2");
-                string[] string_info = new string[]
+                string tRepeatMemSize = _info.GetRepeatMemSize()+"";
+                string tAbSize = _info.FileAbMemorySize + "";
+                string tAbMemSize = _info.GetMemorySize() + "";
+                string[] stringInfo = new string[]
                 {
-                    _info.ab_name, t_ab_size, t_ab_mem_size,
-                    _info.all_depends.Count + "", _info.FindRedundance() + "",
-                    _info.GetAssetCount(E_AssetType.mesh) + "",
-                    _info.GetAssetCount(E_AssetType.material) + "", _info.GetAssetCount(E_AssetType.texture) + "",
-                    _info.GetAssetCount(E_AssetType.shader) + "",
-                    _info.GetAssetCount(E_AssetType.sprite) + "", _info.GetAssetCount(E_AssetType.animation_clip) + "",
-                    _info.GetAssetCount(E_AssetType.audio_clip) + "", t_repeat_mem_size + ""
+                    _info.AbName, tAbSize, tAbMemSize,
+                    _info._allDepends.Count + "", _info.FindRedundance() + "",
+                    _info.GetAssetCount(E_AssetType.MESH) + "",
+                    _info.GetAssetCount(E_AssetType.MATERIAL) + "", _info.GetAssetCount(E_AssetType.TEXTURE) + "",
+                    _info.GetAssetCount(E_AssetType.SHADER) + "",
+                    _info.GetAssetCount(E_AssetType.SPRITE) + "", _info.GetAssetCount(E_AssetType.ANIMATION_CLIP) + "",
+                    _info.GetAssetCount(E_AssetType.AUDIO_CLIP) + "", tRepeatMemSize + ""
                 };
-                SetContent(string_info);
+                SetContent(stringInfo);
             }
 
         }
