@@ -33,24 +33,24 @@ namespace SummerEditor
     public static class LogEditor
     {
         [UnityEditor.Callbacks.OnOpenAssetAttribute(-1)]
-        private static bool OnOpenAsset(int instance_id, int line)
+        private static bool OnOpenAsset(int instanceId, int line)
         {
             for (int i = LogEditorConst.LogEditorConfigs.Length - 1; i >= 0; --i)
             {
-                LogEditorConfig config_tmp = LogEditorConst.LogEditorConfigs[i];
-                UpdateLogInstanceId(config_tmp);
+                LogEditorConfig configTmp = LogEditorConst.LogEditorConfigs[i];
+                UpdateLogInstanceId(configTmp);
                 
-                if (instance_id == config_tmp.instance_id)
+                if (instanceId == configTmp._instanceId)
                 {
-                    string statck_track = GetStackTrace();
-                    if (!string.IsNullOrEmpty(statck_track))
+                    string statckTrack = GetStackTrace();
+                    if (!string.IsNullOrEmpty(statckTrack))
                     {
-                        string[] file_names = statck_track.Split('\n');
-                        string file_name = GetCurrentFullFileName(file_names);
-                        int file_line = LogFileNameToFileLine(file_name);
-                        file_name = GetRealFileName(file_name);
+                        string[] fileNames = statckTrack.Split('\n');
+                        string fileName = GetCurrentFullFileName(fileNames);
+                        int fileLine = LogFileNameToFileLine(fileName);
+                        fileName = GetRealFileName(fileName);
 
-                        AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(file_name), file_line);
+                        AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(fileName), fileLine);
                         return true;
                     }
                     break;
@@ -63,14 +63,14 @@ namespace SummerEditor
 
         private static string GetStackTrace()
         {
-            var console_window_type = typeof(EditorWindow).Assembly.GetType("UnityEditor.ConsoleWindow");
-            var field_info = console_window_type.GetField("ms_ConsoleWindow", BindingFlags.Static | BindingFlags.NonPublic);
-            if (field_info == null) return "";
-            var console_window_instance = field_info.GetValue(null);
+            var consoleWindowType = typeof(EditorWindow).Assembly.GetType("UnityEditor.ConsoleWindow");
+            var fieldInfo = consoleWindowType.GetField("ms_ConsoleWindow", BindingFlags.Static | BindingFlags.NonPublic);
+            if (fieldInfo == null) return "";
+            var consoleWindowInstance = fieldInfo.GetValue(null);
 
-            if (null != console_window_instance)
+            if (null != consoleWindowInstance)
             {
-                if ((object)EditorWindow.focusedWindow == console_window_instance)
+                if ((object)EditorWindow.focusedWindow == consoleWindowInstance)
                 {
                     // Get ListViewState in ConsoleWindow
                     // var listViewStateType = typeof(EditorWindow).Assembly.GetType("UnityEditor.ListViewState");
@@ -82,11 +82,11 @@ namespace SummerEditor
                     // int row = (int)fieldInfo.GetValue(listView);
 
                     // Get m_ActiveText in ConsoleWindow
-                    field_info = console_window_type.GetField("m_ActiveText", BindingFlags.Instance | BindingFlags.NonPublic);
-                    if (field_info == null) return string.Empty;
-                    string active_text = field_info.GetValue(console_window_instance).ToString();
+                    fieldInfo = consoleWindowType.GetField("m_ActiveText", BindingFlags.Instance | BindingFlags.NonPublic);
+                    if (fieldInfo == null) return string.Empty;
+                    string activeText = fieldInfo.GetValue(consoleWindowInstance).ToString();
 
-                    return active_text;
+                    return activeText;
                 }
             }
             return "";
@@ -94,99 +94,99 @@ namespace SummerEditor
 
         private static void UpdateLogInstanceId(LogEditorConfig config)
         {
-            if (config.instance_id > 0)
+            if (config._instanceId > 0)
             {
                 return;
             }
 
-            var asset_load_tmp = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(config.log_script_path);
-            if (null == asset_load_tmp)
+            var assetLoadTmp = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(config.LogScriptPath);
+            if (null == assetLoadTmp)
             {
-                throw new Exception("not find asset by path=" + config.log_script_path);
+                throw new Exception("not find asset by path=" + config.LogScriptPath);
             }
-            config.instance_id = asset_load_tmp.GetInstanceID();
+            config._instanceId = assetLoadTmp.GetInstanceID();
         }
 
-        private static string GetCurrentFullFileName(string[] file_names)
+        private static string GetCurrentFullFileName(string[] fileNames)
         {
-            string ret_value = "";
-            int find_index = -1;
+            string retValue = "";
+            int findIndex = -1;
 
-            for (int i = file_names.Length - 1; i >= 0; --i)
+            for (int i = fileNames.Length - 1; i >= 0; --i)
             {
-                bool is_custom_log = false;
+                bool isCustomLog = false;
                 for (int j = LogEditorConst.LogEditorConfigs.Length - 1; j >= 0; --j)
                 {
-                    if (file_names[i].Contains(LogEditorConst.LogEditorConfigs[j].log_type_name))
+                    if (fileNames[i].Contains(LogEditorConst.LogEditorConfigs[j].LogTypeName))
                     {
-                        is_custom_log = true;
+                        isCustomLog = true;
                         break;
                     }
                 }
-                if (is_custom_log)
+                if (isCustomLog)
                 {
-                    find_index = i;
+                    findIndex = i;
                     break;
                 }
             }
 
-            if (find_index >= 0 && find_index < file_names.Length - 1)
+            if (findIndex >= 0 && findIndex < fileNames.Length - 1)
             {
-                ret_value = file_names[find_index + 1];
+                retValue = fileNames[findIndex + 1];
             }
 
-            return ret_value;
+            return retValue;
         }
 
-        private static string GetRealFileName(string file_name)
+        private static string GetRealFileName(string fileName)
         {
-            int index_start = file_name.IndexOf("(at ", StringComparison.Ordinal) + "(at ".Length;
-            int index_end = ParseFileLineStartIndex(file_name) - 1;
+            int indexStart = fileName.IndexOf("(at ", StringComparison.Ordinal) + "(at ".Length;
+            int indexEnd = ParseFileLineStartIndex(fileName) - 1;
 
-            file_name = file_name.Substring(index_start, index_end - index_start);
-            return file_name;
+            fileName = fileName.Substring(indexStart, indexEnd - indexStart);
+            return fileName;
         }
 
-        private static int LogFileNameToFileLine(string file_name)
+        private static int LogFileNameToFileLine(string fileName)
         {
-            int find_index = ParseFileLineStartIndex(file_name);
-            string string_parse_line = "";
-            for (int i = find_index; i < file_name.Length; ++i)
+            int findIndex = ParseFileLineStartIndex(fileName);
+            string stringParseLine = "";
+            for (int i = findIndex; i < fileName.Length; ++i)
             {
-                var char_check = file_name[i];
-                if (!IsNumber(char_check))
+                var charCheck = fileName[i];
+                if (!IsNumber(charCheck))
                 {
                     break;
                 }
                 else
                 {
-                    string_parse_line += char_check;
+                    stringParseLine += charCheck;
                 }
             }
 
-            return int.Parse(string_parse_line);
+            return int.Parse(stringParseLine);
         }
 
-        private static int ParseFileLineStartIndex(string file_name)
+        private static int ParseFileLineStartIndex(string fileName)
         {
-            int ret_value = -1;
-            for (int i = file_name.Length - 1; i >= 0; --i)
+            int retValue = -1;
+            for (int i = fileName.Length - 1; i >= 0; --i)
             {
-                var char_check = file_name[i];
-                bool is_number = IsNumber(char_check);
-                if (is_number)
+                var charCheck = fileName[i];
+                bool isNumber = IsNumber(charCheck);
+                if (isNumber)
                 {
-                    ret_value = i;
+                    retValue = i;
                 }
                 else
                 {
-                    if (ret_value != -1)
+                    if (retValue != -1)
                     {
                         break;
                     }
                 }
             }
-            return ret_value;
+            return retValue;
         }
 
         private static bool IsNumber(char c)
@@ -197,14 +197,14 @@ namespace SummerEditor
 
     public class LogEditorConfig
     {
-        public readonly string log_script_path;
-        public readonly string log_type_name;
-        public int instance_id;
+        public readonly string LogScriptPath;
+        public readonly string LogTypeName;
+        public int _instanceId;
 
-        public LogEditorConfig(string log_script_path_tmp, System.Type log_type)
+        public LogEditorConfig(string logScriptPathTmp, System.Type logType)
         {
-            log_script_path = log_script_path_tmp;
-            log_type_name = log_type.FullName;
+            LogScriptPath = logScriptPathTmp;
+            LogTypeName = logType.FullName;
         }
     }
 }

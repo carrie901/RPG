@@ -9,15 +9,15 @@ namespace Summer
     /// </summary>
     public enum E_SkillTransition
     {
-        none = 0,
-        start,
-        sound,
-        anim_start,
-        anim_event01,
-        anim_event02,
-        anim_hit,                   // 动作的击打事件
-        anim_finish,                // 动作播放结束
-        anim_release,               // 普攻已经释放了 
+        NONE = 0,
+        START,
+        SOUND,
+        ANIM_START,
+        ANIM_EVENT01,
+        ANIM_EVENT02,
+        ANIM_HIT,                   // 动作的击打事件
+        ANIM_FINISH,                // 动作播放结束
+        ANIM_RELEASE,               // 普攻已经释放了 
     }
 }
 

@@ -104,7 +104,7 @@ namespace Summer
                 return false;
         }
 
-        public bool RaiseEvent(TKey key, TValue param, bool b_delay = false)
+        public bool RaiseEvent(TKey key, TValue param, bool bDelay = false)
         {
             /*if (b_delay)
             {

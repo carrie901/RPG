@@ -214,8 +214,8 @@ namespace SummerEditor
             assetFileInfo._assetName = assetObject.name;
             assetFileInfo._assetType = assetType;
             assetFileInfo._inBuilt = inBuilt;
-            if (AssetBundleAnallyzeObject.fun_map.ContainsKey(assetType))
-                assetFileInfo._propertys = AssetBundleAnallyzeObject.fun_map[assetType].Invoke(assetObject, serializedObject);
+            if (AssetBundleAnallyzeObject._funMap.ContainsKey(assetType))
+                assetFileInfo._propertys = AssetBundleAnallyzeObject._funMap[assetType].Invoke(assetObject, serializedObject);
 
             // AssetBundle包含了Asset资源
             assetbundleFileInfo.AddDepAssetFile(assetFileInfo);

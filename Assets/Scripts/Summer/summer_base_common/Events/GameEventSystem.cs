@@ -22,7 +22,7 @@
 //                 			 ·ð×æ ±£ÓÓ             
 
 using System.Collections.Generic;
-using Object=System.Object;
+using Object = System.Object;
 namespace Summer
 {
     //=============================================================================
@@ -35,17 +35,17 @@ namespace Summer
 
         #region DelayEvent
 
-        private struct DelayEvent
+        /*private struct DelayEvent
         {
-            public E_GLOBAL_EVT key;
-            public Object param;
-        };
+            public E_GLOBAL_EVT _key;
+            public Object _param;
+        };*/
 
         #endregion
 
         #region param
 
-        private List<DelayEvent> _eventQuene;
+        /*private List<DelayEvent> _eventQuene = new List<DelayEvent>();*/
         public EventSet<E_GLOBAL_EVT, Object> _eventSet; //= new EventSet<E_GLOBAL_EVT, Object>();
 
         public GameEventSystem()

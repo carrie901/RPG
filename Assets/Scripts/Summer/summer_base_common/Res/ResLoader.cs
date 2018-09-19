@@ -11,7 +11,7 @@ namespace Summer
     /// 加载器
     /// 1.加载器不参与引用统计
     /// </summary>
-    public class ResLoader : I_Update
+    public class ResLoader //: I_Update
     {
         #region 属性
 

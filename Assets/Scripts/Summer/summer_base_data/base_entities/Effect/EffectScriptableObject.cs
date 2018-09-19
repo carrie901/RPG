@@ -32,21 +32,22 @@ namespace Summer
         [System.Serializable]
         public class EffectObject
         {
-            public int index;
-            public string type;
+            public int _index;
+            public string _type;
         }
 
-        public List<EffectObject> _eff_list;
+        public List<EffectObject> _effList;
 
 
         public string GetType(int index)
         {
-            if (_eff_list == null) return string.Empty;
-            for (int i = 0; i < _eff_list.Count; i++)
+            if (_effList == null) return string.Empty;
+            int length = _effList.Count;
+            for (int i = 0; i < length; i++)
             {
-                if (_eff_list[i].index == index)
+                if (_effList[i]._index == index)
                 {
-                    return _eff_list[i].type;
+                    return _effList[i]._type;
                 }
             }
             Debug.Log("找不到对应的类型");

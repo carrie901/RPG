@@ -27,18 +27,19 @@ using UnityEngine;
 
 namespace SummerEditor
 {
-    public class AssetFormatWin : EditorWindow
+    public class EffectReportWin : EditorWindow
     {
+
         #region 静态属性
 
-        protected static AssetFormatWin _window;
+        protected static EffectReportWin _window;
         protected static float _tWidth = 1600;
         protected static float _tHeight = 800;
-        [MenuItem("策划/资源展示")]
+        [MenuItem("策划/特效")]
         static void Init()
         {
-            _window = GetWindow<AssetFormatWin>();
-            _window.titleContent = new GUIContent("资源展示");
+            _window = GetWindow<EffectReportWin>();
+            _window.titleContent = new GUIContent("特效报告");
             _window.Show();
             _window.GetAssets();
         }
@@ -48,7 +49,7 @@ namespace SummerEditor
         #region 属性
 
         public EComponent _container;                                           // 容器
-        public ToolBarPanel _toolBarPanel;
+
 
         #endregion
 
@@ -60,12 +61,9 @@ namespace SummerEditor
             _container.SetBg(false);
             _container.ResetPosition(_tWidth / 2, _tHeight / 2);
             _container.SetBg(0, 0, 0);
-            _toolBarPanel = new ToolBarPanel(new List<string>() { "纹理", "B", "C" }, _tWidth - 10, _tHeight - 10);
-            float[] wh = _toolBarPanel.GetChildWh();
-            TextureFormatWin texWin = new TextureFormatWin(this,wh[0], wh[1]);
-            _toolBarPanel.AddPanel(0, texWin);
-            _container.AddComponent(_toolBarPanel, 5, 10);
-            _toolBarPanel.ResetSelect();
+
+            EffectReportPanel texWin = new EffectReportPanel(this, _tWidth, _tHeight);
+            _container.AddComponent(texWin, 5, 10);
         }
 
         #endregion

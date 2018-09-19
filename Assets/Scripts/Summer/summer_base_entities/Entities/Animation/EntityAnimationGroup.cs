@@ -96,37 +96,37 @@ namespace Summer
         public void SkillStart()
         {
             //AnimatorStateInfo anim_info = animator.GetCurrentAnimatorStateInfo(0);
-            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_start);
-            SkillEvent(E_SkillTransition.start);
+            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.ANIM_START);
+            SkillEvent(E_SkillTransition.START);
         }
 
         public void SkillEvent01()
         {
-            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_event01);
-            SkillEvent(E_SkillTransition.anim_event01);
+            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.ANIM_EVENT01);
+            SkillEvent(E_SkillTransition.ANIM_EVENT01);
         }
 
         public void SkillEvent02()
         {
-            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_event02);
-            SkillEvent(E_SkillTransition.anim_event02);
+            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.ANIM_EVENT02);
+            SkillEvent(E_SkillTransition.ANIM_EVENT02);
         }
 
         public void SkillHit()
         {
-            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_hit);
-            SkillEvent(E_SkillTransition.anim_hit);
+            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.ANIM_HIT);
+            SkillEvent(E_SkillTransition.ANIM_HIT);
         }
 
         public void SkillFinish()
         {
-            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.anim_finish);
-            SkillEvent(E_SkillTransition.anim_finish);
+            SkillLog.Log("=================Animation触发事件:[{0}]", E_SkillTransition.ANIM_FINISH);
+            SkillEvent(E_SkillTransition.ANIM_FINISH);
         }
 
         public void SkillRelease()
         {
-            SkillEvent(E_SkillTransition.anim_release);
+            SkillEvent(E_SkillTransition.ANIM_RELEASE);
         }
 
         #endregion

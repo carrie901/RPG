@@ -136,7 +136,7 @@ namespace Summer
             SkillLog.Log("Time:{0}-----------------------------序列开始[{1}]-----------------------------", TimeManager.FrameCount, des);
             _reset_sequence();
             DoActionNext();
-            ReceiveWithInEvent(E_SkillTransition.start);
+            ReceiveWithInEvent(E_SkillTransition.START);
         }
 
         public void OnFinish()

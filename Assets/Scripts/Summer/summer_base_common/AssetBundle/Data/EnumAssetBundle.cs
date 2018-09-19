@@ -3,20 +3,20 @@ namespace Summer
 {
     public enum E_AssetType
     {
-        none = 0,
-        script,         // .cs
-        shader,         // .shader or build-in shader with name
-        font,           // .ttf
-        texture,        // .png, .jpg
-        material,       // .mat
-        animation,      // .anim
-        controller,     // .controller
-        fbx,            // .fbx
-        textasset,      // .txt, .bytes
-        prefab,         // .prefab
-        unity,          // .unity
-        teshu,
-        max
+        NONE = 0,
+        SCRIPT,         // .cs
+        SHADER,         // .shader or build-in shader with name
+        FONT,           // .ttf
+        TEXTURE,        // .png, .jpg
+        MATERIAL,       // .mat
+        ANIMATION,      // .anim
+        CONTROLLER,     // .controller
+        FBX,            // .fbx
+        TEXTASSET,      // .txt, .bytes
+        PREFAB,         // .prefab
+        UNITY,          // .unity
+        TESHU,
+        MAX
     }
 
     public enum E_ResErrorCode
@@ -27,25 +27,25 @@ namespace Summer
         PREPROCESS_ERROR = 3,                           // 预处理错误
 
         //Load
-        load_main_manifest_failed = 101,                // 载入AssetBundleManifest错误
-        load_resources_mani_fest_failed = 102,          // 载入ResourcesManifest错误
-        load_resources_packages_failed = 103,           // 载入ResourcesPackages错误
-        load_new_main_manifest_failed = 104,            // 载入新的AssetBundleManifest错误
-        load_new_resources_mani_fest_failed = 105,      // 载入新的ResourcesManifest错误
+        LOAD_MAIN_MANIFEST_FAILED = 101,                // 载入AssetBundleManifest错误
+        LOAD_RESOURCES_MANI_FEST_FAILED = 102,          // 载入ResourcesManifest错误
+        LOAD_RESOURCES_PACKAGES_FAILED = 103,           // 载入ResourcesPackages错误
+        LOAD_NEW_MAIN_MANIFEST_FAILED = 104,            // 载入新的AssetBundleManifest错误
+        LOAD_NEW_RESOURCES_MANI_FEST_FAILED = 105,      // 载入新的ResourcesManifest错误
 
 
         //Find
-        not_find_asset_bundle = 201,                    // 未找到有效的AssetBundle
+        NOT_FIND_ASSET_BUNDLE = 201,                    // 未找到有效的AssetBundle
 
         //Download
-        invalid_url = 1001,                             // 未能识别URL服务器
-        server_no_response = 1002,                      // 服务器未响应
-        download_failed = 1003,                         // 下载失败
-        download_main_config_file_failed = 1004,        // 主配置文件下载失败
-        download_asset_bundle_failed = 1005,            // AssetBundle下载失败
+        INVALID_URL = 1001,                             // 未能识别URL服务器
+        SERVER_NO_RESPONSE = 1002,                      // 服务器未响应
+        DOWNLOAD_FAILED = 1003,                         // 下载失败
+        DOWNLOAD_MAIN_CONFIG_FILE_FAILED = 1004,        // 主配置文件下载失败
+        DOWNLOAD_ASSET_BUNDLE_FAILED = 1005,            // AssetBundle下载失败
 
         //PackageDownloader
-        invalid_package_name = 2001,                    // 无效的包名
+        INVALID_PACKAGE_NAME = 2001,                    // 无效的包名
     }
 
 }

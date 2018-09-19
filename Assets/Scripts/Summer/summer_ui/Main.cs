@@ -21,6 +21,7 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
+using System;
 using UnityEngine;
 using Summer;
 public class Main : MonoBehaviour

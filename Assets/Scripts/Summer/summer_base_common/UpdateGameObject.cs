@@ -11,12 +11,12 @@ namespace Summer
     {
         #region 属性
 
-        public TimerManager time_manager;
-        public EntitesManager entites;
-        public ResLoader rse_loader;
-        public SpritePool sprite_pool;
+        public TimerManager _timeManager;
+        public EntitesManager _entites;
+        public ResLoader _rseLoader;
+        public SpritePool _spritePool;
 
-        public List<I_Update> _update_list = new List<I_Update>();
+        public List<I_Update> _updateList = new List<I_Update>();
 
         #region static
 
@@ -43,10 +43,10 @@ namespace Summer
 
         public void OnInit()
         {
-            time_manager = TimerManager.Instance;
-            entites = EntitesManager.Instance;
-            rse_loader = ResLoader.instance;
-            sprite_pool = SpritePool.Instance;
+            _timeManager = TimerManager.Instance;
+            _entites = EntitesManager.Instance;
+            _rseLoader = ResLoader.instance;
+            _spritePool = SpritePool.Instance;
 
 
             Application.targetFrameRate = 30;
@@ -55,13 +55,13 @@ namespace Summer
         void Update()
         {
             float dt = Time.deltaTime;
-            sprite_pool.OnUpdate(dt);
-            time_manager.OnUpdate(dt);
+            _spritePool.OnUpdate(dt);
+            _timeManager.OnUpdate(dt);
 
 
-            entites.OnUpdate(dt);
+            _entites.OnUpdate(dt);
 
-            rse_loader.OnUpdate(dt);
+            _rseLoader.OnUpdate(dt);
         }
 
     }

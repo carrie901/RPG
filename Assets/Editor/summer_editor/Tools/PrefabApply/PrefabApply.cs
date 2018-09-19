@@ -21,73 +21,47 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Reflection;
 using Summer;
-using Object = UnityEngine.Object;
 using UnityEditor;
 
 namespace SummerEditor
 {
+    /// <summary>
+    /// Copy 项目代码 可用作Apply GameObjet的时候自动检测
+    /// 不支持Ctrl+S 
+    /// </summary>
     public class PrefabApply : UnityEditor.AssetModificationProcessor
     {
-        public static List<string> filter_path = new List<string>();
-
-        /*static string[] OnWillSaveAssets(string[] paths)
+        public static List<string> _checkPath = new List<string>()
         {
-            /*int length = paths.Length;
-            for (int i = 0; i < length; i++)
-            {
-                SavePrefab(paths[i]);
-            }#1#
-            return paths;
-        }*/
+            "Assets/Prefabs/GUI/",
+        };
 
-        /*public static void SavePrefab(string prefab_path)
-        {
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefab_path);
-            GameObject go = UnityEngine.Object.Instantiate(prefab) as GameObject;
-            MonoBehaviour[] monos = go.GetComponentsInChildren<MonoBehaviour>();
-
-            for (int i = 0; i < monos.Length; i++)
-            {
-                CheckGameObject(monos[i]);
-            }
-            //PrefabUtility.ReplacePrefab(go, prefab);
-            //UnityEngine.Object.DestroyImmediate(go);
-        }*/
-
-        //[InitializeOnLoadMethod]
+        [InitializeOnLoadMethod]
         static void StartInitializeOnLoadMethod()
         {
             PrefabUtility.prefabInstanceUpdated = delegate (GameObject instance)
             {
-                UnityEngine.Object prefab_parent = PrefabUtility.GetPrefabParent(instance);
-                string asset_path = AssetDatabase.GetAssetPath(prefab_parent);
-                bool check = false;
-                for (int i = 0; i < filter_path.Count; i++)
-                {
-                    if (!asset_path.Contains(filter_path[i])) continue;
-                    check = true;
-                    break;
-                }
+                //EditorUtility.DisplayDialog("保存失败", assetPath, "OK");
+                UnityEngine.Object prefabParent = PrefabUtility.GetPrefabParent(instance);
+                string assetPath = AssetDatabase.GetAssetPath(prefabParent);
+                bool check = FilterPath(assetPath);
                 if (check)
                 {
-                    GameObject go = prefab_parent as GameObject;
-
+                    GameObject go = prefabParent as GameObject;
+                    if (go == null) return;
                     MonoBehaviour[] monos = go.GetComponentsInChildren<MonoBehaviour>();
-
-                    for (int i = 0; i < monos.Length; i++)
+                    int length = monos.Length;
+                    for (int i = 0; i < length; i++)
                     {
-                        //UIBindingPrefabSaveHelper.CheckGameObject(monos[i]);
+
                         CheckGameObject(monos[i]);
                     }
                 }
-                EditorUtility.SetDirty(instance);
-                AssetDatabase.SaveAssets();
             };
         }
 
@@ -97,75 +71,66 @@ namespace SummerEditor
             FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             foreach (FieldInfo field in fields)
             {
-                UIChildAttribute ui_child_attr = (UIChildAttribute)Attribute.GetCustomAttribute(field, typeof(UIChildAttribute));
+                UIChildAttribute uiChildAttr = (UIChildAttribute)Attribute.GetCustomAttribute(field, typeof(UIChildAttribute));
                 //是否有特性
-                if (ui_child_attr == null) continue;
+                if (uiChildAttr == null) continue;
 
                 //参数类型
-                Type field_type = field.FieldType;
+                Type fieldType = field.FieldType;
                 //函数
                 MethodInfo method;
-                //类型
-                object component;
                 //是否是自身的脚本
-                if (ui_child_attr.ObjectName == "this")
+                if (uiChildAttr.ObjectName == "this")
                 {
-                    if (field_type == typeof(GameObject))
+                    if (fieldType == typeof(GameObject))
                     {
-                        GameObject find_obj = FindChild(mono.gameObject, mono.name);
-                        field.SetValue(mono, find_obj);
+                        FindChild(mono.gameObject, mono.name);
                         continue;
                     }
-                    method = GetSelfComponentFunction(field_type);
+                    method = GetSelfComponentFunction(fieldType);
 
-                    object[] get_component_params = { mono.gameObject };
-                    component = method.Invoke(null, get_component_params);
-                    field.SetValue(mono, component);
+                    object[] getComponentParams = { mono.gameObject };
+                    method.Invoke(null, getComponentParams);
                 }
-                else if (field_type == typeof(GameObject)) //是否是GameObject
+                else if (fieldType == typeof(GameObject)) //是否是GameObject
                 {
-                    GameObject find_go = FindChild(mono.gameObject, ui_child_attr.ObjectName);
-                    field.SetValue(mono, find_go);
+                    FindChild(mono.gameObject, uiChildAttr.ObjectName);
                 }
                 else
                 {
                     //获取对应的类型
-                    method = GetFindChildWithComponentFuncion(field_type);
-                    object[] find_child_params = { mono.gameObject, ui_child_attr.ObjectName };
-                    component = method.Invoke(null, find_child_params);
-                    field.SetValue(mono, component);
+                    method = GetFindChildWithComponentFuncion(fieldType);
+                    object[] findChildParams = { mono.gameObject, uiChildAttr.ObjectName };
+                    method.Invoke(null, findChildParams);
                 }
             }
             foreach (var field in fields)
             {
-                UIListAttribute ui_list_attr = (UIListAttribute)Attribute.GetCustomAttribute(field, typeof(UIListAttribute));
                 //是否有特性
-                if (ui_list_attr == null) continue;
+                UIListAttribute uiListAttr = (UIListAttribute)Attribute.GetCustomAttribute(field, typeof(UIListAttribute));
+                if (uiListAttr == null) continue;
+
                 //排除非List
                 if (!field.FieldType.IsGenericType) continue;
-                Type field_type = field.FieldType.GetGenericArguments()[0];
-                Type list_type = typeof(List<>).MakeGenericType(field_type);
-                ConstructorInfo constructor_info = list_type.GetConstructor(Type.EmptyTypes);
 
-                if (constructor_info == null) continue;
-                var instanced_list = (IList)constructor_info.Invoke(null);
-                for (int i = ui_list_attr.Begin; i <= ui_list_attr.End; i++)
+                Type fieldType = field.FieldType.GetGenericArguments()[0];
+                Type listType = typeof(List<>).MakeGenericType(fieldType);
+                ConstructorInfo constructorInfo = listType.GetConstructor(Type.EmptyTypes);
+
+                if (constructorInfo == null) continue;
+                for (int i = uiListAttr.Begin; i <= uiListAttr.End; i++)
                 {
-                    object component;
                     //是否是GameObject
-                    if (field_type == typeof(GameObject))
+                    if (fieldType == typeof(GameObject))
                     {
-                        component = FindChild(mono.gameObject, ui_list_attr.NamePrefix + i);
-                        instanced_list.Add(component);
+                        FindChild(mono.gameObject, uiListAttr.NamePrefix + i);
                         continue;
                     }
                     //获取对应的类型
-                    var method = GetFindChildWithComponentFuncion(field_type);
-                    object[] find_child_params = { mono.gameObject, ui_list_attr.NamePrefix + i };
-                    component = method.Invoke(null, find_child_params);
-                    instanced_list.Add(component);
+                    var method = GetFindChildWithComponentFuncion(fieldType);
+                    object[] findChildParams = { mono.gameObject, uiListAttr.NamePrefix + i };
+                    method.Invoke(null, findChildParams);
                 }
-                field.SetValue(mono, instanced_list);
             }
         }
 
@@ -176,25 +141,25 @@ namespace SummerEditor
             T component = self.GetComponent<T>();
             if (component == null)
             {
-                throw new ArgumentOutOfRangeException(self.name + "找不到类型为" + typeof(T).Name);
+                EditorUtility.DisplayDialog("Prefab和脚本不对应", self.name + "找不到类型为" + typeof(T).Name + "怒q脚本程序", "OK");
             }
             return component;
         }
 
-        public static T FindChildWithComponent<T>(GameObject go, string child_name) where T : Component
+        public static T FindChildWithComponent<T>(GameObject go, string childName) where T : Component
         {
-            go = FindChild(go, child_name, 0);
+            go = FindChild(go, childName);
             T component = go.GetComponent<T>();
             if (component == null)
             {
-                throw new ArgumentOutOfRangeException(go.name + "找不到类型为" + typeof(T).Name);
+                EditorUtility.DisplayDialog("Prefab和脚本不对应", go.name + "找不到类型为" + typeof(T).Name + "怒q脚本程序", "OK");
             }
             return component;
         }
 
-        private static GameObject FindChild(GameObject go, string child_go_name, int index = 0)
+        private static GameObject FindChild(GameObject go, string childGoName, int index = 0)
         {
-            if (go.name == child_go_name)
+            if (go.name == childGoName)
             {
                 return go;
             }
@@ -204,17 +169,18 @@ namespace SummerEditor
 
                 for (int i = 0; i < go.transform.childCount; i++)
                 {
-                    GameObject tmp_obj = FindChild(go.transform.GetChild(i).gameObject, child_go_name, index);
+                    GameObject tmpObj = FindChild(go.transform.GetChild(i).gameObject, childGoName, index);
 
-                    if (tmp_obj != null)
+                    if (tmpObj != null)
                     {
-                        return tmp_obj;
+                        return tmpObj;
                     }
                 }
 
                 if (index == 1)
                 {
-                    throw new ArgumentOutOfRangeException("找不到名字为" + child_go_name + "的GameObject");
+                    EditorUtility.DisplayDialog("Prefab和脚本不对应", "找不到名字为" + childGoName + "的GameObject" + "\n请先怒q脚本程序", "OK");
+                    return null;
                 }
                 else
                 {
@@ -228,35 +194,45 @@ namespace SummerEditor
         #region private 
 
         public static BindingFlags _bingdingflag = BindingFlags.Public | BindingFlags.Static;
-        public static MethodInfo _find_child_with_component_function;
+        public static MethodInfo _findChildWithComponentFunction;
         public const string FIND_CHILD_WITH_COMPONENT = "FindChildWithComponent";
-        public static MethodInfo GetFindChildWithComponentFuncion(Type field_type)
+        public static MethodInfo GetFindChildWithComponentFuncion(Type fieldType)
         {
-            if (_find_child_with_component_function == null)
+            if (_findChildWithComponentFunction == null)
             {
-                _find_child_with_component_function = typeof(PrefabApply).GetMethod(FIND_CHILD_WITH_COMPONENT, _bingdingflag);
+                _findChildWithComponentFunction = typeof(PrefabApply).GetMethod(FIND_CHILD_WITH_COMPONENT, _bingdingflag);
             }
-            if (_find_child_with_component_function == null) return null;
+            if (_findChildWithComponentFunction == null) return null;
 
-            var function = _find_child_with_component_function.MakeGenericMethod(field_type);
+            var function = _findChildWithComponentFunction.MakeGenericMethod(fieldType);
             return function;
         }
 
 
-        public static MethodInfo _get_self_component_function;
+        public static MethodInfo _getSelfComponentFunction;
         public const string GET_SELF_COMPONENT = "GetSelfComponent";
-        public static MethodInfo GetSelfComponentFunction(Type field_type)
+        public static MethodInfo GetSelfComponentFunction(Type fieldType)
         {
-            if (_get_self_component_function == null)
+            if (_getSelfComponentFunction == null)
             {
-                _get_self_component_function = typeof(PrefabApply).GetMethod(GET_SELF_COMPONENT, _bingdingflag);
+                _getSelfComponentFunction = typeof(PrefabApply).GetMethod(GET_SELF_COMPONENT, _bingdingflag);
             }
-            if (_get_self_component_function == null) return null;
+            if (_getSelfComponentFunction == null) return null;
 
-            var function = _get_self_component_function.MakeGenericMethod(field_type);
+            var function = _getSelfComponentFunction.MakeGenericMethod(fieldType);
             return function;
         }
 
+        public static bool FilterPath(string path)
+        {
+            int length = _checkPath.Count;
+            for (int i = 0; i < length; i++)
+            {
+                if (path.Contains(_checkPath[i]))
+                    return true;
+            }
+            return false;
+        }
 
         #endregion
     }

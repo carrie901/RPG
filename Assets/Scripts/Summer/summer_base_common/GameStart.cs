@@ -19,8 +19,8 @@ public class GameStart : MonoBehaviour
             // 读取csv表格内容
             ConfigManager.ReadLocalConfig();
 
-            TestGame test_game = new TestGame();
-            test_game.Main();
+            TestGame testGame = new TestGame();
+            testGame.Main();
             flag = false;
         }
     }

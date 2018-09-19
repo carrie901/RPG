@@ -14,16 +14,16 @@ namespace Summer
         public const char CVS_SPLIT = '&';// '|';       // 默认分割符号
         public const string STRING_EMPTY = "";
         public const int MIN_LINE = 4;                  // 最小行数
-        public static string csv_file_root = Application.dataPath + "\\..\\Data\\Tables\\";//"E:\\work_three\\trunk\\three_config\\tables\\";
+        public static string _csvFileRoot = Application.dataPath + "\\..\\Data\\Tables\\";//"E:\\work_three\\trunk\\three_config\\tables\\";
 
         #region 二进制加载
 
         /// <summary>
         /// 二进制读取文本资源
         /// </summary>
-        public static Dictionary<int, T> LoadBinary<T>(string file_name) where T : BaseCsv, new()
+        public static Dictionary<int, T> LoadBinary<T>(string fileName) where T : BaseCsv, new()
         {
-            byte[] bytes = _load_cvs_dat(file_name);
+            byte[] bytes = _load_cvs_dat(fileName);
 
             MemoryStream ms = new MemoryStream(bytes);
             BinaryReader br = new BinaryReader(ms);
@@ -31,7 +31,7 @@ namespace Summer
             // 1.读取二进制内容
             int length = br.ReadInt32();
 
-            Dictionary<int, T> t_map = new Dictionary<int, T>(length);
+            Dictionary<int, T> tMap = new Dictionary<int, T>(length);
             for (int i = 0; i < length; i++)
             {
                 // 2.生成结构类
@@ -39,12 +39,12 @@ namespace Summer
                 // 3.初始化属性
                 csv.InitByReader(br);
                 // 4.添加到集合
-                t_map.Add(csv.GetId(), csv);
+                tMap.Add(csv.GetId(), csv);
             }
             br.Close();
             ms.Close();
             ms.Dispose();
-            return t_map;
+            return tMap;
         }
 
         public static void WriteBinary<T>(Dictionary<int, T> data, BinaryWriter bw) where T : BaseCsv
@@ -59,12 +59,12 @@ namespace Summer
         #endregion
 
         #region 直接加载cvs文件 应用于本地
-        public static Dictionary<int, T> LoadFile<T>(string file_name) where T : BaseCsv, new()
+        public static Dictionary<int, T> LoadFile<T>(string fileName) where T : BaseCsv, new()
         {
             // 1.读取文本内容
-            List<string[]> contents = _load_csv_file(file_name);
+            List<string[]> contents = _load_csv_file(fileName);
             int length = contents.Count;
-            Dictionary<int, T> t_map = new Dictionary<int, T>(length);
+            Dictionary<int, T> tMap = new Dictionary<int, T>(length);
 
             for (int i = 0; i < length; i++)
             {
@@ -79,88 +79,88 @@ namespace Summer
                     _field_set_value(contents[i][j], files[j], csv);
                 }
                 // 5.添加到集合
-                t_map.Add(csv.GetId(), csv);
+                tMap.Add(csv.GetId(), csv);
             }
-            return t_map;
+            return tMap;
         }
 
         // 读取CSV文件
-        public static List<string[]> _load_csv_file(string file_name)
+        public static List<string[]> _load_csv_file(string fileName)
         {
             // TODO 需要去掉Cnf同时又要添加csv 这段代码的读取是有上下门的潜规则在 
-            file_name = csv_file_root + file_name;
-            file_name = file_name.Replace("Cnf", string.Empty);
-            string[] file_data = File.ReadAllLines(file_name + ".csv");
-            List<string[]> result = new List<string[]>(file_data.Length);
+            fileName = _csvFileRoot + fileName;
+            fileName = fileName.Replace("Cnf", string.Empty);
+            string[] fileData = File.ReadAllLines(fileName + ".csv");
+            List<string[]> result = new List<string[]>(fileData.Length);
 
-            if (file_data.Length <= MIN_LINE)
+            if (fileData.Length <= MIN_LINE)
             {
                 return result;
             }
 
 
 
-            for (int i = MIN_LINE; i < file_data.Length; i++)
+            for (int i = MIN_LINE; i < fileData.Length; i++)
             {
-                string[] line = file_data[i].Split(',');
+                string[] line = fileData[i].Split(',');
                 result.Add(line);
             }
 
             return result;
         }
 
-        public static byte[] _load_cvs_dat(string file_name)
+        public static byte[] _load_cvs_dat(string fileName)
         {
-            byte[] bytes = ResManager.instance.LoadByte(file_name, E_GameResType.TEXT_ASSET);
+            byte[] bytes = ResManager.instance.LoadByte(fileName, E_GameResType.TEXT_ASSET);
             return bytes;
         }
 
         // 给属性赋值
-        public static void _field_set_value(string value, FieldInfo field_info, BaseCsv csv)
+        public static void _field_set_value(string value, FieldInfo fieldInfo, BaseCsv csv)
         {
-            string field_name = field_info.FieldType.Name;
-            switch (field_name)
+            string fieldName = fieldInfo.FieldType.Name;
+            switch (fieldName)
             {
                 case "Int32":
-                    _internal_int_set_value(value, field_info, csv);
+                    _internal_int_set_value(value, fieldInfo, csv);
                     break;
                 case "Int32[]":
-                    _internal_ints_set_value(value, field_info, csv);
+                    _internal_ints_set_value(value, fieldInfo, csv);
                     break;
                 case "String":
-                    _internal_string_set_value(value, field_info, csv);
+                    _internal_string_set_value(value, fieldInfo, csv);
                     break;
                 case "String[]":
-                    _internal_strings_set_value(value, field_info, csv);
+                    _internal_strings_set_value(value, fieldInfo, csv);
                     break;
                 case "Boolean":
-                    _internal_bool_set_value(value, field_info, csv);
+                    _internal_bool_set_value(value, fieldInfo, csv);
                     break;
                 case "Boolean[]":
-                    _internal_bools_set_value(value, field_info, csv);
+                    _internal_bools_set_value(value, fieldInfo, csv);
                     break;
                 case "Single":
-                    _internal_float_set_value(value, field_info, csv);
+                    _internal_float_set_value(value, fieldInfo, csv);
                     break;
                 case "Single[]":
-                    _internal_floats_set_value(value, field_info, csv);
+                    _internal_floats_set_value(value, fieldInfo, csv);
                     break;
                 default:
-                    Debug.LogError("csvloader找不到对应的类型:" + field_name + "数值:" + value);
+                    Debug.LogError("csvloader找不到对应的类型:" + fieldName + "数值:" + value);
                     break;
             }
         }
 
         #region internal set value
 
-        public static void _internal_int_set_value(string value, FieldInfo field_info, BaseCsv csv)
+        public static void _internal_int_set_value(string value, FieldInfo fieldInfo, BaseCsv csv)
         {
             try
             {
                 if (string.IsNullOrEmpty(value))
-                    field_info.SetValue(csv, 0);
+                    fieldInfo.SetValue(csv, 0);
                 else
-                    field_info.SetValue(csv, Int32.Parse(value));
+                    fieldInfo.SetValue(csv, Int32.Parse(value));
             }
             catch (Exception e)
             {
@@ -169,90 +169,90 @@ namespace Summer
 
         }
 
-        public static void _internal_ints_set_value(string value, FieldInfo field_info, BaseCsv csv)
+        public static void _internal_ints_set_value(string value, FieldInfo fieldInfo, BaseCsv csv)
         {
-            int[] int_result;
+            int[] intResult;
 
             if (!string.IsNullOrEmpty(value))
             {
-                string[] str_arr = value.Split(CVS_SPLIT);
-                int_result = new int[str_arr.Length];
-                for (int i = 0; i < str_arr.Length; i++)
-                    int_result[i] = Int32.Parse(str_arr[i]);
+                string[] strArr = value.Split(CVS_SPLIT);
+                intResult = new int[strArr.Length];
+                for (int i = 0; i < strArr.Length; i++)
+                    intResult[i] = Int32.Parse(strArr[i]);
             }
             else
-                int_result = new int[0];
+                intResult = new int[0];
 
-            field_info.SetValue(csv, int_result);
+            fieldInfo.SetValue(csv, intResult);
         }
 
-        public static void _internal_string_set_value(string value, FieldInfo field_info, BaseCsv csv)
+        public static void _internal_string_set_value(string value, FieldInfo fieldInfo, BaseCsv csv)
         {
             if (string.IsNullOrEmpty(value))
-                field_info.SetValue(csv, "");
+                fieldInfo.SetValue(csv, "");
             else
-                field_info.SetValue(csv, value);
+                fieldInfo.SetValue(csv, value);
         }
 
-        public static void _internal_strings_set_value(string value, FieldInfo field_info, BaseCsv csv)
+        public static void _internal_strings_set_value(string value, FieldInfo fieldInfo, BaseCsv csv)
         {
-            string[] str_result;
+            string[] strResult;
             if (string.IsNullOrEmpty(value))
-                str_result = new string[0];
+                strResult = new string[0];
             else
-                str_result = value.Split(CVS_SPLIT);
+                strResult = value.Split(CVS_SPLIT);
 
-            field_info.SetValue(csv, str_result);
+            fieldInfo.SetValue(csv, strResult);
         }
 
-        public static void _internal_float_set_value(string value, FieldInfo field_info, BaseCsv csv)
+        public static void _internal_float_set_value(string value, FieldInfo fieldInfo, BaseCsv csv)
         {
             if (string.IsNullOrEmpty(value))
-                field_info.SetValue(csv, 0);
+                fieldInfo.SetValue(csv, 0);
             else
-                field_info.SetValue(csv, float.Parse(value));
+                fieldInfo.SetValue(csv, float.Parse(value));
         }
 
-        public static void _internal_floats_set_value(string value, FieldInfo field_info, BaseCsv csv)
+        public static void _internal_floats_set_value(string value, FieldInfo fieldInfo, BaseCsv csv)
         {
-            float[] float_result;
+            float[] floatResult;
 
             if (!string.IsNullOrEmpty(value))
             {
-                string[] str_arr = value.Split(CVS_SPLIT);
-                float_result = new float[str_arr.Length];
-                for (int i = 0; i < str_arr.Length; i++)
-                    float_result[i] = float.Parse(str_arr[i]);
+                string[] strArr = value.Split(CVS_SPLIT);
+                floatResult = new float[strArr.Length];
+                for (int i = 0; i < strArr.Length; i++)
+                    floatResult[i] = float.Parse(strArr[i]);
             }
             else
-                float_result = new float[0];
+                floatResult = new float[0];
 
-            field_info.SetValue(csv, float_result);
+            fieldInfo.SetValue(csv, floatResult);
         }
 
-        public static void _internal_bool_set_value(string value, FieldInfo field_info, BaseCsv csv)
+        public static void _internal_bool_set_value(string value, FieldInfo fieldInfo, BaseCsv csv)
         {
             if (string.IsNullOrEmpty(value))
-                field_info.SetValue(csv, false);
+                fieldInfo.SetValue(csv, false);
             else
-                field_info.SetValue(csv, value == "1" ? true : false);
+                fieldInfo.SetValue(csv, value == "1");
         }
 
-        public static void _internal_bools_set_value(string value, FieldInfo field_info, BaseCsv csv)
+        public static void _internal_bools_set_value(string value, FieldInfo fieldInfo, BaseCsv csv)
         {
-            bool[] bool_result;
+            bool[] boolResult;
 
             if (!string.IsNullOrEmpty(value))
             {
-                string[] str_arr = value.Split(CVS_SPLIT);
-                bool_result = new bool[str_arr.Length];
-                for (int i = 0; i < str_arr.Length; i++)
-                    bool_result[i] = bool.Parse(str_arr[i]);
+                string[] strArr = value.Split(CVS_SPLIT);
+                boolResult = new bool[strArr.Length];
+                for (int i = 0; i < strArr.Length; i++)
+                    boolResult[i] = bool.Parse(strArr[i]);
             }
             else
-                bool_result = new bool[0];
+                boolResult = new bool[0];
 
-            field_info.SetValue(csv, bool_result);
+            fieldInfo.SetValue(csv, boolResult);
         }
 
         #endregion

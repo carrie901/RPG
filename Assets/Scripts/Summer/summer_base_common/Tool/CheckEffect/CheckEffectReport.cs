@@ -24,9 +24,9 @@ namespace Summer
     /// </summary>
 	public class CheckEffectReport : MonoBehaviour
     {
-        public float interval_eff_check = 5;
-        public CheckEffectReportCnf _curr_report;
-        public Dictionary<string, CheckEffectReportCnf> report_map = new Dictionary<string, CheckEffectReportCnf>();
+        public float _intervalEffCheck = 5;
+        public CheckEffectReportCnf _currReport;
+        public Dictionary<string, CheckEffectReportCnf> _reportMap = new Dictionary<string, CheckEffectReportCnf>();
         private void Start()
         {
             StartCoroutine(CheckAllEffect());
@@ -42,7 +42,7 @@ namespace Summer
             ReadCsv();
             yield return CoroutineConst.GetWaitForSeconds(0.5f);
             // 2. 依次解析特效的dc和三角面
-            foreach (var report in report_map)
+            foreach (var report in _reportMap)
             {
                 yield return StartCoroutine(AnalyzeSingleFx(report.Value));
             }
@@ -61,12 +61,12 @@ namespace Summer
                 if (info.Length < 4) continue;
                 CheckEffectReportCnf report = new CheckEffectReportCnf();
 
-                report.eff_name = info[0];
-                report.asset_path = info[3];
-                report.tex_info = info[4];
-                report.tex_mem_bytes = float.Parse(info[1]);
-                report.tex_mem_count = int.Parse(info[2]);
-                report_map.Add(report.eff_name, report);
+                report._effName = info[0];
+                report._assetPath = info[3];
+                report._texInfo = info[4];
+                report._texMemBytes = int.Parse(info[1]);
+                report._texMemCount = int.Parse(info[2]);
+                _reportMap.Add(report._effName, report);
             }
         }
 
@@ -74,7 +74,7 @@ namespace Summer
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(CheckEffectReportCnf.ToTopDes());
-            foreach (var report in report_map)
+            foreach (var report in _reportMap)
             {
                 sb.AppendLine(report.Value.ToDes());
             }
@@ -86,7 +86,7 @@ namespace Summer
         public IEnumerator AnalyzeSingleFx(CheckEffectReportCnf cnf)
         {
             yield return null;
-            _curr_report = cnf;
+            _currReport = cnf;
             System.GC.Collect();
             AsyncOperation ao = Resources.UnloadUnusedAssets();
             yield return ao;
@@ -95,60 +95,60 @@ namespace Summer
 
             // 1.加载的时间
             float t1 = Time.realtimeSinceStartup;
-            string new_path = _curr_report.asset_path;
-            GameObject eff_go = AssetDatabase.LoadAssetAtPath<GameObject>(new_path);
+            string newPath = _currReport._assetPath;
+            GameObject effGo = AssetDatabase.LoadAssetAtPath<GameObject>(newPath);
             float t2 = Time.realtimeSinceStartup;
-            _curr_report.load_time = (int)((t2 - t1) * 1000);
+            _currReport._loadTime = (int)((t2 - t1) * 1000);
 
-            if (eff_go == null) yield break;
+            if (effGo == null) yield break;
             yield return CoroutineConst.wait_for_end_of_frame;
             yield return CoroutineConst.wait_for_end_of_frame;
 
             // 2.粒子
-            _curr_report.total_ps_count = eff_go.GetComponentsInChildren<ParticleSystem>(true).Length;
+            _currReport._totalPsCount = effGo.GetComponentsInChildren<ParticleSystem>(true).Length;
             // 3.渲染器个数
-            Renderer[] eff_renderers = eff_go.GetComponentsInChildren<Renderer>();
+            Renderer[] effRenderers = effGo.GetComponentsInChildren<Renderer>();
             // 4.材质球个数
-            Dictionary<Material, bool> eff_materials = new Dictionary<Material, bool>();
-            int length = eff_renderers.Length;
+            Dictionary<Material, bool> effMaterials = new Dictionary<Material, bool>();
+            int length = effRenderers.Length;
             for (int i = 0; i < length; i++)
             {
                 bool has;
-                Material r = eff_renderers[i].sharedMaterial;
-                if (r != null && !eff_materials.TryGetValue(r, out has))
-                    eff_materials.Add(r, true);
+                Material r = effRenderers[i].sharedMaterial;
+                if (r != null && !effMaterials.TryGetValue(r, out has))
+                    effMaterials.Add(r, true);
             }
             // 材质球个数
-            _curr_report.material_count = eff_materials.Count;
+            _currReport._materialCount = effMaterials.Count;
             yield return CoroutineConst.wait_for_end_of_frame;
             yield return CoroutineConst.wait_for_end_of_frame;
 
             // 5.实例化时间
             t2 = Time.realtimeSinceStartup;
-            GameObject go = Instantiate(eff_go);
+            GameObject go = Instantiate(effGo);
             float t3 = Time.realtimeSinceStartup;
 
-            _curr_report.inst_time = (int)((t3 - t2) * 1000);
+            _currReport._instTime = (int)((t3 - t2) * 1000);
 
             float t4 = 0;
             // 6.监控DrawCall
-            int old_dc = UnityStats.drawCalls;
-            int max_dc = old_dc;
+            int oldDc = UnityStats.drawCalls;
+            int maxDc = oldDc;
 
-            int old_triangles = UnityStats.triangles;
-            int max_triangles = old_triangles;
-            while (t4 < interval_eff_check)
+            int oldTriangles = UnityStats.triangles;
+            int maxTriangles = oldTriangles;
+            while (t4 < _intervalEffCheck)
             {
                 float dt = Time.deltaTime;
-                if (UnityStats.drawCalls > max_dc)
-                    max_dc = UnityStats.drawCalls;
+                if (UnityStats.drawCalls > maxDc)
+                    maxDc = UnityStats.drawCalls;
                 t4 += dt;
-                if (UnityStats.triangles > max_triangles)
-                    max_triangles = UnityStats.triangles;
+                if (UnityStats.triangles > maxTriangles)
+                    maxTriangles = UnityStats.triangles;
                 yield return CoroutineConst.wait_for_end_of_frame;
             }
-            _curr_report.dc = max_dc - old_dc;
-            _curr_report.triangles = max_triangles - old_triangles;
+            _currReport._dc = maxDc - oldDc;
+            _currReport._triangles = maxTriangles - oldTriangles;
             yield return CoroutineConst.wait_for_end_of_frame;
             yield return CoroutineConst.wait_for_end_of_frame;
             Object.DestroyImmediate(go);

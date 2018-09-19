@@ -9,7 +9,7 @@
 
 
         public static string _editorAniclipName = "__preview__Take 001";
-        public static string[] editor_control_names = {"AnimatorStateMachine",
+        public static string[] _editorControlNames = {"AnimatorStateMachine",
             "AnimatorStateTransition", "AnimatorState", "AnimatorTransition", "BlendTree" };
 
     }

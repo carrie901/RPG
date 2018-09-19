@@ -16,11 +16,11 @@ namespace SummerEditor
         /// <summary>
         /// 读取文件中的guid值
         /// </summary>
-        public static List<string> GetGuidsByFile(string file_path)
+        public static List<string> GetGuidsByFile(string filePath)
         {
             List<string> guids = new List<string>();
             Regex reg = new Regex(@"([a-f0-9]{32})");
-            string[] lines = File.ReadAllLines(file_path);
+            string[] lines = File.ReadAllLines(filePath);
             int length = lines.Length;
             for (int i = 0; i < length; i++)
             {
@@ -35,7 +35,7 @@ namespace SummerEditor
 
         public static string FindSelectionGuid()
         {
-            if (Selection.activeObject == null) return string.Empty; ;
+            if (Selection.activeObject == null) return string.Empty;
             string path = AssetDatabase.GetAssetPath(Selection.activeObject);
             return GetGuid(path);
         }

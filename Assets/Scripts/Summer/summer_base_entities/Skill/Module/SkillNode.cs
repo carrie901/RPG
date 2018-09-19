@@ -56,7 +56,7 @@ namespace Summer
 
         public StringBuilder _des;                                                  //  描述
         public List<SkillLeafNode> _actions = new List<SkillLeafNode>(16);          //  这个节点下叶子节点
-        public E_SkillTransition _start_transition = E_SkillTransition.start;       //  执行这个节点的开始运行的事件 目前只接受一个事件 默认情况下接受start事件
+        public E_SkillTransition _start_transition = E_SkillTransition.START;       //  执行这个节点的开始运行的事件 目前只接受一个事件 默认情况下接受start事件
         //public E_SkillTransition _finish_transition = E_SkillTransition.start;
         public SkillSequence _parent_node;                                          //  属性某一个流程
         public int _runing_state;                                                   //  运行状态 0
@@ -219,7 +219,7 @@ namespace Summer
             if (result)
             {
                 // 2.发送默认的开启事件
-                _parent_node.ReceiveWithInEvent(E_SkillTransition.start);
+                _parent_node.ReceiveWithInEvent(E_SkillTransition.START);
             }
         }
 

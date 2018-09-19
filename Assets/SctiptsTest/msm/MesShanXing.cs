@@ -8,35 +8,35 @@ namespace Summer
         public float _radius;
         public float _angle;
         public int _segments;
-        public MeshFilter mesh_filter;
+        public MeshFilter _meshFilter;
 
         private void Start()
         {
-            mesh_filter = GetComponent<MeshFilter>();
-            mesh_filter.mesh = CreateMesh(_radius, _angle, _segments);
+            _meshFilter = GetComponent<MeshFilter>();
+            _meshFilter.mesh = CreateMesh(_radius, _angle, _segments);
         }
 
         public Mesh CreateMesh(float radius, float angle, int segments)
         {
-            int vertices_count = segments * 2 + 2;
-            Vector3[] vertices = new Vector3[vertices_count];
-            float angle_rad = Mathf.Deg2Rad * angle;
-            float angle_cur = angle_rad;
-            float angledelta = angle_rad / segments;
+            int verticesCount = segments * 2 + 2;
+            Vector3[] vertices = new Vector3[verticesCount];
+            float angleRad = Mathf.Deg2Rad * angle;
+            float angleCur = angleRad;
+            float angledelta = angleRad / segments;
 
             vertices[0] = new Vector3(0, 0, 0);
-            for (int i = 1; i < vertices_count; i++)
+            for (int i = 1; i < verticesCount; i++)
             {
-                float cos_a = Mathf.Cos(angle_cur);
-                float sin_a = Mathf.Sin(angle_cur);
+                float cosA = Mathf.Cos(angleCur);
+                float sinA = Mathf.Sin(angleCur);
 
-                vertices[i] = new Vector3(radius * cos_a, 0, radius * sin_a);
-                angle_cur -= angledelta;
+                vertices[i] = new Vector3(radius * cosA, 0, radius * sinA);
+                angleCur -= angledelta;
             }
 
-            int triangle_count = segments * 3;
-            int[] triangles = new int[triangle_count];
-            for (int i = 0, vi = 0; i < triangle_count; i += 3, vi++)
+            int triangleCount = segments * 3;
+            int[] triangles = new int[triangleCount];
+            for (int i = 0, vi = 0; i < triangleCount; i += 3, vi++)
             {
                 triangles[i] = 0;
                 triangles[i + 1] = vi + 1;
@@ -46,6 +46,7 @@ namespace Summer
             Mesh mesh = new Mesh();
             mesh.vertices = vertices;
             mesh.triangles = triangles;
+            
             //mesh.uv = uvs;
             return mesh;
         }

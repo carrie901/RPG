@@ -32,33 +32,33 @@ namespace SummerEditor
         {
             Vector2 size = Vector2.zero;
 
-            float min_x = 0;
-            float min_y = 0;
-            float max_x = 0;
-            float max_y = 0;
+            float minX = 0;
+            float minY = 0;
+            float maxX = 0;
+            float maxY = 0;
             for (int i = 0; i < rects.Count; i++)
             {
                 ERect rect = rects[i];
 
-                float left_x = rect.Ex - rect.Ew / 2;
-                float left_y = rect.Ey - rect.Eh / 2;
-                float right_x = rect.Ex + rect.Ew / 2;
-                float right_y = rect.Ey + rect.Eh / 2;
+                float leftX = rect.Ex - rect.Ew / 2;
+                float leftY = rect.Ey - rect.Eh / 2;
+                float rightX = rect.Ex + rect.Ew / 2;
+                float rightY = rect.Ey + rect.Eh / 2;
 
-                if (left_x < min_x)
-                    min_x = left_x;
+                if (leftX < minX)
+                    minX = leftX;
 
-                if (left_y < min_y)
-                    min_y = left_y;
+                if (leftY < minY)
+                    minY = leftY;
 
-                if (right_x > max_x)
-                    max_x = right_x;
+                if (rightX > maxX)
+                    maxX = rightX;
 
-                if (right_y > max_y)
-                    max_y = right_y;
+                if (rightY > maxY)
+                    maxY = rightY;
             }
-            size.x = max_x - min_x;
-            size.y = max_y - min_y;
+            size.x = maxX - minX;
+            size.y = maxY - minY;
             return size;
         }
 

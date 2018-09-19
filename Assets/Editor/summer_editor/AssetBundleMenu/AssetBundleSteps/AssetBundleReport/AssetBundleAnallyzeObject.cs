@@ -11,7 +11,7 @@ namespace SummerEditor
         #region 属性
 
         // Object的资源类型
-        public static Dictionary<Type, E_AssetType> analyze_map = new Dictionary<Type, E_AssetType>()
+        public static Dictionary<Type, E_AssetType> _analyzeMap = new Dictionary<Type, E_AssetType>()
         {
             {typeof (Mesh), E_AssetType.MESH},
             {typeof (Material), E_AssetType.MATERIAL},
@@ -28,7 +28,7 @@ namespace SummerEditor
 
         // 针对Object的资源分析
         public static Dictionary<E_AssetType, Func<Object, SerializedObject, List<KeyValuePair<string, System.Object>>>>
-            fun_map = new Dictionary<E_AssetType, Func<Object, SerializedObject, List<KeyValuePair<string, object>>>>()
+            _funMap = new Dictionary<E_AssetType, Func<Object, SerializedObject, List<KeyValuePair<string, object>>>>()
             {
                 {E_AssetType.MESH, AnalyzeMesh},
                 {E_AssetType.MATERIAL, AnalyzeMaterial},
@@ -44,7 +44,7 @@ namespace SummerEditor
             };
 
         // 目前知道的内建资源
-        public static List<string> builtin_res = new List<string>()
+        public static List<string> _builtinRes = new List<string>()
         {
             "Resources/unity_builtin_extra",
             "Library/unity default resources",
@@ -55,31 +55,31 @@ namespace SummerEditor
         #region public
 
         // 是否加入引用
-        public static E_AssetType CheckObject(Object ob, EAssetBundleFileInfo assetbundle_file_info,ref bool in_built)
+        public static E_AssetType CheckObject(Object ob, EAssetBundleFileInfo assetbundleFileInfo,ref bool inBuilt)
         {
-            in_built = false;
+            inBuilt = false;
             if (ob == null) return E_AssetType.NONE;
-            Type object_type = ob.GetType();
+            Type objectType = ob.GetType();
             // 1.剔除掉部分 比如Transform 脚本.cs等
-            if (!analyze_map.ContainsKey(object_type))
+            if (!_analyzeMap.ContainsKey(objectType))
             {
                 if (ob as Component) return E_AssetType.NONE;
                 if (ob as ScriptableObject) return E_AssetType.NONE;
                 if (ob as MonoScript) return E_AssetType.NONE;
                 if (ob as GameObject) return E_AssetType.NONE;
                 if (ob as Avatar) return E_AssetType.NONE;
-                Debug.LogError("CheckObject:" + ob.name + "_" + object_type);
+                Debug.LogError("CheckObject:" + ob.name + "_" + objectType);
                 return E_AssetType.NONE;
             }
 
             // 内建资源
-            string asset_path = AssetDatabase.GetAssetPath(ob);
-            if (string.IsNullOrEmpty(asset_path))
+            string assetPath = AssetDatabase.GetAssetPath(ob);
+            if (string.IsNullOrEmpty(assetPath))
             {
-                return analyze_map[object_type];
+                return _analyzeMap[objectType];
             }
 
-            in_built = true;
+            inBuilt = true;
             //assetbundle_file_info.in_built = true;
             if (ob as Mesh) // 先排除掉网格的内建资源
                 return E_AssetType.NONE;
@@ -87,7 +87,7 @@ namespace SummerEditor
             {
                 //Debug.LogError("使用了内建的资源" + asset_path + "_____" + object_type + "______" + assetbundle_file_info.ab_name);
             } 
-            return analyze_map[object_type];
+            return _analyzeMap[objectType];
         }
 
         #endregion
@@ -97,7 +97,7 @@ namespace SummerEditor
         #region Mesh 网格 
 
         public static List<KeyValuePair<string, System.Object>> AnalyzeMesh(Object obj,
-             SerializedObject serialized_object)
+             SerializedObject serializedObject)
         {
             Mesh mesh = obj as Mesh;
             Debug.AssertFormat(mesh != null, "类型不对", obj.name);
@@ -117,17 +117,17 @@ namespace SummerEditor
         #region Material 材质球
 
         public static List<KeyValuePair<string, System.Object>> AnalyzeMaterial(Object obj,
-             SerializedObject serialized_object)
+             SerializedObject serializedObject)
         {
             var propertys = new List<KeyValuePair<string, object>>();
 
 
-            string tex_names = string.Empty;
+            string texNames = string.Empty;
 
-            var property = serialized_object.FindProperty("m_Shader");
+            var property = serializedObject.FindProperty("m_Shader");
             propertys.Add(new KeyValuePair<string, object>("依赖Shader", property.objectReferenceValue ? property.objectReferenceValue.name : "[其他AB内]"));
 
-            property = serialized_object.FindProperty("m_SavedProperties");
+            property = serializedObject.FindProperty("m_SavedProperties");
             var property2 = property.FindPropertyRelative("m_TexEnvs");
             foreach (SerializedProperty property3 in property2)
             {
@@ -136,29 +136,30 @@ namespace SummerEditor
 
                 if (property5.objectReferenceValue)
                 {
-                    if (!string.IsNullOrEmpty(tex_names))
+                    if (!string.IsNullOrEmpty(texNames))
                     {
-                        tex_names += ", ";
+                        texNames += ", ";
                     }
-                    tex_names += property5.objectReferenceValue.name;
+                    texNames += property5.objectReferenceValue.name;
                 }
                 else
                 {
-                    if (!string.IsNullOrEmpty(tex_names))
+                    if (!string.IsNullOrEmpty(texNames))
                     {
-                        tex_names += ", ";
+                        texNames += ", ";
                     }
-                    tex_names += "[其他AB内]";
+                    texNames += "[其他AB内]";
                 }
             }
-            propertys.Add(new KeyValuePair<string, object>("依赖纹理", tex_names));
+            propertys.Add(new KeyValuePair<string, object>("依赖纹理", texNames));
             Material mat = obj as Material;
-            MaterialProperty[] pro_tes = MaterialEditor.GetMaterialProperties(new Object[] { obj });
-            for (int i = 0; pro_tes != null && i < pro_tes.Length; ++i)
+            MaterialProperty[] proTes = MaterialEditor.GetMaterialProperties(new Object[] { obj });
+            for (int i = 0; proTes != null && i < proTes.Length; ++i)
             {
-                if (pro_tes[i].type == MaterialProperty.PropType.Texture)
+                if (proTes[i].type == MaterialProperty.PropType.Texture)
                 {
-                    Texture tex = mat.GetTexture(pro_tes[i].name);
+                    if (mat == null)continue;
+                    Texture tex = mat.GetTexture(proTes[i].name);
                     string path = AssetDatabase.GetAssetPath(tex);
                 }
             }
