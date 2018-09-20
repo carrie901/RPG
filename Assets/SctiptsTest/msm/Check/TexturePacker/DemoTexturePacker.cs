@@ -33,7 +33,7 @@ public class DemoTexturePacker : MonoBehaviour
 
     public List<Image> _imgs;
     public TexturePacker _texPacker;
-
+    public Texture2D MainTex;
     public bool flagDis = false;
 
     #endregion
@@ -44,17 +44,26 @@ public class DemoTexturePacker : MonoBehaviour
     void Start()
     {
         _texPacker = new TexturePacker();
+        List<Texture2D> tmp = new List<Texture2D>();
         for (int i = 1; i < 16; i++)
         {
             Texture2D tex = AssetDatabase.LoadAssetAtPath<Texture2D>(string.Format("Assets/res_bundle/icon/Buff/{0:00}.png", i));
             _texPacker.AddTexture2D(tex);
+            tmp.Add(tex);
         }
         _texPacker.PackerTexture();
-
+        for (int i = tmp.Count - 1; i >= 0; i--)
+        {
+            Texture2D tex = tmp[i];
+            tmp.RemoveAt(i);
+            Resources.UnloadAsset(tex);
+        }
         for (int i = 0; i < _imgs.Count; i++)
         {
             _imgs[i].sprite = _texPacker.GetSprite(string.Format("{0:00}", (i + 1)));
         }
+
+        MainTex = _texPacker._mainTex;
     }
 
     // Update is called once per frame
