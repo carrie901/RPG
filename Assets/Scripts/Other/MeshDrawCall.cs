@@ -104,7 +104,7 @@ namespace Summer
         {
             // 合并子纹理
             _combineTex = new Texture2D(1024, 1024, TextureFormat.ARGB32, false);
-            _combineTex.alphaIsTransparency = true;
+            //_combineTex.alphaIsTransparency = true;
             _combineTex.filterMode = FilterMode.Bilinear;
             //_combineTex.dimension = TextureDimension.Tex2D;
 
