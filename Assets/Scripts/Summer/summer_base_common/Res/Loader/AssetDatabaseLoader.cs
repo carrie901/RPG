@@ -37,9 +37,9 @@ namespace Summer
 
         public bool UnloadAssetBundle(AssetInfo assetInfo)
         {
-            Object obj = assetInfo.GetAsset<Object>();
-            if (obj == null) return false;
-            Resources.UnloadAsset(obj);
+            //Object obj = assetInfo.GetAsset<Object>();
+            //if (obj == null) return false;
+            //Resources.UnloadAsset(obj);
             return true;
         }
 
