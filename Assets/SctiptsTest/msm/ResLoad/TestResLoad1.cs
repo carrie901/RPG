@@ -58,13 +58,14 @@ public class TestResLoad1 : MonoBehaviour
     {
         if (!flag1) return;
         flag1 = false;
-        ResRequestInfo info = ResRequestFactory.CreateRequest<GameObject>("");
+        ResRequestInfo info = ResRequestFactory.CreateRequest<GameObject>("res_bundle/prefab/ui/PanelMain.prefab");
         ResLoader.instance.LoadAssetAsync<GameObject>(info, Check1Callback);
     }
 
     private void Check1Callback(GameObject go)
     {
-
+        GameObject insGo = GameObject.Instantiate(go);
+        GameObjectHelper.SetParent(insGo, gameObject);
     }
 
     public bool flag2;
