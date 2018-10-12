@@ -55,8 +55,8 @@ namespace Summer
 
         protected override bool Update()
         {
-            if (_packageCnf == null) return false;
-            if (!_packageCnf.IsDone()) return false;
+            if (_request == null) return false;
+            //if (!_packageCnf.IsDone()) return false;
             return _request.isDone;
         }
 
@@ -64,10 +64,7 @@ namespace Summer
         {
             if (_assetInfo == null)
             {
-                Object[] objs = _request.allAssets;
-                _packageCnf.RefParent(_parentPath);
-                _packageCnf.InitAssetBundle(_assetbundle, objs);
-                _assetInfo = _packageCnf.GetAsset(_resPath);
+                AssetBundleLoader.Instance.InitAssetBundleInfo(_assetbundle, _packageCnf);
             }
         }
 

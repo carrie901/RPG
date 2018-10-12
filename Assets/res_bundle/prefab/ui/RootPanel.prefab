@@ -702,11 +702,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab01698a305c3e4ca45f541349257c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel_canvas: {fileID: 224578552843395852}
-  dialog_canvas: {fileID: 224900599762011292}
-  spec_canvas: {fileID: 224677209654106402}
-  message_canvas: {fileID: 224028399249375452}
-  lock_canvas: {fileID: 1472550197824532}
+  _panelCanvas: {fileID: 224578552843395852}
+  _dialogCanvas: {fileID: 224900599762011292}
+  _specCanvas: {fileID: 224677209654106402}
+  _messageCanvas: {fileID: 224028399249375452}
+  _lockCanvas: {fileID: 1472550197824532}
 --- !u!114 &114394229155983968
 MonoBehaviour:
   m_ObjectHideFlags: 1

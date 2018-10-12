@@ -85,10 +85,11 @@ namespace SummerEditor
 
             _texShowTable = new TableView(win, typeof(TextureFormatInfo));
             _texShowTable.OnSelected += OnInfoSelected;
-            _texShowTable.AddColumn("Path", "路径", 0.45f, TextAnchor.MiddleLeft);
+            _texShowTable.AddColumn("Path", "路径", 0.35f, TextAnchor.MiddleLeft);
             _texShowTable.AddColumn("MemSize", "内存占用", 0.05f, TextAnchor.MiddleCenter, "<fmt_bytes>");
             _texShowTable.AddColumn("ReadWriteEnable", "R/W", 0.05f);
             _texShowTable.AddColumn("MipmapEnable", "Mipmap", 0.05f);
+            _texShowTable.AddColumn("IsSpriteTag", "图集(和Format冲突)", 0.1f);
             _texShowTable.AddColumn("AndroidFormat", "AndroidFormat", 0.1f);
             _texShowTable.AddColumn("IosFormat", "IosFormat", 0.1f);
             _texShowTable.AddColumn("ImportType", "纹理格式", 0.1f);
@@ -119,7 +120,8 @@ namespace SummerEditor
             for (int i = 0; i < length; i++)
             {
                 if (!EPathHelper.IsTexture(pathList[i])) continue;
-                _shows.Add(TextureFormatInfo.Create(pathList[i]));
+                var tmp = TextureFormatInfo.Create(pathList[i]);
+                _shows.Add(tmp);
             }
             _texShowTablePanel.RefreshData(_shows);
             _formatRule = null;
@@ -178,7 +180,8 @@ namespace SummerEditor
             for (int i = 0; i < length; i++)
             {
                 if (!EPathHelper.IsTexture(pathList[i])) continue;
-                _shows.Add(TextureFormatInfo.Create(pathList[i]));
+                var tmp = TextureFormatInfo.Create(pathList[i]);
+                _shows.Add(tmp);
             }
             _texShowTablePanel.RefreshData(_shows);
         }

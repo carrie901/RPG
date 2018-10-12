@@ -18,6 +18,12 @@ using UnityEngine.UI;
 /// 等相关问题
 /// 
 /// 那么针对资源具体的卸载。就需要根据不同类型资源不同的卸载策略了。所以quanming这个不一定是bug问题
+/// 
+/// TODO 2018.10.12
+///     基本的资源工具 一般需要3层
+///     1. 顶层，针对不同的资源有不同的资源策略，类似缓存池、Sprite的LRU算法
+///     2. 中层的Resloader 资源加载，缓存最大加载限制，同时加载限制等等，不用关心到底是Resource/AssetDataBase/AssetBundle
+///     3. Resource/AssetDataBase/AssetBundle 这一层 基本上忽略本地加载/和Resources 关注下AssetBundle的缓存
 /// </summary>
 public class ResManager : I_ResManager
 {

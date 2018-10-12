@@ -40,9 +40,6 @@ namespace Summer
         public static string ResDirectory = "res_bundle";                                              // 存放主资源的目录
         public static string AbResDirectory = AssetbundleMainDirectory + ResDirectory + "/";
 
-
-
-
         /// <summary>
         /// Ab资源的主目录，区别于依赖目录，这个目录下的所有资源都是主资源
         /// </summary>
@@ -61,5 +58,4 @@ namespace Summer
             return Application.streamingAssetsPath + "/rpg/";
         }
     }
-
 }

@@ -34,6 +34,6 @@ public class Main : MonoBehaviour
     void Start()
     {
         //Debug.logger.logEnabled = false;
-        AppFacade.Startup();//启动游戏
+        //AppFacade.Startup();//启动游戏
     }
 }

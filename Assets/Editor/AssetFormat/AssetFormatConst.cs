@@ -30,7 +30,7 @@ namespace SummerEditor
 
         public const string PLATFORM_ANDROID = "Android";
         public const string PLATFORM_IOS = "iPhone";
-        public const string PLATFORM_STANDALONES = "Standalones";
+        //public const string PLATFORM_STANDALONES = "Standalones";
 
         #endregion
 

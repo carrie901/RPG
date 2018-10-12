@@ -3,6 +3,9 @@ using Summer;
 using Object = UnityEngine.Object;
 
 
+/// <summary>
+/// TODO 需要剔除的部分，这部分应该是属于外部内容，不同的项目GameResType类型也不一样
+/// </summary>
 public enum E_GameResType
 {
     NONE = 0,

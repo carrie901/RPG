@@ -354,6 +354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f802f5313871c4498369be23bd5e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _iid: 0
+  _viewId: 0
   _back_btn: {fileID: 114619058020738346}
   _alert_btn: {fileID: 114171629761687452}
 --- !u!222 &222266015143675152

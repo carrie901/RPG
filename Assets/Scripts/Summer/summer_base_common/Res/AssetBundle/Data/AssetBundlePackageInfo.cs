@@ -37,14 +37,13 @@ namespace Summer
         public AssetBundle _assetbundle;
         //TODO 不用Map用List的缘故是有可能出现重名但类型不一致的Object
         public List<AssetInfo> _assetMap = new List<AssetInfo>();
-        public int RefCount { get; private set; }
-#if LOG
-        public List<string> _refList = new List<string>(8);
-#endif
+
+        //public int RefCount { get; private set; }
+
         public AssetBundlePackageInfo(AssetBundlePackageCnf cnf)
         {
             _cnf = cnf;
-            RefCount = 0;
+            //RefCount = 0;
         }
 
         public bool InitAssetBundle(AssetBundle ab, Object[] objs)
@@ -79,15 +78,20 @@ namespace Summer
             return reAssetInfo;
         }
 
-        public void UnLoad()
+        public bool UnLoad()
         {
-            ResLog.Log("[{0}]引用--,Ref:[{1}]", _cnf.PackagePath, RefCount);
-            if (RefCount > 0) return;
-
             LogManager.Assert(_assetbundle != null, "AssetBundlePackageInfo UnLoad. AssetBundle不能为空:[{0}]", _cnf.PackagePath);
-            if (_assetbundle == null) return;
+            if (_assetbundle == null) return false;
 
+            // 儿子们没有引用，并且上头爸爸也不在了
             int length = _assetMap.Count;
+            for (int i = 0; i < length; i++)
+            {
+                if (_assetMap[i].RefCount != 0)
+                    return false;
+            }
+
+            length = _assetMap.Count;
             for (int i = 0; i < length; i++)
             {
                 _assetMap[i].UnLoad();
@@ -96,27 +100,7 @@ namespace Summer
             _assetbundle.Unload(true);
             _assetbundle = null;
             _cnf = null;
-        }
-
-        public void RefParent(string parentPath)
-        {
-            if (string.IsNullOrEmpty(parentPath)) return;
-#if LOG
-            if (_refList.Contains(parentPath)) return;
-            _refList.Add(parentPath);
-#endif
-            RefCount++;
-        }
-
-        public void UnRefParent(string parentPath)
-        {
-            if (string.IsNullOrEmpty(parentPath)) return;
-#if LOG
-            ResLog.Assert(_refList.Contains(parentPath), "AssetBundlePackageInfo UnRef 不包含这个引用[{0}]", parentPath);
-            if (!_refList.Contains(parentPath)) return;
-            _refList.Remove(parentPath);
-#endif
-            RefCount--;
+            return true;
         }
     }
 

@@ -14,24 +14,12 @@ namespace Summer
     {
         //资源对象  
         public Object _object;
+        /// <summary>
+        /// 资源的相对路径 Raw/xx/xx
+        /// </summary>
         public string ResPath { get; private set; }                                     // 路径  
         //public string ResName { get; private set; }                                   // 名字
-        public int RefCount { get; set; }                                               // 读取次数  
-
-        /*public AssetInfo(Object obj, ResRequestInfo resInfo)
-        {
-            _object = obj;
-            ResPath = resInfo.ResPath;
-            RefCount = 0;
-        }*/
-
-        /*public AssetInfo(Object obj, string resName, string resPath)
-        {
-            _object = obj;
-            ResPath = resPath;
-            RefCount = 0;
-            ResLog.Assert(!string.IsNullOrEmpty(ResPath), "名字有异常:[{0}]", _object);
-        }*/
+        public int RefCount { get; private set; }                                               // 读取次数  
 
         public AssetInfo(Object obj, string resPath)
         {
@@ -54,6 +42,7 @@ namespace Summer
             {
                 ResLog.Error("AssetInfo Error,Object 类型不对.Path:[{0}],提取类型:[{1}],实际类型:[{2}]", ResPath, typeof(T), _object);
             }
+            RefCount++;
             return t;
         }
 
@@ -64,8 +53,12 @@ namespace Summer
 
         public void UnLoad()
         {
-            _object = null;
+            RefCount--;
+        }
 
+        public void UnLoadReal()
+        {
+            _object = null;
         }
     }
 }

@@ -6,21 +6,15 @@ namespace Summer
     /// <summary>
     /// AssetBundle的依赖信息
     /// </summary>
-    public class AssetBundleDepInfo
+    public class AssetBundleDepCnf
     {
-        public string AssetBundleName { get { return _assetbundleName; } }                          // 主ab的名字 full path res_bundle/../..
+        public string AssetBundleName { get; private set; }                          // 主ab的名字 full path res_bundle/../..
         public int _depCount;                                                                       // 依赖个数
         public Dictionary<string, int> _childRef = new Dictionary<string, int>();                   // 儿子有谁 依赖配置表已经确定了
-        public string _assetbundleName;
-
-        public AssetBundleDepInfo()
-        {
-
-        }
 
         public void InitInfo(string[] infos)
         {
-            _assetbundleName = infos[0];
+            AssetBundleName = infos[0];
             _depCount = infos[1].ToInt();
             for (int i = 2; i < infos.Length; i++)
             {
@@ -33,7 +27,7 @@ namespace Summer
 
         public void InitInfo(BinaryReader br)
         {
-            _assetbundleName = br.ReadString();
+            AssetBundleName = br.ReadString();
             _depCount = br.ReadInt32();
             if (_depCount == 0) return;
 

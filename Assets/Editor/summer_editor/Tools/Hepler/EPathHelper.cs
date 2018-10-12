@@ -40,11 +40,11 @@ namespace SummerEditor
         /// </summary>
         public static string AbsoluteToRelativePathWithAssets(string path)
         {
-            string tmp_path = NormalizePath(path);
-            int index = tmp_path.IndexOf(_assetDirectory, StringComparison.Ordinal);
+            string tmpPath = NormalizePath(path);
+            int index = tmpPath.IndexOf(_assetDirectory, StringComparison.Ordinal);
             if (index >= 0)
             {
-                string result = tmp_path.Substring(index);
+                string result = tmpPath.Substring(index);
                 return result;
             }
             else
@@ -60,10 +60,10 @@ namespace SummerEditor
         public static string AbsoluteToRelativePathRemoveAssets(string path)
         {
             path = NormalizePath(path);
-            int last_idx = path.LastIndexOf(_assetDirectory, StringComparison.Ordinal);
-            if (last_idx >= 0)
+            int lastIdx = path.LastIndexOf(_assetDirectory, StringComparison.Ordinal);
+            if (lastIdx >= 0)
             {
-                int start = last_idx + _assetDirectory.Length;
+                int start = lastIdx + _assetDirectory.Length;
                 int length = path.Length - start;
                 string result = path.Substring(start, length);
                 return result;
@@ -81,27 +81,27 @@ namespace SummerEditor
         /// </summary>
         public static string RemoveSuffix(string path)
         {
-            int last_idx = path.LastIndexOf(".", StringComparison.Ordinal);
-            if (last_idx < 0)
+            int lastIdx = path.LastIndexOf(".", StringComparison.Ordinal);
+            if (lastIdx < 0)
                 return path;
-            path = path.Substring(0, last_idx);
+            path = path.Substring(0, lastIdx);
             return path;
         }
 
         /// <summary>
         /// 去掉Assets/和后缀的路径
         /// </summary>
-        public static string RemoveAssetsAndSuffixforPath(string file_path)
+        public static string RemoveAssetsAndSuffixforPath(string filePath)
         {
-            string tmp_path = NormalizePath(file_path);
-            int last_idx = tmp_path.IndexOf(_assetDirectory, StringComparison.Ordinal);
-            if (last_idx >= 0)
+            string tmpPath = NormalizePath(filePath);
+            int lastIdx = tmpPath.IndexOf(_assetDirectory, StringComparison.Ordinal);
+            if (lastIdx >= 0)
             {
-                int start = last_idx + _assetDirectory.Length;
-                tmp_path = tmp_path.Substring(start);
+                int start = lastIdx + _assetDirectory.Length;
+                tmpPath = tmpPath.Substring(start);
             }
 
-            return RemoveSuffix(tmp_path);
+            return RemoveSuffix(tmpPath);
         }
 
         //标准化路径 把绝对路径的符号转成相对路径的符号
@@ -128,9 +128,9 @@ namespace SummerEditor
         /// <summary>
         /// 得到Asset目录下的资源，剔除掉meta文件，并且格式转成Asset\格式
         /// </summary>
-        public static List<string> GetAssetsPath(string root_path, bool deep, string suffix = "*.*")
+        public static List<string> GetAssetsPath(string rootPath, bool deep, string suffix = "*.*")
         {
-            List<string> ret = GetFilesPath(root_path, deep, suffix);
+            List<string> ret = GetFilesPath(rootPath, deep, suffix);
             for (int i = 0; i < ret.Count; ++i)
             {
                 ret[i] = AbsoluteToRelativePathWithAssets(ret[i]);
@@ -139,10 +139,10 @@ namespace SummerEditor
             return ret;
         }
 
-        public static List<string> GetFilesPath(string root_path, bool deep, string suffix = "*.*")
+        public static List<string> GetFilesPath(string rootPath, bool deep, string suffix = "*.*")
         {
             List<string> ret = new List<string>();
-            ScanDirectoryFile(root_path, deep, ret, suffix);
+            ScanDirectoryFile(rootPath, deep, ret, suffix);
             NoEndsWithFilter filter = new NoEndsWithFilter(".meta");
             SuffixHelper.Filter(ret, filter);
             return ret;
@@ -159,8 +159,8 @@ namespace SummerEditor
                 return;
             }
 
-            DirectoryInfo dir_info = new DirectoryInfo(root);
-            FileInfo[] files = dir_info.GetFiles(suffix);
+            DirectoryInfo dirInfo = new DirectoryInfo(root);
+            FileInfo[] files = dirInfo.GetFiles(suffix);
             int length = files.Length;
             for (int i = 0; i < length; ++i)
             {
@@ -169,7 +169,7 @@ namespace SummerEditor
 
             if (deep)
             {
-                DirectoryInfo[] dirs = dir_info.GetDirectories();
+                DirectoryInfo[] dirs = dirInfo.GetDirectories();
                 length = dirs.Length;
                 for (int i = 0; i < length; ++i)
                 {
@@ -183,38 +183,42 @@ namespace SummerEditor
         /// </summary>
         public static string GetDirectory(string path)
         {
-            string normailze_path = NormalizePath(path);
-            int index = normailze_path.LastIndexOf("/", StringComparison.Ordinal);
-            if (index >= 0)
-            {
-                string result = normailze_path.Substring(0, index);
-                return result;
-            }
-            else
-            {
-                Debug.Log("查询目录失败:" + path);
-                return path;
-            }
+            string normailzePath = NormalizePath(path);
+            int index = normailzePath.LastIndexOf("/", StringComparison.Ordinal);
+            Debug.Assert(index >= 0, "GetDirectory Error");
+            string result = normailzePath.Substring(0, index);
+            return result;
         }
 
-        public static string GetName(string file_path)
+        /// <summary>
+        /// 得到最近的目录
+        /// </summary>
+        public static string GetDirectoryLast(string path)
         {
-            file_path = NormalizePath(file_path);
-            int index = file_path.LastIndexOf('/');
-            if (index < 0)
-                return file_path;
-            else
-                return file_path.Substring(index);
+            string normailzePath = NormalizePath(path);
+            string[] names = normailzePath.Split('/');
+            Debug.Assert(names.Length >= 2, "GetDirectoryLast Error");
+            return names[names.Length - 2];
         }
 
-        public static string GetName1(string file_path)
+        public static string GetName(string filePath)
         {
-            file_path = NormalizePath(file_path);
-            int index = file_path.LastIndexOf('/');
+            filePath = NormalizePath(filePath);
+            int index = filePath.LastIndexOf('/');
             if (index < 0)
-                return file_path;
+                return filePath;
             else
-                return file_path.Substring(index + 1);
+                return filePath.Substring(index);
+        }
+
+        public static string GetName1(string filePath)
+        {
+            filePath = NormalizePath(filePath);
+            int index = filePath.LastIndexOf('/');
+            if (index < 0)
+                return filePath;
+            else
+                return filePath.Substring(index + 1);
         }
 
 

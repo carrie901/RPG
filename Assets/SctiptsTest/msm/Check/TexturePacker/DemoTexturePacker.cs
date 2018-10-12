@@ -43,6 +43,50 @@ public class DemoTexturePacker : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        DisposeTex();
+        Render2();
+        Render1();
+    }
+
+    #endregion
+
+    #region Public
+
+
+
+    #endregion
+
+    #region Private Methods
+
+    private void DisposeTex()
+    {
+        if (flagDis)
+        {
+            flagDis = false;
+            _texPacker.Dispose();
+        }
+    }
+
+    public bool _flag2;
+    public CameraRenderTexture _camRender;
+    public void Render2()
+    {
+        if (!_flag2) return;
+        _flag2 = false;
+        _camRender.RenderCamera();
+    }
+
+    public bool _flag1;
+    public void Render1()
+    {
+        if (!_flag1) return;
+        _flag1 = false;
         _texPacker = new TexturePacker();
         List<Texture2D> tmp = new List<Texture2D>();
         for (int i = 1; i < 16; i++)
@@ -65,32 +109,6 @@ public class DemoTexturePacker : MonoBehaviour
 
         MainTex = _texPacker._mainTex;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        DisposeTex();
-    }
-
-    #endregion
-
-    #region Public
-
-
-
-    #endregion
-
-    #region Private Methods
-
-    private void DisposeTex()
-    {
-        if (flagDis)
-        {
-            flagDis = false;
-            _texPacker.Dispose();
-        }
-    }
-
 
     #endregion
 }

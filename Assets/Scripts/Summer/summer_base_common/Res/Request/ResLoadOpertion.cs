@@ -28,6 +28,9 @@ namespace Summer
 {
     /// <summary>
     /// 复杂化的有状态机制的LoadOperation
+    /// TODO BUG 需要简化这块模式
+    ///     1.缺少错误信息
+    ///     2.缺少超时机制
     /// </summary>
     public abstract class ResLoadOpertion : LoadOpertion
     {

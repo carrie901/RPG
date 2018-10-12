@@ -36,53 +36,68 @@ namespace SummerEditor
         public bool ReadWriteEnable { get; set; }                           // 可以读写
         public bool MipmapEnable { get; set; }                              // true=开启mip
         public int MaxSize { get; set; }
+        public bool IsSpriteTag { get; set; }
         public TextureImporterFormat IosFormat;
         public TextureImporterFormat AndroidFormat;
         public int Width;
         public int Height;
         public float AndroidSize;
         public float IosSize;
-        private static int m_load_count;
+        private static int LoadCount;
         public static Dictionary<string, TextureFormatInfo> _dictTexInfo = new Dictionary<string, TextureFormatInfo>();
         public static TextureFormatInfo Create(string assetPath)
         {
+            TextureFormatInfo info = GetInfo(assetPath);
+            TextureImporter importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
 
+            Debug.Assert(!(importer == null), "错误的地址:" + assetPath);
+            if (importer == null) return null;
+
+            // 1.初始化纹理格式化信息
+            info.Path = importer.assetPath;
+            info.ImportType = importer.textureType;
+            info.ImportShape = importer.textureShape;
+            info.ReadWriteEnable = importer.isReadable;
+            info.MipmapEnable = importer.mipmapEnabled;
+            info.IsSpriteTag = !string.IsNullOrEmpty(importer.spritePackingTag);
+            info.AndroidFormat = GetPlatformTextureSettings(importer, AssetFormatConst.PLATFORM_ANDROID);
+            info.IosFormat = GetPlatformTextureSettings(importer, AssetFormatConst.PLATFORM_IOS);
+
+            // 计算纹理的大小内存占用
+            Texture texture = AssetDatabase.LoadAssetAtPath<Texture>(assetPath);
+            info.Width = texture.width;
+            info.Height = texture.height;
+            info.AndroidSize = EMemorySizeHelper.CalculateTextureSizeBytes(texture, info.AndroidFormat);
+            info.IosSize = EMemorySizeHelper.CalculateTextureSizeBytes(texture, info.IosFormat);
+            info.MemSize = (int)(Mathf.Max(info.AndroidSize, info.IosSize));
+
+            if (Selection.activeObject != texture)
+            {
+                Resources.UnloadAsset(texture);
+            }
+
+            if (++LoadCount % 256 == 0)
+            {
+                Resources.UnloadUnusedAssets();
+            }
+
+            return info;
+        }
+
+        public static TextureImporterFormat GetPlatformTextureSettings(TextureImporter importer, string platform)
+        {
+            TextureImporterPlatformSettings settingAndroid = importer.GetPlatformTextureSettings(platform);
+            return settingAndroid.format;
+        }
+
+        public static TextureFormatInfo GetInfo(string assetPath)
+        {
             TextureFormatInfo tInfo;
             if (!_dictTexInfo.TryGetValue(assetPath, out tInfo))
             {
                 tInfo = new TextureFormatInfo();
                 _dictTexInfo.Add(assetPath, tInfo);
             }
-            TextureImporter tImport = AssetImporter.GetAtPath(assetPath) as TextureImporter;
-            Texture texture = AssetDatabase.LoadAssetAtPath<Texture>(assetPath);
-            if (tImport == null || texture == null)
-                return null;
-
-            tInfo.Path = tImport.assetPath;
-            tInfo.ImportType = tImport.textureType;
-            tInfo.ImportShape = tImport.textureShape;
-            tInfo.ReadWriteEnable = tImport.isReadable;
-            tInfo.MipmapEnable = tImport.mipmapEnabled;
-            TextureImporterPlatformSettings settingAndroid = tImport.GetPlatformTextureSettings(AssetFormatConst.PLATFORM_ANDROID);
-            tInfo.AndroidFormat = settingAndroid.format;
-            TextureImporterPlatformSettings settingIos = tImport.GetPlatformTextureSettings(AssetFormatConst.PLATFORM_IOS);
-            tInfo.IosFormat = settingIos.format;
-            tInfo.Width = texture.width;
-            tInfo.Height = texture.height;
-            tInfo.AndroidSize = EMemorySizeHelper.CalculateTextureSizeBytes(texture, tInfo.AndroidFormat);
-            tInfo.IosSize = EMemorySizeHelper.CalculateTextureSizeBytes(texture, tInfo.IosFormat);
-            tInfo.MemSize = (int)(Mathf.Max(tInfo.AndroidSize, tInfo.IosSize));
-            
-            if (Selection.activeObject != texture)
-            {
-                Resources.UnloadAsset(texture);
-            }
-
-            if (++m_load_count % 256 == 0)
-            {
-                Resources.UnloadUnusedAssets();
-            }
-
             return tInfo;
         }
     }

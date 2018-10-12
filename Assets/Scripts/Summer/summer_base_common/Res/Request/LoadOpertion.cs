@@ -2,12 +2,6 @@
 
 namespace Summer
 {
-    /// <summary>
-    ///  加载操作
-    /// TODO
-    ///     1.缺少错误信息
-    ///     2.缺少超时机制
-    /// </summary>
     public abstract class LoadOpertion : IEnumerator
     {
         public int _iid;

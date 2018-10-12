@@ -1,24 +1,31 @@
 ﻿
+//
+//                            _ooOoo_
+//                           o8888888o
+//                           88" . "88
+//                           (| -_- |)
+//                           O\  =  /O
+//                        ____/`---'\____
+//                      .'  \\|     |//  `.
+//                     /  \\|||  :  |||//  \
+//                    /  _||||| -:- |||||-  \
+//                    |   | \\\  -  /// |   |
+//                    | \_|  ''\---/''  |   |
+//                    \  .-\__  `-`  ___/-. /
+//                  ___`. .'  /--.--\  `. . __
+//               ."" '<  `.___\_<|>_/___.'  >'"".
+//              | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//              \  \ `-.   \_ __\ /__ _/   .-` /  /
+//         ======`-.____`-.___\_____/___.-`____.-'======
+//                            `=---='
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//                 			 佛祖 保佑             
+                                             
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace Summer
 {
-    public enum E_AssetType
-    {
-        NONE = 0,
-        SCRIPT,         // .cs
-        SHADER,         // .shader or build-in shader with name
-        FONT,           // .ttf
-        TEXTURE,        // .png, .jpg
-        MATERIAL,       // .mat
-        ANIMATION,      // .anim
-        CONTROLLER,     // .controller
-        FBX,            // .fbx
-        TEXTASSET,      // .txt, .bytes
-        PREFAB,         // .prefab
-        UNITY,          // .unity
-        TESHU,
-        MAX
-    }
-
     public enum E_ResErrorCode
     {
         NONE = 0,                                       // 无
@@ -28,10 +35,6 @@ namespace Summer
 
         //Load
         LOAD_MAIN_MANIFEST_FAILED = 101,                // 载入AssetBundleManifest错误
-        LOAD_RESOURCES_MANI_FEST_FAILED = 102,          // 载入ResourcesManifest错误
-        LOAD_RESOURCES_PACKAGES_FAILED = 103,           // 载入ResourcesPackages错误
-        LOAD_NEW_MAIN_MANIFEST_FAILED = 104,            // 载入新的AssetBundleManifest错误
-        LOAD_NEW_RESOURCES_MANI_FEST_FAILED = 105,      // 载入新的ResourcesManifest错误
 
 
         //Find
@@ -47,5 +50,4 @@ namespace Summer
         //PackageDownloader
         INVALID_PACKAGE_NAME = 2001,                    // 无效的包名
     }
-
 }

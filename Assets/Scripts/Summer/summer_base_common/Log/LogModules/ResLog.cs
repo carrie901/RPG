@@ -3,7 +3,21 @@ namespace Summer
 {
     public class ResLog
     {
+        public readonly static bool s_stepLog = false;
+
+        public static void LogSetp(string message)
+        {
+            if (!s_stepLog) return;
+            Log(message);
+        }
+        public static void LogSetp(string message, params object[] args)
+        {
+            if (!s_stepLog) return;
+            Log(message, args);
+        }
+
         #region Log
+
         public static void Log(string message)
         {
             if (!LogManager._openLoadRes) return;

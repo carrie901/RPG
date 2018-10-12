@@ -66,14 +66,15 @@ namespace Summer
 
         public bool UnloadRes(ResRequestInfo resRequest)
         {
-            ResLog.Assert(_cacheRes.ContainsKey(resRequest.ResPath),"ResLoader UnLoadRes 失败,通过[{0}]找不到对应的AssetInfo", resRequest.ResPath);
+            ResLog.Assert(_cacheRes.ContainsKey(resRequest.ResPath), "ResLoader UnLoadRes 失败,通过[{0}]找不到对应的AssetInfo", resRequest.ResPath);
             if (!_cacheRes.ContainsKey(resRequest.ResPath)) return false;
 
             AssetInfo assetInfo = _cacheRes[resRequest.ResPath];
-            _cacheRes.Remove(resRequest.ResPath);
-
+            assetInfo.UnLoad();
             bool result = _loader.UnloadAssetBundle(assetInfo);
-            ResLog.Assert(result, "卸载失败:[{0}]", resRequest.ResPath);
+            if (result)
+                _cacheRes.Remove(assetInfo.ResPath);
+            ResLog.Assert(result, "卸载失败:[{0}]", assetInfo.ResPath);
             return result;
         }
 
@@ -84,14 +85,16 @@ namespace Summer
             while (enumerator.MoveNext())
             {
                 assetInfo = enumerator.Current.Value;
-                _cacheRes.Remove(enumerator.Current.Key);
                 break;
             }
 
             ResLog.Assert(assetInfo != null, "ResLoader UnLoadRes 失败,通过Object:[{0}]找不到对应的AssetInfo", obj.name);
             if (assetInfo == null) return false;
 
+            assetInfo.UnLoad();
             bool result = _loader.UnloadAssetBundle(assetInfo);
+            if (result)
+                _cacheRes.Remove(assetInfo.ResPath);
             ResLog.Assert(result, "卸载失败:[{0}]", assetInfo.ResPath);
             return result;
         }
@@ -155,21 +158,21 @@ namespace Summer
 
         public void RefIncrease(string resPath)
         {
-            if (!_cacheRes.ContainsKey(resPath)) return;
+            /*if (!_cacheRes.ContainsKey(resPath)) return;
             // 1.找到资源
             AssetInfo assetInfo = _cacheRes[resPath];
             // 2.引用+1
-            assetInfo.RefCount++;
+            assetInfo.RefCount++;*/
         }
 
         public void RefDecrease(string resPath)
         {
-            if (!_cacheRes.ContainsKey(resPath)) return;
+            /*if (!_cacheRes.ContainsKey(resPath)) return;
             // 1.找到资源
             AssetInfo assetInfo = _cacheRes[resPath];
             // 2.引用-1
             assetInfo.RefCount--;
-            ResLog.Assert(assetInfo.RefCount >= 0, "引用计数错误:[{0}]，Ref Count:[{1}]", resPath, assetInfo.RefCount);
+            ResLog.Assert(assetInfo.RefCount >= 0, "引用计数错误:[{0}]，Ref Count:[{1}]", resPath, assetInfo.RefCount);*/
         }
 
         #endregion
@@ -247,7 +250,7 @@ namespace Summer
         #endregion
 
         //从缓存中得到
-        private T PopAssetForCache<T>(ResRequestInfo resRequest) where T : UnityEngine.Object
+        private T PopAssetForCache<T>(ResRequestInfo resRequest) where T : Object
         {
             AssetInfo assetInfo;
             _cacheRes.TryGetValue(resRequest.ResPath, out assetInfo);
