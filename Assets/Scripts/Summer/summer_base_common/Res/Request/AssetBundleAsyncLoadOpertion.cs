@@ -9,26 +9,26 @@ namespace Summer
     ///     如果针对请求干净化整个类，只提供最终资源的加载
     /// TODO 异步加载的方式，如果先主后依赖，会导致这变成一个同步加载的方式
     /// </summary>
-    public class AssetBundleAsyncLoadOpertion : LoadOpertion
+    public class AssetBundleAsyncLoadOpertion<T> : ResLoadOpertion where T : Object
     {
-        public string _bundlePath;             // 打包成ab的名称
-        public AssetBundleRequest _request;     // AssetBundle的资源加载请求
+        public string _bundlePath;                              // 打包成ab的名称
+        public AssetBundleRequest _request;                     // AssetBundle的资源加载请求
         public AssetBundle _assetbundle;
-        public AssetBundlePackageInfo _packageInfo;
+        public AssetBundlePackageCnf _packageCnf;
         public string _resPath;
         public string _parentPath;
 
         // 0=开始，1=ab头文件异步完成，开始加载内容，2=头文件完成，异步也完成
         //public int ab_state;
 
-        public AssetBundleAsyncLoadOpertion(AssetBundlePackageInfo packageInfo, string resPath, string parentPath)
+        public AssetBundleAsyncLoadOpertion(AssetBundlePackageCnf packageCnf, string resPath, string parentPath)
         {
-            if (packageInfo != null)
+            if (packageCnf != null)
             {
                 _resPath = resPath;
-                RequestResPath = packageInfo.PackagePath;
-                _packageInfo = packageInfo;
-                _bundlePath = packageInfo.FullPath;
+                RequestResPath = packageCnf.PackagePath;
+                _packageCnf = packageCnf;
+                _bundlePath = packageCnf.FullPath;
             }
             _parentPath = parentPath;
         }
@@ -39,8 +39,7 @@ namespace Summer
         {
             base.UnloadRequest();
             _request = null;
-            _assetbundle = null;
-            _packageInfo = null;
+            _packageCnf = null;
         }
 
 
@@ -56,8 +55,8 @@ namespace Summer
 
         protected override bool Update()
         {
-            if (_packageInfo == null) return false;
-            if (!_packageInfo.IsDone()) return false;
+            if (_packageCnf == null) return false;
+            if (!_packageCnf.IsDone()) return false;
             return _request.isDone;
         }
 
@@ -66,9 +65,9 @@ namespace Summer
             if (_assetInfo == null)
             {
                 Object[] objs = _request.allAssets;
-                _packageInfo.RefParent(_parentPath);
-                _packageInfo.InitAssetBundle(_assetbundle, objs);
-                _assetInfo = _packageInfo.GetAsset(_resPath);
+                _packageCnf.RefParent(_parentPath);
+                _packageCnf.InitAssetBundle(_assetbundle, objs);
+                _assetInfo = _packageCnf.GetAsset(_resPath);
             }
         }
 

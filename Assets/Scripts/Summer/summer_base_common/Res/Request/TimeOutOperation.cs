@@ -21,19 +21,42 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using System;
 using UnityEngine;
-using Summer;
-public class Main : MonoBehaviour
-{
-    void Awake()
-    {
-        UpdateGameObject.Instance.OnInit();
-    }
 
-    void Start()
+namespace Summer
+{
+    public class TimeOutOperation : LoadOpertion
     {
-        //Debug.logger.logEnabled = false;
-        AppFacade.Startup();//启动游戏
+        public float _timeOut;                     // 超时时间
+        public float _loadTime;                    // 已经加载的时间
+
+        public TimeOutOperation(float timeOut)
+        {
+            _loadTime = 0;
+            _timeOut = timeOut;
+        }
+
+        public override void OnUpdate()
+        {
+            _loadTime += Time.timeScale * Time.deltaTime;
+        }
+
+        /// <summary>
+        /// 是否加载完成
+        /// </summary>
+        public override bool IsDone() { return _loadTime > _timeOut; }
+
+        public void OnReset(float timeOut)
+        {
+            _timeOut = timeOut;
+            _loadTime = 0;
+        }
+
+        public void OnReset()
+        {
+            OnReset(_timeOut);
+        }
     }
 }
+
+

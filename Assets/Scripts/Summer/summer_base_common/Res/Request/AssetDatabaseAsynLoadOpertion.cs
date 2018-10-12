@@ -1,26 +1,20 @@
 ﻿#if UNITY_EDITOR
+using System;
 using Object = UnityEngine.Object;
 
 namespace Summer
 {
-    public class AssetDatabaseAsynLoadOpertion : LoadOpertion
+    public class AssetDatabaseAsynLoadOpertion<T> : ResLoadOpertion where T : Object
     {
-        private int _frame = 3;
-        private Object _obj;
-        private AssetInfo _asetInfo;
+        private int _frame = 1;
+        private T _obj;
         public AssetDatabaseAsynLoadOpertion(string path)
         {
             RequestResPath = path;
+            _frame = UnityEngine.Random.Range(1, 10);
         }
 
         #region public 
-
-        public override void UnloadRequest()
-        {
-            base.UnloadRequest();
-            _obj = null;
-            _asetInfo = null;
-        }
 
         #region 生命周期
 
@@ -34,10 +28,7 @@ namespace Summer
             _frame--;
             if (_frame > 0) return false;
 
-
-
-
-            _obj = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(RequestResPath);
+            _obj = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(RequestResPath);
             if (_obj != null)
             {
                 return true;
@@ -48,14 +39,13 @@ namespace Summer
                 ForceExit(string.Format("本地加载资源出错,Path:[{0}]", RequestResPath));
                 return false;
             }
-
         }
 
         protected override void Complete()
         {
-            if (_asetInfo == null)
+            if (_assetInfo == null)
             {
-                _asetInfo = new AssetInfo(_obj, RequestResPath);
+                _assetInfo = new AssetInfo(_obj, RequestResPath);
             }
         }
 

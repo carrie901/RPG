@@ -21,19 +21,15 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using System;
-using UnityEngine;
-using Summer;
-public class Main : MonoBehaviour
+namespace Summer
 {
-    void Awake()
-    {
-        UpdateGameObject.Instance.OnInit();
-    }
 
-    void Start()
+    public class MaxAsyncCountOpertion : LoadOpertion
     {
-        //Debug.logger.logEnabled = false;
-        AppFacade.Startup();//启动游戏
+        public override bool IsDone()
+        {
+            bool result = ResLoader.instance.CanAsynLoad();
+            return result;
+        }
     }
 }

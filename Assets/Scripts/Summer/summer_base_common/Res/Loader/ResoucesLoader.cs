@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Summer
@@ -8,12 +7,9 @@ namespace Summer
     {
         public static ResoucesLoader instance = new ResoucesLoader();
 
-        public Dictionary<string, int> _loading =
-            new Dictionary<string, int>();
-
         #region I_ResourceLoad
 
-        public AssetInfo LoadAsset(string resPath)
+        public AssetInfo LoadAsset<T>(string resPath) where T : Object
         {
             Object obj = Resources.Load(resPath);
             ResLog.Assert(obj != null, "ResoucesLoader 加载失败:[{0}]", resPath);
@@ -21,9 +17,7 @@ namespace Summer
             return info;
         }
 
-        public void LoadSyncChildRes(string resPath) { }
-
-        public LoadOpertion LoadAssetAsync(string resPath)
+        public ResLoadOpertion LoadAssetAsync<T>(string resPath) where T : Object
         {
             ResAsynLoadOpertion resOpertion = new ResAsynLoadOpertion(resPath);
             return resOpertion;
@@ -31,15 +25,13 @@ namespace Summer
 
         public bool UnloadAssetBundle(AssetInfo assetInfo)
         {
+            if (assetInfo == null) return false;
             Object obj = assetInfo.GetAsset<Object>();
             if (obj == null) return false;
             Resources.UnloadAsset(obj);
             return true;
         }
-        public bool UnLoadChildRes(AssetInfo assetInfo)
-        {
-            return true;
-        }
+
         public void OnUpdate()
         {
 

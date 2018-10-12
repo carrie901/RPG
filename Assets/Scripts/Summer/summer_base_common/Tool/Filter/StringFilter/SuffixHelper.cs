@@ -34,6 +34,5 @@ namespace Summer
                     files.RemoveAt(i);
             }
         }
-
     }
 }

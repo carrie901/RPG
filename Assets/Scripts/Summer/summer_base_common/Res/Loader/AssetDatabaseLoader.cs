@@ -8,25 +8,23 @@ namespace Summer
     public class AssetDatabaseLoader : I_ResourceLoad
     {
         public static AssetDatabaseLoader instance = new AssetDatabaseLoader();
-        public const string EVN = "Assets/";
+        public const string EVN = "";//"Assets/";
 
 
         #region I_ResourceLoad
 
-        public AssetInfo LoadAsset(string resPath)
+        public AssetInfo LoadAsset<T>(string resPath) where T : Object
         {
-            Object obj = AssetDatabase.LoadAssetAtPath<Object>(EVN + resPath);
+            T obj = AssetDatabase.LoadAssetAtPath<T>(EVN + resPath);
 
             ResLog.Assert(obj != null, "AssetDatabaseLoader 加载失败:[{0}]", resPath);
             AssetInfo info = new AssetInfo(obj, resPath);
             return info;
         }
 
-        public void LoadSyncChildRes(string resPath) { }
-
-        public LoadOpertion LoadAssetAsync(string resPath)
+        public ResLoadOpertion LoadAssetAsync<T>(string resPath) where T : Object
         {
-            AssetDatabaseAsynLoadOpertion asynLocal = new AssetDatabaseAsynLoadOpertion(EVN + resPath);
+            AssetDatabaseAsynLoadOpertion<T> asynLocal = new AssetDatabaseAsynLoadOpertion<T>(EVN + resPath);
             return asynLocal;
         }
 
@@ -40,11 +38,6 @@ namespace Summer
             //Object obj = assetInfo.GetAsset<Object>();
             //if (obj == null) return false;
             //Resources.UnloadAsset(obj);
-            return true;
-        }
-
-        public bool UnLoadChildRes(AssetInfo assetInfo)
-        {
             return true;
         }
 

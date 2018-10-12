@@ -96,8 +96,6 @@ namespace Summer
             return false;
         }
 
-        
-
         public static void WriteTxtByFile(string srtPath, string content)
         {
             FileInfo fib = new FileInfo(srtPath);

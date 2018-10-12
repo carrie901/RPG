@@ -22,14 +22,15 @@ namespace Summer
 
         public static string LoadAsset(string assetName)
         {
-            string configPath = AssetBundleConst.GetAbResDirectory() + assetName;
+            /*string configPath = AssetBundleConst.GetAbResDirectory() + assetName;
             AssetBundle ab = AssetBundle.LoadFromFile(configPath);
             Object obj = ab.LoadAllAssets()[0];
             TextAsset textasset = obj as TextAsset;
             string result = textasset.text;
             ab.Unload(true);
             ab = null;
-            return result;
+            return result;*/
+            return string.Empty;
         }
     }
 }

@@ -21,19 +21,23 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using System;
+using System.Collections.Generic;
 using UnityEngine;
-using Summer;
-public class Main : MonoBehaviour
+
+namespace Summer
 {
-    void Awake()
+    public enum E_BuffRelationship
     {
-        UpdateGameObject.Instance.OnInit();
+        NO_ADD,                         // 没有添加
+        ADD_LAYER,                      // 增加层级
+        REFRESH_TIME,                   // 刷新时间
+        COVER,                          // 覆盖
     }
 
-    void Start()
+    public interface I_BuffRelationship
     {
-        //Debug.logger.logEnabled = false;
-        AppFacade.Startup();//启动游戏
+        bool ExcuteRelationship(List<BaseBuff> owner, BuffCnf newCnf);
     }
+
 }
+

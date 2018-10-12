@@ -1,17 +1,16 @@
-﻿namespace Summer
+﻿using Object = UnityEngine.Object;
+namespace Summer
 {
     public class W3Loader : I_ResourceLoad
     {
         public static W3Loader instance = new W3Loader();
 
-        public AssetInfo LoadAsset(string resPath)
+        public AssetInfo LoadAsset<T>(string resPath) where T : Object
         {
             return null;
         }
 
-        public void LoadSyncChildRes(string resPath) { }
-
-        public LoadOpertion LoadAssetAsync(string resPath)
+        public ResLoadOpertion LoadAssetAsync<T>(string resPath) where T : Object
         {
             return null;
         }

@@ -70,6 +70,7 @@ namespace Summer
 
         #region Attach & Detach 
 
+        // BUG 2018.10.22 针对Buff之间的关系，抽象出一个接口，
         // 提供给外部 caster(释放buff者)给自身owner添加Buff 处理buff之间的相互关系  重叠/替换/抵消
         public void AttachBuff(BaseEntity caster, int buffId)
         {

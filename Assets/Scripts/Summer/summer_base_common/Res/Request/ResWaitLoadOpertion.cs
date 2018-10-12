@@ -22,46 +22,39 @@ namespace Summer
 
         #region public 
 
-        public override void UnloadRequest()
+        public override void OnUpdate()
         {
+            if (_isComplete) return;
 
-        }
-
-        #region 生命周期
-
-
-        protected override void Init()
-        {
-
-        }
-
-        protected override bool Update()
-        {
             _loadTime += Time.timeScale * Time.deltaTime;
-            // 1.超时就强制性质完成
+
+            // 1.处于加载状态
+            _isComplete = ResLoader.instance.ContainsRes(_resPath);
+
+            // 2.超时就强制性质完成
             if (_loadTime > _timeOut)
             {
-                ResLog.Error("OabDepLoadOpertion,超时加载[{0}]", _resPath);
-                return false;
+                _isComplete = true;
             }
-
-            
-            // 2.处于加载状态
-            _isComplete = ResLoader.instance.ContainsRes(_resPath);
-            // 3.如果还出加载状态，返回未完成
-            if (!_isComplete)
-                return false;
-            return true;
         }
 
-        protected override void Complete()
+        public override bool IsDone()
         {
+            ResLog.Log("ResWaitLoadOpertion:[{0}] Is [{1}]", _resPath, _isComplete);
+            return _isComplete;
+        }
 
+        public void OutResult()
+        {
+            if (_loadTime > _timeOut)
+            {
+                Error = string.Format("ResWaitLoadOpertion 超时加载[{0}]", _resPath);
+                LogManager.Error(Error);
+            }
         }
 
         #endregion
 
-        #endregion
     }
 }
 

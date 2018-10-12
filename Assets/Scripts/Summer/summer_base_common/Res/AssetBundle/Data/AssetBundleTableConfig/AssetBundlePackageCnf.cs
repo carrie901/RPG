@@ -7,27 +7,31 @@ namespace Summer
 {
     /// <summary>
     /// AssetBundle包信息
+    /// 这个AssetBundle
+    ///     1.实际加载路径
+    ///     2.相对路径
+    ///     3.AssetBundle 资源
+    ///     4.这个AssetBundle下的所有的AssetInfo
     /// </summary>
-    public class AssetBundlePackageInfo
+    public class AssetBundlePackageCnf
     {
+        public static string _fullPath = Application.streamingAssetsPath + "/rpg/";
+
         #region 属性
 
         public string FullPath { get; private set; }                                            // 实际加载路径
-        public string PackagePath { get { return _package_path; } }                             // 相对路径
-        public string HashCode { get { return _hash_code; } }
+        public string PackagePath { get; private set; }                              // 相对路径                                                     // 包的路径
         public bool IsComplete { get; private set; }                                            // 是否加载完成
 
-        public string _package_path;                                                            // 包的路径
-        public string _hash_code;                                                               // 哈希code值
         public AssetBundle _assetbundle;
-        public Dictionary<string, string> _res_path_map = new Dictionary<string, string>();     // 资源的实际路径 Key=资源路径，value=资源的名称
-        public Dictionary<string, string> _res_names = new Dictionary<string, string>();        // 资源的名称 key的资源的名称，Value=资源的路径
-        public List<AssetInfo> _asset_map = new List<AssetInfo>();
+        public Dictionary<string, string> _resPathMap = new Dictionary<string, string>();       // 资源的实际路径 Key=资源路径，value=资源的名称
+        public Dictionary<string, string> _resNames = new Dictionary<string, string>();         // 资源的名称 key的资源的名称，Value=资源的路径
+        public List<AssetInfo> _assetMap = new List<AssetInfo>();
 
         #region 引用信息
 
         public int RefCount { get; private set; }
-        public List<string> _ref_list = new List<string>(4);
+        public List<string> _refList = new List<string>(4);
 
         #endregion
 
@@ -35,20 +39,20 @@ namespace Summer
 
         #region 构造
 
-        public AssetBundlePackageInfo(string[] infos)
+        public AssetBundlePackageCnf(string[] infos)
         {
-            _package_path = infos[0];
+            PackagePath = infos[0];
             IsComplete = false;
             // TODO 可以优化
-            FullPath = AssetBundleConst.GetAssetBundleRootDirectory() + _package_path;
+            FullPath = _fullPath + PackagePath;
             for (int i = 1; i < infos.Length; i = i + 2)
             {
-                bool result = _res_path_map.ContainsKey(infos[i]);
+                bool result = _resPathMap.ContainsKey(infos[i]);
                 LogManager.Assert(!result, "初始化AssetBundle的依赖信息失败，[{0}]", infos[i]);
                 if (result) continue;
 
-                _res_path_map.Add(infos[i], infos[i + 1]);
-                _res_names.Add(infos[i + 1], infos[i]);
+                _resPathMap.Add(infos[i], infos[i + 1]);
+                _resNames.Add(infos[i + 1], infos[i]);
             }
         }
 
@@ -63,14 +67,14 @@ namespace Summer
             _assetbundle = ab;
             IsComplete = true;
 
-            _asset_map.Clear();
+            _assetMap.Clear();
             int length = objs.Length;
             for (int i = 0; i < length; i++)
             {
-                if (_res_names.ContainsKey(objs[i].name))
+                if (_resNames.ContainsKey(objs[i].name))
                 {
-                    AssetInfo info = new AssetInfo(objs[i], _res_names[objs[i].name]);
-                    _asset_map.Add(info);
+                    AssetInfo info = new AssetInfo(objs[i], _resNames[objs[i].name]);
+                    _assetMap.Add(info);
                 }
                 else
                 {
@@ -83,22 +87,22 @@ namespace Summer
         public AssetInfo GetAsset(string assetName)
         {
             if (_assetbundle == null) return null;
-            AssetInfo re_asset_info = null;
+            AssetInfo reAssetInfo = null;
 
-            int length = _asset_map.Count;
+            int length = _assetMap.Count;
             for (int i = 0; i < length; i++)
             {
-                AssetInfo asset_info = _asset_map[i];
-                if (asset_info.ResPath != assetName) continue;
-                re_asset_info = _asset_map[i];
+                AssetInfo assetInfo = _assetMap[i];
+                if (assetInfo.ResPath != assetName) continue;
+                reAssetInfo = _assetMap[i];
             }
-            ResLog.Assert((re_asset_info != null), "从资源主包[{0}]中找不到对应的AssetInfo:[{1}]的资源", _package_path, assetName);
-            return re_asset_info;
+            ResLog.Assert((reAssetInfo != null), "从资源主包[{0}]中找不到对应的AssetInfo:[{1}]的资源", PackagePath, assetName);
+            return reAssetInfo;
         }
 
         public bool HasAssetBundle(string resPath)
         {
-            if (_res_path_map.ContainsKey(resPath))
+            if (_resPathMap.ContainsKey(resPath))
                 return true;
             return false;
         }
@@ -111,15 +115,15 @@ namespace Summer
             ResLog.Assert(RefCount == 0, "ab package ref error:[{0}]", RefCount);
 
             IsComplete = false;
-            LogManager.Assert(_assetbundle != null, "不能为空[{0}]", _package_path);
+            LogManager.Assert(_assetbundle != null, "不能为空[{0}]", PackagePath);
             if (_assetbundle == null) return;
 
-            int length = _asset_map.Count;
+            int length = _assetMap.Count;
             for (int i = 0; i < length; i++)
             {
-                _asset_map[i].UnLoad();
+                _assetMap[i].UnLoad();
             }
-            _asset_map.Clear();
+            _assetMap.Clear();
             _assetbundle.Unload(true);
             _assetbundle = null;
         }
@@ -134,19 +138,19 @@ namespace Summer
         public void RefParent(string parent_path)
         {
             if (string.IsNullOrEmpty(parent_path)) return;
-            if (_ref_list.Contains(parent_path)) return;
+            if (_refList.Contains(parent_path)) return;
             //bool result = _ref_list.Contains(parent_path);
             //LogManager.Assert(!result, "已经包含了相关资源,[{0}],爸爸是:[{1}]", PackagePath, parent_path);
             //if (result) return;
-            _ref_list.Add(parent_path);
+            _refList.Add(parent_path);
             RefCount++;
         }
 
         public void UnRef(string parent_path)
         {
-            if (_ref_list.Contains(parent_path))
+            if (_refList.Contains(parent_path))
             {
-                _ref_list.Remove(parent_path);
+                _refList.Remove(parent_path);
                 RefCount--;
             }
         }
@@ -159,7 +163,7 @@ namespace Summer
 
         public bool _loading_complete()
         {
-            if (!IsComplete || _assetbundle == null || _asset_map.Count == 0) return false;
+            if (!IsComplete || _assetbundle == null || _assetMap.Count == 0) return false;
             return true;
 
         }

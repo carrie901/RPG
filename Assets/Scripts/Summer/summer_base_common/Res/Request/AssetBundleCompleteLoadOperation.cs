@@ -21,19 +21,38 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using System;
+using System.Collections.Generic;
 using UnityEngine;
-using Summer;
-public class Main : MonoBehaviour
+
+namespace Summer
 {
-    void Awake()
+    public class AssetBundleCompleteLoadOperation<T> : ResLoadOpertion where T : Object
     {
-        UpdateGameObject.Instance.OnInit();
+        public string _resPath;
+        public string _parentPath;
+        public AssetBundle _assetbundle;
+        public AssetBundleCompleteLoadOperation(AssetBundle ab, string resPath, string parentPath)
+        {
+            _assetbundle = ab;
+            _resPath = resPath;
+            _parentPath = parentPath;
+        }
+
+        protected override void Init()
+        {
+
+        }
+
+        protected override bool Update()
+        {
+            return true;
+        }
+
+        protected override void Complete()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
-    void Start()
-    {
-        //Debug.logger.logEnabled = false;
-        AppFacade.Startup();//启动游戏
-    }
+
 }

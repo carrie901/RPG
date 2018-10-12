@@ -18,26 +18,27 @@ namespace Summer
         //public string ResName { get; private set; }                                   // 名字
         public int RefCount { get; set; }                                               // 读取次数  
 
-        public AssetInfo(Object obj, ResRequestInfo resInfo)
+        /*public AssetInfo(Object obj, ResRequestInfo resInfo)
         {
             _object = obj;
             ResPath = resInfo.ResPath;
             RefCount = 0;
-        }
+        }*/
 
-        public AssetInfo(Object obj, string resName, string resPath)
+        /*public AssetInfo(Object obj, string resName, string resPath)
         {
             _object = obj;
             ResPath = resPath;
             RefCount = 0;
             ResLog.Assert(!string.IsNullOrEmpty(ResPath), "名字有异常:[{0}]", _object);
-        }
+        }*/
 
         public AssetInfo(Object obj, string resPath)
         {
             _object = obj;
             ResPath = resPath;
             RefCount = 0;
+            ResLog.Assert(obj != null, "AssetInof的Obj为空,路径:[{0}]", _object);
             ResLog.Assert(!string.IsNullOrEmpty(ResPath), "名字有异常:[{0}]", _object);
         }
 
@@ -51,9 +52,14 @@ namespace Summer
             T t = _object as T;
             if (t == null)
             {
-                ResLog.Error("AssetInfo Error,Object 类型不对.Path:[{0}]", ResPath);
+                ResLog.Error("AssetInfo Error,Object 类型不对.Path:[{0}],提取类型:[{1}],实际类型:[{2}]", ResPath, typeof(T), _object);
             }
             return t;
+        }
+
+        public bool CheckType<T>() where T : Object
+        {
+            return _object is T;
         }
 
         public void UnLoad()

@@ -22,8 +22,6 @@ namespace Summer
     {
         #region param
 
-        #region 静态
-
         public static AssetBundleLoader _instance;
         public static AssetBundleLoader Instance
         {
@@ -32,97 +30,78 @@ namespace Summer
                 if (_instance == null)
                 {
                     _instance = new AssetBundleLoader();
-                    Init();
+                    _instance.InitInfo();
                 }
                 return _instance;
             }
         }
         private static int _maxLoadingCount = 5;                                                    // 一次性最大加载个数
-        public static Dictionary<string, AssetBundleDepInfo> _depMap                                // 依赖表信息
-              = new Dictionary<string, AssetBundleDepInfo>();
-        public static Dictionary<string, AssetBundleResInfo> _resMap                                // 资源-->Ab包 通过资源名得到对应的Ab包
-           = new Dictionary<string, AssetBundleResInfo>();
-        public static Dictionary<string, AssetBundlePackageInfo> _packageMap                        // Ab包信息
-          = new Dictionary<string, AssetBundlePackageInfo>();
 
-        #endregion
+        protected List<ResLoadOpertion> _onLoadingRequest = new List<ResLoadOpertion>(8);            // 正在加载的请求            
+        protected List<string> _onLoadingAbPackage = new List<string>(8);                           // 加载中的资源包
 
-        protected List<LoadOpertion> _onLoadingRequest = new List<LoadOpertion>();                  // 正在加载的请求           
-        protected Queue<LoadOpertion> _waitToLoadRequest = new Queue<LoadOpertion>();               // 等待加载的请求   
-        protected List<string> _onLoadingAbPackage = new List<string>();                            // 加载中的资源包
-        protected Dictionary<string, int> _onWaitAbPackage = new Dictionary<string, int>();         // 加载中的资源包
+        protected List<ResLoadOpertion> _waitToLoadRequest = new List<ResLoadOpertion>(16);         // 等待加载的请求   
+        protected List<string> _onWaitAbPackage = new List<string>();                               // 等待加载的资源包
 
-
-        #region 构造
-
-        #endregion
+        private readonly Dictionary<string, AssetBundlePackageInfo> _packageMap
+            = new Dictionary<string, AssetBundlePackageInfo>(256);
+        private AssetBundleManifestInfo _mainInfo;
 
         #endregion
 
         #region I_ResourceLoad
 
         // TODO Bug没有好的防御机制，在加载失败的情况下，不会导致整个程序死掉
-        public AssetInfo LoadAsset(string resPath)
+        public AssetInfo LoadAsset<T>(string resPath) where T : Object
         {
-            // 1.资源对应的包信息
-            AssetBundleResInfo resInfo = GetAssetBundleRes(resPath);
-            if (resInfo == null) return null;
+            // 1.根据资源路径，得到对应的AssetBundlePackage包的路径
+            ResToAssetBundleCnf mainPackageCnf = _mainInfo.GetResToAb(resPath);
+            if (mainPackageCnf == null) return null;
 
-            // 2.得到AssetBundle包
-            AssetBundlePackageInfo mainPackageInfo = GetPackageInfo(resInfo._packagePath);
-            // 3.加载依赖信息
-            AssetBundleDepInfo depsInfo = GetDepInfo(resInfo._packagePath);
-            foreach (var depInfo in depsInfo._childRef)
+            // 2.根据主包路径，得到起主包以及相关依赖包的信息
+            string mainPackagePath = mainPackageCnf.PackagePath;
+            AssetBundleDepInfo depsCnf = _mainInfo.GetDepsInfo(mainPackagePath);
+            if (depsCnf == null) return null;
+
+            // 3.依次加载依赖包
+            foreach (var depInfo in depsCnf._childRef)
             {
-                AssetBundlePackageInfo depPackageInfo = GetPackageInfo(depInfo.Key);
-
-                if (!_need_load(depPackageInfo))
-                {
-                    depPackageInfo.RefParent(mainPackageInfo.PackagePath);
-                    continue;
-                }
-                _internal_syncload_package(depPackageInfo, mainPackageInfo.PackagePath);
+                InternalSyncloadPackage<T>(depInfo.Key, mainPackagePath);
             }
 
-            _internal_syncload_package(mainPackageInfo, string.Empty);
-
-            // 3.包中的资源
-            AssetInfo assetInfo = mainPackageInfo.GetAsset(resInfo._resPath);
-            return assetInfo;
+            // 4.加载主包
+            AssetBundlePackageInfo mainPackage = InternalSyncloadPackage<T>(mainPackagePath, string.Empty);
+            ResLog.Assert(mainPackage != null, "AssetBundleLoader LoadAsset 加载主包失败:[{0}]", resPath);
+            if (mainPackage == null) return null;
+            AssetInfo info = mainPackage.GetAsset<T>(mainPackageCnf.ResName);
+            return info;
         }
 
-        public LoadOpertion LoadAssetAsync(string resPath)
+        public ResLoadOpertion LoadAssetAsync<T>(string resPath) where T : Object
         {
-            // 1.根据资源的路径找到 AB包
-            AssetBundleResInfo resInfo = GetAssetBundleRes(resPath);
-            if (resInfo == null) return null;
-            AssetBundlePackageInfo mainPackageInfo = GetPackageInfo(resInfo._packagePath);
+            // 1.根据资源路径，得到对应的AssetBundlePackage包的路径
+            ResToAssetBundleCnf mainPackageCnf = _mainInfo.GetResToAb(resPath);
+            if (mainPackageCnf == null) return null;
 
-            // 2.通过AB包得到相关的依赖信息
-            AssetBundleDepInfo depInfo = GetDepInfo(resInfo._packagePath);
-            foreach (var info in depInfo._childRef)
+            // 2.根据主包路径，得到起主包以及相关依赖包的信息
+            string mainPackagePath = mainPackageCnf.PackagePath;
+            AssetBundleDepInfo depsCnf = _mainInfo.GetDepsInfo(mainPackagePath);
+            if (depsCnf == null) return null;
+
+            // 3.依次加载依赖包
+            foreach (var depInfo in depsCnf._childRef)
             {
-                AssetBundlePackageInfo depPackageInfo = GetPackageInfo(info.Key);
-
-                if (!_need_load(depPackageInfo))
-                {
-                    depPackageInfo.RefParent(mainPackageInfo.PackagePath);
-                    continue;
-                }
-
-                AssetBundleAsyncLoadOpertion depPackageOpertion =
-                    new AssetBundleAsyncLoadOpertion(depPackageInfo, string.Empty, resInfo._packagePath);
-                _waitToLoadRequest.Enqueue(depPackageOpertion);
-
+                InternalAsyncLoadPackage<Object>(depInfo.Key, mainPackagePath);
             }
 
-            AssetBundleAsyncLoadOpertion mainOpertion = new AssetBundleAsyncLoadOpertion(mainPackageInfo, resPath, string.Empty);
-            return mainOpertion;
+            // 4.加载主包
+            ResLoadOpertion resLoadOperation = InternalAsyncLoadPackage<Object>(depsCnf.AssetBundleName, string.Empty);
+            return resLoadOperation;
         }
 
         public bool UnloadAssetBundle(AssetInfo assetInfo)
         {
-            return _un_load_assetbundle(assetInfo);
+            return UnLoadAssetBundle(assetInfo);
         }
 
         public void OnUpdate()
@@ -131,7 +110,7 @@ namespace Summer
             int length = _onLoadingRequest.Count - 1;
             for (int i = length; i >= 0; i--)
             {
-                LoadOpertion opertion = _onLoadingRequest[i];
+                ResLoadOpertion opertion = _onLoadingRequest[i];
                 opertion.OnUpdate();
                 if (opertion.IsExit())
                 {
@@ -145,136 +124,135 @@ namespace Summer
             for (int i = length; i < _maxLoadingCount; i++)
             {
                 if (_waitToLoadRequest.Count <= 0) continue;
-                LoadOpertion loadOpertion = _waitToLoadRequest.Dequeue();
+                ResLoadOpertion loadOpertion = _waitToLoadRequest[0];
+                _waitToLoadRequest.RemoveAt(0);
+                _onWaitAbPackage.RemoveAt(0);
                 _onLoadingRequest.Add(loadOpertion);
             }
         }
 
         #endregion
 
-        #region public 
-
-        // AssetBundle是否处于加载状态
-        public bool ContainsLoadAssetBundles(string abPackagePath)
-        {
-            return _onLoadingAbPackage.Contains(abPackagePath);
-        }
-
-        #endregion
-
         #region private
 
-        public void _internal_syncload_package(AssetBundlePackageInfo packageInfo, string parentPath)
+        private void InitInfo()
         {
-            AssetBundle assetbundle = AssetBundle.LoadFromFile(packageInfo.FullPath);
-            bool result = assetbundle != null;
-            ResLog.Assert(result, "同步加载AssetBundlePack失败，路径不存在:[{0}]", packageInfo.PackagePath);
+            _packageMap.Clear();
+        }
 
-            if (!result) return;
+        private AssetBundlePackageInfo InitAssetBundleInfo(AssetBundle assetbundle, AssetBundlePackageCnf packageCnf, string parentPath)
+        {
             Object[] objs = assetbundle.LoadAllAssets();
+            AssetBundlePackageInfo packageInfo = AbPackageFactory.Create(packageCnf);
             packageInfo.RefParent(parentPath);
             packageInfo.InitAssetBundle(assetbundle, objs);
+            _packageMap.Add(packageInfo.PackagePath, packageInfo);
+            return packageInfo;
         }
 
-        // TODO BUG:有一定的bug的情况出现，就是如果同步加载和异步加载同时出现
-        public bool _need_load(AssetBundlePackageInfo packageInfo)
+        private AssetBundlePackageInfo InternalSyncloadPackage<T>(string packagePath, string parentPath)
         {
-            if (packageInfo == null) return false;
-            // 已经完成
-            if (packageInfo.IsComplete) return false;
+            // 1.已经在缓存中,引用+1
+            AssetBundlePackageInfo packageInfo = null;
+            _packageMap.TryGetValue(packagePath, out packageInfo);
+            if (packageInfo != null)
+            {
+                packageInfo.RefParent(parentPath);
+                return packageInfo;
+            }
 
-            // 在等待中
-            if (_onWaitAbPackage.ContainsKey(packageInfo.PackagePath)) return false;
-            // 已经在加载中
-            if (_onLoadingAbPackage.Contains(packageInfo.PackagePath)) return false;
-            return true;
+            // 2.如果已经在加载中,妈蛋老子只能等你了呗
+            if (_onLoadingAbPackage.Contains(packagePath))
+            {
+                ResLog.Assert(!string.IsNullOrEmpty(packagePath), "主资源:[{0}]，同步和异步同时加载，报错", packagePath);
+                return null;
+            }
+            // 3.如果在等待资源中直接剔除请求
+            int index = _onWaitAbPackage.IndexOf(packagePath);
+            if (index > 0)
+            {
+                _onWaitAbPackage.RemoveAt(index);
+                _waitToLoadRequest.RemoveAt(index);
+            }
+
+            // 4.加载AssetBundle资源
+            AssetBundlePackageCnf packageCnf = _mainInfo.GetPackageCnf(packagePath);
+            AssetBundle assetbundle = AssetBundle.LoadFromFile(packageCnf.FullPath);
+            ResLog.Assert(assetbundle != null, "同步加载AssetBundlePack失败，路径不存在:[{0}]", packageCnf.FullPath);
+            if (assetbundle == null) return null;
+
+            // 5.初始化AssetBundle
+            Object[] objs = assetbundle.LoadAllAssets();
+            packageInfo = AbPackageFactory.Create(packageCnf);
+            packageInfo.RefParent(parentPath);
+            packageInfo.InitAssetBundle(assetbundle, objs);
+            _packageMap.Add(packageInfo.PackagePath, packageInfo);
+            return packageInfo;
         }
 
-        public bool _un_load_assetbundle(AssetInfo assetInfo, bool includeMain = true)
+        private ResLoadOpertion InternalAsyncLoadPackage<T>(string packagePath, string parentPath) where T : Object
         {
-            // 1.资源对应的包信息
-            AssetBundleResInfo resInfo = GetAssetBundleRes(assetInfo.ResPath);
-            if (resInfo == null) return false;
+            // 1.已经在缓存中,引用+1
+            AssetBundlePackageInfo packageInfo;
+            _packageMap.TryGetValue(packagePath, out packageInfo);
+            if (packageInfo != null)
+            {
+                packageInfo.RefParent(parentPath);
+                return null;
+            }
+
+            // 2.如果已经在加载中,返回已经在加载中的结果
+            int index = _onLoadingAbPackage.IndexOf(packagePath);
+            if (index >= 0)
+            {
+                ResLoadOpertion loadOperation = _onLoadingRequest[index];
+                loadOperation.AddParent(parentPath);
+                return loadOperation;
+            }
+
+            // 3.如果在等待中,返回等待中加载中的结果
+            index = _onWaitAbPackage.IndexOf(packagePath);
+            if (index >= 0)
+            {
+                ResLoadOpertion loadOperation = _waitToLoadRequest[index];
+                loadOperation.AddParent(parentPath);
+                return loadOperation;
+            }
+
+            // 4得到Ab的包消息,并且添加到等待列表中
+            AssetBundlePackageCnf packageCnf = _mainInfo.GetPackageCnf(packagePath);
+            AssetBundleAsyncLoadOpertion<T> packageOpertion =
+                new AssetBundleAsyncLoadOpertion<T>(packageCnf, string.Empty, parentPath);
+            _waitToLoadRequest.Add(packageOpertion);
+            _onWaitAbPackage.Add(packagePath);
+            return packageOpertion;
+        }
+
+        private bool UnLoadAssetBundle(AssetInfo assetInfo, bool includeMain = true)
+        {
+            /*// 1.资源对应的包信息
+            ResToAssetBundleCnf info = GetAssetBundleRes(assetInfo.ResPath);
+            if (info == null) return false;
 
             // 2.得到AssetBundle包
-            AssetBundlePackageInfo mainPackageInfo = GetPackageInfo(resInfo._packagePath);
+            AssetBundlePackageCnf mainPackageCnf = GetPackageInfo(info.PackagePath);
 
             // 3.加载依赖信息
-            AssetBundleDepInfo depsInfo = GetDepInfo(resInfo._packagePath);
+            AssetBundleDepInfo depsInfo = GetDepInfo(info.PackagePath);
             foreach (var depInfo in depsInfo._childRef)
             {
-                AssetBundlePackageInfo packageInfo = GetPackageInfo(depInfo.Key);
-                packageInfo.UnRef(resInfo._packagePath);
-                packageInfo.UnLoad();
+                AssetBundlePackageCnf packageCnf = GetPackageInfo(depInfo.Key);
+                packageCnf.UnRef(info.PackagePath);
+                packageCnf.UnLoad();
             }
             if (includeMain)
             {
                 //TODO: Bug 
-                mainPackageInfo.UnRef(resInfo._packagePath);
-                mainPackageInfo.UnLoad();
-            }
+                mainPackageCnf.UnRef(info.PackagePath);
+                mainPackageCnf.UnLoad();
+            }*/
 
             return true;
-        }
-
-        #endregion
-
-        #region static
-
-        public static AssetBundleResInfo GetAssetBundleRes(string resPath)
-        {
-            AssetBundleResInfo resInfo;
-            _resMap.TryGetValue(resPath, out resInfo);
-            ResLog.Assert((resInfo != null), "资源[{0}]找不到对应的包", resPath);
-            return resInfo;
-        }
-
-        public static AssetBundleDepInfo GetDepInfo(string assetbundlePackagePath)
-        {
-            if (_depMap.ContainsKey(assetbundlePackagePath))
-                return _depMap[assetbundlePackagePath];
-
-            ResLog.Error("dep_map不可能出现的情况，尼玛居然出现了[{0}]______", assetbundlePackagePath);
-            return null;
-        }
-
-        public static AssetBundlePackageInfo GetPackageInfo(string assetbundlePackagePath)
-        {
-            if (_packageMap.ContainsKey(assetbundlePackagePath))
-                return _packageMap[assetbundlePackagePath];
-            ResLog.Error("找不到对应的主包:[{0}]不存在", assetbundlePackagePath);
-            return null;
-        }
-
-        public static void Init()
-        {
-            _depMap.Clear();
-            _packageMap.Clear();
-            _resMap.Clear();
-
-            List<string[]> depResult = AssetBundleConfig.GetAbInfo(AssetBundleConst.AssetbundleDepPath);
-            int length = depResult.Count;
-            for (int i = 0; i < length; i++)
-            {
-                AssetBundleDepInfo dep = new AssetBundleDepInfo(depResult[i]);
-                _depMap.Add(dep.AssetBundleName, dep);
-            }
-
-            List<string[]> packageResult = AssetBundleConfig.GetAbInfo(AssetBundleConst.AssetbundlePackagePath);
-            length = packageResult.Count;
-            for (int i = 0; i < length; i++)
-            {
-                AssetBundlePackageInfo packageInfo = new AssetBundlePackageInfo(packageResult[i]);
-                _packageMap.Add(packageInfo.PackagePath, packageInfo);
-            }
-
-            List<string[]> resResult = AssetBundleConfig.GetAbInfo(AssetBundleConst.AssetbundleResPath);
-            length = resResult.Count;
-            for (int i = 0; i < length; i++)
-            {
-                AssetBundleResInfo res = new AssetBundleResInfo(resResult[i]);
-                _resMap.Add(res._resPath, res);
-            }
         }
 
         #endregion

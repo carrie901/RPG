@@ -15,7 +15,7 @@ namespace Summer
         // Use this for initialization
         void Start()
         {
-            
+
         }
 
         private void OnGUI()
@@ -30,7 +30,7 @@ namespace Summer
                 StringBuilder sb = new StringBuilder();
                 sb.AppendFormat("{0},{1},{2}", "资源名字", "内存引用数", "实际引用数");
                 sb.AppendLine();
-                Dictionary<string, AssetInfo> asset_map = ResLoader.instance.MapRes;
+                Dictionary<string, AssetInfo> asset_map = ResLoader.instance._cacheRes;
                 Dictionary<string, List<string>> ref_map = new Dictionary<string, List<string>>();
 
                 for (int i = 0; i < refs.Length; i++)

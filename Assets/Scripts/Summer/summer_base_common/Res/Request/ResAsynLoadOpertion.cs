@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 namespace Summer
 {
-    public class ResAsynLoadOpertion : LoadOpertion
+    public class ResAsynLoadOpertion : ResLoadOpertion
     {
 
         protected ResourceRequest _request;

@@ -24,9 +24,9 @@ namespace Summer
     {
         #region 属性
 
-        public static bool OpenDebug = false;
+        public static bool OpenDebug = true;
 
-        public static bool IgnoreUnityDebug = true;                       // 忽略Unity的Debug Log日志 
+        public static bool IgnoreUnityDebug = false;                       // 忽略Unity的Debug Log日志 
 
         public static bool _openNet = true;
         public static bool _openDebugBuff = false;
@@ -70,8 +70,7 @@ namespace Summer
             _pipelines.Add(UnityLog.Instance);
             //pipelines.Add(RuntimeLog.Instance);
 #endif
-            if (!IgnoreUnityDebug)
-                Debug.logger.logEnabled = false;
+            //Debug.logger.logEnabled = !IgnoreUnityDebug;
 
         }
 
