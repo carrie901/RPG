@@ -16,10 +16,10 @@ namespace SummerEditor
 
         public static void CreateAbConfigFile()
         {
-            
+
             // 1.得到所有的AssetBundle Name
             string[] assetBundles = AssetDatabase.GetAllAssetBundleNames();
-           
+
             //string[] assetPaths = AssetDatabase.GetAllAssetPaths();
             CreateResFile(assetBundles);
             CreatePackageFile(assetBundles);
@@ -31,7 +31,7 @@ namespace SummerEditor
 
         public static void CreateResFile(string[] assetBundles)
         {
-            
+
             // 2.通过过滤器剔除掉不是主目录的AssetBundle
             List<string> filterFiles = SuffixHelper.Filter(assetBundles, new StartsWithFilter(EAssetBundleConst.MAIN_RES_DRIECTORY));
             filterFiles.Clear();
@@ -52,7 +52,7 @@ namespace SummerEditor
 
                     List<string> result = new List<string>();
 
-                    mainAbPath = EPathHelper.RemoveSuffix(mainAbPath);
+                    //mainAbPath = EPathHelper.RemoveSuffix(mainAbPath);
                     result.Add(mainAbPath.Replace("Assets/", string.Empty));
                     result.Add(abName);
                     resultMap.Add(result);
@@ -74,7 +74,7 @@ namespace SummerEditor
                 result.Add(abName);
                 for (int k = 0; k < assetBundleNames.Length; k++)
                 {
-                    string noSuffix = EPathHelper.RemoveSuffix(assetBundleNames[k]);
+                    string noSuffix = assetBundleNames[k];//EPathHelper.RemoveSuffix(assetBundleNames[k]);
                     string tmpName = EPathHelper.GetName1(noSuffix);
                     Debug.Assert(!string.IsNullOrEmpty(tmpName), assetBundleNames[k]);
 
