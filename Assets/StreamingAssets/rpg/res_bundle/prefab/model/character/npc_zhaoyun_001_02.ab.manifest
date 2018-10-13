@@ -1,0 +1,80 @@
+ManifestFileVersion: 0
+CRC: 3762741873
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3d841bc1356bae1cbf8f6a1a9d2dff80
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: eab593c03a1ea2dec31f3c6a8e60149a
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 044b287774f147648bb02b27e5945848, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 290f28c843441274788192bb5d021931, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7b8be68fbea52f54dbea936324c72ff5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7592619e3d157754d808b8ced2ead972, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/res_bundle/prefab/model/Character/NPC_Zhaoyun_001_02.prefab
+Dependencies:
+- F:/RPG/Assets/StreamingAssets/rpg/raw/model/zhaoyun/h_zhaoyun_01_low.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animator/normal.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/fall.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/walk.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/jump_flow.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/take 001.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/up_left.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/peerless_01.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/vertigo.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/knockhitflow_right.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/knockhitdown_left.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/up_right.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/up_up.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/knockhitdown.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/knockhit_right.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/stand_show.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/knockhitdown_right.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/knockhitflow_up.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/knockhitflow_left.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/knockhit.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/up.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/knockhit_up.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/climb_up.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/die.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/knockhitdown_up.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/skill_ex_01.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/stand.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/jump_down.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/knockhitflow.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/gather.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/fear.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/knockhit_left.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/down_flow.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/animation/zhaoyun/climb_down.ab

@@ -1,0 +1,42 @@
+ManifestFileVersion: 0
+CRC: 1971691702
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a0daf0163bdb9b6c482be3ee5db986b9
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5f6769eaaeab847a98aac5b7c635dc33
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 12
+  Script: {instanceID: 0}
+- Class: 15
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 26
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 373195bd689c0cd4bb2589599fb21f54, type: 3}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/res_bundle/prefab/model/Character/CH_NiuMo01_E_HStrong1.prefab
+Dependencies: []

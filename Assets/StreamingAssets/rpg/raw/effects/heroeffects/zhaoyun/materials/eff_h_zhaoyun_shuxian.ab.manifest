@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 2615402230
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1216d65a03efa28c6a1f4c265857dc26
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d1ae6e26fb0b4d11fccd18da598542fa
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Raw/Effects/HeroEffects/zhaoyun/materials/eff_H_ZhaoYun_shuxian.mat
+Dependencies: []

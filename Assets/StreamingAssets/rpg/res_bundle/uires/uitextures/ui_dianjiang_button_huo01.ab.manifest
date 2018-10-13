@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 509075282
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 645cdd782632c10949100340d29520d0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 36c33a819640bead83b84b1645a12e6d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/res_bundle/uires/UITextures/UI_dianjiang_button_huo01.png
+Dependencies: []

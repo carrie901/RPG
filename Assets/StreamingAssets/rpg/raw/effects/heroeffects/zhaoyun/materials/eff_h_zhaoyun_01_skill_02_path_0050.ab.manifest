@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 4197423519
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: fad6d446147a17f347df6f8159fc36eb
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d1ae6e26fb0b4d11fccd18da598542fa
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Raw/Effects/HeroEffects/zhaoyun/materials/eff_H_ZhaoYun_01_skill_02_path_0050.mat
+Dependencies: []

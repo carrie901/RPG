@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 498775657
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6accca5a0002733a77103adcf1af6e0d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d1ae6e26fb0b4d11fccd18da598542fa
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Raw/Effects/HeroEffects/zhaoyun/materials/eff_H_ZhaoYun_daoguang_0028.mat
+Dependencies: []

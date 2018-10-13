@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 2274345797
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 58850efd7e0b7bebf1fc22d5bdd73799
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 36c33a819640bead83b84b1645a12e6d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/res_bundle/icon/Skill/ico_H_ZhaoYun_01_attack_01_01.png
+Dependencies: []

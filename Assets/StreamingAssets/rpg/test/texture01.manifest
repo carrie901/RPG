@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1759795936
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ddcb3079945f1b0e0394f9afc39aedfb
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c1642440719609290a7e09a50a7286f4
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/res_bundle/uires/UITextures/UI_zhangjie_gb02.png
+Dependencies: []

@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3452132768
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: fffc64b2ec54c96ed4f4ad72916b54cd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 14bc5f71bda60a0c1eb473bfd9b063f1
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Raw/Animation/Zhaoyun/KnockHitDown_up.anim
+Dependencies: []

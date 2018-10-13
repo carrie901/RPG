@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1504117912
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 662e16f77a320264c65e9dd3bbfa91e3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 14bc5f71bda60a0c1eb473bfd9b063f1
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Raw/Animation/Zhaoyun/jump_Down.anim
+Dependencies: []

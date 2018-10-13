@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 1331995736
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b614f01577f53e41123ba2c0a33b4dd1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d1ae6e26fb0b4d11fccd18da598542fa
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Raw/Effects/HeroEffects/zhaoyun/materials/eff_H_ZhaoYun_01_skill_02_G_dilie_0014.mat
+Dependencies: []

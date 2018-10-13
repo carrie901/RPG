@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2856276506
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c68a946e26179054cf435a4bae6febb4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1033bf7ddfd4c6d43e7a6382c0a0a61a
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/res_bundle/textasset/csv.bytes
+Dependencies: []

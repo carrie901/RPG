@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1686330441
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: bf54f0f397a24901a809186f40f34392
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 14bc5f71bda60a0c1eb473bfd9b063f1
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Raw/Animation/Zhaoyun/up_right.anim
+Dependencies: []

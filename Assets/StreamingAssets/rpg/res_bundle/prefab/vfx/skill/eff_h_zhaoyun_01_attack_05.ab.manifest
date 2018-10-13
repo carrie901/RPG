@@ -1,0 +1,44 @@
+ManifestFileVersion: 0
+CRC: 3346656913
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 00ea52aa283149bd97ad9879302a9580
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a8bfd19088c0f44f8f3e02cf67182fe3
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6605c5a747493324b9b87776bb6aca7b, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_05.prefab
+Dependencies:
+- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0002.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_smoke_0001.ab

@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 3827265027
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 482afe86e182db0d06928e2f4f4f1f13
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6d41c6b355929e103ca4c1af6eae467f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+Assets:
+- Assets/res_bundle/prefab/other/SkillArea/quan_hero.prefab
+Dependencies:
+- F:/RPG/Assets/StreamingAssets/rpg/raw/other/skillarea/materials/item_028_p_3_blue.ab

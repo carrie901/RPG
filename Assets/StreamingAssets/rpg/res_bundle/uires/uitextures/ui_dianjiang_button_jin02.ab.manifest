@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 2654631566
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 428d39d8c2bc97b958bfb68f4c6de80c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 36c33a819640bead83b84b1645a12e6d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/res_bundle/uires/UITextures/UI_dianjiang_button_jin02.png
+Dependencies: []

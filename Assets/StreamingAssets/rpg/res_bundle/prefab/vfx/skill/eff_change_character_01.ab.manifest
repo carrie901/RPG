@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 3757816719
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4046759b2e6f2142a07d92acce30aeea
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3306ff62ac800cb8bce55ab94ef95fed
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6605c5a747493324b9b87776bb6aca7b, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/res_bundle/prefab/vfx/Skill/eff_change_character_01.prefab
+Dependencies: []

@@ -1,0 +1,53 @@
+ManifestFileVersion: 0
+CRC: 538032363
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: da19c54bc4a10aa59d695c9561694ac4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 8f1df664b601c76da0ce9e4c6072720d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6605c5a747493324b9b87776bb6aca7b, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_01.prefab
+Dependencies:
+- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0019.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_ring_0011.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0002.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_smoke_0015_1.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_smoke_0001.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_shuxian.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028_rongjie.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028.ab
+- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0020.ab

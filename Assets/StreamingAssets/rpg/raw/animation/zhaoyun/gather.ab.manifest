@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 4189192653
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e23a01febe617c0c559dff4406494d68
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 14bc5f71bda60a0c1eb473bfd9b063f1
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Raw/Animation/Zhaoyun/gather.anim
+Dependencies: []
