@@ -88,7 +88,10 @@ namespace Summer
 
         public void FinishComplete() { _loading = E_LoadOpertion.COMPLETE; }
 
-        public AssetInfo GetAsset() { return _assetInfo; }
+        public virtual AssetInfo GetAsset()
+        {
+            return _assetInfo;
+        }
 
         public virtual void AddParent(string parentPath)
         {

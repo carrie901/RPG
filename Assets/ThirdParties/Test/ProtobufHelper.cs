@@ -23,8 +23,7 @@
 
 using System.Collections.Generic;
 using System.IO;
-using ProtoBuf;
-using UnityEngine;
+
 
 namespace Summer
 {
@@ -41,7 +40,7 @@ namespace Summer
             NetLog.Log("send:[{0}]", t);
             using (MemoryStream ms = new MemoryStream())
             {
-                Serializer.Serialize<T>(ms, t);
+                //Serializer.Serialize<T>(ms, t);
                 byte[] pBuffer = ms.ToArray();
 
                 return pBuffer;
@@ -51,11 +50,7 @@ namespace Summer
         public static void Serialize1<T>(MemoryStream ms, T t)
         {
             NetLog.Log("send:[{0}]", t);
-            Serializer.Serialize<T>(ms, t);
-
-
-
-           
+            //Serializer.Serialize<T>(ms, t);
         }
 
 
@@ -69,10 +64,11 @@ namespace Summer
         {
             using (MemoryStream ms = new MemoryStream(msg))
             {
-                T t = Serializer.Deserialize<T>(ms);
-                NetLog.Log("Receive:[{0}]", t);
-                return t;
+                //T t = Serializer.Deserialize<T>(ms);
+                //NetLog.Log("Receive:[{0}]", t);
+                //return t;
             }
+            return default(T);
         }
 
     }

@@ -48,6 +48,7 @@ public class TestMoney1 : MonoBehaviour
     void Update()
     {
         Check1();
+        Check2();
     }
 
     #endregion
@@ -68,7 +69,7 @@ public class TestMoney1 : MonoBehaviour
         TextAsset a = Resources.Load<TextAsset>("11");
         string[] infos = a.text.ToStrs(StringHelper._splitHuanhang);
         List<float> prices = new List<float>();
-        
+
         for (int i = 0; i < infos.Length; i++)
         {
             string[] lineInfo = infos[i].ToStrs("\t");
@@ -95,6 +96,37 @@ public class TestMoney1 : MonoBehaviour
             sb.AppendLine(prices[i].ToString());
         }
         FileHelper.WriteTxtByFile(Application.streamingAssetsPath + "/price.csv", sb.ToString());
+    }
+
+    public bool flag2 = false;
+    public void Check2()
+    {
+        if (!flag2) return;
+        flag2 = false;
+        TextAsset a = Resources.Load<TextAsset>("11");
+        string[] infos = a.text.ToStrs(StringHelper._splitHuanhang);
+        List<float> prices = new List<float>();
+
+        for (int i = 0; i < infos.Length; i++)
+        {
+            string[] lineInfo = infos[i].ToStrs("\t");
+            prices.Add(float.Parse(lineInfo[1]));
+        }
+
+        float pjCount = 100;
+        float allNum = 0;
+        float allMoney = 0;
+        for (int i = 0; i < prices.Count; i++)
+        {
+            allMoney += pjCount * prices[i];
+            allNum += pjCount;
+            /*float num = pjMoney / prices[i];
+            allNum += num;*/
+        }
+
+        float outMoney = allNum * currPrice;
+        Debug.Log("allMoney:" + allMoney + "_outMoney:" + outMoney + "_" + (outMoney - allMoney));
+
     }
 
     public int SortPrice(float a, float b)

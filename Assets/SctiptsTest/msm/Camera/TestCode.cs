@@ -23,7 +23,6 @@
 
 using System;
 using System.Collections.Generic;
-using MsgPb;
 using UnityEngine;
 using Summer;
 
@@ -122,9 +121,9 @@ public class TestCode : MonoBehaviour
 
         }*/
 
-        ReqVersion req_version_data = new ReqVersion();
+       /* ReqVersion req_version_data = new ReqVersion();
         req_version_data.ver = 1;
-        NetManager.Send<ReqVersion>(NetworkMessageCode.REQVERSION, req_version_data);
+        NetManager.Send<ReqVersion>(NetworkMessageCode.REQVERSION, req_version_data);*/
     }
 
     #endregion

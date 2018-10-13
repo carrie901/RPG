@@ -55,6 +55,11 @@ namespace Summer
             int length = objs.Length;
             for (int i = 0; i < length; i++)
             {
+                if (!_cnf._resNames.ContainsKey(objs[i].name))
+                {
+                    ResLog.Error("AssetBundlePackageInfo InitAssetBundle 失败. 配置文件:[{0}]", objs[i].name);
+                    continue;
+                }
                 AssetInfo info = new AssetInfo(objs[i], _cnf._resNames[objs[i].name]);
                 _assetMap.Add(info);
             }
@@ -63,7 +68,9 @@ namespace Summer
 
         public AssetInfo GetAsset<T>(string assetName) where T : Object
         {
-            if (_assetbundle == null) return null;
+            ResLog.Assert(!(_assetbundle == null || string.IsNullOrEmpty(assetName)),
+                "AssetBundlePackageInfo GetAsset 失败。PackagePath:[{3}],AssetBundel:[{0}](true代表空),名字:[{1}]", _assetbundle == null, assetName, PackagePath);
+            if (_assetbundle == null || string.IsNullOrEmpty(assetName)) return null;
             AssetInfo reAssetInfo = null;
 
             int length = _assetMap.Count;

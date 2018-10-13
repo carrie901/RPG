@@ -76,10 +76,11 @@ namespace SummerEditor
                 {
                     string noSuffix = assetBundleNames[k];//EPathHelper.RemoveSuffix(assetBundleNames[k]);
                     string tmpName = EPathHelper.GetName1(noSuffix);
+                    string resNameNoSuffix= EPathHelper.RemoveSuffix(tmpName);
                     Debug.Assert(!string.IsNullOrEmpty(tmpName), assetBundleNames[k]);
 
                     result.Add(noSuffix.Replace("Assets/", string.Empty));
-                    result.Add(tmpName);
+                    result.Add(resNameNoSuffix);
                 }
                 resultMap.Add(result);
             }

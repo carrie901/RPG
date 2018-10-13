@@ -15,7 +15,7 @@ namespace SummerEditor
             }
 
             BuildPipeline.BuildAssetBundles(EAssetBundleConst.assetbundle_directory, FindBuildAssetBundleOptions(), FindBuildTarget());
-            
+
             EditorUtility.DisplayDialog("资源打包", "打包完毕", "OK");
 
         }
@@ -27,7 +27,7 @@ namespace SummerEditor
 
         public static BuildAssetBundleOptions FindBuildAssetBundleOptions()
         {
-            return  BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.ForceRebuildAssetBundle;//ForceRebuildAssetBundle 
+            return BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.ForceRebuildAssetBundle ;//ForceRebuildAssetBundle 
         }
     }
 }

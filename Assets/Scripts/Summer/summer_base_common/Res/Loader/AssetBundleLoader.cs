@@ -81,11 +81,11 @@ namespace Summer
             // 3.依次加载依赖包
             foreach (var depInfo in depsCnf._childRef)
             {
-                InternalAsyncLoadPackage<Object>(depInfo.Key, mainPackagePath);
+                InternalAsyncLoadPackage<Object>(depInfo.Key, string.Empty, mainPackagePath);
             }
 
             // 4.加载主包
-            ResLoadOpertion resLoadOperation = InternalAsyncLoadPackage<Object>(depsCnf.AssetBundleName, string.Empty);
+            ResLoadOpertion resLoadOperation = InternalAsyncLoadPackage<Object>(depsCnf.AssetBundleName, resPath, string.Empty);
             return resLoadOperation;
         }
 
@@ -200,7 +200,7 @@ namespace Summer
             return packageInfo;
         }
 
-        private ResLoadOpertion InternalAsyncLoadPackage<T>(string packagePath, string parentPath) where T : Object
+        private ResLoadOpertion InternalAsyncLoadPackage<T>(string packagePath, string resPath, string parentPath) where T : Object
         {
             // 1.已经在缓存中,引用+1
             AssetBundlePackageInfo packageInfo;
@@ -231,7 +231,7 @@ namespace Summer
             // 4得到Ab的包消息,并且添加到等待列表中
             AssetBundlePackageCnf packageCnf = _mainInfo.GetPackageCnf(packagePath);
             AssetBundleAsyncLoadOpertion<T> packageOpertion =
-                new AssetBundleAsyncLoadOpertion<T>(packageCnf, string.Empty, parentPath);
+                new AssetBundleAsyncLoadOpertion<T>(packageCnf, resPath, parentPath);
             _waitToLoadRequest.Add(packageOpertion);
             _onWaitAbPackage.Add(packagePath);
             return packageOpertion;

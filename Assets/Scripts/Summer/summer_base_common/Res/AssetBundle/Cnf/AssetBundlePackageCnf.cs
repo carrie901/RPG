@@ -27,7 +27,7 @@ namespace Summer
         /// <summary>
         /// 资源的实际路径 Key=资源相对路径，value=资源的名称
         /// 例子:
-        ///     key = Raw/Animation/Zhaoyun/climb_down,
+        ///     key = Raw/Animation/Zhaoyun/climb_down.anim,
         ///     value = climb_down
         /// </summary>
         public Dictionary<string, string> _resPathMap = new Dictionary<string, string>();

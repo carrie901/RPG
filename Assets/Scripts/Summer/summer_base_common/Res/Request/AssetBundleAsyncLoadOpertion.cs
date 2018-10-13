@@ -15,12 +15,18 @@ namespace Summer
         public AssetBundleRequest _request;                     // AssetBundle的资源加载请求
         public AssetBundle _assetbundle;
         public AssetBundlePackageCnf _packageCnf;
+        public AssetBundlePackageInfo _packageInfo;
         public string _resPath;
         public string _parentPath;
 
         // 0=开始，1=ab头文件异步完成，开始加载内容，2=头文件完成，异步也完成
         //public int ab_state;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="packageCnf">加载的AssetBundle包信息</param>
+        /// <param name="resPath">加载的资源名称</param>
+        /// <param name="parentPath">资源的爸爸</param>
         public AssetBundleAsyncLoadOpertion(AssetBundlePackageCnf packageCnf, string resPath, string parentPath)
         {
             if (packageCnf != null)
@@ -62,10 +68,13 @@ namespace Summer
 
         protected override void Complete()
         {
-            if (_assetInfo == null)
-            {
-                AssetBundleLoader.Instance.InitAssetBundleInfo(_assetbundle, _packageCnf);
-            }
+            _packageInfo = AssetBundleLoader.Instance.InitAssetBundleInfo(_assetbundle, _packageCnf);
+        }
+
+        public override AssetInfo GetAsset()
+        {
+            AssetInfo assetInfo = _packageInfo.GetAsset<T>(_resPath);
+            return assetInfo;
         }
 
         #endregion
