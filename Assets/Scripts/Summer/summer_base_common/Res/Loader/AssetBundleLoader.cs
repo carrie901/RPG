@@ -41,51 +41,42 @@ namespace Summer
 
         #region I_ResourceLoad
 
-        // TODO Bug没有好的防御机制，在加载失败的情况下，不会导致整个程序死掉
         public AssetInfo LoadAsset<T>(string resPath) where T : Object
         {
-            // 1.根据资源路径，得到对应的AssetBundlePackage包的路径
             ResToAssetBundleCnf mainPackageCnf = _mainInfo.GetResToAb(resPath);
             if (mainPackageCnf == null) return null;
 
-            // 2.根据主包路径，得到起主包以及相关依赖包的信息
             string mainPackagePath = mainPackageCnf.PackagePath;
             AssetBundleDepCnf depsCnf = _mainInfo.GetDepsInfo(mainPackagePath);
             if (depsCnf == null) return null;
 
-            // 3.依次加载依赖包
             foreach (var depInfo in depsCnf._childRef)
             {
                 InternalSyncloadPackage(depInfo.Key);
             }
 
-            // 4.加载主包
-            AssetBundlePackageInfo mainPackage = InternalSyncloadPackage(mainPackagePath);
+            AssetBundlePackageInfo mainPackage = InternalSyncloadPackage(depsCnf.AbName);
             ResLog.Assert(mainPackage != null, "AssetBundleLoader LoadAsset 加载主包失败:[{0}]", resPath);
             if (mainPackage == null) return null;
+
             AssetInfo info = mainPackage.GetAsset<T>(mainPackageCnf.ResName);
             return info;
         }
 
         public ResLoadOpertion LoadAssetAsync<T>(string resPath) where T : Object
         {
-            // 1.根据资源路径，得到对应的AssetBundlePackage包的路径
-            ResToAssetBundleCnf mainPackageCnf = _mainInfo.GetResToAb(resPath);
-            if (mainPackageCnf == null) return null;
+            ResToAssetBundleCnf abInfo = _mainInfo.GetResToAb(resPath);
+            if (abInfo == null) return null;
 
-            // 2.根据主包路径，得到起主包以及相关依赖包的信息
-            string mainPackagePath = mainPackageCnf.PackagePath;
-            AssetBundleDepCnf depsCnf = _mainInfo.GetDepsInfo(mainPackagePath);
-            if (depsCnf == null) return null;
+            AssetBundleDepCnf abDep = _mainInfo.GetDepsInfo(abInfo.PackagePath);
+            if (abDep == null) return null;
 
-            // 3.依次加载依赖包
-            foreach (var depInfo in depsCnf._childRef)
+            foreach (var depInfo in abDep._childRef)
             {
-                InternalAsyncLoadPackage<Object>(depInfo.Key);
+                InternalAsyncLoadPackage(depInfo.Key);
             }
 
-            // 4.加载主包
-            ResLoadOpertion resLoadOperation = InternalAsyncLoadPackage<Object>(depsCnf.AssetBundleName);
+            ResLoadOpertion resLoadOperation = InternalAsyncLoadPackage(abDep.AbName);
             return resLoadOperation;
         }
 
@@ -106,6 +97,7 @@ namespace Summer
             // 4.卸载依赖包
             AssetBundleDepCnf depCnf = _mainInfo.GetDepsInfo(mainPackagePath);
             if (depCnf == null) return true;
+
             foreach (var depInfo in depCnf._childRef)
             {
                 InternalUnLoad(depInfo.Key);
@@ -126,7 +118,6 @@ namespace Summer
                     opertion.UnloadRequest();
                     _onLoadingRequest.RemoveAt(i);
                     _onLoadingAbPackage.RemoveAt(i);
-                    opertion = null;
                 }
             }
 
@@ -170,18 +161,17 @@ namespace Summer
         #endregion
 
         #region private
-
+        
         private void InitInfo()
         {
             _packageMap.Clear();
             _mainInfo.InitInfo();
         }
-
+        // 内置同步加载指定路径的AssetBundle包
         private AssetBundlePackageInfo InternalSyncloadPackage(string packagePath)
         {
             // 1.已经在缓存中,引用+1
-            AssetBundlePackageInfo packageInfo = null;
-            _packageMap.TryGetValue(packagePath, out packageInfo);
+            AssetBundlePackageInfo packageInfo = GetPackageInfo(packagePath);
             if (packageInfo != null)
             {
                 return packageInfo;
@@ -212,12 +202,14 @@ namespace Summer
 
             return packageInfo;
         }
-
-        private ResLoadOpertion InternalAsyncLoadPackage<T>(string packagePath) where T : Object
+        // 内置异步加载指定路径的AssetBundle包
+        private ResLoadOpertion InternalAsyncLoadPackage(string packagePath)
         {
+            AssetBundlePackageCnf packageCnf = _mainInfo.GetPackageCnf(packagePath);
+            if (packageCnf == null) return null;
+
             // 1.已经在缓存中,引用+1
-            AssetBundlePackageInfo packageInfo;
-            _packageMap.TryGetValue(packagePath, out packageInfo);
+            AssetBundlePackageInfo packageInfo = GetPackageInfo(packagePath);
             if (packageInfo != null)
             {
                 AssetBundleCompleteLoadOperation operation = new AssetBundleCompleteLoadOperation(packageInfo);
@@ -242,14 +234,12 @@ namespace Summer
             }
 
             // 4得到Ab的包消息,并且添加到等待列表中
-            AssetBundlePackageCnf packageCnf = _mainInfo.GetPackageCnf(packagePath);
-            AssetBundleAsyncLoadOpertion packageOpertion =
-                new AssetBundleAsyncLoadOpertion(packageCnf);
+            AssetBundleAsyncLoadOpertion packageOpertion = new AssetBundleAsyncLoadOpertion(packageCnf);
             _waitToLoadRequest.Add(packageOpertion);
             _onWaitAbPackage.Add(packagePath);
             return packageOpertion;
         }
-
+        // 内置卸载指定路径的AssetBundle包
         private bool InternalUnLoad(string packagePath)
         {
             // 1.得到AB包的配置信息
@@ -283,8 +273,15 @@ namespace Summer
 
             return result;
         }
+        // 根据路径查找AssetBundle包
+        private AssetBundlePackageInfo GetPackageInfo(string packagePath)
+        {
+            AssetBundlePackageInfo packageInfo = null;
+            _packageMap.TryGetValue(packagePath, out packageInfo);
+            return packageInfo;
+        }
 
-        public void InternalCheckInfo()
+        private void InternalCheckInfo()
         {
             LogManager.Assert(_onLoadingRequest.Count == _onLoadingAbPackage.Count, "AssetBundleLoader OnLoading Request List！=Name List");
 
@@ -303,10 +300,8 @@ namespace Summer
             {
                 ResLog.Log(_waitToLoadRequest[i].RequestResPath);
             }
-
         }
-
+        
         #endregion
-
     }
 }

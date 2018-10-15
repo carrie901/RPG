@@ -81,7 +81,7 @@ namespace Summer
         {
             ResToAssetBundleCnf info;
             _resMap.TryGetValue(resPath, out info);
-            ResLog.Assert((info != null), "找不到资源路径:[{0}]找不到对应的包", resPath);
+            ResLog.Assert(info != null, "根据包路径:[{0}]查找相关依赖包失败", resPath);
             return info;
         }
 
@@ -124,7 +124,7 @@ namespace Summer
             {
                 AssetBundleDepCnf dep = new AssetBundleDepCnf();
                 dep.InitInfo(depResult[i]);
-                _depMap.Add(dep.AssetBundleName, dep);
+                _depMap.Add(dep.AbName, dep);
             }
             InitReverseDep();
 
@@ -167,7 +167,7 @@ namespace Summer
                         List<string> parents = new List<string>(8);
                         _reverseDepMap.Add(childPath, parents);
                     }
-                    _reverseDepMap[childPath].Add(depInfo.AssetBundleName);
+                    _reverseDepMap[childPath].Add(depInfo.AbName);
                 }
             }
         }

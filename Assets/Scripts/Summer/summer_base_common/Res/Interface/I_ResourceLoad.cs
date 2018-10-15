@@ -14,11 +14,17 @@ namespace Summer
         /// 异步加载
         /// </summary>
         ResLoadOpertion LoadAssetAsync<T>(string resPath) where T : Object;
-
+        /// <summary>
+        /// 卸载内部资源
+        /// </summary>
         bool UnloadAssetBundle(AssetInfo assetInfo);
-
+        /// <summary>
+        /// Update
+        /// </summary>
         void OnUpdate();
-
+        /// <summary>
+        /// 测试方法
+        /// </summary>
         void CheckInfo();
 
     }

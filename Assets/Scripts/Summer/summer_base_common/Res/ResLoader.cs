@@ -185,7 +185,7 @@ namespace Summer
 
             // 2.ASSETBUNDLE 实际发布用
             _loader = AssetBundleLoader.Instance;
-            
+
             // 3.WWW 实际发布用
             //_loader = W3Loader.instance;
 
@@ -229,7 +229,7 @@ namespace Summer
                 _currAsyncCount++;
                 // 4.请求异步加载
                 ResLoadOpertion loadOpertion = _loader.LoadAssetAsync<T>(resPath);
-                ResLog.Assert(loadOpertion != null, "ResLoader InternalLoadAssetAsync 请求为空.路径:[{0}]", resPath);
+                ResLog.Assert(loadOpertion != null, "ResLoader InternalLoadAssetAsync 异步请求为空.加载路径:[{0}]", resPath);
                 if (loadOpertion == null) yield break;
                 // TODO 请求的地址是和加载的路径是不一样的东西
                 _onLoadingRes.Add(resPath);

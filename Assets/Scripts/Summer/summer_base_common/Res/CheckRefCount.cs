@@ -30,54 +30,54 @@ namespace Summer
                 StringBuilder sb = new StringBuilder();
                 sb.AppendFormat("{0},{1},{2}", "资源名字", "内存引用数", "实际引用数");
                 sb.AppendLine();
-                Dictionary<string, AssetInfo> asset_map = ResLoader.instance._cacheRes;
-                Dictionary<string, List<string>> ref_map = new Dictionary<string, List<string>>();
+                Dictionary<string, AssetInfo> assetMap = ResLoader.instance._cacheRes;
+                Dictionary<string, List<string>> refMap = new Dictionary<string, List<string>>();
 
                 for (int i = 0; i < refs.Length; i++)
                 {
-                    RefCounter ref_count = refs[i];
-                    string tmp_res_path = ref_count._refResPath;
-                    string tmp_res_name = ref_count.gameObject.name;
-                    if (!ref_map.ContainsKey(tmp_res_path))
+                    RefCounter refCount = refs[i];
+                    string tmpResPath = refCount._refResPath;
+                    string tmpResName = refCount.gameObject.name;
+                    if (!refMap.ContainsKey(tmpResPath))
                     {
                         List<string> a = new List<string>();
-                        a.Add(tmp_res_name);
-                        ref_map.Add(tmp_res_path, a);
+                        a.Add(tmpResName);
+                        refMap.Add(tmpResPath, a);
                     }
                     else
                     {
-                        ref_map[tmp_res_path].Add(tmp_res_name);
+                        refMap[tmpResPath].Add(tmpResName);
                     }
                 }
 
-                foreach (var info in asset_map)
+                foreach (var info in assetMap)
                 {
-                    string asset_name = info.Key;
+                    string assetName = info.Key;
                     int count = info.Value.RefCount;
 
-                    if (ref_map.ContainsKey(asset_name) && ref_map[asset_name].Count == count)
+                    if (refMap.ContainsKey(assetName) && refMap[assetName].Count == count)
                     {
-                        sb1.AppendLine(asset_name);
+                        sb1.AppendLine(assetName);
                     }
                     else
                     {
-                        int ref_count = 0;
-                        if (ref_map.ContainsKey(asset_name))
-                            ref_count = ref_map[asset_name].Count;
-                        sb.AppendFormat("{0},{1},{2}", asset_name, count, ref_count);
+                        int refCount = 0;
+                        if (refMap.ContainsKey(assetName))
+                            refCount = refMap[assetName].Count;
+                        sb.AppendFormat("{0},{1},{2}", assetName, count, refCount);
                         sb.AppendLine();
-                        if (ref_map.ContainsKey(asset_name))
+                        if (refMap.ContainsKey(assetName))
                         {
-                            List<string> ref_list = ref_map[asset_name];
-                            for (int i = 0; i < ref_list.Count; i++)
+                            List<string> refList = refMap[assetName];
+                            for (int i = 0; i < refList.Count; i++)
                             {
-                                if (i == ref_list.Count - 1)
+                                if (i == refList.Count - 1)
                                 {
-                                    sb.Append(ref_list[i]);
+                                    sb.Append(refList[i]);
                                 }
                                 else
                                 {
-                                    sb.Append(ref_list[i] + ",");
+                                    sb.Append(refList[i] + ",");
                                 }
                             }
                             sb.AppendLine();
@@ -93,10 +93,10 @@ namespace Summer
                 }
 
                 string dir = "Report";
-                string report_dir = Application.persistentDataPath + "/" + dir;
-                Debug.Log("report_dir:" + report_dir);
-                if (!Directory.Exists(report_dir))
-                    Directory.CreateDirectory(report_dir);
+                string reportDir = Application.persistentDataPath + "/" + dir;
+                Debug.Log("report_dir:" + reportDir);
+                if (!Directory.Exists(reportDir))
+                    Directory.CreateDirectory(reportDir);
                 //Debug.Log(sb.ToString());
                 //Debug.Log("------------------------");
                 //Debug.Log(sb1.ToString());
