@@ -1,13 +1,12 @@
 ﻿#if UNITY_EDITOR
-using System;
-using Object = UnityEngine.Object;
+//using Object = UnityEngine.Object;
 
 namespace Summer
 {
-    public class AssetDatabaseAsynLoadOpertion<T> : ResLoadOpertion where T : Object
+    public class AssetDatabaseAsynLoadOpertion : ResLoadOpertion
     {
-        private int _frame = 1;
-        private T _obj;
+        private const int MaxFrame = 3;
+        private int _frame;
         public AssetDatabaseAsynLoadOpertion(string path)
         {
             RequestResPath = path;
@@ -25,28 +24,24 @@ namespace Summer
 
         protected override bool Update()
         {
-            _frame--;
-            if (_frame > 0) return false;
+            _frame++;
+            if (_frame <= MaxFrame) return false;
+            return true;
+        }
 
-            _obj = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(RequestResPath);
-            if (_obj != null)
-            {
-                return true;
-            }
-            else
+        protected override void Complete() { }
+
+        public override AssetInfo GetAsset<T>(string resPath)
+        {
+            T obj = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(RequestResPath);
+            if (obj == null)
             {
                 ResLog.Error("本地加载资源出错,Path:[{0}]", RequestResPath);
                 ForceExit(string.Format("本地加载资源出错,Path:[{0}]", RequestResPath));
-                return false;
+                return null;
             }
-        }
-
-        protected override void Complete()
-        {
-            if (_assetInfo == null)
-            {
-                _assetInfo = new AssetInfo(_obj, RequestResPath);
-            }
+            AssetInfo assetInfo = new AssetInfo(obj, RequestResPath);
+            return assetInfo;
         }
 
         #endregion

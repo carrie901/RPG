@@ -23,10 +23,7 @@ namespace Summer
             return result;
         }
 
-        public void Reset()
-        {
-
-        }
+        public void Reset() { }
 
         public object Current { get { return null; } }
 

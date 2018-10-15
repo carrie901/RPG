@@ -17,7 +17,7 @@ namespace Summer
 
         public void LoadTextureAsync(RawImage img, string name)
         {
-            ResManager.instance.LoadTextureAsync(img, ResRequestFactory.CreateRequest<Texture>(name, E_GameResType.QUANMING), OnComplete);
+            ResManager.instance.LoadTextureAsync(img, name, OnComplete);
         }
 
         public void ReaycelTexture(RawImage img, string name)

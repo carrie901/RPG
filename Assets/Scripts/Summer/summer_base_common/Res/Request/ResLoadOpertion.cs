@@ -21,8 +21,7 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-
-using System.Net;
+using Object = UnityEngine.Object;
 
 namespace Summer
 {
@@ -38,7 +37,6 @@ namespace Summer
 
         public string RequestResPath { get; protected set; }                    // 请求命令的名字
         protected E_LoadOpertion _loading = E_LoadOpertion.INIT;
-        protected AssetInfo _assetInfo;
 
         #endregion
 
@@ -56,8 +54,9 @@ namespace Summer
             {
                 bool result = Update();
                 if (result)
+                {
                     FinishComplete();
-
+                }
             }
 
             if (_loading == E_LoadOpertion.COMPLETE)
@@ -88,15 +87,6 @@ namespace Summer
 
         public void FinishComplete() { _loading = E_LoadOpertion.COMPLETE; }
 
-        public virtual AssetInfo GetAsset()
-        {
-            return _assetInfo;
-        }
-
-        public virtual void AddParent(string parentPath)
-        {
-
-        }
         #region 生命周期的方法
         /// <summary>
         /// 初始化
@@ -113,6 +103,8 @@ namespace Summer
         /// 完成
         /// </summary>
         protected abstract void Complete();
+
+        public abstract AssetInfo GetAsset<T>(string resPath) where T : Object;
 
         #endregion
 

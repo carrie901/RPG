@@ -24,17 +24,17 @@ namespace Summer
 
         public static AssetBundleLoader Instance = new AssetBundleLoader();
 
-        private static int _maxLoadingCount = 5;                                                    // 一次性最大加载个数
 
-        protected List<ResLoadOpertion> _onLoadingRequest = new List<ResLoadOpertion>(8);            // 正在加载的请求            
+        protected List<ResLoadOpertion> _onLoadingRequest = new List<ResLoadOpertion>(8);           // 正在加载的请求            
         protected List<string> _onLoadingAbPackage = new List<string>(8);                           // 加载中的资源包
+
         protected List<ResLoadOpertion> _waitToLoadRequest = new List<ResLoadOpertion>(16);         // 等待加载的请求   
         protected List<string> _onWaitAbPackage = new List<string>();                               // 等待加载的资源包
 
         private readonly Dictionary<string, AssetBundlePackageInfo> _packageMap
-            = new Dictionary<string, AssetBundlePackageInfo>(256);
+            = new Dictionary<string, AssetBundlePackageInfo>(256);                                  // 已经加载的资源
         private readonly AssetBundleManifestInfo _mainInfo = AssetBundleManifestInfo.Instance;
-
+        private static int _maxLoadingCount = 5;                                                    // 一次性最大加载个数
         private AssetBundleLoader() { InitInfo(); }
 
         #endregion
@@ -56,11 +56,11 @@ namespace Summer
             // 3.依次加载依赖包
             foreach (var depInfo in depsCnf._childRef)
             {
-                InternalSyncloadPackage<T>(depInfo.Key, mainPackagePath);
+                InternalSyncloadPackage(depInfo.Key);
             }
 
             // 4.加载主包
-            AssetBundlePackageInfo mainPackage = InternalSyncloadPackage<T>(mainPackagePath, string.Empty);
+            AssetBundlePackageInfo mainPackage = InternalSyncloadPackage(mainPackagePath);
             ResLog.Assert(mainPackage != null, "AssetBundleLoader LoadAsset 加载主包失败:[{0}]", resPath);
             if (mainPackage == null) return null;
             AssetInfo info = mainPackage.GetAsset<T>(mainPackageCnf.ResName);
@@ -81,11 +81,11 @@ namespace Summer
             // 3.依次加载依赖包
             foreach (var depInfo in depsCnf._childRef)
             {
-                InternalAsyncLoadPackage<Object>(depInfo.Key, string.Empty, mainPackagePath);
+                InternalAsyncLoadPackage<Object>(depInfo.Key);
             }
 
             // 4.加载主包
-            ResLoadOpertion resLoadOperation = InternalAsyncLoadPackage<Object>(depsCnf.AssetBundleName, resPath, string.Empty);
+            ResLoadOpertion resLoadOperation = InternalAsyncLoadPackage<Object>(depsCnf.AssetBundleName);
             return resLoadOperation;
         }
 
@@ -125,19 +125,32 @@ namespace Summer
                 {
                     opertion.UnloadRequest();
                     _onLoadingRequest.RemoveAt(i);
+                    _onLoadingAbPackage.RemoveAt(i);
                     opertion = null;
                 }
             }
 
             // 检测新的内容
-            for (int i = length; i < _maxLoadingCount; i++)
+            int removeCount = 0;
+            length = _waitToLoadRequest.Count;
+            for (int i = 0; i < length; i++)
             {
-                if (_waitToLoadRequest.Count <= 0) continue;
-                ResLoadOpertion loadOpertion = _waitToLoadRequest[0];
-                _waitToLoadRequest.RemoveAt(0);
-                _onWaitAbPackage.RemoveAt(0);
+                if (_onLoadingRequest.Count >= _maxLoadingCount) break;
+                ResLoadOpertion loadOpertion = _waitToLoadRequest[i];
+                removeCount++;
                 _onLoadingRequest.Add(loadOpertion);
+                _onLoadingAbPackage.Add(loadOpertion.RequestResPath);
             }
+            if (removeCount > 0)
+            {
+                _waitToLoadRequest.RemoveRange(0, removeCount);
+                _onWaitAbPackage.RemoveRange(0, removeCount);
+            }
+        }
+
+        public void CheckInfo()
+        {
+            InternalCheckInfo();
         }
 
         #endregion
@@ -164,7 +177,7 @@ namespace Summer
             _mainInfo.InitInfo();
         }
 
-        private AssetBundlePackageInfo InternalSyncloadPackage<T>(string packagePath, string parentPath)
+        private AssetBundlePackageInfo InternalSyncloadPackage(string packagePath)
         {
             // 1.已经在缓存中,引用+1
             AssetBundlePackageInfo packageInfo = null;
@@ -200,14 +213,16 @@ namespace Summer
             return packageInfo;
         }
 
-        private ResLoadOpertion InternalAsyncLoadPackage<T>(string packagePath, string resPath, string parentPath) where T : Object
+        private ResLoadOpertion InternalAsyncLoadPackage<T>(string packagePath) where T : Object
         {
             // 1.已经在缓存中,引用+1
             AssetBundlePackageInfo packageInfo;
             _packageMap.TryGetValue(packagePath, out packageInfo);
             if (packageInfo != null)
             {
-                return null;
+                AssetBundleCompleteLoadOperation operation = new AssetBundleCompleteLoadOperation(packageInfo);
+                operation.OnUpdate();
+                return operation;
             }
 
             // 2.如果已经在加载中,返回已经在加载中的结果
@@ -215,7 +230,6 @@ namespace Summer
             if (index >= 0)
             {
                 ResLoadOpertion loadOperation = _onLoadingRequest[index];
-                loadOperation.AddParent(parentPath);
                 return loadOperation;
             }
 
@@ -224,14 +238,13 @@ namespace Summer
             if (index >= 0)
             {
                 ResLoadOpertion loadOperation = _waitToLoadRequest[index];
-                loadOperation.AddParent(parentPath);
                 return loadOperation;
             }
 
             // 4得到Ab的包消息,并且添加到等待列表中
             AssetBundlePackageCnf packageCnf = _mainInfo.GetPackageCnf(packagePath);
-            AssetBundleAsyncLoadOpertion<T> packageOpertion =
-                new AssetBundleAsyncLoadOpertion<T>(packageCnf, resPath, parentPath);
+            AssetBundleAsyncLoadOpertion packageOpertion =
+                new AssetBundleAsyncLoadOpertion(packageCnf);
             _waitToLoadRequest.Add(packageOpertion);
             _onWaitAbPackage.Add(packagePath);
             return packageOpertion;
@@ -242,6 +255,7 @@ namespace Summer
             // 1.得到AB包的配置信息
             AssetBundlePackageCnf mainPackageCnf = _mainInfo.GetPackageCnf(packagePath);
             string mainPackagePath = mainPackageCnf.PackagePath;
+
             // 2.从缓存查找得到AssetBundle
             AssetBundlePackageInfo packageInfo;
             _packageMap.TryGetValue(mainPackagePath, out packageInfo);
@@ -250,14 +264,46 @@ namespace Summer
 
             // 3.这个AssetBundle的爸爸们还在，所以不能卸载
             List<string> parentPaths = _mainInfo.GetParentPaths(mainPackageCnf.PackagePath);
-            int length = parentPaths.Count;
-            for (int i = 0; i < length; i++)
+            if (parentPaths != null)
             {
-                if (_packageMap.ContainsKey(parentPaths[i]))
-                    return false;
+                int length = parentPaths.Count;
+                for (int i = 0; i < length; i++)
+                {
+                    if (_packageMap.ContainsKey(parentPaths[i]))
+                        return false;
+                }
             }
             // 4.爸爸们已经不在了，看下内部的引用是否已经完全为0了
-            return packageInfo.UnLoad();
+            bool result = packageInfo.CheckRef();
+            if (result)
+            {
+                packageInfo.UnLoad();
+                _packageMap.Remove(mainPackagePath);
+            }
+
+            return result;
+        }
+
+        public void InternalCheckInfo()
+        {
+            LogManager.Assert(_onLoadingRequest.Count == _onLoadingAbPackage.Count, "AssetBundleLoader OnLoading Request List！=Name List");
+
+            LogManager.Log("--------------------资源数量:[{0}]--------------------", _packageMap.Count);
+            int length = _onLoadingRequest.Count;
+            LogManager.Log("--------------------加载中的请求:[{0}]--------------------", length);
+            for (int i = 0; i < length; i++)
+            {
+                ResLog.Log(_onLoadingRequest[i].RequestResPath);
+            }
+
+            LogManager.Assert(_waitToLoadRequest.Count == _onWaitAbPackage.Count, "OnWait Request List！=Name List");
+            length = _waitToLoadRequest.Count;
+            LogManager.Log("--------------------等待中的请求:[{0}]--------------------", length);
+            for (int i = 0; i < length; i++)
+            {
+                ResLog.Log(_waitToLoadRequest[i].RequestResPath);
+            }
+
         }
 
         #endregion

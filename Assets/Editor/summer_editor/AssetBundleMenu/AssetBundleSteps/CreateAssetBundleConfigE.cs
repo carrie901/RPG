@@ -34,6 +34,9 @@ namespace SummerEditor
 
             // 2.通过过滤器剔除掉不是主目录的AssetBundle
             List<string> filterFiles = SuffixHelper.Filter(assetBundles, new StartsWithFilter(EAssetBundleConst.MAIN_RES_DRIECTORY));
+            // 3.添加UIRes
+            List<string> altasFiles = SuffixHelper.Filter(assetBundles, new StartsWithFilter(EAssetBundleConst.UI_MAIN_DIRECTORY));
+            filterFiles.AddRange(altasFiles);
             filterFiles.Clear();
             filterFiles.AddRange(assetBundles);
 
@@ -48,14 +51,16 @@ namespace SummerEditor
                 {
                     // 主目录下的资源路径
                     string mainAbPath = assetBundleNames[mainIndex];
-                    if (!mainAbPath.StartsWith(EAssetBundleConst.MAIN_RES_DRIECTORY)) continue;
+                    if (mainAbPath.StartsWith(EAssetBundleConst.MAIN_RES_DRIECTORY)
+                        || mainAbPath.StartsWith(EAssetBundleConst.UI_MAIN_DIRECTORY))
+                    {
+                        List<string> result = new List<string>();
 
-                    List<string> result = new List<string>();
-
-                    //mainAbPath = EPathHelper.RemoveSuffix(mainAbPath);
-                    result.Add(mainAbPath.Replace("Assets/", string.Empty));
-                    result.Add(abName);
-                    resultMap.Add(result);
+                        //mainAbPath = EPathHelper.RemoveSuffix(mainAbPath);
+                        result.Add(mainAbPath.Replace("Assets/", string.Empty));
+                        result.Add(abName);
+                        resultMap.Add(result);
+                    }
                 }
             }
             CreateConfig(resultMap, AssetBundleConst.ResConfigName);
@@ -76,7 +81,7 @@ namespace SummerEditor
                 {
                     string noSuffix = assetBundleNames[k];//EPathHelper.RemoveSuffix(assetBundleNames[k]);
                     string tmpName = EPathHelper.GetName1(noSuffix);
-                    string resNameNoSuffix= EPathHelper.RemoveSuffix(tmpName);
+                    string resNameNoSuffix = EPathHelper.RemoveSuffix(tmpName);
                     Debug.Assert(!string.IsNullOrEmpty(tmpName), assetBundleNames[k]);
 
                     result.Add(noSuffix.Replace("Assets/", string.Empty));

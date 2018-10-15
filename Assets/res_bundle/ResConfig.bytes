@@ -1,11 +1,17 @@
-res_bundle/TestRawImage_01.prefab,test/raw01.ab
-res_bundle/TestRawImage_02.prefab,test/raw02.ab
+UIResources/UITexture/Alert/alert_02.png,uiresources/uitexture/common/altas_alert_main.ab
+UIResources/UITexture/Alert/alert_03.png,uiresources/uitexture/common/altas_alert_main.ab
+UIResources/UITexture/Alert/alert_04.png,uiresources/uitexture/common/altas_alert_main.ab
+UIResources/UITexture/AlertMain/alert_main_01.png,uiresources/uitexture/common/altas_alert_main.ab
+UIResources/UITexture/Common/UI_Hero_Info_06.png,uiresources/uitexture/common/ui_hero_info_06.ab
+UIResources/UITexture/Common/UI_Hero_Info_07.png,uiresources/uitexture/common/ui_hero_info_06.ab
+UIResources/UITexture/Other/activity_yeqian_1.png,uiresources/uitexture/other/activity_yeqian_1.ab
+UIResources/UITexture/Other/activity_yeqian_2.png,uiresources/uitexture/other/activity_yeqian_2.ab
+UIResources/UITexture/Other/activity_yeqian_3.png,uiresources/uitexture/other/activity_yeqian_3.ab
 res_bundle/TestRes/TestPanel01.prefab,res_bundle/testres/testpanel01.ab
 res_bundle/TestRes/TestPanel02.prefab,res_bundle/testres/testpanel02.ab
 res_bundle/TestRes/TestPanel03.prefab,res_bundle/testres/testpanel03.ab
 res_bundle/TestRes/TestPanel04.prefab,res_bundle/testres/testpanel04.ab
 res_bundle/TestRes/TestPanel05.prefab,res_bundle/testres/testpanel05.ab
-res_bundle/TestSprite.prefab,test/sprite.ab
 res_bundle/depconfig.bytes,res_bundle/depconfig.ab
 res_bundle/icon/Skill/UI_Arrow_Ico_01.png,res_bundle/icon/skill/ui_arrow_ico_01.ab
 res_bundle/icon/Skill/UI_Arrow_Ico_02.png,res_bundle/icon/skill/ui_arrow_ico_02.ab
@@ -47,4 +53,3 @@ res_bundle/prefab/vfx/Skill/eff_change_character_01.prefab,res_bundle/prefab/vfx
 res_bundle/resconfig.bytes,res_bundle/resconfig.ab
 res_bundle/test/Plane.prefab,res_bundle/test/plane.ab
 res_bundle/textasset/csv.bytes,res_bundle/textasset/csv.ab
-res_bundle/uires/UITextures/UI_zhangjie_gb02.png,test/texture01

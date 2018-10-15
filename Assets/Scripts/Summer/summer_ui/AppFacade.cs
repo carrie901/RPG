@@ -62,7 +62,7 @@ namespace Summer
             //----------------- 注册相关信息 -----------------------
             AppFacadeManager.OnRegister();
             //----------------- 注册UI -----------------------
-            ResManager.instance.LoadPrefab("RootPanel", E_GameResType.UI_PREFAB);
+            ResManager.instance.LoadPrefab("RootPanel");
             //----------------- 初始化管理器 -----------------------
             // 本地化文本
             LangLocSet.Instance.Init();

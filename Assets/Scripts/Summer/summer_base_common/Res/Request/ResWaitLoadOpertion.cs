@@ -40,7 +40,7 @@ namespace Summer
 
         public override bool IsDone()
         {
-            ResLog.Log("ResWaitLoadOpertion:[{0}] Is [{1}]", _resPath, _isComplete);
+            //ResLog.Log("ResWaitLoadOpertion:[{0}] Is [{1}]", _resPath, _isComplete);
             return _isComplete;
         }
 

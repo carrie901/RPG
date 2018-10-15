@@ -89,8 +89,7 @@ namespace Summer
             baseView.OnDestroySelf();
             GameObjectHelper.DestroySelf(baseView.gameObject);
 
-            ResRequestInfo resRequestInfo = ResRequestFactory.CreateRequest<GameObject>(info.GetPfbName, E_GameResType.UI_PREFAB);
-            ResLoader.instance.UnloadRes(resRequestInfo);
+            ResLoader.instance.UnLoadRes(info.GetPfbName);
         }
 
         #endregion
@@ -132,7 +131,7 @@ namespace Summer
         {
             E_ViewId viewId = data.ViewId;
             // 2.加载GameObject 并且 _instantiate
-            GameObject go = ResManager.instance.LoadPrefab(data.GetPfbName, E_GameResType.UI_PREFAB);
+            GameObject go = ResManager.instance.LoadPrefab(data.GetPfbName);
             BaseView baseView = go.GetComponent<BaseView>();
             // 3.Instantiate
             //view = _instantiate(obj, data);

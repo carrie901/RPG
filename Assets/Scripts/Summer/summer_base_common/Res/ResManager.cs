@@ -40,13 +40,13 @@ public class ResManager : I_ResManager
 
     #region 引用计数
 
-    public RefCounter _internal_ref_increase(ResRequestInfo resRequest, GameObject obj)
+    public RefCounter _internal_ref_increase(string resPath, GameObject obj)
     {
         RefCounter counter = obj.GetComponent<RefCounter>();
         if (counter == null)
             counter = obj.AddComponent<RefCounter>();
 
-        counter.AddRef(resRequest.ResPath);
+        counter.AddRef(resPath);
         return counter;
     }
 
@@ -64,22 +64,22 @@ public class ResManager : I_ResManager
 
     #region Texture图片加载
 
-    public Texture LoadTexture(ResRequestInfo resRequest)
+    public Texture LoadTexture(string resPath)
     {
-        Texture texture = _resLoader.LoadAsset<Texture>(resRequest);
+        Texture texture = _resLoader.LoadAsset<Texture>(resPath);
         return texture;
     }
 
-    public Texture LoadTexture(RawImage img, ResRequestInfo resRequest)
+    public Texture LoadTexture(RawImage img, string resPath)
     {
         GameObject obj = img.gameObject;
-        Texture texture = _resLoader.LoadAsset<Texture>(resRequest);
+        Texture texture = _resLoader.LoadAsset<Texture>(resPath);
 
         if (texture != null)
         {
             _internal_ref_decrease(obj);
             img.texture = texture;
-            _internal_ref_increase(resRequest, obj);
+            _internal_ref_increase(resPath, obj);
         }
         else
         {
@@ -88,7 +88,7 @@ public class ResManager : I_ResManager
         return texture;
     }
 
-    public void LoadTextureAsync(RawImage img, ResRequestInfo resRequest, Action<Texture> callback = null)
+    public void LoadTextureAsync(RawImage img, string resPath, Action<Texture> callback = null)
     {
         GameObject obj = img.gameObject;
 
@@ -101,10 +101,10 @@ public class ResManager : I_ResManager
                 _internal_ref_decrease(obj);
                 img.texture = texture;
                 //img.SetNativeSize();
-                _internal_ref_increase(resRequest, img.gameObject);
+                _internal_ref_increase(resPath, img.gameObject);
             }
         };
-        _resLoader.LoadAssetAsync(resRequest, callback, defaultCallback);
+        _resLoader.LoadAssetAsync(resPath, callback, defaultCallback);
     }
 
     public void ResetDefaultTexture(RawImage img)
@@ -155,70 +155,62 @@ public class ResManager : I_ResManager
 
     #region Animation
 
-    public AnimationClip LoadAnimationClip(ResRequestInfo resRequest)
+    public AnimationClip LoadAnimationClip(string resPath)
     {
-        AnimationClip animationClip = _resLoader.LoadAsset<AnimationClip>(resRequest);
+        AnimationClip animationClip = _resLoader.LoadAsset<AnimationClip>(resPath);
         return animationClip;
     }
 
-    public void LoadAnimationClipAsync(ResRequestInfo resRequest, Action<AnimationClip> complete)
+    public void LoadAnimationClipAsync(string resPath, Action<AnimationClip> complete)
     {
-        _resLoader.LoadAssetAsync(resRequest, complete);
+        _resLoader.LoadAssetAsync(resPath, complete);
     }
 
     #endregion
 
     #region GameObject
 
-    public GameObject LoadPrefab(string resName, E_GameResType resType = E_GameResType.QUANMING, bool isCopy = true)
+    public GameObject LoadPrefab(string resPath, bool isCopy = true)
     {
-        ResRequestInfo resRequest = ResRequestFactory.CreateRequest<GameObject>(resName, resType);
-        GameObject prefabGameobj = _resLoader.LoadAsset<GameObject>(resRequest);
+        GameObject prefabGameobj = _resLoader.LoadAsset<GameObject>(resPath);
         if (prefabGameobj == null) return null;
         if (!isCopy)
         {
             return prefabGameobj;
         }
         GameObject instantisteGameobj = GameObjectHelper.Instantiate(prefabGameobj);
-        _internal_ref_increase(resRequest, instantisteGameobj);
+        _internal_ref_increase(resPath, instantisteGameobj);
         return instantisteGameobj;
     }
 
-    public void LoadPrefabAsync(string resName, E_GameResType resType = E_GameResType.QUANMING, Action<GameObject> complete = null)
+    public void LoadPrefabAsync(string resPath, Action<GameObject> complete = null)
     {
-        ResRequestInfo resRequest = ResRequestFactory.CreateRequest<GameObject>(resName, resType);
+        
         Action<GameObject> action = delegate (GameObject gameObject)
         {
             GameObject instantisteGameobj = GameObjectHelper.Instantiate(gameObject);
-            _internal_ref_increase(resRequest, instantisteGameobj);
+            _internal_ref_increase(resPath, instantisteGameobj);
             if (complete != null)
                 complete.Invoke(instantisteGameobj);
         };
-        _resLoader.LoadAssetAsync(resRequest, action);
+        _resLoader.LoadAssetAsync(resPath, action);
     }
 
     #endregion
 
     #region bytes
 
-    public string LoadText(ResRequestInfo resRequest)
+    public string LoadText(string resPath)
     {
-        TextAsset textAsset = _resLoader.LoadAsset<TextAsset>(resRequest);
+        TextAsset textAsset = _resLoader.LoadAsset<TextAsset>(resPath);
         return textAsset.text;
     }
 
-    public byte[] LoadByte(string resName, E_GameResType resType)
+    public byte[] LoadByte(string resPath)
     {
-        TextAsset textAsset = _resLoader.LoadAsset<TextAsset>(ResRequestFactory.CreateRequest<TextAsset>(resName, resType));
+        TextAsset textAsset = _resLoader.LoadAsset<TextAsset>(resPath);
         return textAsset.bytes;
     }
-
-    public byte[] LoadByte(ResRequestInfo resRequest)
-    {
-        TextAsset textAsset = _resLoader.LoadAsset<TextAsset>(resRequest);
-        return textAsset.bytes;
-    }
-
     #endregion
 
     #endregion

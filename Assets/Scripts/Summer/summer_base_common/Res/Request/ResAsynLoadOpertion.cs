@@ -36,10 +36,12 @@ namespace Summer
 
         protected override void Complete()
         {
-            if (_assetInfo == null)
-            {
-                _assetInfo = new AssetInfo(_request.asset, RequestResPath);
-            }
+        }
+
+        public override AssetInfo GetAsset<T>(string resPath)
+        {
+            AssetInfo assetInfo = new AssetInfo(_request.asset, RequestResPath);
+            return assetInfo;
         }
 
         #endregion

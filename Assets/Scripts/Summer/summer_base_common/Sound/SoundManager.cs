@@ -24,6 +24,8 @@ using Summer;
 /// 
 /// 
 /// TODO BUG 需要对数据AudioUnit中的UISound和SoundObj 进行数据的剥离，不然这就不是这个独立的模块，无法单独的拿出来使用
+/// 
+/// TODO BUG 2018.10.15 由于屏蔽掉了E_GameResType 导致整体无法运行
 /// </summary>
 public class SoundManager : MonoBehaviour
 {
@@ -37,8 +39,8 @@ public class SoundManager : MonoBehaviour
 
     #region Csv表格数据
 
-    public Dictionary<int, E_GameResType> _sound_type
-        = new Dictionary<int, E_GameResType>();                                     // Key = （BGM,Voice,Sound）
+    //public Dictionary<int, E_GameResType> _sound_type
+    //    = new Dictionary<int, E_GameResType>();                                     // Key = （BGM,Voice,Sound）
     private Dictionary<int, SoundCnf> _sound_map_id;                                // 原始数据 csv表格声音数据 Key=sound_Id，value=声音信息
     private Dictionary<string, SoundCnf> _sound_map_name;                           // 根据原始数据进行转换 csv表格声音数据 Key=sound_name，value=声音信息
 
@@ -120,13 +122,13 @@ public class SoundManager : MonoBehaviour
             PlayBgm(_prev_bgm);
     }
 
-    public static E_GameResType GetResType(int type)
+   /* public static E_GameResType GetResType(int type)
     {
         E_GameResType res_type = E_GameResType.MUSIC_SOUND;
         if (instance == null) return res_type;
         instance._sound_type.TryGetValue(type, out res_type);
         return res_type;
-    }
+    }*/
 
 
     #endregion
@@ -220,9 +222,9 @@ public class SoundManager : MonoBehaviour
             _sound_map_name.Add(info.Value.name, info.Value);
         }
 
-        _sound_type.Add(1, E_GameResType.MUSIC_BGM);
-        _sound_type.Add(3, E_GameResType.MUSIC_SOUND);
-        _sound_type.Add(2, E_GameResType.MUSIC_VOICE);
+        //_sound_type.Add(1, E_GameResType.MUSIC_BGM);
+        //_sound_type.Add(3, E_GameResType.MUSIC_SOUND);
+        //_sound_type.Add(2, E_GameResType.MUSIC_VOICE);
     }
 
 

@@ -21,7 +21,7 @@ namespace Summer
         {
             ResLog.Assert(string.IsNullOrEmpty(_refResPath), "已经存在了引用:[{0}]", _refResPath);
             _refResPath = resPath;
-            ResLoader.instance.RefIncrease(resPath);
+            //ResLoader.instance.RefIncrease(resPath);
             AddExcute();
         }
 
@@ -30,7 +30,7 @@ namespace Summer
             if (string.IsNullOrEmpty(_refResPath))
                 return;
             RemoveExcute();
-            ResLoader.instance.RefDecrease(_refResPath);
+            //ResLoader.instance.RefDecrease(_refResPath);
             _refResPath = string.Empty;
         }
 

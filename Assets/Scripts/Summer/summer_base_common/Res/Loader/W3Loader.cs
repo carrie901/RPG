@@ -33,9 +33,9 @@ namespace Summer
 
         }
 
-        public bool HasInLoading(string name)
+        public void CheckInfo()
         {
-            return true;
+
         }
     }
 }

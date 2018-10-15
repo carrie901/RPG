@@ -100,7 +100,7 @@ namespace Summer
         {
             List<string> parents;
             _reverseDepMap.TryGetValue(packagePath, out parents);
-            ResLog.Assert((parents != null), "找不到路径:[{0}]的包的依赖信息(关于他爸爸的、)", packagePath);
+            //ResLog.Assert((parents != null), "找不到路径:[{0}]的包的依赖信息(关于他爸爸的、)", packagePath);
             return parents;
         }
 

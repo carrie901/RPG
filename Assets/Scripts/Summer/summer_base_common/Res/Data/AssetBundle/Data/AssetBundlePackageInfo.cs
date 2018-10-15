@@ -69,7 +69,7 @@ namespace Summer
         public AssetInfo GetAsset<T>(string assetName) where T : Object
         {
             ResLog.Assert(!(_assetbundle == null || string.IsNullOrEmpty(assetName)),
-                "AssetBundlePackageInfo GetAsset 失败。PackagePath:[{3}],AssetBundel:[{0}](true代表空),名字:[{1}]", _assetbundle == null, assetName, PackagePath);
+                "AssetBundlePackageInfo GetAsset 失败。PackagePath:[{2}],AssetBundel:[{0}](true代表空),名字:[{1}]", _assetbundle == null, assetName, PackagePath);
             if (_assetbundle == null || string.IsNullOrEmpty(assetName)) return null;
             AssetInfo reAssetInfo = null;
 
@@ -87,9 +87,24 @@ namespace Summer
 
         public bool UnLoad()
         {
-            LogManager.Assert(_assetbundle != null, "AssetBundlePackageInfo UnLoad. AssetBundle不能为空:[{0}]", _cnf.PackagePath);
-            if (_assetbundle == null) return false;
+            int length = _assetMap.Count;
+            for (int i = 0; i < length; i++)
+            {
+                _assetMap[i].UnLoadReal();
+            }
+            _assetMap.Clear();
 
+            LogManager.Assert(_assetbundle != null, "AssetBundlePackageInfo UnLoad. AssetBundle不能为空:[{0}]", _cnf.PackagePath);
+            if (_assetbundle != null)
+                _assetbundle.Unload(true);
+            _assetbundle = null;
+            _cnf = null;
+
+            return true;
+        }
+
+        public bool CheckRef()
+        {
             // 儿子们没有引用，并且上头爸爸也不在了
             int length = _assetMap.Count;
             for (int i = 0; i < length; i++)
@@ -97,16 +112,6 @@ namespace Summer
                 if (_assetMap[i].RefCount != 0)
                     return false;
             }
-
-            length = _assetMap.Count;
-            for (int i = 0; i < length; i++)
-            {
-                _assetMap[i].UnLoad();
-            }
-            _assetMap.Clear();
-            _assetbundle.Unload(true);
-            _assetbundle = null;
-            _cnf = null;
             return true;
         }
     }

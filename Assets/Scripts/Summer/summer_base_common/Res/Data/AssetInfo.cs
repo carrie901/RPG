@@ -58,6 +58,7 @@ namespace Summer
 
         public void UnLoadReal()
         {
+            //UnityEngine.Object.Destroy(_object);
             _object = null;
         }
     }

@@ -47,6 +47,11 @@ namespace SummerEditor
         [MenuItem("Tools/AssetBundle/Build/打包资源")]
         public static void BuildAssetBuild()
         {
+            EditorUtility.DisplayProgressBar("生成资源配置列表", "", 0.5f);
+            CreateAssetBundleConfigE.CreateAbConfigFile();
+            EditorUtility.DisplayProgressBar("保存资源配置列表", "", 0.6f);
+            AssetDatabase.SaveAssets();
+            EditorUtility.ClearProgressBar();
             AssetBundleBuildE.AllAssetBundleBuild();
         }
 

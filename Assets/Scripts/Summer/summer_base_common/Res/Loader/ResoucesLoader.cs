@@ -36,7 +36,10 @@ namespace Summer
         {
 
         }
+        public void CheckInfo()
+        {
 
+        }
         #endregion
 
         #region private 

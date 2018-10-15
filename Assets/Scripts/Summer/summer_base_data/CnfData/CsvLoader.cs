@@ -111,7 +111,7 @@ namespace Summer
 
         public static byte[] _load_cvs_dat(string fileName)
         {
-            byte[] bytes = ResManager.instance.LoadByte(fileName, E_GameResType.TEXT_ASSET);
+            byte[] bytes = ResManager.instance.LoadByte(fileName);
             return bytes;
         }
 

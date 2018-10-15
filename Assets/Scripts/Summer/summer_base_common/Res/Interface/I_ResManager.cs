@@ -18,11 +18,11 @@ namespace Summer
     public interface I_TextureLoad
     {
 
-        Texture LoadTexture(ResRequestInfo resRequest);
+        Texture LoadTexture(string resPath);
 
-        Texture LoadTexture(RawImage img, ResRequestInfo resRequest);
+        Texture LoadTexture(RawImage img, string resPath);
 
-        void LoadTextureAsync(RawImage img, ResRequestInfo resRequest, Action<Texture> complete);
+        void LoadTextureAsync(RawImage img, string resPath, Action<Texture> complete);
     }
 
     #endregion
@@ -41,9 +41,9 @@ namespace Summer
 
     public interface I_PrefabLoad
     {
-        GameObject LoadPrefab(string resName, E_GameResType resType = E_GameResType.QUANMING, bool isCopy = true);
+        GameObject LoadPrefab(string resName, bool isCopy = true);
 
-        void LoadPrefabAsync(string resName, E_GameResType resType = E_GameResType.QUANMING, Action<GameObject> complete = null);
+        void LoadPrefabAsync(string resName, Action<GameObject> complete = null);
     }
 
     #endregion
@@ -52,9 +52,9 @@ namespace Summer
 
     public interface I_AnimationClipLoad
     {
-        AnimationClip LoadAnimationClip(ResRequestInfo resRequest);
+        AnimationClip LoadAnimationClip(string resPath);
 
-        void LoadAnimationClipAsync(ResRequestInfo resRequest, Action<AnimationClip> complete);
+        void LoadAnimationClipAsync(string resPath, Action<AnimationClip> complete);
     }
 
     #endregion
@@ -63,9 +63,9 @@ namespace Summer
 
     public interface I_SpriteLoad
     {
-        Sprite LoadSprite(ResRequestInfo resRequest);
+        Sprite LoadSprite(string resPath);
 
-        void LoadSpriteAsync(Image img, ResRequestInfo resRequest, Action<Sprite> complete = null);
+        void LoadSpriteAsync(Image img, string resPath, Action<Sprite> complete = null);
     }
 
     #endregion

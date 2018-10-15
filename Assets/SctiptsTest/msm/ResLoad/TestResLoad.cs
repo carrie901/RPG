@@ -70,8 +70,7 @@ public class TestResLoad : MonoBehaviour
         _flag1 = false;
         for (int i = 0; i < 10; i++)
         {
-            ResRequestInfo info1 = ResRequestFactory.CreateRequest<Texture2D>("Assets/res_bundle/63" + i + ".png");
-            ResLoader.instance.LoadAssetAsync<Texture2D>(info1, null);
+            ResLoader.instance.LoadAssetAsync<Texture2D>("Assets/res_bundle/63" + i + ".png", null);
         }
     }
 

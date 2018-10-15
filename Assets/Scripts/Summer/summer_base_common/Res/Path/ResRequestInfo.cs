@@ -5,7 +5,7 @@ namespace Summer
     /// <summary>
     /// 加载请求的信息
     /// </summary>
-    public class ResRequestInfo
+    /*public class ResRequestInfo
     {
         /// <summary>
         /// 资源的名字
@@ -19,13 +19,13 @@ namespace Summer
         /// 资源的游戏类型，比如是技能icon，技能的Prefab,为了确定路径的类型
         /// </summary>
         public E_GameResType ResType { get; set; }
-    }
+    }*/
 
 
     /// <summary>
     /// 请求信息的工场
     /// </summary>
-    public class ResRequestFactory
+    /*public class ResRequestFactory
     {
         protected static Dictionary<E_GameResType, Dictionary<string, ResRequestInfo>> _resRequestMap
             = new Dictionary<E_GameResType, Dictionary<string, ResRequestInfo>>(32, GameResTypeComparer.Instance);
@@ -49,6 +49,6 @@ namespace Summer
             }
             return resRequestInfo;
         }
-    }
+    }*/
 }
 

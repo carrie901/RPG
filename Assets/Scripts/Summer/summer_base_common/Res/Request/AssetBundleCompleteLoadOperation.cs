@@ -21,38 +21,33 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Summer
 {
-    public class AssetBundleCompleteLoadOperation<T> : ResLoadOpertion where T : Object
+    public class AssetBundleCompleteLoadOperation: ResLoadOpertion 
     {
-        public string _resPath;
-        public string _parentPath;
-        public AssetBundle _assetbundle;
-        public AssetBundleCompleteLoadOperation(AssetBundle ab, string resPath, string parentPath)
+        public AssetBundlePackageInfo _packageInfo;
+        public AssetBundleCompleteLoadOperation(AssetBundlePackageInfo info)
         {
-            _assetbundle = ab;
-            _resPath = resPath;
-            _parentPath = parentPath;
+            _packageInfo = info;
         }
 
-        protected override void Init()
-        {
+        #region 生命周期
 
-        }
+        protected override void Init() { }
 
         protected override bool Update()
         {
             return true;
         }
 
-        protected override void Complete()
+        protected override void Complete() { }
+
+        public override AssetInfo GetAsset<T>(string resPath)
         {
-            throw new System.NotImplementedException();
+            AssetInfo assetInfo = _packageInfo.GetAsset<T>(resPath);
+            return assetInfo;
         }
+
+        #endregion
     }
-
-
 }

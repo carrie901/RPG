@@ -59,7 +59,7 @@ public class ConfigManager
 	public static void ReadByteConfig()
 	{
 	StaticCnf.Clear();
-		byte[] bytes = ResManager.instance.LoadByte(CnfConst.DATA_BYTE_NAME, E_GameResType.TEXT_ASSET);
+		byte[] bytes = ResManager.instance.LoadByte(CnfConst.DATA_BYTE_NAME);
 		MemoryStream ms = new MemoryStream(bytes);
 		BinaryReader br = new BinaryReader(ms);
 		int length = 0;

@@ -24,7 +24,7 @@ namespace Summer
 
         public ResLoadOpertion LoadAssetAsync<T>(string resPath) where T : Object
         {
-            AssetDatabaseAsynLoadOpertion<T> asynLocal = new AssetDatabaseAsynLoadOpertion<T>(EVN + resPath);
+            AssetDatabaseAsynLoadOpertion asynLocal = new AssetDatabaseAsynLoadOpertion(EVN + resPath);
             return asynLocal;
         }
 
@@ -45,7 +45,10 @@ namespace Summer
         {
 
         }
+        public void CheckInfo()
+        {
 
+        }
         #endregion
 
         #region private

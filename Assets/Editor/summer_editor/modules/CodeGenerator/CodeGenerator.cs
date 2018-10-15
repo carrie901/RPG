@@ -145,7 +145,7 @@ namespace SummerEditor
                 CodeGeneratorHelperE.AppendLine(sb, 1, "{");
                 CodeGeneratorHelperE.AppendLine(sb, 1, "StaticCnf.Clear();");
                 {
-                    CodeGeneratorHelperE.AppendLine(sb, 2, "byte[] bytes = ResManager.instance.LoadByte(CnfConst.DATA_BYTE_NAME, E_GameResType.text_asset);");
+                    CodeGeneratorHelperE.AppendLine(sb, 2, "byte[] bytes = ResManager.instance.LoadByte(CnfConst.DATA_BYTE_NAME);");
                     CodeGeneratorHelperE.AppendLine(sb, 2, "MemoryStream ms = new MemoryStream(bytes);");
                     CodeGeneratorHelperE.AppendLine(sb, 2, "BinaryReader br = new BinaryReader(ms);");
                     CodeGeneratorHelperE.AppendLine(sb, 2, "int length = 0;");
