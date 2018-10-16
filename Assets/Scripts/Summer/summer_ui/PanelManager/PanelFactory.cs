@@ -55,11 +55,11 @@ namespace Summer
 
         public bool CheckPanelState(E_ViewId viewId)
         {
-            BaseView base_view;
-            _panelMap.TryGetValue(viewId, out base_view);
-            if (base_view == null) return false;
+            BaseView baseView;
+            _panelMap.TryGetValue(viewId, out baseView);
+            if (baseView == null) return false;
 
-            return base_view.gameObject.activeSelf;
+            return baseView.gameObject.activeSelf;
         }
 
         public BaseView Open(PanelInfo viewInfo, System.Object info = null)

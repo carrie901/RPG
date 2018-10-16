@@ -52,8 +52,8 @@ namespace Summer
             bool hasBgClickClose = true)
         {
             PanelInfo view = new PanelInfo(id, type, pfbName);
-            view.show_mode = showMode;
-            view.has_bg_click_close = hasBgClickClose;
+            view._showMode = showMode;
+            view._hasBgClickClose = hasBgClickClose;
             ViewPrefabMap.Add(id, view);
             _viewCount++;
         }

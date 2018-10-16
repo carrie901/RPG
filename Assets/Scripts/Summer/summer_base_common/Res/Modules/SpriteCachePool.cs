@@ -22,46 +22,56 @@
 //                 			 佛祖 保佑             
 
 using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Summer
 {
     /// <summary>
-    /// UI特性（前缀相同的一组UI）
+    /// 常驻+最大
     /// </summary>
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true, Inherited = false)]
-    public class UIListAttribute : Attribute
+    public class SpriteCachePool : I_SpriteLoad, I_Update
     {
-        /// <summary>
-        /// 一组UI
-        /// </summary>
-        /// <param name="prefix">UI名称前缀</param>
-        /// <param name="begin">开始索引</param>
-        /// <param name="end">结束索引</param>
-        public UIListAttribute(string prefix, int begin, int end)
+
+        #region 属性
+
+        public static SpriteCachePool Instance = new SpriteCachePool();
+
+        #endregion
+
+        #region Public
+
+        private SpriteCachePool()
         {
-            _namePrefix = prefix;
-            Begin = begin;
-            End = end;
+            
         }
 
-        /// <summary>
-        /// UI名称前缀
-        /// </summary>
-        protected string _namePrefix;
+        #endregion
 
-        public string NamePrefix
+        #region Private Methods
+
+
+
+        #endregion
+
+        #region Override
+
+        public Sprite LoadSprite(string resPath)
         {
-            get { return _namePrefix; }
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// 开始位置
-        /// </summary>
-        public int Begin { get; private set; }
+        public void LoadSpriteAsync(Image img, string resPath, Action<Sprite> complete = null)
+        {
+            throw new NotImplementedException();
+        }
 
-        /// <summary>
-        /// 结束位置
-        /// </summary>
-        public int End { get; private set; }
+        public void OnUpdate(float dt)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 using System.Text;
-
+using System.Collections.Generic;
 namespace Summer
 {
     public static class GameObjectHelper
@@ -24,7 +24,7 @@ namespace Summer
             obj.gameObject.SetActive(true);
         }
 
-        public static void SetParent(GameObject go, GameObject parent,bool after=false)
+        public static void SetParent(GameObject go, GameObject parent, bool after = false)
         {
             Transform t = go.transform;
             if (parent != null)
@@ -117,14 +117,13 @@ namespace Summer
             for (int i = 0; i < count; i++)
                 UnloadAllSceneGameObjects(trans.GetChild(i).gameObject);
         }
-        public static T GetComponent<T>(GameObject go) where T : MonoBehaviour
+        public static T AddComponent<T>(GameObject go) where T : MonoBehaviour
         {
             T t = go.GetComponent<T>();
             if (t == null)
                 t = go.AddComponent<T>();
             return t;
         }
-
         public static void DestroySelf(GameObject obj)
         {
             RefCounter[] refs = obj.GetComponentsInChildren<RefCounter>(true);
@@ -203,7 +202,6 @@ namespace Summer
             }
             return path.ToString();
         }
-
     }
 
 }

@@ -21,16 +21,16 @@ namespace Summer
         #region static
 
         protected static UpdateGameObject _instance = null;
-        protected static GameObject _update_root = null;
+        protected static GameObject _updateRoot = null;
         public static UpdateGameObject Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _update_root = new GameObject("UpdateRoot");
-                    _instance = _update_root.AddComponent<UpdateGameObject>();
-                    MonoBehaviour.DontDestroyOnLoad(_update_root);
+                    _updateRoot = new GameObject("UpdateRoot");
+                    _instance = _updateRoot.AddComponent<UpdateGameObject>();
+                    DontDestroyOnLoad(_updateRoot);
 
                 }
                 return _instance;

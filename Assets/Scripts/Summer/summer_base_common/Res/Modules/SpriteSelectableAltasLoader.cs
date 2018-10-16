@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Summer
 {
-    public class SpriteSelectableAutoLoader : MonoBehaviour
+    public class SpriteSelectableAltasLoader : MonoBehaviour
     {
         public Selectable _selectable;
         private SpriteState _newSprite = new SpriteState();
@@ -15,9 +15,10 @@ namespace Summer
 
         public string _pressedSpritePath;
         public string _pressedSpriteTag;
-
+        public bool _initComplete = false;
         void OnEnable()
         {
+            _initComplete = true;
             if (!string.IsNullOrEmpty(_disabledSpritePath))
             {
                 Sprite sprite = SpritePool.Instance.LoadSprite(_disabledSpritePath);
@@ -41,7 +42,9 @@ namespace Summer
 
         void OnDisable()
         {
-            SpritePool.Instance.ReaycelSprite(this);
+            ResLog.Assert(_initComplete, "初始化没有完成.GameObject Name:[{0}],Res Path:[{1}]", gameObject.name, _disabledSpritePath);
+            if (!_initComplete) return;
+            //SpritePool.Instance.ReaycelSprite(this);
         }
 
         public void ReaycelSprite()

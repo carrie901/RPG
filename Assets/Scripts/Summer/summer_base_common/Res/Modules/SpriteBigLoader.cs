@@ -6,12 +6,11 @@ namespace Summer
     /// <summary>
     /// 记录的是当前的图片
     /// </summary>
-    public class SpriteBigAutoLoader : MonoBehaviour, I_PoolCacheRef
+    public class SpriteBigLoader : MonoBehaviour, I_PoolCacheRef
     {
         #region 属性
 
         public Image _img;
-        public string _spriteTag;
         public string _resPath;
 
         public bool _isComplete = false;
@@ -25,13 +24,13 @@ namespace Summer
         void OnEnable()
         {
             _isComplete = true;
-            SpritePool.Instance.LoadSprite(this);
+            //SpritePool.Instance.LoadSprite(this);
         }
 
         void OnDisable()
         {
             if (!_isComplete) return;
-            SpritePool.Instance.ReaycelSprite(this);
+            //SpritePool.Instance.ReaycelSprite(this);
             _isComplete = false;
         }
 
@@ -44,7 +43,7 @@ namespace Summer
             _flag = false;
 
             _isComplete = true;
-            SpritePool.Instance.LoadSprite(this);
+            //SpritePool.Instance.LoadSprite(this);
         }
 
         #endregion

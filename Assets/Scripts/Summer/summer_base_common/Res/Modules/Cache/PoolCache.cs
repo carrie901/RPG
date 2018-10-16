@@ -144,29 +144,4 @@ namespace Summer
 
         #endregion
     }
-
-    public class PoolPanelCache<TKey, TValue> : PoolCache<TKey, TValue> where TValue : I_PoolCacheRef
-    {
-        public Dictionary<TKey, int> _ignoreKey = new Dictionary<TKey, int>();
-
-        public PoolPanelCache(int size) : base(size) { }
-
-
-        public override void Set(TKey key, TValue value)
-        {
-            if (_ignoreKey.ContainsKey(key)) return;
-            base.Set(key, value);
-        }
-
-        public void AddIgnoreKey(TKey key)
-        {
-            _ignoreKey.Add(key, 1);
-        }
-    }
-
-
-    public interface I_PoolCacheRef
-    {
-        int GetRefCount();
-    }
 }

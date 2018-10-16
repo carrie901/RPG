@@ -10,34 +10,34 @@ namespace Summer
     //界面数据
     public class PanelInfo
     {
-        public E_ViewId _view_id;                           //View ID
-        public string _pfb_name;
-        public E_PanelType _view_type;                      //View Type 指向是否可以进入导航队列
-        public E_PanelBgType show_mode = E_PanelBgType.NOTHING;
-        public bool has_bg_click_close = true;             //点击不关闭本界面
+        public E_ViewId _viewId;                                        //View ID
+        public string _pfbName;
+        public E_PanelType _viewType;                                   //View Type 指向是否可以进入导航队列
+        public E_PanelBgType _showMode = E_PanelBgType.NOTHING;
+        public bool _hasBgClickClose = true;                            //点击不关闭本界面
 
         //public System.Object Info { get; set; }
 
         public PanelInfo(E_ViewId view_id, E_PanelType view_type, string name)
         {
-            _view_id = view_id;
-            _view_type = view_type;
-            _pfb_name = name;
+            _viewId = view_id;
+            _viewType = view_type;
+            _pfbName = name;
         }
 
-        public E_ViewId ViewId { get { return _view_id; } }
+        public E_ViewId ViewId { get { return _viewId; } }
 
-        public E_PanelType ViewType { get { return _view_type; } }
-        public string GetPfbName { get { return _pfb_name; } }
+        public E_PanelType ViewType { get { return _viewType; } }
+        public string GetPfbName { get { return _pfbName; } }
 
         public bool IsPanel()
         {
-            return _view_type == E_PanelType.PANEL;
+            return _viewType == E_PanelType.PANEL;
         }
 
         public bool Equal(PanelInfo data)
         {
-            if (data._view_id == _view_id && data._view_type == _view_type)
+            if (data._viewId == _viewId && data._viewType == _viewType)
                 return true;
             return false;
         }

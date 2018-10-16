@@ -24,9 +24,10 @@ namespace Summer
             = new PoolCache<string, SpriteInfo>();                                                      // ui
         public Dictionary<string, SpriteInfo> _residentSprite
             = new Dictionary<string, SpriteInfo>();                                                     // 常驻内存
-        public PoolCache<string, SpriteBigAutoLoader> _bigSpritePoolCache
-            = new PoolCache<string, SpriteBigAutoLoader>();                                             // 大图
-
+        public PoolCache<string, SpriteBigLoader> _bigSpritePoolCache
+            = new PoolCache<string, SpriteBigLoader>();                                                 // 大图
+        public PoolCache<string, SpriteAtlasLoader> _altasPoolCache
+           = new PoolCache<string, SpriteAtlasLoader>();                                                 // 大图
         public ResLoader _resLoader;
 
         #endregion
@@ -59,47 +60,47 @@ namespace Summer
 
         #region ui
 
-        public void LoadSprite(SpriteAutoLoader autoSprite)
+        /*public void LoadSprite(SpriteAtlasLoader autoSprite)
         {
             Sprite sprite = LoadSprite(autoSprite._resPath);
             if (sprite != null)
             {
                 ResManager.instance._internal_ref_decrease(autoSprite.gameObject);
-                autoSprite.img.sprite = sprite;
+                autoSprite._img.sprite = sprite;
                 ResManager.instance._internal_ref_increase(autoSprite._resPath, autoSprite.gameObject);
             }
             else
             {
-                autoSprite.img.sprite = ResManager.instance._defaultSprite;
+                autoSprite._img.sprite = ResManager.instance._defaultSprite;
             }
-        }
+        }*/
 
-        public void ReaycelSprite(SpriteAutoLoader sprite)
+        /*public void ReaycelSprite(SpriteAtlasLoader sprite)
         {
             sprite.ReaycelSprite();
-        }
+        }*/
 
         #endregion
 
         #region Selectable
 
-        public void LoadSprite(SpriteSelectableAutoLoader autoSprite)
+        /*public void LoadSprite(SpriteSelectableAltasLoader autoSprite)
         {
 
         }
 
-        public void ReaycelSprite(SpriteSelectableAutoLoader selectable)
+        public void ReaycelSprite(SpriteSelectableAltasLoader selectable)
         {
             selectable.ReaycelSprite();
-        }
+        }*/
 
         #endregion
 
         #region 大图
 
-        public void LoadSprite(SpriteBigAutoLoader autoSprite)
+        /*public void LoadSprite(SpriteBigLoader autoSprite)
         {
-            if (!autoSprite.gameObject.activeSelf) return;
+            /*if (!autoSprite.gameObject.activeSelf) return;
 
             Sprite sprite = LoadSprite(autoSprite._resPath);
             if (sprite != null)
@@ -112,13 +113,13 @@ namespace Summer
             else
             {
                 autoSprite.SetSprite(ResManager.instance._defaultSprite);
-            }
-        }
+            }#1#
+        }*/
 
-        public void ReaycelSprite(SpriteBigAutoLoader bigSprite)
+        /*public void ReaycelSprite(SpriteBigLoader bigSprite)
         {
             bigSprite.ReaycelSprite();
-        }
+        }*/
 
         #endregion 
 
