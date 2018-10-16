@@ -23,10 +23,12 @@
 
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine;
 
 namespace SummerEditor
 {
+    /// <summary>
+    /// 设置纹理的Sprite的Tag
+    /// </summary>
     public class SpriteTagSet
     {
         protected static string[] _spritePath = new string[]
