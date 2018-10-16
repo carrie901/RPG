@@ -24,6 +24,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Collections;
 using System.Reflection;
 using Summer;
 using UnityEditor;
@@ -74,34 +75,39 @@ namespace SummerEditor
                 UIChildAttribute uiChildAttr = (UIChildAttribute)Attribute.GetCustomAttribute(field, typeof(UIChildAttribute));
                 //是否有特性
                 if (uiChildAttr == null) continue;
-
                 //参数类型
                 Type fieldType = field.FieldType;
                 //函数
                 MethodInfo method;
+                //类型
+                object component;
                 //是否是自身的脚本
                 if (uiChildAttr.ObjectName == "this")
                 {
                     if (fieldType == typeof(GameObject))
                     {
-                        FindChild(mono.gameObject, mono.name);
+                        GameObject findObj = FindChild(mono.gameObject, mono.name);
+                        field.SetValue(mono, findObj);
                         continue;
                     }
                     method = GetSelfComponentFunction(fieldType);
 
                     object[] getComponentParams = { mono.gameObject };
-                    method.Invoke(null, getComponentParams);
+                    component = method.Invoke(null, getComponentParams);
+                    field.SetValue(mono, component);
                 }
                 else if (fieldType == typeof(GameObject)) //是否是GameObject
                 {
-                    FindChild(mono.gameObject, uiChildAttr.ObjectName);
+                    GameObject findObj = FindChild(mono.gameObject, uiChildAttr.ObjectName);
+                    field.SetValue(mono, findObj);
                 }
                 else
                 {
                     //获取对应的类型
                     method = GetFindChildWithComponentFuncion(fieldType);
                     object[] findChildParams = { mono.gameObject, uiChildAttr.ObjectName };
-                    method.Invoke(null, findChildParams);
+                    component = method.Invoke(null, findChildParams);
+                    field.SetValue(mono, component);
                 }
             }
             foreach (var field in fields)
@@ -118,19 +124,25 @@ namespace SummerEditor
                 ConstructorInfo constructorInfo = listType.GetConstructor(Type.EmptyTypes);
 
                 if (constructorInfo == null) continue;
+                var instancedList = (IList)constructorInfo.Invoke(null);
+
                 for (int i = uiListAttr.Begin; i <= uiListAttr.End; i++)
                 {
+                    object component;
                     //是否是GameObject
                     if (fieldType == typeof(GameObject))
                     {
-                        FindChild(mono.gameObject, uiListAttr.NamePrefix + i);
+                        component = FindChild(mono.gameObject, uiListAttr.NamePrefix + i);
+                        instancedList.Add(component);
                         continue;
                     }
                     //获取对应的类型
                     var method = GetFindChildWithComponentFuncion(fieldType);
                     object[] findChildParams = { mono.gameObject, uiListAttr.NamePrefix + i };
-                    method.Invoke(null, findChildParams);
+                    component=method.Invoke(null, findChildParams);
+                    instancedList.Add(component);
                 }
+                field.SetValue(mono, instancedList);
             }
         }
 
