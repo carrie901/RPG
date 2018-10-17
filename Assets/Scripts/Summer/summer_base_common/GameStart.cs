@@ -14,8 +14,6 @@ public class GameStart : MonoBehaviour
     {
         if (flag)
         {
-            // 所有需要调用OnUpdate(dt)方法的入口
-            UpdateGameObject.Instance.OnInit();
             // 读取csv表格内容
             ConfigManager.ReadLocalConfig();
 

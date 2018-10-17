@@ -20,7 +20,7 @@ namespace Summer
 
         private void OnGUI()
         {
-            if (!flag) return;
+            /*if (!flag) return;
             if (GUI.Button(new Rect(0, 0, 100, 100), "记录加载计数"))
             {
                 RefCounter[] refs = FindObjectsOfType(typeof(RefCounter)) as RefCounter[];
@@ -103,7 +103,7 @@ namespace Summer
 
                 File.WriteAllText(dir + "/ref_count.bytes", sb.ToString());
                 File.WriteAllText(dir + "/ref_count_use.bytes", sb1.ToString());
-            }
+            }*/
         }
 
         public IEnumerator WriteFile()

@@ -65,7 +65,7 @@ namespace Summer
 
         public int GetRefCount()
         {
-            int refCount = ResLoader.instance.GetRefCount(_resPath);
+            int refCount = ResLoader.Instance.GetRefCount(_resPath);
             return refCount;
         }
 

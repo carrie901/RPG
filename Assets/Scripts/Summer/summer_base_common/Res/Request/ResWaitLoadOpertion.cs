@@ -29,7 +29,7 @@ namespace Summer
             _loadTime += Time.timeScale * Time.deltaTime;
 
             // 1.处于加载状态
-            _isComplete = ResLoader.instance.ContainsRes(_resPath);
+            _isComplete = ResLoader.Instance.ContainsRes(_resPath);
 
             // 2.超时就强制性质完成
             if (_loadTime > _timeOut)

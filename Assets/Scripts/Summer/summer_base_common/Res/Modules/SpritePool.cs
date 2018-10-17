@@ -34,7 +34,7 @@ namespace Summer
 
         public SpritePool()
         {
-            _resLoader = ResLoader.instance;
+            _resLoader = ResLoader.Instance;
 
             _bigSpritePoolCache.OnRemoveValueEvent += OnBigSprite;
         }

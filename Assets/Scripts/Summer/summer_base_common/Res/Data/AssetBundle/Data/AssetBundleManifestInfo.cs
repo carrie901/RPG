@@ -112,6 +112,13 @@ namespace Summer
             return info;
         }
 
+        public AssetBundlePackageCnf GetPackageCnfByResPath(string resPath)
+        {
+            ResToAssetBundleCnf resInfo = GetResToAb(resPath);
+            if (resInfo == null) return null;
+            return GetPackageCnf(resInfo.PackagePath);
+        }
+
         public void InitInfo()
         {
             _depMap.Clear();

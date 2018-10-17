@@ -28,7 +28,7 @@ namespace Summer
     {
         public override bool IsDone()
         {
-            bool result = ResLoader.instance.CanAsynLoad();
+            bool result = ResLoader.Instance.CanAsynLoad();
             return result;
         }
     }

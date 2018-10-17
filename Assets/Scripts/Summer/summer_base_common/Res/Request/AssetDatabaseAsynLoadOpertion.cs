@@ -31,7 +31,7 @@ namespace Summer
 
         protected override void Complete() { }
 
-        public override AssetInfo GetAsset<T>(string resPath)
+        public override I_ObjectInfo GetAsset<T>(string resPath)
         {
             T obj = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(RequestResPath);
             if (obj == null)
@@ -40,8 +40,8 @@ namespace Summer
                 ForceExit(string.Format("本地加载资源出错,Path:[{0}]", RequestResPath));
                 return null;
             }
-            AssetInfo assetInfo = new AssetInfo(obj, RequestResPath);
-            return assetInfo;
+            I_ObjectInfo objectInfo = new ResInfo(obj, RequestResPath);
+            return objectInfo;
         }
 
         #endregion

@@ -21,34 +21,33 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
+using Object = UnityEngine.Object;
+
 namespace Summer
 {
-    public class AssetBundleCompleteLoadOperation: ResLoadOpertion 
+    public interface I_ObjectInfo
     {
-        public AssetBundleInfo _packageInfo;
-        public AssetBundleCompleteLoadOperation(AssetBundleInfo info)
-        {
-            _packageInfo = info;
-        }
+        /// <summary>
+        /// 这个路径 是资源路径比如 res_bundle/xxx/xxx.png 也可是资源包路径StreamingAssets/xxx/xxx.ab  
+        /// </summary>
+        string Path { get; }
 
-        #region 生命周期
+        int RefCount { get; }
 
-        protected override void Init() { }
+        T GetAsset<T>(string resName) where T : Object;
 
-        protected override bool Update()
-        {
-            return true;
-        }
+        void UnRef(Object obj);
 
-        protected override void Complete() { }
+        void UnLoad();
 
-        public override I_ObjectInfo GetAsset<T>(string resPath)
-        {
-            /*I_ObjectInfo objectInfo = _packageInfo.GetAsset<T>(resPath);
-            return objectInfo;*/
-            return null;
-        }
+        bool CheckObject(Object obj);
 
-        #endregion
+        //bool CheckType<T>() where T : Object;
+
+        bool IsEmptyRef();
     }
+
+
+
 }
+

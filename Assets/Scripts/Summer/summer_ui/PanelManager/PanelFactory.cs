@@ -89,7 +89,7 @@ namespace Summer
             baseView.OnDestroySelf();
             GameObjectHelper.DestroySelf(baseView.gameObject);
 
-            ResLoader.instance.UnLoadRes(info.GetPfbName);
+            ResLoader.Instance.UnLoadRes(info.GetPfbName);
         }
 
         #endregion

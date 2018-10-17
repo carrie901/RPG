@@ -15,7 +15,7 @@ namespace Summer
         public AssetBundleRequest _request;                         // AssetBundle的资源加载请求
         public AssetBundle _assetbundle;
         public AssetBundlePackageCnf _packageCnf;
-        public AssetBundlePackageInfo _packageInfo;
+        public AssetBundleInfo _packageInfo;
 
         // 0=开始，1=ab头文件异步完成，开始加载内容，2=头文件完成，异步也完成
         //public int ab_state;
@@ -62,10 +62,9 @@ namespace Summer
             _packageInfo = AssetBundleLoader.Instance.InitAssetBundleInfo(_assetbundle, _packageCnf);
         }
 
-        public override AssetInfo GetAsset<T>(string resPath)
+        public override I_ObjectInfo GetAsset<T>(string resPath)
         {
-            AssetInfo assetInfo = _packageInfo.GetAsset<T>(resPath);
-            return assetInfo;
+            return _packageInfo;
         }
 
         #endregion

@@ -26,7 +26,7 @@ namespace Summer
 
         public static bool OpenDebug = true;
 
-        public static bool IgnoreUnityDebug = false;                       // 忽略Unity的Debug Log日志 
+        public static bool ErrorLog = false;                       // 网络的错误日志
 
         public static bool _openNet = true;
         public static bool _openDebugBuff = false;

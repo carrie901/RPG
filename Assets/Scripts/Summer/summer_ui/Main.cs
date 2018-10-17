@@ -28,12 +28,11 @@ public class Main : MonoBehaviour
 {
     void Awake()
     {
-        UpdateGameObject.Instance.OnInit();
+        
     }
 
     void Start()
     {
-        //Debug.logger.logEnabled = false;
-        //AppFacade.Startup();//启动游戏
+        AppFacade.Startup();//启动游戏
     }
 }

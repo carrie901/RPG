@@ -21,34 +21,36 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace Summer
 {
-    public class AssetBundleCompleteLoadOperation: ResLoadOpertion 
+    /// <summary>
+    /// 提交网络,错误日志
+    /// </summary>
+    public class ErrorLog
     {
-        public AssetBundleInfo _packageInfo;
-        public AssetBundleCompleteLoadOperation(AssetBundleInfo info)
+        [RuntimeInitializeOnLoadMethod]
+        public static void Start()
         {
-            _packageInfo = info;
+            if (!LogManager.ErrorLog) return;
+            Application.logMessageReceived += UnityLogCallback;
         }
 
-        #region 生命周期
-
-        protected override void Init() { }
-
-        protected override bool Update()
+        private static void UnityLogCallback(string condition, string stackTrace, LogType type)
         {
-            return true;
+            if (type != LogType.Error) return;
+            Error(condition);
+            Error(stackTrace);
         }
 
-        protected override void Complete() { }
-
-        public override I_ObjectInfo GetAsset<T>(string resPath)
+        public static void Error(string message)
         {
-            /*I_ObjectInfo objectInfo = _packageInfo.GetAsset<T>(resPath);
-            return objectInfo;*/
-            return null;
+
         }
 
-        #endregion
+
     }
 }
+

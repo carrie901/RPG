@@ -34,7 +34,7 @@ public class ResManager : I_ResManager
 
     public ResManager()
     {
-        _resLoader = ResLoader.instance;
+        _resLoader = ResLoader.Instance;
         _init();
     }
 

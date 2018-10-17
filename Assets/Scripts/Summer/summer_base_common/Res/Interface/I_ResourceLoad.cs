@@ -9,7 +9,7 @@ namespace Summer
         /// <summary>
         /// 同步加载
         /// </summary>
-        AssetInfo LoadAsset<T>(string resPath) where T : Object;
+        I_ObjectInfo LoadAsset<T>(string resPath) where T : Object;
         /// <summary>
         /// 异步加载
         /// </summary>
@@ -17,11 +17,21 @@ namespace Summer
         /// <summary>
         /// 卸载内部资源
         /// </summary>
-        bool UnloadAssetBundle(AssetInfo assetInfo);
+        bool UnloadAsset(I_ObjectInfo objectInfo);
+        /// <summary>
+        /// 卸载引用
+        /// </summary>
+        bool UnLoadAssetRef(I_ObjectInfo objectInfo);
         /// <summary>
         /// Update
         /// </summary>
         void OnUpdate();
+        /// <summary>
+        /// 资源路径转换
+        /// </summary>
+        /// <param name="resPath"></param>
+        /// <returns></returns>
+        string GetResPath(string resPath);
         /// <summary>
         /// 测试方法
         /// </summary>

@@ -104,7 +104,7 @@ namespace Summer
         /// </summary>
         protected abstract void Complete();
 
-        public abstract AssetInfo GetAsset<T>(string resPath) where T : Object;
+        public abstract I_ObjectInfo GetAsset<T>(string resPath) where T : Object;
 
         #endregion
 

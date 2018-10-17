@@ -13,12 +13,12 @@ namespace Summer
 
         #region I_ResourceLoad
 
-        public AssetInfo LoadAsset<T>(string resPath) where T : Object
+        public I_ObjectInfo LoadAsset<T>(string resPath) where T : Object
         {
             T obj = AssetDatabase.LoadAssetAtPath<T>(EVN + resPath);
 
             ResLog.Assert(obj != null, "AssetDatabaseLoader 加载失败:[{0}]", resPath);
-            AssetInfo info = new AssetInfo(obj, resPath);
+            I_ObjectInfo info = new ResInfo(obj, resPath);
             return info;
         }
 
@@ -33,18 +33,29 @@ namespace Summer
             return true;
         }
 
-        public bool UnloadAssetBundle(AssetInfo assetInfo)
+        public bool UnloadAsset(I_ObjectInfo objectInfo)
         {
-            //Object obj = assetInfo.GetAsset<Object>();
+            //Object obj = objectInfo.GetAsset<Object>();
             //if (obj == null) return false;
             //Resources.UnloadAsset(obj);
             return true;
+        }
+
+        public bool UnLoadAssetRef(I_ObjectInfo objectInfo)
+        {
+            return false;
         }
 
         public void OnUpdate()
         {
 
         }
+
+        public string GetResPath(string resPath)
+        {
+            return resPath;
+        }
+
         public void CheckInfo()
         {
 

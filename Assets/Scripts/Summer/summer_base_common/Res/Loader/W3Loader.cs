@@ -5,7 +5,7 @@ namespace Summer
     {
         public static W3Loader instance = new W3Loader();
 
-        public AssetInfo LoadAsset<T>(string resPath) where T : Object
+        public I_ObjectInfo LoadAsset<T>(string resPath) where T : Object
         {
             return null;
         }
@@ -20,19 +20,19 @@ namespace Summer
             return false;
         }
 
-        public bool UnloadAssetBundle(AssetInfo assetInfo)
+        public bool UnloadAsset(I_ObjectInfo objectInfo)
         {
             return false;
         }
-        public bool UnLoadChildRes(AssetInfo assetInfo)
+        public bool UnLoadAssetRef(I_ObjectInfo objectInfo)
         {
-            return true;
+            return false;
         }
-        public void OnUpdate()
+        public void OnUpdate() { }
+        public string GetResPath(string resPath)
         {
-
+            return resPath;
         }
-
         public void CheckInfo()
         {
 

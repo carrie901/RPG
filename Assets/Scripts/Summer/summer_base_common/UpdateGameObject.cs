@@ -41,11 +41,20 @@ namespace Summer
 
         #endregion
 
-        public void OnInit()
+        [RuntimeInitializeOnLoadMethod]
+        public static void OnStart()
+        {
+            Resources.UnloadUnusedAssets();
+            // 所有需要调用OnUpdate(dt)方法的入口
+            Debug.Log("---------------------必须项-->初始化UpdateGameObject-------------------");
+            UpdateGameObject.Instance.OnInit();
+        }
+
+        private void OnInit()
         {
             _timeManager = TimerManager.Instance;
             _entites = EntitesManager.Instance;
-            _rseLoader = ResLoader.instance;
+            _rseLoader = ResLoader.Instance;
             _spritePool = SpritePool.Instance;
 
 

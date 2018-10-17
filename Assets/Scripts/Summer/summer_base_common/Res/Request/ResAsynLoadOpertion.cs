@@ -38,10 +38,10 @@ namespace Summer
         {
         }
 
-        public override AssetInfo GetAsset<T>(string resPath)
+        public override I_ObjectInfo GetAsset<T>(string resPath)
         {
-            AssetInfo assetInfo = new AssetInfo(_request.asset, RequestResPath);
-            return assetInfo;
+            I_ObjectInfo objectInfo = new ResInfo(_request.asset, RequestResPath);
+            return objectInfo;
         }
 
         #endregion

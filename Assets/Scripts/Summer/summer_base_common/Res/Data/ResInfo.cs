@@ -21,34 +21,18 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
+using UnityEngine;
+
 namespace Summer
 {
-    public class AssetBundleCompleteLoadOperation: ResLoadOpertion 
+
+    public class ResInfo : ObjectInfo
     {
-        public AssetBundleInfo _packageInfo;
-        public AssetBundleCompleteLoadOperation(AssetBundleInfo info)
+        public ResInfo(Object obj, string resPath) : base(obj, resPath) { }
+        public override void UnLoad()
         {
-            _packageInfo = info;
+            UnityEngine.Resources.UnloadAsset(_object);
+            _object = null;
         }
-
-        #region 生命周期
-
-        protected override void Init() { }
-
-        protected override bool Update()
-        {
-            return true;
-        }
-
-        protected override void Complete() { }
-
-        public override I_ObjectInfo GetAsset<T>(string resPath)
-        {
-            /*I_ObjectInfo objectInfo = _packageInfo.GetAsset<T>(resPath);
-            return objectInfo;*/
-            return null;
-        }
-
-        #endregion
     }
 }

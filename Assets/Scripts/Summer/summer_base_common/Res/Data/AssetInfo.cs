@@ -9,7 +9,7 @@ namespace Summer
     /// TODO Bug
     ///     如果内部有重名的情况下就会发生错误
     /// </summary>
-    [System.Serializable]
+    /*[System.Serializable]
     public class AssetInfo
     {
         //资源对象  
@@ -61,7 +61,7 @@ namespace Summer
             //UnityEngine.Object.Destroy(_object);
             _object = null;
         }
-    }
+    }*/
 }
 
 

@@ -9,16 +9,24 @@ namespace Summer
     /// <summary>
     /// 加载器
     /// 1.加载器不参与引用统计
+    /// 
+    /// 
+    /// TODO 2018.10.17
+    ///     1.I_ResourceLoad 提供卸载机制，是强行卸载的，还是有引用卸载的机制
+    ///     2. 比如强卸载 。直接卸载掉这个资源的相关的所有内容，比如这个包中包含了三个资源。那么强卸载就会直接卸载掉三个资源
+    ///     3. 引用卸载，等这个资源的 所有内容多卸载了。那么就直接卸载掉
+    ///         例子: 卸载资源的A的引用，然后就对卸载 
+    /// 
     /// </summary>
     public class ResLoader //: I_Update
     {
         #region 属性
 
-        public static ResLoader instance = new ResLoader();
+        public static ResLoader Instance = new ResLoader();
         public static int _maxAsyncCount = 2;                                           // 异步最大加载的数量
 
-        public Dictionary<string, AssetInfo> _cacheRes
-            = new Dictionary<string, AssetInfo>(256);                                   // 已经加载的资源
+        public Dictionary<string, I_ObjectInfo> _cacheRes
+            = new Dictionary<string, I_ObjectInfo>(256);                                   // 已经加载的资源
 
         public List<LoadOpertion> _otherOperation = new List<LoadOpertion>(256);        // 其他非加载操作
 
@@ -61,7 +69,7 @@ namespace Summer
         public void LoadAssetAsync<T>(string resPath, Action<T> callback, Action<T> defaultCallback = null) where T : Object
         {
             // 1.优先从缓存中提取资源信息
-            bool result = CallbackByCache<T>(resPath, callback, defaultCallback);
+            bool result = CallbackByCache(resPath, callback, defaultCallback);
             if (result) return;
 
             // 2.得到真实路径
@@ -70,37 +78,38 @@ namespace Summer
 
         public bool UnLoadRes(string resPath)
         {
-            ResLog.Assert(_cacheRes.ContainsKey(resPath), "ResLoader UnLoadRes 失败,通过[{0}]找不到对应的AssetInfo", resPath);
+            /*ResLog.Assert(_cacheRes.ContainsKey(resPath), "ResLoader UnLoadRes 失败,通过[{0}]找不到对应的AssetInfo", resPath);
             if (!_cacheRes.ContainsKey(resPath)) return false;
 
-            AssetInfo assetInfo = _cacheRes[resPath];
-            assetInfo.UnLoad();
-            bool result = _loader.UnloadAssetBundle(assetInfo);
+            I_ObjectInfo objectInfo = _cacheRes[resPath];
+            objectInfo.UnLoad();
+            bool result = _loader.UnloadAsset(objectInfo);
             if (result)
-                _cacheRes.Remove(assetInfo.ResPath);
-            ResLog.Assert(result, "卸载失败:[{0}]", assetInfo.ResPath);
-            return result;
+                _cacheRes.Remove(objectInfo.Path);
+            ResLog.Assert(result, "卸载失败:[{0}]", objectInfo.Path);
+            return result;*/
+            return false;
         }
 
         public bool UnLoadRes(Object obj)
         {
-            var enumerator = _cacheRes.GetEnumerator();
-            AssetInfo assetInfo = null;
-            while (enumerator.MoveNext())
-            {
-                assetInfo = enumerator.Current.Value;
-                break;
-            }
+            I_ObjectInfo objectInfo = GetAssetInfo(obj);
+            if (objectInfo == null) return false;
 
-            ResLog.Assert(assetInfo != null, "ResLoader UnLoadRes 失败,通过Object:[{0}]找不到对应的AssetInfo", obj.name);
-            if (assetInfo == null) return false;
-
-            assetInfo.UnLoad();
-            bool result = _loader.UnloadAssetBundle(assetInfo);
+            objectInfo.UnLoad();
+            bool result = _loader.UnloadAsset(objectInfo);
             if (result)
-                _cacheRes.Remove(assetInfo.ResPath);
-            ResLog.Assert(result, "卸载失败:[{0}]", assetInfo.ResPath);
+                _cacheRes.Remove(objectInfo.Path);
+            ResLog.Assert(result, "卸载失败:[{0}]", objectInfo.Path);
             return result;
+        }
+
+        public bool UnLoadRef(Object obj)
+        {
+            I_ObjectInfo objectInfo = GetAssetInfo(obj);
+            if (objectInfo == null) return false;
+            objectInfo.UnLoad();
+            return true;
         }
 
         public void OnUpdate(float dt)
@@ -136,14 +145,16 @@ namespace Summer
 
         public int GetRefCount(string resPath)
         {
-            if (_cacheRes.ContainsKey(resPath))
-                return _cacheRes[resPath].RefCount;
+            string key = _loader.GetResPath(resPath);
+            if (_cacheRes.ContainsKey(key))
+                return _cacheRes[key].RefCount;
             return 0;
         }
 
         public bool ContainsRes(string resPath)
         {
-            return _cacheRes.ContainsKey(resPath);
+            string key = _loader.GetResPath(resPath);
+            return _cacheRes.ContainsKey(key);
         }
 
         // 可以异步加载，不超过最大加载数量
@@ -199,9 +210,9 @@ namespace Summer
 
         private void InternalLoadAsset<T>(string resPath) where T : Object
         {
-            AssetInfo assetInfo = _loader.LoadAsset<T>(resPath);
-            ResLog.Assert(assetInfo != null, "ResLoader结论:内部加载失败,找不到对应的资源，路径:[{0}]", resPath);
-            PushAssetToCache(assetInfo);
+            I_ObjectInfo objectInfo = _loader.LoadAsset<T>(resPath);
+            ResLog.Assert(objectInfo != null, "ResLoader结论:内部加载失败,找不到对应的资源，路径:[{0}]", resPath);
+            PushAssetToCache(objectInfo);
         }
 
         private IEnumerator InternalLoadAssetAsync<T>(string resPath, Action<T> callback, Action<T> defaultCallback = null) where T : Object
@@ -214,7 +225,6 @@ namespace Summer
                 ResWaitLoadOpertion resWaitLoad = new ResWaitLoadOpertion(resPath, TIME_OUT);
                 _otherOperation.Add(resWaitLoad);
                 yield return resWaitLoad;
-                resWaitLoad = null;
                 if (!ContainsRes(resPath))
                 {
                     ResLog.Error("ResLoader InternalLoadAssetAsync 超时请求:[{0}]", resPath);
@@ -239,16 +249,17 @@ namespace Summer
                 {
                     yield return loadOpertion;
                 }
-                AssetInfo assetInfo = loadOpertion.GetAsset<T>(resPath);
+                I_ObjectInfo objectInfo = loadOpertion.GetAsset<T>(resPath);
                 // 6.卸载请求信息
                 loadOpertion.UnloadRequest();
                 // 7.t推送到内存中
-                PushAssetToCache(assetInfo);
+                PushAssetToCache(objectInfo);
                 _currAsyncCount--;
             }
             bool result = CallbackByCache(resPath, callback, defaultCallback);
             if (!result)
                 ResLog.Error("加载完成...但出现资源错误,path:[{0}]", resPath);
+            yield return null;
         }
 
         #endregion
@@ -256,24 +267,24 @@ namespace Summer
         //从缓存中得到
         private T PopAssetForCache<T>(string resPath) where T : Object
         {
-            AssetInfo assetInfo;
-            _cacheRes.TryGetValue(resPath, out assetInfo);
-            if (assetInfo != null)
-                return assetInfo.GetAsset<T>();
+            string key = _loader.GetResPath(resPath);
+            I_ObjectInfo objectInfo;
+            _cacheRes.TryGetValue(key, out objectInfo);
+            if (objectInfo != null)
+                return objectInfo.GetAsset<T>(resPath);
             return null;
         }
 
         //放到缓存中
-        private bool PushAssetToCache(AssetInfo assetInfo)
+        private void PushAssetToCache(I_ObjectInfo objectInfo)
         {
-            ResLog.Assert(assetInfo != null, "ResLoader PushAssetToCache 推送到缓存中的AssetInfo 是空的");
-            if (assetInfo == null || _cacheRes.ContainsKey(assetInfo.ResPath)) return false;
-            _cacheRes.Add(assetInfo.ResPath, assetInfo);
-            return true;
+            ResLog.Assert(objectInfo != null, "ResLoader PushAssetToCache 推送到缓存中的AssetInfo 是空的");
+            if (objectInfo == null || _cacheRes.ContainsKey(objectInfo.Path)) return;
+            _cacheRes.Add(objectInfo.Path, objectInfo);
         }
 
         // 异步从缓冲得到资源，并且回复
-        public bool CallbackByCache<T>(string resPath, Action<T> callback, Action<T> defaultCallback = null) where T : Object
+        private bool CallbackByCache<T>(string resPath, Action<T> callback, Action<T> defaultCallback = null) where T : Object
         {
             // 1.优先从缓存中提取资源信息
             T t = PopAssetForCache<T>(resPath);
@@ -284,6 +295,22 @@ namespace Summer
             if (defaultCallback != null)
                 defaultCallback.Invoke(t);
             return true;
+        }
+
+        private I_ObjectInfo GetAssetInfo(Object obj)
+        {
+            var enumerator = _cacheRes.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                I_ObjectInfo tmpObjectInfo = enumerator.Current.Value;
+                if (tmpObjectInfo.CheckObject(obj))
+                {
+                    return tmpObjectInfo;
+                }
+            }
+
+            ResLog.Assert(false, "ResLoader UnLoadRes 失败,通过Object:[{0}]找不到对应的AssetInfo", obj.name);
+            return null;
         }
 
         #endregion

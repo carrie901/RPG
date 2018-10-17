@@ -31,8 +31,8 @@ namespace Summer
         protected List<ResLoadOpertion> _waitToLoadRequest = new List<ResLoadOpertion>(16);         // 等待加载的请求   
         protected List<string> _onWaitAbPackage = new List<string>();                               // 等待加载的资源包
 
-        private readonly Dictionary<string, AssetBundlePackageInfo> _packageMap
-            = new Dictionary<string, AssetBundlePackageInfo>(256);                                  // 已经加载的资源
+        private readonly Dictionary<string, AssetBundleInfo> _packageMap
+            = new Dictionary<string, AssetBundleInfo>(256);                                  // 已经加载的资源
         private readonly AssetBundleManifestInfo _mainInfo = AssetBundleManifestInfo.Instance;
         private static int _maxLoadingCount = 5;                                                    // 一次性最大加载个数
         private AssetBundleLoader() { InitInfo(); }
@@ -41,7 +41,7 @@ namespace Summer
 
         #region I_ResourceLoad
 
-        public AssetInfo LoadAsset<T>(string resPath) where T : Object
+        public I_ObjectInfo LoadAsset<T>(string resPath) where T : Object
         {
             ResToAssetBundleCnf mainPackageCnf = _mainInfo.GetResToAb(resPath);
             if (mainPackageCnf == null) return null;
@@ -55,12 +55,10 @@ namespace Summer
                 InternalSyncloadPackage(depInfo.Key);
             }
 
-            AssetBundlePackageInfo mainPackage = InternalSyncloadPackage(depsCnf.AbName);
-            ResLog.Assert(mainPackage != null, "AssetBundleLoader LoadAsset 加载主包失败:[{0}]", resPath);
-            if (mainPackage == null) return null;
+            AssetBundleInfo packageInfo = InternalSyncloadPackage(depsCnf.AbName);
+            ResLog.Assert(packageInfo != null, "AssetBundleLoader LoadAsset 加载主包失败:[{0}]", resPath);
 
-            AssetInfo info = mainPackage.GetAsset<T>(mainPackageCnf.ResName);
-            return info;
+            return packageInfo;
         }
 
         public ResLoadOpertion LoadAssetAsync<T>(string resPath) where T : Object
@@ -80,14 +78,10 @@ namespace Summer
             return resLoadOperation;
         }
 
-        public bool UnloadAssetBundle(AssetInfo assetInfo)
+        public bool UnloadAsset(I_ObjectInfo objectInfo)
         {
-            // 1.资源对应的包信息
-            ResToAssetBundleCnf info = _mainInfo.GetResToAb(assetInfo.ResPath);
-            if (info == null) return false;
-
-            // 2.得到AssetBundlePackage包
-            AssetBundlePackageCnf mainPackageCnf = _mainInfo.GetPackageCnf(info.PackagePath);
+            AssetBundlePackageCnf mainPackageCnf = _mainInfo.GetPackageCnfByResPath(objectInfo.Path);
+            if (mainPackageCnf == null) return false;
             string mainPackagePath = mainPackageCnf.PackagePath;
 
             // 3.卸载主包
@@ -105,6 +99,10 @@ namespace Summer
             return true;
         }
 
+        public bool UnLoadAssetRef(I_ObjectInfo objectInfo)
+        {
+            return false;
+        }
         public void OnUpdate()
         {
             // 1.更新请求
@@ -139,6 +137,13 @@ namespace Summer
             }
         }
 
+        public string GetResPath(string resPath)
+        {
+            ResToAssetBundleCnf abInfo = _mainInfo.GetResToAb(resPath);
+            if (abInfo == null) return string.Empty;
+            return abInfo.PackagePath;
+        }
+
         public void CheckInfo()
         {
             InternalCheckInfo();
@@ -148,30 +153,30 @@ namespace Summer
 
         #region public
 
-        public AssetBundlePackageInfo InitAssetBundleInfo(AssetBundle assetbundle, AssetBundlePackageCnf packageCnf)
+        public AssetBundleInfo InitAssetBundleInfo(AssetBundle assetbundle, AssetBundlePackageCnf packageCnf)
         {
+            if (assetbundle == null) return null;
+            AssetBundleInfo packageInfo = new AssetBundleInfo(packageCnf);
             Object[] objs = assetbundle.LoadAllAssets();
-            AssetBundlePackageInfo packageInfo = AbPackageFactory.Create(packageCnf);
-
             packageInfo.InitAssetBundle(assetbundle, objs);
-            _packageMap.Add(packageInfo.PackagePath, packageInfo);
+            _packageMap.Add(packageInfo.Path, packageInfo);
             return packageInfo;
         }
 
         #endregion
 
         #region private
-        
+
         private void InitInfo()
         {
             _packageMap.Clear();
             _mainInfo.InitInfo();
         }
         // 内置同步加载指定路径的AssetBundle包
-        private AssetBundlePackageInfo InternalSyncloadPackage(string packagePath)
+        private AssetBundleInfo InternalSyncloadPackage(string packagePath)
         {
             // 1.已经在缓存中,引用+1
-            AssetBundlePackageInfo packageInfo = GetPackageInfo(packagePath);
+            AssetBundleInfo packageInfo = GetPackageInfo(packagePath);
             if (packageInfo != null)
             {
                 return packageInfo;
@@ -193,6 +198,8 @@ namespace Summer
 
             // 4.加载AssetBundle资源
             AssetBundlePackageCnf packageCnf = _mainInfo.GetPackageCnf(packagePath);
+            if (packageCnf == null) return null;
+
             AssetBundle assetbundle = AssetBundle.LoadFromFile(packageCnf.FullPath);
             ResLog.Assert(assetbundle != null, "同步加载AssetBundlePack失败，路径不存在:[{0}]", packageCnf.FullPath);
             if (assetbundle == null) return null;
@@ -209,7 +216,7 @@ namespace Summer
             if (packageCnf == null) return null;
 
             // 1.已经在缓存中,引用+1
-            AssetBundlePackageInfo packageInfo = GetPackageInfo(packagePath);
+            AssetBundleInfo packageInfo = GetPackageInfo(packagePath);
             if (packageInfo != null)
             {
                 AssetBundleCompleteLoadOperation operation = new AssetBundleCompleteLoadOperation(packageInfo);
@@ -247,13 +254,13 @@ namespace Summer
             string mainPackagePath = mainPackageCnf.PackagePath;
 
             // 2.从缓存查找得到AssetBundle
-            AssetBundlePackageInfo packageInfo;
+            AssetBundleInfo packageInfo;
             _packageMap.TryGetValue(mainPackagePath, out packageInfo);
             ResLog.Assert(packageInfo != null, "AssetBundleLoader UnLoadAssetBundle 缓存中找不到对应的资源:[{0}]", mainPackagePath);
             if (packageInfo == null) return false;
 
             // 3.这个AssetBundle的爸爸们还在，所以不能卸载
-            List<string> parentPaths = _mainInfo.GetParentPaths(mainPackageCnf.PackagePath);
+            List<string> parentPaths = _mainInfo.GetParentPaths(mainPackagePath);
             if (parentPaths != null)
             {
                 int length = parentPaths.Count;
@@ -264,7 +271,7 @@ namespace Summer
                 }
             }
             // 4.爸爸们已经不在了，看下内部的引用是否已经完全为0了
-            bool result = packageInfo.CheckRef();
+            bool result = packageInfo.IsEmptyRef();
             if (result)
             {
                 packageInfo.UnLoad();
@@ -274,9 +281,9 @@ namespace Summer
             return result;
         }
         // 根据路径查找AssetBundle包
-        private AssetBundlePackageInfo GetPackageInfo(string packagePath)
+        private AssetBundleInfo GetPackageInfo(string packagePath)
         {
-            AssetBundlePackageInfo packageInfo = null;
+            AssetBundleInfo packageInfo = null;
             _packageMap.TryGetValue(packagePath, out packageInfo);
             return packageInfo;
         }
@@ -301,7 +308,7 @@ namespace Summer
                 ResLog.Log(_waitToLoadRequest[i].RequestResPath);
             }
         }
-        
+
         #endregion
     }
 }
