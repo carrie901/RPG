@@ -40,6 +40,7 @@ namespace SummerEditor
         public static List<string> _checkPath = new List<string>()
         {
             "Assets/Prefabs/GUI/",
+            "Assets/res_bundle/prefab/ui",
         };
 
         [InitializeOnLoadMethod]
@@ -50,19 +51,23 @@ namespace SummerEditor
                 //EditorUtility.DisplayDialog("保存失败", assetPath, "OK");
                 UnityEngine.Object prefabParent = PrefabUtility.GetPrefabParent(instance);
                 string assetPath = AssetDatabase.GetAssetPath(prefabParent);
+                //LogManager.Log("------------------------------[{0}]", assetPath);
                 bool check = FilterPath(assetPath);
                 if (check)
                 {
+                    //AssetImporter importer = AssetImporter.GetAtPath(assetPath);
+                    //EditorUtility.SetDirty(importer);
                     GameObject go = prefabParent as GameObject;
                     if (go == null) return;
                     MonoBehaviour[] monos = go.GetComponentsInChildren<MonoBehaviour>();
                     int length = monos.Length;
                     for (int i = 0; i < length; i++)
                     {
-
                         CheckGameObject(monos[i]);
                     }
+                    EditorUtility.SetDirty(prefabParent);
                 }
+                //LogManager.Log("=============================[{0}]", assetPath);
             };
         }
 
@@ -139,7 +144,7 @@ namespace SummerEditor
                     //获取对应的类型
                     var method = GetFindChildWithComponentFuncion(fieldType);
                     object[] findChildParams = { mono.gameObject, uiListAttr.NamePrefix + i };
-                    component=method.Invoke(null, findChildParams);
+                    component = method.Invoke(null, findChildParams);
                     instancedList.Add(component);
                 }
                 field.SetValue(mono, instancedList);
@@ -154,6 +159,7 @@ namespace SummerEditor
             if (component == null)
             {
                 EditorUtility.DisplayDialog("Prefab和脚本不对应", self.name + "找不到类型为" + typeof(T).Name + "怒q脚本程序", "OK");
+                Debug.LogError("Prefab和脚本不对应" + self.name + "找不到类型为" + typeof(T).Name);
             }
             return component;
         }
