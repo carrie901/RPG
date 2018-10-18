@@ -78,17 +78,17 @@ namespace Summer
 
         public bool UnLoadRes(string resPath)
         {
-            /*ResLog.Assert(_cacheRes.ContainsKey(resPath), "ResLoader UnLoadRes 失败,通过[{0}]找不到对应的AssetInfo", resPath);
-            if (!_cacheRes.ContainsKey(resPath)) return false;
+            string key = _loader.GetResPath(resPath);
+            ResLog.Assert(_cacheRes.ContainsKey(key), "ResLoader UnLoadRes Fail.通过[{0}]找不到对应的I_ObjectInfo", resPath);
+            if (!_cacheRes.ContainsKey(key)) return false;
 
-            I_ObjectInfo objectInfo = _cacheRes[resPath];
+            I_ObjectInfo objectInfo = _cacheRes[key];
             objectInfo.UnLoad();
             bool result = _loader.UnloadAsset(objectInfo);
             if (result)
                 _cacheRes.Remove(objectInfo.Path);
             ResLog.Assert(result, "卸载失败:[{0}]", objectInfo.Path);
-            return result;*/
-            return false;
+            return result;
         }
 
         public bool UnLoadRes(Object obj)
@@ -106,6 +106,7 @@ namespace Summer
 
         public bool UnLoadRef(Object obj)
         {
+            if (obj == null) return false;
             I_ObjectInfo objectInfo = GetAssetInfo(obj);
             if (objectInfo == null) return false;
             objectInfo.UnLoad();

@@ -21,55 +21,67 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Summer
 {
-    /// <summary>
-    /// 常驻+最大
-    /// </summary>
-    public class SpriteCachePool : I_SpriteLoad, I_Update
+    public class SpriteBigCachePool : PoolCache<string, ResRefCount>
     {
 
         #region 属性
 
-        public static SpriteCachePool Instance = new SpriteCachePool();
+        public static SpriteBigCachePool Instance = new SpriteBigCachePool();
+        public Dictionary<string, ResRefCount> _map = new Dictionary<string, ResRefCount>();
 
         #endregion
 
         #region Public
 
-        private SpriteCachePool()
+        private SpriteBigCachePool()
         {
-            
+            OnRemoveValueEvent += OnRemove;
+            Capacity = 2;
+        }
+
+        public void LoadSprite(SpriteBigLoader loader)
+        {
+            ResManager.instance.LoadSprite(loader._img, loader._resPath);
+            Set(loader._resPath, Get(loader._resPath));
+        }
+
+        public void UnLoadSprite(SpriteBigLoader loader)
+        {
+            ResLoader.Instance.UnLoadRef(loader._img);
         }
 
         #endregion
 
         #region Private Methods
 
+        private void OnRemove(string key)
+        {
+            ResLoader.Instance.UnLoadRes(key);
+        }
 
+        private ResRefCount Get(string resPath)
+        {
+            if (_map.ContainsKey(resPath))
+                return _map[resPath];
+            else
+            {
+                ResRefCount info = new ResRefCount { _resPath = resPath };
+                _map.Add(resPath, info);
+                return info;
+            }
+        }
 
         #endregion
 
         #region Override
 
-        public Sprite LoadSprite(string resPath)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void LoadSpriteAsync(Image img, string resPath, Action<Sprite> complete = null)
-        {
-            throw new NotImplementedException();
-        }
-
         public void OnUpdate(float dt)
         {
-            throw new NotImplementedException();
+
         }
 
         #endregion

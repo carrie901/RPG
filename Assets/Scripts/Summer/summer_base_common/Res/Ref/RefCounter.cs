@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 namespace Summer
 {
     public interface I_RefCounter
@@ -16,7 +17,28 @@ namespace Summer
     /// </summary>
     public class RefCounter : MonoBehaviour
     {
-        public string _refResPath = string.Empty;
+        //public string ResPath = string.Empty;
+
+        void OnEnable()
+        {
+            Load();
+        }
+
+        void OnDisable()
+        {
+            UnLoad();
+        }
+
+        public virtual void Load()
+        {
+
+        }
+
+        public virtual void UnLoad() { }
+
+        public virtual string GetResPath() { return String.Empty; }
+
+        /*public string _refResPath = string.Empty;
         public void AddRef(string resPath)
         {
             ResLog.Assert(string.IsNullOrEmpty(_refResPath), "已经存在了引用:[{0}]", _refResPath);
@@ -42,7 +64,7 @@ namespace Summer
         public virtual void RemoveExcute()
         {
 
-        }
+        }*/
     }
 }
 

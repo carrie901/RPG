@@ -2,31 +2,24 @@
 using UnityEngine.UI;
 namespace Summer
 {
-    public class SpriteAtlasLoader : MonoBehaviour,I_PoolCacheRef
+    public class SpriteAtlasLoader : RefCounter, I_PoolCacheRef
     {
         public Image _img;
         public string _spriteTag;
         public string _resPath;
-        //public bool _isCommon = false;
-
         public bool _initComplete = false;
 
-        void OnEnable()
+        public override void Load()
         {
             _initComplete = true;
-            //SpritePool.Instance.LoadSprite(this);
+            SpriteAltasCachePool.Instance.LoadSprite(this);
         }
 
-        void OnDisable()
+        public override void UnLoad()
         {
             ResLog.Assert(_initComplete, "初始化没有完成.GameObject Name:[{0}],Res Path:[{1}]", gameObject.name, _resPath);
             if (!_initComplete) return;
-            //SpritePool.Instance.ReaycelSprite(this);
-        }
-
-        public void ReaycelSprite()
-        {
-            _img.sprite = null;
+            SpriteAltasCachePool.Instance.UnLoadSprite(this);
         }
 
         public int GetRefCount()

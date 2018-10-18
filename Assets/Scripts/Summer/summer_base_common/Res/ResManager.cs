@@ -46,15 +46,15 @@ public class ResManager : I_ResManager
         if (counter == null)
             counter = obj.AddComponent<RefCounter>();
 
-        counter.AddRef(resPath);
+        //counter.AddRef(resPath);
         return counter;
     }
 
     public RefCounter _internal_ref_decrease(GameObject obj)
     {
         RefCounter counter = obj.GetComponent<RefCounter>();
-        if (counter != null)
-            counter.RemoveRef();
+        /*if (counter != null)
+            counter.RemoveRef();*/
         return counter;
     }
 
@@ -116,35 +116,40 @@ public class ResManager : I_ResManager
 
     #region Sprite
 
-    /*public Sprite LoadSprite(ResRequestInfo res_request)
+    public Sprite LoadSprite(string resPath)
     {
-        Sprite sprite = _res_loader.LoadAsset<Sprite>(res_request);
+        Sprite sprite = _resLoader.LoadAsset<Sprite>(resPath);
         return sprite;
+    }
+
+    /*public Sprite LoadSprite1()
+    {
+        
     }*/
 
-    /*public Sprite LoadSprite(Image img, ResRequestInfo res_request)
+    public Sprite LoadSprite(Image img, string resPath)
     {
         if (img == null) return null;
-        Sprite sprite = _res_loader.LoadAsset<Sprite>(res_request);
+
+        Sprite sprite = _resLoader.LoadAsset<Sprite>(resPath);
         if (sprite != null)
         {
             img.sprite = sprite;
         }
         return sprite;
-    }*/
+    }
 
-    /*public void LoadSpriteAsync(Image img, ResRequestInfo res_request,
-        Action<Sprite> complete = null)
+    public void LoadSpriteAsync(Image img, string resPath,Action<Sprite> complete = null)
     {
         if (img == null) return;
         Action<Sprite> action = delegate (Sprite sprite)
         {
             img.sprite = sprite;
-            if (complete != null)
+            if (complete != null && sprite != null)
                 complete.Invoke(sprite);
         };
-        _res_loader.LoadAssetAsync(res_request, action);
-    }*/
+        _resLoader.LoadAssetAsync(resPath, action);
+    }
 
 
     #endregion
@@ -185,7 +190,7 @@ public class ResManager : I_ResManager
 
     public void LoadPrefabAsync(string resPath, Action<GameObject> complete = null)
     {
-        
+
         Action<GameObject> action = delegate (GameObject gameObject)
         {
             GameObject instantisteGameobj = GameObjectHelper.Instantiate(gameObject);
