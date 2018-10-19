@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3773444280
+CRC: 3155226583
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: b46a444b98ff0f006ec0312cf050f9c2
+    Hash: 6ba4d51d9686744dd1f722b37b0df30b
   TypeTreeHash:
     serializedVersion: 2
     Hash: 093c0241028fb7873dd604971b281106
@@ -44,7 +44,11 @@ ClassTypes:
 Assets:
 - Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_04.prefab
 Dependencies:
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_shuxian.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_smoke_0031_alp.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028_rongjie.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_shuxian.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/textures/path/path_0028.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/shaders/ssseffectone.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028_rongjie.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/textures/wenli/wenli_0016.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_smoke_0031_alp.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/textures/path/path_0051.ab

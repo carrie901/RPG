@@ -24,55 +24,53 @@
 using Summer;
 using UnityEngine;
 using UnityEngine.UI;
-public class PanelLogin : BaseView
+
+namespace Summer
 {
-
-    #region 属性
-
-    [UIChild("Login_Btn")]
-    public Button _back_btn;
-    [UIChild("OnEnterAlert_Btn")]
-    public Button _alert_btn;
-
-    #endregion
-
-    #region MONO Override
-
-    // Use this for initialization
-    void Start()
-    {
-        _back_btn.onClick.AddListener(OnBack);
-        _alert_btn.onClick.AddListener(OnAlert);
-    }
-
-    #endregion
-
-    #region Public
-
-    public override void OnInit()
+    public class PanelLogin : BaseView
     {
 
+        #region 属性
+
+        [UIChild("Login_Btn")]
+        public Button _loginBtn;
+
+        #endregion
+
+        #region MONO Override
+
+        // Use this for initialization
+        private void Start()
+        {
+            _loginBtn.onClick.AddListener(OnClickLogin);
+        }
+
+        #endregion
+
+        #region Public
+
+        public override void OnInit()
+        {
+
+        }
+
+        #endregion
+
+        #region 响应
+
+        public void OnClickLogin()
+        {
+            OpenView(E_ViewId.MAIN);
+        }
+
+
+
+        #endregion
+
+        #region Private Methods
+
+
+
+        #endregion
     }
-
-    #endregion
-
-    #region 响应
-
-    public void OnBack()
-    {
-        OpenView(E_ViewId.MAIN);
-    }
-
-    public void OnAlert()
-    {
-        OpenView(E_ViewId.ALERT_MAIN);
-    }
-
-    #endregion
-
-    #region Private Methods
-
-
-
-    #endregion
 }

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1827929214
+CRC: 257601538
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 5b8e0294ef89723a71abb72b17e54a31
+    Hash: c2d058d73b8c50852405f2d09fb4f407
   TypeTreeHash:
     serializedVersion: 2
     Hash: ecf44a3d9e72ccd1264bf13dfd87199c
@@ -44,10 +44,10 @@ ClassTypes:
 Assets:
 - Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_03.prefab
 Dependencies:
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_daoguang_0028.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_shuxian.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_smoke_0031_alp.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028_rongjie.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_daoguang_0028_niuqu.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0020.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_shuxian.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028_rongjie.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_daoguang_0028_niuqu.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0020.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_daoguang_0028.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_smoke_0031_alp.ab

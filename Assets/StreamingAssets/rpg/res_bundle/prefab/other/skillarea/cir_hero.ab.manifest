@@ -3,7 +3,7 @@ CRC: 313841025
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 4f5500f28f998ec51b93ffdee13aec76
+    Hash: e3a6a3b258f4312ea9a97982c552029e
   TypeTreeHash:
     serializedVersion: 2
     Hash: c90cbd9f092c0fa789b758fb88573536
@@ -28,4 +28,4 @@ ClassTypes:
 Assets:
 - Assets/res_bundle/prefab/other/SkillArea/cir_Hero.prefab
 Dependencies:
-- F:/RPG/Assets/StreamingAssets/rpg/raw/other/skillarea/materials/item_028_p_3_blue.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/other/skillarea/materials/item_028_p_3_blue.ab

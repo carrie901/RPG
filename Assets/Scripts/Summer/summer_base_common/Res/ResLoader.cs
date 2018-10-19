@@ -76,43 +76,6 @@ namespace Summer
             StartCoroutineManager.Start(InternalLoadAssetAsync(resPath, callback, defaultCallback));
         }
 
-        public bool UnLoadRes(string resPath)
-        {
-            string key = _loader.GetResPath(resPath);
-            ResLog.Assert(_cacheRes.ContainsKey(key), "ResLoader UnLoadRes Fail.通过[{0}]找不到对应的I_ObjectInfo", resPath);
-            if (!_cacheRes.ContainsKey(key)) return false;
-
-            I_ObjectInfo objectInfo = _cacheRes[key];
-            objectInfo.UnLoad();
-            bool result = _loader.UnloadAsset(objectInfo);
-            if (result)
-                _cacheRes.Remove(objectInfo.Path);
-            ResLog.Assert(result, "卸载失败:[{0}]", objectInfo.Path);
-            return result;
-        }
-
-        public bool UnLoadRes(Object obj)
-        {
-            I_ObjectInfo objectInfo = GetAssetInfo(obj);
-            if (objectInfo == null) return false;
-
-            objectInfo.UnLoad();
-            bool result = _loader.UnloadAsset(objectInfo);
-            if (result)
-                _cacheRes.Remove(objectInfo.Path);
-            ResLog.Assert(result, "卸载失败:[{0}]", objectInfo.Path);
-            return result;
-        }
-
-        public bool UnLoadRef(Object obj)
-        {
-            if (obj == null) return false;
-            I_ObjectInfo objectInfo = GetAssetInfo(obj);
-            if (objectInfo == null) return false;
-            objectInfo.UnLoad();
-            return true;
-        }
-
         public void OnUpdate(float dt)
         {
             if (_loader != null)
@@ -140,6 +103,61 @@ namespace Summer
             }
         }
 
+        #endregion
+
+        #region 卸载
+
+        // 卸载指定路径的资源
+        public bool UnLoadRes(string resPath)
+        {
+            I_ObjectInfo objectInfo = GetAssetInfo(resPath);
+            if (objectInfo == null)
+                return false;
+
+            objectInfo.UnRefByPath(resPath);
+            string path = objectInfo.Path;
+            bool result = _loader.UnloadAsset(objectInfo);
+            if (result)
+                _cacheRes.Remove(path);
+            ResLog.Assert(result, "卸载失败:[{0}]", path);
+            return result;
+        }
+
+        // 卸载资源
+        public bool UnLoadRes(Object obj)
+        {
+            I_ObjectInfo objectInfo = GetAssetInfo(obj);
+            if (objectInfo == null)
+                return false;
+
+            objectInfo.UnRef(obj);
+            string path = objectInfo.Path;
+            bool result = _loader.UnloadAsset(objectInfo);
+            if (result)
+                _cacheRes.Remove(path);
+            ResLog.Assert(result, "卸载失败:[{0}]", path);
+            return result;
+        }
+
+        public bool UnLoadRef(string resPath)
+        {
+            I_ObjectInfo objectInfo = GetAssetInfo(resPath);
+            if (objectInfo == null)
+                return false;
+
+            objectInfo.UnRefByPath(resPath);
+            return true;
+        }
+
+        // 卸载引用
+        public bool UnLoadRef(Object obj)
+        {
+            I_ObjectInfo objectInfo = GetAssetInfo(obj);
+            if (objectInfo == null) return false;
+
+            objectInfo.UnRef(obj);
+            return true;
+        }
         #endregion
 
         #region public 
@@ -203,7 +221,7 @@ namespace Summer
 
             // 1.LOCAL 本地加载做研发用
 #if UNITY_EDITOR
-            //_loader = AssetDatabaseLoader.instance;
+            _loader = AssetDatabaseLoader.instance;
 #endif
         }
 
@@ -300,6 +318,7 @@ namespace Summer
 
         private I_ObjectInfo GetAssetInfo(Object obj)
         {
+            if (obj == null) return null;
             var enumerator = _cacheRes.GetEnumerator();
             while (enumerator.MoveNext())
             {
@@ -312,6 +331,16 @@ namespace Summer
 
             ResLog.Assert(false, "ResLoader UnLoadRes 失败,通过Object:[{0}]找不到对应的AssetInfo", obj.name);
             return null;
+        }
+
+        private I_ObjectInfo GetAssetInfo(string resPath)
+        {
+            string key = _loader.GetResPath(resPath);
+            ResLog.Assert(_cacheRes.ContainsKey(key), "ResLoader UnLoadRes Fail.通过[{0}]找不到对应的I_ObjectInfo", key);
+            if (!_cacheRes.ContainsKey(key)) return null;
+
+            I_ObjectInfo objectInfo = _cacheRes[key];
+            return objectInfo;
         }
 
         #endregion

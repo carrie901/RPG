@@ -30,6 +30,12 @@ namespace Summer
 {
     public class AssetBundleInfo : I_ObjectInfo
     {
+        /// <summary>
+        /// 这个路径
+        ///     是资源路径比如 res_bundle/xxx/xxx.png 
+        ///     //也可是资源包路径StreamingAssets/xxx/xxx.ab  
+        ///     同样是ResName xxx
+        /// </summary>
         public string Path { get { return _cnf.PackagePath; } }
         public int RefCount { get; private set; }
         public AssetBundlePackageCnf _cnf;
@@ -78,6 +84,7 @@ namespace Summer
                 ObjectInfo tmpInfo = _abList[i];
                 if (tmpInfo.Path != resToAbCnf.ResPath) continue;
                 if (!tmpInfo.CheckType<T>()) continue;
+                RefCount++;
                 return tmpInfo.GetAsset<T>(String.Empty);
             }
             ResLog.Assert(false, "从资源主包[{0}]中找不到对应类型的AssetInfo:[{1}]的资源", _cnf.PackagePath, resToAbCnf.ResPath);
@@ -102,6 +109,19 @@ namespace Summer
             {
                 if (!_abList[i].CheckObject(obj)) continue;
                 _abList[i].UnRef(null);
+                RefCount--;
+                break;
+            }
+        }
+
+        public void UnRefByPath(string resPath)
+        {
+            int length = _abList.Count;
+            for (int i = 0; i < length; i++)
+            {
+                if (_abList[i].Path != resPath) continue;
+                _abList[i].UnRefByPath(null);
+                RefCount--;
                 break;
             }
         }

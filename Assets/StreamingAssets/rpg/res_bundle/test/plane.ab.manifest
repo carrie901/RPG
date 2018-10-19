@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1094616516
+CRC: 2625357527
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 0646b2f5e091348704d41752001d0934
+    Hash: 33aee62fb87601515b9806f804cfa673
   TypeTreeHash:
     serializedVersion: 2
     Hash: a98348999420ce9a36b92fe2d6aff9fa
@@ -29,4 +29,5 @@ ClassTypes:
   Script: {instanceID: 0}
 Assets:
 - Assets/res_bundle/test/Plane.prefab
-Dependencies: []
+Dependencies:
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/shaders/ssseffectone.ab

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1538387773
+CRC: 1100812358
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6d7078160bd4ce970968d237535a4002
+    Hash: 1048835e511b123d827ab85c6cf9d2cb
   TypeTreeHash:
     serializedVersion: 2
     Hash: d55e1784f5378880501727027315de0d
@@ -34,10 +34,10 @@ ClassTypes:
 Assets:
 - Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_05_G_1.prefab
 Dependencies:
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_object_0004.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0019.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_path_0050.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_smoke_0031_alp.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_dilie_0004.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_dilie_0014.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_glow_0001.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_smoke_0031_alp.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0019.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_path_0050.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_object_0004.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_dilie_0014.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_dilie_0004.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_glow_0001.ab

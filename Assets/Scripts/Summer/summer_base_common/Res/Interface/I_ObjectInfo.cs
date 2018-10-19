@@ -28,7 +28,10 @@ namespace Summer
     public interface I_ObjectInfo
     {
         /// <summary>
-        /// 这个路径 是资源路径比如 res_bundle/xxx/xxx.png 也可是资源包路径StreamingAssets/xxx/xxx.ab  
+        /// 这个路径
+        ///     是资源路径比如 res_bundle/xxx/xxx.png 
+        ///     //也可是资源包路径StreamingAssets/xxx/xxx.ab  
+        ///     同样是ResName xxx
         /// </summary>
         string Path { get; }
 
@@ -37,6 +40,8 @@ namespace Summer
         T GetAsset<T>(string resName) where T : Object;
 
         void UnRef(Object obj);
+
+        void UnRefByPath(string resPath);
 
         void UnLoad();
 

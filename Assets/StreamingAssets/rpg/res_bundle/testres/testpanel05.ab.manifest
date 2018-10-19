@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3431922283
+CRC: 4142921448
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1815a406d9b308a750fd041a4d662493
+    Hash: af5b89456ab8724c071955f400b356c7
   TypeTreeHash:
     serializedVersion: 2
     Hash: d960a7481d3b4d4093ef532804bbb0c1
@@ -24,6 +24,6 @@ ClassTypes:
 Assets:
 - Assets/res_bundle/TestRes/TestPanel05.prefab
 Dependencies:
-- F:/RPG/Assets/StreamingAssets/rpg/uiresources/uitexture/other/activity_yeqian_1.ab
-- F:/RPG/Assets/StreamingAssets/rpg/uiresources/uitexture/other/activity_yeqian_3.ab
-- F:/RPG/Assets/StreamingAssets/rpg/uiresources/uitexture/other/activity_yeqian_2.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/uiresources/uitexture/other/activity_yeqian_3.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/uiresources/uitexture/other/activity_yeqian_1.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/uiresources/uitexture/other/activity_yeqian_2.ab

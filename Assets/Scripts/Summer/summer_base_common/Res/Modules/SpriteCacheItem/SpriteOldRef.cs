@@ -20,17 +20,14 @@
 //                            `=---='
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
-                                             
+
+using UnityEngine;
 
 namespace Summer
 {
-    public struct ResRefCount : I_PoolCacheRef
+    public class SpriteOldRef : MonoBehaviour
     {
-        public string _resPath;
-        public int GetRefCount()
-        {
-            int refCount = ResLoader.Instance.GetRefCount(_resPath);
-            return refCount;
-        }
+        public string OldResPath;
     }
+
 }

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2886193774
+CRC: 2065607073
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f5784bca2c9ca67f927539b3d3c5b6ae
+    Hash: 967e65054eee7c7a7d6f6160396a06d5
   TypeTreeHash:
     serializedVersion: 2
     Hash: 8f1df664b601c76da0ce9e4c6072720d
@@ -42,6 +42,9 @@ ClassTypes:
 Assets:
 - Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_03.prefab
 Dependencies:
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_shuxian.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028_rongjie.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_shuxian.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/shaders/ssseffectone.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028_rongjie.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/shaders/spacedistort.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/textures/object/object_0003.ab

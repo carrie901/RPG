@@ -26,8 +26,8 @@ namespace Summer
             = new Dictionary<string, SpriteInfo>();                                                     // 常驻内存
         public PoolCache<string, SpriteBigLoader> _bigSpritePoolCache
             = new PoolCache<string, SpriteBigLoader>();                                                 // 大图
-        public PoolCache<string, SpriteAtlasLoader> _altasPoolCache
-           = new PoolCache<string, SpriteAtlasLoader>();                                                 // 大图
+        //public PoolCache<string, SpriteAtlasLoader> _altasPoolCache
+        //   = new PoolCache<string, SpriteAtlasLoader>();                                                 // 大图
         public ResLoader _resLoader;
 
         #endregion

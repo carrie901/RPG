@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 538032363
+CRC: 1904163162
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: da19c54bc4a10aa59d695c9561694ac4
+    Hash: 6fecc1d2c313f9ac659a100a3d3e8cad
   TypeTreeHash:
     serializedVersion: 2
     Hash: 8f1df664b601c76da0ce9e4c6072720d
@@ -42,12 +42,13 @@ ClassTypes:
 Assets:
 - Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_01.prefab
 Dependencies:
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0019.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_ring_0011.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0002.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_smoke_0015_1.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_smoke_0001.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_shuxian.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028_rongjie.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0020.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_shuxian.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028_rongjie.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_path_0028.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0002.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_smoke_0001.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0020.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/textures/daoguang/daoguang_0033.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_ring_0011.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0019.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_smoke_0015_1.ab

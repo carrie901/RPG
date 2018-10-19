@@ -31,10 +31,17 @@ namespace Summer
     public enum E_ViewId
     {
         INVAILD = 0,
-        LOGIN = 1,                      // 登陆界面
-        MAIN = 2,                       // 主界面
-        ALERT = 3,
-        ALERT_MAIN = 4,
+        LOADING,
+        LOGIN,                          // 登陆界面
+        MAIN,                           // 主界面
+        ALERT,
+        SHOP,
+        ROLES,
+        BAG,
+        TASK,
+        EQUIP,
+        SKILL,
+        SELECT_LEVEL,                   // 选择关卡
         MAX,
     }
 

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3388070746
+CRC: 948489145
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 5f045f49ab062cf195b1687c3523d427
+    Hash: 1d16291b3c514e96476f8fcbe897306a
   TypeTreeHash:
     serializedVersion: 2
     Hash: 36c33a819640bead83b84b1645a12e6d
@@ -15,4 +15,5 @@ ClassTypes:
   Script: {instanceID: 0}
 Assets:
 - Assets/UIResources/UITexture/Common/UI_Hero_Info_06.png
+- Assets/UIResources/UITexture/Common/UI_Hero_Info_07.png
 Dependencies: []

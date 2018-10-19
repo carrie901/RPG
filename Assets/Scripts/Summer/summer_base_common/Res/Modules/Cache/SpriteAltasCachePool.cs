@@ -28,12 +28,12 @@ namespace Summer
     /// <summary>
     /// 常驻+最大
     /// </summary>
-    public class SpriteAltasCachePool : PoolCache<string, ResRefCount>, I_Update
+    public class SpriteAltasCachePool : PoolExternalCache<string, SpriteTagPoolCacheRef>, I_Update
     {
         #region 属性
 
         public static SpriteAltasCachePool Instance = new SpriteAltasCachePool();
-        public Dictionary<string, ResRefCount> _map = new Dictionary<string, ResRefCount>();
+        public Dictionary<string, SpriteTagPoolCacheRef> _map = new Dictionary<string, SpriteTagPoolCacheRef>();
 
         #endregion
 
@@ -47,13 +47,14 @@ namespace Summer
 
         public void LoadSprite(SpriteAtlasLoader loader)
         {
+            ResManager.instance.UnLoadSprite(loader._img);
             ResManager.instance.LoadSprite(loader._img, loader._resPath);
-            Set(loader._resPath, Get(loader._resPath));
+            Set(loader._resPath, Get(loader));
         }
 
         public void UnLoadSprite(SpriteAtlasLoader loader)
         {
-            ResLoader.Instance.UnLoadRef(loader._img);
+            ResManager.instance.UnLoadSprite(loader._img);
         }
 
         public void OnUpdate(float dt)
@@ -67,17 +68,20 @@ namespace Summer
 
         private void OnRemove(string key)
         {
-            ResLoader.Instance.UnLoadRes(key);
+            if (_map.ContainsKey(key))
+            {
+                ResLoader.Instance.UnLoadRes(_map[key]._firstSpriteName);
+            }
         }
 
-        private ResRefCount Get(string resPath)
+        private SpriteTagPoolCacheRef Get(SpriteAtlasLoader loader)
         {
-            if (_map.ContainsKey(resPath))
-                return _map[resPath];
+            if (_map.ContainsKey(loader._spriteTag))
+                return _map[loader._spriteTag];
             else
             {
-                ResRefCount info = new ResRefCount { _resPath = resPath };
-                _map.Add(resPath, info);
+                SpriteTagPoolCacheRef info = new SpriteTagPoolCacheRef(loader._spriteTag, loader._resPath);
+                _map.Add(info._spriteTag, info);
                 return info;
             }
         }

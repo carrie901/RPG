@@ -6,7 +6,7 @@ namespace Summer
 {
     #region I_ResManager
 
-    public interface I_ResManager : I_TextureLoad, /*I_AudioLoad,*/ I_PrefabLoad, I_AnimationClipLoad/*, I_SpriteLoad*/
+    public interface I_ResManager //:/* I_TextureLoad,*/ /*I_AudioLoad,*/ /*I_PrefabLoad,*/ /*I_AnimationClipLoad,*//* I_SpriteLoad*/
     {
 
     }

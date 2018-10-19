@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3346656913
+CRC: 3601549049
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 00ea52aa283149bd97ad9879302a9580
+    Hash: d8cf2aa085074683434342d069382acf
   TypeTreeHash:
     serializedVersion: 2
     Hash: a8bfd19088c0f44f8f3e02cf67182fe3
@@ -40,5 +40,7 @@ ClassTypes:
 Assets:
 - Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_attack_05.prefab
 Dependencies:
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0002.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_smoke_0001.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/shaders/ssseffectone.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_glow_0002.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_smoke_0001.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/textures/wenli/wenli_0016.ab

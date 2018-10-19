@@ -8,7 +8,7 @@ namespace Summer
     public class AssetDatabaseLoader : I_ResourceLoad
     {
         public static AssetDatabaseLoader instance = new AssetDatabaseLoader();
-        public const string EVN = "";//"Assets/";
+        public const string EVN = "Assets/";//"Assets/";
 
 
         #region I_ResourceLoad

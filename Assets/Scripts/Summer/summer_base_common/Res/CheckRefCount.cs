@@ -23,7 +23,7 @@ namespace Summer
             /*if (!flag) return;
             if (GUI.Button(new Rect(0, 0, 100, 100), "记录加载计数"))
             {
-                RefCounter[] refs = FindObjectsOfType(typeof(RefCounter)) as RefCounter[];
+                OldRefInfo[] refs = FindObjectsOfType(typeof(OldRefInfo)) as OldRefInfo[];
                 if (refs == null) return;
 
                 StringBuilder sb1 = new StringBuilder();
@@ -35,7 +35,7 @@ namespace Summer
 
                 for (int i = 0; i < refs.Length; i++)
                 {
-                    RefCounter refCount = refs[i];
+                    OldRefInfo refCount = refs[i];
                     string tmpResPath = refCount._refResPath;
                     string tmpResName = refCount.gameObject.name;
                     if (!refMap.ContainsKey(tmpResPath))

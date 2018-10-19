@@ -41,12 +41,13 @@ public class TestMoney1 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        Check3();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         Check1();
         Check2();
     }
@@ -134,6 +135,23 @@ public class TestMoney1 : MonoBehaviour
         if (a - b > 0) return 1;
         else if (a - b < 0) return -1;
         return 0;
+    }
+
+    public void Check3()
+    {
+        float allMoney = 0;
+        float first = 1.1f;
+        float m1 = 100;
+        float count = 0;
+        for (int i = 0; i < 100; i++)
+        {
+            first += 0.05f;
+            count += (m1 / first);
+            allMoney += m1;
+        }
+        first = (first + 1.1f) / 2;
+        float outMoney = count * first;
+        Debug.LogFormat("InMoney:[{0}],OutMoney:[{1}], GetMoney:[{2}]", allMoney, outMoney, (outMoney - allMoney));
     }
 
     #endregion

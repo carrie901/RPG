@@ -2,7 +2,7 @@
 
 namespace Summer
 {
-    public class RefTexutreCounter : RefCounter
+    public class RefTexutreCounter : OldRefInfo
     {
         public RawImage _target;
         /*public override void AddExcute()

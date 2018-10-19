@@ -21,57 +21,61 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
-using Summer;
-public class PanelMain : BaseView
+
+namespace Summer
 {
-
-    #region 属性
-
-    [UIChild("Alert_Btn")]
-    public Button _alert_btn;
-    [UIChild("Back_Btn")]
-    public Button _back_btn;
-
-    #endregion
-
-    #region MONO Override
-
-    // Use this for initialization
-    void Start()
-    {
-        _alert_btn.onClick.AddListener(OnAlert);
-        _back_btn.onClick.AddListener(OnBack);
-    }
-
-    // Update is called once per frame
-    void Update()
+    public class PanelMain : BaseView
     {
 
+        #region 属性
+
+        [UIChild("TaskBtn")]
+        public Button _taskBtn;
+        [UIChild("BattleBtn")]
+        public Button _battleBtn;
+        [UIChild("ShopBtn")]
+        public Button _shopBtn;
+        [UIChild("RolesBtn")]
+        public Button _rolesBtn;
+        [UIChild("BagBtn")]
+        public Button _bagItem;
+
+        #endregion
+
+        #region MONO Override
+
+        // Use this for initialization
+        void Start()
+        {
+            _taskBtn.onClick.AddListener(OnClickTask);
+            _battleBtn.onClick.AddListener(OnClickBattle);
+            _shopBtn.onClick.AddListener(OnClickShop);
+            _rolesBtn.onClick.AddListener(OnClickRole);
+            _bagItem.onClick.AddListener(OnClickBag);
+        }
+
+        #endregion
+
+        #region Public
+
+        public void OnClickTask()
+        {
+            OpenView(E_ViewId.TASK);
+        }
+
+        public void OnClickBattle() { OpenView(E_ViewId.SELECT_LEVEL); }
+        public void OnClickShop() { OpenView(E_ViewId.SHOP); }
+        public void OnClickRole() { OpenView(E_ViewId.ROLES); }
+        public void OnClickBag() { OpenView(E_ViewId.BAG); }
+
+
+        #endregion
+
+        #region Private Methods
+
+
+
+        #endregion
     }
-
-    #endregion
-
-    #region Public
-
-    public void OnAlert()
-    {
-        OpenView(E_ViewId.ALERT);
-    }
-
-    public void OnBack()
-    {
-        CloseView();
-    }
-
-
-    #endregion
-
-    #region Private Methods
-
-
-
-    #endregion
 }

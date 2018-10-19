@@ -11,16 +11,16 @@ namespace Summer
     {
         #region 属性
 
-        public string panel_res_path;
-        public RefCounter _ref_count;
-        public bool is_complete;
+        public string _panelResPath;
+        public OldRefInfo _refCount;
+        public bool _isComplete;
         #endregion
 
         #region MONO Override
 
         void OnEnable()
         {
-            is_complete = true;
+            _isComplete = true;
             //1.通过资源路径名得到以来列表
             //2.一次加载依赖列表
             

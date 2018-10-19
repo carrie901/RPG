@@ -7,9 +7,9 @@ namespace SummerEditor
     /// </summary>
     public class BuildAssetInRefAb : I_AssetBundleStratey
     {
-        public static Dictionary<string, int> ref_map = new Dictionary<string, int>();
-        public static string common_ab = "Assets/common/ref/";
-        public Dictionary<string, int> _assets_map = new Dictionary<string, int>();
+        public static Dictionary<string, int> _refMap = new Dictionary<string, int>();
+        public static string _commonAb = "Assets/common/ref/";
+        public Dictionary<string, int> _assetsMap = new Dictionary<string, int>();
 
         public bool IsBundleStratey(EAssetObjectInfo info)
         {
@@ -24,17 +24,17 @@ namespace SummerEditor
         public void SetAssetBundleName()
         {
             string result = string.Empty;
-            foreach (var info in _assets_map)
+            foreach (var info in _assetsMap)
             {
                 result += EPathHelper.GetName(info.Key) + "_";
             }
 
-            if (ref_map.ContainsKey(result))
+            if (_refMap.ContainsKey(result))
             {
                 UnityEngine.Debug.LogError("重复的名字" + result);
 
             }
-            foreach (var info in _assets_map)
+            foreach (var info in _assetsMap)
             {
                 AssetBundleSetNameE.SetAbNameByParam(info.Key, result);
             }

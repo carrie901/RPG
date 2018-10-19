@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 403837670
+CRC: 1595179254
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3d566b53b860d4e49a124ce0daf803a2
+    Hash: bcb0a9bd6c830f9aaa11ba2bc9f1e67f
   TypeTreeHash:
     serializedVersion: 2
     Hash: 8f1df664b601c76da0ce9e4c6072720d
@@ -42,5 +42,9 @@ ClassTypes:
 Assets:
 - Assets/res_bundle/prefab/vfx/Skill/eff_H_ZhaoYun_01_skill_05_G.prefab
 Dependencies:
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_dilie_0004.ab
-- F:/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_dilie_0014.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/shaders/ssseffectone.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/textures/daoguang/daoguang_0033.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/textures/wenli/wenli_0001.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_dilie_0014.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/heroeffects/zhaoyun/materials/eff_h_zhaoyun_01_skill_02_g_dilie_0004.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/textures/daoguang/daoguang_0034.ab

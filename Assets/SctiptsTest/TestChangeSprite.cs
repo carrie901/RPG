@@ -7,7 +7,7 @@ public class TestChangeSprite : MonoBehaviour
 {
 
 
-    public SpriteBigAutoLoader loader;
+    public SpriteBigLoader loader;
     public bool flag = false;
     // Use this for initialization
     void Start()
@@ -22,7 +22,7 @@ public class TestChangeSprite : MonoBehaviour
         {
             flag = false;
             loader._isComplete = true;
-            SpritePool.Instance.LoadSprite(loader);
+            //SpritePool.Instance.LoadSprite(loader);
         }
     }
 }

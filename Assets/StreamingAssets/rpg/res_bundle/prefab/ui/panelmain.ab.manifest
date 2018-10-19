@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3931963097
+CRC: 4056553078
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a09b78a921747d0b3c8abc187a0cfe7f
+    Hash: ceacfe0ddf701fec382108a6f446448d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 8a5424dc3648786dc9041c61f5eeb04a
@@ -38,4 +38,4 @@ ClassTypes:
 Assets:
 - Assets/res_bundle/prefab/ui/PanelMain.prefab
 Dependencies:
-- F:/RPG/Assets/StreamingAssets/rpg/uiresources/uitexture/common/ui_hero_info_06.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/uiresources/uitexture/common/ui_hero_info_06.ab

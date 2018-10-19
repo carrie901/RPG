@@ -40,19 +40,19 @@ public class ResManager : I_ResManager
 
     #region 引用计数
 
-    public RefCounter _internal_ref_increase(string resPath, GameObject obj)
+    public OldRefInfo _internal_ref_increase(string resPath, GameObject obj)
     {
-        RefCounter counter = obj.GetComponent<RefCounter>();
+        OldRefInfo counter = obj.GetComponent<OldRefInfo>();
         if (counter == null)
-            counter = obj.AddComponent<RefCounter>();
+            counter = obj.AddComponent<OldRefInfo>();
 
         //counter.AddRef(resPath);
         return counter;
     }
 
-    public RefCounter _internal_ref_decrease(GameObject obj)
+    public OldRefInfo _internal_ref_decrease(GameObject obj)
     {
-        RefCounter counter = obj.GetComponent<RefCounter>();
+        OldRefInfo counter = obj.GetComponent<OldRefInfo>();
         /*if (counter != null)
             counter.RemoveRef();*/
         return counter;
@@ -116,30 +116,28 @@ public class ResManager : I_ResManager
 
     #region Sprite
 
-    public Sprite LoadSprite(string resPath)
+    public bool LoadSprite(Image img, string resPath, string oldResPath = null)
     {
-        Sprite sprite = _resLoader.LoadAsset<Sprite>(resPath);
-        return sprite;
-    }
-
-    /*public Sprite LoadSprite1()
-    {
-        
-    }*/
-
-    public Sprite LoadSprite(Image img, string resPath)
-    {
-        if (img == null) return null;
+        if (img == null) return false;
 
         Sprite sprite = _resLoader.LoadAsset<Sprite>(resPath);
         if (sprite != null)
         {
             img.sprite = sprite;
         }
-        return sprite;
+        return false;
     }
 
-    public void LoadSpriteAsync(Image img, string resPath,Action<Sprite> complete = null)
+    public bool UnLoadSprite(Image img)
+    {
+        if (img.sprite == null) return false;
+        bool result = _resLoader.UnLoadRef(img);
+        if (result)
+            img.sprite = _defaultSprite;
+        return result;
+    }
+
+    public void LoadSpriteAsync(Image img, string resPath, Action<Sprite> complete = null)
     {
         if (img == null) return;
         Action<Sprite> action = delegate (Sprite sprite)

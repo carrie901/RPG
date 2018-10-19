@@ -80,21 +80,21 @@ namespace Summer
 
         public bool UnloadAsset(I_ObjectInfo objectInfo)
         {
-            AssetBundlePackageCnf mainPackageCnf = _mainInfo.GetPackageCnfByResPath(objectInfo.Path);
-            if (mainPackageCnf == null) return false;
-            string mainPackagePath = mainPackageCnf.PackagePath;
+            if (objectInfo == null) return false;
+            string mainPackagePath = objectInfo.Path;
 
             // 3.卸载主包
-            bool result = InternalUnLoad(mainPackagePath);
+            bool result = InternalUnLoad(mainPackagePath, true);
             if (!result) return false;
 
             // 4.卸载依赖包
             AssetBundleDepCnf depCnf = _mainInfo.GetDepsInfo(mainPackagePath);
-            if (depCnf == null) return true;
-
-            foreach (var depInfo in depCnf._childRef)
+            if (depCnf != null)
             {
-                InternalUnLoad(depInfo.Key);
+                foreach (var depInfo in depCnf._childRef)
+                {
+                    InternalUnLoad(depInfo.Key, false);
+                }
             }
             return true;
         }
@@ -247,7 +247,7 @@ namespace Summer
             return packageOpertion;
         }
         // 内置卸载指定路径的AssetBundle包
-        private bool InternalUnLoad(string packagePath)
+        private bool InternalUnLoad(string packagePath, bool force = false)
         {
             // 1.得到AB包的配置信息
             AssetBundlePackageCnf mainPackageCnf = _mainInfo.GetPackageCnf(packagePath);
@@ -271,8 +271,11 @@ namespace Summer
                 }
             }
             // 4.爸爸们已经不在了，看下内部的引用是否已经完全为0了
+
             bool result = packageInfo.IsEmptyRef();
-            if (result)
+            ResLog.Assert(!(force && !result), "AssetBundleLoader InternalUnLoad Error.主资源:[{0}]强制卸载但还有引用在引用数:",
+                packagePath, packageInfo.RefCount);
+            if (result || force)
             {
                 packageInfo.UnLoad();
                 _packageMap.Remove(mainPackagePath);

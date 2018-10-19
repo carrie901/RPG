@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2746176391
+CRC: 2685419693
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: adce298a896fc591721110197b3a0f8c
+    Hash: 0e56ba9585054453e239e49fee85bf59
   TypeTreeHash:
     serializedVersion: 2
     Hash: d1ae6e26fb0b4d11fccd18da598542fa
@@ -17,4 +17,5 @@ ClassTypes:
   Script: {instanceID: 0}
 Assets:
 - Assets/Raw/Effects/HeroEffects/zhaoyun/materials/eff_H_ZhaoYun_glow_0019.mat
-Dependencies: []
+Dependencies:
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/shaders/ssseffectone.ab

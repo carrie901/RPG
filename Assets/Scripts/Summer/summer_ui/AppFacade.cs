@@ -62,7 +62,7 @@ namespace Summer
             //----------------- 注册相关信息 -----------------------
             AppFacadeManager.OnRegister();
             //----------------- 注册UI -----------------------
-            ResManager.instance.LoadPrefab("RootPanel");
+            ResManager.instance.LoadPrefab("res_bundle/prefab/ui/RootPanel.prefab");
             //----------------- 初始化管理器 -----------------------
             // 本地化文本
             LangLocSet.Instance.Init();
@@ -74,7 +74,7 @@ namespace Summer
             Object.DontDestroyOnLoad(go);*/
 
             // 打开Login界面
-            PanelManagerCtrl.Open(E_ViewId.LOGIN);
+            PanelManagerCtrl.Open(E_ViewId.LOADING);
         }
     }
 

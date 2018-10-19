@@ -2,6 +2,8 @@
 using UnityEngine;
 using System.Text;
 using System.Collections.Generic;
+using UnityEngine.Profiling;
+
 namespace Summer
 {
     public static class GameObjectHelper
@@ -26,11 +28,14 @@ namespace Summer
 
         public static void SetParent(GameObject go, GameObject parent, bool after = false)
         {
+            Profiler.BeginSample("------------------------------");
             Transform t = go.transform;
-            if (parent != null)
+            t.SetParent(parent.transform);
+            /*if (parent != null)
                 t.parent = parent.transform;
             else
-                t.parent = null;
+                t.parent = null;*/
+            Profiler.EndSample();
             t.localPosition = Vector3.zero;
             t.localRotation = Quaternion.identity;
             t.localScale = Vector3.one;
@@ -126,7 +131,7 @@ namespace Summer
         }
         public static void DestroySelf(GameObject obj)
         {
-            /*RefCounter[] refs = obj.GetComponentsInChildren<RefCounter>(true);
+            /*OldRefInfo[] refs = obj.GetComponentsInChildren<OldRefInfo>(true);
             for (int i = 0; i < refs.Length; i++)
             {
                 refs[i].RemoveRef();

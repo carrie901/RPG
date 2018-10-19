@@ -172,6 +172,7 @@ namespace Summer
 
         public static string ToStr(string self_str)
         {
+            if(string.IsNullOrEmpty(self_str))return String.Empty;
             self_str = string.Intern(self_str);
             return self_str;
         }

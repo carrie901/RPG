@@ -35,16 +35,25 @@ namespace Summer
 
         #region private 
 
+        public const string ROOT_PATH = "res_bundle/prefab/ui/";
         public static void InitPanel()
         {
-            _init_view_data(E_ViewId.LOGIN, E_PanelType.PANEL, "PanelLogin");
-            _init_view_data(E_ViewId.MAIN, E_PanelType.PANEL, "PanelMain");
+            _init_view_data(E_ViewId.LOADING, E_PanelType.PANEL, ROOT_PATH + "PanelLoading.prefab");
+            _init_view_data(E_ViewId.LOGIN, E_PanelType.PANEL, ROOT_PATH + "PanelLogin.prefab");
+            _init_view_data(E_ViewId.MAIN, E_PanelType.PANEL, ROOT_PATH + "PanelMain.prefab");
+            _init_view_data(E_ViewId.SHOP, E_PanelType.PANEL, ROOT_PATH + "PanelShop.prefab");
+            _init_view_data(E_ViewId.ROLES, E_PanelType.PANEL, ROOT_PATH + "PanelRoles.prefab");
+            _init_view_data(E_ViewId.BAG, E_PanelType.PANEL, ROOT_PATH + "PanelBag.prefab");
+            _init_view_data(E_ViewId.TASK, E_PanelType.PANEL, ROOT_PATH + "PanelTask.prefab");
+            _init_view_data(E_ViewId.EQUIP, E_PanelType.PANEL, ROOT_PATH + "PanelEquip.prefab");
+            _init_view_data(E_ViewId.SKILL, E_PanelType.PANEL, ROOT_PATH + "PanelSkill.prefab");
+            _init_view_data(E_ViewId.SELECT_LEVEL, E_PanelType.PANEL, ROOT_PATH + "PanelSelectLevel.prefab");
         }
 
         public static void InitDialog()
         {
-            _init_view_data(E_ViewId.ALERT, E_PanelType.DIALOG, "DialogAlert");
-            _init_view_data(E_ViewId.ALERT_MAIN, E_PanelType.DIALOG, "DialogAlertMain");
+            _init_view_data(E_ViewId.ALERT, E_PanelType.DIALOG, ROOT_PATH + "DialogAlert.prefab");
+            //_init_view_data(E_ViewId.ALERT_MAIN, E_PanelType.DIALOG, ROOT_PATH + "DialogAlertMain.prefab");
             //_init_view_data(E_ViewId.player_name,E_PanelType.dialog, "PanelPlayerName");
         }
 

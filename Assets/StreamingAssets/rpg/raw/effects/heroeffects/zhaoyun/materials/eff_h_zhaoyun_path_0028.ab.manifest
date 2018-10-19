@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3708446270
+CRC: 1679100277
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3f04a07f95655c086f38e11fc0ca6cec
+    Hash: 8dea3ce4ed67deff486f318317b6b87b
   TypeTreeHash:
     serializedVersion: 2
     Hash: d1ae6e26fb0b4d11fccd18da598542fa
@@ -17,4 +17,5 @@ ClassTypes:
   Script: {instanceID: 0}
 Assets:
 - Assets/Raw/Effects/HeroEffects/zhaoyun/materials/eff_H_ZhaoYun_path_0028.mat
-Dependencies: []
+Dependencies:
+- D:/github/RPG/Assets/StreamingAssets/rpg/raw/effects/textures/path/path_0028.ab

@@ -3,7 +3,7 @@ CRC: 1173695335
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 79e168ec0d64b55dbbea7f645e2ab84c
+    Hash: 59e41194a1daedbf8ecb4795a9dd55c1
   TypeTreeHash:
     serializedVersion: 2
     Hash: a71fdf2ffd3c846eb39a56b09217be16
@@ -38,4 +38,4 @@ ClassTypes:
 Assets:
 - Assets/res_bundle/prefab/ui/PanelLogin.prefab
 Dependencies:
-- F:/RPG/Assets/StreamingAssets/rpg/uiresources/uitexture/common/ui_hero_info_06.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/uiresources/uitexture/common/ui_hero_info_06.ab

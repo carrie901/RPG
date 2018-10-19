@@ -37,22 +37,22 @@ namespace SummerEditor
 
         public void _init_build()
         {
-            DirectoryInfo sprite_directory_info = Directory.CreateDirectory(EAssetBundleConst.RES_SPRITE_DRIECTORY);
+            DirectoryInfo spriteDirectoryInfo = Directory.CreateDirectory(EAssetBundleConst.RES_SPRITE_DRIECTORY);
 
-            DirectoryInfo[] sprites_info = sprite_directory_info.GetDirectories();
+            DirectoryInfo[] spritesInfo = spriteDirectoryInfo.GetDirectories();
 
-            for (int i = sprites_info.Length - 1; i >= 0; i--)
+            for (int i = spritesInfo.Length - 1; i >= 0; i--)
             {
-                _excute_directory(sprites_info[i]);
+                _excute_directory(spritesInfo[i]);
             }
         }
 
         // 处理单个目录
-        public void _excute_directory(DirectoryInfo sprite_directory)
+        public void _excute_directory(DirectoryInfo spriteDirectory)
         {
             // 生成 一个目录的资源打一个包
-            BuildAssetInOneAb one_ab = new BuildAssetInOneAb(sprite_directory.FullName);
-            _strateys.Add(one_ab);
+            BuildAssetInOneAb oneAb = new BuildAssetInOneAb(spriteDirectory.FullName);
+            _strateys.Add(oneAb);
         }
 
         #endregion

@@ -3,7 +3,7 @@ CRC: 619555095
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 807d38d01f00c524e5db837c040bc87c
+    Hash: 211d9acbda1cfddb37e0793691c45173
   TypeTreeHash:
     serializedVersion: 2
     Hash: 930695047a77049f98a01309dbf9848e
@@ -40,4 +40,4 @@ ClassTypes:
 Assets:
 - Assets/res_bundle/prefab/ui/DialogAlert.prefab
 Dependencies:
-- F:/RPG/Assets/StreamingAssets/rpg/uiresources/uitexture/common/ui_hero_info_06.ab
+- D:/github/RPG/Assets/StreamingAssets/rpg/uiresources/uitexture/common/ui_hero_info_06.ab

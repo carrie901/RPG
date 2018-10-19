@@ -32,7 +32,7 @@ namespace Summer
         /// <summary>
         /// 这个路径
         ///     是资源路径比如 res_bundle/xxx/xxx.png 
-        ///     也可是资源包路径StreamingAssets/xxx/xxx.ab  
+        ///     //也可是资源包路径StreamingAssets/xxx/xxx.ab  
         ///     同样是ResName xxx
         /// </summary>
         public string Path { get; private set; }
@@ -61,6 +61,11 @@ namespace Summer
         }
 
         public void UnRef(Object obj)
+        {
+            RefCount--;
+        }
+
+        public void UnRefByPath(string resPath)
         {
             RefCount--;
         }

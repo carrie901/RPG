@@ -65,10 +65,10 @@ namespace Summer
         static LogManager()
         {
 #if UNITY_EDITOR
-            //pipelines.Add(FileLog.Instance);
-            //pipelines.Add(StringBuilderLog.Instance);
+            //_pipelines.Add(FileLog.Instance);
+            _pipelines.Add(StringBuilderLog.Instance);
             _pipelines.Add(UnityLog.Instance);
-            //pipelines.Add(RuntimeLog.Instance);
+            //_pipelines.Add(RuntimeLog.Instance);
 #endif
             //Debug.logger.logEnabled = !IgnoreUnityDebug;
 

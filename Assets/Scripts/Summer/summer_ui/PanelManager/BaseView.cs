@@ -12,9 +12,9 @@ namespace Summer
 
         protected static int _baseViewId;
 
-        public int _iid;                                                    // 每一个界面的唯一标识id
+        private int _iid;                                                    // 每一个界面的唯一标识id
         public int Iid { get { return _iid; } }
-        public E_ViewId _viewId;
+        private E_ViewId _viewId;
         public E_ViewId GetId { get { return _viewId; } }
 
 
