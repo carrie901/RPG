@@ -73,6 +73,7 @@ namespace SummerEditor
 
         public static void CheckGameObject(MonoBehaviour mono)
         {
+            if (mono == null) return;
             Type type = mono.GetType();
             FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             foreach (FieldInfo field in fields)

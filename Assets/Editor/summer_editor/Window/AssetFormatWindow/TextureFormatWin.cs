@@ -78,7 +78,7 @@ namespace SummerEditor
             _texRuleTable.OnSelected += OnRuleSelected;
             _texRuleTable.AddColumn("FilterPath", "过滤的路径", 0.45f);
             _texRuleTable.AddColumn("FilterRule", "过滤规则", 0.35f);
-            _texRuleTable.AddColumn("FilterPath", "格式化", 0.25f);
+            _texRuleTable.AddColumn("FormatRule", "格式化", 0.25f);
             _texRuleTablePanel = new TableViewPanel(Ew - 10, 200);
             _texRuleTablePanel.AddTableView(_texRuleTable);
             AddComponent(_texRuleTablePanel, 5, 10 + _rootPath.Eh);
@@ -165,6 +165,7 @@ namespace SummerEditor
                 EditorUtility.DisplayProgressBar("格式化纹理", info.Path, (float)(i + 1) / length);
             }
             EditorUtility.ClearProgressBar();
+            OnRuleSelected(_formatRule, 0);
         }
 
         // 选择某一条具体的规则

@@ -24,6 +24,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 namespace SummerEditor
 {
@@ -56,15 +57,17 @@ namespace SummerEditor
             {
                 AssetFormatRule rule = new AssetFormatRule();
                 rule.FilterPath = node.GetAttribute("FilterPath").ToStr();
-                rule.FilterRule = node.GetAttribute("FilterRule").ToStr();
-                if (!string.IsNullOrEmpty(rule.FilterRule))
+                EdAttribute filterPathattribute = node.GetAttribute("FilterRule");
+                if (filterPathattribute != null)
                 {
+                    rule.FilterRule = filterPathattribute.ToStr();
                     Type filterType = Type.GetType("SummerEditor." + rule.FilterRule);
+                    Debug.AssertFormat(filterType != null, "找不到对应的规则文件:[{0}]", rule.FilterRule);
                     rule._filter = Activator.CreateInstance(filterType) as I_AssetFilter;
                 }
-               
                 rule.FormatRule = node.GetAttribute("FormatRule").ToStr();
                 Type ruleType = Type.GetType("SummerEditor." + rule.FormatRule);
+                Debug.AssertFormat(ruleType != null, "找不到对应的格式化文件:[{0}]", rule.FormatRule);
                 rule._rule = Activator.CreateInstance(ruleType) as I_AssetRule;
                 Debug.AssertFormat(rule._rule != null, "格式规则不存在:[{0}]", rule.FormatRule);
                 return rule;

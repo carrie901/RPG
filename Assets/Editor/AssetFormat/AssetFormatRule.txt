@@ -1,3 +1,12 @@
+
+// FilterPath:过滤路径
+// FilterRule:过滤的原则
+//		ArgbPotTextureFilter
+//		
+// FormatRule:纹理格式化
+//		SpriteTextureRule:纹理格式化成Sprite
+//		AltasTextureRule:纹理格式化成Sprite并设设置Altas，格式的名字是Altas+目录名称
+
 <Rule>
 	<Texture>
 		FilterPath=Assets/Raw/Effects/Textures/xulie
@@ -8,5 +17,13 @@
 		FilterPath=Assets/Raw/Effects/Textures/xulie
 		FilterRule=ArgbPotTextureFilter
 		FormatRule=ArgbPotTextureRule
+	</Texture>
+	<Texture>
+		FilterPath=Assets/UIResources/UITexture
+		FormatRule=SpriteTextureRule
+	</Texture>
+	<Texture>
+		FilterPath=Assets/UIResources/UITexture
+		FormatRule=AltasTextureRule
 	</Texture>
 </Rule>
