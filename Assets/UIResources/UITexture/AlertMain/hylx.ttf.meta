@@ -3,17 +3,19 @@ guid: a2849f21be65c430e8d800d1258719a6
 timeCreated: 1484031987
 licenseType: Pro
 TrueTypeFontImporter:
-  serializedVersion: 3
+  serializedVersion: 4
   fontSize: 16
   forceTextureCase: -2
-  characterSpacing: 1
-  characterPadding: 0
+  characterSpacing: 0
+  characterPadding: 1
   includeFontData: 1
-  fontNames: []
+  fontName: HYLingXinJ
+  fontNames:
+  - HYLingXinJ
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
   userData: 
-  assetBundleName: 
+  assetBundleName: uiresources/uitexture/alertmain.ab
   assetBundleVariant: 
