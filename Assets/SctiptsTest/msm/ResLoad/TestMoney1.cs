@@ -41,7 +41,8 @@ public class TestMoney1 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Check3();
+
+        Check4();
     }
 
     // Update is called once per frame
@@ -50,6 +51,7 @@ public class TestMoney1 : MonoBehaviour
 
         Check1();
         Check2();
+        Check3();
     }
 
     #endregion
@@ -137,21 +139,63 @@ public class TestMoney1 : MonoBehaviour
         return 0;
     }
 
+    public bool flag3 = false;
     public void Check3()
     {
+        if (!flag3) return;
+        flag3 = false;
         float allMoney = 0;
-        float first = 1.1f;
+        float startPrice = 1.0f;
+        float first = startPrice;
         float m1 = 100;
         float count = 0;
-        for (int i = 0; i < 100; i++)
+        int day = 400;
+        float internalAdd = 0.005f;
+        for (int i = 0; i < day; i++)
         {
-            first += 0.05f;
+            first += internalAdd;
             count += (m1 / first);
             allMoney += m1;
         }
-        first = (first + 1.1f) / 2;
+        Debug.Log("first:" + first);
+        first = (first + 1.0f) / 2;
         float outMoney = count * first;
         Debug.LogFormat("InMoney:[{0}],OutMoney:[{1}], GetMoney:[{2}]", allMoney, outMoney, (outMoney - allMoney));
+    }
+
+    public void Check4()
+    {
+        float startPrice = 1.5f;
+        float endPrice = startPrice;
+        int day = 200 * 2;
+        float inRemove = 0.005f;
+        float inAdd = 0.01f;
+        float count = 0;
+        float m1 = 100;
+        int tmpAdd = 0;
+        for (int i = 0; i < day; i++)
+        {
+            bool result = i % 2 == 0;
+            if (result)
+            {
+                endPrice = endPrice * (1 + inAdd);
+                 float tmpCount = m1 / endPrice;
+                 count += tmpCount;
+                 tmpAdd++;
+            }
+            else
+            {
+                endPrice = endPrice * (1 - inRemove);
+                float tmpCount = m1 / endPrice;
+                tmpAdd++;
+                count += tmpCount;
+            }
+        }
+        Debug.Log("原始" + startPrice + "结束:" + endPrice + "tmpAdd:" + tmpAdd);
+        endPrice = endPrice / 2;
+        float outM = count * endPrice;
+        float inM = day * m1;
+        Debug.LogFormat("inM:[{0}],outM:[{1}], GetMoney:[{2}]", inM , outM, (outM - inM));
     }
 
     #endregion

@@ -41,13 +41,18 @@ namespace SummerEditor
         public static void SetAllAssetName()
         {
             Dictionary<string, EAssetObjectInfo> allAssets = EAssetBundleAnalysis._allAssets;
-
+            BuildAssetStrateyManager.Init();
+            BuildAssetStrateyManager.SetAssetBundleName();
             int index = 1;
             foreach (var info in allAssets)
             {
                 EAssetObjectInfo assetInfo = info.Value;
                 index++;
                 EditorUtility.DisplayProgressBar("设置主AssetBundle名字", assetInfo.AssetPath, (float)(index) / allAssets.Count);
+
+                if (BuildAssetStrateyManager.IsBundleStratey(assetInfo)) continue;
+
+
                 if (assetInfo.IsMainAsset)
                 {
                     SetAbNameByPath(assetInfo.AssetPath);
@@ -107,6 +112,7 @@ namespace SummerEditor
             {
                 // 去掉Assets/ 和文件的后缀
                 string str = EPathHelper.RemoveAssetsAndSuffixforPath(filePath);
+                Debug.AssertFormat(string.IsNullOrEmpty(importer.assetBundleName), "设置AssetBundle之前她已经有名字了:[{0}]", filePath);
                 importer.assetBundleName = str + EAssetBundleConst.ASSETBUNDLE_EXTENSION;
                 importer.SaveAndReimport();
             }
@@ -184,7 +190,7 @@ namespace SummerEditor
                 AssetDatabase.RemoveAssetBundleName(names[i], true);
             }
             EditorUtility.ClearProgressBar();
-            
+
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
         }

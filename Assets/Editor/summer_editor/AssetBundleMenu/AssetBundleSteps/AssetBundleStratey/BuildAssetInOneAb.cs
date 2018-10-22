@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 
 namespace SummerEditor
 {
@@ -9,9 +10,11 @@ namespace SummerEditor
     {
         public string _directory;
         public Dictionary<string, int> _assetsMap = new Dictionary<string, int>();
+        public string _abName = string.Empty;
         public BuildAssetInOneAb(string path)
         {
             _directory = path;
+            _abName = EPathHelper.AbsoluteToRelativePathRemoveAssets(_directory);
             _init();
         }
 
@@ -24,24 +27,24 @@ namespace SummerEditor
             return false;
         }
 
-        public void AddAssetBundleFileInfo(EAssetObjectInfo info)
-        {
-
-        }
-
         public void SetAssetBundleName()
         {
+            int count = _assetsMap.Count;
+            int index = 0;
             foreach (var info in _assetsMap)
             {
-                string assetPath = info.Key;
-                AssetBundleSetNameE.SetAbNameByParam(assetPath, _directory);
+                index++;
+                EditorUtility.DisplayProgressBar("设置主AssetBundle名字", info.Key, (float)(index) / count);
+                AssetBundleSetNameE.SetAbNameByParam(info.Key, _abName);
             }
+            EditorUtility.ClearProgressBar();
         }
 
-        public void _init()
+        private void _init()
         {
             List<string> assetsPath = EPathHelper.GetAssetsPath(_directory, true);
-            for (int i = 0; i < assetsPath.Count; i++)
+            int length = assetsPath.Count;
+            for (int i = 0; i < length; i++)
             {
                 _assetsMap.Add(assetsPath[i], 1);
             }

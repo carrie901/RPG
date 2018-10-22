@@ -23,11 +23,6 @@ namespace SummerEditor
             return false;
         }
 
-        public void AddAssetBundleFileInfo(EAssetObjectInfo info)
-        {
-            _assetsMap.Add(info.AssetPath, 1);
-        }
-
         public void SetAssetBundleName()
         {
             foreach (var info in _assetsMap)

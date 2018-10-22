@@ -9,12 +9,12 @@ namespace SummerEditor
     {
         public static void AllAssetBundleBuild()
         {
-            if (!Directory.Exists(EAssetBundleConst.assetbundle_directory))
+            if (!Directory.Exists(EAssetBundleConst.AssetbundleDirectory))
             {
-                Directory.CreateDirectory(EAssetBundleConst.assetbundle_directory);
+                Directory.CreateDirectory(EAssetBundleConst.AssetbundleDirectory);
             }
 
-            BuildPipeline.BuildAssetBundles(EAssetBundleConst.assetbundle_directory, FindBuildAssetBundleOptions(), FindBuildTarget());
+            BuildPipeline.BuildAssetBundles(EAssetBundleConst.AssetbundleDirectory, FindBuildAssetBundleOptions(), FindBuildTarget());
 
             EditorUtility.DisplayDialog("资源打包", "打包完毕", "OK");
 

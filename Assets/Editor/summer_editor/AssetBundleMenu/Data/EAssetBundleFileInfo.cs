@@ -24,7 +24,7 @@ namespace SummerEditor
         public EAssetBundleFileInfo(string tmpAbName)
         {
             AbName = tmpAbName;
-            FilePath = EAssetBundleConst.assetbundle_directory + "/" + AbName;//Path.Combine(, ab_name);
+            FilePath = EAssetBundleConst.AssetbundleDirectory + "/" + AbName;//Path.Combine(, ab_name);
             FileAbMemorySize = EPathHelper.GetFileSize(FilePath);
             _allDepends.Clear();
             _beDepends.Clear();

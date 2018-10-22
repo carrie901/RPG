@@ -16,11 +16,6 @@ namespace SummerEditor
             return true;
         }
 
-        public void AddAssetBundleFileInfo(EAssetObjectInfo info)
-        {
-
-        }
-
         public void SetAssetBundleName()
         {
             string result = string.Empty;

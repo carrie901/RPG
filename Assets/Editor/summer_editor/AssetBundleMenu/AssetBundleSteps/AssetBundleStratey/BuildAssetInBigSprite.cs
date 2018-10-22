@@ -16,11 +16,6 @@
             throw new System.NotImplementedException();
         }
 
-        public void AddAssetBundleFileInfo(EAssetObjectInfo info)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void SetAssetBundleName()
         {
             throw new System.NotImplementedException();

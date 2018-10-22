@@ -17,7 +17,7 @@ namespace SummerEditor
 
         public static void Analyze()
         {
-            if (!EPathHelper.IsExitDirectory(EAssetBundleConst.assetbundle_directory)) return;
+            if (!EPathHelper.IsExitDirectory(EAssetBundleConst.AssetbundleDirectory)) return;
             // 收集AB的信息
             AnalyzeCollectBundles();
             AnalyzeBundleFiles();

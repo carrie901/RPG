@@ -9,7 +9,7 @@ namespace SummerEditor
     /// </summary>
     public class BuildAssetInFileNameAb : I_AssetBundleStratey
     {
-        public Dictionary<string, int> _assets_map = new Dictionary<string, int>();
+        public Dictionary<string, int> _assetsMap = new Dictionary<string, int>();
         public BuildAssetInFileNameAb()
         {
 
@@ -21,16 +21,9 @@ namespace SummerEditor
             return true;
         }
 
-        public void AddAssetBundleFileInfo(EAssetObjectInfo info)
-        {
-            if (_assets_map.ContainsKey(info.AssetPath))
-                return;
-            _assets_map.Add(info.AssetPath, 1);
-        }
-
         public void SetAssetBundleName()
         {
-            foreach (var info in _assets_map)
+            foreach (var info in _assetsMap)
             {
                 AssetBundleSetNameE.SetAbNameByPath(info.Key);
             }

@@ -124,7 +124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &662563408
 RectTransform:
   m_ObjectHideFlags: 0
@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 1064557156}
   - component: {fileID: 1064557158}
   - component: {fileID: 1064557157}
+  - component: {fileID: 1064557159}
   m_Layer: 0
   m_Name: Test
   m_TagString: Untagged
@@ -300,7 +301,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1064557155}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6244191286e06c468d8cf817bc59df3, type: 3}
   m_Name: 
@@ -312,6 +313,23 @@ MonoBehaviour:
   _altasobj: []
   dab: strign
   _flag1: 0
+  _flag10: 0
+--- !u!114 &1064557159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1064557155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e610b897932eaa24990f8b97e5ac2e96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rootCanvas: {fileID: 1605863801}
+  flag1: 0
+  flag2: 0
+  flag3: 0
+  flag4: 0
   _flag10: 0
 --- !u!1 &1214615660
 GameObject:
@@ -329,7 +347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1214615661
 RectTransform:
   m_ObjectHideFlags: 0
@@ -397,7 +415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1397256253
 RectTransform:
   m_ObjectHideFlags: 0
@@ -465,7 +483,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1496277597
 RectTransform:
   m_ObjectHideFlags: 0
