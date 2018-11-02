@@ -90,8 +90,8 @@ namespace Summer
             System.GC.Collect();
             AsyncOperation ao = Resources.UnloadUnusedAssets();
             yield return ao;
-            yield return CoroutineConst.wait_for_end_of_frame;
-            yield return CoroutineConst.wait_for_end_of_frame;
+            yield return CoroutineConst._waitForEndOfFrame;
+            yield return CoroutineConst._waitForEndOfFrame;
 
             // 1.加载的时间
             float t1 = Time.realtimeSinceStartup;
@@ -101,8 +101,8 @@ namespace Summer
             _currReport._loadTime = (int)((t2 - t1) * 1000);
 
             if (effGo == null) yield break;
-            yield return CoroutineConst.wait_for_end_of_frame;
-            yield return CoroutineConst.wait_for_end_of_frame;
+            yield return CoroutineConst._waitForEndOfFrame;
+            yield return CoroutineConst._waitForEndOfFrame;
 
             // 2.粒子
             _currReport._totalPsCount = effGo.GetComponentsInChildren<ParticleSystem>(true).Length;
@@ -120,8 +120,8 @@ namespace Summer
             }
             // 材质球个数
             _currReport._materialCount = effMaterials.Count;
-            yield return CoroutineConst.wait_for_end_of_frame;
-            yield return CoroutineConst.wait_for_end_of_frame;
+            yield return CoroutineConst._waitForEndOfFrame;
+            yield return CoroutineConst._waitForEndOfFrame;
 
             // 5.实例化时间
             t2 = Time.realtimeSinceStartup;
@@ -145,14 +145,14 @@ namespace Summer
                 t4 += dt;
                 if (UnityStats.triangles > maxTriangles)
                     maxTriangles = UnityStats.triangles;
-                yield return CoroutineConst.wait_for_end_of_frame;
+                yield return CoroutineConst._waitForEndOfFrame;
             }
             _currReport._dc = maxDc - oldDc;
             _currReport._triangles = maxTriangles - oldTriangles;
-            yield return CoroutineConst.wait_for_end_of_frame;
-            yield return CoroutineConst.wait_for_end_of_frame;
+            yield return CoroutineConst._waitForEndOfFrame;
+            yield return CoroutineConst._waitForEndOfFrame;
             Object.DestroyImmediate(go);
-            yield return CoroutineConst.wait_for_end_of_frame;
+            yield return CoroutineConst._waitForEndOfFrame;
         }
 
         #endregion

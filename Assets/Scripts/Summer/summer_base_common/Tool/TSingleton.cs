@@ -16,6 +16,10 @@ public class TSingleton<T> where T : class, new()
             }
             return _instance;
         }
+    }
+
+    protected virtual void OnInit()
+    {
 
     }
 }

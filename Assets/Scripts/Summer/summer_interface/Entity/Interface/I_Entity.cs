@@ -9,13 +9,13 @@
     public interface I_Entity
     {
         //注册回调点
-        bool RegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler);
+        bool RegisterHandler(E_EntityEvent key, EventSet<E_EntityEvent, EventSetData>.EventHandler handler);
 
         //卸载回调点
-        bool UnRegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler);
+        bool UnRegisterHandler(E_EntityEvent key, EventSet<E_EntityEvent, EventSetData>.EventHandler handler);
 
         //触发回调点
-        void RaiseEvent(E_Entity_Event key, EventSetData objInfo);
+        void RaiseEvent(E_EntityEvent key, EventSetData objInfo);
 
 
         // 这个有严重违反依赖导致原则，会整体的破坏了接口

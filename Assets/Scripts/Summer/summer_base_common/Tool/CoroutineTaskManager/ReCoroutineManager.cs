@@ -7,7 +7,7 @@ using System.Collections.Generic;
 // FileName : ReCoroutineManager.cs
 //=============================================================================
 
-namespace Summer.Tool
+namespace Summer
 {
     /// <summary>
     /// 管理ReCoroutine,对外提供添加ReCoroutine
@@ -19,15 +19,15 @@ namespace Summer.Tool
 
         public static ReCoroutineManager Instance;
 
-        private readonly List<ReCoroutine> update_ienumerator_list = new List<ReCoroutine>();
-        private readonly List<ReCoroutine> late_update_ienumerator_list = new List<ReCoroutine>();
-        private readonly List<ReCoroutine> fixed_update_ienumerator_list = new List<ReCoroutine>();
+        private readonly List<ReCoroutine> _updateIenumeratorList = new List<ReCoroutine>();
+        private readonly List<ReCoroutine> _lateUpdateIenumeratorList = new List<ReCoroutine>();
+        private readonly List<ReCoroutine> _fixedUpdateIenumeratorList = new List<ReCoroutine>();
 
-        private static float update_delta_time;
-        private static float late_update_delta_time;
-        private static float fixed_update_delta_time;
+        private static float UpdateDeltaTime;
+        private static float LateUpdateDeltaTime;
+        private static float FixedUpdateDeltaTime;
 
-        private readonly List<ReCoroutine> remove_ienumerator = new List<ReCoroutine>();
+        private readonly List<ReCoroutine> _removeIenumerator = new List<ReCoroutine>();
 
         #endregion
 
@@ -38,80 +38,80 @@ namespace Summer.Tool
                 Instance = this;
             else
                 LogManager.Error("ReCoroutineManager Instance Error");
-            update_delta_time = Time.deltaTime;
-            late_update_delta_time = Time.deltaTime;
-            fixed_update_delta_time = Time.fixedDeltaTime;
+            UpdateDeltaTime = Time.deltaTime;
+            LateUpdateDeltaTime = Time.deltaTime;
+            FixedUpdateDeltaTime = Time.fixedDeltaTime;
         }
 
         void Update()
         {
-            remove_ienumerator.Clear();
+            _removeIenumerator.Clear();
 
-            int length = update_ienumerator_list.Count;
+            int length = _updateIenumeratorList.Count;
             for (int i = 0; i < length; i++)
             {
-                var cor = update_ienumerator_list[i];
+                var cor = _updateIenumeratorList[i];
 
                 cor.Update();
 
                 if (cor.IsDone)
                 {
-                    remove_ienumerator.Add(cor);
+                    _removeIenumerator.Add(cor);
                 }
             }
 
-            length = remove_ienumerator.Count;
+            length = _removeIenumerator.Count;
             for (int i = 0; i < length; i++)
             {
-                update_ienumerator_list.Remove(remove_ienumerator[i]);
+                _updateIenumeratorList.Remove(_removeIenumerator[i]);
             }
         }
 
         void LateUpdate()
         {
-            remove_ienumerator.Clear();
-            int length = late_update_ienumerator_list.Count;
+            _removeIenumerator.Clear();
+            int length = _lateUpdateIenumeratorList.Count;
             for (int i = 0; i < length; i++)
             {
-                var cor = late_update_ienumerator_list[i];
+                var cor = _lateUpdateIenumeratorList[i];
                 cor.LateUpdate();
 
                 if (cor.IsDone)
                 {
-                    remove_ienumerator.Add(cor);
+                    _removeIenumerator.Add(cor);
                     continue;
                 }
             }
-            length = remove_ienumerator.Count;
+            length = _removeIenumerator.Count;
             for (int i = 0; i < length; i++)
             {
-                late_update_ienumerator_list.Remove(remove_ienumerator[i]);
+                _lateUpdateIenumeratorList.Remove(_removeIenumerator[i]);
             }
         }
 
         void FixedUpdate()
         {
-            remove_ienumerator.Clear();
+            _removeIenumerator.Clear();
 
-            int length = fixed_update_ienumerator_list.Count;
+            int length = _fixedUpdateIenumeratorList.Count;
             for (int i = 0; i < length; i++)
             {
-                var cor = fixed_update_ienumerator_list[i];
+                var cor = _fixedUpdateIenumeratorList[i];
 
                 cor.FixedUpdate();
 
                 if (cor.IsDone)
                 {
-                    remove_ienumerator.Add(cor);
+                    _removeIenumerator.Add(cor);
                     continue;
                 }
 
             }
 
-            length = remove_ienumerator.Count;
+            length = _removeIenumerator.Count;
             for (int i = 0; i < length; i++)
             {
-                fixed_update_ienumerator_list.Remove(remove_ienumerator[i]);
+                _fixedUpdateIenumeratorList.Remove(_removeIenumerator[i]);
             }
         }
 
@@ -122,7 +122,7 @@ namespace Summer.Tool
         /// <summary>
         /// 添加新协程
         /// </summary>
-        public static ReCoroutine AddCoroutine(IEnumerator<float> e, E_CoroutineType type = E_CoroutineType.update)
+        public static ReCoroutine AddCoroutine(IEnumerator<float> e, E_CoroutineType type = E_CoroutineType.Update)
         {
             return Instance._internal_add_coroutine(e, type);
         }
@@ -134,12 +134,12 @@ namespace Summer.Tool
         {
             switch (coroutine.ECoroutineType)
             {
-                case E_CoroutineType.update:
-                    return update_delta_time;
-                case E_CoroutineType.late_update:
-                    return late_update_delta_time;
-                case E_CoroutineType.fixed_update:
-                    return fixed_update_delta_time;
+                case E_CoroutineType.Update:
+                    return UpdateDeltaTime;
+                case E_CoroutineType.LateUpdate:
+                    return LateUpdateDeltaTime;
+                case E_CoroutineType.FixedUpdate:
+                    return FixedUpdateDeltaTime;
                 default:
                     return 0;
             }
@@ -149,16 +149,16 @@ namespace Summer.Tool
 
         #region private 
 
-        public ReCoroutine _internal_add_coroutine(IEnumerator<float> e, E_CoroutineType type = E_CoroutineType.update)
+        public ReCoroutine _internal_add_coroutine(IEnumerator<float> e, E_CoroutineType type = E_CoroutineType.Update)
         {
             ReCoroutine cor = new ReCoroutine(e, type);
 
-            if (type == E_CoroutineType.update)
-                update_ienumerator_list.Add(cor);
-            else if (type == E_CoroutineType.late_update)
-                late_update_ienumerator_list.Add(cor);
-            else if (type == E_CoroutineType.fixed_update)
-                fixed_update_ienumerator_list.Add(cor);
+            if (type == E_CoroutineType.Update)
+                _updateIenumeratorList.Add(cor);
+            else if (type == E_CoroutineType.LateUpdate)
+                _lateUpdateIenumeratorList.Add(cor);
+            else if (type == E_CoroutineType.FixedUpdate)
+                _fixedUpdateIenumeratorList.Add(cor);
 
             return cor;
         }

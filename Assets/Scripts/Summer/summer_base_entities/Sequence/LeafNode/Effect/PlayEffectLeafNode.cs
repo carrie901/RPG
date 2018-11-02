@@ -28,13 +28,13 @@ namespace Summer.Sequence
     {
 
         public const string DES = "播放特效";
-        public string effect_name;             //特效名称
+        public string _effectName;             //特效名称
         //public GameObject bing_obj;            //绑定的GameObject
         public override void OnEnter(BlackBoard blackboard)
         {
             //LogEnter();
             PlayEffectEventSkill data = EventDataFactory.Pop<PlayEffectEventSkill>();
-            data.effect_name = effect_name;
+            data.effect_name = _effectName;
             //data.bing_obj = bing_obj;
             RaiseEvent(E_EntityInTrigger.play_effect, data);
             Finish();

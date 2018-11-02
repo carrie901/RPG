@@ -18,10 +18,10 @@ namespace Summer
 
         //public System.Object Info { get; set; }
 
-        public PanelInfo(E_ViewId view_id, E_PanelType view_type, string name)
+        public PanelInfo(E_ViewId viewId, E_PanelType viewType, string name)
         {
-            _viewId = view_id;
-            _viewType = view_type;
+            _viewId = viewId;
+            _viewType = viewType;
             _pfbName = name;
         }
 

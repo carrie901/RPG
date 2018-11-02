@@ -6,7 +6,7 @@
     public class GetTargetNearLeafNode : SequenceLeafNode
     {
         public const string DES = "找到离我们最近的的一个目标";
-        public float ditance;
+        public float _ditance;
 
         public override void OnEnter(BlackBoard blackboard)
         {

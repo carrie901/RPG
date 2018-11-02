@@ -32,11 +32,6 @@ public class GameStart : MonoBehaviour
     {
         CameraEffectManager.instance.UnRegisterHandler();
     }
-
-    void OnApplicationQuit()
-    {
-        LogManager.Quit();
-    }
 }
 
 public class TestGame

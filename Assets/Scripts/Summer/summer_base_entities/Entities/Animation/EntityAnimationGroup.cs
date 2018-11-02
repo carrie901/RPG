@@ -6,69 +6,67 @@ namespace Summer
     /// <summary>
     /// 原则上是让数据和动作文件进行分离
     /// </summary>
-    [RequireComponent(typeof(Animator), typeof(BaseEntityController))]
-    public class EntityAnimationGroup : MonoBehaviour
+    //[RequireComponent(typeof(Animator), typeof(BaseEntityController))]
+    public class EntityAnimationGroup : MonoBehaviour, I_EntityAnimationGroup
     {
         #region 属性
 
-        public BaseEntity _base_entity;
+        public I_EntityInTrigger _baseEntity;
         [HideInInspector]
-        public Animator animator;
+        public Animator _animator;
         //[HideInInspector]
-        public string curr_anim_name;
+        public string _currAnimName;
 
-        public List<AnimationClip> anim_clips;
+        public List<AnimationClip> _animClips;
 
         public enum ClipType
         {
-            take_001 = 0,
-            attack_01,
-            attack_02,
-            attack_03,
-            attack_04,
-            attack_05,
-            attack_06,
-            run,
-            die,
-            hit,
-            skill_01,
-            skill_02,
-            skill_03,
-            skill_04,
-            skill_05,
-            skill_06,
-            walk,
-
+            TAKE_001 = 0,
+            ATTACK_01,
+            ATTACK_02,
+            ATTACK_03,
+            ATTACK_04,
+            ATTACK_05,
+            ATTACK_06,
+            RUN,
+            DIE,
+            HIT,
+            SKILL_01,
+            SKILL_02,
+            SKILL_03,
+            SKILL_04,
+            SKILL_05,
+            SKILL_06,
+            WALK,
         };
 
         #endregion
 
-        private void Awake()
+        void Awake()
         {
             _init();
         }
 
-        public void OnInit(BaseEntity base_entity)
+        public void OnInit(I_EntityInTrigger baseEntity)
         {
-            _base_entity = base_entity;
+            _baseEntity = baseEntity;
         }
 
         #region 注册
 
         public void OnRegisterHandler()
         {
-            _base_entity.RegisterHandler(E_EntityInTrigger.play_animation, OnPlayAnimation);
-            _base_entity.RegisterHandler(E_EntityInTrigger.change_animation_speed, OnChangeAnimationSpeed);
+            _baseEntity.RegisterHandler(E_EntityInTrigger.play_animation, OnPlayAnimation);
+            _baseEntity.RegisterHandler(E_EntityInTrigger.change_animation_speed, OnChangeAnimationSpeed);
         }
 
         public void UnRegisterHandler()
         {
-            _base_entity.UnRegisterHandler(E_EntityInTrigger.play_animation, OnPlayAnimation);
-            _base_entity.UnRegisterHandler(E_EntityInTrigger.change_animation_speed, OnChangeAnimationSpeed);
+            _baseEntity.UnRegisterHandler(E_EntityInTrigger.play_animation, OnPlayAnimation);
+            _baseEntity.UnRegisterHandler(E_EntityInTrigger.change_animation_speed, OnChangeAnimationSpeed);
         }
 
         #endregion
-
 
         #region 响应
 
@@ -133,39 +131,40 @@ namespace Summer
 
         #region public
 
-        public void SkillEvent(E_SkillTransition skill_event)
+        public void SkillEvent(E_SkillTransition skillEvent)
         {
-            AnimationEventData param = EventDataFactory.Pop<AnimationEventData>();
-            param.event_data = skill_event;
-            _base_entity.RaiseEvent(E_Entity_Event.animation_event, param);
+            Debug.LogError("暂停这一块");
+            /*AnimationEventData param = EventDataFactory.Pop<AnimationEventData>();
+            param._eventData = skillEvent;
+            _baseEntity.RaiseEvent(E_EntityEvent.ANIMATION_EVENT, param);*/
         }
 
-        public void PlayAnimation(string anim_name)
+        public void PlayAnimation(string animName)
         {
-            AnimationLog.Log("*****************播放动画:" + anim_name);
-            curr_anim_name = anim_name;
-            if (animator == null) return;
+            AnimationLog.Log("*****************播放动画:" + animName);
+            _currAnimName = animName;
+            if (_animator == null) return;
             //animator.CrossFade(anim_name, 0.2f);
-            animator.Play(anim_name);
+            _animator.Play(animName);
             //animator.Play(anim_name, 0, 0);
         }
 
         public void ChangeAnimationSpeed(float speed)
         {
-            animator.speed = speed;
+            _animator.speed = speed;
             //AnimatorTransitionInfo info = animator.GetAnimatorTransitionInfo(0);
         }
 
-        public void StopAnim(string anim_name)
+        public void StopAnim(string animName)
         {
-            if (animator == null) return;
-            animator.StopPlayback();
+            if (_animator == null) return;
+            _animator.StopPlayback();
         }
 
         public AnimatorStateInfo GetAnimatorStateInfo()
         {
-            AnimatorStateInfo state_info = animator.GetCurrentAnimatorStateInfo(0);
-            return state_info;
+            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+            return stateInfo;
         }
 
         public bool IsAttackNormal()
@@ -180,10 +179,10 @@ namespace Summer
 
         public void Clear()
         {
-            anim_clips.Clear();
+            _animClips.Clear();
         }
 
-        public void AddAnims(string anim_name, AnimationClip anim_clip)
+        public void AddAnims(string animName, AnimationClip animClip)
         {
             /*AnimationNameInfo info = new AnimationNameInfo
             {
@@ -191,33 +190,33 @@ namespace Summer
                 anim_clip = anim_clip
             };
             anims.Add(info);*/
-            anim_clips.Add(anim_clip);
+            _animClips.Add(animClip);
         }
 
         #endregion
 
         #region private 
 
-        public void _init()
+        private void _init()
         {
-            animator = gameObject.GetComponent<Animator>();
+            _animator = gameObject.GetComponent<Animator>();
 
-            AnimatorOverrideController override_control = new AnimatorOverrideController();
-            override_control.runtimeAnimatorController = animator.runtimeAnimatorController;
-            int length = anim_clips.Count;
+            AnimatorOverrideController overrideControl = new AnimatorOverrideController();
+            overrideControl.runtimeAnimatorController = _animator.runtimeAnimatorController;
+            int length = _animClips.Count;
             for (int i = 0; i < length; i++)
             {
-                if (anim_clips[i] != null)
+                if (_animClips[i] != null)
                 {
-                    override_control[anim_clips[i].name] = null;
-                    override_control[anim_clips[i].name] = anim_clips[i];
+                    overrideControl[_animClips[i].name] = null;
+                    overrideControl[_animClips[i].name] = _animClips[i];
                 }
                 else
                 {
 
                 }
             }
-            animator.runtimeAnimatorController = override_control;
+            _animator.runtimeAnimatorController = overrideControl;
         }
 
         #endregion
@@ -241,23 +240,20 @@ namespace Summer
         public const string SKILL_03 = "skill_03";
         public const string SKILL_04 = "skill_04";
         public const string SKILL_05 = "skill_05";
-
-
-
         public const string ACTIONCMD = "ActionCMD";
 
-        public static int idle = Animator.StringToHash(IDLE);
+        /*public static int idle = Animator.StringToHash(IDLE);
         public static int attack_01 = Animator.StringToHash(ATTACK_01);
         public static int attack_02 = Animator.StringToHash(ATTACK_02);
         public static int attack_03 = Animator.StringToHash(ATTACK_03);
         public static int attack_04 = Animator.StringToHash(ATTACK_04);
         public static int attack_05 = Animator.StringToHash(ATTACK_05);
-        public static int attack_06 = Animator.StringToHash(ATTACK_06);
+        public static int attack_06 = Animator.StringToHash(ATTACK_06);*/
     }
 
-    public class SkillNormalInfo
-    {
-        public EntityAnimationGroup.ClipType clip_type;
-        public float mormalized_time;
-    }
+    /* public class SkillNormalInfo
+     {
+         public EntityAnimationGroup.ClipType clip_type;
+         public float mormalized_time;
+     }*/
 }

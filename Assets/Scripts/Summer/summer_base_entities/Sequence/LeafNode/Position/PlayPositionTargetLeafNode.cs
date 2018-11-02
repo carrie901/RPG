@@ -28,25 +28,25 @@ namespace Summer.Sequence
     public class PlayPositionTargetLeafNode : SequenceLeafNode
     {
         public const string DES = "移动到指定地点";
-        public string _bb_target;
+        public string _bbTarget;
 
-        public Vector3 _target_pos;
+        public Vector3 _targetPos;
         public BaseEntity _entity;
-        public Vector3 _source_pos;
+        public Vector3 _sourcePos;
 
         public override void OnEnter(BlackBoard blackboard)
         {
             LogEnter();
-            _target_pos = blackboard.GetValue<BbV3>(_bb_target).Value;
+            _targetPos = blackboard.GetValue<BbV3>(_bbTarget).Value;
             _entity = blackboard.GetValue<BaseEntity>(SequenceSelfConst.TARGET_SELF_ENTITY);
-            _source_pos = _entity.WroldPosition;
+            _sourcePos = _entity.WroldPosition;
             _curr_frame = 0;
         }
         
         public override void OnExit(BlackBoard blackboard)
         {
             LogExit();
-            _entity.EntityController._trans.position = _target_pos;
+            _entity.EntityController._trans.position = _targetPos;
         }
         public override void SetConfigInfo(EdNode cnf)
         {
@@ -59,7 +59,7 @@ namespace Summer.Sequence
             SkillLog.Log("位置偏移-->OnUpdate:[{0}]", TimeManager.FrameCount);
             _curr_frame++;
             // 有问题的
-            _entity.EntityController._trans.position = Vector3.Lerp(_source_pos, _target_pos, _curr_frame * 1.0f / _frame_length);
+            _entity.EntityController._trans.position = Vector3.Lerp(_sourcePos, _targetPos, _curr_frame * 1.0f / _frameLength);
         }
 
         public override string ToDes() { return DES; }

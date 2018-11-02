@@ -7,7 +7,7 @@ using System.Collections;
 // FileName : CoroutineTask.cs
 //=============================================================================
 
-namespace Summer.Tool
+namespace Summer
 {
     /// <summary>
     /// 协同任务 这个模块是很奇怪的
@@ -21,9 +21,9 @@ namespace Summer.Tool
         public delegate void FinishedHandler(bool manual);
         public event FinishedHandler Finished;
 
-        protected static long task_id = 1;
+        protected static long _taskId = 1;                      // 任务Id 唯一值
         protected IEnumerator _ienumer;
-        protected Action<bool> _call_back;
+        protected Action<bool> _callBack;
 
         public string Name { get; private set; }                // 名称
         public object BindObject { get; private set; }          // 绑定物体
@@ -34,34 +34,30 @@ namespace Summer.Tool
 
         #region construction
 
-        public CoroutineTask(IEnumerator ienumer, Action<bool> call_back = null,
-            object bind_object = null, bool auto_start = true)
+        public CoroutineTask(IEnumerator ienumer, Action<bool> callBack = null,
+            object bindObject = null, bool autoStart = true)
         {
-            task_id += 1;
+            _taskId += 1;
             Name = _ienumer.GetHashCode().ToString();
             _ienumer = ienumer;
-            _call_back = call_back;
+            _callBack = callBack;
 
-            if (bind_object == null)
-            {
-                BindObject = CoroutineTaskManager.Instance.gameObject;
-            }
+            if (bindObject != null)
+                BindObject = bindObject;
             else
-            {
-                BindObject = bind_object;
-            }
+                BindObject = CoroutineTaskManager.Instance.gameObject;
 
             Running = false;
             Paused = false;
 
-            if (auto_start)
+            if (autoStart)
                 Start();
         }
 
         public CoroutineTask(
-            string name, IEnumerator ienumer, Action<bool> call_back = null,
-            object bind_object = null, bool auto_start = true)
-            : this(ienumer, call_back, bind_object, auto_start)
+            string name, IEnumerator ienumer, Action<bool> callBack = null,
+            object bindObject = null, bool autoStart = true)
+            : this(ienumer, callBack, bindObject, autoStart)
         {
             Name = name;
         }
@@ -130,9 +126,9 @@ namespace Summer.Tool
 
         public void _internal_call_back(bool value)
         {
-            CoroutineTaskManager.task_list.Remove(Name);
-            if (_call_back != null)
-                _call_back(value);
+            CoroutineTaskManager._taskList.Remove(Name);
+            if (_callBack != null)
+                _callBack(value);
         }
 
         #endregion

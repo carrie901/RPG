@@ -8,19 +8,19 @@ namespace Summer.Sequence
     public class LookAtTargetLefaNode : SequenceLeafNode
     {
         public const string DES = "朝向目标";
-        public bool every_frame;
+        public bool _everyFrame;
 
         public GameObject _source;
         public GameObject _target;
-        public Vector3 _look_at_pos;
+        public Vector3 _lookAtPos;
 
-        public bool debug = false;
-        public Color debug_line_color = Color.yellow;
+        public bool _debug = false;
+        public Color _debugLineColor = Color.yellow;
         public override void OnEnter(BlackBoard blackboard)
         {
             LogEnter();
             DoLookAt();
-            if (!every_frame)
+            if (!_everyFrame)
             {
                 Finish();
             }
@@ -35,11 +35,11 @@ namespace Summer.Sequence
         {
             //base.OnUpdate(dt);
             UpdateLookAtPosition();
-            _source.transform.LookAt(_look_at_pos, Vector3.up);
+            _source.transform.LookAt(_lookAtPos, Vector3.up);
 
-            if (debug)
+            if (_debug)
             {
-                Debug.DrawLine(_source.transform.position, _look_at_pos, debug_line_color);
+                Debug.DrawLine(_source.transform.position, _lookAtPos, _debugLineColor);
             }
         }
         public override void SetConfigInfo(EdNode cnf)
@@ -48,7 +48,7 @@ namespace Summer.Sequence
         }
         public void DoLookAt()
         {
-            if (debug)
+            if (_debug)
             {
                 //Debug.DrawLine(go.transform.position, lookAtPos, debugLineColor.Value);
             }
@@ -57,7 +57,7 @@ namespace Summer.Sequence
         // 更新目标
         public void UpdateLookAtPosition()
         {
-            _look_at_pos = _target.transform.position;
+            _lookAtPos = _target.transform.position;
         }
 
         public override string ToDes() { return DES; }

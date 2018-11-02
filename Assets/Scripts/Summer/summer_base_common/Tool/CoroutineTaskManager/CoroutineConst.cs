@@ -7,7 +7,7 @@ using System.Collections.Generic;
 // FileName : CoroutineConst.cs
 //=============================================================================
 
-namespace Summer.Tool
+namespace Summer
 {
     /// <summary>
     /// 协同的常量
@@ -17,12 +17,12 @@ namespace Summer.Tool
         /// <summary>
         /// 获取等待帧末
         /// </summary>
-        public static readonly WaitForEndOfFrame wait_for_end_of_frame = new WaitForEndOfFrame();
+        public static readonly WaitForEndOfFrame _waitForEndOfFrame = new WaitForEndOfFrame();
 
         /// <summary>
         /// 获取等待帧末
         /// </summary>
-        public static readonly WaitForFixedUpdate wait_for_fixed_update = new WaitForFixedUpdate();
+        public static readonly WaitForFixedUpdate _waitForFixedUpdate = new WaitForFixedUpdate();
 
         /// <summary>
         /// 获取秒

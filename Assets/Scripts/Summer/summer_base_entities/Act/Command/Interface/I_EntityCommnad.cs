@@ -3,7 +3,7 @@
     public interface I_EntityCommnad
     {
         //void OnEnter();
-        void OnUpdate(BaseEntity entity_movement, float dt);
+        void OnUpdate(BaseEntity entityMovement, float dt);
         //void OnExit();
         bool Finish();
     }

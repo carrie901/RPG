@@ -185,9 +185,9 @@ namespace Summer
         #region Entity 自身
 
 
-        public Dictionary<E_Entity_Event, I_Condition> _conditionSet
-            = new Dictionary<E_Entity_Event, I_Condition>(EntityEvtComparer.Instance);
-        public bool RegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler, I_Condition condition = null)
+        public Dictionary<E_EntityEvent, I_Condition> _conditionSet
+            = new Dictionary<E_EntityEvent, I_Condition>(EntityEvtComparer.Instance);
+        public bool RegisterHandler(E_EntityEvent key, EventSet<E_EntityEvent, EventSetData>.EventHandler handler, I_Condition condition = null)
         {
             if (condition != null)
                 _conditionSet.Add(key, condition);
@@ -195,7 +195,7 @@ namespace Summer
             return _target.RegisterHandler(key, handler);
         }
 
-        public bool UnRegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler, I_Condition condition = null)
+        public bool UnRegisterHandler(E_EntityEvent key, EventSet<E_EntityEvent, EventSetData>.EventHandler handler, I_Condition condition = null)
         {
             if (condition != null)
                 _conditionSet.Remove(key);

@@ -51,7 +51,7 @@ namespace Summer
         public GameEventSystem()
         {
             GlobalEvtComparer comparer = new GlobalEvtComparer();
-            _eventSet = new EventSet<E_GLOBAL_EVT, Object>(comparer);
+            _eventSet = new EventSet<E_GLOBAL_EVT, Object>(comparer, 256);
         }
 
         #endregion

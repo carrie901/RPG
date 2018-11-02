@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Object = System.Object;
 
-namespace Summer.Tool
+namespace Summer
 {
     public class CoroutineTaskManager : MonoBehaviour
     {
         public static CoroutineTaskManager Instance;
-        public static Dictionary<string, CoroutineTask> task_list = new Dictionary<string, CoroutineTask>();
+        public static Dictionary<string, CoroutineTask> _taskList = new Dictionary<string, CoroutineTask>();
 
         #region MONO
 
@@ -18,7 +19,7 @@ namespace Summer.Tool
                 Instance = this;
             else
                 LogManager.Error("CoroutineTaskManager Instance Error");
-            task_list = new Dictionary<string, CoroutineTask>();
+            _taskList = new Dictionary<string, CoroutineTask>(16);
             //GameObject.DontDestroyOnLoad(gameObject);
             //gameObject.hideFlags |= HideFlags.HideAndDontSave;
         }
@@ -32,71 +33,71 @@ namespace Summer.Tool
         /// <summary>
         /// 开始一个任务
         /// </summary>
-        public void DoTask(string task_name)
+        public void DoTask(string taskName)
         {
-            if (!task_list.ContainsKey(task_name))
+            if (!_taskList.ContainsKey(taskName))
             {
-                LogManager.Error("开始任务,不存在该任务[{0}]", task_name);
+                LogManager.Error("开始任务,不存在该任务[{0}]", taskName);
                 return;
             }
-            task_list[task_name].Start();
+            _taskList[taskName].Start();
         }
 
         /// <summary>
         /// 暂停协程
         /// </summary>
-        public void Pause(string task_name)
+        public void Pause(string taskName)
         {
-            if (!task_list.ContainsKey(task_name))
+            if (!_taskList.ContainsKey(taskName))
             {
-                LogManager.Error("暂停任务,不存在该任务[{0}]", task_name);
+                LogManager.Error("暂停任务,不存在该任务[{0}]", taskName);
                 return;
             }
-            task_list[task_name].Pause();
+            _taskList[taskName].Pause();
         }
 
         /// <summary>
         /// 取消暂停某个协程
         /// </summary>
-        public void UnPause(string task_name)
+        public void UnPause(string taskName)
         {
-            if (!task_list.ContainsKey(task_name))
+            if (!_taskList.ContainsKey(taskName))
             {
-                LogManager.Error("重新开始任务,不存在该任务[{0}]", task_name);
+                LogManager.Error("重新开始任务,不存在该任务[{0}]", taskName);
                 return;
             }
-            task_list[task_name].UnPause();
+            _taskList[taskName].UnPause();
         }
 
         /// <summary>
         /// 停止特定协程
         /// </summary>
-        public void Stop(string task_name)
+        public void Stop(string taskName)
         {
-            if (!task_list.ContainsKey(task_name))
+            if (!_taskList.ContainsKey(taskName))
             {
-                LogManager.Error("停止任务，不存在该任务[{0}]", task_name);
+                LogManager.Error("停止任务，不存在该任务[{0}]", taskName);
                 return;
             }
-            task_list[task_name].Stop();
+            _taskList[taskName].Stop();
         }
 
-        List<CoroutineTask> temp_List = new List<CoroutineTask>(8);
+        private readonly List<CoroutineTask> _tempList = new List<CoroutineTask>(8);
         /// <summary>
         /// 停止所有协程
         /// </summary>
         public void StopAll()
         {
-            temp_List.Clear();
+            _tempList.Clear();
             // ReSharper disable once LoopCanBeConvertedToQuery
-            foreach (CoroutineTask task in task_list.Values)
+            foreach (CoroutineTask task in _taskList.Values)
             {
-                temp_List.Add(task);
+                _tempList.Add(task);
             }
-            int length = temp_List.Count;
+            int length = _tempList.Count;
             for (int i = 0; i < length; i++)
             {
-                temp_List[i].Stop();
+                _tempList[i].Stop();
             }
         }
 
@@ -109,26 +110,26 @@ namespace Summer.Tool
         /// <summary>
         /// 添加一个新任务
         /// </summary>
-        public void AddTask(string task_name, IEnumerator ienumer, Action<bool> call_back = null, object bind_object = null, bool auto_start = true)
+        public void AddTask(string taskName, IEnumerator ienumer, Action<bool> callBack = null, object bindObject = null, bool autoStart = true)
         {
-            if (task_list.ContainsKey(task_name))
+            if (_taskList.ContainsKey(taskName))
             {
-                LogManager.Error("添加新任务,任务[{0}]重名！", task_name);
-                _re_start(task_name);
+                LogManager.Error("添加新任务,任务[{0}]重名！", taskName);
+                _re_start(taskName);
             }
             else
             {
-                CoroutineTask task = new CoroutineTask(task_name, ienumer, call_back, bind_object, auto_start);
-                task_list.Add(task_name, task);
+                CoroutineTask task = new CoroutineTask(taskName, ienumer, callBack, bindObject, autoStart);
+                _taskList.Add(taskName, task);
             }
         }
 
         /// <summary>
         /// 添加一个新任务
         /// </summary>
-        public CoroutineTask AddTask(IEnumerator ienumer, Action<bool> call_back = null, object bind_object = null, bool auto_start = true)
+        public CoroutineTask AddTask(IEnumerator ienumer, Action<bool> callBack = null, object bindObject = null, bool autoStart = true)
         {
-            CoroutineTask task = new CoroutineTask(ienumer, call_back, bind_object, auto_start);
+            CoroutineTask task = new CoroutineTask(ienumer, callBack, bindObject, autoStart);
             AddTask(task);
             return task;
         }
@@ -138,14 +139,14 @@ namespace Summer.Tool
         /// </summary>
         public CoroutineTask AddTask(CoroutineTask task)
         {
-            if (task_list.ContainsKey(task.Name))
+            if (_taskList.ContainsKey(task.Name))
             {
                 LogManager.Error("添加新任务,任务[{0}]重名！", task.Name);
                 _re_start(task.Name);
             }
             else
             {
-                task_list.Add(task.Name, task);
+                _taskList.Add(task.Name, task);
             }
             return task;
         }
@@ -157,23 +158,22 @@ namespace Summer.Tool
         /// <summary>
         /// 等待一段时间再执行回调
         /// </summary>
-        public CoroutineTask WaitSecondTodo(Action call_back, float wait_time, object bind_object = null)
-        {                    
-            // ReSharper disable once RedundantLambdaSignatureParentheses
-            Action<bool> call_back2 = (bo) =>
+        public CoroutineTask WaitSecondTodo(Action callBack, float waitTime, object bindObject = null)
+        {
+            Action<bool> callBack2 = (bo) =>
             {
                 if (bo)
-                    call_back();
+                    callBack();
             };
-            CoroutineTask task = new CoroutineTask(_do_wait_to_do(wait_time), call_back2, bind_object);
+            CoroutineTask task = new CoroutineTask(_do_wait_to_do(waitTime), callBack2, bindObject);
             AddTask(task);
             return task;
         }
 
-        public CoroutineTask WaitSecondTodo(Action<bool> call_back, float wait_time, object bind_object = null)
+        public CoroutineTask WaitSecondTodo(Action<bool> callBack, float waitTime, object bindObject = null)
         {
-            IEnumerator ienumer = _do_wait_to_do(wait_time);
-            CoroutineTask task = new CoroutineTask(ienumer, call_back, bind_object);
+            IEnumerator ienumer = _do_wait_to_do(waitTime);
+            CoroutineTask task = new CoroutineTask(ienumer, callBack, bindObject);
             AddTask(task);
             return task;
         }
@@ -181,16 +181,16 @@ namespace Summer.Tool
         /// <summary>
         /// 等到下一帧
         /// </summary>
-        public CoroutineTask WaitFrameEnd(Action call_back, object bind_object = null)
+        public CoroutineTask WaitFrameEnd(Action callBack, object bindObject = null)
         {
-            Action<bool> call_back2 = (bo) =>
+            Action<bool> callBack2 = (bo) =>
             {
                 if (bo)
-                    call_back();
+                    callBack();
             };
             CoroutineTask task = new CoroutineTask(
                 _do_wait_frame_end_to_do(),
-                call_back2, bind_object);
+                callBack2, bindObject);
             AddTask(task);
             return task;
         }
@@ -198,14 +198,14 @@ namespace Summer.Tool
         /// <summary>
         /// 等待直到某个条件成立时
         /// </summary>
-        public CoroutineTask WaitUntilTodo(Action call_back, Func<bool> conditions, object bind_object = null)
+        public CoroutineTask WaitUntilTodo(Action callBack, Func<bool> conditions, Object bindObject = null)
         {
-            Action<bool> call_back2 = (bo) =>
+            Action<bool> callBack2 = (bo) =>
             {
                 if (bo)
-                    call_back();
+                    callBack();
             };
-            CoroutineTask task = new CoroutineTask(_do_wait_until(conditions), call_back2, bind_object);
+            CoroutineTask task = new CoroutineTask(_do_wait_until(conditions), callBack2, bindObject);
             AddTask(task);
             return task;
         }
@@ -213,14 +213,14 @@ namespace Summer.Tool
         /// <summary>
         /// 当条件成立时等待
         /// </summary>
-        public CoroutineTask WaitWhileTodo(Action call_back, Func<bool> conditions, object bind_object = null)
+        public CoroutineTask WaitWhileTodo(Action callBack, Func<bool> conditions, object bindObject = null)
         {
-            Action<bool> call_back2 = (bo) =>
+            Action<bool> callBack2 = (bo) =>
             {
                 if (bo)
-                    call_back();
+                    callBack();
             };
-            CoroutineTask task = new CoroutineTask(_do_wait_while(conditions), call_back2, bind_object);
+            CoroutineTask task = new CoroutineTask(_do_wait_while(conditions), callBack2, bindObject);
             AddTask(task);
             return task;
         }
@@ -284,7 +284,7 @@ namespace Summer.Tool
         // 等待下一帧
         public IEnumerator _do_wait_frame_end_to_do()
         {
-            yield return CoroutineConst.wait_for_end_of_frame;
+            yield return CoroutineConst._waitForEndOfFrame;
         }
 
         //  等待直到某个条件成立时
@@ -349,7 +349,7 @@ namespace Summer.Tool
             {
                 tmp_loop_count++;
                 call_back();
-                yield return CoroutineConst.wait_for_end_of_frame;
+                yield return CoroutineConst._waitForEndOfFrame;
             }
         }
 
@@ -372,12 +372,12 @@ namespace Summer.Tool
 
         public void _re_start(string task_name)
         {
-            if (!task_list.ContainsKey(task_name))
+            if (!_taskList.ContainsKey(task_name))
             {
                 LogManager.Error("重新开始任务,不存在该任务[{0}]", task_name);
                 return;
             }
-            CoroutineTask task = task_list[task_name];
+            CoroutineTask task = _taskList[task_name];
             Stop(task_name);
             AddTask(task);
         }

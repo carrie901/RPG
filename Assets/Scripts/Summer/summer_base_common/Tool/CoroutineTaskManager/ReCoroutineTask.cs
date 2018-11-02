@@ -7,15 +7,15 @@ using System.Collections.Generic;
 // FileName : ReCoroutineTask.cs
 //=============================================================================
 
-namespace Summer.Tool
+namespace Summer
 {
     public class ReCoroutineTask
     {
         #region Property
 
-        protected static long task_id = 1;
+        protected static long _taskId = 1;
         protected IEnumerator<float> _ienumer;                                          // 内部迭代器
-        protected Action<bool> _call_back;                                              // 回调函数
+        protected Action<bool> _callBack;                                               // 回调函数
 
         public string Name { get; private set; }
         public object BindObject { get; private set; }
@@ -28,28 +28,28 @@ namespace Summer.Tool
         #region construction
 
         public ReCoroutineTask(
-            IEnumerator<float> ienumer, Action<bool> call_back = null,
-            object bind_object = null, bool auto_start = true)
+            IEnumerator<float> ienumer, Action<bool> callBack = null,
+            object bindObject = null, bool autoStart = true)
         {
 
             Name = ienumer.GetHashCode().ToString();
-            task_id += 1;
+            _taskId += 1;
             _ienumer = ienumer;
-            _call_back = call_back;
-            if (bind_object == null)
+            _callBack = callBack;
+            if (bindObject == null)
             {
                 BindObject = ReCoroutineTaskManager.Instance.gameObject;
             }
             else
             {
-                BindObject = bind_object;
+                BindObject = bindObject;
             }
 
             Running = false;
             Paused = false;
             IsFinished = false;
 
-            if (auto_start)
+            if (autoStart)
             {
                 Start();
             }
@@ -57,9 +57,9 @@ namespace Summer.Tool
         }
 
         public ReCoroutineTask(
-            string name, IEnumerator<float> ienumer, Action<bool> call_back = null,
-            object bind_object = null, bool auto_start = true)
-                : this(ienumer, call_back, bind_object, auto_start)
+            string name, IEnumerator<float> ienumer, Action<bool> callBack = null,
+            object bindObject = null, bool autoStart = true)
+                : this(ienumer, callBack, bindObject, autoStart)
         {
             Name = name;
         }
@@ -127,9 +127,9 @@ namespace Summer.Tool
 
         public void _internal_call_back(bool value)
         {
-            ReCoroutineTaskManager.task_list.Remove(Name);
-            if (_call_back != null)
-                _call_back(value);
+            ReCoroutineTaskManager._taskList.Remove(Name);
+            if (_callBack != null)
+                _callBack(value);
         }
     }
 }

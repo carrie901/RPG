@@ -21,18 +21,33 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Summer
 {
-    public class EnumHelper
+    /// <summary>
+    /// 
+    /// </summary>
+    public class PfbPath : BaseResPath
     {
+        #region static
 
-        /*public static T Parse<T>(string text) where T : struct
+        public static string _rootPath = "res_bundle/prefab/ui/";
+        public static PfbPath Instance = new PfbPath();
+
+        #endregion
+
+        #region 属性
+
+        public string RootPanel = "RootPanel.prefab";
+
+        #endregion
+
+        private PfbPath() : base(PathType.PANEL_PFB) { }
+        public override string Get(string path)
         {
-
-        }*/
+            return _rootPath + path;
+        }
     }
+
 }
 

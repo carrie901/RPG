@@ -16,7 +16,7 @@ namespace Summer
     ///         在没有对BaseEntity进行很好的抽象之前,原子操作的部分同时和功能内聚是有一定的冲突的
     /// </summary>
     //[RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(EntityAnimationGroup), typeof(EntityMovement))]
+    //[RequireComponent(typeof(EntityAnimationGroup), typeof(EntityMovement))]
     public class BaseEntityController : PoolDefaultGameObject, I_Update
     {
         #region 属性
@@ -26,7 +26,7 @@ namespace Summer
         protected I_EntityInTrigger _inEntity;
         public Transform _trans;                                                                         // 缓存Transform
         public Rigidbody _rigidBody;
-        
+        public I_EntityAnimationGroup _group;
         #endregion
 
         #region Mono Override
@@ -40,8 +40,8 @@ namespace Summer
         }
 
         void OnDestroy()
-        { 
-            
+        {
+
         }
 
         #endregion
@@ -50,7 +50,7 @@ namespace Summer
 
         public void OnUpdate(float dt)
         {
-            
+
             /*if (entity == null) return;
             entity.OnUpdate(dt);*/
 
@@ -81,14 +81,21 @@ namespace Summer
             _baseEntity.RegisterHandler(E_EntityInTrigger.play_effect, OnPlayEffect);
         }
 
-        public void InitOutTrigger(I_Entity trigger, I_EntityInTrigger inTrigger,BaseEntity baseEntity)
+        public void InitOutTrigger(I_Entity trigger, I_EntityInTrigger inTrigger, BaseEntity baseEntity)
         {
             _entity = trigger;
             _inEntity = inTrigger;
             _baseEntity = baseEntity;
         }
 
-
+        public I_EntityAnimationGroup GetAnimationGroup()
+        {
+            if (_group == null)
+            {
+                _group = GetComponent<EntityAnimationGroup>();
+            }
+            return _group;
+        }
 
 
         #endregion

@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-
+﻿
 namespace Summer.Sequence
 {
     /// <summary>
@@ -8,8 +7,8 @@ namespace Summer.Sequence
     public class MoveToTargetLeafNode : SequenceLeafNode
     {
         public const string DES = "移动到目标点";
-        public float speed;
-        public float distance;                           // 完成的最小距离
+        public float _speed;
+        public float _distance;                           // 完成的最小距离
 
         public override void OnEnter(BlackBoard blackboard)
         {

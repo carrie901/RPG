@@ -30,7 +30,7 @@ namespace Summer.Sequence
     public class PlayAnimationLeafNode : SequenceLeafNode
     {
         public const string DES = "播放动作";
-        public string animation_name;
+        public string _animationName;
 
         public override void OnEnter(BlackBoard blackboard)
         {

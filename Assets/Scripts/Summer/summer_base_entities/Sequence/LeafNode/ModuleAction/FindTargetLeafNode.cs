@@ -55,25 +55,25 @@ namespace Summer.Sequence
             BaseEntity entity = blackboard.entity;
             // 1.得到自身的方向和世界坐标
             Vector3 direction = entity.Direction;
-            Vector3 world_position = entity.WroldPosition;
+            Vector3 worldPosition = entity.WroldPosition;
             target_list = blackboard.GetValue<List<BaseEntity>>(EntityBlackBoardConst.TARGET_LIST);
             int length = EntitesManager.Instance._entites.Count;
             for (int i = 0; i < length; i++)
             {
-                BaseEntity tmp_entity = EntitesManager.Instance._entites[i];
-                if (tmp_entity == entity) continue;
+                BaseEntity tmpEntity = EntitesManager.Instance._entites[i];
+                if (tmpEntity == entity) continue;
                 // 2.双方之间的距离
-                float distance = MathHelper.Distance2D(tmp_entity.WroldPosition, world_position);
+                float distance = MathHelper.Distance2D(tmpEntity.WroldPosition, worldPosition);
                 // 3.距离大于指定长度
                 if (distance > data.radius) continue;
                 // 4.自己和目标之间的方向
-                Vector3 target_direction = tmp_entity.WroldPosition - world_position;
+                Vector3 targetDirection = tmpEntity.WroldPosition - worldPosition;
                 // 5.角度小于指定长度 敌我方向和自身的正前方之间的夹角
-                float tmp_angle = MathHelper.GetAngle04(target_direction, direction);
-                if (tmp_angle > angle) continue;
+                float tmpAngle = MathHelper.GetAngle04(targetDirection, direction);
+                if (tmpAngle > angle) continue;
                 // 添加到目标
-                target_list.Add(tmp_entity);
-                ActionLog.Log("找到目标:{0}", tmp_entity.EntityController.gameObject.name);
+                target_list.Add(tmpEntity);
+                ActionLog.Log("找到目标:{0}", tmpEntity.EntityController.gameObject.name);
             }
         }
 

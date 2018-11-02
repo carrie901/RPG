@@ -21,7 +21,6 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-
 namespace Summer.Sequence
 {
     /// <summary>
@@ -35,15 +34,15 @@ namespace Summer.Sequence
         #region 属性
 
         public SequenceLine _context;
-        public bool _is_complete;
-        public int _frame_length;
+        public bool _isComplete;
+        public int _frameLength;
 
-        public int _seq_id;
-        private static int seq_id;
+        public int _seqId;
+        private static int SeqId;
         public SequenceLeafNode()
         {
-            seq_id++;
-            _seq_id = seq_id;
+            SeqId++;
+            _seqId = SeqId;
         }
 
         #endregion
@@ -70,23 +69,23 @@ namespace Summer.Sequence
 
         #region Public
 
-        public void BindingContext(SequenceLine context, int frame_length)
+        public void BindingContext(SequenceLine context, int frameLength)
         {
-            _frame_length = frame_length;
+            _frameLength = frameLength;
             _context = context;
         }
 
-        public void Finish() { _is_complete = true; }
+        public void Finish() { _isComplete = true; }
 
-        public bool IsFinish() { return _is_complete; }
+        public bool IsFinish() { return _isComplete; }
 
-        public void Reset() { _is_complete = false; }
+        public void Reset() { _isComplete = false; }
 
-        public void RaiseEvent(E_EntityInTrigger key, EventSetData obj_info)
+        public void RaiseEvent(E_EntityInTrigger key, EventSetData objInfo)
         {
             if (_context == null || _context._owner == null) return;
-            _context._owner.RaiseEvent(key, obj_info);
-            EventDataFactory.Push(obj_info);
+            _context._owner.RaiseEvent(key, objInfo);
+            EventDataFactory.Push(objInfo);
         }
 
         #endregion

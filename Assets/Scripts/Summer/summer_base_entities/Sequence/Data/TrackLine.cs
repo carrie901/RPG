@@ -28,10 +28,10 @@ namespace Summer.Sequence
     public class TrackLine
     {
         #region 属性
-        public int _s_frame;                                        // 开始的帧数 以0作为起点
-        public int _e_frame;                                        // 
-        public int _frame_length;
-        public int FrameLength { get { return _s_frame + _frame_length; } }
+        public int _sFrame;                                        // 开始的帧数 以0作为起点
+        public int _eFrame;                                        // 
+        public int _frameLength;
+        public int FrameLength { get { return _sFrame + _frameLength; } }
         public List<SequenceLeafNode> _leafs = new List<SequenceLeafNode>();
 
         public SequenceLine _context;
@@ -45,12 +45,12 @@ namespace Summer.Sequence
 
         #region Public
 
-        public TrackLine(int start_frame, int frame_length)
+        public TrackLine(int startFrame, int frameLength)
         {
-            SkillLog.Assert(start_frame >= 0 && frame_length >= 0, "序列中的通道帧数据不合格,起始帧数:[{0}],长度:[{1}]", start_frame, frame_length);
-            _s_frame = start_frame;
-            _frame_length = frame_length;
-            _e_frame = _s_frame + _frame_length;
+            SkillLog.Assert(startFrame >= 0 && frameLength >= 0, "序列中的通道帧数据不合格,起始帧数:[{0}],长度:[{1}]", startFrame, frameLength);
+            _sFrame = startFrame;
+            _frameLength = frameLength;
+            _eFrame = _sFrame + _frameLength;
         }
 
         public void BindingContext(SequenceLine context)
@@ -61,16 +61,16 @@ namespace Summer.Sequence
         public void AddNode(SequenceLeafNode node)
         {
             _leafs.Add(node);
-            node.BindingContext(_context, _frame_length);
+            node.BindingContext(_context, _frameLength);
         }
 
         public E_Runing Check(int frame)
         {
-            if (frame < _s_frame) return E_Runing.none;
-            if (frame == _s_frame) return E_Runing.enter;
-            if (frame > _s_frame && frame < _e_frame) return E_Runing.update;
-            if (frame == _e_frame) return E_Runing.exit;
-            if (frame > _e_frame) return E_Runing.complete;
+            if (frame < _sFrame) return E_Runing.none;
+            if (frame == _sFrame) return E_Runing.enter;
+            if (frame > _sFrame && frame < _eFrame) return E_Runing.update;
+            if (frame == _eFrame) return E_Runing.exit;
+            if (frame > _eFrame) return E_Runing.complete;
 
             return E_Runing.none;
         }

@@ -35,32 +35,31 @@ namespace Summer
 
         #region private 
 
-        public const string ROOT_PATH = "res_bundle/prefab/ui/";
         public static void InitPanel()
         {
-            _init_view_data(E_ViewId.LOADING, E_PanelType.PANEL, ROOT_PATH + "PanelLoading.prefab");
-            _init_view_data(E_ViewId.LOGIN, E_PanelType.PANEL, ROOT_PATH + "PanelLogin.prefab");
-            _init_view_data(E_ViewId.MAIN, E_PanelType.PANEL, ROOT_PATH + "PanelMain.prefab");
-            _init_view_data(E_ViewId.SHOP, E_PanelType.PANEL, ROOT_PATH + "PanelShop.prefab");
-            _init_view_data(E_ViewId.ROLES, E_PanelType.PANEL, ROOT_PATH + "PanelRoles.prefab");
-            _init_view_data(E_ViewId.BAG, E_PanelType.PANEL, ROOT_PATH + "PanelBag.prefab");
-            _init_view_data(E_ViewId.TASK, E_PanelType.PANEL, ROOT_PATH + "PanelTask.prefab");
-            _init_view_data(E_ViewId.EQUIP, E_PanelType.PANEL, ROOT_PATH + "PanelEquip.prefab");
-            _init_view_data(E_ViewId.SKILL, E_PanelType.PANEL, ROOT_PATH + "PanelSkill.prefab");
-            _init_view_data(E_ViewId.SELECT_LEVEL, E_PanelType.PANEL, ROOT_PATH + "PanelSelectLevel.prefab");
+            _init_view_data(E_ViewId.LOADING, E_PanelType.PANEL, "PanelLoading.prefab");
+            _init_view_data(E_ViewId.LOGIN, E_PanelType.PANEL, "PanelLogin.prefab");
+            _init_view_data(E_ViewId.MAIN, E_PanelType.PANEL, "PanelMain.prefab");
+            _init_view_data(E_ViewId.SHOP, E_PanelType.PANEL, "PanelShop.prefab");
+            _init_view_data(E_ViewId.ROLES, E_PanelType.PANEL, "PanelRoles.prefab");
+            _init_view_data(E_ViewId.BAG, E_PanelType.PANEL, "PanelBag.prefab");
+            _init_view_data(E_ViewId.TASK, E_PanelType.PANEL, "PanelTask.prefab");
+            _init_view_data(E_ViewId.EQUIP, E_PanelType.PANEL, "PanelEquip.prefab");
+            _init_view_data(E_ViewId.SKILL, E_PanelType.PANEL, "PanelSkill.prefab");
+            _init_view_data(E_ViewId.SELECT_LEVEL, E_PanelType.PANEL, "PanelSelectLevel.prefab");
         }
 
         public static void InitDialog()
         {
-            _init_view_data(E_ViewId.ALERT, E_PanelType.DIALOG, ROOT_PATH + "DialogAlert.prefab");
-            //_init_view_data(E_ViewId.ALERT_MAIN, E_PanelType.DIALOG, ROOT_PATH + "DialogAlertMain.prefab");
+            _init_view_data(E_ViewId.ALERT, E_PanelType.DIALOG, "DialogAlert.prefab");
+            //_init_view_data(E_ViewId.ALERT_MAIN, E_PanelType.DIALOG,  "DialogAlertMain.prefab");
             //_init_view_data(E_ViewId.player_name,E_PanelType.dialog, "PanelPlayerName");
         }
 
         private static void _init_view_data(E_ViewId id, E_PanelType type, string pfbName, E_PanelBgType showMode = E_PanelBgType.NOTHING,
             bool hasBgClickClose = true)
         {
-            PanelInfo view = new PanelInfo(id, type, pfbName);
+            PanelInfo view = new PanelInfo(id, type, ResPath.Get(PathType.PANEL_PFB, pfbName));
             view._showMode = showMode;
             view._hasBgClickClose = hasBgClickClose;
             ViewPrefabMap.Add(id, view);

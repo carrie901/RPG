@@ -9,13 +9,13 @@ using System.Threading;
 // FileName : ReCoroutine.cs
 //=============================================================================
 
-namespace Summer.Tool
+namespace Summer
 {
     public enum E_CoroutineType
     {
-        update,
-        fixed_update,
-        late_update
+        Update,
+        FixedUpdate,
+        LateUpdate
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ namespace Summer.Tool
         private ReCoroutine WaitingCoroutine { get; set; }                          // 正在等待的别的迭代器
 
         private static readonly object lock_object = new object();                  // 加锁对象
-        private static long _base_id;
+        private static long _baseId;
 
         #endregion
 
@@ -45,14 +45,14 @@ namespace Summer.Tool
             CurrentTime = 0;
             UntilTime = 0;
             IsDone = false;
-            Id = _base_id++;
+            Id = _baseId++;
         }
 
         #region Update/LateUpdate/FixedUpdate
 
         public void Update()
         {
-            if (ECoroutineType == E_CoroutineType.update)
+            if (ECoroutineType == E_CoroutineType.Update)
             {
                 CommonUpdate();
             }
@@ -60,7 +60,7 @@ namespace Summer.Tool
 
         public void LateUpdate()
         {
-            if (ECoroutineType == E_CoroutineType.late_update)
+            if (ECoroutineType == E_CoroutineType.LateUpdate)
             {
                 CommonUpdate();
             }
@@ -68,7 +68,7 @@ namespace Summer.Tool
 
         public void FixedUpdate()
         {
-            if (ECoroutineType == E_CoroutineType.fixed_update)
+            if (ECoroutineType == E_CoroutineType.FixedUpdate)
             {
                 CommonUpdate();
             }

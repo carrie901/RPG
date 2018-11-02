@@ -7,12 +7,12 @@ using System;
 // FileName : ReCoroutineTaskManager.cs
 //=============================================================================
 
-namespace Summer.Tool
+namespace Summer
 {
     public class ReCoroutineTaskManager : MonoBehaviour
     {
         public static ReCoroutineTaskManager Instance;
-        public static Dictionary<string, ReCoroutineTask> task_list = new Dictionary<string, ReCoroutineTask>();
+        public static Dictionary<string, ReCoroutineTask> _taskList = new Dictionary<string, ReCoroutineTask>();
 
         #region MONO
 
@@ -22,7 +22,7 @@ namespace Summer.Tool
                 Instance = this;
             else
                 LogManager.Error("ReCoroutineTaskManager Instance Error");
-            task_list = new Dictionary<string, ReCoroutineTask>();
+            _taskList = new Dictionary<string, ReCoroutineTask>();
             //GameObject.DontDestroyOnLoad(gameObject);
             //gameObject.hideFlags |= HideFlags.HideAndDontSave;
         }
@@ -34,19 +34,19 @@ namespace Summer.Tool
         /// <summary>
         /// 添加一个新任务
         /// </summary>
-        public ReCoroutineTask AddTask(string task_name, IEnumerator<float> ienumer,
-            Action<bool> call_back = null, object bind_object = null, bool auto_start = true)
+        public ReCoroutineTask AddTask(string taskName, IEnumerator<float> ienumer,
+            Action<bool> callBack = null, object bindObject = null, bool autoStart = true)
         {
-            if (task_list.ContainsKey(task_name))
+            if (_taskList.ContainsKey(taskName))
             {
                 //Debug.logger.LogError("添加新任务", "任务重名！" + taskName);
-                Restart(task_name);
-                return task_list[task_name];
+                Restart(taskName);
+                return _taskList[taskName];
             }
             else
             {
-                ReCoroutineTask task = new ReCoroutineTask(task_name, ienumer, call_back, bind_object, auto_start);
-                task_list.Add(task_name, task);
+                ReCoroutineTask task = new ReCoroutineTask(taskName, ienumer, callBack, bindObject, autoStart);
+                _taskList.Add(taskName, task);
                 return task;
             }
         }
@@ -55,9 +55,9 @@ namespace Summer.Tool
         /// 添加一个新任务
         /// </summary>
         public ReCoroutineTask AddTask(IEnumerator<float> ienumer,
-            Action<bool> call_back = null, object bind_object = null, bool auto_start = true)
+            Action<bool> callBack = null, object bindObject = null, bool autoStart = true)
         {
-            ReCoroutineTask task = new ReCoroutineTask(ienumer, call_back, bind_object, auto_start);
+            ReCoroutineTask task = new ReCoroutineTask(ienumer, callBack, bindObject, autoStart);
             AddTask(task);
             return task;
         }
@@ -67,14 +67,14 @@ namespace Summer.Tool
         /// </summary>
         public ReCoroutineTask AddTask(ReCoroutineTask task)
         {
-            if (task_list.ContainsKey(task.Name))
+            if (_taskList.ContainsKey(task.Name))
             {
                 //Debug.logger.LogError("添加新任务", "任务重名！" + task.name);
                 Restart(task.Name);
             }
             else
             {
-                task_list.Add(task.Name, task);
+                _taskList.Add(task.Name, task);
             }
             return task;
         }
@@ -86,65 +86,65 @@ namespace Summer.Tool
         /// <summary>
         /// 开始一个任务
         /// </summary>
-        public void DoTask(string task_name)
+        public void DoTask(string taskName)
         {
-            if (!task_list.ContainsKey(task_name))
+            if (!_taskList.ContainsKey(taskName))
             {
-                LogManager.Error("开始任务", "不存在该任务" + task_name);
+                LogManager.Error("开始任务", "不存在该任务" + taskName);
                 return;
             }
-            task_list[task_name].Start();
+            _taskList[taskName].Start();
         }
 
         /// <summary>
         /// 暂停协程
         /// </summary>
-        public void Pause(string task_name)
+        public void Pause(string taskName)
         {
-            if (!task_list.ContainsKey(task_name))
+            if (!_taskList.ContainsKey(taskName))
             {
-                LogManager.Error("暂停任务", "不存在该任务" + task_name);
+                LogManager.Error("暂停任务", "不存在该任务" + taskName);
                 return;
             }
-            task_list[task_name].Pause();
+            _taskList[taskName].Pause();
 
         }
 
         /// <summary>
         /// 取消暂停某个协程
         /// </summary>
-        public void Unpause(string task_name)
+        public void Unpause(string taskName)
         {
-            if (!task_list.ContainsKey(task_name))
+            if (!_taskList.ContainsKey(taskName))
             {
-                LogManager.Error("重新开始任务", "不存在该任务" + task_name);
+                LogManager.Error("重新开始任务", "不存在该任务" + taskName);
                 return;
             }
-            task_list[task_name].UnPause();
+            _taskList[taskName].UnPause();
         }
 
         /// <summary>
         /// 停止特定协程
         /// </summary>
-        public void Stop(string task_name)
+        public void Stop(string taskName)
         {
-            if (!task_list.ContainsKey(task_name))
+            if (!_taskList.ContainsKey(taskName))
             {
-                LogManager.Error("停止任务", "不存在该任务" + task_name);
+                LogManager.Error("停止任务", "不存在该任务" + taskName);
                 return;
             }
-            task_list[task_name].Stop();
+            _taskList[taskName].Stop();
         }
 
-        public void Restart(string task_name)
+        public void Restart(string taskName)
         {
-            if (!task_list.ContainsKey(task_name))
+            if (!_taskList.ContainsKey(taskName))
             {
-                LogManager.Error("重新开始任务", "不存在该任务" + task_name);
+                LogManager.Error("重新开始任务", "不存在该任务" + taskName);
                 return;
             }
-            ReCoroutineTask task = task_list[task_name];
-            Stop(task_name);
+            ReCoroutineTask task = _taskList[taskName];
+            Stop(taskName);
             AddTask(task);
         }
 
@@ -153,17 +153,17 @@ namespace Summer.Tool
         /// </summary>
         public void StopAll()
         {
-            List<ReCoroutineTask> tamp_list = new List<ReCoroutineTask>();
+            List<ReCoroutineTask> tampList = new List<ReCoroutineTask>();
             // ReSharper disable once LoopCanBeConvertedToQuery
-            foreach (ReCoroutineTask task in task_list.Values)
+            foreach (ReCoroutineTask task in _taskList.Values)
             {
-                tamp_list.Add(task);
+                tampList.Add(task);
             }
 
-            int length = tamp_list.Count;
+            int length = tampList.Count;
             for (int i = 0; i < length; i++)
             {
-                tamp_list[i].Stop();
+                tampList[i].Stop();
             }
         }
 
@@ -174,17 +174,17 @@ namespace Summer.Tool
         /// <summary>
         /// 等待一段时间再执行时间
         /// </summary>
-        public ReCoroutineTask WaitSecondTodo(Action call_back, float time, object bind_object = null)
+        public ReCoroutineTask WaitSecondTodo(Action callBack, float time, object bindObject = null)
         {
             // ReSharper disable once RedundantLambdaSignatureParentheses
-            Action<bool> call_back2 = (bo) =>
+            Action<bool> callBack2 = (bo) =>
             {
                 if (bo)
-                    call_back();
+                    callBack();
             };
             ReCoroutineTask task = new ReCoroutineTask(
                 DoWaitTodo(time),
-                call_back2, bind_object);
+                callBack2, bindObject);
             AddTask(task);
             return task;
         }
@@ -192,11 +192,11 @@ namespace Summer.Tool
         /// <summary>
         /// 等待一段时间再执行时间
         /// </summary>
-        public ReCoroutineTask WaitSecondTodo(Action<bool> call_back, float time, object bind_object = null)
+        public ReCoroutineTask WaitSecondTodo(Action<bool> callBack, float time, object bindObject = null)
         {
             ReCoroutineTask task = new ReCoroutineTask(
                 DoWaitTodo(time),
-                call_back, bind_object);
+                callBack, bindObject);
             AddTask(task);
             return task;
         }
@@ -204,17 +204,17 @@ namespace Summer.Tool
         /// <summary>
         /// 等到下一帧
         /// </summary>
-        public ReCoroutineTask WaitFrameEnd(Action call_back, object bind_object = null)
+        public ReCoroutineTask WaitFrameEnd(Action callBack, object bindObject = null)
         {
             // ReSharper disable once RedundantLambdaSignatureParentheses
-            Action<bool> call_back2 = (bo) =>
+            Action<bool> callBack2 = (bo) =>
             {
                 if (bo)
-                    call_back();
+                    callBack();
             };
             ReCoroutineTask task = new ReCoroutineTask(
                 DoWaitFrameEndTodo(),
-                call_back2, bind_object);
+                callBack2, bindObject);
             AddTask(task);
             return task;
         }
@@ -222,16 +222,16 @@ namespace Summer.Tool
         /// <summary>
         /// 等待直到某个条件成立时
         /// </summary>
-        public ReCoroutineTask WaitUntilTodo(Action call_back, Func<bool> predicates = null,
-            object bind_object = null)
+        public ReCoroutineTask WaitUntilTodo(Action callBack, Func<bool> predicates = null,
+            object bindObject = null)
         {
-            Action<bool> call_back2 = (bo) =>
+            Action<bool> callBack2 = (bo) =>
             {
                 if (bo)
-                    call_back();
+                    callBack();
             };
             ReCoroutineTask task = new ReCoroutineTask(
-                DoWaitUntil(predicates), call_back2, bind_object);
+                DoWaitUntil(predicates), callBack2, bindObject);
             AddTask(task);
             return task;
         }
@@ -239,16 +239,16 @@ namespace Summer.Tool
         /// <summary>
         /// 当条件成立时等待
         /// </summary>
-        public ReCoroutineTask WaitWhileTodo(Action call_back, Func<bool> predicates,
-            object bind_object = null)
+        public ReCoroutineTask WaitWhileTodo(Action callBack, Func<bool> predicates,
+            object bindObject = null)
         {
-            Action<bool> call_back2 = (bo) =>
+            Action<bool> callBack2 = (bo) =>
             {
                 if (bo)
-                    call_back();
+                    callBack();
             };
             ReCoroutineTask task = new ReCoroutineTask(
-                DoWaitWhile(predicates), call_back2, bind_object);
+                DoWaitWhile(predicates), callBack2, bindObject);
             AddTask(task);
             return task;
         }
@@ -256,17 +256,17 @@ namespace Summer.Tool
         /// <summary>
         /// 等待所有其他携程任务完成
         /// </summary>
-        public ReCoroutineTask WaitForAllCoroutine(Action call_back, ReCoroutineTask[] tasks,
-    object bind_object = null)
+        public ReCoroutineTask WaitForAllCoroutine(Action callBack, ReCoroutineTask[] tasks,
+    object bindObject = null)
         {
             // ReSharper disable once RedundantLambdaSignatureParentheses
-            Action<bool> call_back2 = (bo) =>
+            Action<bool> callBack2 = (bo) =>
             {
                 if (bo)
-                    call_back();
+                    callBack();
             };
             ReCoroutineTask task = new ReCoroutineTask(
-                DoWaitForAllCoroutine(tasks), call_back2, bind_object);
+                DoWaitForAllCoroutine(tasks), callBack2, bindObject);
             AddTask(task);
             return task;
         }
@@ -279,12 +279,12 @@ namespace Summer.Tool
         /// <summary>
         /// 间隔时间进行多次动作
         /// </summary>
-        public ReCoroutineTask LoopTodoByTime(Action call_back, float interval,
-            int loop_time, object bind_object = null, float start_time = 0)
+        public ReCoroutineTask LoopTodoByTime(Action callBack, float interval,
+            int loopTime, object bindObject = null, float startTime = 0)
         {
 
             ReCoroutineTask task = new ReCoroutineTask(
-                DoLoopByTime(interval, loop_time, call_back, start_time), null, bind_object);
+                DoLoopByTime(interval, loopTime, callBack, startTime), null, bindObject);
             AddTask(task);
             return task;
         }
@@ -292,11 +292,11 @@ namespace Summer.Tool
         /// <summary>
         /// 每帧进行循环
         /// </summary>
-        public ReCoroutineTask LoopByEveryFrame(Action call_back, int loop_time = -1
-            , object bind_object = null, float start_time = 0)
+        public ReCoroutineTask LoopByEveryFrame(Action callBack, int loopTime = -1
+            , object bindObject = null, float startTime = 0)
         {
             ReCoroutineTask task = new ReCoroutineTask(
-                DoLoopByEveryFrame(loop_time, call_back, start_time), null, bind_object);
+                DoLoopByEveryFrame(loopTime, callBack, startTime), null, bindObject);
             AddTask(task);
             return task;
         }
@@ -304,11 +304,11 @@ namespace Summer.Tool
         /// <summary>
         /// 当满足条件循环动作
         /// </summary>
-        public ReCoroutineTask LoopTodoByWhile(Action call_back, float interval, Func<bool> predicates,
-            object bind_object = null, float start_time = 0)
+        public ReCoroutineTask LoopTodoByWhile(Action callBack, float interval, Func<bool> predicates,
+            object bindObject = null, float startTime = 0)
         {
             ReCoroutineTask task = new ReCoroutineTask(
-                DoLoopByWhile(interval, predicates, call_back, start_time), null, bind_object);
+                DoLoopByWhile(interval, predicates, callBack, startTime), null, bindObject);
             AddTask(task);
             return task;
         }
@@ -316,52 +316,52 @@ namespace Summer.Tool
 
         #region DoLoop IEnumerator
 
-        private IEnumerator<float> DoLoopByTime(float interval, int loop_time,
-            Action call_back, float start_time)
+        private IEnumerator<float> DoLoopByTime(float interval, int loopTime,
+            Action callBack, float startTime)
         {
-            yield return start_time;
-            if (loop_time <= 0)
+            yield return startTime;
+            if (loopTime <= 0)
             {
-                loop_time = int.MaxValue;
+                loopTime = int.MaxValue;
             }
-            int loop_num = 0;
-            while (loop_num < loop_time)
+            int loopNum = 0;
+            while (loopNum < loopTime)
             {
-                loop_num++;
-                call_back();
+                loopNum++;
+                callBack();
                 yield return interval;
             }
         }
 
-        private IEnumerator<float> DoLoopByEveryFrame(int loop_time,
-            Action call_back, float start_time)
+        private IEnumerator<float> DoLoopByEveryFrame(int loopTime,
+            Action callBack, float startTime)
         {
-            yield return start_time;
-            if (loop_time <= 0)
+            yield return startTime;
+            if (loopTime <= 0)
             {
-                loop_time = int.MaxValue;
+                loopTime = int.MaxValue;
             }
-            int loop_num = 0;
-            while (loop_num < loop_time)
+            int loopNum = 0;
+            while (loopNum < loopTime)
             {
-                loop_num++;
-                call_back();
+                loopNum++;
+                callBack();
                 yield return Time.deltaTime;
             }
         }
 
         private IEnumerator<float> DoLoopByWhile(float interval,
-            Func<bool> predicates, Action call_back, float start_time)
+            Func<bool> predicates, Action callBack, float startTime)
         {
-            yield return start_time;
+            yield return startTime;
 
             // ReSharper disable once NotAccessedVariable
-            int loop_num = 0;
+            int loopNum = 0;
             // ReSharper disable once LoopVariableIsNeverChangedInsideLoop
             while (predicates())
             {
-                loop_num++;
-                call_back();
+                loopNum++;
+                callBack();
                 yield return interval;
             }
         }
@@ -382,22 +382,22 @@ namespace Summer.Tool
         private IEnumerator<float> DoWaitForAllCoroutine(params ReCoroutineTask[] coroutines)
         {
             // ReSharper disable once TooWideLocalVariableScope
-            bool all_finished;
+            bool allFinished;
             // ReSharper disable once TooWideLocalVariableScope
             int length;
             while (true)
             {
-                all_finished = true;
+                allFinished = true;
                 length = coroutines.Length;
                 for (int i = 0; i < length; i++)
                 {
                     if (!coroutines[i].IsFinished)
                     {
-                        all_finished = false;
+                        allFinished = false;
                         break;
                     }
                 }
-                if (all_finished)
+                if (allFinished)
                     break;
                 yield return 0;
             }

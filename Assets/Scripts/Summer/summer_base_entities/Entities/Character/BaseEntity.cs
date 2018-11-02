@@ -30,8 +30,8 @@ namespace Summer
 
         // TODO 是否通过黑箱进行操作 来规避掉内部的响应
         //public List<BaseEntity> _targets = new List<BaseEntity>();                                    // 目标 是否通过黑箱进行操作
-        public EventSet<E_Entity_Event, EventSetData> _outEventSet                                      // 角色的外部事件
-           = new EventSet<E_Entity_Event, EventSetData>(EntityEvtComparer.Instance);
+        public EventSet<E_EntityEvent, EventSetData> _outEventSet                                      // 角色的外部事件
+           = new EventSet<E_EntityEvent, EventSetData>(EntityEvtComparer.Instance);
         public EventSet<E_EntityInTrigger, EventSetData> _inEventSet                                    // 角色的内部事件
        = new EventSet<E_EntityInTrigger, EventSetData>();
 
@@ -60,7 +60,7 @@ namespace Summer
 
         #region Mono的附带属性
 
-        public EntityAnimationGroup _animGroup;                                                         // 动画组件 播放动画
+        public I_EntityAnimationGroup _animGroup;                                                         // 动画组件 播放动画
         public EntityMovement _movement;                                                                // 移动组件 人物移动
         public BaseEntityController _entityController;                                                  // 角色控制器 
 
@@ -85,19 +85,19 @@ namespace Summer
 
         #endregion
 
-        #region I_EntityInTrigger 注册监听人物的外部事件
+        #region I_Entity 注册监听人物的内部事件 基本都是一些原子节点
 
-        public bool RegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler)
+        public bool RegisterHandler(E_EntityEvent key, EventSet<E_EntityEvent, EventSetData>.EventHandler handler)
         {
             return _outEventSet.RegisterHandler(key, handler);
         }
 
-        public bool UnRegisterHandler(E_Entity_Event key, EventSet<E_Entity_Event, EventSetData>.EventHandler handler)
+        public bool UnRegisterHandler(E_EntityEvent key, EventSet<E_EntityEvent, EventSetData>.EventHandler handler)
         {
             return _outEventSet.UnRegisterHandler(key, handler);
         }
 
-        public void RaiseEvent(E_Entity_Event key, EventSetData objInfo)
+        public void RaiseEvent(E_EntityEvent key, EventSetData objInfo)
         {
             if (_outEventSet == null) return;
             _outEventSet.RaiseEvent(key, objInfo);
@@ -105,7 +105,7 @@ namespace Summer
 
         #endregion
 
-        #region I_Entity 注册监听人物的内部事件 基本都是一些原子节点
+        #region I_EntityInTrigger 注册监听人物的外部事件
 
         public bool RegisterHandler(E_EntityInTrigger key, EventSet<E_EntityInTrigger, EventSetData>.EventHandler handler)
         {
@@ -221,7 +221,7 @@ namespace Summer
         public void OnRegisterHandler()
         {
             RegisterHandler(E_EntityInTrigger.entity_die, EntityDie);
-            RegisterHandler(E_Entity_Event.on_be_hurt, OnBeHurt);
+            RegisterHandler(E_EntityEvent.ON_BE_HURT, OnBeHurt);
         }
 
         public bool IsDead() { return false; }
@@ -268,9 +268,9 @@ namespace Summer
             BaseEntityController go = TransformPool.Instance.Pop<BaseEntityController>
                 ("res_bundle/prefab/model/Character/" + "NPC_Zhaoyun_001_02"/*_cnf.prefab_name*/);
             EntityController = go;
-            EntityController.InitOutTrigger(this, this,this);
+            EntityController.InitOutTrigger(this, this, this);
 
-            _animGroup = go.GetComponent<EntityAnimationGroup>();
+            _animGroup = go.GetAnimationGroup();
             _animGroup.OnInit(this);
             _animGroup.OnRegisterHandler();
 

@@ -33,7 +33,7 @@
             _base_entity.RegisterHandler(E_EntityInTrigger.skill_release, ReleaseSkill);
             _base_entity.RegisterHandler(E_EntityInTrigger.skill_finish, FinishSkill);
 
-            _base_entity.RegisterHandler(E_Entity_Event.animation_event, ReceiveAnimationEvent);
+            _base_entity.RegisterHandler(E_EntityEvent.ANIMATION_EVENT, ReceiveAnimationEvent);
         }
 
         public void UnRegisterHandler()
@@ -57,7 +57,7 @@
         {
             AnimationEventData data = param as AnimationEventData;
             if (data == null) return;
-            ReceiveTransitionEvent(data.event_data);
+            ReceiveTransitionEvent(data._eventData);
         }
 
         #endregion

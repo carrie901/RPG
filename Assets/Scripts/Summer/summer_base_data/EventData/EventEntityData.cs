@@ -87,7 +87,7 @@ namespace Summer
 
     public class AnimationEventData : EventSetData
     {
-        public E_SkillTransition event_data;
+        public E_SkillTransition _eventData;
     }
 
     #endregion

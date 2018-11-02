@@ -73,6 +73,10 @@ namespace Summer
             _rseLoader.OnUpdate(dt);
         }
 
+        void OnApplicationQuit()
+        {
+            LogManager.Quit();
+        }
     }
 }
 

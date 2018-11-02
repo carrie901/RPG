@@ -40,7 +40,7 @@ namespace Summer.Sequence
             //1.1 播放移动动画
             //1.2 位移偏移
             SequenceLeafNode node1 = SequenceFactory.CreateNode(SequenceFactory.PLAY_POSITION_TARGET_LEAF_NODE, null);
-            (node1 as PlayPositionTargetLeafNode)._bb_target = SequenceSelfConst.TARGET_POSITION1;
+            (node1 as PlayPositionTargetLeafNode)._bbTarget = SequenceSelfConst.TARGET_POSITION1;
             track1.AddNode(node1);
 
             TrackLine track2 = CreateTrack(30 * 3, 30 * 3);
@@ -54,15 +54,15 @@ namespace Summer.Sequence
             line.AddTrack(track3);
 
             SequenceLeafNode node3 = SequenceFactory.CreateNode(SequenceFactory.PLAY_POSITION_TARGET_LEAF_NODE, null);
-            (node3 as PlayPositionTargetLeafNode)._bb_target = SequenceSelfConst.TARGET_POSITION2;
+            (node3 as PlayPositionTargetLeafNode)._bbTarget = SequenceSelfConst.TARGET_POSITION2;
             track3.AddNode(node3);
             line.CalEnd();
             return line;
         }
 
-        public static TrackLine CreateTrack(int start_frame, int frame_length)
+        public static TrackLine CreateTrack(int startFrame, int frameLength)
         {
-            TrackLine line = new TrackLine(start_frame, frame_length);
+            TrackLine line = new TrackLine(startFrame, frameLength);
             return line;
         }
 

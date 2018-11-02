@@ -2,6 +2,9 @@
 
 namespace Summer
 {
+    /// <summary>
+    /// 缓存池
+    /// </summary>
     public abstract class PoolBase : I_PoolBase
     {
         protected List<I_PoolObjectAbility> _out = new List<I_PoolObjectAbility>(8);

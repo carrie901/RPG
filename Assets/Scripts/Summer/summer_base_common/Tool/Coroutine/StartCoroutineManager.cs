@@ -9,16 +9,15 @@ namespace Summer
     /// Create by Mike Chai
     public class StartCoroutineManager : MonoBehaviour
     {
+        #region 属性
         /// <summary>
         /// 单例
         /// </summary>
-        private static StartCoroutineManager m_instance = null;
+        private static StartCoroutineManager _instance = null;
 
+        #endregion
 
-        private void Awake()
-        {
-            DontDestroyOnLoad(this);
-        }
+        #region static public
 
         /// <summary>
         /// 开始
@@ -26,12 +25,8 @@ namespace Summer
         /// <param name="ienumerator"></param>
         public static Coroutine Start(IEnumerator ienumerator)
         {
-            if (m_instance == null)
-            {
-                GameObject obj = new GameObject("StartCoroutine");
-                m_instance = obj.AddComponent<StartCoroutineManager>();
-            }
-            return m_instance.StartCoroutineSoon(ienumerator);
+            Init();
+            return _instance.StartCoroutineSoon(ienumerator);
         }
         /// <summary>
         /// 结束
@@ -39,23 +34,19 @@ namespace Summer
         /// <param name="ienumerator"></param>
         public static void Stop(IEnumerator ienumerator)
         {
-            if (m_instance == null)
-            {
-                GameObject obj = new GameObject("StartCoroutine");
-                m_instance = obj.AddComponent<StartCoroutineManager>();
-            }
-            m_instance.StopCoroutineSoon(ienumerator);
+            Init();
+            _instance.StopCoroutineSoon(ienumerator);
         }
 
         public static void StopAll()
         {
-            if (m_instance == null)
-            {
-                GameObject obj = new GameObject("StartCoroutine");
-                m_instance = obj.AddComponent<StartCoroutineManager>();
-            }
-            m_instance.StopAllCorotineSoon();
+            Init();
+            _instance.StopAllCorotineSoon();
         }
+
+        #endregion
+
+        #region private
 
         private Coroutine StartCoroutineSoon(IEnumerator ienumerator)
         {
@@ -71,5 +62,17 @@ namespace Summer
         {
             StopAllCoroutines();
         }
+
+        private static void Init()
+        {
+            if (_instance == null)
+            {
+                GameObject obj = new GameObject("StartCoroutine");
+                _instance = obj.AddComponent<StartCoroutineManager>();
+                DontDestroyOnLoad(obj);
+            }
+        }
+
+        #endregion
     }
 }

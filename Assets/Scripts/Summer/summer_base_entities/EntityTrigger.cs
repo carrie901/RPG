@@ -26,11 +26,11 @@ namespace Summer
 {
     /*public class EntityTrigger : BaseTrigger
     {
-        public E_Entity_Event _evt;
+        public E_EntityEvent _evt;
         public Action<EventSetData> _internal_action;
         public BaseEntity _base_entity;
 
-        public EntityTrigger(E_Entity_Event evt, BaseEntity base_entity)
+        public EntityTrigger(E_EntityEvent evt, BaseEntity base_entity)
         {
             _evt = evt;
             _base_entity = base_entity;

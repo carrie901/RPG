@@ -55,12 +55,12 @@ namespace Summer
 
         #endregion
 
-        public EventSet(int dicSize = 8)
+        public EventSet(int dicSize = 32)
         {
             _events = new Dictionary<TKey, EventHandler>(dicSize);
         }
 
-        public EventSet(IEqualityComparer<TKey> comparer, int dicSize = 8)
+        public EventSet(IEqualityComparer<TKey> comparer, int dicSize = 32)
         {
             _events = new Dictionary<TKey, EventHandler>(dicSize, comparer);
         }

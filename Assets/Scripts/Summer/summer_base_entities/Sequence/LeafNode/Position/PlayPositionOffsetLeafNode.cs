@@ -31,24 +31,24 @@ namespace Summer.Sequence
     public class PlayPositionOffsetLeafNode : SequenceLeafNode
     {
         public const string DES = "位置偏移";
-        public Vector3 _target_pos;
+        public Vector3 _targetPos;
         public BaseEntity _entity;
-        public Vector3 _source_pos;
+        public Vector3 _sourcePos;
 
         public Vector3 _speed;
         public override void OnEnter(BlackBoard blackboard)
         {
             LogEnter();
-            _target_pos = blackboard.GetValue<BbV3>(SequenceSelfConst.TARGET_POSITION1).Value;
+            _targetPos = blackboard.GetValue<BbV3>(SequenceSelfConst.TARGET_POSITION1).Value;
             _entity = blackboard.GetValue<BaseEntity>(SequenceSelfConst.TARGET_SELF_ENTITY);
-            _source_pos = _entity.WroldPosition;
+            _sourcePos = _entity.WroldPosition;
             //SkillLog.Log("位置偏移-->OnEnter");
         }
 
         public override void OnExit(BlackBoard blackboard)
         {
             LogExit();
-            _entity.EntityController._trans.position = _target_pos;
+            _entity.EntityController._trans.position = _targetPos;
         }
         public override void SetConfigInfo(EdNode cnf)
         {
@@ -61,7 +61,7 @@ namespace Summer.Sequence
             //SkillLog.Log("位置偏移-->OnUpdate:[{0}]", TimeManager.FrameCount);
 
             // 有问题的
-            _entity.EntityController._trans.position = Vector3.SmoothDamp(_entity.WroldPosition, _target_pos, ref _speed, 2);
+            _entity.EntityController._trans.position = Vector3.SmoothDamp(_entity.WroldPosition, _targetPos, ref _speed, 2);
         }
 
         public override string ToDes() { return DES; }
