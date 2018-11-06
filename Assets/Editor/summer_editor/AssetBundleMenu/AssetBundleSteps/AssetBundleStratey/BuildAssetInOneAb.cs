@@ -5,12 +5,13 @@ namespace SummerEditor
 {
     /// <summary>
     /// 这个文件夹下所有资源的达成一个包
+    /// 名字是这个文件夹的名字
     /// </summary>
     public class BuildAssetInOneAb : I_AssetBundleStratey
     {
         public string _directory;
-        public Dictionary<string, int> _assetsMap = new Dictionary<string, int>();
-        public string _abName = string.Empty;
+        public List<string> _assetsMap = new List<string>();
+        public string _abName;
         public BuildAssetInOneAb(string path)
         {
             _directory = path;
@@ -20,7 +21,7 @@ namespace SummerEditor
 
         public bool IsBundleStratey(EAssetObjectInfo info)
         {
-            if (_assetsMap.ContainsKey(info.AssetPath))
+            if (_assetsMap.Contains(info.AssetPath))
             {
                 return true;
             }
@@ -30,12 +31,10 @@ namespace SummerEditor
         public void SetAssetBundleName()
         {
             int count = _assetsMap.Count;
-            int index = 0;
-            foreach (var info in _assetsMap)
+            for (int i = 0; i < count; i++)
             {
-                index++;
-                EditorUtility.DisplayProgressBar("设置主AssetBundle名字", info.Key, (float)(index) / count);
-                AssetBundleSetNameE.SetAbNameByParam(info.Key, _abName);
+                EditorUtility.DisplayProgressBar("设置主AssetBundle名字", _assetsMap[i], (float)(i + 1) / count);
+                AssetBundleSetNameE.SetAbNameByParam(_assetsMap[i], _abName);
             }
             EditorUtility.ClearProgressBar();
         }
@@ -46,7 +45,7 @@ namespace SummerEditor
             int length = assetsPath.Count;
             for (int i = 0; i < length; i++)
             {
-                _assetsMap.Add(assetsPath[i], 1);
+                _assetsMap.Add(assetsPath[i]);
             }
         }
     }

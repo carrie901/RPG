@@ -73,7 +73,7 @@ namespace Summer.Sequence
         {
             _runing = E_Runing.enter;
             _runingFlag = true;
-            _lastFrame = TimeManager.FrameCount;
+            _lastFrame = TimeModule.FrameCount;
         }
 
         public void Pause(bool flag) { _runingFlag = flag; }

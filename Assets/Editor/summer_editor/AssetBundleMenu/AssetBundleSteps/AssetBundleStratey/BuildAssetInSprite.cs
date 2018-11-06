@@ -5,6 +5,7 @@ namespace SummerEditor
 {
     /// <summary>
     /// 拼接UI用的Sprite图片
+    /// 下面有N个目录，每个目录
     /// </summary>
     public class BuildAssetInSprite : I_AssetBundleStratey
     {
@@ -33,20 +34,13 @@ namespace SummerEditor
         {
             DirectoryInfo spriteDirectoryInfo = Directory.CreateDirectory(EAssetBundleConst.RES_SPRITE_DRIECTORY);
             DirectoryInfo[] spritesInfo = spriteDirectoryInfo.GetDirectories();
+            // 处理单个目录
             for (int i = spritesInfo.Length - 1; i >= 0; i--)
-            {
-                _excuteDirectory(spritesInfo[i]);
+            { // 生成 一个目录的资源打一个包
+                BuildAssetInOneAb oneAb = new BuildAssetInOneAb(spritesInfo[i].FullName);
+                _strateys.Add(oneAb);
             }
         }
-
-        // 处理单个目录
-        private void _excuteDirectory(DirectoryInfo spriteDirectory)
-        {
-            // 生成 一个目录的资源打一个包
-            BuildAssetInOneAb oneAb = new BuildAssetInOneAb(spriteDirectory.FullName);
-            _strateys.Add(oneAb);
-        }
-
         #endregion
     }
 }

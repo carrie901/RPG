@@ -133,7 +133,7 @@ namespace Summer
 
         public void OnStart()
         {
-            SkillLog.Log("Time:{0}-----------------------------序列开始[{1}]-----------------------------", TimeManager.FrameCount, des);
+            SkillLog.Log("Time:{0}-----------------------------序列开始[{1}]-----------------------------", TimeModule.FrameCount, des);
             _reset_sequence();
             DoActionNext();
             ReceiveWithInEvent(E_SkillTransition.START);
@@ -144,7 +144,7 @@ namespace Summer
             _cur_node = null;
             _next_index = _childnodes.Count;
             _skill_container.OnFinish();
-            SkillLog.Log("Time:{0}-----------------------------序列结束[{1}]-----------------------------", TimeManager.FrameCount, des);
+            SkillLog.Log("Time:{0}-----------------------------序列结束[{1}]-----------------------------", TimeModule.FrameCount, des);
         }
 
         public void OnUpdate(float dt)
@@ -156,14 +156,14 @@ namespace Summer
         // 接受外部事件
         public void ReceiveWithOutEvent(E_SkillTransition node_event)
         {
-            SkillLog.Log("Time: {0} -----------------触发外部:[{1}]事件-----------------", TimeManager.FrameCount, node_event);
+            SkillLog.Log("Time: {0} -----------------触发外部:[{1}]事件-----------------", TimeModule.FrameCount, node_event);
             _receive_event(node_event);
         }
 
         // 接受内部事件
         public void ReceiveWithInEvent(E_SkillTransition node_event)
         {
-            SkillLog.Log("Time: {0} -----------------触发内部:[{1}]事件-----------------", TimeManager.FrameCount, node_event);
+            SkillLog.Log("Time: {0} -----------------触发内部:[{1}]事件-----------------", TimeModule.FrameCount, node_event);
             _receive_event(node_event);
         }
 

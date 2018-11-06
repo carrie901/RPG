@@ -16,7 +16,7 @@ namespace SummerEditor
         }
 
 
-        public bool IsBundleStratey(EAssetObjectInfo info)
+        public bool IsBundleStratey(EAssetObjectInfo info)  
         {
             return true;
         }

@@ -33,6 +33,7 @@ namespace SummerEditor
         {
             _strateys.Clear();
             _strateys.Add(new BuildAssetInSprite());
+            _strateys.Add(new BuildAssetInOneShaderAb());
         }
 
         public static bool IsBundleStratey(EAssetObjectInfo info)
@@ -42,7 +43,6 @@ namespace SummerEditor
             int length = _strateys.Count;
             for (int i = 0; i < length; i++)
             {
-
                 if (_strateys[i].IsBundleStratey(info))
                 {
                     result = true;

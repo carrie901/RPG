@@ -87,11 +87,11 @@ namespace Summer
             _curr_sequece.OnUpdate(dt);
 
             // TODO test code
-            float curr_time = TimeManager.RealtimeSinceStartup;
+            float curr_time = TimeModule.RealtimeSinceStartup;
             if (curr_time - _last_time > 15.0)
             {
                 LogManager.Error("技能释放错误,超过时间，Skill:{0}", _curr_sequece);
-                _last_time = TimeManager.RealtimeSinceStartup;
+                _last_time = TimeModule.RealtimeSinceStartup;
             }
         }
 
@@ -141,7 +141,7 @@ namespace Summer
             // TODO QAQ:有bug的可能性很大，例如技能释放到一半的时候，释放了另外一个技能，这样就需要破坏掉原来的技能
             _curr_sequece = _sequence_map[id];
             //_curr_sequece.OnStart();
-            _last_time = TimeManager.RealtimeSinceStartup;
+            _last_time = TimeModule.RealtimeSinceStartup;
 
             return true;
         }

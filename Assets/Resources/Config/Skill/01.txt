@@ -1,10 +1,14 @@
 <Sequence>
+	// 1-15 播放移动动画，并且人物移动到指定地点
+	// 16-50 播放攻击动作,攻击点播放特效
+	// 16-50 监听攻击点，打击上海
+	// 51-65 播放
 	<Track>
 		<Frame>
 			start_frame=0
 			frame_length=15
-			<Leaf>
-			</Leaf>
 		</Frame>
+		<Leaf>
+		</Leaf>
 	</Track>
 </Sequence>

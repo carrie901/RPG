@@ -25,7 +25,7 @@ namespace Summer
         // Update is called once per frame
         //void LateUpdate()
         {
-            _last_time = TimeManager.RealtimeSinceStartup;
+            _last_time = TimeModule.RealtimeSinceStartup;
         }
 
         public void logic()

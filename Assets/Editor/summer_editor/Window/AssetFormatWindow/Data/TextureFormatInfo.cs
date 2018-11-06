@@ -31,6 +31,7 @@ namespace SummerEditor
     {
         public string Path;
         public int MemSize { get; set; }
+        public long FileSize { get; set; }
         public TextureImporterType ImportType { get; set; }                 // 图片类型
         public TextureImporterShape ImportShape { get; set; }               // 
         public bool ReadWriteEnable { get; set; }                           // 可以读写
@@ -70,7 +71,7 @@ namespace SummerEditor
             info.AndroidSize = EMemorySizeHelper.CalculateTextureSizeBytes(texture, info.AndroidFormat);
             info.IosSize = EMemorySizeHelper.CalculateTextureSizeBytes(texture, info.IosFormat);
             info.MemSize = (int)(Mathf.Max(info.AndroidSize, info.IosSize));
-
+            info.FileSize = EPathHelper.GetFileSize(assetPath);
             if (Selection.activeObject != texture)
             {
                 Resources.UnloadAsset(texture);

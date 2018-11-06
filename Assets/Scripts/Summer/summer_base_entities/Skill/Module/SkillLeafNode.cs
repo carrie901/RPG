@@ -36,12 +36,12 @@ namespace Summer
 
         public void LogExit()
         {
-            SkillLog.Log("Time: {0}   Exit [{1}] Leaf Action", TimeManager.FrameCount, ToDes());
+            SkillLog.Log("Time: {0}   Exit [{1}] Leaf Action", TimeModule.FrameCount, ToDes());
         }
 
         public void LogEnter()
         {
-            SkillLog.Log("Time: {0} Enter [{1}] Leaf Action", TimeManager.FrameCount, ToDes());
+            SkillLog.Log("Time: {0} Enter [{1}] Leaf Action", TimeModule.FrameCount, ToDes());
         }
 
         #endregion

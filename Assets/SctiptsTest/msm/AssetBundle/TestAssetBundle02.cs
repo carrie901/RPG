@@ -55,9 +55,9 @@ public class TestAssetBundle02 : MonoBehaviour
     {
         if (GUI.Button(new Rect(100, 100, 100, 100), ""))
         {
-            TimeManager.BeginSampleTime();
+            TimeModule.BeginSampleTime();
             main_ab = AssetBundle.LoadFromFile(AssetBundleConst.GetAssetBundleRootDirectory() + "model_01.ab");
-            TimeManager.InputSimpleTime();
+            TimeModule.InputSimpleTime();
 
            
 
@@ -66,16 +66,16 @@ public class TestAssetBundle02 : MonoBehaviour
 
         if (GUI.Button(new Rect(200, 100, 100, 100), ""))
         {
-            TimeManager.BeginSampleTime();
+            TimeModule.BeginSampleTime();
             pfb_go = main_ab.LoadAsset<GameObject>("CH_Barbarian01_E_Tall4");
-            TimeManager.InputSimpleTime();
+            TimeModule.InputSimpleTime();
         }
 
         if (GUI.Button(new Rect(300, 100, 100, 100), ""))
         {
-            TimeManager.BeginSampleTime();
+            TimeModule.BeginSampleTime();
             GameObject go = Instantiate(pfb_go) as GameObject;
-            TimeManager.InputSimpleTime();
+            TimeModule.InputSimpleTime();
         }
     }
 

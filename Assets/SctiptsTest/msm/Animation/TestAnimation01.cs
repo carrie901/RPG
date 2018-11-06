@@ -43,12 +43,12 @@ public class TestAnimation01 : MonoBehaviour
 
     void Update()
     {
-        Animator animator = EntitesManager.Instance.Manual._animGroup.animator;
+        /*Animator animator = EntitesManager.Instance.Manual._animGroup._animator;
         AnimatorStateInfo animatorInfo = animator.GetCurrentAnimatorStateInfo(0); 
         if ((animatorInfo.normalizedTime > 1.0f) && !animatorInfo.IsName(AnimationNameConst.IDLE))
         {
             //EntitesManager.Instance.Manual._anim_group.PlayAnim(AnimationNameConst.IDLE);
-        }
+        }*/
     }
 
     private void OnGUI()

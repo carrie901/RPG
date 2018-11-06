@@ -96,15 +96,16 @@ public class ResManager : I_ResManager
         img.texture = _bgLoading;
         Action<Texture> defaultCallback = delegate (Texture texture)
         {
-            if (texture != null)
-            {
+            if (texture == null) return;
                 _internal_ref_decrease(obj);
                 img.texture = texture;
                 //img.SetNativeSize();
                 _internal_ref_increase(resPath, img.gameObject);
-            }
+            
+            if (callback != null)
+                callback(texture);
         };
-        _resLoader.LoadAssetAsync(resPath, callback, defaultCallback);
+        _resLoader.LoadAssetAsync(resPath, defaultCallback);
     }
 
     public void ResetDefaultTexture(RawImage img)

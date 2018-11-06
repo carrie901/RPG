@@ -64,10 +64,11 @@ namespace Summer
         void Update()
         {
             float dt = Time.deltaTime;
-            _spritePool.OnUpdate(dt);
+            // 强制为第一个执行
             _timeManager.OnUpdate(dt);
 
-
+            _spritePool.OnUpdate(dt);
+          
             _entites.OnUpdate(dt);
 
             _rseLoader.OnUpdate(dt);

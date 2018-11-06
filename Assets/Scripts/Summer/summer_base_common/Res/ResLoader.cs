@@ -66,14 +66,14 @@ namespace Summer
             return t;
         }
 
-        public void LoadAssetAsync<T>(string resPath, Action<T> callback, Action<T> defaultCallback = null) where T : Object
+        public void LoadAssetAsync<T>(string resPath, Action<T> callback) where T : Object
         {
             // 1.优先从缓存中提取资源信息
-            bool result = CallbackByCache(resPath, callback, defaultCallback);
+            bool result = CallbackByCache(resPath, callback);
             if (result) return;
 
             // 2.得到真实路径
-            StartCoroutineManager.Start(InternalLoadAssetAsync(resPath, callback, defaultCallback));
+            StartCoroutineManager.Start(InternalLoadAssetAsync(resPath, callback));
         }
 
         public void OnUpdate(float dt)
@@ -234,7 +234,7 @@ namespace Summer
             PushAssetToCache(objectInfo);
         }
 
-        private IEnumerator InternalLoadAssetAsync<T>(string resPath, Action<T> callback, Action<T> defaultCallback = null) where T : Object
+        private IEnumerator InternalLoadAssetAsync<T>(string resPath, Action<T> callback) where T : Object
         {
             // 1.得到路径 检测是否处于加载中
             if (_onLoadingRes.Contains(resPath))
@@ -275,7 +275,7 @@ namespace Summer
                 PushAssetToCache(objectInfo);
                 _currAsyncCount--;
             }
-            bool result = CallbackByCache(resPath, callback, defaultCallback);
+            bool result = CallbackByCache(resPath, callback);
             if (!result)
                 ResLog.Error("加载完成...但出现资源错误,path:[{0}]", resPath);
             yield return null;
@@ -303,7 +303,7 @@ namespace Summer
         }
 
         // 异步从缓冲得到资源，并且回复
-        private bool CallbackByCache<T>(string resPath, Action<T> callback, Action<T> defaultCallback = null) where T : Object
+        private bool CallbackByCache<T>(string resPath, Action<T> callback) where T : Object
         {
             // 1.优先从缓存中提取资源信息
             T t = PopAssetForCache<T>(resPath);
@@ -311,8 +311,6 @@ namespace Summer
 
             if (callback != null)
                 callback.Invoke(t);
-            if (defaultCallback != null)
-                defaultCallback.Invoke(t);
             return true;
         }
 

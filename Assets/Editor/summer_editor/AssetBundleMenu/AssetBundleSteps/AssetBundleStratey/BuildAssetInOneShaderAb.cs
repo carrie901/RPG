@@ -4,12 +4,16 @@ namespace SummerEditor
 {
     /// <summary>
     /// 所有shader打包到一个ab中
+    /// 
+    /// 如何搜索到所有的Shader
     /// </summary>
     public class BuildAssetInOneShaderAb : I_AssetBundleStratey
     {
-        public Dictionary<string, int> _assetsMap = new Dictionary<string, int>();
+        public List<string> _assetsMap = new List<string>();
+        //public Dictionary<string, int> _assetsMap = new Dictionary<string, int>();
         public BuildAssetInOneShaderAb()
         {
+            AddAssetBundleShader();
         }
 
 
@@ -27,7 +31,19 @@ namespace SummerEditor
         {
             foreach (var info in _assetsMap)
             {
-                AssetBundleSetNameE.SetAbNameByParam(info.Key, EAssetBundleConst.SHADER_BUNDLE_NAME);
+                AssetBundleSetNameE.SetAbNameByParam(info, EAssetBundleConst.SHADER_BUNDLE_NAME);
+            }
+        }
+
+        private void AddAssetBundleShader()
+        {
+            Dictionary<string, EAssetObjectInfo> allAssets = EAssetBundleAnalysis._allAssets;
+            foreach (var info in allAssets)
+            {
+                if (info.Key.EndsWith(".shader"))
+                {
+                    _assetsMap.Add(info.Key);
+                }
             }
         }
     }
