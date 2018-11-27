@@ -85,11 +85,11 @@ namespace Summer
 
         #region 触发类型
 
-        private E_Buff_Event _buff_evt;
-        public E_Buff_Event GetBuffEvt()
+        private E_BuffEvent _buff_evt;
+        public E_BuffEvent GetBuffEvt()
         {
-            if (_buff_evt == E_Buff_Event.none)
-                _buff_evt = (E_Buff_Event)Enum.Parse(typeof(E_Buff_Event), GetTriggerString());
+            if (_buff_evt == E_BuffEvent.NONE)
+                _buff_evt = (E_BuffEvent)Enum.Parse(typeof(E_BuffEvent), GetTriggerString());
             return _buff_evt;
         }
 

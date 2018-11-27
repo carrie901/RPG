@@ -3,15 +3,15 @@
     /// <summary>
     /// Buff内部触发事件
     /// </summary>
-    public enum E_Buff_Event
+    public enum E_BuffEvent
     {
-        none = 0,
-        buff_on_attach = 1,
-        buff_add_layer,
-        buff_layer_max,
-        buff_remove_layer,
-        buff_on_detach,
-        buff_on_tick,
+        NONE = 0,
+        BUFF_ON_ATTACH = 1,
+        BUFF_ADD_LAYER,
+        BUFF_LAYER_MAX,
+        BUFF_REMOVE_LAYER,
+        BUFF_ON_DETACH,
+        BUFF_ON_TICK,
     }
 
 

@@ -214,7 +214,7 @@ namespace Summer
             //_loader = ResoucesLoader.instance;
 
             // 2.ASSETBUNDLE 实际发布用
-            _loader = AssetBundleLoader.Instance;
+            //_loader = AssetBundleLoader.Instance;
 
             // 3.WWW 实际发布用
             //_loader = W3Loader.instance;

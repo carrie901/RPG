@@ -28,13 +28,12 @@ namespace Summer.Sequence
     public class TrackLine
     {
         #region 属性
-        public int _sFrame;                                        // 开始的帧数 以0作为起点
-        public int _eFrame;                                        // 
-        public int _frameLength;
-        public int FrameLength { get { return _sFrame + _frameLength; } }
-        public List<SequenceLeafNode> _leafs = new List<SequenceLeafNode>();
-
-        public SequenceLine _context;
+        public int EndFrame { get { return _eFrame; } }
+        private int _sFrame;                                        // 开始的帧数 以0作为起点
+        private int _eFrame;                                        // 
+        private int _frameLength;
+        private List<SequenceLeafNode> _leafs = new List<SequenceLeafNode>(8);
+        private SequenceLine _context;
 
         #endregion
 
@@ -64,15 +63,28 @@ namespace Summer.Sequence
             node.BindingContext(_context, _frameLength);
         }
 
-        public E_Runing Check(int frame)
+        public void Update(int currFrame, BlackBoard bb)
         {
-            if (frame < _sFrame) return E_Runing.none;
-            if (frame == _sFrame) return E_Runing.enter;
-            if (frame > _sFrame && frame < _eFrame) return E_Runing.update;
-            if (frame == _eFrame) return E_Runing.exit;
-            if (frame > _eFrame) return E_Runing.complete;
+            if (currFrame < _sFrame) return;
+            if (currFrame > _eFrame) return;
 
-            return E_Runing.none;
+            if (currFrame == _sFrame)
+                OnEnter(bb);
+
+            if (currFrame >= _sFrame)
+                OnUpdate(bb);
+
+            if (currFrame == _eFrame)
+                OnExit(bb);
+        }
+
+        public void Reset()
+        {
+            int length = _leafs.Count;
+            for (int i = 0; i < length; i++)
+            {
+                _leafs[i].Reset();
+            }
         }
 
         #endregion
@@ -115,13 +127,6 @@ namespace Summer.Sequence
         #endregion
 
         #region Private Methods
-
-        public bool _is_lock(E_Runing runing)
-        {
-            if (runing == E_Runing.none || runing == E_Runing.complete) return true;
-            return false;
-        }
-
         #endregion
     }
 }

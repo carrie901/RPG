@@ -19,13 +19,13 @@ namespace Summer
         {
             int length = _entites.Count;
             for (int i = length - 1; i >= 0; i--)
-                _entites[i]._entityAi.UpdateAi(0, dt);
+                _entites[i].EntityAi.UpdateAi(0, dt);
 
             for (int i = length - 1; i >= 0; i--)
-                _entites[i]._entityAi.UpdateReqeust(0, dt);
+                _entites[i].EntityAi.UpdateReqeust(0, dt);
 
             for (int i = length - 1; i >= 0; i--)
-                _entites[i]._entityAi.UpdateBehavior(0, dt);
+                _entites[i].EntityAi.UpdateBehavior(0, dt);
 
 
             for (int i = length - 1; i >= 0; i--)

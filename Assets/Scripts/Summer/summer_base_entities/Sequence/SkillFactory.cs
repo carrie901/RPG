@@ -21,19 +21,26 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
+
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Summer.Sequence
 {
     public class SkillFactory
     {
+        public static string Id = "Id";
+        public static string Track = "Track";
+        public static string StartFrame = "StartFrame";
+        public static string FrameLength = "FrameLength";
+        public static string Leafs = "Leafs";
+
         public static SequenceLine Create()
         {
 
             SequenceLine line = new SequenceLine();
 
-            TrackLine track1 = CreateTrack(0,30*3);
+            TrackLine track1 = CreateTrack(0, 30 * 3);
             line.AddTrack(track1);
 
             //1.移动到指定地点
@@ -60,13 +67,58 @@ namespace Summer.Sequence
             return line;
         }
 
+        public static SequenceLine Create(EdNode root)
+        {
+            SequenceLine sequenceLine = new SequenceLine();
+            sequenceLine.Id = root.GetAttribute(Id).ToInt();
+            List<EdNode> nodes = root.GetNodes(Track);
+            int length = nodes.Count;
+            for (int i = 0; i < length; i++)
+            {
+                EdNode node = nodes[i];
+                bool result = AddLeafNodes(sequenceLine, node);
+                if (!result)
+                    return null;
+            }
+            return sequenceLine;
+        }
+
+        private static bool AddLeafNodes(SequenceLine sequenceLine, EdNode trackNode)
+        {
+            int startFarme = trackNode.GetAttribute(StartFrame).ToInt();
+            int frameLength = trackNode.GetAttribute(FrameLength).ToInt();
+            TrackLine trackLine = CreateTrack(startFarme, frameLength);
+            sequenceLine.AddTrack(trackLine);
+
+            List<EdNode> nodes = trackNode.Nodes;
+            int length = nodes.Count;
+            for (int i = 0; i < length; i++)
+            {
+                EdNode node = nodes[i];
+                SequenceLeafNode leafNode = CreateLeftNode(node);
+                if (leafNode == null) return false;
+                trackLine.AddNode(leafNode);
+            }
+            return true;
+        }
+
         public static TrackLine CreateTrack(int startFrame, int frameLength)
         {
             TrackLine line = new TrackLine(startFrame, frameLength);
             return line;
         }
 
+        public static SequenceLeafNode CreateLeftNode(EdNode node)
+        {
+            Type type = Type.GetType("Summer.Sequence." + node.Name);
 
+            SkillLog.Assert(type != null, "SkillFactory CreateLeftNode 找不到对应的技能节点类型:[{0}]", node.Name);
+            if (type == null) return null;
 
+            SequenceLeafNode leaf = Activator.CreateInstance(type) as SequenceLeafNode;
+            SkillLog.Assert(leaf != null, "SkillFactory CreateLeftNode 实例化失败:[{0}]", node.Name);
+            if (leaf != null) leaf.SetConfigInfo(node);
+            return leaf;
+        }
     }
 }

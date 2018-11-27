@@ -5,19 +5,19 @@
     /// </summary>
     public class EventSetData
     {
-        protected bool in_use;
+        protected bool _inUse;
 
         public virtual void OnInit() { }
 
         public virtual void Pop()
         {
-            in_use = false;
+            _inUse = false;
             Reset();
         }
 
         public virtual void Push()
         {
-            in_use = false;
+            _inUse = false;
             Reset();
         }
 

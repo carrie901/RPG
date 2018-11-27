@@ -15,7 +15,7 @@ namespace Summer
 
         public override void DoBeforeEntering()
         {
-            entity.CanMovement = false;
+            //entity.CanMovement = false;
             _hurt_time = 0;
             EntityEventFactory.PlayAnimation(entity, AnimationNameConst.HIT);
         }

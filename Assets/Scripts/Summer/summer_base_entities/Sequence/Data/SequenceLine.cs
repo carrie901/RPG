@@ -29,6 +29,7 @@ namespace Summer.Sequence
     {
         #region 属性
 
+        public int Id;
         public float _leftTime;                                             // 剩余时间--->流逝的时间
         public int _curFrame;                                               // 当前的帧数
         public E_Runing _runing = E_Runing.none;
@@ -45,7 +46,6 @@ namespace Summer.Sequence
         public void OnUpdate(float dt)
         {
             if (_runing == E_Runing.none || !_runingFlag) return;
-
             if (_runing == E_Runing.enter)
                 OnEnter();
 
@@ -69,11 +69,13 @@ namespace Summer.Sequence
 
         #region Public
 
-        public void Start()
+        public void Start(BaseEntity owner)
         {
+            _owner = owner;
             _runing = E_Runing.enter;
             _runingFlag = true;
             _lastFrame = TimeModule.FrameCount;
+            Reset();
         }
 
         public void Pause(bool flag) { _runingFlag = flag; }
@@ -95,7 +97,7 @@ namespace Summer.Sequence
             for (int i = 0; i < length; i++)
             {
                 TrackLine line = _tracks[i];
-                int frameLength = line.FrameLength;
+                int frameLength = line.EndFrame;
                 if (frameLength > _maxFrame)
                     _maxFrame = frameLength;
             }
@@ -108,7 +110,7 @@ namespace Summer.Sequence
         public virtual void OnEnter()
         {
             _runing = E_Runing.update;
-            _update_logic();
+            UpdateLogic();
         }
 
 
@@ -117,17 +119,16 @@ namespace Summer.Sequence
         {
             _curFrame++;
             _leftTime -= SequenceLineConst.TIME_INTERVAL;
-            _update_logic();
+            UpdateLogic();
             if (_curFrame >= _maxFrame)
             {
                 _runing = E_Runing.exit;
-                //break;
             }
             /*while (_left_time >= SequenceLineConst.TIME_INTERVAL)
             {
                 _cur_frame++;
                 _left_time -= SequenceLineConst.TIME_INTERVAL;
-                _update_logic();
+                UpdateLogic();
                 if (_cur_frame >= _max_frame)
                 {
                     _runing = E_Runing.exit;
@@ -138,42 +139,42 @@ namespace Summer.Sequence
 
         public virtual void OnExit()
         {
+            SkillLog.Log("Sequence:[{0}] Exit", Id);
             _runing = E_Runing.none;
-            _init_info();
+            InitInfo();
         }
 
         #endregion
 
         #region Private Methods
 
-        public void _update_logic()
+        private void UpdateLogic()
         {
             BlackBoard bb = GetBlackBorad();
             int length = _tracks.Count;
             for (int i = 0; i < length; i++)
             {
                 TrackLine trakcLine = _tracks[i];
-                E_Runing runing = trakcLine.Check(_curFrame);
-
-                if (trakcLine._is_lock(runing)) continue;
-                if (runing == E_Runing.enter)
-                    trakcLine.OnEnter(bb);
-
-                if (runing == E_Runing.update)
-                    trakcLine.OnUpdate(bb);
-
-                if (runing == E_Runing.exit)
-                    trakcLine.OnExit(bb);
+                trakcLine.Update(_curFrame, bb);
             }
         }
 
-        public void _init_info()
+        private void InitInfo()
         {
             _curFrame = 0;
             _leftTime = 0;
             _runingFlag = false;
+            _owner = null;
         }
 
+        private void Reset()
+        {
+            int length = _tracks.Count;
+            for (int i = 0; i < length; i++)
+            {
+                _tracks[i].Reset();
+            }
+        }
         #endregion
 
     }

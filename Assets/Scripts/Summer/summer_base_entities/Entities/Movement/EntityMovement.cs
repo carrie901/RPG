@@ -136,7 +136,7 @@ namespace Summer
 
         public void OnRegisterHandler()
         {
-            _base_entity.RegisterHandler(E_EntityInTrigger.move_to_target_position, OnMoveToTargetPostion);
+            _base_entity.RegisterHandler(E_EntityInTrigger.MOVE_TO_TARGET_POSITION, OnMoveToTargetPostion);
         }
 
         public void UnRegisterHandler()

@@ -28,75 +28,75 @@ namespace Summer
     /// </summary>
     public class EffectAttribute : BaseEffect
     {
-        public float _cumulative_data;
-        public EffectAttributeParam _att_param = new EffectAttributeParam();                 // 每一个效果的参数
+        public float _cumulativeData;
+        public EffectAttributeParam _attParam = new EffectAttributeParam();                 // 每一个效果的参数
 
         public override void OnAttach()
         {
             base.OnAttach();
-            _att_param.ParseParam(_info.effect_node);
+            _attParam.ParseParam(_info.effect_node);
         }
 
         public override void OnDetach()
         {
             base.OnDetach();
-            _att_param.Clear();
-            _att_param = null;
+            _attParam.Clear();
+            _attParam = null;
         }
 
         public override void ExcuteEffect(EventSetData data)
         {
             // 参数
-            EventSetEffectData attribute_data = data as EventSetEffectData;
-            EffectLog.Assert(attribute_data != null, "属性变更 参数类型不对[{0}]", data);
-            if (attribute_data == null) return;
+            EventSetEffectData attributeData = data as EventSetEffectData;
+            EffectLog.Assert(attributeData != null, "属性变更 参数类型不对[{0}]", data);
+            if (attributeData == null) return;
 
             // 属性和数值
-            EntityAttributeProperty att_pro = attribute_data.entity.AttributeProp;
+            EntityAttributeProperty attPro = attributeData._entity.AttributeProp;
 
             // 1.更新的属性类型
-            E_EntityAttributeType attribute_type = _att_param.entity_attribute_type;
-            AttributeIntParam attribute_param = att_pro.FindAttribute(attribute_type);
-            float old_value = attribute_param.Value;
+            E_EntityAttributeType attributeType = _attParam.entity_attribute_type;
+            AttributeIntParam attributeParam = attPro.FindAttribute(attributeType);
+            float oldValue = attributeParam.Value;
 
-            float new_value = 0;
-            int length = _att_param.values.Count;
+            float newValue = 0;
+            int length = _attParam.values.Count;
             for (int i = 0; i < length; i++)
             {
-                float tmp_value = attribute_param.Value;
+                float tmpValue = attributeParam.Value;
                 // 2.更新的数据的类型(百分比、固定数值)
-                E_DataUpdateType data_update_type = _att_param.values[i].data_type;
+                E_DataUpdateType dataUpdateType = _attParam.values[i].data_type;
                 // 3.数值
-                float data_value = _att_param.values[i].value;
+                float dataValue = _attParam.values[i].value;
 
                 // 4.计算
-                ValueHelper.Calc(attribute_param, data_update_type, (int)data_value);
+                ValueHelper.Calc(attributeParam, dataUpdateType, (int)dataValue);
 
-                new_value += (attribute_param.Value - tmp_value);
+                newValue += (attributeParam.Value - tmpValue);
             }
 
-            _cumulative_data += new_value;
-            EffectLog.Log("执行计算--->属性:[{0}],before:[{1}],after:[{2}],change:[{3}]", attribute_type, old_value, attribute_param.Value, new_value);
+            _cumulativeData += newValue;
+            EffectLog.Log("执行计算--->属性:[{0}],before:[{1}],after:[{2}],change:[{3}]", attributeType, oldValue, attributeParam.Value, newValue);
         }
 
         public override void ReverseEffect(EventSetData data)
         {
-            EventSetEffectData attribute_data = data as EventSetEffectData;
-            EffectLog.Assert(attribute_data != null, "属性变更 参数类型不对[{0}]", data);
-            if (attribute_data == null) return;
+            EventSetEffectData attributeData = data as EventSetEffectData;
+            EffectLog.Assert(attributeData != null, "属性变更 参数类型不对[{0}]", data);
+            if (attributeData == null) return;
 
             // 属性和数值
-            EntityAttributeProperty att_pro = attribute_data.entity.AttributeProp;
+            EntityAttributeProperty attPro = attributeData._entity.AttributeProp;
 
             // 1.更新的属性类型
-            E_EntityAttributeType attribute_type = _att_param.entity_attribute_type;
-            AttributeIntParam attribute_param = att_pro.FindAttribute(attribute_type);
+            E_EntityAttributeType attributeType = _attParam.entity_attribute_type;
+            AttributeIntParam attributeParam = attPro.FindAttribute(attributeType);
 
-            float old_value = attribute_param.Value;
-            attribute_param.SetPlus(_cumulative_data);
+            float oldValue = attributeParam.Value;
+            attributeParam.SetPlus(_cumulativeData);
 
-            float change_value = attribute_param.Value - old_value;
-            EffectLog.Log("属性变更回退--->属性:[{0}],before:[{1}],after:[{2}],change:[{3}]", attribute_type, old_value, attribute_param.Value, change_value);
+            float changeValue = attributeParam.Value - oldValue;
+            EffectLog.Log("属性变更回退--->属性:[{0}],before:[{1}],after:[{2}],change:[{3}]", attributeType, oldValue, attributeParam.Value, changeValue);
         }
     }
 }

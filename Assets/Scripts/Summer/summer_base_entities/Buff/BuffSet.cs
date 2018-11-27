@@ -74,8 +74,8 @@ namespace Summer
         // 提供给外部 caster(释放buff者)给自身owner添加Buff 处理buff之间的相互关系  重叠/替换/抵消
         public void AttachBuff(BaseEntity caster, int buffId)
         {
-            BuffLog.Assert(!_owner.IsDead(), "目标[{0}]已经死亡,无法添加Buff:[{1}]", _owner.ToDes(), buffId);
-            if (_owner.IsDead()) return;
+            BuffLog.Assert(!_owner.AttributeProp.IsDead(), "目标[{0}]已经死亡,无法添加Buff:[{1}]", _owner.ToDes(), buffId);
+            if (_owner.AttributeProp.IsDead()) return;
 
             // 1.根据Id查找对应的ID
             BuffCnf newCnf = BuffHelper.FindBuffById(buffId);
@@ -273,7 +273,7 @@ namespace Summer
                 _internal_buff_refresh_time(oldBuff);
             }
             // 触发回调
-            // old_buff.RaiseEvent(E_Buff_Event.buff_add_layer);
+            // old_buff.RaiseEvent(E_BuffEvent.buff_add_layer);
         }
 
         // buff 时间刷新
@@ -292,7 +292,7 @@ namespace Summer
             bool result = newBuff.AddLayer();
             // 触发回调
             if (result)
-                newBuff.RaiseEvent(E_Buff_Event.buff_add_layer);
+                newBuff.RaiseEvent(E_BuffEvent.BUFF_ADD_LAYER);
         }
 
         #endregion

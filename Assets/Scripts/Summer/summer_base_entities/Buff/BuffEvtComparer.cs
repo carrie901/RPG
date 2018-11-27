@@ -25,16 +25,16 @@ using System.Collections.Generic;
 
 namespace Summer
 {
-    public class BuffEvtComparer : IEqualityComparer<E_Buff_Event>
+    public class BuffEvtComparer : IEqualityComparer<E_BuffEvent>
     {
         public static BuffEvtComparer Instance = new BuffEvtComparer();
         private BuffEvtComparer() { }
-        public bool Equals(E_Buff_Event x, E_Buff_Event y)
+        public bool Equals(E_BuffEvent x, E_BuffEvent y)
         {
             return x == y;
         }
 
-        public int GetHashCode(E_Buff_Event obj)
+        public int GetHashCode(E_BuffEvent obj)
         {
             return (int)obj;
         }

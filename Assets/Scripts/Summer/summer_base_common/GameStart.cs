@@ -25,12 +25,12 @@ public class GameStart : MonoBehaviour
 
     void OnEnable()
     {
-        CameraEffectManager.instance.RegisterHandler();
+        CameraEffectManager.Instance.RegisterHandler();
     }
 
     void OnDisable()
     {
-        CameraEffectManager.instance.UnRegisterHandler();
+        CameraEffectManager.Instance.UnRegisterHandler();
     }
 }
 

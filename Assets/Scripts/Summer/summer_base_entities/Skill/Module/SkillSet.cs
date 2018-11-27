@@ -30,8 +30,8 @@
 
         public void OnRegisterHandler()
         {
-            _base_entity.RegisterHandler(E_EntityInTrigger.skill_release, ReleaseSkill);
-            _base_entity.RegisterHandler(E_EntityInTrigger.skill_finish, FinishSkill);
+            _base_entity.RegisterHandler(E_EntityInTrigger.SKILL_RELEASE, ReleaseSkill);
+            _base_entity.RegisterHandler(E_EntityInTrigger.SKILL_FINISH, FinishSkill);
 
             _base_entity.RegisterHandler(E_EntityEvent.ANIMATION_EVENT, ReceiveAnimationEvent);
         }

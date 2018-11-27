@@ -67,7 +67,7 @@ namespace Summer
                 if (skill == null) continue;
                 _sequence_map.Add(skill_list[i], skill.Create(this, space_info));*/
 
-                _sequence_map.Add(skill_list[i], SkillFactory.Create());
+                //_sequence_map.Add(skill_list[i], SkillFactory.Create());
 
             }
 

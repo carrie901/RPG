@@ -39,7 +39,7 @@ namespace Summer.Sequence
             AnimationSpeedEventData data = EventDataFactory.Pop<AnimationSpeedEventData>();
             data.animation_speed = speed;
 
-            SequenceHelper.Raise(_context._owner, E_EntityInTrigger.change_animation_speed, data);
+            SequenceHelper.Raise(_context._owner, E_EntityInTrigger.CHANGE_ANIMATION_SPEED, data);
         }
 
         public override void OnExit(BlackBoard blackboard)

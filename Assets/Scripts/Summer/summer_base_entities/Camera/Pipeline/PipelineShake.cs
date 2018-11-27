@@ -18,10 +18,10 @@ namespace Summer
 
         public void _on_camera_shake(System.Object obj)
         {
-            CameraShake shake = obj as CameraShake;
+            /*CameraShake shake = obj as CameraShake;
             if (shake == null) return;
 
-            _list_shake.Add(shake);
+            _list_shake.Add(shake);*/
         }
 
         public void Process(CameraPipelineData data, float dt)

@@ -40,7 +40,7 @@ namespace Summer.Sequence
             data.sound_name = sound_name;
             data.position = _position;
 
-            RaiseEvent(E_EntityInTrigger.play_sound, data);
+            RaiseEvent(E_EntityInTrigger.PLAY_SOUND, data);
             Finish();
         }
 

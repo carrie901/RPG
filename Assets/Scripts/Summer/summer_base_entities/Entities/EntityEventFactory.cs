@@ -12,7 +12,7 @@ namespace Summer
             ChangeEntityStateEventData data = EventDataFactory.Pop<ChangeEntityStateEventData>();
             data.state_id = state;
             data.force = force;
-            entity.RaiseEvent(E_EntityInTrigger.change_state, data);
+            entity.RaiseEvent(E_EntityInTrigger.CHANGE_STATE, data);
         }
 
 
@@ -20,7 +20,7 @@ namespace Summer
         {
             PlayAnimationEventData data = EventDataFactory.Pop<PlayAnimationEventData>();
             data.animation_name = animationName;
-            entity.RaiseEvent(E_EntityInTrigger.play_animation, data);
+            entity.RaiseEvent(E_EntityInTrigger.PLAY_ANIMATION, data);
         }
     }
 }

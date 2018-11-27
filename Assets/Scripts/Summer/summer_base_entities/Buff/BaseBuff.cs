@@ -71,7 +71,7 @@ namespace Summer
         //有些buff是过程无效果，上buff和下buff的时候带功能的。例如设置角色朝向/攻击力
         public void OnAttach(BaseEntity target, BaseEntity caster)
         {
-            _bid = new BuffId(target._entityId.Eid, Info.Id);
+            _bid = new BuffId(target.Id, Info.Id);
             _target = target;
             _caster = caster;
             // 1.默认为1层
@@ -82,14 +82,14 @@ namespace Summer
             //_add_Vfx();
             //_add_sound();
             // 4.触发OnAttach回调
-            RaiseEvent(E_Buff_Event.buff_on_attach);
+            RaiseEvent(E_BuffEvent.BUFF_ON_ATTACH);
             GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.buff_attach, this);
         }
 
         public void OnDetach()
         {
             GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.buff_detach, this);
-            RaiseEvent(E_Buff_Event.buff_on_detach);
+            RaiseEvent(E_BuffEvent.BUFF_ON_DETACH);
 
             // 1.移除vfx/sound
             //_remove_Vfx();
@@ -120,7 +120,7 @@ namespace Summer
 
         protected void OnTick()
         {
-            RaiseEvent(E_Buff_Event.buff_on_tick);
+            RaiseEvent(E_BuffEvent.BUFF_ON_TICK);
         }
 
 
@@ -154,29 +154,29 @@ namespace Summer
 
         #region Buff 自身
 
-        public EventConditionSet<E_Buff_Event> _buffEventSet =
-           new EventConditionSet<E_Buff_Event>(BuffEvtComparer.Instance);
+        public EventConditionSet<E_BuffEvent> _buffEventSet =
+           new EventConditionSet<E_BuffEvent>(BuffEvtComparer.Instance);
 
 
-        public bool RegisterHandler(E_Buff_Event key, EventSet<E_Buff_Event, EventSetData>.EventHandler handler,I_Condition condition=null)
+        public bool RegisterHandler(E_BuffEvent key, EventSet<E_BuffEvent, EventSetData>.EventHandler handler,I_Condition condition=null)
         {
             return _buffEventSet.RegisterHandler(key, handler, condition);
         }
 
-        public bool UnRegisterHandler(E_Buff_Event key, EventSet<E_Buff_Event, EventSetData>.EventHandler handler, I_Condition condition = null)
+        public bool UnRegisterHandler(E_BuffEvent key, EventSet<E_BuffEvent, EventSetData>.EventHandler handler, I_Condition condition = null)
         {
             return _buffEventSet.UnRegisterHandler(key, handler, condition);
         }
 
-        public void RaiseEvent(E_Buff_Event key, EventSetData data)
+        public void RaiseEvent(E_BuffEvent key, EventSetData data)
         {
             _buffEventSet.RaiseEvent(key, data);
         }
 
-        public void RaiseEvent(E_Buff_Event key)
+        public void RaiseEvent(E_BuffEvent key)
         {
             EventSetEffectData data = EventDataFactory.Pop<EventSetEffectData>();
-            data.entity = _target;
+            data._entity = _target;
             _buffEventSet.RaiseEvent(key, data);
         }
 
@@ -227,7 +227,7 @@ namespace Summer
         public void _init_single_effect(BaseEffect baseEffect)
         {
             baseEffect.OnAttach();
-            E_Buff_Event buffEvent = baseEffect._info.GetBuffEvt();
+            E_BuffEvent buffEvent = baseEffect._info.GetBuffEvt();
             RegisterHandler(buffEvent, baseEffect.ExcuteEffect);
         }
 

@@ -21,26 +21,12 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
 
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
 namespace Summer
 {
-    /// <summary>
-    /// 空的按钮
-    /// </summary>
-    public class EmptyButton : Graphic
+    public class FloatValueEvent : EventSetData
     {
-        protected EmptyButton()
-        {
-            useLegacyMeshGeneration = false;
-        }
-
-        public override void SetMaterialDirty() { }
-
-        public override void SetVerticesDirty() { }
-        protected override void OnPopulateMesh(VertexHelper vh) { vh.Clear(); }
+        public float _value;
+        public FloatValueEvent() { }
     }
-}
 
+}

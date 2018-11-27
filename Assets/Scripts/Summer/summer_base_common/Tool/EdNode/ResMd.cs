@@ -16,12 +16,12 @@ using Summer;
 public class ResMd
 {
     public EdNode _root_node;
-
+    public const string ROOT = "RootTop";
     public void ParseText(string text)
     {
         _root_node = new EdNode();
         _root_node._depth = -1;
-        _root_node.Name = "RootTop";
+        _root_node.Name = ROOT;
         string[] lines = text.Split("\n\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
         _parse_text(lines);
     }

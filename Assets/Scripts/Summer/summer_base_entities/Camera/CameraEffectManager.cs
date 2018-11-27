@@ -1,22 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Summer.Sequence;
-using UnityEngine;
+﻿using Summer.Sequence;
 
 namespace Summer
 {
     /// <summary>
     /// 处理镜头的一些特效
     /// </summary>
-    public class CameraEffectManager
+    public class CameraEffectManager:TSingleton<CameraEffectManager>
     {
-        public static CameraEffectManager instance = new CameraEffectManager();
-
-        public CameraEffectManager()
-        {
-
-        }
-
         public void RegisterHandler()
         {
             GameEventSystem.Instance.RegisterHandler(E_GLOBAL_EVT.camera_effect_motion_blur, _play_motion_blur);

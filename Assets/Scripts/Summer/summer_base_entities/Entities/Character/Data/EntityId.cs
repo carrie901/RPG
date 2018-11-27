@@ -2,23 +2,11 @@
 {
     public class EntityId
     {
-        static uint iidex = 0;
-        protected uint iid;
+        static int Iidex = 0;
 
-        public uint Eid { get { return iid; } }
-
-        public EntityId()
+        public static int Get()
         {
-            iid = iidex;
-            iidex++;
-        }
-
-
-
-        public bool EqualId(EntityId id)
-        {
-            return iid == id.iid;
+            return Iidex++;
         }
     }
-
 }

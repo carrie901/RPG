@@ -12,7 +12,7 @@
 
         public override void DoBeforeEntering()
         {
-            entity.CanMovement = false;
+            //entity.CanMovement = false;
         }
 
         public override void DoBeforeLeaving()

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Summer
 {
@@ -18,42 +16,40 @@ namespace Summer
 
     public class ShakeFunc
     {
-        public float amplitude;             //幅度
-        public float period_time;           //周期
-        public float decay;                 //衰减
+        private float _amplitude;           //幅度
+        private float _periodTime;          //周期
+        private float _decay;               //衰减
 
-        public ShakeFunc(float amplitude, int frequency, float last_time)
+        public ShakeFunc(float amplitude, int frequency, float lastTime)
         {
-            this.amplitude = amplitude;
-            period_time = 1.0f / (float)frequency;
-            decay = amplitude / (last_time / period_time);
+            _amplitude = amplitude;
+            _periodTime = 1.0f / (float)frequency;
+            _decay = amplitude / (lastTime / _periodTime);
         }
 
-        public float _time_from_start = 0;
+        public float _timeFromStart;
 
         public bool IsEnd()
         {
-            return GetAmpWithSinCurve(_time_from_start, amplitude, period_time, decay) <= 0;
+            return GetAmpWithSinCurve(_timeFromStart, _amplitude, _periodTime, _decay) <= 0;
         }
 
-        public float Get(float delta_time)
+        public float Get(float deltaTime)
         {
-            _time_from_start = _time_from_start + delta_time;
-            float ret_val = GetWithSinCurve(_time_from_start, amplitude, period_time, decay);
-            return ret_val;
+            _timeFromStart = _timeFromStart + deltaTime;
+            float retVal = GetWithSinCurve(_timeFromStart, _amplitude, _periodTime, _decay);
+            return retVal;
         }
 
-        public static float GetAmpWithSinCurve(float time, float amplitude, float period_time, float decay)
+        public static float GetAmpWithSinCurve(float time, float amplitude, float periodTime, float decay)
         {
-            return amplitude - decay * time / period_time;
+            return amplitude - decay * time / periodTime;
         }
 
-        public static float GetWithSinCurve(float time, float amplitude, float period_time, float decay)
+        public static float GetWithSinCurve(float time, float amplitude, float periodTime, float decay)
         {
-            float cur_period = time / period_time;
-            return GetAmpWithSinCurve(time, amplitude, period_time, decay) * Mathf.Sin(2 * Mathf.PI * cur_period);
+            float curPeriod = time / periodTime;
+            return GetAmpWithSinCurve(time, amplitude, periodTime, decay) * Mathf.Sin(2 * Mathf.PI * curPeriod);
         }
-
-
     }
 }

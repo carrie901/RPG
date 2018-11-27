@@ -10,10 +10,10 @@ namespace Summer
         protected bool _pause;                                          // 暂停
         public bool _needClear;
         protected Dictionary<Timer, float> _allTimers
-            = new Dictionary<Timer, float>();
+            = new Dictionary<Timer, float>(32);
 
         public TimerComparer _comparer = new TimerComparer();           //比较器
-        public float CurrentTime() { return _currTime; }                   //Query
+        public float CurrentTime() { return _currTime; }                //Query
         readonly List<Timer> _timeoutTimers = new List<Timer>(16);      //超时的队列
 
         #endregion

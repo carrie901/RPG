@@ -180,7 +180,7 @@ namespace Summer
             }
             else
             {
-                CameraSourceData data = CameraData2Player(_default_source, _player.WroldPosition);
+                CameraSourceData data = CameraData2Player(_default_source, _player.EntityController.WroldPosition);
                 return data;
             }
 

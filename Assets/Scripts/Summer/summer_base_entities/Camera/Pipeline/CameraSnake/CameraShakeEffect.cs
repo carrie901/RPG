@@ -12,46 +12,46 @@ namespace Summer
         /// <summary>
         /// 相机震动方向
         /// </summary>
-        public Vector3 shake_dir = Vector3.one;
+        public Vector3 _shakeDir = Vector3.one;
         /// <summary>
         /// 相机震动时间
         /// </summary>
-        public float shake_time = 1.0f;
+        public float _shakeTime = 1.0f;
 
-        private float current_time = 0.0f;
-        private float total_time = 0.0f;
+        private float _currentTime;
+        private float _totalTime;
 
         public void Trigger()
         {
-            total_time = shake_time;
-            current_time = shake_time;
+            _totalTime = _shakeTime;
+            _currentTime = _shakeTime;
         }
 
         public void Stop()
         {
-            current_time = 0.0f;
-            total_time = 0.0f;
+            _currentTime = 0.0f;
+            _totalTime = 0.0f;
         }
 
         public void UpdateShake()
         {
-            if (current_time > 0.0f && total_time > 0.0f)
+            if (_currentTime > 0.0f && _totalTime > 0.0f)
             {
-                float percent = current_time / total_time;
+                float percent = _currentTime / _totalTime;
 
                 Vector3 shakePos = Vector3.zero;
-                shakePos.x = Random.Range(-Mathf.Abs(shake_dir.x) * percent, Mathf.Abs(shake_dir.x) * percent);
-                shakePos.y = Random.Range(-Mathf.Abs(shake_dir.y) * percent, Mathf.Abs(shake_dir.y) * percent);
-                shakePos.z = Random.Range(-Mathf.Abs(shake_dir.z) * percent, Mathf.Abs(shake_dir.z) * percent);
+                shakePos.x = Random.Range(-Mathf.Abs(_shakeDir.x) * percent, Mathf.Abs(_shakeDir.x) * percent);
+                shakePos.y = Random.Range(-Mathf.Abs(_shakeDir.y) * percent, Mathf.Abs(_shakeDir.y) * percent);
+                shakePos.z = Random.Range(-Mathf.Abs(_shakeDir.z) * percent, Mathf.Abs(_shakeDir.z) * percent);
 
                 Camera.main.transform.position += shakePos;
 
-                current_time -= Time.deltaTime;
+                _currentTime -= Time.deltaTime;
             }
             else
             {
-                current_time = 0.0f;
-                total_time = 0.0f;
+                _currentTime = 0.0f;
+                _totalTime = 0.0f;
             }
         }
 

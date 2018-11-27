@@ -1,22 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Summer
 {
     public class EntitesAttribute
     {
 
-        public AttributeIntParam max_hp = new AttributeIntParam();
-        public AttributeIntParam anti_cri = new AttributeIntParam();
+        public AttributeIntParam _maxHp = new AttributeIntParam();
+        public AttributeIntParam _antiCri = new AttributeIntParam();
         public Dictionary<E_EntityAttributeType, AttributeIntParam> _param
             = new Dictionary<E_EntityAttributeType, AttributeIntParam>();
 
-        public EntityId _entity_iid;
-        public EntitesAttribute(EntityId entity_iid)
+        public int _entityId;
+        public EntitesAttribute(int entityIid)
         {
-            _entity_iid = entity_iid;
-            _param.Add(E_EntityAttributeType.anti_cri, anti_cri);
-            anti_cri.SetBase(1000);
+            _entityId = entityIid;
+            _param.Add(E_EntityAttributeType.anti_cri, _antiCri);
+            _antiCri.SetBase(1000);
         }
 
         public AttributeIntParam FindAttribute(E_EntityAttributeType type)

@@ -27,10 +27,10 @@ namespace Summer.Sequence
 {
     public class SequenceHelper
     {
-        public static void Raise(BaseEntity target, E_EntityInTrigger key, EventSetData obj_info)
+        public static void Raise(BaseEntity target, E_EntityInTrigger key, EventSetData objInfo)
         {
-            target.RaiseEvent(key, obj_info);
-            EventDataFactory.Push(obj_info);
+            target.RaiseEvent(key, objInfo);
+            EventDataFactory.Push(objInfo);
         }
 
     }

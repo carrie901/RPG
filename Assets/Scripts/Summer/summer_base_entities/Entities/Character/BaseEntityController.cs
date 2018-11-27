@@ -27,6 +27,10 @@ namespace Summer
         public Transform _trans;                                                                         // 缓存Transform
         public Rigidbody _rigidBody;
         public I_EntityAnimationGroup _group;
+
+        public Vector3 Direction { get { return _trans.forward; } }                                     // 当前方向           
+        public Vector3 WroldPosition { get { return _trans.position; } }                                // 世界坐标
+        public bool CanMovement { get; set; }
         #endregion
 
         #region Mono Override
@@ -78,7 +82,7 @@ namespace Summer
 
         public void OnRegisterHandler()
         {
-            _baseEntity.RegisterHandler(E_EntityInTrigger.play_effect, OnPlayEffect);
+            _baseEntity.RegisterHandler(E_EntityInTrigger.PLAY_EFFECT, OnPlayEffect);
         }
 
         public void InitOutTrigger(I_Entity trigger, I_EntityInTrigger inTrigger, BaseEntity baseEntity)
@@ -92,7 +96,7 @@ namespace Summer
         {
             if (_group == null)
             {
-                _group = GetComponent<EntityAnimationGroup>();
+                _group = GetComponent<EntityAnimGroupTTT>();
             }
             return _group;
         }

@@ -12,7 +12,7 @@ namespace Summer.Sequence
         {
             LogEnter();
 
-            RaiseEvent(E_EntityInTrigger.skill_release, null);
+            RaiseEvent(E_EntityInTrigger.SKILL_RELEASE, null);
             Finish();
         }
 

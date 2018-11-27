@@ -26,15 +26,16 @@ using UnityEngine;
 
 namespace Summer
 {
-    [RequireComponent(typeof(Animation), typeof(BaseEntityController))]
+    //[RequireComponent(typeof(Animation))]
     public class EntityAnimGroupTTT : MonoBehaviour, I_EntityAnimationGroup
     {
 
         #region 属性
 
         public I_EntityInTrigger _baseEntity;
-        [HideInInspector]
-        public Animation _anim;
+        //[HideInInspector]
+        //public Animation _anim;
+        public Animator _anim;
         public string _currAnimName;
         public enum ClipType
         {
@@ -64,12 +65,21 @@ namespace Summer
                 _lastClip = _currentClip;
             }
 
-            if (!_anim.isPlaying)
+            /*AnimatorStateInfo info = _anim.GetCurrentAnimatorStateInfo(0);
+            // 判断动画是否播放完成
+            if (info.normalizedTime >= 1.0f)
             {
                 PlayAnimation(AnimNameFactory.GetAnimName(AnimationName.ClipType.IDLE));
                 _currentClip = AnimationName.ClipType.IDLE;
                 _lastClip = _currentClip;
-            }
+            }*/
+
+            /*if (!_anim.isPlay)
+            {
+                PlayAnimation(AnimNameFactory.GetAnimName(AnimationName.ClipType.IDLE));
+                _currentClip = AnimationName.ClipType.IDLE;
+                _lastClip = _currentClip;
+            }*/
 
         }
 
@@ -90,14 +100,14 @@ namespace Summer
 
         public void OnRegisterHandler()
         {
-            _baseEntity.RegisterHandler(E_EntityInTrigger.play_animation, OnPlayAnimation);
-            _baseEntity.RegisterHandler(E_EntityInTrigger.change_animation_speed, OnChangeAnimationSpeed);
+            _baseEntity.RegisterHandler(E_EntityInTrigger.PLAY_ANIMATION, OnPlayAnimation);
+            _baseEntity.RegisterHandler(E_EntityInTrigger.CHANGE_ANIMATION_SPEED, OnChangeAnimationSpeed);
         }
 
         public void UnRegisterHandler()
         {
-            _baseEntity.UnRegisterHandler(E_EntityInTrigger.play_animation, OnPlayAnimation);
-            _baseEntity.UnRegisterHandler(E_EntityInTrigger.change_animation_speed, OnChangeAnimationSpeed);
+            _baseEntity.UnRegisterHandler(E_EntityInTrigger.PLAY_ANIMATION, OnPlayAnimation);
+            _baseEntity.UnRegisterHandler(E_EntityInTrigger.CHANGE_ANIMATION_SPEED, OnChangeAnimationSpeed);
         }
 
         public void SkillEvent(E_SkillTransition skillEvent)
@@ -118,7 +128,7 @@ namespace Summer
         public void StopAnim(string animName)
         {
             if (_anim == null) return;
-            _anim.Stop();
+            _anim.StopPlayback();
         }
 
         public void ChangeAnimationSpeed(float speed)
@@ -158,12 +168,32 @@ namespace Summer
 
         private void _init()
         {
-            _anim = GetComponent<Animation>();
+            _anim = gameObject.GetComponent<Animator>();
+            /*_anim = GetComponent<Animator>();
             foreach (AnimationState state in _anim)
             {
+                Debug.Log(state.clip.name);
                 //state.speed = 0.5F;
             }
-            _anim["idle"].wrapMode = WrapMode.Loop;
+            _anim["idle"].wrapMode = WrapMode.Loop;*/
+
+
+            /*AnimatorOverrideController overrideControl = new AnimatorOverrideController();
+            overrideControl.runtimeAnimatorController = _anim.runtimeAnimatorController;
+            int length = _animClips.Count;
+            for (int i = 0; i < length; i++)
+            {
+                if (_animClips[i] != null)
+                {
+                    overrideControl[_animClips[i].name] = null;
+                    overrideControl[_animClips[i].name] = _animClips[i];
+                }
+                else
+                {
+
+                }
+            }
+            _anim.runtimeAnimatorController = overrideControl;*/
         }
 
         #endregion

@@ -58,6 +58,11 @@ namespace Summer.Sequence
             Finish();
         }
 
+        public virtual void Reset()
+        {
+            _isComplete = false;
+        }
+
         public abstract void SetConfigInfo(EdNode cnf);
 
         public virtual string ToDes()
@@ -79,10 +84,9 @@ namespace Summer.Sequence
 
         public bool IsFinish() { return _isComplete; }
 
-        public void Reset() { _isComplete = false; }
-
         public void RaiseEvent(E_EntityInTrigger key, EventSetData objInfo)
         {
+            SkillLog.Assert(_context != null && _context._owner != null, "SequenceLeafNode RaiseEvent:[{0}] Fail", key);
             if (_context == null || _context._owner == null) return;
             _context._owner.RaiseEvent(key, objInfo);
             EventDataFactory.Push(objInfo);
@@ -107,8 +111,6 @@ namespace Summer.Sequence
         #endregion
 
         #region Private Methods
-
-
 
         #endregion
     }

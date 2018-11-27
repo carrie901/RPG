@@ -6,7 +6,7 @@ namespace Summer
 {
     /// <summary>
     /// 先把BaseEntities当做BaseCharacter用
-    /// TODO 4.12
+    /// TODO
     /// QAQ:
     ///     根据高内聚原则,entity相关的方法最好内聚在本类，如果需求是多样化的。那么提供get方法让外部进行操作，但最总基础的方法还是在本类
     /// QAQ:
@@ -20,55 +20,48 @@ namespace Summer
         #region 属性
 
         public int Template { get; private set; }
-        public BaseEntityController EntityController { get; private set; }                              // GameObject控制器
-        public Vector3 WroldPosition { get { return EntityController._trans.position; } }                // 世界坐标
-        public Vector3 Direction { get { return EntityController._trans.forward; } }                     // 当前方向
+        public int Id { get; private set; }                                                             // Entity的唯一表示
+        public BaseEntityController EntityController { get; private set; }                              // GameObject控制器       
         public EntityAttributeProperty AttributeProp { get { return _attrProp; } }
-        public bool CanMovement { get; set; }
-        public EntityId _entityId;                                                                      // Entity的唯一表示
-        public HeroInfoCnf _cnf;
+        public EntityMovement Movement { get { return _movement; } }
+        public BtEntityAi EntityAi { get { return _entityAi; } }
 
         // TODO 是否通过黑箱进行操作 来规避掉内部的响应
         //public List<BaseEntity> _targets = new List<BaseEntity>();                                    // 目标 是否通过黑箱进行操作
-        public EventSet<E_EntityEvent, EventSetData> _outEventSet                                      // 角色的外部事件
+        public EventSet<E_EntityEvent, EventSetData> _outEventSet                                       // 角色的外部事件
            = new EventSet<E_EntityEvent, EventSetData>(EntityEvtComparer.Instance);
         public EventSet<E_EntityInTrigger, EventSetData> _inEventSet                                    // 角色的内部事件
        = new EventSet<E_EntityInTrigger, EventSetData>();
 
-        public EntityBlackBoard _entityBlackboard = new EntityBlackBoard();
+        private EntityBlackBoard _entityBlackboard = new EntityBlackBoard();
 
 
-        public List<I_Update> _updateList = new List<I_Update>();                                       // 对应需要注册到容器中的组件 进行Update
-        public readonly List<I_RegisterHandler> _registerList = new List<I_RegisterHandler>();                   // 注册项
+        private List<I_Update> _updateList = new List<I_Update>();                                       // 对应需要注册到容器中的组件 进行Update
+        private readonly List<I_RegisterHandler> _registerList = new List<I_RegisterHandler>(8);         // 注册项
 
-        #region 附带属性 AI/SkillSet/BuffSet/Attribute/Fsm
-
-        public BtEntityAi _entityAi;                                                                    // 相关AI组件
-        public SkillSet_1 _skillSet;                                                                    // 相关技能组件
-        public BuffSet _buffSet;                                                                        // 相关Buff组件
-        public EntityAttributeProperty _attrProp;                                                       // 相关人物属性组件
-        public FsmSystem _fsmSystem;                                                                    // 相关状态机组件
-
+        #region 附带属性 AI/技能模块/Buff模块/属性数值模块/状态机模块
+        private BtEntityAi _entityAi;                                                                   // 相关AI组件
+        private SkillSet_1 _skillSet;                                                                   // 相关技能组件
+        private BuffSet _buffSet;                                                                       // 相关Buff组件
+        private EntityAttributeProperty _attrProp;                                                      // 相关人物属性组件
+        private FsmSystem _fsmSystem;                                                                   // 相关状态机组件
+        private HeroInfoCnf _cnf;
         #endregion
 
         #region 缓存池相关
-
         public bool IsUse { get; set; }                                                                 // true=使用中
         public string ObjectName { get { return "BaseEntity"; } }
-
         #endregion
 
         #region Mono的附带属性
-
-        public I_EntityAnimationGroup _animGroup;                                                         // 动画组件 播放动画
-        public EntityMovement _movement;                                                                // 移动组件 人物移动
-        public BaseEntityController _entityController;                                                  // 角色控制器 
-
+        private I_EntityAnimationGroup _animGroup;                                                      // 动画组件 播放动画
+        private EntityMovement _movement;                                                               // 移动组件 人物移动
+        //private BaseEntityController _entityController;                                                 // 角色控制器 
         #endregion
 
         #endregion
 
-        #region I_Update/I_EntityInTrigger/I_Entity/I_EntityLife缓存池/黑箱
+        #region Override I_Update/I_EntityInTrigger/I_Entity/I_EntityLife缓存池/黑箱
 
         #region OnUpdate
 
@@ -162,7 +155,7 @@ namespace Summer
             _attrProp.OnRegisterHandler();
 
             OnRegisterHandler();
-
+            // 播放默认动画
             _animGroup.PlayAnimation(AnimationNameConst.IDLE);
             _fsmSystem.Start();
         }
@@ -199,42 +192,10 @@ namespace Summer
 
         #region public
 
-        #region 监听的内部事件,通过一些原子节点触发事件，迫使Entity做出某些行为
-
-        // 目标死亡
-        public void EntityDie(EventSetData param)
-        {
-            EntityEventFactory.ChangeInEntityState(this, E_StateId.die);
-        }
-
-        #endregion
-
-        #region 监听的外部事件，比如动作文件为源头，触发动作事件
-
-        public void OnBeHurt(EventSetData param)
-        {
-            EntityEventFactory.ChangeInEntityState(this, E_StateId.hurt);
-        }
-
-        #endregion
-
         public void OnRegisterHandler()
         {
-            RegisterHandler(E_EntityInTrigger.entity_die, EntityDie);
+            RegisterHandler(E_EntityInTrigger.ENTITY_DIE, EntityDie);
             RegisterHandler(E_EntityEvent.ON_BE_HURT, OnBeHurt);
-        }
-
-        public bool IsDead() { return false; }
-
-        public void ReceiveCommandMove(Vector2 diretion)
-        {
-            if (!CanMovement) return;
-            _movement.AddDirection(diretion);
-        }
-
-        public void InitPosRot()
-        {
-            EntityController._trans.position = new Vector3(Random.value * 40 - 20f, 0, Random.value * 40 - 20f);
         }
 
         public void Clear()
@@ -257,6 +218,31 @@ namespace Summer
 #endif
         }
 
+        public void CastSkill(int id) { _skillSet.CastSkill(id); }
+
+        #endregion
+
+        #region 监听事件
+
+        #region 监听的内部事件,通过一些原子节点触发事件，迫使Entity做出某些行为
+
+        // 目标死亡
+        private void EntityDie(EventSetData param)
+        {
+            EntityEventFactory.ChangeInEntityState(this, E_StateId.die);
+        }
+
+        #endregion
+
+        #region 监听的外部事件，比如动作文件为源头，触发动作事件
+
+        private void OnBeHurt(EventSetData param)
+        {
+            EntityEventFactory.ChangeInEntityState(this, E_StateId.hurt);
+        }
+
+        #endregion
+
         #endregion
 
         #region private
@@ -266,7 +252,7 @@ namespace Summer
         {
             // 加载模型
             BaseEntityController go = TransformPool.Instance.Pop<BaseEntityController>
-                ("res_bundle/prefab/model/Character/" + "NPC_Zhaoyun_001_02"/*_cnf.prefab_name*/);
+                ("res_bundle/prefab/model/Character/" + "NPC_Zhaoyun_001_02.prefab"/*_cnf.prefab_name*/);
             EntityController = go;
             EntityController.InitOutTrigger(this, this, this);
 
@@ -280,14 +266,18 @@ namespace Summer
 
         public void _init_data()
         {
-            CanMovement = true;
-            _entityId = new EntityId();
+            //CanMovement = true;
+            Id = EntityId.Get();
 
             _cnf = StaticCnf.FindData<HeroInfoCnf>(Template);
             _skillSet.OnReset(Template);
-            _attrProp = new EntityAttributeProperty(_entityId);
+            _attrProp = new EntityAttributeProperty(Id);
         }
-
+        public bool EqualId(BaseEntity id)
+        {
+            if (id == null) return false;
+            return id.Id == Id;
+        }
         #endregion
 
         #region Test
@@ -295,6 +285,11 @@ namespace Summer
         public void AddBuff()
         {
             _buffSet.AttachBuff(this, 1300011);
+        }
+
+        public void InitPosRot()
+        {
+            EntityController._trans.position = new Vector3(Random.value * 40 - 20f, 0, Random.value * 40 - 20f);
         }
 
         #endregion

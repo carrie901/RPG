@@ -41,7 +41,7 @@ namespace Summer.Sequence
             LogEnter();
             _targetPos = blackboard.GetValue<BbV3>(SequenceSelfConst.TARGET_POSITION1).Value;
             _entity = blackboard.GetValue<BaseEntity>(SequenceSelfConst.TARGET_SELF_ENTITY);
-            _sourcePos = _entity.WroldPosition;
+            _sourcePos = _entity.EntityController.WroldPosition;
             //SkillLog.Log("位置偏移-->OnEnter");
         }
 
@@ -61,7 +61,7 @@ namespace Summer.Sequence
             //SkillLog.Log("位置偏移-->OnUpdate:[{0}]", TimeManager.FrameCount);
 
             // 有问题的
-            _entity.EntityController._trans.position = Vector3.SmoothDamp(_entity.WroldPosition, _targetPos, ref _speed, 2);
+            _entity.EntityController._trans.position = Vector3.SmoothDamp(_entity.EntityController.WroldPosition, _targetPos, ref _speed, 2);
         }
 
         public override string ToDes() { return DES; }

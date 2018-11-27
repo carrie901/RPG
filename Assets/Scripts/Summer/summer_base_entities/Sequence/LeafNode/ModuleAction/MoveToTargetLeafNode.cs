@@ -16,7 +16,7 @@ namespace Summer.Sequence
             MoveToTargetPositionData data = EventDataFactory.Pop<MoveToTargetPositionData>();
             data.speed = 10f;
             data.distance = 1;
-            RaiseEvent(E_EntityInTrigger.move_to_target_position, data);
+            RaiseEvent(E_EntityInTrigger.MOVE_TO_TARGET_POSITION, data);
             Finish();
         }
 

@@ -39,7 +39,7 @@ namespace Summer.Sequence
             LogEnter();
             _targetPos = blackboard.GetValue<BbV3>(_bbTarget).Value;
             _entity = blackboard.GetValue<BaseEntity>(SequenceSelfConst.TARGET_SELF_ENTITY);
-            _sourcePos = _entity.WroldPosition;
+            _sourcePos = _entity.EntityController.WroldPosition;
             _curr_frame = 0;
         }
         
@@ -56,7 +56,7 @@ namespace Summer.Sequence
         public int _curr_frame = 0;
         public override void OnUpdate(float dt, BlackBoard blackboard)
         {
-            SkillLog.Log("位置偏移-->OnUpdate:[{0}]", TimeModule.FrameCount);
+            //SkillLog.Log("位置偏移-->OnUpdate:[{0}]", TimeModule.FrameCount);
             _curr_frame++;
             // 有问题的
             _entity.EntityController._trans.position = Vector3.Lerp(_sourcePos, _targetPos, _curr_frame * 1.0f / _frameLength);

@@ -26,17 +26,17 @@ namespace Summer.Sequence
 {
     public class PlayEffectLeafNode : SequenceLeafNode
     {
-
+        public const string EFFECT_NAME = "EffectName";
         public const string DES = "播放特效";
         public string _effectName;             //特效名称
         //public GameObject bing_obj;            //绑定的GameObject
         public override void OnEnter(BlackBoard blackboard)
         {
-            //LogEnter();
+            LogEnter();
             PlayEffectEventSkill data = EventDataFactory.Pop<PlayEffectEventSkill>();
             data.effect_name = _effectName;
             //data.bing_obj = bing_obj;
-            RaiseEvent(E_EntityInTrigger.play_effect, data);
+            RaiseEvent(E_EntityInTrigger.PLAY_EFFECT, data);
             Finish();
         }
 
@@ -46,7 +46,7 @@ namespace Summer.Sequence
         }
         public override void SetConfigInfo(EdNode cnf)
         {
-
+            _effectName = cnf.GetAttribute(EFFECT_NAME).ToStr();
         }
         public override string ToDes() { return DES; }
     }

@@ -30,7 +30,7 @@ namespace Summer
         public static Dictionary<PathType, BaseResPath> _resMap
             = new Dictionary<PathType, BaseResPath>(ResPathComparer.Instance)
             {
-                {PathType.PANEL_PFB,PfbPath.Instance },
+                /*{PathType.PANEL_PFB,PfbPath.Instance },*/
             };
 
         public static BaseResPath Get(PathType pathType)

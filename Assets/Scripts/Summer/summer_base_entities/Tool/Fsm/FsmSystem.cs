@@ -118,7 +118,7 @@ namespace Summer
 
         public void OnRegisterHandler()
         {
-            _base_entity.RegisterHandler(E_EntityInTrigger.change_state, ChangeState);
+            _base_entity.RegisterHandler(E_EntityInTrigger.CHANGE_STATE, ChangeState);
         }
 
         public void UnRegisterHandler()

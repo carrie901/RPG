@@ -29,14 +29,15 @@ namespace Summer.Sequence
     /// </summary>
     public class PlayAnimationLeafNode : SequenceLeafNode
     {
+        public const string ANIMATION_NAME = "AnimationName";
         public const string DES = "播放动作";
         public string _animationName;
 
         public override void OnEnter(BlackBoard blackboard)
         {
-            /* PlayAnimationEventData data = EventDataFactory.Pop<PlayAnimationEventData>();
-             data.animation_name = animation_name;
-             SequenceHelper.Raise(_context._owner, E_EntityInTrigger.play_animation, data);*/
+            PlayAnimationEventData data = EventDataFactory.Pop<PlayAnimationEventData>();
+            data.animation_name = _animationName;
+            RaiseEvent(E_EntityInTrigger.PLAY_ANIMATION, data);
             LogEnter();
             //Finish();
         }
@@ -52,9 +53,9 @@ namespace Summer.Sequence
             base.OnUpdate(dt, blackboard);
         }
 
-        public override void SetConfigInfo(EdNode cnf)
+        public override void SetConfigInfo(EdNode node)
         {
-
+            _animationName = node.GetAttribute(ANIMATION_NAME).ToStr();
         }
 
         public override string ToDes()

@@ -33,7 +33,7 @@ namespace Summer.Sequence
 
         public override void OnEnter(BlackBoard blackboard)
         {
-            //LogEnter();
+            LogEnter();
             PlayCameraShakeEventSkill data = EventDataFactory.Pop<PlayCameraShakeEventSkill>();
             GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_shake, data);
             Finish();

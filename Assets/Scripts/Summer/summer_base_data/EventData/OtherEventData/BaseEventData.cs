@@ -3,23 +3,9 @@ namespace Summer
 {
     #region Int Float String 
 
-    public class IntValueEvent : EventSetData
-    {
-        public int value;
-        public IntValueEvent() { }
-    }
+    
 
-    public class StringValueEvent : EventSetData
-    {
-        public string value;
-        public StringValueEvent() { }
-    }
 
-    public class FloatValueEvent : EventSetData
-    {
-        public float value;
-        public FloatValueEvent() { }
-    }
 
     #endregion
 

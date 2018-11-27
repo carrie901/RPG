@@ -12,7 +12,7 @@
 
         public override void DoBeforeEntering()
         {
-            entity.CanMovement = true;
+            //entity.CanMovement = true;
             EntityEventFactory.PlayAnimation(entity, "run");
         }
 

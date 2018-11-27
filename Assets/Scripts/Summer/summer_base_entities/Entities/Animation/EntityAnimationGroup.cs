@@ -56,14 +56,14 @@ namespace Summer
 
         public void OnRegisterHandler()
         {
-            _baseEntity.RegisterHandler(E_EntityInTrigger.play_animation, OnPlayAnimation);
-            _baseEntity.RegisterHandler(E_EntityInTrigger.change_animation_speed, OnChangeAnimationSpeed);
+            _baseEntity.RegisterHandler(E_EntityInTrigger.PLAY_ANIMATION, OnPlayAnimation);
+            _baseEntity.RegisterHandler(E_EntityInTrigger.CHANGE_ANIMATION_SPEED, OnChangeAnimationSpeed);
         }
 
         public void UnRegisterHandler()
         {
-            _baseEntity.UnRegisterHandler(E_EntityInTrigger.play_animation, OnPlayAnimation);
-            _baseEntity.UnRegisterHandler(E_EntityInTrigger.change_animation_speed, OnChangeAnimationSpeed);
+            _baseEntity.UnRegisterHandler(E_EntityInTrigger.PLAY_ANIMATION, OnPlayAnimation);
+            _baseEntity.UnRegisterHandler(E_EntityInTrigger.CHANGE_ANIMATION_SPEED, OnChangeAnimationSpeed);
         }
 
         #endregion
