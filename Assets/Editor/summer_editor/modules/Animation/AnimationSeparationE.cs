@@ -10,55 +10,57 @@ namespace SummerEditor
     /// </summary>
     public class AnimationSeparationE
     {
-        public static string copy_anim_path = "Assets/Raw/Animation/"; // copy到指定的目录
+        public static string CopyAnimPath = "Assets/Raw/Animation/"; // copy到指定的目录
 
-        public static string raw_anim_directory = "Assets/Raw/Model/"; // Fbx原始目录
+        public static string RawAnimDirectory = "Assets/Raw/Model/"; // Fbx原始目录
 
         //[MenuItem("Tools/Animation/分离动画")]
         public static void AllSeparationAnimationByFbx()
         {
-            List<string> asset_paths = EPathHelper.GetAssetsPath(raw_anim_directory, false, "*.FBX");
+            List<string> assetPaths = EPathHelper.GetAssetsPath(RawAnimDirectory, true, "*.FBX");
 
 
-            int length = asset_paths.Count;
+            int length = assetPaths.Count;
             for (int i = 0; i < length; i++)
             {
                 List<AnimationClip> clips = new List<AnimationClip>();
 
-                string asset_path = asset_paths[i];
-                string anim_folder = FindAnimsByFolder(asset_path, clips);
-                if (string.IsNullOrEmpty(anim_folder) || clips.Count == 0) continue;
-                anim_folder = GetFolderName(anim_folder);
+                string assetPath = assetPaths[i];
+                string animFolder = FindAnimsByFolder(assetPath, clips);
+                if (string.IsNullOrEmpty(animFolder) || clips.Count == 0) continue;
+                animFolder = GetFolderName(animFolder);
 
-                if (!Directory.Exists(copy_anim_path + anim_folder))
-                    Directory.CreateDirectory(copy_anim_path + anim_folder);
+                if (!Directory.Exists(CopyAnimPath + animFolder))
+                    Directory.CreateDirectory(CopyAnimPath + animFolder);
 
-                int clip_length = clips.Count;
-                for (int k = 0; k < clip_length; k++)
+                int clipLength = clips.Count;
+                for (int k = 0; k < clipLength; k++)
                 {
-                    CopyAsset(clips[k], anim_folder);
+                    EditorUtility.DisplayProgressBar("复制文件", "复制" + clips[k] + "到:" + animFolder + "文件夹", (i) / (clipLength * 1.0f));
+                    CopyAsset(clips[k], animFolder);
                 }
             }
-
+            EditorUtility.ClearProgressBar();
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
+
         }
 
         //[MenuItem("Assets/Animation/分离动画")]
         public static void SeparationAnimationByFbx()
         {
             List<AnimationClip> clips = new List<AnimationClip>();
-            string select_path = FindAnims(clips);
+            string selectPath = FindAnims(clips);
             if (clips.Count == 0) return;
 
-            string anim_folder = GetFolderName(select_path);
+            string animFolder = GetFolderName(selectPath);
 
-            if (!Directory.Exists(copy_anim_path + anim_folder))
-                Directory.CreateDirectory(copy_anim_path + anim_folder);
+            if (!Directory.Exists(CopyAnimPath + animFolder))
+                Directory.CreateDirectory(CopyAnimPath + animFolder);
             int length = clips.Count;
             for (int i = 0; i < length; i++)
             {
-                CopyAsset(clips[i], anim_folder);
+                CopyAsset(clips[i], animFolder);
                 EditorUtility.DisplayProgressBar(clips[i].name, string.Format("动画预处理({0}/{1})", i + 1, length), (float)(i + 1) / length);
             }
             EditorUtility.ClearProgressBar();
@@ -69,25 +71,25 @@ namespace SummerEditor
 
         #region private
 
-        public static void CopyAsset(AnimationClip old_clip, string anim_folder)
+        public static void CopyAsset(AnimationClip oldClip, string animFolder)
         {
-            AnimationClip new_clip = new AnimationClip();
-            EditorUtility.CopySerialized(old_clip, new_clip);
+            AnimationClip newClip = new AnimationClip();
+            EditorUtility.CopySerialized(oldClip, newClip);
 
-            string copy_asset_path = copy_anim_path + anim_folder + "/" + new_clip.name + "_tmp.anim";
-            string new_asset_path = copy_anim_path + anim_folder + "/" + new_clip.name + ".anim";
+            string copyAssetPath = CopyAnimPath + animFolder + "/" + newClip.name + "_tmp.anim";
+            string newAssetPath = CopyAnimPath + animFolder + "/" + newClip.name + ".anim";
 
 
-            AssetDatabase.CreateAsset(new_clip, copy_asset_path);
-            File.Copy(copy_asset_path, new_asset_path, true);
-            AssetDatabase.DeleteAsset(copy_asset_path);
+            AssetDatabase.CreateAsset(newClip, copyAssetPath);
+            File.Copy(copyAssetPath, newAssetPath, true);
+            AssetDatabase.DeleteAsset(copyAssetPath);
         }
 
         // 根据路径得到这个文件夹的名字
         public static string GetFolderName(string path)
         {
-            FileInfo file_info = new FileInfo(path);
-            string dir = EPathHelper.AbsoluteToRelativePathWithAssets(file_info.DirectoryName);
+            FileInfo fileInfo = new FileInfo(path);
+            string dir = EPathHelper.AbsoluteToRelativePathWithAssets(fileInfo.DirectoryName);
             string[] results = dir.Split('/');
             string result = results[results.Length - 1];
             return result;
@@ -98,7 +100,7 @@ namespace SummerEditor
         {
             Object[] objs = Selection.GetFiltered(typeof(object), SelectionMode.Assets);
             string[] guids = null;
-            string anim_path = string.Empty;
+            string animPath = string.Empty;
 
             List<string> paths = new List<string>();
             int length = objs.Length;
@@ -119,20 +121,20 @@ namespace SummerEditor
             length = guids.Length;
             for (int i = 0; i < length; i++)
             {
-                string asset_path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(asset_path);
+                string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(assetPath);
                 if (clip == null) continue;
-                anim_path = asset_path;
+                animPath = assetPath;
                 clips.Add(clip);
             }
 
-            return anim_path;
+            return animPath;
         }
 
         // floder必须是Asset/这样的格式
         public static string FindAnimsByFolder(string floder, List<AnimationClip> clips)
         {
-            string anim_path = string.Empty;
+            string animPath = string.Empty;
             string[] guids = null;
             List<string> paths = new List<string> { floder };
             if (paths.Count > 0)
@@ -146,13 +148,13 @@ namespace SummerEditor
 
             for (int i = 0; i < length; i++)
             {
-                string asset_path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(asset_path);
+                string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(assetPath);
                 if (clip == null) continue;
-                anim_path = asset_path;
+                animPath = assetPath;
                 clips.Add(clip);
             }
-            return anim_path;
+            return animPath;
         }
 
         #endregion

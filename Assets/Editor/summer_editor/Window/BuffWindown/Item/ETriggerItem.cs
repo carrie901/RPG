@@ -139,14 +139,14 @@ namespace SummerEditor
             { TriggerEvt.buff_on_detach,"Buff从角色身上移除"}
         };*/
 
-        public static Dictionary<E_Buff_Event, string> _evt = new Dictionary<E_Buff_Event, string>()
+        public static Dictionary<E_BuffEvent, string> _evt = new Dictionary<E_BuffEvent, string>()
         {
-            { E_Buff_Event.buff_on_tick,"Buff 间隔触发"},
-            { E_Buff_Event.buff_on_attach,"Buff添加到角色身上"},
-            { E_Buff_Event.buff_add_layer,"Buff层级增加"},
-            { E_Buff_Event.buff_layer_max,"Buff层级到达最大等级"},
-            { E_Buff_Event.buff_remove_layer,"Buff层级减少"},
-            { E_Buff_Event.buff_on_detach,"Buff从角色身上移除"}
+            { E_BuffEvent.BUFF_ON_TICK,"Buff 间隔触发"},
+            { E_BuffEvent.BUFF_ON_ATTACH,"Buff添加到角色身上"},
+            { E_BuffEvent.BUFF_ADD_LAYER,"Buff层级增加"},
+            { E_BuffEvent.BUFF_LAYER_MAX,"Buff层级到达最大等级"},
+            { E_BuffEvent.BUFF_REMOVE_LAYER,"Buff层级减少"},
+            { E_BuffEvent.BUFF_ON_DETACH,"Buff从角色身上移除"}
         };
 
 
