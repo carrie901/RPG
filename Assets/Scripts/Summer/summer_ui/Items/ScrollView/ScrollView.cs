@@ -88,7 +88,7 @@ namespace Summer
         #endregion
 
         #region Public
-
+        // 初始化数据
         public void InitData<T>(List<T> datas)
         {
             _datas.Clear();
@@ -100,8 +100,39 @@ namespace Summer
         }
         // 移动到指定位置
         public void SrollToCell(int index, float speed) { }
-        //刷新当前的界面
-        public void RefreshCells() { }
+        //刷新当前的界面 增加或者移除数据，目前也只能使用这个方法
+        public void RefreshCells<T>(List<T> datas)
+        {
+            _datas.Clear();
+            int length = datas.Count;
+            for (int i = 0; i < length; i++)
+                _datas.Add(datas[i]);
+
+            length = _showGo.Count;
+            for (int i = length - 1; i >= 0; i--)
+            {
+                Push(_showGo[i]);
+            }
+
+            _contains.Clear();
+            OnVaildIndex();
+            UpdateCells(_startIndex, _endIndex);
+        }
+
+        public void StopMovement() { _scrollRect.StopMovement(); }
+
+        public void UpdateItemAt(int index, System.Object data)
+        {
+            _datas[index] = data;
+            int length = _showGo.Count;
+            for (int i = length - 1; i >= 0; i--)
+            {
+                ScrollCellItem item = _showGo[i];
+                int showIndex = item.GetIndex();
+                if (showIndex != index) continue;
+                item.SetData(data, index);
+            }
+        }
 
         #endregion
 
@@ -300,6 +331,15 @@ namespace Summer
 
             _widthCount = Mathf.Max(1, Mathf.FloorToInt((_viewWidth + _widthGap) / (_cellWidth + _widthGap)));
             _heightCount = Mathf.Max(1, Mathf.FloorToInt((_viewHeight + _heightGap) / (_cellHeight + _heightGap)));
+        }
+
+        private void OnVaildIndex()
+        {
+            _endIndex = Mathf.Max(0, _endIndex);
+            _endIndex = Math.Min(_datas.Count - 1, _endIndex);
+
+            _startIndex = Mathf.Max(0, _startIndex);
+            _startIndex = Math.Min(_datas.Count - 1, _startIndex);
         }
 
         #endregion

@@ -23,7 +23,6 @@
 
 
 using UnityEngine;
-using System.Collections;
 using System;
 
 namespace Summer
@@ -40,9 +39,9 @@ namespace Summer
 
         public static DateTime _d0 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
         public static DateTime _d1 = new DateTime(1970, 1, 1);
-        private static double DeltaTime = 0;
-        private static double ServerTime = 0;                                                           // 服务器基准时间
-        private static double ValidStartGameTime = 0;                                                   // 游戏开始的有效时间
+        public static double DeltaTime;
+        public static double ServerTime;                                                           // 服务器基准时间
+        public static double ValidStartGameTime;                                                   // 游戏开始的有效时间
         #endregion
 
         #region Public
@@ -61,7 +60,7 @@ namespace Summer
 
         public static TimeSpan GetLeftTime(long validTime)
         {
-            TimeSpan ts = (_d1.AddSeconds((double)validTime)).Subtract(UtcNow);
+            TimeSpan ts = (_d1.AddSeconds(validTime)).Subtract(UtcNow);
             return ts;
         }
 

@@ -5,14 +5,14 @@ namespace Summer
     public class MathHelper
     {
         public const float ONE_DIV_PI = 1.0f / Mathf.PI;
-        private static float Cos15 = Mathf.Cos(Mathf.Deg2Rad * 15.0f);
-        private static float Cos35 = Mathf.Cos(Mathf.Deg2Rad * 35.0f);
-        private static float Cos45 = Mathf.Cos(Mathf.Deg2Rad * 45.0f);
-        private static float Cos75 = Mathf.Cos(Mathf.Deg2Rad * 75.0f);
-        private static float Cos60 = Mathf.Cos(Mathf.Deg2Rad * 60.0f);
-        private static float Cos30 = Mathf.Cos(Mathf.Deg2Rad * 30.0f);
-        private static float Cos20 = Mathf.Cos(Mathf.Deg2Rad * 20.0f);
-        public static float _epsilon = float.Epsilon;
+        //private static float Cos15 = Mathf.Cos(Mathf.Deg2Rad * 15.0f);
+        //private static float Cos35 = Mathf.Cos(Mathf.Deg2Rad * 35.0f);
+        //private static float Cos45 = Mathf.Cos(Mathf.Deg2Rad * 45.0f);
+        //private static float Cos75 = Mathf.Cos(Mathf.Deg2Rad * 75.0f);
+        //private static float Cos60 = Mathf.Cos(Mathf.Deg2Rad * 60.0f);
+        //private static float Cos30 = Mathf.Cos(Mathf.Deg2Rad * 30.0f);
+        //private static float Cos20 = Mathf.Cos(Mathf.Deg2Rad * 20.0f);
+        //public static float _epsilon = float.Epsilon;
 
         /// <summary>
         /// float 近似相等

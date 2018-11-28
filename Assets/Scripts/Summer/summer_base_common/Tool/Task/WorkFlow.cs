@@ -19,11 +19,11 @@ namespace Summer.Tool
     {
         #region Property
 
-        private readonly DictionaryList<string, Property> propertys                 // 依赖的属性
+        public readonly DictionaryList<string, Property> _propertys                 // 依赖的属性
             = new DictionaryList<string, Property>();
-        private Dictionary<string, object> context                                  // 上下文
+        public Dictionary<string, object> _context                                  // 上下文
             = new Dictionary<string, object>();
-        public DictionaryList<string, Task> task_dict                               // 任务列表
+        public DictionaryList<string, Task> _taskDict                               // 任务列表
             = new DictionaryList<string, Task>();
 
         public string Name { get; set; }                                            // 名称
@@ -54,13 +54,13 @@ namespace Summer.Tool
                 LogManager.Error("添加任务错误,任务[{0}]已经在别的工程当中了", task.Name);
                 return this;
             }
-            if (task_dict.ContainsKey(task.Name))
+            if (_taskDict.ContainsKey(task.Name))
             {
                 LogManager.Error("添加任务错误,任务[{0}]不可重复添加", task.Name);
                 return this;
             }
             task.WorkFlow = this;
-            task_dict.Add(task.Name, task);
+            _taskDict.Add(task.Name, task);
             return this;
         }
 
@@ -70,12 +70,12 @@ namespace Summer.Tool
         /// <param name="prop"></param>
         public WorkFlow Apply(Property prop)
         {
-            if (propertys.ContainsKey(prop.Name))
+            if (_propertys.ContainsKey(prop.Name))
             {
                 LogManager.Error("添加属性错误,属性[{0}]不可重复添加", prop.Name);
                 return this;
             }
-            propertys.Add(prop.Name, prop);
+            _propertys.Add(prop.Name, prop);
             return this;
         }
 
@@ -85,9 +85,9 @@ namespace Summer.Tool
         public void Start()
         {
             //应用属性
-            for (int i = 0; i < propertys.Count; i++)
+            for (int i = 0; i < _propertys.Count; i++)
             {
-                propertys.GetValueAt(i).Apply(this);
+                _propertys.GetValueAt(i).Apply(this);
             }
             ReCoroutineManager.AddCoroutine(Run());
         }
@@ -101,12 +101,12 @@ namespace Summer.Tool
         /// </summary>
         private IEnumerator<float> Run()
         {
-            if (task_dict.Count == 0) yield break;
+            if (_taskDict.Count == 0) yield break;
             //ReCoroutine[] tasks = new ReCoroutine[task_dep_dict.Count];
-            for (int i = 0; i < task_dict.Count; i++)
+            for (int i = 0; i < _taskDict.Count; i++)
             {
                 //按顺序执行 
-                yield return ReCoroutine.Wait(task_dict.GetValueAt(i).GetCoroutine());
+                yield return ReCoroutine.Wait(_taskDict.GetValueAt(i).GetCoroutine());
             }
         }
 
