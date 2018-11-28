@@ -86,7 +86,7 @@ namespace SummerEditor
             AddComponentRight(_condition_lab, _trigger_event_popup, 30);
             AddComponentRight(_condition_popup, _condition_lab, tmp_height);
 
-            Vector2 size = ERectHelper.GetSize(GetChilds());
+            //Vector2 size = ERectHelper.GetSize(GetChilds());
             //Debug.Log(size);
             //SetSize(size.x + 5, size.y + 5);
         }

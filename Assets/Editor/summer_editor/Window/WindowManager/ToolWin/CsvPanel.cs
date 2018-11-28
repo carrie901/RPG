@@ -64,12 +64,12 @@ namespace SummerEditor
 
         public void _init_position()
         {
-            float tmp_x = 10;
-            float tmp_y = 10;
-            float tmp_height = 10;
-            float tmp_width = 10;
-            AddComponent(_des, tmp_x, tmp_y);
-            tmp_y += _des.Size.y + tmp_height;
+            float tmpX = 10;
+            float tmpY = 10;
+            //float tmp_height = 10;
+            //float tmp_width = 10;
+            AddComponent(_des, tmpX, tmpY);
+            //tmpY += _des.Size.y + tmp_height;
 
             ERect anchor = _des;
             anchor = AddComponentDown(_csv_to_cs_btn, anchor);
