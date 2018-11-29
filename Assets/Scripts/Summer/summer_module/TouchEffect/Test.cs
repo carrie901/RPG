@@ -1,4 +1,5 @@
-﻿//
+﻿
+//
 //                            _ooOoo_
 //                           o8888888o
 //                           88" . "88
@@ -20,30 +21,42 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
                                              
-namespace Summer
-{
-    public class TimerMulti : Timer
-    {
-        protected int _count;
-        protected int _repeatCount;
-        //count 如果小于等于0，相当于无限次
-        public TimerMulti(float interval, int repeatCount, OnTimerHandler handler)
-            : base(interval, handler)
-        {
-            _repeatCount = repeatCount;
-            _count = 0;
-        }
+using System.Collections.Generic;
+using UnityEngine;
 
-        public override void OnTimeout()
-        {
-            base.OnTimeout();
-            _count++;
-            //TODO 会有偶一定的问题 关于超时时间
-            if (_repeatCount <= 0 || _count < _repeatCount)
-            {
-                ElapsedTime = 0;
-                TimerManager.Instance.AddTimer(this);
-            }
-        }
+public class Test : MonoBehaviour {
+
+    #region 属性
+	
+	
+	
+    #endregion
+
+	#region MONO Override
+	
+    // Use this for initialization
+    void Start()
+    {
+        
     }
+     
+    // Update is called once per frame
+    void Update()
+    {
+     
+    }
+	
+	#endregion
+ 
+    #region Public
+	
+	
+	
+    #endregion
+ 
+    #region Private Methods
+	
+	
+	
+    #endregion
 }

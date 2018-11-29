@@ -11,28 +11,9 @@ namespace Summer
 
         #endregion
 
-        #region AddTimer
+        #region 属性
 
-        public static Timer AddTimer(float interval, OnTimerHandler handler)
-        {
-            return AddTimer(interval, 1, handler);
-        }
-
-        public static Timer AddTimer(float interval, int repeatCount, OnTimerHandler handler)
-        {
-            Timer t = null;
-
-            if (repeatCount == 1)
-                t = new Timer(interval, handler);
-            else
-                t = new TimerMulti(interval, repeatCount, handler);
-            TimerManager.Instance.AddTimer(t);
-            return t;
-        }
-
-        #endregion
-
-        public int SeqId { get; private set; }                                  
+        public int SeqId { get; private set; }
         public float ElapsedTime { get; protected set; }                    //流逝的时间                                      
         public float Interval { get; private set; }                         //间隔时间
         public float _scale;                                                //时间缩放
@@ -46,6 +27,10 @@ namespace Summer
             }
         }
 
+        #endregion
+
+        #region public
+
         public Timer(float interval, OnTimerHandler handler)
         {
             TimeEvent += handler;
@@ -58,7 +43,7 @@ namespace Summer
         public bool AddHandler(OnTimerHandler handler)
         {
             //1. 异常情况，handler已经被加入
-            if (TimeEvent != null && _handler_exist(handler, TimeEvent))
+            if (TimeEvent != null && HandlerExist(handler, TimeEvent))
                 return false;
 
             //2.正常情况,加入handler
@@ -94,7 +79,11 @@ namespace Summer
             TimerManager.Instance.CancelTimer(this);
         }
 
-        private bool _handler_exist(Delegate handler, Delegate handlerSet)
+        #endregion
+
+        #region private
+
+        private bool HandlerExist(Delegate handler, Delegate handlerSet)
         {
             if (handlerSet == null)
                 return false;
@@ -111,6 +100,30 @@ namespace Summer
             }
             return false;
         }
+
+        #endregion
+
+        #region AddTimer
+
+        public static Timer AddTimer(float interval, OnTimerHandler handler)
+        {
+            return AddTimer(interval, 1, handler);
+        }
+
+        public static Timer AddTimer(float interval, int repeatCount, OnTimerHandler handler)
+        {
+            Timer t = null;
+
+            if (repeatCount == 1)
+                t = new Timer(interval, handler);
+            else
+                t = new TimerMulti(interval, repeatCount, handler);
+            TimerManager.Instance.AddTimer(t);
+            return t;
+        }
+
+        #endregion
+
     }
 }
 

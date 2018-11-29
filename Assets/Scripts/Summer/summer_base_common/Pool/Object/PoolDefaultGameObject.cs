@@ -46,22 +46,31 @@ namespace Summer
 
         #region override I_PoolObjectAbility 
 
+        /// <summary>
+        /// 初始化只执行一次 在创建的时候执行
+        /// </summary>
         public virtual void OnInit()
         {
             IsUse = false;
         }
-
+        /// <summary>
+        /// 释放
+        /// </summary>
         public virtual void OnRecycled()
         {
 
         }
-
+        /// <summary>
+        /// 出
+        /// </summary>
         public virtual void OnPop()
         {
             IsUse = true;
             GameObjectHelper.SetActive(gameObject, true);
         }
-
+        /// <summary>
+        /// 进
+        /// </summary>
         public virtual void OnPush()
         {
             IsUse = false;

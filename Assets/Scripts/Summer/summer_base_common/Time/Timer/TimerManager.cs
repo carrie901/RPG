@@ -2,19 +2,20 @@
 
 namespace Summer
 {
+    /// <summary>
+    /// 时间管理器
+    /// </summary>
     public class TimerManager : TSingleton<TimerManager>, I_Update
     {
         #region 属性
 
-        protected float _currTime;                                      // 当前时间
-        protected bool _pause;                                          // 暂停
-        public bool _needClear;
-        protected Dictionary<Timer, float> _allTimers
-            = new Dictionary<Timer, float>(32);
-
-        public TimerComparer _comparer = new TimerComparer();           //比较器
-        public float CurrentTime() { return _currTime; }                //Query
-        readonly List<Timer> _timeoutTimers = new List<Timer>(16);      //超时的队列
+        public float CurrentTime() { return _currTime; }
+        protected bool _pause;                                                              // 暂停
+        protected float _currTime;                                                          // 当前时间
+        protected bool _needClear;
+        protected Dictionary<Timer, float> _allTimers = new Dictionary<Timer, float>(32);   // 时间持有者
+        protected TimerComparer _comparer = new TimerComparer();                            // 比较器    
+        protected readonly List<Timer> _timeoutTimers = new List<Timer>(16);                // 超时的队列
 
         #endregion
 
@@ -32,7 +33,7 @@ namespace Summer
         public bool AddTimer(Timer timer)
         {
             if (_allTimers.ContainsKey(timer)) return false;
-            float time = timer.Interval + CurrentTime();
+            float time = timer.Interval + _currTime;
             _allTimers[timer] = time;
             return true;
         }
@@ -42,10 +43,6 @@ namespace Summer
             if (_allTimers.ContainsKey(t))
                 _allTimers.Remove(t);
         }
-        
-        #endregion
-
-        #region Update
 
         public void OnUpdate(float dt)
         {

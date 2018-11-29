@@ -1,4 +1,5 @@
-﻿//
+﻿
+//
 //                            _ooOoo_
 //                           o8888888o
 //                           88" . "88
@@ -19,31 +20,20 @@
 //                            `=---='
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //                 			 佛祖 保佑             
-                                             
+
+using UnityEngine;
+
 namespace Summer
 {
-    public class TimerMulti : Timer
+    public class SpringCollider : MonoBehaviour
     {
-        protected int _count;
-        protected int _repeatCount;
-        //count 如果小于等于0，相当于无限次
-        public TimerMulti(float interval, int repeatCount, OnTimerHandler handler)
-            : base(interval, handler)
-        {
-            _repeatCount = repeatCount;
-            _count = 0;
-        }
+        //半径
+        public float radius = 0.5f;
 
-        public override void OnTimeout()
+        private void OnDrawGizmosSelected()
         {
-            base.OnTimeout();
-            _count++;
-            //TODO 会有偶一定的问题 关于超时时间
-            if (_repeatCount <= 0 || _count < _repeatCount)
-            {
-                ElapsedTime = 0;
-                TimerManager.Instance.AddTimer(this);
-            }
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, radius);
         }
     }
 }

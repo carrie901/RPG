@@ -50,5 +50,4 @@ namespace Summer
             return x.SeqId < y.SeqId ? _smaller : _larger;
         }
     }
-
 }

@@ -59,15 +59,43 @@ namespace Summer
             return targetScreenPosition;
         }
 
+        // 检测摄像机是不是物体的前面
+        public static bool IsInView(Vector3 worldPos)
+        {
+            Transform cameraTran = Camera.main.transform;
+            Vector2 viewPos = Camera.main.WorldToViewportPoint(worldPos);
+            Vector3 dir = (worldPos - cameraTran.position).normalized;
+
+            float dot = Vector3.Dot(cameraTran.forward, dir);
+            return dot > 0 && viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1;
+        }
+
+        public static Vector2 WorldPositionToCanvasPosition(Camera worldCamera, RectTransform canvasRect, Vector3 worldPosition)
+        {
+
+            Vector3 screenPos = worldCamera.WorldToViewportPoint(worldPosition);
+            float x = ((screenPos.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f));
+            float y = ((screenPos.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f));
+            return new Vector2(x, y);
+        }
+
+        public static Vector2 MousePositionToCanvasPosition(Camera worldCamera, RectTransform canvasRect, Vector3 mousePosition)
+        {
+            Vector3 screenPos = worldCamera.ScreenToViewportPoint(mousePosition);
+            float x = ((screenPos.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f));
+            float y = ((screenPos.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f));
+            return new Vector2(x, y);
+        }
+
         public static void WorldToUgui(Transform target, RectTransform selfRect, Camera mainCamera)
         {
-           /* Vector3 target_screen_position = cMainCameraManager.mMainCamera.WorldToScreenPoint(target.position);
+            /* Vector3 target_screen_position = cMainCameraManager.mMainCamera.WorldToScreenPoint(target.position);
 
-            float half_width = (float)Screen.width / 2;
-            float half_height = (float)Screen.height / 2;
-            Vector2 point = new Vector2(target_screen_position.x - half_width, target_screen_position.y - half_height);
+             float half_width = (float)Screen.width / 2;
+             float half_height = (float)Screen.height / 2;
+             Vector2 point = new Vector2(target_screen_position.x - half_width, target_screen_position.y - half_height);
 
-            self_rect.localPosition = new Vector3(point.x, point.y, 0);*/
+             self_rect.localPosition = new Vector3(point.x, point.y, 0);*/
         }
 
         #region 设置RectTransform 的宽高

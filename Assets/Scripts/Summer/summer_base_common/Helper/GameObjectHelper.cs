@@ -1,8 +1,5 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Text;
-using System.Collections.Generic;
-using UnityEngine.Profiling;
 
 namespace Summer
 {
@@ -17,30 +14,20 @@ namespace Summer
             obj.SetActive(value);
             return true;
         }
-        /// <summary>
-        /// 用于播放特效用
-        /// </summary>
-        public static void ForceSetActive(GameObject obj)
-        {
-            if (obj.activeSelf) obj.SetActive(false);
-            obj.gameObject.SetActive(true);
-        }
 
         public static void SetParent(GameObject go, GameObject parent, bool after = false)
         {
-            Profiler.BeginSample("------------------------------");
             Transform t = go.transform;
-            t.SetParent(parent.transform);
-            /*if (parent != null)
-                t.parent = parent.transform;
-            else
-                t.parent = null;*/
-            Profiler.EndSample();
-            t.localPosition = Vector3.zero;
-            t.localRotation = Quaternion.identity;
-            t.localScale = Vector3.one;
+
             if (parent != null)
+            {
+                t.parent = parent.transform;
+                //t.SetParent(parent.transform);
                 go.layer = parent.layer;
+            }
+            else
+                t.parent = null;
+            t.Normalize();
 
             if (after)
             {
@@ -52,6 +39,7 @@ namespace Summer
         {
             Transform t = go.transform;
             t.parent = parentTrans;
+            t.Normalize();
         }
 
         /* public static void SetLayer(GameObject go, int layer)
@@ -153,9 +141,7 @@ namespace Summer
             {
                 Transform t = go.transform;
                 t.parent = parent.transform;
-                t.localPosition = Vector3.zero;
-                t.localRotation = Quaternion.identity;
-                t.localScale = Vector3.one;
+                t.Normalize();
                 go.layer = parent.layer;
             }
             return go;
@@ -185,6 +171,13 @@ namespace Summer
         public static void Normalize(this GameObject go)
         {
             Transform trans = go.transform;
+            trans.localPosition = Vector3.zero;
+            trans.localScale = Vector3.one;
+            trans.localEulerAngles = Vector3.zero;
+        }
+
+        public static void Normalize(this Transform trans)
+        {
             trans.localPosition = Vector3.zero;
             trans.localScale = Vector3.one;
             trans.localEulerAngles = Vector3.zero;

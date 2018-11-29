@@ -15,6 +15,7 @@ namespace Summer
         public EntitesManager _entites;
         public ResLoader _rseLoader;
         public SpritePool _spritePool;
+        public TouchEffect _touchEffect;
 
         public List<I_Update> _updateList = new List<I_Update>();
 
