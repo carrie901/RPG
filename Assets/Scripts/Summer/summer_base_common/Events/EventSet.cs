@@ -21,6 +21,7 @@
 //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //  
 
+using System;
 using System.Collections.Generic;
 
 namespace Summer
@@ -65,19 +66,18 @@ namespace Summer
             _events = new Dictionary<TKey, EventHandler>(dicSize, comparer);
         }
 
-
         #region Register/UnRegister/Raise
 
         public bool RegisterHandler(TKey key, EventHandler handler)
         {
             if (_events.ContainsKey(key))
             {
-                System.Delegate[] dels = _events[key].GetInvocationList();
+                Delegate[] dels = _events[key].GetInvocationList();
                 int length = dels.Length;
                 for (int i = 0; i < length; i++)
                 {
-                    if (dels[i] == (System.Delegate)handler)
-                        return true;
+                    if (dels[i] == (Delegate)handler)
+                        return false;
                 }
                 _events[key] += handler;
             }
@@ -93,6 +93,7 @@ namespace Summer
         {
             if (_events.ContainsKey(key))
             {
+                // ReSharper disable once DelegateSubtraction
                 _events[key] -= handler;
 
                 if (_events[key] == null)
@@ -121,7 +122,7 @@ namespace Summer
 
                 return true;
             }*/
-            return _internal_real_raiser_event(key, param);
+            return _internalRealRaiserEvent(key, param);
         }
 
         public virtual void Clear()
@@ -144,7 +145,7 @@ namespace Summer
              while (n_count > 0 && _delay_quene != null && _events != null && _delay_quene.Count > 0)
              {
                  DelayEvent de = _delay_quene.Dequeue();
-                 _internal_real_raiser_event(de.Key, de.param);
+                 _internalRealRaiserEvent(de.Key, de.param);
                  n_ret++;
                  n_count--;
              }*/
@@ -166,7 +167,7 @@ namespace Summer
             return n_ret;
         }
         #endregion
-        private bool _internal_real_raiser_event(TKey key, TValue param)
+        private bool _internalRealRaiserEvent(TKey key, TValue param)
         {
             EventHandler eventHander;
             _events.TryGetValue(key, out eventHander);

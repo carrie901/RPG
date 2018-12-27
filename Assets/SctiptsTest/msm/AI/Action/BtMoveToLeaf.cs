@@ -16,7 +16,7 @@ namespace Summer.AI
         {
             AIEntityWorkingData this_data = workData.As<AIEntityWorkingData>();
             Vector3 target_pos = TMathUtils.Vector3ZeroY(this_data.EntityAi.GetBbValue<Vector3>(BtEntityAi.BBKEY_NEXTMOVINGPOSITION, Vector3.zero));
-            Vector3 current_pos = TMathUtils.Vector3ZeroY(this_data.EntityAi.BaseEntity.WroldPosition);
+            Vector3 current_pos = TMathUtils.Vector3ZeroY(this_data.EntityAi.BaseEntity.EntityController.WroldPosition);
             float dist_to_target = TMathUtils.GetDistance2D(target_pos, current_pos);
             if (dist_to_target < 1f)
             {

@@ -27,10 +27,10 @@ public class TestLambda_01 : MonoBehaviour
         int i = 0;
         for (i = 0; i < actions.Length; i++)
         {
-            InnerClass inner_class = new InnerClass();//关键在这里
-            inner_class.i = i;
-            actions[i] = inner_class.DoIt;
-            //actions[i] = () => Debug.Log(i.ToString("f2"));
+//            InnerClass inner_class = new InnerClass();//关键在这里
+//            inner_class.i = i;
+//            actions[i] = inner_class.DoIt;
+            actions[i] = () => Debug.Log(i.ToString("f2"));
         }
         foreach (var item in actions)
         {

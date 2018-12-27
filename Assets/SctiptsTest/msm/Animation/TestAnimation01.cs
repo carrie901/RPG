@@ -55,7 +55,7 @@ public class TestAnimation01 : MonoBehaviour
     {
         if (GUI.Button(new Rect(100, 100, 100, 100), "动作"))
         {
-            EntitesManager.Instance.Manual._animGroup.PlayAnimation(AnimationNameConst.ATTACK_01);
+            //EntitesManager.Instance.Manual.AnimGroup.PlayAnimation(AnimationNameConst.ATTACK_01);
         }
     }
 

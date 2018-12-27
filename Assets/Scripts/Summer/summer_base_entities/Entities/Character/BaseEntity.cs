@@ -63,7 +63,7 @@ namespace Summer
 
         #region Override I_Update/I_EntityInTrigger/I_Entity/I_EntityLife缓存池/黑箱
 
-        #region OnUpdate
+        #region OnUpdate 更新
 
         public void OnUpdate(float dt)
         {
@@ -219,7 +219,11 @@ namespace Summer
         }
 
         public void CastSkill(int id) { _skillSet.CastSkill(id); }
-
+        public bool EqualId(BaseEntity id)
+        {
+            if (id == null) return false;
+            return id.Id == Id;
+        }
         #endregion
 
         #region 监听事件
@@ -246,9 +250,8 @@ namespace Summer
         #endregion
 
         #region private
-
         // 初始化GameObject的相关东西
-        public void _init_gameobject()
+        private void _init_gameobject()
         {
             // 加载模型
             BaseEntityController go = TransformPool.Instance.Pop<BaseEntityController>
@@ -263,8 +266,7 @@ namespace Summer
             _movement = go.GetComponent<EntityMovement>();
             _movement._base_entity = this;
         }
-
-        public void _init_data()
+        private void _init_data()
         {
             //CanMovement = true;
             Id = EntityId.Get();
@@ -272,11 +274,6 @@ namespace Summer
             _cnf = StaticCnf.FindData<HeroInfoCnf>(Template);
             _skillSet.OnReset(Template);
             _attrProp = new EntityAttributeProperty(Id);
-        }
-        public bool EqualId(BaseEntity id)
-        {
-            if (id == null) return false;
-            return id.Id == Id;
         }
         #endregion
 

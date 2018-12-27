@@ -21,8 +21,8 @@ namespace Summer
 
             if (parent != null)
             {
-                t.parent = parent.transform;
-                //t.SetParent(parent.transform);
+                //t.parent = parent.transform;
+                t.SetParent(parent.transform);
                 go.layer = parent.layer;
             }
             else
@@ -35,11 +35,13 @@ namespace Summer
             }
         }
 
-        public static void SetParent(GameObject go, Transform parentTrans)
+        public static void SetParent(GameObject go, Transform parentTrans, bool after = false)
         {
             Transform t = go.transform;
-            t.parent = parentTrans;
+            t.SetParent(parentTrans);
             t.Normalize();
+            if (after)
+                t.SetAsLastSibling();
         }
 
         /* public static void SetLayer(GameObject go, int layer)
@@ -65,7 +67,7 @@ namespace Summer
             }
         }
 
-        public static GameObject CreateGameObject(string name, bool dontDestroy)
+        public static GameObject CreateGameObject(string name, bool dontDestroy = false)
         {
             GameObject go = new GameObject();
             go.name = name;
@@ -74,9 +76,9 @@ namespace Summer
             return go;
         }
 
-        public static RectTransform CreateRectTransform(string name)
+        public static RectTransform CreateRectTransform(string name, bool dontDestroy = false)
         {
-            GameObject go = CreateGameObject(name, false);
+            GameObject go = CreateGameObject(name, dontDestroy);
             RectTransform rect = go.AddComponent<RectTransform>();
             return rect;
         }
@@ -90,6 +92,7 @@ namespace Summer
         {
             if (parent == null || child == null) return;
             child.SetParent(parent, false);
+            child.Normalize();
             if (isFirst)
                 child.SetAsFirstSibling();
             else
@@ -127,6 +130,58 @@ namespace Summer
             Object.DestroyImmediate(obj);
             obj = null;
         }
+
+
+        #region 查找
+
+        /// <summary>
+        /// 根据名字查找对应的GameObject
+        /// </summary>
+        public static GameObject GetFirstChildByName(Transform rootTrans, string goName)
+        {
+            if (rootTrans == null) return null;
+            if (string.IsNullOrEmpty(goName)) return null;
+
+            var count = rootTrans.childCount;
+            for (var i = 0; i < count; i++)
+            {
+                Transform trans = rootTrans.GetChild(i);
+                if (trans.name == goName)
+                    return trans.gameObject;
+
+                var go = GetFirstChildByName(trans, goName);
+                if (go != null) return go;
+            }
+            return null;
+        }
+
+        public static GameObject FindChildByNameIndex(Transform rootTrans, string goName, int index)
+        {
+            // 安全检测
+            //if (rootTrans == null) return null;
+            //if (string.IsNullOrEmpty(goName)) return null;
+
+            if (rootTrans.name == goName)
+                return rootTrans.gameObject;
+
+            index++;
+            int childCount = rootTrans.childCount;
+            for (int i = 0; i < childCount; i++)
+            {
+                GameObject tmpObj = FindChildByNameIndex(rootTrans.GetChild(i), goName, index);
+
+                if (tmpObj == null)continue;
+                return tmpObj;
+            }
+
+            if (index == 1)
+            {
+                Debug.LogErrorFormat("找不到名字为:[{0}],Index[{1}]", goName, index);
+            }
+            return null;
+        }
+
+        #endregion
     }
 
     public static class GameObjectExtension
@@ -175,7 +230,10 @@ namespace Summer
             trans.localScale = Vector3.one;
             trans.localEulerAngles = Vector3.zero;
         }
-
+        /// <summary>
+        /// 归一化GameObject的坐标旋转缩放
+        /// </summary>
+        /// <param name="trans"></param>
         public static void Normalize(this Transform trans)
         {
             trans.localPosition = Vector3.zero;

@@ -68,7 +68,7 @@ public class TestMovementComponent : MonoBehaviour
 
         //follow.transform.localPosition = new Vector3(direction.x, 0, direction.y);
 
-        entity.ReceiveCommandMove(direction);
+        entity.Movement.AddDirection(direction);
     }
 
     public void OnUpEvent()
@@ -79,7 +79,15 @@ public class TestMovementComponent : MonoBehaviour
     public void OnClick()
     {
         //GameEventSystem.Instance.RaiseEvent(E_GLOBAL_EVT.camera_source_add, source);
-        EntitesManager.Instance.Manual._skillSet.CastSkill(1);
+        EntitesManager.Instance.Manual.CastSkill(1);
+    }
+
+    void OnGUI()
+    {
+        if (GUI.Button(new Rect(100, 100, 100, 50), "attack1"))
+        {
+            EntitesManager.Instance.Manual.CastSkill(1);
+        }
     }
 
     void OnDrawGizmos()

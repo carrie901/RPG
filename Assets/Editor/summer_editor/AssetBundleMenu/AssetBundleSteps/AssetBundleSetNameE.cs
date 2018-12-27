@@ -112,7 +112,7 @@ namespace SummerEditor
             {
                 // 去掉Assets/ 和文件的后缀
                 string str = EPathHelper.RemoveAssetsAndSuffixforPath(filePath);
-                Debug.AssertFormat(string.IsNullOrEmpty(importer.assetBundleName), "设置AssetBundle之前她已经有名字了:[{0}]", filePath);
+                //Debug.AssertFormat(string.IsNullOrEmpty(importer.assetBundleName), "设置AssetBundle之前她已经有名字了:[{0}]", filePath);
                 importer.assetBundleName = str + EAssetBundleConst.ASSETBUNDLE_EXTENSION;
                 importer.SaveAndReimport();
             }

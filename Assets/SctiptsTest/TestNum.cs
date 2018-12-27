@@ -31,7 +31,7 @@ public class TestNum : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Cal1();
     }
 
     public string Print01(int num, int input_num)
@@ -48,5 +48,27 @@ public class TestNum : MonoBehaviour
         //Debug.Log(sb);
         return sb;
     }
+
+    public bool _flag1 = false;
+
+    public float _curr;
+    public float _end;
+    public float _yearAdd;
+
+    public void Cal1()
+    {
+        if (!_flag1) return;
+        _flag1 = false;
+
+        int i = 0;
+        while (_curr < _end)
+        {
+            _curr = _curr * (1 + _yearAdd);
+            i++;
+        }
+
+        Debug.Log(i);
+    }
+
 
 }

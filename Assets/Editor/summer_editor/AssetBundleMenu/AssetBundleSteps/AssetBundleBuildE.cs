@@ -2,6 +2,7 @@
 
 using System.IO;
 using UnityEditor;
+using UnityEngine;
 
 namespace SummerEditor
 {
@@ -13,7 +14,7 @@ namespace SummerEditor
             {
                 Directory.CreateDirectory(EAssetBundleConst.AssetbundleDirectory);
             }
-
+            
             BuildPipeline.BuildAssetBundles(EAssetBundleConst.AssetbundleDirectory, FindBuildAssetBundleOptions(), FindBuildTarget());
 
             EditorUtility.DisplayDialog("资源打包", "打包完毕", "OK");
