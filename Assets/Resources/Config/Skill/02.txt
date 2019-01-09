@@ -1,0 +1,28 @@
+<Sequence>
+	// 1.播放赵云的attack_01动作，并且播放技能特效eff_H_ZhaoYun_01_attack_01
+	// 2.击打事件 然后选择扇形范围内的敌人
+	// 3.轻微的镜头抖动
+	Id=1
+	<Track>
+		StartFrame=0
+		FrameLength=27
+		<PlayAnimationLeafNode>
+			AnimationName=attack_01
+		</PlayAnimationLeafNode>
+		<PlayEffectLeafNode>
+			EffectName=eff_H_ZhaoYun_01_attack_01
+		</PlayEffectLeafNode>
+	</Track>
+	<Track>
+		StartFrame=16
+		FrameLength=1
+		<FindTargetLeafNode>
+			Radius=10
+			Degree=30
+		</FindTargetLeafNode>
+		<ExportToTargetLeafNode>
+		</ExportToTargetLeafNode>
+		<PlayCameraShake>
+		</PlayCameraShake>
+	</Track>
+</Sequence>
