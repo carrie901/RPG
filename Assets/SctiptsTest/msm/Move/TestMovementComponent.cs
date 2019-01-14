@@ -22,7 +22,7 @@ public class TestMovementComponent : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 30;
-        joystick.on_up_event += OnUpEvent;
+        //joystick.on_up_event += OnUpEvent;
         button.onClick.AddListener(OnClick);
     }
     public Vector3 move_direction = Vector3.zero;
