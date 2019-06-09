@@ -66,6 +66,13 @@ namespace SummerEditor
             EditorUtility.DisplayDialog("清除AssetBundle", "清除完成，请查看", "OK");
         }
 
+        [MenuItem("Tools/AssetBundle/辅助/查看AssetBundle的分析报告前置操作")]
+        public static void CreateReportAssetBundle1()
+        {
+            Resources.UnloadUnusedAssets();
+            EditorUtility.DisplayDialog("清空内存", "请等待10秒", "ok");
+        }
+
         [MenuItem("Tools/AssetBundle/辅助/查看AssetBundle的分析报告")]
         public static void CreateReportAssetBundle()
         {

@@ -55,7 +55,7 @@ namespace SummerEditor
         #region public
 
         // 是否加入引用
-        public static E_AssetType CheckObject(Object ob, EAssetBundleFileInfo assetbundleFileInfo,ref bool inBuilt)
+        public static E_AssetType CheckObject(Object ob, EAssetBundleFileInfo assetbundleFileInfo, ref bool inBuilt)
         {
             inBuilt = false;
             if (ob == null) return E_AssetType.NONE;
@@ -86,15 +86,27 @@ namespace SummerEditor
             else
             {
                 //Debug.LogError("使用了内建的资源" + asset_path + "_____" + object_type + "______" + assetbundle_file_info.ab_name);
-            } 
+            }
+            if (objectType == typeof(AnimatorOverrideController))
+            {
+                Debug.Log("1");
+            }
+            if (objectType == typeof (AnimationClip))
+            {
+                Debug.Log("2");
+            }
+            if (objectType == typeof(Animation))
+            {
+                Debug.Log("3");
+            }
             return _analyzeMap[objectType];
-        }
+            }
 
         #endregion
 
-        #region 针对每一种类型进行分析
+            #region 针对每一种类型进行分析
 
-        #region Mesh 网格 
+            #region Mesh 网格 
 
         public static List<KeyValuePair<string, System.Object>> AnalyzeMesh(Object obj,
              SerializedObject serializedObject)
@@ -158,7 +170,7 @@ namespace SummerEditor
             {
                 if (proTes[i].type == MaterialProperty.PropType.Texture)
                 {
-                    if (mat == null)continue;
+                    if (mat == null) continue;
                     Texture tex = mat.GetTexture(proTes[i].name);
                     string path = AssetDatabase.GetAssetPath(tex);
                 }
@@ -194,7 +206,7 @@ namespace SummerEditor
             propertys.Add(new KeyValuePair<string, object>(READ_WRITE, property.boolValue.ToString()));
 
             property = serialized_object.FindProperty("m_CompleteImageSize");
-            propertys.Add(new KeyValuePair<string, object>(MEMORY_SIZE, property.intValue));
+            propertys.Add(new KeyValuePair<string, object>(MEMORY_SIZE, property.longValue));
 
             return propertys;
         }

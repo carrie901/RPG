@@ -12,8 +12,8 @@ namespace SummerEditor
 
         public const float ASSETBUILD_MAX_SIZE = 1024 * 1204;                                       // 多个资源打包到一个AssetBundle中，这个AssetBundle的大小
 
-        public static string AssetbundleDirectory = Application.streamingAssetsPath + "/rpg";
-        public const string ASSETBUNDLE_MAINFEST_FILE_NAME = "rpg";
+        public static string AssetbundleDirectory = Application.streamingAssetsPath + "/bundleresources";
+        public const string ASSETBUNDLE_MAINFEST_FILE_NAME = "bundleresources";
         public const string IGNORE_BUILD_ASSET_SUFFIX = ".cs";                                      // 打包忽略的资源类型
 
         #region 打包

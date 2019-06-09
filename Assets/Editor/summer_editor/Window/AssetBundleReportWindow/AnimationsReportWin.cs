@@ -47,7 +47,7 @@ namespace SummerEditor
 
         public void LoadCnf()
         {
-            List<List<string>> contents = CnfHelper.GetContext(Application.dataPath + "/../Report/2018_08_13__1138/动作文件.csv");
+            List<List<string>> contents = CnfHelper.GetContext(Application.dataPath + "/../Report/common/动作文件.csv");
             SetInfo(contents);
         }
 

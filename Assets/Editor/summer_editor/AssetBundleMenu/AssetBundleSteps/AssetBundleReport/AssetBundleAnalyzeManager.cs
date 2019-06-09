@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using System.IO;
 using System.Reflection;
+using Summer;
 using Object = UnityEngine.Object;
 
 namespace SummerEditor
@@ -12,8 +13,8 @@ namespace SummerEditor
     {
         protected static List<EAssetBundleFileInfo> _assetBundleFileInfos                       // 获取所有的AB文件信息                    
             = new List<EAssetBundleFileInfo>();
-        protected static Dictionary<long, EAssetFileInfo> _assetFileInfos                       // 所有的Asset的资源信息
-            = new Dictionary<long, EAssetFileInfo>();
+        protected static Dictionary<EAssetFileInfoKey, EAssetFileInfo> _assetFileInfos                       // 所有的Asset的资源信息
+            = new Dictionary<EAssetFileInfoKey, EAssetFileInfo>();
 
         public static void Analyze()
         {
@@ -22,11 +23,12 @@ namespace SummerEditor
             AnalyzeCollectBundles();
             AnalyzeBundleFiles();
             CreateReport();
+            Clear();
         }
 
         #region public 
 
-        public static Dictionary<long, EAssetFileInfo> FindAssetFiles()
+        public static Dictionary<EAssetFileInfoKey, EAssetFileInfo> FindAssetFiles()
         {
             return _assetFileInfos;
         }
@@ -36,18 +38,23 @@ namespace SummerEditor
             return _assetBundleFileInfos;
         }
 
-        public static EAssetFileInfo FindAssetFile(long guid)
+        public static EAssetFileInfoKey sKey = new EAssetFileInfoKey();
+        public static EAssetFileInfo FindAssetFile(long guid, long size, E_AssetType type)
         {
             if (_assetFileInfos == null)
             {
-                _assetFileInfos = new Dictionary<long, EAssetFileInfo>();
+                _assetFileInfos = new Dictionary<EAssetFileInfoKey, EAssetFileInfo>();
             }
 
             EAssetFileInfo info;
-            if (!_assetFileInfos.TryGetValue(guid, out info))
+            sKey.Guid = guid;
+            sKey.AssetType = type;
+            sKey.Size = size;
+            if (!_assetFileInfos.TryGetValue(sKey, out info))
             {
                 info = new EAssetFileInfo(guid);
-                _assetFileInfos.Add(guid, info);
+                EAssetFileInfoKey newKey = sKey.CopyInfo();
+                _assetFileInfos.Add(newKey, info);
             }
             return info;
         }
@@ -57,8 +64,10 @@ namespace SummerEditor
             _assetFileInfos.Clear();
             _assetBundleFileInfos.Clear();
             EditorUtility.UnloadUnusedAssetsImmediate();
+            Resources.UnloadUnusedAssets();
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
+
             GC.Collect();
         }
 
@@ -72,23 +81,56 @@ namespace SummerEditor
         private static void AnalyzeCollectBundles()
         {
             _assetBundleFileInfos.Clear();
-            string manifestPath = EAssetBundleConst.ManifestPath;
-            AssetBundle manifestAb = AssetBundle.LoadFromFile(manifestPath);
+            _assetFileInfos.Clear();
+            /* string manifestPath = EAssetBundleConst.ManifestPath;
+             AssetBundle manifestAb = AssetBundle.LoadFromFile(manifestPath);
 
-            Debug.AssertFormat(manifestAb != null, "manifest_ab 加载失败,路径地址:[{0}]", manifestPath);
-            if (manifestAb == null) return;
+             Debug.AssertFormat(manifestAb != null, "manifest_ab 加载失败,路径地址:[{0}]", manifestPath);
+             if (manifestAb == null) return;
 
-            AssetBundleManifest assetBundleManifest = manifestAb.LoadAsset<AssetBundleManifest>("assetbundlemanifest");
-            string[] bundles = assetBundleManifest.GetAllAssetBundles();
+             AssetBundleManifest assetBundleManifest = manifestAb.LoadAsset<AssetBundleManifest>("assetbundlemanifest");
+             string[] bundles = assetBundleManifest.GetAllAssetBundles();*/
 
-            int length = bundles.Length;
-            for (int i = 0; i < length; i++)
+            List<string> temp = new List<string>();
+            List<FileInfo> files = FileHelper.GetAllFiles(Application.streamingAssetsPath + "/BundleResources");
+            for (int i = 0; i < files.Count; i++)
+            {
+                FileInfo fileInfo = files[i];
+                if (fileInfo.Extension == ".meta") continue;
+                if (fileInfo.Extension == ".manifest") continue;
+                string t = fileInfo.FullName;
+                t = t.Replace("F:\\RPG\\Assets\\StreamingAssets\\BundleResources", "");
+                t = t.Replace("\\", "/");
+                temp.Add(t);
+            }
+            string[] bundles = temp.ToArray();
+            for (int i = 0; i < bundles.Length; i++)
             {
                 EAssetBundleFileInfo info = new EAssetBundleFileInfo(bundles[i]);
-                info._allDepends.AddRange(assetBundleManifest.GetAllDependencies(info.AbName));
                 _assetBundleFileInfos.Add(info);
             }
-            manifestAb.Unload(true);
+            /*            int length = bundles.Length;
+                        for (int i = 0; i < length; i++)
+                        {
+                            EAssetBundleFileInfo info = new EAssetBundleFileInfo(bundles[i]);
+                            if (bundles[i].Contains("11002"))
+                            {
+                                uint crc;
+                                Hash128 hash1;
+                                Hash128 hash=assetBundleManifest.GetAssetBundleHash(bundles[i]);
+
+                                BuildPipeline.GetCRCForAssetBundle(bundles[i], out crc);
+                                BuildPipeline.GetHashForAssetBundle(bundles[i], out hash1);
+                                UnityEngine.Debug.Log(hash);
+                                UnityEngine.Debug.Log(hash1);
+                                UnityEngine.Debug.Log(crc);
+                                UnityEngine.Debug.Log("=======================================================");
+                            }
+
+                            info._allDepends.AddRange(assetBundleManifest.GetAllDependencies(info.AbName));
+                            _assetBundleFileInfos.Add(info);
+                        }
+                        manifestAb.Unload(true);*/
         }
 
         /// <summary>
@@ -136,7 +178,7 @@ namespace SummerEditor
             TextureReport.CreateReport(reportDir);
             AnimationClipReport.CreateReport(reportDir);
             MeshReport.CreateReport(reportDir);
-
+            AssetRepeatReport.CreateReport(reportDir);
             EditorUtility.DisplayDialog("生成报告:", "报告路径:" + reportDir, "OK");
         }
 
@@ -146,6 +188,10 @@ namespace SummerEditor
         private static void AnalyzeAssetbundleFile(EAssetBundleFileInfo assetbundleFileInfo)
         {
             AssetBundle ab = AssetBundle.LoadFromFile(assetbundleFileInfo.FilePath);
+            if (assetbundleFileInfo.FilePath.Contains("ship/ship_100"))
+            {
+                Debug.Log("1");
+            }
             string resualName = string.Empty;
             try
             {
@@ -181,6 +227,8 @@ namespace SummerEditor
             bool inBuilt = false;
             // 1.检测类型需要符合要求
             E_AssetType assetType = AssetBundleAnallyzeObject.CheckObject(assetObject, assetbundleFileInfo, ref inBuilt);
+
+            long size = EMemorySizeHelper.GetRuntimeMemorySize(assetObject);
             if (assetType == E_AssetType.NONE) return;
 
             if (_inspectorMode == null)
@@ -193,6 +241,7 @@ namespace SummerEditor
             if (_inspectorMode != null)
                 _inspectorMode.SetValue(serializedObject, InspectorMode.Debug, null);
             SerializedProperty pathIdProp = serializedObject.FindProperty(EAssetBundleConst.LOCAL_ID_DENTFIER_IN_FILE);
+
             if (pathIdProp == null)
             {
                 Debug.LogError("得到Id失败:" + assetbundleFileInfo.AbName + "_" + assetObject);
@@ -200,28 +249,41 @@ namespace SummerEditor
             }
             long guid = pathIdProp.longValue;
 
+            List<KeyValuePair<string, System.Object>> propertys = new List<KeyValuePair<string, object>>();
+            if (AssetBundleAnallyzeObject._funMap.ContainsKey(assetType))
+                propertys.AddRange(AssetBundleAnallyzeObject._funMap[assetType].Invoke(assetObject, serializedObject));
+
             if (assetbundleFileInfo.IsAssetContain(guid))
             {
                 Debug.LogAssertionFormat("[{0}]已经存在了[{1}]资源", assetbundleFileInfo.AbName, assetObject.name);
                 serializedObject.Dispose();
                 return;
             }
-
-
-            EAssetFileInfo assetFileInfo = FindAssetFile(guid);
-            assetFileInfo._memorysize = EMemorySizeHelper.GetRuntimeMemorySize(assetObject);
+            if (assetType == E_AssetType.TEXTURE)
+                size = (long)propertys[5].Value;
+            EAssetFileInfo assetFileInfo = FindAssetFile(guid, size, assetType);
+            assetFileInfo._memorysize = size;
             assetFileInfo.InitAsset = true;
             assetFileInfo._assetName = assetObject.name;
             assetFileInfo._assetType = assetType;
             assetFileInfo._inBuilt = inBuilt;
-            if (AssetBundleAnallyzeObject._funMap.ContainsKey(assetType))
-                assetFileInfo._propertys = AssetBundleAnallyzeObject._funMap[assetType].Invoke(assetObject, serializedObject);
+            assetFileInfo._propertys = propertys;
+
+
+            if (assetObject.name.Contains("11001_N") && assetType == E_AssetType.TEXTURE)
+            {
+                string path = AssetDatabase.GetAssetPath(assetObject);
+                Debug.Log("guid:" + guid + "_" + assetbundleFileInfo.AbName + "_" + EMemorySizeHelper.GetRuntimeMemorySize(assetObject) + "_" + size + "_" + path);
+
+            }
 
             // AssetBundle包含了Asset资源
             assetbundleFileInfo.AddDepAssetFile(assetFileInfo);
             // Asset被指定的AssetBundle引用
-            assetFileInfo._includedBundles.Add(assetbundleFileInfo);
+            assetFileInfo.AddParent(assetbundleFileInfo);
             serializedObject.Dispose();
+
+            AssetRepeatReport.AddAssetFile(assetFileInfo);
         }
 
         #endregion

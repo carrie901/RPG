@@ -15,7 +15,7 @@ namespace SummerEditor
         public string _assetName;                                                           // 资产名称（有可能重名）
         public long _guid;                                                                  // 唯一ID 需要取得 PathID 才能确保唯一性
         public E_AssetType _assetType;                                                      // 资源类型
-        public float _memorysize;
+        public long _memorysize;
         public List<KeyValuePair<string, System.Object>> _propertys                         // 属性
             = new List<KeyValuePair<string, System.Object>>();
         public List<EAssetBundleFileInfo> _includedBundles                                  // 属于哪一个AssetBundle资源，就是爸爸是谁
@@ -70,7 +70,49 @@ namespace SummerEditor
             return _assetName;
         }
 
+        public bool AddParent(EAssetBundleFileInfo info)
+        {
+            int length = _includedBundles.Count;
+            for (int i = 0; i < length; i++)
+            {
+                if (info.AbName == _includedBundles[i].AbName) return false;
+            }
+            _includedBundles.Add(info);
+            return true;
+        }
+
         #endregion
+    }
+
+    public class EAssetFileInfoKey
+    {
+        public long Guid { get; set; }
+        public long Size { get; set; }
+        public E_AssetType AssetType { get; set; }
+
+        public EAssetFileInfoKey CopyInfo()
+        {
+            EAssetFileInfoKey key = new EAssetFileInfoKey();
+            key.Guid = Guid;
+            key.Size = Size;
+            key.AssetType = AssetType;
+            return key;
+        }
+
+        public override bool Equals(object key)
+        {
+            if (!(key is EAssetFileInfoKey)) return false;
+            EAssetFileInfoKey other = key as EAssetFileInfoKey;
+            if (other.Guid == Guid &&
+                Size == other.Size && 
+                other.AssetType == AssetType) return true;
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return(int)Guid;
+        }
     }
 
 }

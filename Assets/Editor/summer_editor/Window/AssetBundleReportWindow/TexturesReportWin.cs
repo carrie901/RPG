@@ -48,7 +48,7 @@ namespace SummerEditor
         public void LoadCnf()
         {
             List<List<string>> contents =
-                CnfHelper.GetContext(Application.dataPath + "/../Report/2018_08_13__1138/纹理.csv");
+                CnfHelper.GetContext(Application.dataPath + "/../Report/common/纹理.csv");
             SetInfo(contents);
         }
 
@@ -96,8 +96,10 @@ namespace SummerEditor
             int depWidth = 400;
             _tableView = new TableView(Win, typeof(TextureReportInfo));
             _tableView.OnSelected += OnSelectAnimation;
-            _tableView.AddColumn("TextureName", "纹理名称", 0.3f);
-            _tableView.AddColumn("MemSize", TextureReport.SIZE, 0.1f,TextAnchor.MiddleCenter, "<fmt_bytes>");
+            _tableView.AddColumn("TextureName", "纹理名称", 0.1f);
+            _tableView.AddColumn("Guid", "Guid", 0.2f);
+            //_tableView.AddColumn("MemSize", TextureReport.SIZE, 0.1f,TextAnchor.MiddleCenter, "<fmt_bytes>");
+            _tableView.AddColumn("MemSize", TextureReport.SIZE, 0.1f, TextAnchor.MiddleCenter);
             _tableView.AddColumn("Width", TextureReport.WIDTH, 0.1f);
             _tableView.AddColumn("Height", TextureReport.HEIGHT, 0.1f);
             _tableView.AddColumn("Format", TextureReport.FORMAT, 0.1f);
